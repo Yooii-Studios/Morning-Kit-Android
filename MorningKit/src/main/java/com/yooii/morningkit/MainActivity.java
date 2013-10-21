@@ -27,6 +27,7 @@ public class MainActivity extends ActionBarActivity {
         new AppRate(this).init();
         
         // 주석처리
+        // 주석처리 하나 더 
     }
 
 
