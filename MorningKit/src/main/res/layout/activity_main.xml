@@ -4,4 +4,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    tools:ignore="MergeRootFrame" />
+    tools:ignore="MergeRootFrame" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_gravity="left|top"
+        android:fillViewport="false"
+        android:background="#000000" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <view
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                class="com.yooii.morningkit.main.MNWidgetWindowView"
+                android:id="@+id/widget_window_view" />
+
+            <view
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                class="com.yooii.morningkit.main.MNMainAlarmListView"
+                android:id="@+id/alarm_list_view" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
