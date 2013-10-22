@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Morning Kit</string>
+    <string name="app_name">모닝키트</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
