@@ -1,12 +1,15 @@
-package com.yooii.morningkit;
+package com.yooii.morningkit.main;
 
 import android.app.Activity;
 import android.os.Bundle;
 
-public class MNMainActivity extends Activity {
+import com.yooii.morningkit.R;
 
+public class MNMainActivity extends Activity
+{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
