@@ -1,6 +1,7 @@
 package com.yooii.morningkit.main;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
@@ -12,10 +13,20 @@ public class MNMainAlarmListView extends ListView
     public MNMainAlarmListView(Context context)
     {
         super(context);
+
+        init();
     }
 
     public MNMainAlarmListView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+
+        init();
     }
+
+    private void init()
+    {
+        this.setBackgroundColor(Color.RED);
+    }
+
 }
