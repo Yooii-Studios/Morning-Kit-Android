@@ -1,12 +1,21 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.6.+'
+
+        // Jake Wharton이 에러를 수정해서 mavenCentral이 아닌 다른 곳에 SNAPSHOT 버전을 만들어 해결함
+//        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
+        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.1-SNAPSHOT'
     }
 }
+
 apply plugin: 'android'
+apply plugin: 'android-test'
 
 repositories {
     mavenCentral()
@@ -17,7 +26,7 @@ android {
     buildToolsVersion "17.0.0"
 
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 10
         targetSdkVersion 18
     }
 }
@@ -38,4 +47,9 @@ dependencies {
 
 //    compile files('libs/AppRate_1.1.jar');
     compile fileTree(dir: 'libs', include: '*.jar')
+
+    // test 관련
+    testCompile 'junit:junit:4.10'
+    testCompile 'org.robolectric:robolectric:2.1.+'
+    testCompile 'com.squareup:fest-android:1.0.+'
 }
