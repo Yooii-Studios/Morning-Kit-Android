@@ -19,6 +19,8 @@ public class MNMainActivity extends Activity
         setContentView(R.layout.activity_main);
 
         widgetWindowView = (MNWidgetWindowView)findViewById(R.id.widget_window_view);
+        this.widgetWindowView.initWithWidgetMatrix();
+
         alarmListView = (MNMainAlarmListView)findViewById(R.id.alarm_list_view);
     }
 
@@ -28,8 +30,6 @@ public class MNMainActivity extends Activity
         // Activity visible to user
 
         super.onStart();
-
-        this.widgetWindowView.initWithWidgetMatrix();
     }
 
     @Override

@@ -2,7 +2,10 @@ package com.yooii.morningkit.main;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 /**
@@ -26,7 +29,5 @@ public class MNMainAlarmListView extends ListView
 
     private void init()
     {
-        this.setBackgroundColor(Color.RED);
     }
-
 }
