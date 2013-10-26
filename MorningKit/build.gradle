@@ -32,8 +32,11 @@ android {
 }
 
 dependencies {
+    // 안드로이드 기본
     compile 'com.android.support:support-v4:18.0.+'
 	compile 'com.android.support:appcompat-v7:+'
+
+    // 필요한 라이브러리들
     compile 'com.google.code.gson:gson:2.2.4'
     compile group:'com.squareup.picasso', name:'picasso', version:'2.1.1'
     compile group:'com.squareup.okhttp', name:'okhttp', version:'1.2.1'
