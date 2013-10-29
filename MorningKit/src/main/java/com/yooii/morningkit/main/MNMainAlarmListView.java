@@ -13,21 +13,22 @@ import android.widget.ListView;
  */
 public class MNMainAlarmListView extends ListView
 {
-    public MNMainAlarmListView(Context context)
-    {
+    public MNMainAlarmListView(Context context) {
         super(context);
-
         init();
     }
 
-    public MNMainAlarmListView(Context context, AttributeSet attrs)
-    {
+    public MNMainAlarmListView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         init();
     }
 
-    private void init()
-    {
+    public MNMainAlarmListView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init();
+    }
+
+    private void init() {
+
     }
 }
