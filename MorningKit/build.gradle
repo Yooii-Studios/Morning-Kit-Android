@@ -26,7 +26,7 @@ repositories {
 
 android {
     compileSdkVersion 18
-    buildToolsVersion "17.0.0"
+    buildToolsVersion "18.1.1"
 
     defaultConfig {
         minSdkVersion 10
@@ -59,7 +59,6 @@ dependencies {
 
 //    compile files('libs/AppRate_1.1.jar');
     compile fileTree(dir: 'libs', include: '*.jar')
-
 
     // test 관련 compile, 출시전엔 testCompile로 변경하자
 //    compile 'junit:junit:4.10'
