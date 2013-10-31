@@ -51,7 +51,11 @@ dependencies {
 //    compile files('libs/AppRate_1.1.jar');
     compile fileTree(dir: 'libs', include: '*.jar')
 
-    // test 관련
+    // test 관련 compile
+    compile 'junit:junit:4.10'
+    compile 'org.robolectric:robolectric:2.1.+'
+    compile 'com.squareup:fest-android:1.0.+'
+    // test 관련 testCompile
     testCompile 'junit:junit:4.10'
     testCompile 'org.robolectric:robolectric:2.1.+'
     testCompile 'com.squareup:fest-android:1.0.+'
