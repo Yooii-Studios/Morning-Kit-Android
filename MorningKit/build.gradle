@@ -1,21 +1,24 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots/'
-        }
+//        maven {
+//            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+//        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.6.+'
 
         // Jake Wharton이 에러를 수정해서 mavenCentral이 아닌 다른 곳에 SNAPSHOT 버전을 만들어 해결함
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
-        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.1-SNAPSHOT'
+//        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.1-SNAPSHOT'
+
+        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.+'
+//        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.1-SNAPSHOT'
     }
 }
 
 apply plugin: 'android'
-apply plugin: 'android-test'
+//apply plugin: 'android-test'
 
 repositories {
     mavenCentral()
@@ -23,15 +26,22 @@ repositories {
 
 android {
     compileSdkVersion 18
-    buildToolsVersion "17.0.0"
+    buildToolsVersion "18.1.1"
 
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 18
+        packageName "com.yooii.morningkit"
     }
 }
 
+// 출시전까지 주석
+apply plugin: 'android-unit-test'
+
 dependencies {
+    repositories {
+        mavenCentral()
+    }
     // 안드로이드 기본
     compile 'com.android.support:support-v4:18.0.+'
 	compile 'com.android.support:appcompat-v7:+'
@@ -51,12 +61,13 @@ dependencies {
 //    compile files('libs/AppRate_1.1.jar');
     compile fileTree(dir: 'libs', include: '*.jar')
 
-    // test 관련 compile
-    compile 'junit:junit:4.10'
-    compile 'org.robolectric:robolectric:2.1.+'
-    compile 'com.squareup:fest-android:1.0.+'
-    // test 관련 testCompile
+    // test 관련 compile, 출시전엔 testCompile로 변경하자
+//    compile 'junit:junit:4.10'
+//    compile 'org.robolectric:robolectric:2.2'
+//    compile 'com.squareup:fest-android:1.0.+'
+
+//    test 관련 testCompile
     testCompile 'junit:junit:4.10'
-    testCompile 'org.robolectric:robolectric:2.1.+'
+    testCompile 'org.robolectric:robolectric:2.2'
     testCompile 'com.squareup:fest-android:1.0.+'
 }
