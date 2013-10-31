@@ -35,6 +35,7 @@ android {
     }
 }
 
+// 출시전까지 주석
 apply plugin: 'android-unit-test'
 
 dependencies {
@@ -64,6 +65,7 @@ dependencies {
 //    compile 'junit:junit:4.10'
 //    compile 'org.robolectric:robolectric:2.2'
 //    compile 'com.squareup:fest-android:1.0.+'
+
 //    test 관련 testCompile
     testCompile 'junit:junit:4.10'
     testCompile 'org.robolectric:robolectric:2.2'
