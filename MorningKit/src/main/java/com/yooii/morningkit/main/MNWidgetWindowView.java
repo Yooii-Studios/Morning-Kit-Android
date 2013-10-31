@@ -18,6 +18,8 @@ import com.yooii.morningkit.common.DipToPixel;
  */
 public class MNWidgetWindowView extends LinearLayout
 {
+
+    private static final String TAG = "MNWidgetWindowView";
     private Context m_Context;
 
     private LinearLayout m_WidgetRows[];
@@ -33,6 +35,12 @@ public class MNWidgetWindowView extends LinearLayout
     public MNWidgetWindowView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+
+        m_Context = context;
+    }
+
+    public MNWidgetWindowView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
 
         m_Context = context;
     }
@@ -59,10 +67,14 @@ public class MNWidgetWindowView extends LinearLayout
 
                 Display display = ((Activity) m_Context).getWindowManager().getDefaultDisplay();
                 Point size = new Point();
-                int width = display.getWidth();
-                int height = display.getHeight();
+                display.getSize(size);
+                // deprecated 되서 동현이 말 듣고 수정 
+//                int width = display.getWidth();
+//                int height = display.getHeight();
+                int width = size.x;
+                int height = size.y;
 
-                Log.i("WidgetWindowView", "" + width + " " + height);
+                Log.i(TAG, "" + width + " " + height);
 
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width/2,
                         DipToPixel.getPixel(m_Context, MN.widget.WIDGET_HEIGHT_PHONE_DP));

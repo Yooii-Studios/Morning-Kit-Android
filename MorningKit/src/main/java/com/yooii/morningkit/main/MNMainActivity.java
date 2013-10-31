@@ -7,8 +7,8 @@ import com.yooii.morningkit.R;
 
 public class MNMainActivity extends Activity
 {
-    MNWidgetWindowView widgetWindowView;
-    MNMainAlarmListView alarmListView;
+    MNWidgetWindowView mWidgetWindowView;
+    MNMainAlarmListView mAlarmListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -18,10 +18,10 @@ public class MNMainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        widgetWindowView = (MNWidgetWindowView)findViewById(R.id.widget_window_view);
-        this.widgetWindowView.initWithWidgetMatrix();
+        mWidgetWindowView = (MNWidgetWindowView)findViewById(R.id.widget_window_view);
+        mWidgetWindowView.initWithWidgetMatrix();
 
-        alarmListView = (MNMainAlarmListView)findViewById(R.id.alarm_list_view);
+        mAlarmListView = (MNMainAlarmListView)findViewById(R.id.alarm_list_view);
     }
 
     @Override
