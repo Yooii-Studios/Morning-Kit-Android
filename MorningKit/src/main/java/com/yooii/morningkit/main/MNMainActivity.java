@@ -69,4 +69,15 @@ public class MNMainActivity extends Activity
 
         super.onDestroy();
     }
+
+    /**
+     * @category Getter
+     */
+    public MNWidgetWindowView getmWidgetWindowView() {
+        return mWidgetWindowView;
+    }
+
+    public MNMainAlarmListView getmAlarmListView() {
+        return mAlarmListView;
+    }
 }
