@@ -33,5 +33,6 @@ public class MNMainActivityTest {
     public void shouldAlarmListViewAndWidgetWindowViewNotNull() throws Exception {
         assertThat(mainActivity, instanceOf(MNMainActivity.class));
         assertNotNull(mainActivity);
+
     }
 }

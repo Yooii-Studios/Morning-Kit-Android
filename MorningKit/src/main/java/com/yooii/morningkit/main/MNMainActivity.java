@@ -73,11 +73,8 @@ public class MNMainActivity extends Activity
     /**
      * @category Getter
      */
-    public MNWidgetWindowView getmWidgetWindowView() {
+    public MNWidgetWindowView getWidgetWindowView() {
         return mWidgetWindowView;
     }
-
-    public MNMainAlarmListView getmAlarmListView() {
-        return mAlarmListView;
-    }
+    public MNMainAlarmListView getAlarmListView() { return mAlarmListView; }
 }
