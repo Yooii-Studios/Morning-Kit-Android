@@ -31,8 +31,13 @@ public class MNMainActivityTest {
 
     @Test
     public void shouldAlarmListViewAndWidgetWindowViewNotNull() throws Exception {
-        assertThat(mainActivity, instanceOf(MNMainActivity.class));
         assertNotNull(mainActivity);
+        assertThat(mainActivity, instanceOf(MNMainActivity.class));
 
+        assertNotNull(mainActivity.getAlarmListView());
+        assertThat(mainActivity, instanceOf(MNMainAlarmListView.class));
+
+        assertNotNull(mainActivity.getWidgetWindowView());
+        assertThat(mainActivity, instanceOf(MNWidgetWindowView.class));
     }
 }
