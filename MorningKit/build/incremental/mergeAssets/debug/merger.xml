@@ -2,13 +2,13 @@
 <merger>
 
     <dataSet config="ComAndroidSupportAppcompatV71800.aar" >
-        <source path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/assets" />
+        <source path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/assets" />
     </dataSet>
     <dataSet config="main" >
-        <source path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/assets" />
+        <source path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/assets" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/debug/assets" />
+        <source path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/debug/assets" />
     </dataSet>
 
 </merger>
