@@ -11,26 +11,28 @@
         android:layout_height="match_parent"
         android:id="@+id/main_scroll_view"
         android:layout_gravity="left|top"
-        android:fillViewport="false"
+        android:fillViewport="true"
         android:background="#000000"
         android:layout_above="@+id/admobview">
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#444444">
 
-            <view
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                class="com.yooii.morningkit.main.MNWidgetWindowView"
+            <com.yooii.morningkit.main.MNWidgetWindowView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="#ffaaaa"
                 android:id="@+id/widget_window_view" />
 
-            <view
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                class="com.yooii.morningkit.main.MNMainAlarmListView"
+            <com.yooii.morningkit.main.MNMainAlarmListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#4444dd"
                 android:id="@+id/alarm_list_view" />
+
         </LinearLayout>
     </ScrollView>
 
