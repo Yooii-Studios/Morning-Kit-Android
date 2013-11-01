@@ -8,6 +8,12 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="junit-4.10" level="project" />
+    <orderEntry type="library" exported="" name="robolectric-2.2" level="project" />
+    <orderEntry type="library" exported="" name="fest-android-1.0.7" level="project" />
+    <orderEntry type="library" exported="" name="fest-assert-core-2.0M10" level="project" />
+    <orderEntry type="library" exported="" name="fest-reflect-1.4.1" level="project" />
+    <orderEntry type="library" exported="" name="fest-util-1.2.5" level="project" />
   </component>
 </module>
 
