@@ -1,0 +1,58 @@
+# incremental data. DO NOT EDIT.
+# format is <lastModified> <length> <SHA-1> <path>
+# Encoding is UTF-8
+1383291490000 4954 0ad8d623118ca4caf48788306f9a7412861d3a98 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/android/support/v7/appcompat/R$attr.class
+1383291490000 6261 9280484cb09b33b3a7951dd9d3923e99211f9aa9 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/android/support/v7/appcompat/R$styleable.class
+1383291490000 8830 10eb3236037dca979456638ddca4d06a458bf222 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/android/support/v7/appcompat/R$style.class
+1383291490000 553 f6a679ed1fcac4f48e4d15d0e7303e5e49322439 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/MN$widget$position.class
+1383291490000 470 34a0b6af1c8fb29e946c44900073c7697ed6fb59 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/BuildConfig.class
+1383291490000 1636 521886c5652d15fcbfb882d22781b1460fbd44f5 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R$layout.class
+1383291490000 2784 3eeb95ef41808eff7243254c0f36c13984a58629 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/android/support/v7/appcompat/R$id.class
+1383291490000 605 a8358fdf0f7a1662209c0411d1973a49a732e0cc /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R$anim.class
+1383291490000 1019 70ed995ba3ee6b297ea01c90d4000e85470e6d6f /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/android/support/v7/appcompat/R.class
+1383291490000 10006 51823c69f4e1ad033e39535ff8c4abcebf5a189a /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R$string.class
+1382330845000 19025 4d72fb811c7b3c0e7f412112020d4430f044e510 /Users/StevenKim/.gradle/caches/artifacts-26/filestore/com.squareup/otto/1.3.4/jar/4d72fb811c7b3c0e7f412112020d4430f044e510/otto-1.3.4.jar
+1383291490000 951 fcebb4972a8bd56d23b4113372978ed51c45db80 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R.class
+1383291490000 445 96b0856e2172c91a71a26df7d301540b1366bf40 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/android/support/v7/appcompat/R$integer.class
+1382191220000 563264 44ec51e9d395a47aab135e5e1b556c0007442156 /Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar
+1383291490000 810 0ba8af899c6ff65757dd7d3f3aa4f8f814f16199 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/MN$generalSetting$Theme.class
+1383291490000 512 3664f1d36c2d26c4ae99a79c24e8ebd950308a1a /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/MN$generalSetting$Language.class
+1383291490000 898 4fa37b5eaa5e48b5eff25704cea0426a1bcb986d /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/main/MNMainAlarmListView.class
+1383291490000 5191 268351181fbc2e8e2a72e1b9b5252c5d13fb1896 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/android/support/v7/appcompat/R$drawable.class
+1382331006000 33159 92db1ee71ed1a1c95fb569dccbd1e42701c8fb79 /Users/StevenKim/.gradle/caches/artifacts-26/filestore/com.github.kevinsawicki/http-request/5.4.1/jar/92db1ee71ed1a1c95fb569dccbd1e42701c8fb79/http-request-5.4.1.jar
+1383291490000 1280 599b12dff0cbf5ce63644314f2c40c462212280a /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/android/support/v7/appcompat/R$dimen.class
+1383291490000 2978 6b1c04e87bd1f3f41ff576e6072d4aab8afac073 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/main/MNWidgetWindowView.class
+1382268530000 79300 ab19bfb23f641f189b6dca9a4d393f8dc291103a /Users/StevenKim/.gradle/caches/artifacts-26/filestore/com.squareup.picasso/picasso/2.1.1/jar/ab19bfb23f641f189b6dca9a4d393f8dc291103a/picasso-2.1.1.jar
+1383291490000 857 a6fd31eefcbc91457fa2aaf625ee848582adb0eb /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/MN$generalSetting$BackGroundColor.class
+1383291490000 721 c7d45fd2a415d973384242f4193d0bbe74807321 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/MN$generalSetting$SubFontColor.class
+1383291490000 1730 adad976b6e46c4d419f2597ccb4f4ce5ae1c6a29 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/main/MNMainActivity.class
+1383291490000 724 e6d99f2a14c8933fa9c7cb91edcbc9e7965a6ad0 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/MN$generalSetting$MainFontColor.class
+1383291490000 594 717708861968854b870193da8b07157ea78378eb /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/android/support/v7/appcompat/R$color.class
+1383291490000 1141 54ec1a5a7b13c72914e72a968fdc387970961d16 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/android/support/v7/appcompat/R$string.class
+1383291490000 629 4e71ee1f38a344ae8c00bcbbc43c46fbbe116806 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/android/support/v7/appcompat/R$anim.class
+1383291490000 732 e248cb634f6478ea92cfcc86c01454dd3ed45f92 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/MN.class
+1383291490000 739 cbb643c78cd42008e2f2192aa7a30eee69f8acc7 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R$bool.class
+1383291490000 1623 30c34388014891bda05f4c5560ffb4d7def23540 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/android/support/v7/appcompat/R$layout.class
+1383291490000 643 e530ab53dc0c35bc77392c74cf3fe607d245e74c /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/MN$widget$flickr.class
+1383291490000 6237 ee5c7fb5be48f22b5a28d72e5a9a2adf9196cfcb /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R$styleable.class
+1383291490000 1021 aa672328e662c51a630439d2400c6d41ba593b02 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/MN$widget.class
+1383291490000 570 d8f8ad6a37a3580a569e0a2feb95cdbe9c52aaf9 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R$color.class
+1383291490000 3053 2497163b48842cb9bff1023cdb4bb2a813e802dc /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R$id.class
+1383291490000 394 6cf99bd60f4ad2306eaba22fd6684f68fd3160ad /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R$menu.class
+1383291410000 348674 8f11f56e350eacabf2273f646d981356eea0ed77 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/classes.jar
+1383291490000 1244 16908239156b83c03eabc9248300c099e5aa4b1d /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/common/DipToPixel.class
+1383291490000 421 650a5ff2df4ac41865523609fb92aab32f4eb0fc /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R$integer.class
+1383291490000 432 c2e25212fe7ccdbd3e56030ff187745ed730ec69 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/MN$ads.class
+1383291490000 770 8665ca99702351a322d5296bfe3a0d7f84b8e4b9 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/MN$generalSetting.class
+1383291341000 5404 418c7690cc2efd2d1de8327f400beeeebac7ecfb /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/libs/AppRate_1.1.jar
+1383291490000 1354 04617918efb8ca9b4f32e735817f944897e86204 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R$dimen.class
+1383291490000 8838 3785134618ee97c81ccaa18f9e69e306f0b8bbea /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R$style.class
+1382268780000 68847 0ec2beaefef3bd4f680c17fad8e72e66f2a006f1 /Users/StevenKim/.gradle/caches/artifacts-26/filestore/com.squareup.okhttp/okhttp-protocols/1.2.1/jar/ec2beaefef3bd4f680c17fad8e72e66f2a006f1/okhttp-protocols-1.2.1.jar
+1383291490000 436 a05a5484bb4b0113a6355b259f21f022bf79a421 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/MN$main.class
+1382330845000 20161 c56a45ebe780c9a9c19d73bbfb9b991ced4f8d54 /Users/StevenKim/.gradle/caches/artifacts-26/filestore/com.jakewharton/butterknife/3.0.0/jar/c56a45ebe780c9a9c19d73bbfb9b991ced4f8d54/butterknife-3.0.0.jar
+1383291490000 5728 0b21a4e7d3fe1fc5429fd702e466640df55b5019 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R$drawable.class
+1383291490000 763 492ea59f0e772236e98c6452913a7c3074e842a3 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/android/support/v7/appcompat/R$bool.class
+1383291490000 4930 f2785caf912c42e88cdebee8680d76b274052981 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/R$attr.class
+1382267668000 190432 a60a5e993c98c864010053cb901b7eab25306568 /Users/StevenKim/.gradle/caches/artifacts-26/filestore/com.google.code.gson/gson/2.2.4/jar/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar
+1383291490000 1412 61bc816904addc32edeaad59bd8ee4f1f7f59857 /Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/classes/debug/com/yooii/morningkit/MN$alarm.class
+1382268780000 158815 c3562574496bb4d452d6fc45b817577e98d08afe /Users/StevenKim/.gradle/caches/artifacts-26/filestore/com.squareup.okhttp/okhttp/1.2.1/jar/c3562574496bb4d452d6fc45b817577e98d08afe/okhttp-1.2.1.jar

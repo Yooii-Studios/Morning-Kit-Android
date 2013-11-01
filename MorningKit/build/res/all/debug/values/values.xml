@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values/values.xml -->
+    <!-- From: file:/Users/StevenKim/AndroidStudio/Morning%20Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values/values.xml -->
     <eat-comment />
 
     <attr name="actionBarDivider" format="reference" />
@@ -481,12 +481,12 @@
     <dimen name="abc_panel_menu_list_width">296dp</dimen>
     <dimen name="abc_search_view_preferred_width">320dip</dimen>
     <dimen name="abc_search_view_text_min_width">160dip</dimen>
-    <!-- From: file:/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/StevenKim/AndroidStudio/Morning%20Kit-Android/MorningKit/src/main/res/values/dimens.xml -->
     <eat-comment />
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values/values.xml -->
+    <!-- From: file:/Users/StevenKim/AndroidStudio/Morning%20Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values/values.xml -->
     <eat-comment />
 
     <item name="action_bar_activity_content" type="id"/>
@@ -509,7 +509,7 @@
     <string name="abc_searchview_description_voice">Voice search</string>
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
-    <!-- From: file:/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/StevenKim/AndroidStudio/Morning%20Kit-Android/MorningKit/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="add_an_alarm">Add Alarm</string>
@@ -718,13 +718,13 @@
     <string name="world_clock_use_24_hour_format">Use 24-hour format</string>
     <string name="world_clock_yesterday">Yesterday</string>
     <string name="yes">Yes</string>
-    <!-- From: file:/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/StevenKim/AndroidStudio/Morning%20Kit-Android/MorningKit/src/main/res/values/styles.xml -->
     <eat-comment />
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
-    <!-- From: file:/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values/values.xml -->
+    <!-- From: file:/Users/StevenKim/AndroidStudio/Morning%20Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values/values.xml -->
     <eat-comment />
 
     <style name="TextAppearance.AppCompat.Base.CompactMenu.Dialog" parent="android:TextAppearance.Medium">

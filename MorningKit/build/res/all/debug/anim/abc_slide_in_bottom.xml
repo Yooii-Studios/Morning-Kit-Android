@@ -17,4 +17,4 @@
            android:interpolator="@android:anim/decelerate_interpolator"
            android:fromYDelta="50%p" android:toYDelta="0"
            android:duration="@android:integer/config_mediumAnimTime"/>
-<!-- From: file:/Volumes/Android/int/jb-mr2-ub-dev/frameworks/support/v7/appcompat/res/anim/abc_slide_in_bottom.xml --><!-- From: file:/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_slide_in_bottom.xml -->
+<!-- From: file:/Volumes/Android/int/jb-mr2-ub-dev/frameworks/support/v7/appcompat/res/anim/abc_slide_in_bottom.xml --><!-- From: file:/Users/StevenKim/AndroidStudio/Morning%20Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_slide_in_bottom.xml -->

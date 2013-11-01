@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MorningKit.iml" filepath="$PROJECT_DIR$/MorningKit.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MorningKit/MorningKit-MorningKit.iml" filepath="$PROJECT_DIR$/MorningKit/MorningKit-MorningKit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Morning Kit-Android.iml" filepath="$PROJECT_DIR$/Morning Kit-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MorningKit/MorningKit.iml" filepath="$PROJECT_DIR$/MorningKit/MorningKit.iml" />
     </modules>
   </component>
 </project>

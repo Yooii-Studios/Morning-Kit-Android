@@ -2,1309 +2,1309 @@
 <merger>
 
     <dataSet config="ComAndroidSupportAppcompatV71800.aar" >
-        <source path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res" >
+        <source path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res" >
             <file
                 name="abc_fade_in"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_fade_in.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_fade_in.xml"
                 qualifiers=""
                 type="anim" />
             <file
                 name="abc_fade_out"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_fade_out.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_fade_out.xml"
                 qualifiers=""
                 type="anim" />
             <file
                 name="abc_slide_in_bottom"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_slide_in_bottom.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_slide_in_bottom.xml"
                 qualifiers=""
                 type="anim" />
             <file
                 name="abc_slide_in_top"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_slide_in_top.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_slide_in_top.xml"
                 qualifiers=""
                 type="anim" />
             <file
                 name="abc_slide_out_bottom"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_slide_out_bottom.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_slide_out_bottom.xml"
                 qualifiers=""
                 type="anim" />
             <file
                 name="abc_slide_out_top"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_slide_out_top.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/anim/abc_slide_out_top.xml"
                 qualifiers=""
                 type="anim" />
             <file
                 name="abc_search_url_text_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/color/abc_search_url_text_holo.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/color/abc_search_url_text_holo.xml"
                 qualifiers=""
                 type="color" />
             <file
                 name="abc_ic_clear"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_ic_clear.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_ic_clear.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_ic_clear_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_ic_clear_holo_light.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_ic_clear_holo_light.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_item_background_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_item_background_holo_dark.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_item_background_holo_dark.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_item_background_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_item_background_holo_light.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_item_background_holo_light.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_list_selector_background_transition_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_list_selector_background_transition_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_list_selector_background_transition_holo_light.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_list_selector_background_transition_holo_light.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_list_selector_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_list_selector_holo_dark.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_list_selector_holo_dark.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_list_selector_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_list_selector_holo_light.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_list_selector_holo_light.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_search_dropdown_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_search_dropdown_dark.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_search_dropdown_dark.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_search_dropdown_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_search_dropdown_light.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_search_dropdown_light.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_spinner_ab_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_spinner_ab_holo_dark.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_spinner_ab_holo_dark.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_spinner_ab_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_spinner_ab_holo_light.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_spinner_ab_holo_light.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_tab_indicator_ab_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_tab_indicator_ab_holo.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_tab_indicator_ab_holo.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_textfield_searchview_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_textfield_searchview_holo_dark.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_textfield_searchview_holo_dark.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_textfield_searchview_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_textfield_searchview_holo_light.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_textfield_searchview_holo_light.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_textfield_searchview_right_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_textfield_searchview_right_holo_dark.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_textfield_searchview_right_holo_dark.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_textfield_searchview_right_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_textfield_searchview_right_holo_light.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable/abc_textfield_searchview_right_holo_light.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="abc_ab_bottom_solid_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_bottom_solid_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_bottom_solid_dark_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_bottom_solid_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_bottom_solid_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_bottom_solid_light_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_bottom_transparent_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_bottom_transparent_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_bottom_transparent_dark_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_bottom_transparent_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_bottom_transparent_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_bottom_transparent_light_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_share_pack_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_share_pack_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_share_pack_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_share_pack_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_share_pack_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_share_pack_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_solid_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_solid_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_solid_dark_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_solid_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_solid_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_solid_light_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_stacked_solid_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_stacked_solid_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_stacked_solid_dark_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_stacked_solid_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_stacked_solid_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_stacked_solid_light_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_stacked_transparent_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_stacked_transparent_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_stacked_transparent_dark_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_stacked_transparent_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_stacked_transparent_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_stacked_transparent_light_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_transparent_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_transparent_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_transparent_dark_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_transparent_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_transparent_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ab_transparent_light_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_cab_background_bottom_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_cab_background_bottom_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_cab_background_bottom_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_cab_background_bottom_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_cab_background_bottom_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_cab_background_bottom_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_cab_background_top_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_cab_background_top_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_cab_background_top_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_cab_background_top_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_cab_background_top_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_cab_background_top_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_ab_back_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_ab_back_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_ab_back_holo_dark.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_ab_back_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_ab_back_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_ab_back_holo_light.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_cab_done_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_cab_done_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_cab_done_holo_dark.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_cab_done_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_cab_done_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_cab_done_holo_light.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_clear_disabled"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_clear_disabled.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_clear_disabled.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_clear_normal"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_clear_normal.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_clear_normal.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_clear_search_api_disabled_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_clear_search_api_disabled_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_clear_search_api_disabled_holo_light.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_clear_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_clear_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_clear_search_api_holo_light.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_commit_search_api_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_commit_search_api_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_commit_search_api_holo_dark.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_commit_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_commit_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_commit_search_api_holo_light.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_go"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_go.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_go.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_go_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_go_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_go_search_api_holo_light.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_menu_moreoverflow_normal_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_menu_moreoverflow_normal_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_menu_moreoverflow_normal_holo_dark.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_menu_moreoverflow_normal_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_menu_moreoverflow_normal_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_menu_moreoverflow_normal_holo_light.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_menu_share_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_menu_share_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_menu_share_holo_dark.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_menu_share_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_menu_share_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_menu_share_holo_light.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_search"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_search.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_search.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_search_api_holo_light.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_voice_search"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_voice_search.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_voice_search.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ic_voice_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_voice_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_ic_voice_search_api_holo_light.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_list_divider_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_divider_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_divider_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_list_divider_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_divider_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_divider_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_list_focused_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_focused_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_focused_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_list_longpressed_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_longpressed_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_longpressed_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_list_pressed_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_pressed_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_pressed_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_list_pressed_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_pressed_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_pressed_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_list_selector_disabled_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_selector_disabled_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_selector_disabled_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_list_selector_disabled_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_selector_disabled_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_list_selector_disabled_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_menu_dropdown_panel_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_menu_dropdown_panel_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_menu_dropdown_panel_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_menu_dropdown_panel_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_menu_dropdown_panel_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_menu_dropdown_panel_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_menu_hardkey_panel_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_menu_hardkey_panel_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_menu_hardkey_panel_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_menu_hardkey_panel_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_menu_hardkey_panel_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_menu_hardkey_panel_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_default_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_default_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_default_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_default_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_default_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_default_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_disabled_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_disabled_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_disabled_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_disabled_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_disabled_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_disabled_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_focused_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_focused_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_focused_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_focused_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_focused_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_focused_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_pressed_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_pressed_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_pressed_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_pressed_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_pressed_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_spinner_ab_pressed_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_tab_selected_focused_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_tab_selected_focused_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_tab_selected_focused_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_tab_selected_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_tab_selected_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_tab_selected_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_tab_selected_pressed_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_tab_selected_pressed_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_tab_selected_pressed_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_tab_unselected_pressed_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_tab_unselected_pressed_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_tab_unselected_pressed_holo.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_default_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_default_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_default_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_default_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_default_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_default_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_right_default_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_right_default_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_right_default_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_right_default_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_right_default_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_right_default_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_right_selected_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_right_selected_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_right_selected_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_right_selected_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_right_selected_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_right_selected_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_selected_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_selected_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_selected_holo_dark.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_selected_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_selected_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-hdpi/abc_textfield_search_selected_holo_light.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="abc_ab_bottom_solid_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_bottom_solid_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_bottom_solid_dark_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_bottom_solid_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_bottom_solid_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_bottom_solid_light_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_bottom_transparent_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_bottom_transparent_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_bottom_transparent_dark_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_bottom_transparent_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_bottom_transparent_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_bottom_transparent_light_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_share_pack_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_share_pack_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_share_pack_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_share_pack_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_share_pack_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_share_pack_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_solid_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_solid_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_solid_dark_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_solid_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_solid_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_solid_light_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_stacked_solid_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_stacked_solid_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_stacked_solid_dark_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_stacked_solid_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_stacked_solid_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_stacked_solid_light_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_stacked_transparent_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_stacked_transparent_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_stacked_transparent_dark_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_stacked_transparent_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_stacked_transparent_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_stacked_transparent_light_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_transparent_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_transparent_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_transparent_dark_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_transparent_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_transparent_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ab_transparent_light_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_cab_background_bottom_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_cab_background_bottom_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_cab_background_bottom_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_cab_background_bottom_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_cab_background_bottom_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_cab_background_bottom_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_cab_background_top_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_cab_background_top_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_cab_background_top_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_cab_background_top_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_cab_background_top_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_cab_background_top_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_ab_back_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_ab_back_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_ab_back_holo_dark.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_ab_back_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_ab_back_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_ab_back_holo_light.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_cab_done_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_cab_done_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_cab_done_holo_dark.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_cab_done_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_cab_done_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_cab_done_holo_light.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_clear_disabled"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_clear_disabled.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_clear_disabled.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_clear_normal"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_clear_normal.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_clear_normal.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_clear_search_api_disabled_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_clear_search_api_disabled_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_clear_search_api_disabled_holo_light.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_clear_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_clear_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_clear_search_api_holo_light.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_commit_search_api_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_commit_search_api_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_commit_search_api_holo_dark.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_commit_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_commit_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_commit_search_api_holo_light.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_go"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_go.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_go.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_go_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_go_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_go_search_api_holo_light.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_menu_moreoverflow_normal_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_menu_moreoverflow_normal_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_menu_moreoverflow_normal_holo_dark.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_menu_moreoverflow_normal_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_menu_moreoverflow_normal_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_menu_moreoverflow_normal_holo_light.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_menu_share_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_menu_share_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_menu_share_holo_dark.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_menu_share_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_menu_share_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_menu_share_holo_light.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_search"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_search.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_search.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_search_api_holo_light.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_voice_search"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_voice_search.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_voice_search.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ic_voice_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_voice_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_ic_voice_search_api_holo_light.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_list_divider_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_divider_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_divider_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_list_divider_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_divider_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_divider_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_list_focused_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_focused_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_focused_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_list_longpressed_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_longpressed_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_longpressed_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_list_pressed_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_pressed_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_pressed_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_list_pressed_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_pressed_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_pressed_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_list_selector_disabled_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_selector_disabled_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_selector_disabled_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_list_selector_disabled_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_selector_disabled_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_list_selector_disabled_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_menu_dropdown_panel_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_menu_dropdown_panel_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_menu_dropdown_panel_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_menu_dropdown_panel_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_menu_dropdown_panel_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_menu_dropdown_panel_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_menu_hardkey_panel_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_menu_hardkey_panel_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_menu_hardkey_panel_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_menu_hardkey_panel_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_menu_hardkey_panel_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_menu_hardkey_panel_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_default_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_default_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_default_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_default_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_default_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_default_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_disabled_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_disabled_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_disabled_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_disabled_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_disabled_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_disabled_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_focused_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_focused_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_focused_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_focused_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_focused_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_focused_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_pressed_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_pressed_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_pressed_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_pressed_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_pressed_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_spinner_ab_pressed_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_tab_selected_focused_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_tab_selected_focused_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_tab_selected_focused_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_tab_selected_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_tab_selected_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_tab_selected_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_tab_selected_pressed_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_tab_selected_pressed_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_tab_selected_pressed_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_tab_unselected_pressed_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_tab_unselected_pressed_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_tab_unselected_pressed_holo.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_default_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_default_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_default_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_default_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_default_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_default_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_right_default_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_right_default_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_right_default_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_right_default_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_right_default_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_right_default_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_right_selected_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_right_selected_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_right_selected_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_right_selected_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_right_selected_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_right_selected_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_selected_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_selected_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_selected_holo_dark.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_selected_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_selected_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-mdpi/abc_textfield_search_selected_holo_light.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="abc_ab_bottom_solid_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_bottom_solid_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_bottom_solid_dark_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ab_bottom_solid_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_bottom_solid_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_bottom_solid_light_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ab_bottom_transparent_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_bottom_transparent_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_bottom_transparent_dark_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ab_bottom_transparent_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_bottom_transparent_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_bottom_transparent_light_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ab_share_pack_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_share_pack_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_share_pack_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ab_share_pack_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_share_pack_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_share_pack_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ab_solid_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_solid_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_solid_dark_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ab_solid_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_solid_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_solid_light_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ab_stacked_solid_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_stacked_solid_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_stacked_solid_dark_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ab_stacked_solid_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_stacked_solid_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_stacked_solid_light_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ab_stacked_transparent_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_stacked_transparent_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_stacked_transparent_dark_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ab_stacked_transparent_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_stacked_transparent_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_stacked_transparent_light_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ab_transparent_dark_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_transparent_dark_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_transparent_dark_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ab_transparent_light_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_transparent_light_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ab_transparent_light_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_cab_background_bottom_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_cab_background_bottom_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_cab_background_bottom_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_cab_background_bottom_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_cab_background_bottom_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_cab_background_bottom_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_cab_background_top_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_cab_background_top_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_cab_background_top_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_cab_background_top_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_cab_background_top_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_cab_background_top_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_ab_back_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_ab_back_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_ab_back_holo_dark.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_ab_back_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_ab_back_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_ab_back_holo_light.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_cab_done_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_cab_done_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_cab_done_holo_dark.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_cab_done_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_cab_done_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_cab_done_holo_light.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_clear_disabled"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_clear_disabled.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_clear_disabled.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_clear_search_api_disabled_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_clear_search_api_disabled_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_clear_search_api_disabled_holo_light.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_clear_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_clear_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_clear_search_api_holo_light.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_commit_search_api_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_commit_search_api_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_commit_search_api_holo_dark.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_commit_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_commit_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_commit_search_api_holo_light.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_go"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_go.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_go.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_go_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_go_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_go_search_api_holo_light.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_menu_moreoverflow_normal_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_menu_moreoverflow_normal_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_menu_moreoverflow_normal_holo_dark.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_menu_moreoverflow_normal_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_menu_moreoverflow_normal_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_menu_moreoverflow_normal_holo_light.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_menu_share_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_menu_share_holo_dark.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_menu_share_holo_dark.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_menu_share_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_menu_share_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_menu_share_holo_light.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_search"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_search.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_search.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_search_api_holo_light.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_voice_search"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_voice_search.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_voice_search.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_ic_voice_search_api_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_voice_search_api_holo_light.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_ic_voice_search_api_holo_light.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_list_divider_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_divider_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_divider_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_list_divider_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_divider_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_divider_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_list_focused_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_focused_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_focused_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_list_longpressed_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_longpressed_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_longpressed_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_list_pressed_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_pressed_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_pressed_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_list_pressed_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_pressed_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_pressed_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_list_selector_disabled_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_selector_disabled_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_selector_disabled_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_list_selector_disabled_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_selector_disabled_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_list_selector_disabled_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_menu_dropdown_panel_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_menu_dropdown_panel_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_menu_dropdown_panel_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_menu_dropdown_panel_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_menu_dropdown_panel_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_menu_dropdown_panel_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_menu_hardkey_panel_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_menu_hardkey_panel_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_menu_hardkey_panel_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_menu_hardkey_panel_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_menu_hardkey_panel_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_menu_hardkey_panel_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_default_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_default_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_default_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_default_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_default_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_default_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_disabled_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_disabled_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_disabled_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_disabled_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_disabled_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_disabled_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_focused_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_focused_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_focused_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_focused_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_focused_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_focused_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_pressed_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_pressed_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_pressed_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_spinner_ab_pressed_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_pressed_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_spinner_ab_pressed_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_tab_selected_focused_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_tab_selected_focused_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_tab_selected_focused_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_tab_selected_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_tab_selected_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_tab_selected_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_tab_selected_pressed_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_tab_selected_pressed_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_tab_selected_pressed_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_tab_unselected_pressed_holo"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_tab_unselected_pressed_holo.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_tab_unselected_pressed_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_default_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_default_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_default_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_default_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_default_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_default_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_right_default_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_right_default_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_right_default_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_right_default_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_right_default_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_right_default_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_right_selected_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_right_selected_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_right_selected_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_right_selected_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_right_selected_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_right_selected_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_selected_holo_dark"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_selected_holo_dark.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_selected_holo_dark.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_textfield_search_selected_holo_light"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_selected_holo_light.9.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/drawable-xhdpi/abc_textfield_search_selected_holo_light.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="abc_action_bar_decor"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_decor.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_decor.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_action_bar_decor_include"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_decor_include.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_decor_include.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_action_bar_decor_overlay"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_decor_overlay.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_decor_overlay.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_action_bar_home"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_home.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_home.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_action_bar_tab"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_tab.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_tab.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_action_bar_tabbar"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_tabbar.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_tabbar.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_action_bar_title_item"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_title_item.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_title_item.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_action_bar_view_list_nav_layout"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_view_list_nav_layout.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_bar_view_list_nav_layout.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_action_menu_item_layout"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_menu_item_layout.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_menu_item_layout.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_action_menu_layout"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_menu_layout.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_menu_layout.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_action_mode_bar"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_mode_bar.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_mode_bar.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_action_mode_close_item"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_mode_close_item.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_action_mode_close_item.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_activity_chooser_view"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_activity_chooser_view.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_activity_chooser_view.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_activity_chooser_view_include"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_activity_chooser_view_include.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_activity_chooser_view_include.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_activity_chooser_view_list_item"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_activity_chooser_view_list_item.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_activity_chooser_view_list_item.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_expanded_menu_layout"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_expanded_menu_layout.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_expanded_menu_layout.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_list_menu_item_checkbox"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_list_menu_item_checkbox.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_list_menu_item_checkbox.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_list_menu_item_icon"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_list_menu_item_icon.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_list_menu_item_icon.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_list_menu_item_layout"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_list_menu_item_layout.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_list_menu_item_layout.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_list_menu_item_radio"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_list_menu_item_radio.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_list_menu_item_radio.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_popup_menu_item_layout"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_popup_menu_item_layout.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_popup_menu_item_layout.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_screen"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_screen.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_screen.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_search_dropdown_item_icons_2line"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_search_dropdown_item_icons_2line.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_search_dropdown_item_icons_2line.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_search_view"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_search_view.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/abc_search_view.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="support_simple_spinner_dropdown_item"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/support_simple_spinner_dropdown_item.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout/support_simple_spinner_dropdown_item.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="abc_action_bar_decor"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout-v11/abc_action_bar_decor.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout-v11/abc_action_bar_decor.xml"
                 qualifiers="v11"
                 type="layout" />
             <file
                 name="abc_activity_chooser_view"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout-v14/abc_activity_chooser_view.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/layout-v14/abc_activity_chooser_view.xml"
                 qualifiers="v14"
                 type="layout" />
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values/values.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values/values.xml"
                 qualifiers="" >
 
                 <style
@@ -3686,7 +3686,7 @@ useLogo|showHome|showTitle
                 </style>
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-land/values.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-land/values.xml"
                 qualifiers="land" >
                 <dimen name="abc_action_bar_title_text_size" >16dp
                 </dimen>
@@ -3716,7 +3716,7 @@ false
                 </bool>
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-large/values.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-large/values.xml"
                 qualifiers="large" >
                 <dimen name="abc_config_prefDialogWidth" >440dp
                 </dimen>
@@ -3740,7 +3740,7 @@ true
                 </bool>
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-sw600dp/values.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-sw600dp/values.xml"
                 qualifiers="sw600dp" >
                 <dimen name="abc_action_bar_default_height" >56dip
                 </dimen>
@@ -3763,7 +3763,7 @@ true
                 </dimen>
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-v11/values.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-v11/values.xml"
                 qualifiers="v11" >
 
                 <style
@@ -3827,7 +3827,7 @@ false
                     parent="android:Widget.Holo.ProgressBar.Horizontal" />
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-v14/values.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-v14/values.xml"
                 qualifiers="v14" >
 
                 <style
@@ -4216,14 +4216,14 @@ middle
                     parent="android:Widget.Holo.ActionButton.Overflow" />
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w360dp/values.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w360dp/values.xml"
                 qualifiers="w360dp" >
                 <integer name="abc_max_action_buttons" >
 3
                 </integer>
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w480dp/values.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w480dp/values.xml"
                 qualifiers="w480dp" >
                 <bool name="abc_config_allowActionMenuItemTextWithIcon" >
 true
@@ -4236,14 +4236,14 @@ true
                 </bool>
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w500dp/values.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w500dp/values.xml"
                 qualifiers="w500dp" >
                 <integer name="abc_max_action_buttons" >
 4
                 </integer>
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w600dp/values.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w600dp/values.xml"
                 qualifiers="w600dp" >
                 <dimen name="abc_action_bar_subtitle_top_margin" >-3dp
                 </dimen>
@@ -4268,14 +4268,14 @@ true
                 </dimen>
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w720dp/values.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w720dp/values.xml"
                 qualifiers="w720dp" >
                 <bool name="abc_action_bar_expanded_action_views_exclusive" >
 false
                 </bool>
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-xlarge/values.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-xlarge/values.xml"
                 qualifiers="xlarge" >
                 <dimen name="abc_search_view_text_min_width" >192dip
                 </dimen>
@@ -4307,139 +4307,139 @@ false
         </source>
     </dataSet>
     <dataSet config="main" >
-        <source path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res" >
+        <source path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res" >
             <file
                 name="ic_launcher_round"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable/ic_launcher_round.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable/ic_launcher_round.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="icon_1024"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable/icon_1024.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable/icon_1024.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="icon_114"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable/icon_114.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable/icon_114.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="icon_144"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable/icon_144.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable/icon_144.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="icon_29"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable/icon_29.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable/icon_29.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="icon_48"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable/icon_48.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable/icon_48.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="icon_512"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable/icon_512.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable/icon_512.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="icon_57"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable/icon_57.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable/icon_57.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="icon_58"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable/icon_58.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable/icon_58.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="icon_72"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable/icon_72.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable/icon_72.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="icon_96"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable/icon_96.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable/icon_96.png"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable-hdpi/ic_launcher.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable-hdpi/ic_launcher.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="icon_refresh_off_s3"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable-hdpi/icon_refresh_off_s3.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable-hdpi/icon_refresh_off_s3.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="icon_refresh_on_s3"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable-hdpi/icon_refresh_on_s3.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable-hdpi/icon_refresh_on_s3.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="icon_setting_off_s3"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable-hdpi/icon_setting_off_s3.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable-hdpi/icon_setting_off_s3.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="icon_setting_on_s3"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable-hdpi/icon_setting_on_s3.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable-hdpi/icon_setting_on_s3.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="icon_refresh_off_s3"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable-mdpi/icon_refresh_off_s3.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable-mdpi/icon_refresh_off_s3.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="icon_refresh_on_s3"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable-mdpi/icon_refresh_on_s3.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable-mdpi/icon_refresh_on_s3.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="icon_setting_off_s3"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable-mdpi/icon_setting_off_s3.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable-mdpi/icon_setting_off_s3.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="icon_setting_on_s3"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable-mdpi/icon_setting_on_s3.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable-mdpi/icon_setting_on_s3.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="icon_refresh_off_s3"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable-xhdpi/icon_refresh_off_s3.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable-xhdpi/icon_refresh_off_s3.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="icon_refresh_on_s3"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable-xhdpi/icon_refresh_on_s3.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable-xhdpi/icon_refresh_on_s3.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="icon_setting_off_s3"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable-xhdpi/icon_setting_off_s3.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable-xhdpi/icon_setting_off_s3.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="icon_setting_on_s3"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/drawable-xhdpi/icon_setting_on_s3.png"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/drawable-xhdpi/icon_setting_on_s3.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="activity_main"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/layout/activity_main.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/layout/activity_main.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="main"
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/menu/main.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/menu/main.xml"
                 qualifiers=""
                 type="menu" />
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/values/dimens.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/values/dimens.xml"
                 qualifiers="" >
                 <dimen name="activity_horizontal_margin" >16dp
                 </dimen>
@@ -4447,7 +4447,7 @@ false
                 </dimen>
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/values/strings.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/values/strings.xml"
                 qualifiers="" >
                 <string name="done" >Done
                 </string>
@@ -4863,7 +4863,7 @@ false
                 </string>
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/values/styles.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/values/styles.xml"
                 qualifiers="" >
 
                 <style
@@ -4874,7 +4874,7 @@ false
                 </style>
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/values-ko/strings.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/values-ko/strings.xml"
                 qualifiers="ko" >
                 <string name="every_sunday" >일요일마다
                 </string>
@@ -5296,16 +5296,16 @@ false
                 </string>
             </file>
             <file
-                path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/main/res/values-w820dp/dimens.xml"
+                path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/main/res/values-w820dp/dimens.xml"
                 qualifiers="w820dp" >
                 <dimen name="activity_horizontal_margin" >64dp
                 </dimen>
             </file>
         </source>
-        <source path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/build/res/rs/debug" />
+        <source path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/build/res/rs/debug" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="/Users/StevenKim/AndroidStudio/MorningKit/MorningKit/src/debug/res" />
+        <source path="/Users/StevenKim/AndroidStudio/Morning Kit-Android/MorningKit/src/debug/res" />
     </dataSet>
 
 </merger>
