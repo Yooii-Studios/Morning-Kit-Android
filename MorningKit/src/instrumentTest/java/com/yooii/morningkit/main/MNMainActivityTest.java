@@ -40,4 +40,14 @@ public class MNMainActivityTest {
         assertNotNull(mainActivity.getWidgetWindowView());
         assertThat(mainActivity, instanceOf(MNWidgetWindowView.class));
     }
+
+    @Test
+    public void checkWidgetWindowHeight() throws Exception {
+        // dimension으로 정의한 특정 높이를 가지고 있어야 함
+    }
+
+    @Test
+    public void checkAlarmListHeight() throws Exception {
+        // 디바이스 높이 - (위젯 윈도우 높이 + 구글 애드몹 높이(풀버전은 높이가 0)인지 확인
+    }
 }
