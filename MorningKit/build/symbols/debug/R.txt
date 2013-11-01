@@ -256,8 +256,8 @@ int id action_mode_bar_stub 0x7f07002e
 int id action_mode_close_button 0x7f070022
 int id action_settings 0x7f070049
 int id activity_chooser_view_content 0x7f070023
-int id admobview 0x7f070046
-int id alarm_list_view 0x7f070045
+int id admobview 0x7f070044
+int id alarm_list_view 0x7f070046
 int id always 0x7f07000f
 int id beginning 0x7f07000a
 int id checkbox 0x7f07002b
@@ -313,7 +313,7 @@ int id title_container 0x7f070030
 int id top_action_bar 0x7f07001e
 int id up 0x7f07001f
 int id useLogo 0x7f070003
-int id widget_window_view 0x7f070044
+int id widget_window_view 0x7f070045
 int id withText 0x7f070010
 int integer abc_max_action_buttons 0x7f090000
 int layout abc_action_bar_decor 0x7f030000

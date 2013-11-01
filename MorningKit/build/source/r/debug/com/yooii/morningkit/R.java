@@ -883,8 +883,8 @@ containing a value of this type.
         public static final int action_mode_close_button=0x7f070022;
         public static final int action_settings=0x7f070049;
         public static final int activity_chooser_view_content=0x7f070023;
-        public static final int admobview=0x7f070046;
-        public static final int alarm_list_view=0x7f070045;
+        public static final int admobview=0x7f070044;
+        public static final int alarm_list_view=0x7f070046;
         public static final int always=0x7f07000f;
         public static final int beginning=0x7f07000a;
         public static final int checkbox=0x7f07002b;
@@ -940,7 +940,7 @@ containing a value of this type.
         public static final int top_action_bar=0x7f07001e;
         public static final int up=0x7f07001f;
         public static final int useLogo=0x7f070003;
-        public static final int widget_window_view=0x7f070044;
+        public static final int widget_window_view=0x7f070045;
         public static final int withText=0x7f070010;
     }
     public static final class integer {
