@@ -1,6 +1,8 @@
 package com.yooii.morningkit.main;
 
 // necessary import
+import android.widget.RelativeLayout;
+
 import com.yooii.morningkit.RobolectricGradleTestRunner;
 
 import org.junit.Before;
@@ -39,6 +41,12 @@ public class MNMainActivityTest {
 
         assertNotNull(mainActivity.getWidgetWindowView());
         assertThat(mainActivity, instanceOf(MNWidgetWindowView.class));
+
+        assertNotNull(mainActivity.getButtonLayout());
+        assertThat(mainActivity, instanceOf(RelativeLayout.class));
+
+        assertNotNull(mainActivity.getAdmobLayout());
+        assertThat(mainActivity, instanceOf(RelativeLayout.class));
     }
 
     @Test

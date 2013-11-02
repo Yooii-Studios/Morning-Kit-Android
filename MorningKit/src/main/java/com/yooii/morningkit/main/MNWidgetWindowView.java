@@ -67,7 +67,7 @@ public class MNWidgetWindowView extends LinearLayout
 
                 Display display = ((Activity) m_Context).getWindowManager().getDefaultDisplay();
                 Point size = new Point();
-                display.getSize(size);
+//                display.getSize(size);
                 // deprecated 되서 동현이 말 듣고 수정 
 //                int width = display.getWidth();
 //                int height = display.getHeight();

@@ -23,7 +23,7 @@
 
             <com.yooii.morningkit.main.MNWidgetWindowView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="@dimen/main_widget_window_layout_height"
                 android:background="#ffaaaa"
                 android:id="@+id/main_widget_window_view" />
 

@@ -14,8 +14,8 @@
     <!-- Admob -->
     <dimen name="main_admob_layout_height">50dp</dimen>
 
-    <!-- Widget Window, 원래 높이 240(갤3 기준) -->
-    <!-- 240에서 4 증가 후 나누기 2 -->
-    <dimen name="main_widget_window_layout_height">240dp</dimen>
+    <!-- Widget Window -->
+    <!-- 263에서 4 증가 후 나누기 1.3333 -->
+    <dimen name="main_widget_window_layout_height">263dp</dimen>
 
 </resources>
