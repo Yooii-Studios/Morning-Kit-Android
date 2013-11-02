@@ -41,6 +41,10 @@
         android:layout_height="48dip"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/admobview"
+        android:layout_marginLeft="@dimen/padding_button_layout"
+        android:layout_marginRight="@dimen/padding_button_layout"
+        android:paddingLeft="@dimen/padding_outer"
+        android:paddingRight="@dimen/padding_outer"
         android:background="#777777">
 
         <ImageView

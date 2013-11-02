@@ -3,4 +3,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- 앱 전체적으로 쓰이는 패딩 -->
+    <dimen name="padding_outer">6dp</dimen>
+    <dimen name="padding_inner">3dp</dimen>
+
+    <!-- 버튼레이아웃은 outer 패딩의 2배 -->
+    <dimen name="padding_button_layout">12dp</dimen>
+
     </resources>
