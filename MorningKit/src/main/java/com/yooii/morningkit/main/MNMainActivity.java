@@ -2,13 +2,23 @@ package com.yooii.morningkit.main;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.RelativeLayout;
 
 import com.yooii.morningkit.R;
 
+import butterknife.InjectView;
+import butterknife.OnClick;
+import butterknife.Views;
+
 public class MNMainActivity extends Activity
 {
-    MNWidgetWindowView mWidgetWindowView;
-    MNMainAlarmListView mAlarmListView;
+    private static final String TAG = "MNMainActivity";
+
+    @InjectView(R.id.main_widget_window_view) MNWidgetWindowView mWidgetWindowView;
+    @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView mAlarmListView;
+    @InjectView(R.id.main_button_layout) RelativeLayout mRelativeLayout;
+    @InjectView(R.id.main_admob_layout) RelativeLayout mAdmobLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -18,10 +28,14 @@ public class MNMainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mWidgetWindowView = (MNWidgetWindowView)findViewById(R.id.widget_window_view);
-        mWidgetWindowView.initWithWidgetMatrix();
+        // 기존의 레거시 코드 대신에 이 한줄로 findViewById를 모두 대체
+        Views.inject(this);
+//        mWidgetWindowView = (MNWidgetWindowView) findViewById(R.id.main_widget_window_view);
+//        mAlarmListView = (MNMainAlarmListView) findViewById(R.id.main_alarm_list_view);
+//        mRelativeLayout = (RelativeLayout) findViewById(R.id.main_button_layout);
+//        mAdmobLayout = (RelativeLayout) findViewById(R.id.main_admob_layout);
 
-        mAlarmListView = (MNMainAlarmListView)findViewById(R.id.alarm_list_view);
+        mWidgetWindowView.initWithWidgetMatrix();
     }
 
     @Override
@@ -68,6 +82,17 @@ public class MNMainActivity extends Activity
         // Acitivity is destroyed
 
         super.onDestroy();
+    }
+
+    /**
+     * @category OnClick
+     */
+    @OnClick(R.id.main_refresh_image) void refreshButtonClicked() {
+        Log.i(TAG, "refreshButtonClicked");
+    }
+
+    @OnClick(R.id.main_configure_image) void configureButtonClicked() {
+        Log.i(TAG, "configureButtonClicked");
     }
 
     /**
