@@ -30,7 +30,9 @@ local.properties
 build
 /*/*/build/
 /*/build/
+production
 /*/*/production
+/*/production
 *.iml
 *.iws
 *.ipr
