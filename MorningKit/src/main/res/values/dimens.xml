@@ -10,5 +10,4 @@
     <!-- 버튼레이아웃은 outer 패딩의 2배 -->
     <dimen name="padding_button_layout">12dp</dimen>
     <dimen name="button_layout_height">48dp</dimen>
-
-    </resources>
+</resources>
