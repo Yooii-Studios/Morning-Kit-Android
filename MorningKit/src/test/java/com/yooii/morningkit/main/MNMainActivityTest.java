@@ -106,17 +106,17 @@ public class MNMainActivityTest {
         mainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
-    /**
-     * ETC
-     */
-    @Test
-    @Config(qualifiers="port")
-    public void checkButtonLayoutOnPortrait() throws Exception {
-        Resources resources = mainActivity.getResources();
-        float expectedHeight = resources.getDimension(R.dimen.main_button_layout_height);
-        assertThat(mainActivity.getButtonLayout().getHeight(), is(not(0)));
-        assertThat(mainActivity.getButtonLayout().getHeight(), is((int)expectedHeight));
-    }
+//    /**
+//     * ETC
+//     */
+//    @Test
+//    @Config(qualifiers="port")
+//    public void checkButtonLayoutOnPortrait() throws Exception {
+//        Resources resources = mainActivity.getResources();
+//        float expectedHeight = resources.getDimension(R.dimen.main_button_layout_height);
+//        assertThat(mainActivity.getButtonLayout().getHeight(), is(not(0)));
+//        assertThat(mainActivity.getButtonLayout().getHeight(), is((int)expectedHeight));
+//    }
 
 //    @Test
 //    @Config(qualifiers="land")
