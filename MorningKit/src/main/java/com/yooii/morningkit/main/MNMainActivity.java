@@ -3,6 +3,7 @@ package com.yooii.morningkit.main;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -150,15 +151,15 @@ public class MNMainActivity extends Activity
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        Log.i(TAG, "device width: " + MNDeviceSizeChecker.getDeviceWidth(this));
-        Log.i(TAG, "device height: " + MNDeviceSizeChecker.getDeviceHeight(this));
-
         switch (newConfig.orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mWidgetWindowLayout.getLayoutParams();
                 widgetWindowLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
-                widgetWindowLayoutParams.height = (int)getResources().getDimension(R.dimen.main_widget_window_layout_height);
-                Log.i(TAG, "widgetWindowLayoutParams height: " + widgetWindowLayoutParams.height);
+                float widgetWindowHeight = getResources().getDimension(R.dimen.widget_height) * 2
+                        + getResources().getDimension(R.dimen.margin_outer)
+                        + getResources().getDimension(R.dimen.margin_outer)
+                        + getResources().getDimension(R.dimen.margin_inner);
+                widgetWindowLayoutParams.height = (int)widgetWindowHeight;
                 mWidgetWindowLayout.setLayoutParams(widgetWindowLayoutParams);
                 break;
             }

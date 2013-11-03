@@ -4,9 +4,9 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- 앱 전체적으로 쓰이는 패딩 -->
-    <dimen name="padding_outer">6dp</dimen>
+    <dimen name="padding_outer">5dp</dimen>
     <dimen name="padding_inner">3dp</dimen>
-    <dimen name="margin_outer">6dp</dimen>
+    <dimen name="margin_outer">5dp</dimen>
     <dimen name="margin_inner">3dp</dimen>
 
     <!-- 버튼레이아웃은 outer 패딩의 2배 -->
@@ -19,6 +19,7 @@
 
     <!-- Widget Window, 원래 높이 240(갤3 기준) -->
     <!-- 240에서 4 증가 후 나누기 2 -->
-    <dimen name="main_widget_window_layout_height">240dp</dimen>
+    <dimen name="main_widget_window_layout_height">243dp</dimen>
+    <dimen name="widget_height">115.25dp</dimen>
 
 </resources>

@@ -57,17 +57,30 @@ public class MNMainActivityTest {
         assertThat(mainActivity.getAdmobLayout(), instanceOf(RelativeLayout.class));
     }
 
+    /**
+     * Widget
+     */
     @Test
     @Config(qualifiers="port")
     public void checkWidgetWindowLayoutHeightOnPortrait() throws Exception {
+        int widgetMatrix;
         // 2 * 2일 경우
-        // (위젯 높이 * 2) + outer padding(위쪽) + (inner padding * 2(중앙) * 1) + inner padding(아래쪽)
-        assertThat(mainActivity.getWidgetWindowLayout().getHeight(), // mainActivity.getWidgetWindowLayout().getMeasuredHeight()
-                is((int)DipToPixel.getPixel(mainActivity,
-                        mainActivity.getResources().getDimension(R.dimen.main_widget_window_layout_height))));
+        widgetMatrix = 2;
 
-        // 2 * 1일 경우
-        // (위젯 높이 * 2) + outer padding(위쪽) + (inner padding * 2(중앙) * 0) + inner padding(아래쪽)
+        // (위젯 높이 * 2) + outer margin(위쪽) + (outer margin * 2(중앙) * 1) + inner margin(아래쪽)
+        Resources resources = mainActivity.getResources();
+        float expectedHeight = resources.getDimension(R.dimen.widget_height) * 2
+                + resources.getDimension(R.dimen.margin_outer)
+                + resources.getDimension(R.dimen.margin_outer) * (widgetMatrix - 1)
+                + resources.getDimension(R.dimen.margin_inner);
+//        assertThat(mainActivity.getWidgetWindowLayout().getHeight(), // mainActivity.getWidgetWindowLayout().getMeasuredHeight()
+//                is((int)DipToPixel.getPixel(mainActivity,
+//                        mainActivity.getResources().getDimension(R.dimen.main_widget_window_layout_height))));
+        assertThat(mainActivity.getWidgetWindowLayout().getHeight(), is((int)expectedHeight));
+
+        // 2 * 1일 경우는 추후 테스트
+        widgetMatrix = 1;
+        // (위젯 높이 * 2) + outer margin(위쪽) + (inner margin * 2(중앙) * 0) + inner margin(아래쪽)
     }
 
     @Test
@@ -75,13 +88,16 @@ public class MNMainActivityTest {
     public void checkWidgetWindowLayoutHeightOnLandscape() throws Exception {
         // Device height - buttonLayout height - (outerPadding - innerPadding)를 확인하면 됨
         // 위젯 윈도우뷰의 아래쪽은 innerPadding 만큼만 주기 때문에 (outerPadding - innerPadding)만큼의 공간을 따로 주어야 함
-        Resources resource = mainActivity.getResources();
+        Resources resources = mainActivity.getResources();
         int expectedHeight = MNDeviceSizeChecker.getDeviceHeight(mainActivity)
                 - mainActivity.getButtonLayout().getHeight()
-                - (int)(resource.getDimension(R.dimen.padding_outer) - resource.getDimension(R.dimen.padding_inner));
+                - (int)(resources.getDimension(R.dimen.padding_outer) - resources.getDimension(R.dimen.padding_inner));
         assertThat(mainActivity.getWidgetWindowLayout().getHeight(), is(expectedHeight));
     }
 
+    /**
+     * Alarm
+     */
     @Test
     public void checkAlarmListViewHeight() throws Exception {
         // 1. Portrait
@@ -90,5 +106,34 @@ public class MNMainActivityTest {
 
         // 2. Landscape
         mainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    }
+
+    /**
+     * ETC
+     */
+    @Test
+    @Config(qualifiers="port")
+    public void checkButtonLayoutOnPortrait() throws Exception {
+        Resources resources = mainActivity.getResources();
+        float expectedHeight = resources.getDimension(R.dimen.main_button_layout_height);
+        assertThat(mainActivity.getButtonLayout().getHeight(), is((int)expectedHeight));
+    }
+
+    @Test
+    @Config(qualifiers="land")
+    public void checkButtonLayoutOnLandscape() throws Exception {
+        assertNull(true);
+    }
+
+    @Test
+    @Config(qualifiers="port")
+    public void checkAdmobLayoutOnPortrait() throws Exception {
+        assertNull(true);
+    }
+
+    @Test
+    @Config(qualifiers="land")
+    public void checkAdmobLayoutOnLandscape() throws Exception {
+        assertNull(true);
     }
 }
