@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:background="#444444">
 
-            <com.yooii.morningkit.main.MNWidgetWindowView
+            <com.yooii.morningkit.main.MNWidgetWindowLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/main_widget_window_layout_height"
                 android:background="#ffaaaa"

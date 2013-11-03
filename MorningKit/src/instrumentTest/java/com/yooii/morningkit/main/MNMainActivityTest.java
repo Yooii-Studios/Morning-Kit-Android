@@ -39,8 +39,8 @@ public class MNMainActivityTest {
         assertNotNull(mainActivity.getAlarmListView());
         assertThat(mainActivity, instanceOf(MNMainAlarmListView.class));
 
-        assertNotNull(mainActivity.getWidgetWindowView());
-        assertThat(mainActivity, instanceOf(MNWidgetWindowView.class));
+        assertNotNull(mainActivity.getWidgetWindowLayout());
+        assertThat(mainActivity, instanceOf(MNWidgetWindowLayout.class));
 
         assertNotNull(mainActivity.getButtonLayout());
         assertThat(mainActivity, instanceOf(RelativeLayout.class));

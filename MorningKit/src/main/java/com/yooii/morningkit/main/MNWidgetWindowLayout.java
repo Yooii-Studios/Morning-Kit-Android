@@ -16,7 +16,7 @@ import com.yooii.morningkit.common.DipToPixel;
 /**
  * Created by yongbinbae on 13. 10. 22..
  */
-public class MNWidgetWindowView extends LinearLayout
+public class MNWidgetWindowLayout extends LinearLayout
 {
 
     private static final String TAG = "MNWidgetWindowLayout";
@@ -25,21 +25,21 @@ public class MNWidgetWindowView extends LinearLayout
     private LinearLayout m_WidgetRows[];
     private FrameLayout[][] widgetSlots;
 
-    public MNWidgetWindowView(Context context)
+    public MNWidgetWindowLayout(Context context)
     {
         super(context);
 
         m_Context = context;
     }
 
-    public MNWidgetWindowView(Context context, AttributeSet attrs)
+    public MNWidgetWindowLayout(Context context, AttributeSet attrs)
     {
         super(context, attrs);
 
         m_Context = context;
     }
 
-    public MNWidgetWindowView(Context context, AttributeSet attrs, int defStyle) {
+    public MNWidgetWindowLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         m_Context = context;

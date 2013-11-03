@@ -15,7 +15,8 @@ public class MNMainActivity extends Activity
 {
     private static final String TAG = "MNMainActivity";
 
-    @InjectView(R.id.main_widget_window_layout) MNWidgetWindowView mWidgetWindowView;
+    @InjectView(R.id.main_widget_window_layout)
+    MNWidgetWindowLayout mWidgetWindowLayout;
     @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView mAlarmListView;
     @InjectView(R.id.main_button_layout) RelativeLayout mButtonLayout;
     @InjectView(R.id.main_admob_layout) RelativeLayout mAdmobLayout;
@@ -30,12 +31,12 @@ public class MNMainActivity extends Activity
 
         // 기존의 레거시 코드 대신에 이 한줄로 findViewById를 모두 대체
         Views.inject(this);
-//        mWidgetWindowView = (MNWidgetWindowView) findViewById(R.id.main_widget_window_view);
+//        mWidgetWindowView = (MNWidgetWindowLayout) findViewById(R.id.main_widget_window_view);
 //        mAlarmListView = (MNMainAlarmListView) findViewById(R.id.main_alarm_list_view);
 //        mRelativeLayout = (RelativeLayout) findViewById(R.id.main_button_layout);
 //        mAdmobLayout = (RelativeLayout) findViewById(R.id.main_admob_layout);
 
-        mWidgetWindowView.initWithWidgetMatrix();
+        mWidgetWindowLayout.initWithWidgetMatrix();
     }
 
     @Override
@@ -100,8 +101,8 @@ public class MNMainActivity extends Activity
      */
     public RelativeLayout getButtonLayout() { return mButtonLayout; }
     public RelativeLayout getAdmobLayout() { return mAdmobLayout; }
-    public MNWidgetWindowView getWidgetWindowView() {
-        return mWidgetWindowView;
+    public MNWidgetWindowLayout getWidgetWindowLayout() {
+        return mWidgetWindowLayout;
     }
     public MNMainAlarmListView getAlarmListView() { return mAlarmListView; }
 }
