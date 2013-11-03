@@ -92,6 +92,9 @@ public class MNMainActivity extends Activity
             });
         }
         */
+
+        // 최초 실행시는 회전 감지를 안하기에, 명시적으로 최초 한번은 해줌
+        onConfigurationChanged(getResources().getConfiguration());
     }
 
     @Override
