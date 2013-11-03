@@ -15,7 +15,7 @@ public class MNMainActivity extends Activity
 {
     private static final String TAG = "MNMainActivity";
 
-    @InjectView(R.id.main_widget_window_view) MNWidgetWindowView mWidgetWindowView;
+    @InjectView(R.id.main_widget_window_layout) MNWidgetWindowView mWidgetWindowView;
     @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView mAlarmListView;
     @InjectView(R.id.main_button_layout) RelativeLayout mButtonLayout;
     @InjectView(R.id.main_admob_layout) RelativeLayout mAdmobLayout;

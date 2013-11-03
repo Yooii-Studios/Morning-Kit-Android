@@ -19,7 +19,7 @@ import com.yooii.morningkit.common.DipToPixel;
 public class MNWidgetWindowView extends LinearLayout
 {
 
-    private static final String TAG = "MNWidgetWindowView";
+    private static final String TAG = "MNWidgetWindowLayout";
     private Context m_Context;
 
     private LinearLayout m_WidgetRows[];
