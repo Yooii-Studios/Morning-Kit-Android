@@ -11,6 +11,7 @@ import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 import com.yooii.morningkit.R;
+import com.yooii.morningkit.common.MNDeviceSizeChecker;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -143,6 +144,10 @@ public class MNMainActivity extends Activity
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+
+
+        Log.i(TAG, "device width: " + MNDeviceSizeChecker.getDeviceWidth(this));
+        Log.i(TAG, "device height: " + MNDeviceSizeChecker.getDeviceHeight(this));
     }
 
     /**

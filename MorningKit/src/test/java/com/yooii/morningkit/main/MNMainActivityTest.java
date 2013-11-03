@@ -62,12 +62,12 @@ public class MNMainActivityTest {
     public void checkWidgetWindowLayoutHeightOnPortrait() throws Exception {
         // 2 * 2일 경우
         // (위젯 높이 * 2) + outer padding(위쪽) + (inner padding * 2(중앙) * 1) + inner padding(아래쪽)
-
-        // 2 * 1일 경우
-        // (위젯 높이 * 2) + outer padding(위쪽) + (inner padding * 2(중앙) * 0) + inner padding(아래쪽)
         assertThat(mainActivity.getWidgetWindowLayout().getHeight(), // mainActivity.getWidgetWindowLayout().getMeasuredHeight()
                 is((int)DipToPixel.getPixel(mainActivity,
                         mainActivity.getResources().getDimension(R.dimen.main_widget_window_layout_height))));
+
+        // 2 * 1일 경우
+        // (위젯 높이 * 2) + outer padding(위쪽) + (inner padding * 2(중앙) * 0) + inner padding(아래쪽)
     }
 
     @Test
