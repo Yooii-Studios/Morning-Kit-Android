@@ -1,8 +1,13 @@
 package com.yooii.morningkit.main;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 import com.yooii.morningkit.R;
@@ -15,12 +20,14 @@ public class MNMainActivity extends Activity
 {
     private static final String TAG = "MNMainActivity";
 
-    @InjectView(R.id.main_widget_window_layout)
-    MNWidgetWindowLayout mWidgetWindowLayout;
+    @InjectView(R.id.main_widget_window_layout) MNWidgetWindowLayout mWidgetWindowLayout;
     @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView mAlarmListView;
     @InjectView(R.id.main_button_layout) RelativeLayout mButtonLayout;
     @InjectView(R.id.main_admob_layout) RelativeLayout mAdmobLayout;
 
+    /**
+     * Lifecycle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -37,6 +44,51 @@ public class MNMainActivity extends Activity
 //        mAdmobLayout = (RelativeLayout) findViewById(R.id.main_admob_layout);
 
         mWidgetWindowLayout.initWithWidgetMatrix();
+
+        // 1. Portrait
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        ViewTreeObserver viewTreeObserver = mWidgetWindowLayout.getViewTreeObserver();
+        if (viewTreeObserver != null) {
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    Log.i(TAG, "widgetWinodwLayout portrait height: " + mWidgetWindowLayout.getHeight());
+                    Log.i(TAG, "widgetWinodwLayout portrait width: " + mWidgetWindowLayout.getWidth());
+
+                    ViewTreeObserver obs = mWidgetWindowLayout.getViewTreeObserver();
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        obs.removeOnGlobalLayoutListener(this);
+                    } else {
+                        obs.removeGlobalOnLayoutListener(this);
+                    }
+                }
+            });
+        }
+
+        // 2. Landscape
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        viewTreeObserver = mWidgetWindowLayout.getViewTreeObserver();
+        if (viewTreeObserver != null) {
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    Log.i(TAG, "widgetWinodwLayout landscape height: " + mWidgetWindowLayout.getHeight());
+                    Log.i(TAG, "widgetWinodwLayout landscape width: " + mWidgetWindowLayout.getWidth());
+                    Log.i(TAG, "widgetWinodwLayout dimens: " + getResources().getDimension(R.dimen.main_widget_window_layout_height));
+
+                    ViewTreeObserver obs = mWidgetWindowLayout.getViewTreeObserver();
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        obs.removeOnGlobalLayoutListener(this);
+                    } else {
+                        obs.removeGlobalOnLayoutListener(this);
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -86,7 +138,15 @@ public class MNMainActivity extends Activity
     }
 
     /**
-     * @category OnClick
+     * Rotation
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    /**
+     * OnClick
      */
     @OnClick(R.id.main_refresh_image) void refreshButtonClicked() {
         Log.i(TAG, "refreshButtonClicked");
@@ -97,7 +157,7 @@ public class MNMainActivity extends Activity
     }
 
     /**
-     * @category Getter
+     * Getter
      */
     public RelativeLayout getButtonLayout() { return mButtonLayout; }
     public RelativeLayout getAdmobLayout() { return mAdmobLayout; }

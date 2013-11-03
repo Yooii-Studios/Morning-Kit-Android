@@ -37,6 +37,7 @@ android {
 
 // 출시전까지 주석
 apply plugin: 'android-unit-test'
+//apply plugin: 'android-instrumentTest'
 
 dependencies {
     repositories {
