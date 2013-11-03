@@ -69,7 +69,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="50dip"
         android:layout_alignParentBottom="true"
         android:id="@+id/main_admob_layout"
