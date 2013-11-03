@@ -14,6 +14,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.annotation.Config;
+import org.robolectric.util.ActivityController;
 
 import java.lang.Exception;
 
@@ -33,7 +35,8 @@ public class MNMainActivityTest {
 
     @Before
     public void setUp() {
-        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().get();
+        // visible() 이 뷰를 띄울 수 있게 해주는 중요한 메서드
+        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
     }
 
     @Test
@@ -55,22 +58,21 @@ public class MNMainActivityTest {
     }
 
     @Test
-    public void checkWidgetWindowLayoutHeight() throws Exception {
-        // dimension으로 정의한 특정 높이를 가지고 있어야 함
+    @Config(qualifiers="port")
+    public void checkWidgetWindowLayoutHeightOnPortrait() throws Exception {
+        // 2 * 2일 경우
+        // (위젯 높이 * 2) + outer padding(위쪽) + (inner padding * 2(중앙) * 1) + inner padding(아래쪽)
 
-        // 1. Portrait
-        mainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        assertThat(mainActivity.getWidgetWindowLayout().getHeight(),
+        // 2 * 1일 경우
+        // (위젯 높이 * 2) + outer padding(위쪽) + (inner padding * 2(중앙) * 0) + inner padding(아래쪽)
+        assertThat(mainActivity.getWidgetWindowLayout().getHeight(), // mainActivity.getWidgetWindowLayout().getMeasuredHeight()
                 is((int)DipToPixel.getPixel(mainActivity,
                         mainActivity.getResources().getDimension(R.dimen.main_widget_window_layout_height))));
     }
 
     @Test
+    @Config(qualifiers="land")
     public void checkWidgetWindowLayoutHeightOnLandscape() throws Exception {
-        // dimension으로 정의한 특정 높이를 가지고 있어야 함
-
-        // 2. Landscape
-        mainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         // Device height - buttonLayout height - (outerPadding - innerPadding)를 확인하면 됨
         // 위젯 윈도우뷰의 아래쪽은 innerPadding 만큼만 주기 때문에 (outerPadding - innerPadding)만큼의 공간을 따로 주어야 함
         Resources resource = mainActivity.getResources();
