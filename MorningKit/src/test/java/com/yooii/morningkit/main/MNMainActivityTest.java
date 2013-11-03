@@ -40,7 +40,7 @@ public class MNMainActivityTest {
     }
 
     @Test
-    public void shouldAlarmListViewAndWidgetWindowViewNotNull() throws Exception {
+    public void shouldViewsAndLayoutsBeNotNull() throws Exception {
         assertNotNull(mainActivity);
         assertThat(mainActivity, instanceOf(MNMainActivity.class));
 
