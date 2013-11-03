@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.yooii.morningkit.R;
@@ -48,7 +49,7 @@ public class MNMainActivity extends Activity
 
         // 1. Portrait
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
+        /*
         ViewTreeObserver viewTreeObserver = mWidgetWindowLayout.getViewTreeObserver();
         if (viewTreeObserver != null) {
             viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -90,6 +91,7 @@ public class MNMainActivity extends Activity
                 }
             });
         }
+        */
     }
 
     @Override
@@ -145,9 +147,22 @@ public class MNMainActivity extends Activity
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-
         Log.i(TAG, "device width: " + MNDeviceSizeChecker.getDeviceWidth(this));
         Log.i(TAG, "device height: " + MNDeviceSizeChecker.getDeviceHeight(this));
+
+        switch (newConfig.orientation) {
+            case Configuration.ORIENTATION_PORTRAIT: {
+                LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mWidgetWindowLayout.getLayoutParams();
+                widgetWindowLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                widgetWindowLayoutParams.height = (int)getResources().getDimension(R.dimen.main_widget_window_layout_height);
+                Log.i(TAG, "widgetWindowLayoutParams height: " + widgetWindowLayoutParams.height);
+                mWidgetWindowLayout.setLayoutParams(widgetWindowLayoutParams);
+                break;
+            }
+            case Configuration.ORIENTATION_LANDSCAPE: {
+                break;
+            }
+        }
     }
 
     /**
