@@ -1,9 +1,11 @@
 package com.yooii.morningkit.main;
 
 import android.content.res.Resources;
+import android.graphics.Point;
 
 import com.yooii.morningkit.R;
 import com.yooii.morningkit.RobolectricGradleTestRunner;
+import com.yooii.morningkit.common.MNViewSizeMeasure;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,10 +13,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
-import java.lang.Exception;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by StevenKim on 2013. 11. 4..
@@ -35,10 +36,22 @@ public class MNMainButtonLayoutTest {
      */
     @Test
     @Config(qualifiers="port")
-    public void checkButtonLayoutOnPortrait() throws Exception {
-        Resources resources = mainActivity.getResources();
-        float expectedHeight = resources.getDimension(R.dimen.main_button_layout_height);
-        assertThat(mainActivity.getButtonLayout().getHeight(), is(not(0)));
-        assertThat(mainActivity.getButtonLayout().getHeight(), is((int)expectedHeight));
+    public void checkButtonLayoutHeightOnPortrait() throws Exception {
+
+        MNViewSizeMeasure.setViewSizeObserver(mainActivity.getButtonLayout(), new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+            @Override
+            public void onLayoutLoad(Point size) {
+                Resources resources = mainActivity.getResources();
+                float expectedHeight = resources.getDimension(R.dimen.main_button_layout_height);
+                assertThat(mainActivity.getButtonLayout().getHeight(), is(not(0)));
+                assertThat(mainActivity.getButtonLayout().getHeight(), is((int) expectedHeight));
+            }
+        });
     }
+
+//    @Test
+//    @Config(qualifiers="land")
+//    public void checkButtonLayoutOnLandscape() throws Exception {
+//        assertNull(true);
+//    }
 }

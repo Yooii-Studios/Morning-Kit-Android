@@ -153,6 +153,7 @@ public class MNMainActivity extends Activity
 
         switch (newConfig.orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
+                // 위젯
                 LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mWidgetWindowLayout.getLayoutParams();
                 widgetWindowLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
                 float widgetWindowHeight = getResources().getDimension(R.dimen.widget_height) * 2
@@ -161,9 +162,45 @@ public class MNMainActivity extends Activity
                         + getResources().getDimension(R.dimen.margin_inner);
                 widgetWindowLayoutParams.height = (int)widgetWindowHeight;
                 mWidgetWindowLayout.setLayoutParams(widgetWindowLayoutParams);
+
+                // 로그 테스트
+//                mWidgetWindowLayout.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Log.i(TAG, "widgetWindowLayout height:" + mWidgetWindowLayout.getHeight());
+//                    }
+//                });
+
+                // 알람
+                LinearLayout.LayoutParams alarmListViewLayoutParams = (LinearLayout.LayoutParams) mAlarmListView.getLayoutParams();
+                alarmListViewLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                float alarmListViewHeight = MNDeviceSizeChecker.getDeviceHeight(this) - widgetWindowHeight;
+                alarmListViewLayoutParams.height = (int)alarmListViewHeight;
+                mAlarmListView.setLayoutParams(alarmListViewLayoutParams);
+
+                // 버튼
+                RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams();
+                buttonLayoutParams.height = (int)getResources().getDimension(R.dimen.main_button_layout_height);
+                mButtonLayout.setLayoutParams(buttonLayoutParams);
+
+                // 애드몹
+                RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
+                admobLayoutParams.height = (int)getResources().getDimension(R.dimen.main_admob_layout_height);
+                mAdmobLayout.setLayoutParams(admobLayoutParams);
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
+
+                // 버튼
+                RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams();
+                buttonLayoutParams.height =
+                        (int)(getResources().getDimension(R.dimen.main_button_layout_height) + getResources().getDimension(R.dimen.margin_inner)*2);
+                mButtonLayout.setLayoutParams(buttonLayoutParams);
+
+                // 애드몹
+                RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
+                admobLayoutParams.height = 0;
+                mAdmobLayout.setLayoutParams(admobLayoutParams);
                 break;
             }
         }
