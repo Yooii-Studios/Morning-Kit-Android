@@ -110,6 +110,7 @@ public final class MN {
 
     public final static class ads {
         public final static String ADMOB_ID = "a14fc9baecf16e9";
+//        public final static String ADMOB_ID = "a15278abca8d8ec";
     }
 
     public final static class generalSetting {

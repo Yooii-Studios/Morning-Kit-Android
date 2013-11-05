@@ -6,6 +6,7 @@ import android.graphics.Point;
 import com.yooii.morningkit.R;
 import com.yooii.morningkit.RobolectricGradleTestRunner;
 import com.yooii.morningkit.common.MNViewSizeMeasure;
+import com.yooii.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +21,7 @@ import static org.junit.Assert.assertThat;
  * Created by StevenKim on 2013. 11. 4..
  */
 @RunWith(RobolectricGradleTestRunner.class)
+@Config (shadows = { AdWebViewShadow.class })
 public class MNMainAdmobLayoutTest {
 
     MNMainActivity mainActivity;

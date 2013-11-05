@@ -7,10 +7,12 @@ import android.os.Build;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
+import com.google.ads.AdView;
 import com.yooii.morningkit.common.MNViewSizeMeasure;
 import com.yooii.morningkit.R;
 import com.yooii.morningkit.RobolectricGradleTestRunner;
 import com.yooii.morningkit.common.MNDeviceSizeChecker;
+import com.yooii.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +32,7 @@ import static org.hamcrest.CoreMatchers.*;
 // guide for using Robolectric and JUnit
 // Class name must be ended with xxxTest in test class
 @RunWith(RobolectricGradleTestRunner.class)
+@Config (shadows = { AdWebViewShadow.class })
 public class MNMainActivityTest {
 
     MNMainActivity mainActivity;
@@ -56,6 +59,9 @@ public class MNMainActivityTest {
 
         assertNotNull(mainActivity.getAdmobLayout());
         assertThat(mainActivity.getAdmobLayout(), instanceOf(RelativeLayout.class));
+
+        assertNotNull(mainActivity.getAdView());
+        assertThat(mainActivity.getAdView(), instanceOf(AdView.class));
     }
 
     /**
