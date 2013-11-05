@@ -33,6 +33,10 @@ android {
         targetSdkVersion 18
         packageName "com.yooii.morningkit"
     }
+
+    sourceSets {
+        instrumentTest.setRoot('src/test')
+    }
 }
 
 // 출시전까지 주석
