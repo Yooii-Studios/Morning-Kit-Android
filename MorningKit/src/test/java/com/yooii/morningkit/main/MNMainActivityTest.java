@@ -7,10 +7,12 @@ import android.os.Build;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
+import com.google.ads.AdView;
 import com.yooii.morningkit.common.MNViewSizeMeasure;
 import com.yooii.morningkit.R;
 import com.yooii.morningkit.RobolectricGradleTestRunner;
 import com.yooii.morningkit.common.MNDeviceSizeChecker;
+import com.yooii.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +32,7 @@ import static org.hamcrest.CoreMatchers.*;
 // guide for using Robolectric and JUnit
 // Class name must be ended with xxxTest in test class
 @RunWith(RobolectricGradleTestRunner.class)
+@Config (shadows = { AdWebViewShadow.class })
 public class MNMainActivityTest {
 
     MNMainActivity mainActivity;
@@ -56,10 +59,13 @@ public class MNMainActivityTest {
 
         assertNotNull(mainActivity.getAdmobLayout());
         assertThat(mainActivity.getAdmobLayout(), instanceOf(RelativeLayout.class));
+
+        assertNotNull(mainActivity.getAdView());
+        assertThat(mainActivity.getAdView(), instanceOf(AdView.class));
     }
 
     /**
-     * Widget
+     * Widget Window
      */
     @Test
     @Config(qualifiers="port")
@@ -126,28 +132,4 @@ public class MNMainActivityTest {
     public void checkAlarmListViewHeightOnLandscape() throws Exception {
         // 2. Landscape
     }
-
-//    /**
-//     * ETC
-//     */
-//    @Test
-//    @Config(qualifiers="port")
-//    public void checkButtonLayoutOnPortrait() throws Exception {
-//        Resources resources = mainActivity.getResources();
-//        float expectedHeight = resources.getDimension(R.dimen.main_button_layout_height);
-//        assertThat(mainActivity.getButtonLayout().getHeight(), is(not(0)));
-//        assertThat(mainActivity.getButtonLayout().getHeight(), is((int)expectedHeight));
-//    }
-//
-//    @Test
-//    @Config(qualifiers="port")
-//    public void checkAdmobLayoutOnPortrait() throws Exception {
-//        assertNull(true);
-//    }
-//
-//    @Test
-//    @Config(qualifiers="land")
-//    public void checkAdmobLayoutOnLandscape() throws Exception {
-//        assertNull(true);
-//    }
 }

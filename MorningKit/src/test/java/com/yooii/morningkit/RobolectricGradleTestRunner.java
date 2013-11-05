@@ -5,6 +5,7 @@ import org.robolectric.AndroidManifest;
 import org.robolectric.AndroidManifestExt;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.bytecode.Setup;
 import org.robolectric.res.Fs;
 
 /**
@@ -13,6 +14,11 @@ import org.robolectric.res.Fs;
 public class RobolectricGradleTestRunner extends RobolectricTestRunner {
     public RobolectricGradleTestRunner(final Class<?> testClass) throws InitializationError {
         super(testClass);
+    }
+
+    @Override
+    public Setup createSetup() {
+        return new EnhancedSetup();
     }
 
     @Override

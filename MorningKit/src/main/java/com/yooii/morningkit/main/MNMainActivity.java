@@ -1,17 +1,18 @@
 package com.yooii.morningkit.main;
 
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.google.ads.Ad;
+import com.google.ads.AdListener;
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
+import com.yooii.morningkit.MN;
 import com.yooii.morningkit.R;
 import com.yooii.morningkit.common.MNDeviceSizeChecker;
 
@@ -19,7 +20,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.Views;
 
-public class MNMainActivity extends Activity
+public class MNMainActivity extends Activity implements AdListener
 {
     private static final String TAG = "MNMainActivity";
 
@@ -27,6 +28,7 @@ public class MNMainActivity extends Activity
     @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView mAlarmListView;
     @InjectView(R.id.main_button_layout) RelativeLayout mButtonLayout;
     @InjectView(R.id.main_admob_layout) RelativeLayout mAdmobLayout;
+    @InjectView(R.id.adView) AdView mAdView;
 
     /**
      * Lifecycle
@@ -46,53 +48,15 @@ public class MNMainActivity extends Activity
 //        mRelativeLayout = (RelativeLayout) findViewById(R.id.main_button_layout);
 //        mAdmobLayout = (RelativeLayout) findViewById(R.id.main_admob_layout);
 
+        // 위젯 윈도우
         mWidgetWindowLayout.initWithWidgetMatrix();
 
-        // 1. Portrait
-//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        /*
-        ViewTreeObserver viewTreeObserver = mWidgetWindowLayout.getViewTreeObserver();
-        if (viewTreeObserver != null) {
-            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    Log.i(TAG, "widgetWinodwLayout portrait height: " + mWidgetWindowLayout.getHeight());
-                    Log.i(TAG, "widgetWinodwLayout portrait width: " + mWidgetWindowLayout.getWidth());
+        // 알람
 
-                    ViewTreeObserver obs = mWidgetWindowLayout.getViewTreeObserver();
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        obs.removeOnGlobalLayoutListener(this);
-                    } else {
-                        obs.removeGlobalOnLayoutListener(this);
-                    }
-                }
-            });
-        }
-
-        // 2. Landscape
-//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
-        viewTreeObserver = mWidgetWindowLayout.getViewTreeObserver();
-        if (viewTreeObserver != null) {
-            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    Log.i(TAG, "widgetWinodwLayout landscape height: " + mWidgetWindowLayout.getHeight());
-                    Log.i(TAG, "widgetWinodwLayout landscape width: " + mWidgetWindowLayout.getWidth());
-                    Log.i(TAG, "widgetWinodwLayout dimens: " + getResources().getDimension(R.dimen.main_widget_window_layout_height));
-
-                    ViewTreeObserver obs = mWidgetWindowLayout.getViewTreeObserver();
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        obs.removeOnGlobalLayoutListener(this);
-                    } else {
-                        obs.removeGlobalOnLayoutListener(this);
-                    }
-                }
-            });
-        }
-        */
+        // 애드몹
+//        mAdView = new AdView(this, AdSize.BANNER, MN.ads.ADMOB_ID);
+//        mAdmobLayout.addView(mAdView);
+//        mAdView.loadAd(new AdRequest());
 
         // 최초 실행시는 회전 감지를 안하기에, 명시적으로 최초 한번은 해줌
         onConfigurationChanged(getResources().getConfiguration());
@@ -140,7 +104,9 @@ public class MNMainActivity extends Activity
     protected void onDestroy()
     {
         // Acitivity is destroyed
-
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
         super.onDestroy();
     }
 
@@ -231,4 +197,29 @@ public class MNMainActivity extends Activity
         return mWidgetWindowLayout;
     }
     public MNMainAlarmListView getAlarmListView() { return mAlarmListView; }
+    public AdView getAdView() { return mAdView; }
+
+    /**
+     * Admob
+     */
+    @Override
+    public void onDismissScreen(Ad arg0) {
+    }
+
+    @Override
+    public void onFailedToReceiveAd(Ad arg0, AdRequest.ErrorCode arg1) {
+        // Log.i(TAG, "failed to receive ad (" + arg1 + ")");
+    }
+
+    @Override
+    public void onLeaveApplication(Ad arg0) {
+    }
+
+    @Override
+    public void onPresentScreen(Ad arg0) {
+    }
+
+    @Override
+    public void onReceiveAd(Ad arg0) {
+    }
 }
