@@ -1,10 +1,13 @@
 package com.yooii.morningkit.main;
 
 // necessary import
-import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+import android.graphics.Point;
+import android.os.Build;
+import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
+import com.yooii.morningkit.common.MNViewSizeMeasure;
 import com.yooii.morningkit.R;
 import com.yooii.morningkit.RobolectricGradleTestRunner;
 import com.yooii.morningkit.common.MNDeviceSizeChecker;
@@ -34,7 +37,7 @@ public class MNMainActivityTest {
     @Before
     public void setUp() {
         // visible() 이 뷰를 띄울 수 있게 해주는 중요한 메서드
-        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
+        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().start().resume().visible().get();
     }
 
     @Test
@@ -61,24 +64,30 @@ public class MNMainActivityTest {
     @Test
     @Config(qualifiers="port")
     public void checkWidgetWindowLayoutHeightOnPortrait() throws Exception {
-        int widgetMatrix;
-        // 2 * 2일 경우
-        widgetMatrix = 2;
 
-        // (위젯 높이 * 2) + outer margin(위쪽) + (outer margin * 2(중앙) * 1) + inner margin(아래쪽)
-        Resources resources = mainActivity.getResources();
-        float expectedHeight = resources.getDimension(R.dimen.widget_height) * 2
-                + resources.getDimension(R.dimen.margin_outer)
-                + resources.getDimension(R.dimen.margin_outer) * (widgetMatrix - 1)
-                + resources.getDimension(R.dimen.margin_inner);
+        MNViewSizeMeasure.setViewSizeObserver(mainActivity.getWidgetWindowLayout(), new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+            @Override
+            public void onLayoutLoad(Point size) {
+                int widgetMatrix;
+                // 2 * 2일 경우
+                widgetMatrix = 2;
+
+                // (위젯 높이 * 2) + outer margin(위쪽) + (outer margin * 2(중앙) * 1) + inner margin(아래쪽)
+                Resources resources = mainActivity.getResources();
+                float expectedHeight = resources.getDimension(R.dimen.widget_height) * 2
+                        + resources.getDimension(R.dimen.margin_outer)
+                        + resources.getDimension(R.dimen.margin_outer) * (widgetMatrix - 1)
+                        + resources.getDimension(R.dimen.margin_inner);
 //        assertThat(mainActivity.getWidgetWindowLayout().getHeight(), // mainActivity.getWidgetWindowLayout().getMeasuredHeight()
 //                is((int)DipToPixel.getPixel(mainActivity,
 //                        mainActivity.getResources().getDimension(R.dimen.main_widget_window_layout_height))));
-        assertThat(mainActivity.getWidgetWindowLayout().getHeight(), is((int)expectedHeight));
+                assertThat(mainActivity.getWidgetWindowLayout().getHeight(), is((int)expectedHeight));
 
-        // 2 * 1일 경우는 추후 테스트
-        widgetMatrix = 1;
-        // (위젯 높이 * 2) + outer margin(위쪽) + (inner margin * 2(중앙) * 0) + inner margin(아래쪽)
+                // 2 * 1일 경우는 추후 테스트
+                widgetMatrix = 1;
+                // (위젯 높이 * 2) + outer margin(위쪽) + (inner margin * 2(중앙) * 0) + inner margin(아래쪽)
+            }
+        });
     }
 
     @Test
@@ -97,31 +106,37 @@ public class MNMainActivityTest {
      * Alarm
      */
     @Test
-    public void checkAlarmListViewHeight() throws Exception {
+    @Config(qualifiers="land")
+    public void checkAlarmListViewHeightOnPortrait() throws Exception {
         // 1. Portrait
-        // 디바이스 높이 - (위젯 윈도우 높이 + 구글 애드몹 높이(풀버전은 높이가 0)인지 확인
-        mainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        // 디바이스 높이 - 위젯 윈도우 높이
 
-        // 2. Landscape
-        mainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        MNViewSizeMeasure.setViewSizeObserver(mainActivity.getAlarmListView(), new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+            @Override
+            public void onLayoutLoad(Point size) {
+                int expectedHeight = MNDeviceSizeChecker.getDeviceHeight(mainActivity)
+                        - mainActivity.getWidgetWindowLayout().getHeight();
+                assertThat(mainActivity.getAlarmListView().getHeight(), is(expectedHeight));
+            }
+        });
     }
 
-    /**
-     * ETC
-     */
     @Test
-    @Config(qualifiers="port")
-    public void checkButtonLayoutOnPortrait() throws Exception {
-        Resources resources = mainActivity.getResources();
-        float expectedHeight = resources.getDimension(R.dimen.main_button_layout_height);
-        assertThat(mainActivity.getButtonLayout().getHeight(), is(not(0)));
-        assertThat(mainActivity.getButtonLayout().getHeight(), is((int)expectedHeight));
+    @Config(qualifiers="land")
+    public void checkAlarmListViewHeightOnLandscape() throws Exception {
+        // 2. Landscape
     }
 
+//    /**
+//     * ETC
+//     */
 //    @Test
-//    @Config(qualifiers="land")
-//    public void checkButtonLayoutOnLandscape() throws Exception {
-//        assertNull(true);
+//    @Config(qualifiers="port")
+//    public void checkButtonLayoutOnPortrait() throws Exception {
+//        Resources resources = mainActivity.getResources();
+//        float expectedHeight = resources.getDimension(R.dimen.main_button_layout_height);
+//        assertThat(mainActivity.getButtonLayout().getHeight(), is(not(0)));
+//        assertThat(mainActivity.getButtonLayout().getHeight(), is((int)expectedHeight));
 //    }
 //
 //    @Test
