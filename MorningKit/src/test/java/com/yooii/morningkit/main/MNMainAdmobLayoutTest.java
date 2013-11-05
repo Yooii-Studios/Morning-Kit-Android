@@ -14,14 +14,13 @@ import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
 /**
  * Created by StevenKim on 2013. 11. 4..
  */
 @RunWith(RobolectricGradleTestRunner.class)
-public class MNMainButtonLayoutTest {
+public class MNMainAdmobLayoutTest {
 
     MNMainActivity mainActivity;
 
@@ -36,27 +35,31 @@ public class MNMainButtonLayoutTest {
      */
     @Test
     @Config(qualifiers="port")
-    public void checkButtonLayoutHeightOnPortrait() throws Exception {
+    public void checkAdmobLayoutHeightOnPortrait() throws Exception {
+
 
         MNViewSizeMeasure.setViewSizeObserver(mainActivity.getButtonLayout(), new MNViewSizeMeasure.OnGlobalLayoutObserver() {
             @Override
             public void onLayoutLoad(Point size) {
+                // 1. 광고가 있을 때
                 Resources resources = mainActivity.getResources();
-                float expectedHeight = resources.getDimension(R.dimen.main_button_layout_height);
+                float expectedHeight = resources.getDimension(R.dimen.main_admob_layout_height);
                 assertThat(mainActivity.getButtonLayout().getHeight(), is((int) expectedHeight));
+
+                // 2. 광고가 없을 때는 높이가 0이어야 함
             }
         });
     }
 
     @Test
     @Config(qualifiers="land")
-    public void checkButtonLayoutOnLandscape() throws Exception {
+    public void checkAdmobLayoutOnLandscape() throws Exception {
+        // 가로는 무조건 이 레이아웃이 0이어야만 한다.
         MNViewSizeMeasure.setViewSizeObserver(mainActivity.getButtonLayout(), new MNViewSizeMeasure.OnGlobalLayoutObserver() {
             @Override
             public void onLayoutLoad(Point size) {
                 Resources resources = mainActivity.getResources();
-                float expectedHeight = resources.getDimension(R.dimen.main_button_layout_height)
-                        + resources.getDimension(R.dimen.margin_inner) * 2;
+                float expectedHeight = 0;
                 assertThat(mainActivity.getButtonLayout().getHeight(), is((int) expectedHeight));
             }
         });

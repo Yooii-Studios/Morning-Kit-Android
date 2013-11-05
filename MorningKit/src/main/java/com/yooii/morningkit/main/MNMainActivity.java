@@ -205,10 +205,10 @@ public class MNMainActivity extends Activity
             }
         }
 
-        Log.i(TAG, "widgetWindowLayout height:" + mWidgetWindowLayout.getHeight());
-        Log.i(TAG, "alarmListView height:" + mAlarmListView.getHeight());
-        Log.i(TAG, "buttonLayout height:" + mButtonLayout.getHeight());
-        Log.i(TAG, "admobLayout height:" + mAdmobLayout.getHeight());
+//        Log.i(TAG, "widgetWindowLayout height:" + mWidgetWindowLayout.getHeight());
+//        Log.i(TAG, "alarmListView height:" + mAlarmListView.getHeight());
+//        Log.i(TAG, "buttonLayout height:" + mButtonLayout.getHeight());
+//        Log.i(TAG, "admobLayout height:" + mAdmobLayout.getHeight());
     }
 
     /**
