@@ -75,6 +75,11 @@ dependencies {
     testCompile 'junit:junit:4.10'
     testCompile 'org.robolectric:robolectric:2.2'
     testCompile 'com.squareup:fest-android:1.0.+'
+
+    instrumentTestCompile 'junit:junit:4.10'
+    instrumentTestCompile 'org.robolectric:robolectric:2.2'
+    instrumentTestCompile 'com.squareup:fest-android:1.0.+'
+
 }
 
 // 소스를 UTF-8로 컴파일, ../gradlew clean check 로 테스트할 경우 한글주석관련 warning을 없애기 위함
