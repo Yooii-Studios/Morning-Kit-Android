@@ -88,7 +88,7 @@ dependencies {
 
     // xml 시리얼, 디시리얼라이즈 관련
 //    http://simple.sourceforge.net/home.php
-    compile 'org.simpleframework:simple-xml:2.7.1'
+//    compile 'org.simpleframework:simple-xml:2.7.1'
 
 //    compile files('libs/AppRate_1.1.jar');
     // 모든 jar 파일 로딩
