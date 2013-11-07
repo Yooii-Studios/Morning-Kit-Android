@@ -3,6 +3,7 @@ buildscript {
         mavenCentral()
 //        maven {
 //            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+//            url 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
 //        }
     }
     dependencies {
@@ -82,10 +83,11 @@ dependencies {
 
     // 안드로이드 SDK에서 지원하지 않지만 제작자가 원하는 기능들이 포함(조사 필요?)
     // https://github.com/kevinsawicki/wishlist
-    compile 'com.github.kevinsawicki:wishlist:0.9'
+    // 이것 때문에 실행이 안되었음
+//    compile 'com.github.kevinsawicki:wishlist:0.9'
 
     // xml 시리얼, 디시리얼라이즈 관련
-    // http://simple.sourceforge.net/home.php
+//    http://simple.sourceforge.net/home.php
     compile 'org.simpleframework:simple-xml:2.7.1'
 
 //    compile files('libs/AppRate_1.1.jar');
