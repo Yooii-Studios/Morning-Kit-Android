@@ -80,7 +80,7 @@
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            ads:adSize="BANNER"
+            ads:adSize="SMART_BANNER"
             ads:adUnitId="a15278abca8d8ec"
             ads:loadAdOnCreate="true"
             android:gravity="center_horizontal" />

@@ -3,8 +3,6 @@ package com.yooii.morningkit.main;
 // necessary import
 import android.content.res.Resources;
 import android.graphics.Point;
-import android.os.Build;
-import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 import com.google.ads.AdView;
@@ -46,22 +44,28 @@ public class MNMainActivityTest {
 
     @Test
     public void shouldViewsAndLayoutsBeNotNull() throws Exception {
-        assertNotNull(mainActivity);
+        assertThat(mainActivity, notNullValue());
+//        assertNotNull(mainActivity);
         assertThat(mainActivity, instanceOf(MNMainActivity.class));
 
-        assertNotNull(mainActivity.getAlarmListView());
+        assertThat(mainActivity.getAlarmListView(), notNullValue());
+//        assertNotNull(mainActivity.getAlarmListView());
         assertThat(mainActivity.getAlarmListView(), instanceOf(MNMainAlarmListView.class));
 
-        assertNotNull(mainActivity.getWidgetWindowLayout());
+        assertThat(mainActivity.getWidgetWindowLayout(), notNullValue());
+//        assertNotNull(mainActivity.getWidgetWindowLayout());
         assertThat(mainActivity.getWidgetWindowLayout(), instanceOf(MNWidgetWindowLayout.class));
 
-        assertNotNull(mainActivity.getButtonLayout());
+        assertThat(mainActivity.getButtonLayout(), notNullValue());
+//        assertNotNull(mainActivity.getButtonLayout());
         assertThat(mainActivity.getButtonLayout(), instanceOf(RelativeLayout.class));
 
-        assertNotNull(mainActivity.getAdmobLayout());
+        assertThat(mainActivity.getAdmobLayout(), notNullValue());
+//        assertNotNull(mainActivity.getAdmobLayout());
         assertThat(mainActivity.getAdmobLayout(), instanceOf(RelativeLayout.class));
 
-        assertNotNull(mainActivity.getAdView());
+        assertThat(mainActivity.getAdView(), notNullValue());
+//        assertNotNull(mainActivity.getAdView());
         assertThat(mainActivity.getAdView(), instanceOf(AdView.class));
     }
 
