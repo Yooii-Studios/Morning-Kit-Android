@@ -149,24 +149,39 @@ public class MNMainActivity extends Activity implements AdListener
                 buttonLayoutParams.height = (int)getResources().getDimension(R.dimen.main_button_layout_height);
                 mButtonLayout.setLayoutParams(buttonLayoutParams);
 
-                // 애드몹
+                // 애드몹 레이아웃
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
                 admobLayoutParams.height = (int)getResources().getDimension(R.dimen.main_admob_layout_height);
                 mAdmobLayout.setLayoutParams(admobLayoutParams);
+
+                // 버튼 레이아웃에 광고가 있을 경우 애드몹 레이아웃으로 옮기기
+                if (mButtonLayout.findViewById(R.id.adView) != null) {
+                    mButtonLayout.removeView(mAdView);
+                    mAdmobLayout.addView(mAdView);
+                }
+
+                // 애드몹
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
-
-                // 버튼
-                RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams();
-                buttonLayoutParams.height =
-                        (int)(getResources().getDimension(R.dimen.main_button_layout_height) + getResources().getDimension(R.dimen.margin_inner)*2);
-                mButtonLayout.setLayoutParams(buttonLayoutParams);
 
                 // 애드몹
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
                 admobLayoutParams.height = 0;
                 mAdmobLayout.setLayoutParams(admobLayoutParams);
+
+                // 버튼
+                RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams();
+                buttonLayoutParams.height =
+                        (int)(getResources().getDimension(R.dimen.main_button_layout_height) + getResources().getDimension(R.dimen.margin_outer)*2);
+                mButtonLayout.setLayoutParams(buttonLayoutParams);
+
+                // Landscape 모드에서 버튼 레이아웃으로 광고 옮기기
+                if (mAdmobLayout.findViewById(R.id.adView) != null) {
+                    mAdmobLayout.removeView(mAdView);
+                    mButtonLayout.addView(mAdView);
+                }
+
                 break;
             }
         }
