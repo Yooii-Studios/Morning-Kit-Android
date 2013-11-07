@@ -154,18 +154,17 @@ public class MNMainActivity extends Activity implements AdListener
                 admobLayoutParams.height = (int)getResources().getDimension(R.dimen.main_admob_layout_height);
                 mAdmobLayout.setLayoutParams(admobLayoutParams);
 
+                // 애드몹
                 // 버튼 레이아웃에 광고가 있을 경우 애드몹 레이아웃으로 옮기기
                 if (mButtonLayout.findViewById(R.id.adView) != null) {
                     mButtonLayout.removeView(mAdView);
                     mAdmobLayout.addView(mAdView);
                 }
-
-                // 애드몹
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
 
-                // 애드몹
+                // 애드몹 레이아웃
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
                 admobLayoutParams.height = 0;
                 mAdmobLayout.setLayoutParams(admobLayoutParams);
@@ -176,12 +175,19 @@ public class MNMainActivity extends Activity implements AdListener
                         (int)(getResources().getDimension(R.dimen.main_button_layout_height) + getResources().getDimension(R.dimen.margin_outer)*2);
                 mButtonLayout.setLayoutParams(buttonLayoutParams);
 
+                // 애드몹
                 // Landscape 모드에서 버튼 레이아웃으로 광고 옮기기
+                Log.i(TAG, mAdView.getRootView().toString());
                 if (mAdmobLayout.findViewById(R.id.adView) != null) {
                     mAdmobLayout.removeView(mAdView);
                     mButtonLayout.addView(mAdView);
+                    Log.i(TAG, mAdView.getRootView().toString());
                 }
-
+                if (mAdmobLayout.findViewById(R.id.adView) != null) {
+                    Log.i(TAG, "adview is in admob Layout");
+                }else{
+                    Log.i(TAG, "adview is in button Layout");
+                }
                 break;
             }
         }

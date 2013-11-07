@@ -39,7 +39,8 @@ public class MNMainActivityTest {
     public void setUp() {
         // visible() 이 뷰를 띄울 수 있게 해주는 중요한 메서드
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().start().resume().visible().get();
-        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().get();
+//        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().postResume().get();
+        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
     }
 
     @Test
@@ -70,8 +71,26 @@ public class MNMainActivityTest {
     }
 
     /**
+     * Scroll View
+     */
+    /*
+    @Test
+    @Config(qualifiers="port")
+    public void checkScrollViewHeightOnPortrait() throws Exception {
+
+    }
+
+    @Test
+    @Config(qualifiers="land")
+    public void checkScrollViewHeightOnLandscape() throws Exception {
+
+    }
+    */
+
+    /**
      * Widget Window
      */
+    /*
     @Test
     @Config(qualifiers="port")
     public void checkWidgetWindowLayoutHeightOnPortrait() throws Exception {
@@ -100,7 +119,9 @@ public class MNMainActivityTest {
             }
         });
     }
+    */
 
+    /*
     @Test
     @Config(qualifiers="land")
     public void checkWidgetWindowLayoutHeightOnLandscape() throws Exception {
@@ -112,10 +133,12 @@ public class MNMainActivityTest {
                 - (int)(resources.getDimension(R.dimen.padding_outer) - resources.getDimension(R.dimen.padding_inner));
 //        assertThat(mainActivity.getWidgetWindowLayout().getHeight(), is(expectedHeight));
     }
+    */
 
     /**
      * Alarm
      */
+    /*
     @Test
     @Config(qualifiers="land")
     public void checkAlarmListViewHeightOnPortrait() throws Exception {
@@ -136,5 +159,7 @@ public class MNMainActivityTest {
     @Config(qualifiers="land")
     public void checkAlarmListViewHeightOnLandscape() throws Exception {
         // 2. Landscape
+        // 일단 높이보다도 안보이는 것이 중요할듯.
     }
+    */
 }
