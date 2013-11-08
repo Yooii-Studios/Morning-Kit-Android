@@ -1,7 +1,13 @@
 package com.yooiistudios.morningkit.main;
 
+import android.content.res.Resources;
+import android.graphics.Point;
+import android.util.Log;
+
+import com.google.ads.AdSize;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.RobolectricGradleTestRunner;
+import com.yooiistudios.morningkit.common.MNViewSizeMeasure;
+import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
@@ -31,8 +37,9 @@ public class MNMainButtonLayoutTest {
     @Before
     public void setUp() {
         // visible() 이 뷰를 띄울 수 있게 해주는 중요한 메서드
-        System.setProperty("robolectric.logging", "stdout");
-        ShadowLog.stream = System.out;
+        // 로그 관련이라는데 아직 잘 모르겠다.
+//        System.setProperty("robolectric.logging", "stdout");
+//        ShadowLog.stream = System.out;
 
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().start().resume().visible().get();
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().postResume().visible().get();
@@ -59,16 +66,27 @@ public class MNMainButtonLayoutTest {
         });
     }
 
+
+    */
+
+    /*
     @Test
-    @Config(qualifiers="land")
+    @Config(qualifiers="large-1280x720-land")
     public void checkButtonLayoutHeightOnLandscape() throws Exception {
+
+        Resources resources = mainActivity.getResources();
+        AdSize adSize = AdSize.createAdSize(AdSize.BANNER, mainActivity);
+        float expectedHeight = adSize.getHeightInPixels(mainActivity) + resources.getDimension(R.dimen.margin_outer) * 2;
+        assertThat(mainActivity.getButtonLayout().getHeight(), is((int) expectedHeight));
+
         MNViewSizeMeasure.setViewSizeObserver(mainActivity.getButtonLayout(), new MNViewSizeMeasure.OnGlobalLayoutObserver() {
             @Override
-            public void onLayoutLoad(Point size) {
+            public void onLayoutLoad() {
+
                 // 1. 광고가 있는 경우: SMART_BANNER의 높이 + inner margin * 2가 되어야 한다.
                 Resources resources = mainActivity.getResources();
-                AdSize adSize = AdSize.createAdSize(AdSize.SMART_BANNER, mainActivity);
-                float expectedHeight = adSize.getHeight() + resources.getDimension(R.dimen.margin_outer) * 2;
+                AdSize adSize = AdSize.createAdSize(AdSize.BANNER, mainActivity);
+                float expectedHeight = adSize.getHeightInPixels(mainActivity) + resources.getDimension(R.dimen.margin_outer) * 2;
                 assertThat(mainActivity.getButtonLayout().getHeight(), is((int) expectedHeight));
 
                 // 2. 광고가 없는 경우: main_button_layout_height
@@ -81,6 +99,7 @@ public class MNMainButtonLayoutTest {
      * Adview
      */
 
+    /*
     @Test
     @Config(qualifiers="port")
     // Portrait 모드에서는 ButtonLayout 안에 속해 있어야함
@@ -88,4 +107,5 @@ public class MNMainButtonLayoutTest {
     public void checkAdmobViewNotInButtonLayoutOnPortrait() throws Exception {
         assertThat(mainActivity.getButtonLayout().findViewById(R.id.adView), nullValue());
     }
+    */
 }

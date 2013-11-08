@@ -1,11 +1,6 @@
 package com.yooiistudios.morningkit.main;
 
-import android.content.res.Resources;
-import android.graphics.Point;
-
-import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.common.MNViewSizeMeasure;
+import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
@@ -13,12 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by StevenKim on 2013. 11. 4..
@@ -40,6 +29,10 @@ public class MNMainAdmobLayoutTest {
     /**
      * ETC
      */
+    @Test
+    public void calculateAdmobLayoutWidth() {
+        // AdView의 width가 
+    }
 //    @Test
 //    @Config(qualifiers="port")
 //    public void checkAdmobLayoutWidthOnPortrait() throws Exception {
@@ -94,12 +87,14 @@ public class MNMainAdmobLayoutTest {
 
     */
 
+    /*
     @Test
     @Config(qualifiers="port")
     // Portrait 모드에서는 AdmobLayout 안에 속해 있어야함
     public void checkAdmobViewInAdmobLayoutOnPortrait() throws Exception {
         assertThat(mainActivity.getAdmobLayout().findViewById(R.id.adView), notNullValue());
     }
+    */
 
     /*
     @Test

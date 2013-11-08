@@ -4,7 +4,7 @@ package com.yooiistudios.morningkit.main;
 import android.widget.RelativeLayout;
 
 import com.google.ads.AdView;
-import com.yooiistudios.morningkit.RobolectricGradleTestRunner;
+import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
