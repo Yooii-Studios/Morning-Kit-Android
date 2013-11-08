@@ -1,14 +1,9 @@
 package com.yooiistudios.morningkit.main;
 
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.ViewManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -139,13 +134,16 @@ public class MNMainActivity extends Activity implements AdListener
             case Configuration.ORIENTATION_PORTRAIT: {
                 // 위젯
                 LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mWidgetWindowLayout.getLayoutParams();
-                widgetWindowLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
-                float widgetWindowHeight = getResources().getDimension(R.dimen.widget_height) * 2
-                        + getResources().getDimension(R.dimen.margin_outer)
-                        + getResources().getDimension(R.dimen.margin_outer)
-                        + getResources().getDimension(R.dimen.margin_inner);
-                widgetWindowLayoutParams.height = (int)widgetWindowHeight;
-                mWidgetWindowLayout.setLayoutParams(widgetWindowLayoutParams);
+                float widgetWindowHeight = 0;
+                if (widgetWindowLayoutParams != null) {
+                    widgetWindowLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                    widgetWindowHeight = getResources().getDimension(R.dimen.widget_height) * 2
+                            + getResources().getDimension(R.dimen.margin_outer)
+                            + getResources().getDimension(R.dimen.margin_outer)
+                            + getResources().getDimension(R.dimen.margin_inner);
+                    widgetWindowLayoutParams.height = (int)widgetWindowHeight;
+                    mWidgetWindowLayout.setLayoutParams(widgetWindowLayoutParams);
+                }
 
                 // 로그 테스트
 //                mWidgetWindowLayout.post(new Runnable() {
@@ -157,20 +155,26 @@ public class MNMainActivity extends Activity implements AdListener
 
                 // 알람
                 LinearLayout.LayoutParams alarmListViewLayoutParams = (LinearLayout.LayoutParams) mAlarmListView.getLayoutParams();
-                alarmListViewLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
-                float alarmListViewHeight = MNDeviceSizeChecker.getDeviceHeight(this) - widgetWindowHeight;
-                alarmListViewLayoutParams.height = (int)alarmListViewHeight;
-                mAlarmListView.setLayoutParams(alarmListViewLayoutParams);
+                if (alarmListViewLayoutParams != null) {
+                    alarmListViewLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                    float alarmListViewHeight = MNDeviceSizeChecker.getDeviceHeight(this) - widgetWindowHeight;
+                    alarmListViewLayoutParams.height = (int)alarmListViewHeight;
+                    mAlarmListView.setLayoutParams(alarmListViewLayoutParams);
+                }
 
                 // 버튼
-                RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams();
-                buttonLayoutParams.height = (int)getResources().getDimension(R.dimen.main_button_layout_height);
-                mButtonLayout.setLayoutParams(buttonLayoutParams);
+                final RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams();
+                if (buttonLayoutParams != null) {
+                    buttonLayoutParams.height = (int)getResources().getDimension(R.dimen.main_button_layout_height);
+                    mButtonLayout.setLayoutParams(buttonLayoutParams);
+                }
 
                 // 애드몹 레이아웃
-                RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
-                admobLayoutParams.height = (int)getResources().getDimension(R.dimen.main_admob_layout_height);
-                mAdmobLayout.setLayoutParams(admobLayoutParams);
+                final RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
+                if (admobLayoutParams != null) {
+                    admobLayoutParams.height = (int)getResources().getDimension(R.dimen.main_admob_layout_height);
+                    mAdmobLayout.setLayoutParams(admobLayoutParams);
+                }
 
                 // 애드몹
                 // 버튼 레이아웃에 광고가 있을 경우 애드몹 레이아웃으로 옮기기
@@ -179,25 +183,24 @@ public class MNMainActivity extends Activity implements AdListener
                     mAdmobLayout.addView(mAdView);
                 }
 
-                // 애드몹레이아웃의 width를 체크
+                // 애드몹레이아웃의 width를 체크해 버튼레이아웃과 맞추어주기
                 MNViewSizeMeasure.setViewSizeObserver(mAdmobLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
                     @Override
                     public void onLayoutLoad() {
-                        Log.i(TAG, "mButtonLayout size: " + mAdmobLayout.getWidth());
-                        Log.i(TAG, "mAdmobLayout size: " + mAdmobLayout.getWidth());
                         AdSize adSize = AdSize.createAdSize(AdSize.BANNER, getBaseContext());
-                        Log.i(TAG, "adSize: " + adSize.getWidthInPixels(getBaseContext()));
-                        if (mAdmobLayout.getWidth() > adSize.getWidth()) {
-                            Log.i(TAG, "AdMobLayout.getWidth() is bigger than adSize.getWidth()");
-                            // 1. (버튼 레이아웃 - 마진*2)보다 광고뷰 width가 더 짧을 경우는 버튼 레이아웃에 맞추어줌
-                            Log.i(TAG, "mButtonLayout width: " + (mButtonLayout.getWidth() - getResources().getDimension(R.dimen.margin_main_button_layout) * 2));
-                            if (adSize.getWidthInPixels(getBaseContext()) <= (mButtonLayout.getWidth() - getResources().getDimension(R.dimen.margin_main_button_layout) * 2)) {
-                                Log.i(TAG, "adSize.getWidth() is shorter than buttonLayout.getWidth()");
-                                RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
-                                admobLayoutParams.leftMargin = ((RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams()).leftMargin;
-                                admobLayoutParams.rightMargin= ((RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams()).rightMargin;
-                                mAdmobLayout.setLayoutParams(admobLayoutParams);
+                        if (mAdmobLayout.getWidth() > adSize.getWidthInPixels(getBaseContext())) {
+//                            Log.i(TAG, "AdMobLayout.getWidth() is bigger than adSize.getWidth()");
+                            // 1. 버튼 레이아웃 width 보다 광고뷰 width가 더 짧을 경우는 버튼 레이아웃에 맞추어줌
+                            if (adSize.getWidthInPixels(getBaseContext()) <= mButtonLayout.getWidth()) {
+//                                Log.i(TAG, "adSize.getWidth() is shorter than buttonLayout.getWidth()");
+                                if (admobLayoutParams != null && buttonLayoutParams != null) {
+                                    admobLayoutParams.leftMargin = buttonLayoutParams.leftMargin;
+                                    admobLayoutParams.rightMargin= buttonLayoutParams.rightMargin;
+                                }
+                                // setLayoutParams 없이도 적용 가능
+//                                mAdmobLayout.setLayoutParams(admobLayoutParams);
                             }
+                            // 2. 더 넓을 경우는 match_parent 그대로 놔두어야 할듯(기본)
                         }
                     }
                 });
@@ -207,22 +210,24 @@ public class MNMainActivity extends Activity implements AdListener
 
                 // 애드몹 레이아웃
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
-                admobLayoutParams.height = 0;
-                mAdmobLayout.setLayoutParams(admobLayoutParams);
+                if (admobLayoutParams != null) {
+                    admobLayoutParams.height = 0;
+                    mAdmobLayout.setLayoutParams(admobLayoutParams);
+                }
 
                 // 버튼
                 RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams();
-                buttonLayoutParams.height =
-                        (int)(getResources().getDimension(R.dimen.main_button_layout_height) + getResources().getDimension(R.dimen.margin_outer)*2);
-                mButtonLayout.setLayoutParams(buttonLayoutParams);
+                if (buttonLayoutParams != null) {
+                    buttonLayoutParams.height =
+                            (int)(getResources().getDimension(R.dimen.main_button_layout_height) + getResources().getDimension(R.dimen.margin_outer)*2);
+                    mButtonLayout.setLayoutParams(buttonLayoutParams);
+                }
 
                 // 애드몹
                 // Landscape 모드에서 버튼 레이아웃으로 광고 옮기기
-                Log.i(TAG, mAdView.getRootView().toString());
                 if (mAdmobLayout.findViewById(R.id.adView) != null) {
                     mAdmobLayout.removeView(mAdView);
                     mButtonLayout.addView(mAdView);
-                    Log.i(TAG, mAdView.getRootView().toString());
                 }
                 if (mAdmobLayout.findViewById(R.id.adView) != null) {
                     Log.i(TAG, "adview is in admob Layout");
