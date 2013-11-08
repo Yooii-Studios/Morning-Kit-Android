@@ -20,13 +20,13 @@
             android:layout_height="match_parent"
             android:background="#444444">
 
-            <com.yooii.morningkit.main.MNWidgetWindowLayout
+            <com.yooiistudios.morningkit.main.MNWidgetWindowLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/main_widget_window_layout_height"
                 android:background="#ffaaaa"
                 android:id="@+id/main_widget_window_layout" />
 
-            <com.yooii.morningkit.main.MNMainAlarmListView
+            <com.yooiistudios.morningkit.main.MNMainAlarmListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#4444dd"

@@ -1,18 +1,8 @@
-package com.yooii.morningkit.main;
+package com.yooiistudios.morningkit.main;
 
-import android.content.res.Resources;
-import android.graphics.Point;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.ViewTreeObserver;
-import android.widget.RelativeLayout;
-
-import com.google.ads.AdSize;
-import com.yooii.morningkit.MN;
-import com.yooii.morningkit.R;
-import com.yooii.morningkit.RobolectricGradleTestRunner;
-import com.yooii.morningkit.common.MNViewSizeMeasure;
-import com.yooii.morningkit.main.admob.AdWebViewShadow;
+import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.RobolectricGradleTestRunner;
+import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.yooii.morningkit.common;
+package com.yooiistudios.morningkit.common;
 
 /**
  * Created by yongbinbae on 2013. 10. 24..

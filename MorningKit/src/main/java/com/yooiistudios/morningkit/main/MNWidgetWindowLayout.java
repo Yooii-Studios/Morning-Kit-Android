@@ -1,4 +1,4 @@
-package com.yooii.morningkit.main;
+package com.yooiistudios.morningkit.main;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,8 +10,8 @@ import android.view.Display;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.yooii.morningkit.MN;
-import com.yooii.morningkit.common.DipToPixel;
+import com.yooiistudios.morningkit.MN;
+import com.yooiistudios.morningkit.common.DipToPixel;
 
 /**
  * Created by yongbinbae on 13. 10. 22..

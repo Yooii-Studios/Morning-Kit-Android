@@ -35,7 +35,7 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 18
-        packageName "com.yooii.morningkit"
+        packageName "com.yooiistudios.morningkit"
     }
 
     sourceSets {

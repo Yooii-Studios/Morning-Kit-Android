@@ -1,11 +1,7 @@
-package com.yooii.morningkit.main;
+package com.yooiistudios.morningkit.main;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 /**

@@ -1,9 +1,13 @@
-package com.yooii.morningkit.main;
+package com.yooiistudios.morningkit.main;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.ViewManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -12,9 +16,9 @@ import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
-import com.yooii.morningkit.MN;
-import com.yooii.morningkit.R;
-import com.yooii.morningkit.common.MNDeviceSizeChecker;
+import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.MNDeviceSizeChecker;
+import com.yooiistudios.morningkit.common.MNViewSizeMeasure;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -57,6 +61,19 @@ public class MNMainActivity extends Activity implements AdListener
 //        mAdView = new AdView(this, AdSize.BANNER, MN.ads.ADMOB_ID);
 //        mAdmobLayout.addView(mAdView);
 //        mAdView.loadAd(new AdRequest());
+
+
+        // 이전 버전
+        // 먼저 세로 모드에서 로딩하고 가로로 돌린다.
+        /*
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Handler pauser = new Handler();
+        pauser.postDelayed(new Runnable() {
+            public void run() {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+            }
+        }, 100);
+        */
 
         // 최초 실행시는 회전 감지를 안하기에, 명시적으로 최초 한번은 해줌
         onConfigurationChanged(getResources().getConfiguration());
@@ -160,6 +177,17 @@ public class MNMainActivity extends Activity implements AdListener
                     mButtonLayout.removeView(mAdView);
                     mAdmobLayout.addView(mAdView);
                 }
+
+                // 애드몹레이아웃의 width를 체크
+//                MNViewSizeMeasure.setViewSizeObserver(mAdmobLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+//                    @Override
+//                    public void onLayoutLoad(Point size) {
+//                        AdSize adSize = AdSize.createAdSize(AdSize.BANNER, getBaseContext());
+//                        if (mAdmobLayout.getWidth() > adSize.getWidth()) {
+//
+//                        }
+//                    }
+//                });
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {

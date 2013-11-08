@@ -1,4 +1,4 @@
-package com.yooii.morningkit.main.admob;
+package com.yooiistudios.morningkit.main.admob;
 
 import com.google.ads.internal.AdWebView;
 

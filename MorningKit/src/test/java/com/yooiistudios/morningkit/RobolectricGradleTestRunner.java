@@ -1,4 +1,4 @@
-package com.yooii.morningkit;
+package com.yooiistudios.morningkit;
 
 import org.junit.runners.model.InitializationError;
 import org.robolectric.AndroidManifest;

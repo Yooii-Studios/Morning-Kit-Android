@@ -1,4 +1,4 @@
-package com.yooii.morningkit;
+package com.yooiistudios.morningkit;
 
 import org.robolectric.bytecode.ClassInfo;
 import org.robolectric.bytecode.Setup;

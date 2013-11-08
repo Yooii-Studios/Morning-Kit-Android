@@ -1,4 +1,4 @@
-package com.yooii.morningkit.common;
+package com.yooiistudios.morningkit.common;
 
 import android.graphics.Point;
 import android.os.Build;
