@@ -132,7 +132,9 @@ public class MNMainActivity extends Activity implements AdListener
 
         switch (newConfig.orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
-                // 위젯
+                // 스크롤뷰
+
+                // 위젯윈도우 레이아웃
                 LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mWidgetWindowLayout.getLayoutParams();
                 float widgetWindowHeight = 0;
                 if (widgetWindowLayoutParams != null) {
@@ -153,7 +155,7 @@ public class MNMainActivity extends Activity implements AdListener
 //                    }
 //                });
 
-                // 알람
+                // 알람 리스트뷰
                 LinearLayout.LayoutParams alarmListViewLayoutParams = (LinearLayout.LayoutParams) mAlarmListView.getLayoutParams();
                 if (alarmListViewLayoutParams != null) {
                     alarmListViewLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -207,6 +209,12 @@ public class MNMainActivity extends Activity implements AdListener
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
+
+                // 스크롤뷰
+
+                // 위젯윈도우 레이아웃
+
+                // 알람 리스트뷰
 
                 // 애드몹 레이아웃
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
