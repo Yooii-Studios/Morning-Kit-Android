@@ -43,8 +43,8 @@
         android:layout_above="@+id/main_admob_layout"
         android:layout_marginLeft="@dimen/margin_main_button_layout"
         android:layout_marginRight="@dimen/margin_main_button_layout"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
+        android:paddingLeft="@dimen/padding_main_button_layout"
+        android:paddingRight="@dimen/padding_main_button_layout"
         android:background="#777777">
 
         <ImageView
@@ -71,7 +71,6 @@
         xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
         android:layout_width="match_parent"
         android:layout_height="50dip"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:id="@+id/main_admob_layout"
         android:background="#77ff77">
