@@ -35,20 +35,19 @@ public class MNViewSizeMeasure {
     }
 
     private static void removeGlobalLayoutListener(View view, ViewTreeObserver.OnGlobalLayoutListener listener){
-
         ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
         if (viewTreeObserver != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                removeGlobalOnLayoutListenerOverAPI16(view, listener);
+                view.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
             } else {
-                view.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
+                removeGlobalOnLayoutListenerUnderAPI16(view, listener);
             }
         }
     }
-    private static void removeGlobalOnLayoutListenerOverAPI16(View view, ViewTreeObserver.OnGlobalLayoutListener listener){
+    private static void removeGlobalOnLayoutListenerUnderAPI16(View view, ViewTreeObserver.OnGlobalLayoutListener listener){
         ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
         if (viewTreeObserver != null) {
-            view.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
+            view.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
         }
     }
 }
