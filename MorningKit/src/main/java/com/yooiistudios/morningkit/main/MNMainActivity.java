@@ -179,15 +179,16 @@ public class MNMainActivity extends Activity implements AdListener
                 }
 
                 // 애드몹레이아웃의 width를 체크
-//                MNViewSizeMeasure.setViewSizeObserver(mAdmobLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
-//                    @Override
-//                    public void onLayoutLoad(Point size) {
-//                        AdSize adSize = AdSize.createAdSize(AdSize.BANNER, getBaseContext());
-//                        if (mAdmobLayout.getWidth() > adSize.getWidth()) {
-//
-//                        }
-//                    }
-//                });
+                MNViewSizeMeasure.setViewSizeObserver(mAdmobLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+                    @Override
+                    public void onLayoutLoad() {
+                        AdSize adSize = AdSize.createAdSize(AdSize.BANNER, getBaseContext());
+                        Log.i(TAG, "adSize: " + adSize);
+                        if (mAdmobLayout.getWidth() > adSize.getWidth()) {
+                            Log.i(TAG, "AdMobLayout.getWidth() is bigger than adSize.getWidth()");
+                        }
+                    }
+                });
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
