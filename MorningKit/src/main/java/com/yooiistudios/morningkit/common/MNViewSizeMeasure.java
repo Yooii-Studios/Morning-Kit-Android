@@ -11,7 +11,7 @@ import android.view.ViewTreeObserver;
 public class MNViewSizeMeasure {
 
     public interface OnGlobalLayoutObserver {
-        public void onLayoutLoad(Point size);
+        public void onLayoutLoad();
     }
 
     public static void setViewSizeObserver(final View view, final OnGlobalLayoutObserver listener) {
@@ -21,11 +21,13 @@ public class MNViewSizeMeasure {
                 @Override
                 public void onGlobalLayout() {
                     removeGlobalLayoutListener(view, this);
-                    Point viewSize = new Point();
-                    viewSize.x = view.getWidth();
-                    viewSize.y = view.getHeight();
+
+                    // 사이즈는 필요하면 getWidth()와 getHeight()로 구할 수 있음
+//                    Point viewSize = new Point();
+//                    viewSize.x = view.getWidth();
+//                    viewSize.y = view.getHeight();
                     if (listener != null) {
-                        listener.onLayoutLoad(viewSize);
+                        listener.onLayoutLoad();
                     }
                 }
             });
@@ -37,13 +39,13 @@ public class MNViewSizeMeasure {
         ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
         if (viewTreeObserver != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                view.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
+                removeGlobalOnLayoutListenerOverAPI16(view, listener);
             } else {
-                removeGlobalOnLayoutListenerOverAPI13(view, listener);
+                view.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
             }
         }
     }
-    private static void removeGlobalOnLayoutListenerOverAPI13(View view, ViewTreeObserver.OnGlobalLayoutListener listener){
+    private static void removeGlobalOnLayoutListenerOverAPI16(View view, ViewTreeObserver.OnGlobalLayoutListener listener){
         ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
         if (viewTreeObserver != null) {
             view.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
