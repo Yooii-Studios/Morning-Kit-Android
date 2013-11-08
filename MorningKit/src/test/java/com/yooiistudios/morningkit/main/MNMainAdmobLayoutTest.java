@@ -1,7 +1,11 @@
 package com.yooiistudios.morningkit.main;
 
+import android.content.res.Resources;
+import android.graphics.Point;
+
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.RobolectricGradleTestRunner;
+import com.yooiistudios.morningkit.common.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
@@ -14,6 +18,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by StevenKim on 2013. 11. 4..
@@ -78,13 +83,15 @@ public class MNMainAdmobLayoutTest {
         // 가로는 무조건 이 레이아웃이 0이어야만 한다.
         MNViewSizeMeasure.setViewSizeObserver(mainActivity.getAdmobLayout(), new MNViewSizeMeasure.OnGlobalLayoutObserver() {
             @Override
-            public void onLayoutLoad(Point size) {
-                Resources resources = mainActivity.getResources();
+            public void onLayoutLoad() {
+                assertThat(mainActivity.getAdmobLayout().getHeight(), is((int) 100));
+                assertTrue(false);
                 float expectedHeight = 0;
                 assertThat(mainActivity.getAdmobLayout().getHeight(), is((int) expectedHeight));
             }
         });
     }
+
     */
 
     @Test
