@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.main;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
@@ -182,10 +183,21 @@ public class MNMainActivity extends Activity implements AdListener
                 MNViewSizeMeasure.setViewSizeObserver(mAdmobLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
                     @Override
                     public void onLayoutLoad() {
+                        Log.i(TAG, "mButtonLayout size: " + mAdmobLayout.getWidth());
+                        Log.i(TAG, "mAdmobLayout size: " + mAdmobLayout.getWidth());
                         AdSize adSize = AdSize.createAdSize(AdSize.BANNER, getBaseContext());
-                        Log.i(TAG, "adSize: " + adSize);
+                        Log.i(TAG, "adSize: " + adSize.getWidthInPixels(getBaseContext()));
                         if (mAdmobLayout.getWidth() > adSize.getWidth()) {
                             Log.i(TAG, "AdMobLayout.getWidth() is bigger than adSize.getWidth()");
+                            // 1. (버튼 레이아웃 - 마진*2)보다 광고뷰 width가 더 짧을 경우는 버튼 레이아웃에 맞추어줌
+                            Log.i(TAG, "mButtonLayout width: " + (mButtonLayout.getWidth() - getResources().getDimension(R.dimen.margin_main_button_layout) * 2));
+                            if (adSize.getWidthInPixels(getBaseContext()) <= (mButtonLayout.getWidth() - getResources().getDimension(R.dimen.margin_main_button_layout) * 2)) {
+                                Log.i(TAG, "adSize.getWidth() is shorter than buttonLayout.getWidth()");
+                                RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
+                                admobLayoutParams.leftMargin = ((RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams()).leftMargin;
+                                admobLayoutParams.rightMargin= ((RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams()).rightMargin;
+                                mAdmobLayout.setLayoutParams(admobLayoutParams);
+                            }
                         }
                     }
                 });
