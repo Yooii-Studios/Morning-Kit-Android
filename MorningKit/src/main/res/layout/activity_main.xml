@@ -22,7 +22,7 @@
 
             <com.yooii.morningkit.main.MNWidgetWindowLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/widget_height"
+                android:layout_height="@dimen/main_widget_window_layout_height"
                 android:background="#ffaaaa"
                 android:id="@+id/main_widget_window_layout" />
 
@@ -80,7 +80,7 @@
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            ads:adSize="SMART_BANNER"
+            ads:adSize="BANNER"
             ads:adUnitId="a15278abca8d8ec"
             ads:loadAdOnCreate="true"
             android:gravity="center_horizontal" />
