@@ -1,55 +1,127 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots/'
-        }
+        mavenLocal()
+//        maven {
+//            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+//            url 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+//        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.6.+'
 
         // Jake Wharton이 에러를 수정해서 mavenCentral이 아닌 다른 곳에 SNAPSHOT 버전을 만들어 해결함
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
-        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.1-SNAPSHOT'
+//        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.1-SNAPSHOT'
+
+        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.1'
+//        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.+'
+//        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.1-SNAPSHOT'
     }
 }
 
 apply plugin: 'android'
-apply plugin: 'android-test'
+//apply plugin: 'android-test'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 android {
     compileSdkVersion 18
-    buildToolsVersion "17.0.0"
+    buildToolsVersion "18.1.1"
 
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 18
+        packageName "com.yooiistudios.morningkit"
+    }
+
+    sourceSets {
+        instrumentTest.setRoot('src/test')
     }
 }
 
+// 출시전까지 주석
+apply plugin: 'android-unit-test'
+//apply plugin: 'android-instrumentTest'
+
 dependencies {
+    repositories {
+        mavenCentral()
+    }
+    // 안드로이드 기본
     compile 'com.android.support:support-v4:18.0.+'
 	compile 'com.android.support:appcompat-v7:+'
+
+    // 필요한 라이브러리들
+    // 아래와 같은 방식으로도 가능하지만(maven 방식), 짧게 사용함
+//    compile group:'com.github.kevinsawicki', name:'wishlist', version:'0.9'
+
+    // JSON 관련 유명한 라이브러리
     compile 'com.google.code.gson:gson:2.2.4'
-    compile group:'com.squareup.picasso', name:'picasso', version:'2.1.1'
-    compile group:'com.squareup.okhttp', name:'okhttp', version:'1.2.1'
-    compile group:'com.squareup', name:'otto', version:'1.3.4'
+
+    // 이미지 로딩 관련 유명
+    compile 'com.squareup.picasso:picasso:2.1.1'
+
+    // http 관련
+    compile 'com.squareup.okhttp:okhttp:1.2.1'
+
+
+    //////////////////////////////////////////////////////////////
+    // http://changyeopkim.blogspot.kr/2013/05/android.html 참고 //
+    //////////////////////////////////////////////////////////////
+
+    // 믿고쓰는 스퀘어산 이벤트 버스. Activity Result를 통해서 번들을 주고 받거나 하지 않아서 편리
+    // http://square.github.com/otto/
+    compile 'com.squareup:otto:1.3.4'
 
     // 뷰 관련 코드를 깔끔하게 정리. 에버노트에서 관련 내용 찾을 것
-    compile group:'com.jakewharton', name:'butterknife', version:'3.0.0'
+    compile 'com.jakewharton:butterknife:3.0.0'
 
     // HttpURLConnection을 깔끔하게 정리
-    compile group:'com.github.kevinsawicki', name:'http-request', version:'5.4.1'
+    // https://github.com/kevinsawicki/http-request
+    compile 'com.github.kevinsawicki:http-request:5.4.1'
+
+    // 안드로이드 SDK에서 지원하지 않지만 제작자가 원하는 기능들이 포함(조사 필요?)
+    // https://github.com/kevinsawicki/wishlist
+    // 이것 때문에 실행이 안되었음
+//    compile 'com.github.kevinsawicki:wishlist:0.9'
+
+    // xml 시리얼, 디시리얼라이즈 관련
+//    http://simple.sourceforge.net/home.php
+//    compile 'org.simpleframework:simple-xml:2.7.1'
 
 //    compile files('libs/AppRate_1.1.jar');
+    // 모든 jar 파일 로딩
     compile fileTree(dir: 'libs', include: '*.jar')
 
-    // test 관련
+    // TEST
     testCompile 'junit:junit:4.10'
-    testCompile 'org.robolectric:robolectric:2.1.+'
+    testCompile 'org.robolectric:robolectric:2.2'
     testCompile 'com.squareup:fest-android:1.0.+'
+
+    instrumentTestCompile 'junit:junit:4.10'
+    instrumentTestCompile 'org.robolectric:robolectric:2.2'
+    instrumentTestCompile 'com.squareup:fest-android:1.0.+'
+}
+
+// 소스를 UTF-8로 컴파일, ../gradlew clean check 로 테스트할 경우 한글주석관련 warning을 없애기 위함
+// 되도록이면 Android Studio의 encoding도 전부 UTF-8로 설정해주자
+// https://code.google.com/p/android/issues/detail?id=55750
+tasks.withType(Compile) {
+    options.encoding = "UTF-8"
+}
+
+//apply plugin: 'java'
+//
+//task instrumentTest(type: Test, dependsOn: test) {
+//    include '**/*Simple*'
+//}
+
+tasks.withType(Test) {
+    testLogging {
+        events 'started', 'passed'
+    }
 }

@@ -11,61 +11,79 @@
         android:layout_height="match_parent"
         android:id="@+id/main_scroll_view"
         android:layout_gravity="left|top"
-        android:fillViewport="false"
-        android:background="#000000" >
+        android:fillViewport="true"
+        android:background="#000000">
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#444444">
 
-            <view
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                class="com.yooii.morningkit.main.MNWidgetWindowView"
-                android:id="@+id/widget_window_view" />
+            <com.yooiistudios.morningkit.main.MNWidgetWindowLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_widget_window_layout_height"
+                android:background="#ffaaaa"
+                android:id="@+id/main_widget_window_layout" />
 
-            <view
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                class="com.yooii.morningkit.main.MNMainAlarmListView"
-                android:id="@+id/alarm_list_view" />
+            <com.yooiistudios.morningkit.main.MNMainAlarmListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#4444dd"
+                android:id="@+id/main_alarm_list_view" />
+
         </LinearLayout>
     </ScrollView>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="48dip"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_button_layout_height"
+        android:id="@+id/main_button_layout"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/admobview">
+        android:layout_above="@+id/main_admob_layout"
+        android:layout_marginLeft="@dimen/margin_main_button_layout"
+        android:layout_marginRight="@dimen/margin_main_button_layout"
+        android:paddingLeft="@dimen/padding_main_button_layout"
+        android:paddingRight="@dimen/padding_main_button_layout"
+        android:background="#777777">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:id="@+id/main_refresh_image"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@drawable/icon_refresh_off_s3"
             android:scaleType="fitCenter"
-            android:layout_alignParentStart="false"
-            />
+            android:layout_alignParentStart="false" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:id="@+id/main_configure_image"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/icon_setting_off_s3"
-            android:scaleType="fitCenter"
-            android:id="@+id/imageView2" />
+            android:scaleType="fitCenter"/>
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+        android:layout_width="match_parent"
         android:layout_height="50dip"
         android:layout_alignParentBottom="true"
-        android:id="@+id/admobview"
-        android:layout_alignParentLeft="true"
-        />
+        android:id="@+id/main_admob_layout"
+        android:background="#77ff77">
+
+        <com.google.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ads:adSize="BANNER"
+            ads:adUnitId="a15278abca8d8ec"
+            ads:loadAdOnCreate="true"
+            android:gravity="center_horizontal" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
