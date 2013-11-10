@@ -146,6 +146,9 @@ public class MNMainActivity extends Activity implements AdListener
         // 애드몹 레이아웃
         MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(mAdmobLayout, newConfig.orientation);
 
+        // 애드뷰 방향에 따라 위치 옮기기
+        MNMainLayoutSetter.adjustAdmobViewAtOrientation(this, newConfig.orientation);
+
         switch (newConfig.orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
 
@@ -155,13 +158,6 @@ public class MNMainActivity extends Activity implements AdListener
                 if (alarmListViewLayoutParams != null) {
                     float alarmListViewHeight = MNDeviceSizeChecker.getDeviceHeight(this) - mWidgetWindowLayout.getLayoutParams().height;
                     alarmListViewLayoutParams.height = (int)alarmListViewHeight;
-                }
-
-                // 애드몹
-                // 버튼 레이아웃에 광고가 있을 경우 애드몹 레이아웃으로 옮기기
-                if (mButtonLayout.findViewById(R.id.adView) != null) {
-                    mButtonLayout.removeView(mAdView);
-                    mAdmobLayout.addView(mAdView);
                 }
 
                 // 애드몹레이아웃의 width를 체크해 버튼레이아웃과 맞추어주기
@@ -193,13 +189,6 @@ public class MNMainActivity extends Activity implements AdListener
                 // Gone: 안보이고 차지한 공간도 사라짐
                 // INVISIBLE: 안보이지만 공간은 차지함
                 mAlarmListView.setVisibility(View.GONE);
-
-                // 애드몹
-                // Landscape 모드에서 버튼 레이아웃으로 광고 옮기기
-                if (mAdmobLayout.findViewById(R.id.adView) != null) {
-                    mAdmobLayout.removeView(mAdView);
-                    mButtonLayout.addView(mAdView);
-                }
                 break;
             }
         }

@@ -1,6 +1,5 @@
 package com.yooiistudios.morningkit.main.layout;
 
-import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.util.Log;
@@ -8,9 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import com.google.ads.AdView;
-import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.MNWidgetWindowLayout;
 
 /**
@@ -143,7 +141,22 @@ public class MNMainLayoutSetter {
         }
     }
 
-    public static void adjustAdmobViewAtOrientation(AdView adView, int orientation) {
-
+    public static void adjustAdmobViewAtOrientation(MNMainActivity mainActivity, int orientation) {
+        switch (orientation) {
+            // 버튼 레이아웃에 광고가 있을 경우 애드몹 레이아웃으로 옮기기
+            case Configuration.ORIENTATION_PORTRAIT:
+                if (mainActivity.getButtonLayout().findViewById(R.id.adView) != null) {
+                    mainActivity.getButtonLayout().removeView(mainActivity.getAdView());
+                    mainActivity.getAdmobLayout().addView(mainActivity.getAdView());
+                }
+                break;
+            // Landscape 모드에서 버튼 레이아웃으로 광고 옮기기
+            case Configuration.ORIENTATION_LANDSCAPE:
+                if (mainActivity.getAdmobLayout().findViewById(R.id.adView) != null) {
+                    mainActivity.getAdmobLayout().removeView(mainActivity.getAdView());
+                    mainActivity.getButtonLayout().addView(mainActivity.getAdView());
+                }
+                break;
+        }
     }
 }
