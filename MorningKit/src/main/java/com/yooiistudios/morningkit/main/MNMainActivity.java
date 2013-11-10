@@ -134,29 +134,18 @@ public class MNMainActivity extends Activity implements AdListener
 
         // 스크롤뷰
         MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(mScrollView, newConfig.orientation);
-
         // 위젯윈도우 레이아웃
         MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(mWidgetWindowLayout, newConfig.orientation);
-
         // 버튼 레이아웃
         MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(mButtonLayout, newConfig.orientation);
-
         // 애드몹 레이아웃
         MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(mAdmobLayout, newConfig.orientation);
-
         // 애드뷰 방향에 따라 위치 옮기기
         MNMainLayoutSetter.adjustAdmobViewAtOrientation(this, newConfig.orientation);
-
         // 애드몹 레이아웃 width 체크
         MNMainLayoutSetter.checkAdmobLayoutWidthAndAdjust(mAdmobLayout, mButtonLayout, newConfig.orientation);
-
         // 알람 리스트뷰
         MNMainLayoutSetter.adjustAlarmListView(mAlarmListView, mWidgetWindowLayout, newConfig.orientation);
-
-//        Log.i(TAG, "widgetWindowLayout height:" + mWidgetWindowLayout.getHeight());
-//        Log.i(TAG, "alarmListView height:" + mAlarmListView.getHeight());
-//        Log.i(TAG, "buttonLayout height:" + mButtonLayout.getHeight());
-//        Log.i(TAG, "admobLayout height:" + mAdmobLayout.getHeight());
     }
 
     /**
