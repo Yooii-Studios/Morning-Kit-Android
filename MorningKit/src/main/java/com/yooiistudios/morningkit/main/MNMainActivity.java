@@ -137,25 +137,16 @@ public class MNMainActivity extends Activity implements AdListener
         switch (newConfig.orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 // 스크롤뷰
-                MNMainLayout.adjustScrollViewLayoutparamsOnOrientation(mScrollView, newConfig.orientation);
+                MNMainLayout.adjustScrollViewLayoutParamsOnOrientation(mScrollView, newConfig.orientation);
 
                 // 위젯윈도우 레이아웃
-                LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mWidgetWindowLayout.getLayoutParams();
-                float widgetWindowHeight = 0;
-                if (widgetWindowLayoutParams != null) {
-                    widgetWindowLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
-                    widgetWindowHeight = getResources().getDimension(R.dimen.widget_height) * 2
-                            + getResources().getDimension(R.dimen.margin_outer)
-                            + getResources().getDimension(R.dimen.margin_outer)
-                            + getResources().getDimension(R.dimen.margin_inner);
-                    widgetWindowLayoutParams.height = (int)widgetWindowHeight;
-                }
+                MNMainLayout.adjustWidgetLayoutParamsOnOrientation(mWidgetWindowLayout, newConfig.orientation);
 
                 // 알람 리스트뷰
                 mAlarmListView.setVisibility(View.VISIBLE);
                 LinearLayout.LayoutParams alarmListViewLayoutParams = (LinearLayout.LayoutParams) mAlarmListView.getLayoutParams();
                 if (alarmListViewLayoutParams != null) {
-                    float alarmListViewHeight = MNDeviceSizeChecker.getDeviceHeight(this) - widgetWindowHeight;
+                    float alarmListViewHeight = MNDeviceSizeChecker.getDeviceHeight(this) - mWidgetWindowLayout.getLayoutParams().height;
                     alarmListViewLayoutParams.height = (int)alarmListViewHeight;
                 }
 
@@ -202,14 +193,10 @@ public class MNMainActivity extends Activity implements AdListener
             case Configuration.ORIENTATION_LANDSCAPE: {
 
                 // 스크롤뷰
-                MNMainLayout.adjustScrollViewLayoutparamsOnOrientation(mScrollView, newConfig.orientation);
+                MNMainLayout.adjustScrollViewLayoutParamsOnOrientation(mScrollView, newConfig.orientation);
 
                 // 위젯윈도우 레이아웃
-                LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mWidgetWindowLayout.getLayoutParams();
-                float widgetWindowHeight = 0;
-                if (widgetWindowLayoutParams != null) {
-                    widgetWindowLayoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
-                }
+                MNMainLayout.adjustWidgetLayoutParamsOnOrientation(mWidgetWindowLayout, newConfig.orientation);
 
                 // 알람 리스트뷰
                 // Gone: 안보이고 차지한 공간도 사라짐

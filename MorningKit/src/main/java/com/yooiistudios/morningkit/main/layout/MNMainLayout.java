@@ -3,16 +3,21 @@ package com.yooiistudios.morningkit.main.layout;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.main.MNWidgetWindowLayout;
 
 /**
  * Created by StevenKim on 2013. 11. 10..
  */
 public class MNMainLayout {
-    public static void adjustScrollViewLayoutparamsOnOrientation(ScrollView scrollView, int orientation) {
+    private final static String TAG = "MNMainLayout";
+    public static void adjustScrollViewLayoutParamsOnOrientation(ScrollView scrollView, int orientation) {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) scrollView.getLayoutParams();
@@ -24,6 +29,8 @@ public class MNMainLayout {
                         scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, 0);
                     }
                     scrollViewLayoutParams.bottomMargin = 0;
+                }else{
+                    Log.d(TAG, "scrollViewLayoutParams is null");
                 }
                 break;
             }
@@ -35,7 +42,42 @@ public class MNMainLayout {
                     Context context = scrollView.getContext();
                     if (context != null) {
                         scrollViewLayoutParams.bottomMargin = (int)(context.getResources().getDimension(R.dimen.margin_outer) - context.getResources().getDimension(R.dimen.margin_inner));
+                    }else{
+                        Log.d(TAG, "context is null");
                     }
+                }
+                break;
+            }
+        }
+    }
+
+    public static void adjustWidgetLayoutParamsOnOrientation(MNWidgetWindowLayout widgetWindowLayout, int orientation) {
+        switch (orientation) {
+            case Configuration.ORIENTATION_PORTRAIT: {
+                LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) widgetWindowLayout.getLayoutParams();
+                if (widgetWindowLayoutParams != null) {
+                    widgetWindowLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                    Context context = widgetWindowLayout.getContext();
+                    if (context != null) {
+                        float widgetWindowHeight = context.getResources().getDimension(R.dimen.widget_height) * 2
+                                + context.getResources().getDimension(R.dimen.margin_outer)
+                                + context.getResources().getDimension(R.dimen.margin_outer)
+                                + context.getResources().getDimension(R.dimen.margin_inner);
+                        widgetWindowLayoutParams.height = (int)widgetWindowHeight;
+                    }else{
+                        Log.e(TAG, "context is null");
+                    }
+                }else{
+                    Log.e(TAG, "widgetWindowLayoutParams is null");
+                }
+                break;
+            }
+            case Configuration.ORIENTATION_LANDSCAPE: {
+                LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) widgetWindowLayout.getLayoutParams();
+                if (widgetWindowLayoutParams != null) {
+                    widgetWindowLayoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
+                }else{
+                    Log.e(TAG, "widgetWindowLayoutParams is null");
                 }
                 break;
             }
