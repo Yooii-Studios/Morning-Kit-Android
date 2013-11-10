@@ -2,6 +2,11 @@ package com.yooiistudios.morningkit.main;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RelativeLayout;
@@ -22,6 +27,7 @@ public class MNMainActivity extends Activity implements AdListener
 {
     private static final String TAG = "MNMainActivity";
 
+    @InjectView(R.id.main_container_layout) RelativeLayout mContainerLayout;
     @InjectView(R.id.main_scroll_view) ScrollView mScrollView;
     @InjectView(R.id.main_widget_window_layout) MNWidgetWindowLayout mWidgetWindowLayout;
     @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView mAlarmListView;
@@ -42,14 +48,8 @@ public class MNMainActivity extends Activity implements AdListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         // 기존의 레거시 코드 대신에 이 한줄로 findViewById를 모두 대체
         Views.inject(this);
-//        mWidgetWindowView = (MNWidgetWindowLayout) findViewById(R.id.main_widget_window_view);
-//        mAlarmListView = (MNMainAlarmListView) findViewById(R.id.main_alarm_list_view);
-//        mRelativeLayout = (RelativeLayout) findViewById(R.id.main_button_layout);
-//        mAdmobLayout = (RelativeLayout) findViewById(R.id.main_admob_layout);
 
         // 위젯 윈도우
         mWidgetWindowLayout.initWithWidgetMatrix();
@@ -90,7 +90,16 @@ public class MNMainActivity extends Activity implements AdListener
     protected void onResume()
     {
         // Activity visible to user
+        // 테마와 관련된 작업 실행
+        mContainerLayout.setBackgroundColor(Color.WHITE);
 
+        // 버튼 레이아웃
+        GradientDrawable buttonShape = (GradientDrawable)mButtonLayout.getBackground();
+        if (buttonShape != null) {
+            buttonShape.setColor(Color.parseColor("#BB000000"));
+        }
+        // 애드몹 레이아웃
+        mAdmobLayout.setBackgroundColor(Color.parseColor("#BB000000"));
         super.onResume();
     }
 
@@ -163,14 +172,15 @@ public class MNMainActivity extends Activity implements AdListener
     /**
      * Getter
      */
-    public RelativeLayout getButtonLayout() { return mButtonLayout; }
-    public RelativeLayout getAdmobLayout() { return mAdmobLayout; }
+    public RelativeLayout getmContainerLayout() { return mContainerLayout; }
+    public ScrollView getMainScrollView() { return mScrollView; }
     public MNWidgetWindowLayout getWidgetWindowLayout() {
         return mWidgetWindowLayout;
     }
     public MNMainAlarmListView getAlarmListView() { return mAlarmListView; }
+    public RelativeLayout getButtonLayout() { return mButtonLayout; }
+    public RelativeLayout getAdmobLayout() { return mAdmobLayout; }
     public AdView getAdView() { return mAdView; }
-    public ScrollView getMainScrollView() { return mScrollView; }
 
     /**
      * Admob
