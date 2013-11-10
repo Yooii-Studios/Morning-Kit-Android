@@ -12,11 +12,9 @@ import android.widget.ScrollView;
 import com.google.ads.Ad;
 import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
 import com.google.ads.AdView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.MNDeviceSizeChecker;
-import com.yooiistudios.morningkit.common.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
 import butterknife.InjectView;
@@ -149,49 +147,11 @@ public class MNMainActivity extends Activity implements AdListener
         // 애드뷰 방향에 따라 위치 옮기기
         MNMainLayoutSetter.adjustAdmobViewAtOrientation(this, newConfig.orientation);
 
-        switch (newConfig.orientation) {
-            case Configuration.ORIENTATION_PORTRAIT: {
+        // 애드몹 레이아웃 width 체크
+        MNMainLayoutSetter.checkAdmobLayoutWidthAndAdjust(mAdmobLayout, mButtonLayout, newConfig.orientation);
 
-                // 알람 리스트뷰
-                mAlarmListView.setVisibility(View.VISIBLE);
-                LinearLayout.LayoutParams alarmListViewLayoutParams = (LinearLayout.LayoutParams) mAlarmListView.getLayoutParams();
-                if (alarmListViewLayoutParams != null) {
-                    float alarmListViewHeight = MNDeviceSizeChecker.getDeviceHeight(this) - mWidgetWindowLayout.getLayoutParams().height;
-                    alarmListViewLayoutParams.height = (int)alarmListViewHeight;
-                }
-
-                // 애드몹레이아웃의 width를 체크해 버튼레이아웃과 맞추어주기
-                MNViewSizeMeasure.setViewSizeObserver(mAdmobLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
-                    @Override
-                    public void onLayoutLoad() {
-                        AdSize adSize = AdSize.createAdSize(AdSize.BANNER, getBaseContext());
-                        if (mAdmobLayout.getWidth() > adSize.getWidthInPixels(getBaseContext())) {
-//                            Log.i(TAG, "AdMobLayout.getWidth() is bigger than adSize.getWidth()");
-                            // 1. 버튼 레이아웃 width 보다 광고뷰 width가 더 짧을 경우는 버튼 레이아웃에 맞추어줌
-                            if (adSize.getWidthInPixels(getBaseContext()) <= mButtonLayout.getWidth()) {
-//                                Log.i(TAG, "adSize.getWidth() is shorter than buttonLayout.getWidth()");
-                                RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams();
-                                RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
-                                if (admobLayoutParams != null && buttonLayoutParams != null) {
-                                    admobLayoutParams.leftMargin = buttonLayoutParams.leftMargin;
-                                    admobLayoutParams.rightMargin= buttonLayoutParams.rightMargin;
-                                }
-                            }
-                            // 2. 더 넓을 경우는 match_parent 그대로 놔두어야 할듯(기본)
-                        }
-                    }
-                });
-                break;
-            }
-            case Configuration.ORIENTATION_LANDSCAPE: {
-
-                // 알람 리스트뷰
-                // Gone: 안보이고 차지한 공간도 사라짐
-                // INVISIBLE: 안보이지만 공간은 차지함
-                mAlarmListView.setVisibility(View.GONE);
-                break;
-            }
-        }
+        // 알람 리스트뷰
+        MNMainLayoutSetter.adjustAlarmListView(mAlarmListView, mWidgetWindowLayout, newConfig.orientation);
 
 //        Log.i(TAG, "widgetWindowLayout height:" + mWidgetWindowLayout.getHeight());
 //        Log.i(TAG, "alarmListView height:" + mAlarmListView.getHeight());
