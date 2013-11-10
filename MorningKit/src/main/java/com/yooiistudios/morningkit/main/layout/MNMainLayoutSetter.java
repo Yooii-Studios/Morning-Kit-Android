@@ -11,8 +11,8 @@ import android.widget.ScrollView;
 
 import com.google.ads.AdSize;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.MNDeviceSizeChecker;
-import com.yooiistudios.morningkit.common.MNViewSizeMeasure;
+import com.yooiistudios.morningkit.common.size.MNDeviceSizeChecker;
+import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.MNMainAlarmListView;
 import com.yooiistudios.morningkit.main.MNWidgetWindowLayout;

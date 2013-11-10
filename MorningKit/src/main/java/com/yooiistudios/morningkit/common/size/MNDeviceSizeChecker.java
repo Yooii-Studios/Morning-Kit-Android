@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.common;
+package com.yooiistudios.morningkit.common.size;
 
 import android.content.Context;
 import android.content.res.Configuration;
