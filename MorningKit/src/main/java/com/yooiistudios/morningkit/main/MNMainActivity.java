@@ -2,11 +2,9 @@ package com.yooiistudios.morningkit.main;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -14,11 +12,10 @@ import android.widget.ScrollView;
 import com.google.ads.Ad;
 import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
 import com.google.ads.AdView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.MNDeviceSizeChecker;
-import com.yooiistudios.morningkit.common.MNViewSizeMeasure;
+import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -28,7 +25,7 @@ public class MNMainActivity extends Activity implements AdListener
 {
     private static final String TAG = "MNMainActivity";
 
-    @InjectView(R.id.main_scroll_view) ScrollView mMainScrollView;
+    @InjectView(R.id.main_scroll_view) ScrollView mScrollView;
     @InjectView(R.id.main_widget_window_layout) MNWidgetWindowLayout mWidgetWindowLayout;
     @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView mAlarmListView;
     @InjectView(R.id.main_button_layout) RelativeLayout mButtonLayout;
@@ -135,129 +132,20 @@ public class MNMainActivity extends Activity implements AdListener
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        switch (newConfig.orientation) {
-            case Configuration.ORIENTATION_PORTRAIT: {
-                // 스크롤뷰
-                RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) mMainScrollView.getLayoutParams();
-                if (scrollViewLayoutParams != null) {
-                    // ABOVE 설정 삭제
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                        scrollViewLayoutParams.removeRule(RelativeLayout.ABOVE);
-                    }else{
-                        scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, 0);
-                    }
-                    scrollViewLayoutParams.bottomMargin = 0;
-                }
-
-                // 위젯윈도우 레이아웃
-                LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mWidgetWindowLayout.getLayoutParams();
-                float widgetWindowHeight = 0;
-                if (widgetWindowLayoutParams != null) {
-                    widgetWindowLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
-                    widgetWindowHeight = getResources().getDimension(R.dimen.widget_height) * 2
-                            + getResources().getDimension(R.dimen.margin_outer)
-                            + getResources().getDimension(R.dimen.margin_outer)
-                            + getResources().getDimension(R.dimen.margin_inner);
-                    widgetWindowLayoutParams.height = (int)widgetWindowHeight;
-                }
-
-                // 알람 리스트뷰
-                mAlarmListView.setVisibility(View.VISIBLE);
-                LinearLayout.LayoutParams alarmListViewLayoutParams = (LinearLayout.LayoutParams) mAlarmListView.getLayoutParams();
-                if (alarmListViewLayoutParams != null) {
-                    float alarmListViewHeight = MNDeviceSizeChecker.getDeviceHeight(this) - widgetWindowHeight;
-                    alarmListViewLayoutParams.height = (int)alarmListViewHeight;
-                }
-
-                // 버튼 레이아웃 
-                final RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams();
-                if (buttonLayoutParams != null) {
-                    buttonLayoutParams.height = (int)getResources().getDimension(R.dimen.main_button_layout_height);
-                }
-
-                // 애드몹 레이아웃
-                final RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
-                if (admobLayoutParams != null) {
-                    admobLayoutParams.height = (int)getResources().getDimension(R.dimen.main_admob_layout_height);
-                }
-
-                // 애드몹
-                // 버튼 레이아웃에 광고가 있을 경우 애드몹 레이아웃으로 옮기기
-                if (mButtonLayout.findViewById(R.id.adView) != null) {
-                    mButtonLayout.removeView(mAdView);
-                    mAdmobLayout.addView(mAdView);
-                }
-
-                // 애드몹레이아웃의 width를 체크해 버튼레이아웃과 맞추어주기
-                MNViewSizeMeasure.setViewSizeObserver(mAdmobLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
-                    @Override
-                    public void onLayoutLoad() {
-                        AdSize adSize = AdSize.createAdSize(AdSize.BANNER, getBaseContext());
-                        if (mAdmobLayout.getWidth() > adSize.getWidthInPixels(getBaseContext())) {
-//                            Log.i(TAG, "AdMobLayout.getWidth() is bigger than adSize.getWidth()");
-                            // 1. 버튼 레이아웃 width 보다 광고뷰 width가 더 짧을 경우는 버튼 레이아웃에 맞추어줌
-                            if (adSize.getWidthInPixels(getBaseContext()) <= mButtonLayout.getWidth()) {
-//                                Log.i(TAG, "adSize.getWidth() is shorter than buttonLayout.getWidth()");
-                                if (admobLayoutParams != null && buttonLayoutParams != null) {
-                                    admobLayoutParams.leftMargin = buttonLayoutParams.leftMargin;
-                                    admobLayoutParams.rightMargin= buttonLayoutParams.rightMargin;
-                                }
-                            }
-                            // 2. 더 넓을 경우는 match_parent 그대로 놔두어야 할듯(기본)
-                        }
-                    }
-                });
-                break;
-            }
-            case Configuration.ORIENTATION_LANDSCAPE: {
-
-                // 스크롤뷰
-                RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) mMainScrollView.getLayoutParams();
-                if (scrollViewLayoutParams != null) {
-                    scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, mButtonLayout.getId());
-                    // 아래쪽으로 margin_outer - margin_inner 만큼 주어야 윗 마진(margin_outer)과 같아짐
-                    scrollViewLayoutParams.bottomMargin = (int)(getResources().getDimension(R.dimen.margin_outer) - getResources().getDimension(R.dimen.margin_inner));
-                }
-
-                // 위젯윈도우 레이아웃
-                LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mWidgetWindowLayout.getLayoutParams();
-                float widgetWindowHeight = 0;
-                if (widgetWindowLayoutParams != null) {
-                    widgetWindowLayoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
-                }
-
-                // 알람 리스트뷰
-                // Gone: 안보이고 차지한 공간도 사라짐
-                // INVISIBLE: 안보이지만 공간은 차지함
-                mAlarmListView.setVisibility(View.GONE);
-
-                // 애드몹 레이아웃
-                RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
-                if (admobLayoutParams != null) {
-                    admobLayoutParams.height = 0;
-                }
-
-                // 버튼
-                RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams();
-                if (buttonLayoutParams != null) {
-                    buttonLayoutParams.height =
-                            (int)(getResources().getDimension(R.dimen.main_button_layout_height) + getResources().getDimension(R.dimen.margin_outer)*2);
-                }
-
-                // 애드몹
-                // Landscape 모드에서 버튼 레이아웃으로 광고 옮기기
-                if (mAdmobLayout.findViewById(R.id.adView) != null) {
-                    mAdmobLayout.removeView(mAdView);
-                    mButtonLayout.addView(mAdView);
-                }
-                break;
-            }
-        }
-
-//        Log.i(TAG, "widgetWindowLayout height:" + mWidgetWindowLayout.getHeight());
-//        Log.i(TAG, "alarmListView height:" + mAlarmListView.getHeight());
-//        Log.i(TAG, "buttonLayout height:" + mButtonLayout.getHeight());
-//        Log.i(TAG, "admobLayout height:" + mAdmobLayout.getHeight());
+        // 스크롤뷰
+        MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(mScrollView, newConfig.orientation);
+        // 위젯윈도우 레이아웃
+        MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(mWidgetWindowLayout, newConfig.orientation);
+        // 버튼 레이아웃
+        MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(mButtonLayout, newConfig.orientation);
+        // 애드몹 레이아웃
+        MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(mAdmobLayout, newConfig.orientation);
+        // 애드뷰 방향에 따라 위치 옮기기
+        MNMainLayoutSetter.adjustAdmobViewAtOrientation(this, newConfig.orientation);
+        // 애드몹 레이아웃 width 체크
+        MNMainLayoutSetter.checkAdmobLayoutWidthAndAdjust(mAdmobLayout, mButtonLayout, newConfig.orientation);
+        // 알람 리스트뷰
+        MNMainLayoutSetter.adjustAlarmListView(mAlarmListView, mWidgetWindowLayout, newConfig.orientation);
     }
 
     /**
@@ -281,7 +169,7 @@ public class MNMainActivity extends Activity implements AdListener
     }
     public MNMainAlarmListView getAlarmListView() { return mAlarmListView; }
     public AdView getAdView() { return mAdView; }
-    public ScrollView getMainScrollView() { return mMainScrollView; }
+    public ScrollView getMainScrollView() { return mScrollView; }
 
     /**
      * Admob
