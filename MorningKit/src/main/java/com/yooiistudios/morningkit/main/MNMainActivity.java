@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.google.ads.Ad;
 import com.google.ads.AdListener;
@@ -24,6 +25,7 @@ public class MNMainActivity extends Activity implements AdListener
 {
     private static final String TAG = "MNMainActivity";
 
+    @InjectView(R.id.main_scroll_view) ScrollView mMainScrollView;
     @InjectView(R.id.main_widget_window_layout) MNWidgetWindowLayout mWidgetWindowLayout;
     @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView mAlarmListView;
     @InjectView(R.id.main_button_layout) RelativeLayout mButtonLayout;
@@ -211,6 +213,7 @@ public class MNMainActivity extends Activity implements AdListener
             case Configuration.ORIENTATION_LANDSCAPE: {
 
                 // 스크롤뷰
+                RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) m
 
                 // 위젯윈도우 레이아웃
 
@@ -273,6 +276,7 @@ public class MNMainActivity extends Activity implements AdListener
     }
     public MNMainAlarmListView getAlarmListView() { return mAlarmListView; }
     public AdView getAdView() { return mAdView; }
+    public ScrollView getMainScrollView() { return mMainScrollView; }
 
     /**
      * Admob
