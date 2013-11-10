@@ -90,9 +90,11 @@ public class MNMainActivityTest {
     @Config(qualifiers="port")
     public void checkWidgetWindowLayoutHeightOnPortrait() throws Exception {
 
+        // assertTrue(false);
         MNViewSizeMeasure.setViewSizeObserver(mainActivity.getWidgetWindowLayout(), new MNViewSizeMeasure.OnGlobalLayoutObserver() {
             @Override
             public void onLayoutLoad(Point size) {
+                // assertTrue(false);
                 int widgetMatrix;
                 // 2 * 2일 경우
                 widgetMatrix = 2;

@@ -4,7 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- 앱 전체적으로 쓰이는 패딩 -->
-    <dimen name="margin_outer">5dp</dimen>
+    <dimen name="margin_outer">6dp</dimen>
     <dimen name="margin_inner">3dp</dimen>
 
     <!-- 버튼레이아웃은 outer 패딩의 2배 -->
