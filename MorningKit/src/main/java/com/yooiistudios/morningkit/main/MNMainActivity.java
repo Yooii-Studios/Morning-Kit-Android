@@ -2,11 +2,9 @@ package com.yooiistudios.morningkit.main;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -19,6 +17,7 @@ import com.google.ads.AdView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.MNDeviceSizeChecker;
 import com.yooiistudios.morningkit.common.MNViewSizeMeasure;
+import com.yooiistudios.morningkit.main.layout.MNMainLayout;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -28,7 +27,7 @@ public class MNMainActivity extends Activity implements AdListener
 {
     private static final String TAG = "MNMainActivity";
 
-    @InjectView(R.id.main_scroll_view) ScrollView mMainScrollView;
+    @InjectView(R.id.main_scroll_view) ScrollView mScrollView;
     @InjectView(R.id.main_widget_window_layout) MNWidgetWindowLayout mWidgetWindowLayout;
     @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView mAlarmListView;
     @InjectView(R.id.main_button_layout) RelativeLayout mButtonLayout;
@@ -138,16 +137,7 @@ public class MNMainActivity extends Activity implements AdListener
         switch (newConfig.orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 // 스크롤뷰
-                RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) mMainScrollView.getLayoutParams();
-                if (scrollViewLayoutParams != null) {
-                    // ABOVE 설정 삭제
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                        scrollViewLayoutParams.removeRule(RelativeLayout.ABOVE);
-                    }else{
-                        scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, 0);
-                    }
-                    scrollViewLayoutParams.bottomMargin = 0;
-                }
+                MNMainLayout.adjustScrollViewLayoutparamsOnOrientation(mScrollView, newConfig.orientation);
 
                 // 위젯윈도우 레이아웃
                 LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mWidgetWindowLayout.getLayoutParams();
@@ -212,12 +202,7 @@ public class MNMainActivity extends Activity implements AdListener
             case Configuration.ORIENTATION_LANDSCAPE: {
 
                 // 스크롤뷰
-                RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) mMainScrollView.getLayoutParams();
-                if (scrollViewLayoutParams != null) {
-                    scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, mButtonLayout.getId());
-                    // 아래쪽으로 margin_outer - margin_inner 만큼 주어야 윗 마진(margin_outer)과 같아짐
-                    scrollViewLayoutParams.bottomMargin = (int)(getResources().getDimension(R.dimen.margin_outer) - getResources().getDimension(R.dimen.margin_inner));
-                }
+                MNMainLayout.adjustScrollViewLayoutparamsOnOrientation(mScrollView, newConfig.orientation);
 
                 // 위젯윈도우 레이아웃
                 LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mWidgetWindowLayout.getLayoutParams();
@@ -281,7 +266,7 @@ public class MNMainActivity extends Activity implements AdListener
     }
     public MNMainAlarmListView getAlarmListView() { return mAlarmListView; }
     public AdView getAdView() { return mAdView; }
-    public ScrollView getMainScrollView() { return mMainScrollView; }
+    public ScrollView getMainScrollView() { return mScrollView; }
 
     /**
      * Admob
