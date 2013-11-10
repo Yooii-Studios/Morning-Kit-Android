@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.yooiistudios.morningkit.MN;
-import com.yooiistudios.morningkit.common.DipToPixel;
+import com.yooiistudios.morningkit.common.dp.DipToPixel;
 
 /**
  * Created by yongbinbae on 13. 10. 22..
