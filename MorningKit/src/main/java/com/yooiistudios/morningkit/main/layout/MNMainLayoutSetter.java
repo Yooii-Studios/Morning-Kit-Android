@@ -15,9 +15,10 @@ import com.yooiistudios.morningkit.main.MNWidgetWindowLayout;
 /**
  * Created by StevenKim on 2013. 11. 10..
  */
-public class MNMainLayout {
-    private final static String TAG = "MNMainLayout";
-    public static void adjustScrollViewLayoutParamsOnOrientation(ScrollView scrollView, int orientation) {
+public class MNMainLayoutSetter {
+    private final static String TAG = "MNMainLayoutSetter";
+
+    public static void adjustScrollViewLayoutParamsAtOrientation(ScrollView scrollView, int orientation) {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) scrollView.getLayoutParams();
@@ -51,7 +52,7 @@ public class MNMainLayout {
         }
     }
 
-    public static void adjustWidgetLayoutParamsOnOrientation(MNWidgetWindowLayout widgetWindowLayout, int orientation) {
+    public static void adjustWidgetLayoutParamsAtOrientation(MNWidgetWindowLayout widgetWindowLayout, int orientation) {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) widgetWindowLayout.getLayoutParams();
@@ -82,5 +83,9 @@ public class MNMainLayout {
                 break;
             }
         }
+    }
+
+    public static void adjustButtonLayoutParamsAtOrientation(RelativeLayout buttonLayout, int orientation) {
+
     }
 }

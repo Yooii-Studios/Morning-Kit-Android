@@ -17,7 +17,7 @@ import com.google.ads.AdView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.MNDeviceSizeChecker;
 import com.yooiistudios.morningkit.common.MNViewSizeMeasure;
-import com.yooiistudios.morningkit.main.layout.MNMainLayout;
+import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -134,13 +134,14 @@ public class MNMainActivity extends Activity implements AdListener
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
+        // 스크롤뷰
+        MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(mScrollView, newConfig.orientation);
+
+        // 위젯윈도우 레이아웃
+        MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(mWidgetWindowLayout, newConfig.orientation);
+
         switch (newConfig.orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
-                // 스크롤뷰
-                MNMainLayout.adjustScrollViewLayoutParamsOnOrientation(mScrollView, newConfig.orientation);
-
-                // 위젯윈도우 레이아웃
-                MNMainLayout.adjustWidgetLayoutParamsOnOrientation(mWidgetWindowLayout, newConfig.orientation);
 
                 // 알람 리스트뷰
                 mAlarmListView.setVisibility(View.VISIBLE);
@@ -192,11 +193,7 @@ public class MNMainActivity extends Activity implements AdListener
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
 
-                // 스크롤뷰
-                MNMainLayout.adjustScrollViewLayoutParamsOnOrientation(mScrollView, newConfig.orientation);
 
-                // 위젯윈도우 레이아웃
-                MNMainLayout.adjustWidgetLayoutParamsOnOrientation(mWidgetWindowLayout, newConfig.orientation);
 
                 // 알람 리스트뷰
                 // Gone: 안보이고 차지한 공간도 사라짐
