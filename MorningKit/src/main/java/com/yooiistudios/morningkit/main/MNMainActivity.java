@@ -15,6 +15,7 @@ import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.MNDeviceSizeChecker;
+import com.yooiistudios.morningkit.common.validate.AppValidationChecker;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
 import butterknife.InjectView;
@@ -38,10 +39,14 @@ public class MNMainActivity extends Activity implements AdListener
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        // Activity start, Load the xml layout
+        // 특정 날짜 이후로 앱이 죽게 폭탄 설치 - 현재는 주석 처리
+//        AppValidationChecker.validationCheck(this);
 
+        // Activity start, Load the xml layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         // 기존의 레거시 코드 대신에 이 한줄로 findViewById를 모두 대체
         Views.inject(this);

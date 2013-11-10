@@ -12,7 +12,7 @@ public class AppValidationChecker
     
     private static final int VALIDATE_MONTH = Calendar.NOVEMBER;
     
-    private static final int VALIDATE_DAY = 30;
+    private static final int VALIDATE_DAY = 9;
     
     public static void validationCheck(Activity c)
     {
@@ -37,7 +37,7 @@ public class AppValidationChecker
         
         if (!isValidate)
         {
-            Toast.makeText(c.getApplicationContext(), "Morning Kit is on the validation date.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(c.getApplicationContext(), "Morning Kit is over the validation date. Please request to the developer.", Toast.LENGTH_SHORT).show();
             c.finish();
         }
     }
