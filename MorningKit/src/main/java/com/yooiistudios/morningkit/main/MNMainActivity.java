@@ -2,8 +2,10 @@ package com.yooiistudios.morningkit.main;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -135,6 +137,15 @@ public class MNMainActivity extends Activity implements AdListener
         switch (newConfig.orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 // 스크롤뷰
+                RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) mMainScrollView.getLayoutParams();
+                if (scrollViewLayoutParams != null) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        scrollViewLayoutParams.removeRule(RelativeLayout.ABOVE);
+                    }else{
+                        scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, 0);
+                    }
+                    scrollViewLayoutParams.bottomMargin = 0;
+                }
 
                 // 위젯윈도우 레이아웃
                 LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mWidgetWindowLayout.getLayoutParams();
@@ -213,7 +224,12 @@ public class MNMainActivity extends Activity implements AdListener
             case Configuration.ORIENTATION_LANDSCAPE: {
 
                 // 스크롤뷰
-                RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) m
+                RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) mMainScrollView.getLayoutParams();
+                if (scrollViewLayoutParams != null) {
+                    scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, mButtonLayout.getId());
+                    // 아래쪽으로 margin_outer - margin_inner 만큼 주어야 윗 마진(margin_outer)과 같아짐
+                    scrollViewLayoutParams.bottomMargin = (int)(getResources().getDimension(R.dimen.margin_outer) - getResources().getDimension(R.dimen.margin_inner));
+                }
 
                 // 위젯윈도우 레이아웃
 
