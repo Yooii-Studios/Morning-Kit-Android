@@ -140,6 +140,12 @@ public class MNMainActivity extends Activity implements AdListener
         // 위젯윈도우 레이아웃
         MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(mWidgetWindowLayout, newConfig.orientation);
 
+        // 버튼 레이아웃
+        MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(mButtonLayout, newConfig.orientation);
+
+        // 애드몹 레이아웃
+        MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(mAdmobLayout, newConfig.orientation);
+
         switch (newConfig.orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
 
@@ -149,18 +155,6 @@ public class MNMainActivity extends Activity implements AdListener
                 if (alarmListViewLayoutParams != null) {
                     float alarmListViewHeight = MNDeviceSizeChecker.getDeviceHeight(this) - mWidgetWindowLayout.getLayoutParams().height;
                     alarmListViewLayoutParams.height = (int)alarmListViewHeight;
-                }
-
-                // 버튼 레이아웃 
-                final RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams();
-                if (buttonLayoutParams != null) {
-                    buttonLayoutParams.height = (int)getResources().getDimension(R.dimen.main_button_layout_height);
-                }
-
-                // 애드몹 레이아웃
-                final RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
-                if (admobLayoutParams != null) {
-                    admobLayoutParams.height = (int)getResources().getDimension(R.dimen.main_admob_layout_height);
                 }
 
                 // 애드몹
@@ -180,6 +174,8 @@ public class MNMainActivity extends Activity implements AdListener
                             // 1. 버튼 레이아웃 width 보다 광고뷰 width가 더 짧을 경우는 버튼 레이아웃에 맞추어줌
                             if (adSize.getWidthInPixels(getBaseContext()) <= mButtonLayout.getWidth()) {
 //                                Log.i(TAG, "adSize.getWidth() is shorter than buttonLayout.getWidth()");
+                                RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams();
+                                RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
                                 if (admobLayoutParams != null && buttonLayoutParams != null) {
                                     admobLayoutParams.leftMargin = buttonLayoutParams.leftMargin;
                                     admobLayoutParams.rightMargin= buttonLayoutParams.rightMargin;
@@ -193,25 +189,10 @@ public class MNMainActivity extends Activity implements AdListener
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
 
-
-
                 // 알람 리스트뷰
                 // Gone: 안보이고 차지한 공간도 사라짐
                 // INVISIBLE: 안보이지만 공간은 차지함
                 mAlarmListView.setVisibility(View.GONE);
-
-                // 애드몹 레이아웃
-                RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mAdmobLayout.getLayoutParams();
-                if (admobLayoutParams != null) {
-                    admobLayoutParams.height = 0;
-                }
-
-                // 버튼
-                RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mButtonLayout.getLayoutParams();
-                if (buttonLayoutParams != null) {
-                    buttonLayoutParams.height =
-                            (int)(getResources().getDimension(R.dimen.main_button_layout_height) + getResources().getDimension(R.dimen.margin_outer)*2);
-                }
 
                 // 애드몹
                 // Landscape 모드에서 버튼 레이아웃으로 광고 옮기기
