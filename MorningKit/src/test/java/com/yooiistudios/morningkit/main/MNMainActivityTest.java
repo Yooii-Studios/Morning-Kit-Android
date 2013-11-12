@@ -88,54 +88,7 @@ public class MNMainActivityTest {
     }
     */
 
-    /**
-     * Widget Window
-     */
-    @Test
-    @Config(qualifiers="port")
-    public void checkWidgetWindowLayoutHeightOnPortrait() throws Exception {
 
-//        mainActivity.onConfigurationChanged(mainActivity.getResources().getConfiguration());
-
-        float expectedHeight = MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(mainActivity.getWidgetWindowLayout(), mainActivity.getResources().getConfiguration().orientation);
-
-        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
-        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
-        mainActivity.getWidgetWindowLayout().measure(widthMeasureSpec, heightMeasureSpec);
-
-        int widgetMatrix;
-        // 2 * 2일 경우
-        widgetMatrix = 2;
-
-        // (위젯 높이 * 2) + outer margin(위쪽) + (outer margin * 2(중앙) * 1) + inner margin(아래쪽)
-//        Resources resources = mainActivity.getResources();
-//        float expectedHeight = resources.getDimension(R.dimen.widget_height) * 2
-//                + resources.getDimension(R.dimen.margin_outer)
-//                + resources.getDimension(R.dimen.margin_outer) * (widgetMatrix - 1)
-//                + resources.getDimension(R.dimen.margin_inner);
-
-
-        assertThat(mainActivity.getWidgetWindowLayout().getMeasuredHeight(), is((int)expectedHeight));
-
-        // 2 * 1일 경우는 추후 테스트
-        widgetMatrix = 1;
-        // (위젯 높이 * 2) + outer margin(위쪽) + (inner margin * 2(중앙) * 0) + inner margin(아래쪽)
-    }
-
-    @Test
-    @Config(qualifiers="land")
-    public void checkWidgetWindowLayoutHeightOnLandscape() throws Exception {
-        // Device height - buttonLayout height - (outerPadding - innerPadding)를 확인하면 됨
-        // 위젯 윈도우뷰의 아래쪽은 innerPadding 만큼만 주기 때문에 (outerPadding - innerPadding)만큼의 공간을 따로 주어야 함
-
-        float expectedHeight = MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(mainActivity.getWidgetWindowLayout(), mainActivity.getResources().getConfiguration().orientation);
-
-        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
-        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
-        mainActivity.getWidgetWindowLayout().measure(widthMeasureSpec, heightMeasureSpec);
-
-        assertThat(mainActivity.getWidgetWindowLayout().getMeasuredHeight(), is((int)expectedHeight));
-    }
 
     /**
      * Alarm
