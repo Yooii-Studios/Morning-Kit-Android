@@ -17,7 +17,7 @@
     <dimen name="main_admob_layout_height">50dp</dimen>
 
     <!-- Widget Window, 원래 높이 239(갤3 기준) -->
-    <!-- 전체 위젯 높이는 위젯 2줄 + outer * 2 + inner * 1 로 구성
+    <!-- 전체 위젯 높이는 위젯 2줄 + outer * 2 + inner * 1 로 구성 -->
     <!-- 115dp는 스샷에서 위젯 크기 직접 잼 -->
     <dimen name="main_widget_window_layout_height">239dp</dimen>
     <dimen name="widget_height">115dp</dimen>
