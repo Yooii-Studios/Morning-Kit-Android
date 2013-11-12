@@ -56,7 +56,7 @@ public class MNMainLayoutSetter {
         }
     }
 
-    public static void adjustWidgetLayoutParamsAtOrientation(MNWidgetWindowLayout widgetWindowLayout, int orientation) {
+    public static float adjustWidgetLayoutParamsAtOrientation(MNWidgetWindowLayout widgetWindowLayout, int orientation) {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) widgetWindowLayout.getLayoutParams();
@@ -86,6 +86,7 @@ public class MNMainLayoutSetter {
                 break;
             }
         }
+        return widgetWindowLayout.getLayoutParams().height;
     }
 
     public static void adjustButtonLayoutParamsAtOrientation(RelativeLayout buttonLayout, int orientation) {
