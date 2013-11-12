@@ -24,6 +24,7 @@ public class MNMainAdmobLayoutTest {
         // visible() 이 뷰를 띄울 수 있게 해주는 중요한 메서드
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().postResume().visible().get();
         mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
+         
     }
 
     /**
