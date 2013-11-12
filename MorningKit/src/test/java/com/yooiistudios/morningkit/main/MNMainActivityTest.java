@@ -123,7 +123,7 @@ public class MNMainActivityTest {
     }
 
     @Test
-    @Config(qualifiers="1280x720-xhdpi-land")
+    @Config(qualifiers="land")
     public void checkWidgetWindowLayoutHeightOnLandscape() throws Exception {
         // Device height - buttonLayout height - (outerPadding - innerPadding)를 확인하면 됨
         // 위젯 윈도우뷰의 아래쪽은 innerPadding 만큼만 주기 때문에 (outerPadding - innerPadding)만큼의 공간을 따로 주어야 함
