@@ -121,7 +121,7 @@ public class MNMainLayoutSetter {
         }
     }
 
-    public static void adjustAdmobLayoutParamsAtOrientation(RelativeLayout admobLayout, int orientation) {
+    public static float adjustAdmobLayoutParamsAtOrientation(RelativeLayout admobLayout, int orientation) {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
@@ -146,6 +146,7 @@ public class MNMainLayoutSetter {
                 break;
             }
         }
+        return admobLayout.getLayoutParams().height;
     }
 
     public static void adjustAdmobViewAtOrientation(MNMainActivity mainActivity, int orientation) {
