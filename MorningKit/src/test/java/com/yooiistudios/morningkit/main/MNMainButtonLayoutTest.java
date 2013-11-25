@@ -3,11 +3,14 @@ package com.yooiistudios.morningkit.main;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.ads.AdSize;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
+import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -50,49 +53,34 @@ public class MNMainButtonLayoutTest {
      * Button
      * @throws Exception
      */
-    /*
     @Test
     @Config(qualifiers="port")
     public void checkButtonLayoutHeightOnPortrait() throws Exception {
 
-        MNViewSizeMeasure.setViewSizeObserver(mainActivity.getButtonLayout(), new MNViewSizeMeasure.OnGlobalLayoutObserver() {
-            @Override
-            public void onLayoutLoad(Point size) {
-                Resources resources = mainActivity.getResources();
-                float expectedHeight = resources.getDimension(R.dimen.main_button_layout_height);
-                assertThat(mainActivity.getButtonLayout().getHeight(), is((int) expectedHeight));
-            }
-        });
+        float expectedHeight = MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), mainActivity.getResources().getConfiguration().orientation);
+
+        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
+        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
+        mainActivity.getButtonLayout().measure(widthMeasureSpec, heightMeasureSpec);
+
+        assertThat(mainActivity.getButtonLayout().getMeasuredHeight(), is((int) expectedHeight));
     }
 
-
-    */
-
-    /*
     @Test
     @Config(qualifiers="large-1280x720-land")
     public void checkButtonLayoutHeightOnLandscape() throws Exception {
 
-        Resources resources = mainActivity.getResources();
-        AdSize adSize = AdSize.createAdSize(AdSize.BANNER, mainActivity);
-        float expectedHeight = adSize.getHeightInPixels(mainActivity) + resources.getDimension(R.dimen.margin_outer) * 2;
-        assertThat(mainActivity.getButtonLayout().getHeight(), is((int) expectedHeight));
+        // 1. 광고가 있는 경우: SMART_BANNER의 높이 + inner margin * 2가 되어야 한다.
+        float expectedHeight = MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), mainActivity.getResources().getConfiguration().orientation);
 
-        MNViewSizeMeasure.setViewSizeObserver(mainActivity.getButtonLayout(), new MNViewSizeMeasure.OnGlobalLayoutObserver() {
-            @Override
-            public void onLayoutLoad() {
+        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
+        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
+        mainActivity.getButtonLayout().measure(widthMeasureSpec, heightMeasureSpec);
 
-                // 1. 광고가 있는 경우: SMART_BANNER의 높이 + inner margin * 2가 되어야 한다.
-                Resources resources = mainActivity.getResources();
-                AdSize adSize = AdSize.createAdSize(AdSize.BANNER, mainActivity);
-                float expectedHeight = adSize.getHeightInPixels(mainActivity) + resources.getDimension(R.dimen.margin_outer) * 2;
-                assertThat(mainActivity.getButtonLayout().getHeight(), is((int) expectedHeight));
+        assertThat(mainActivity.getButtonLayout().getMeasuredHeight(), is((int) expectedHeight));
 
-                // 2. 광고가 없는 경우: main_button_layout_height
-            }
-        });
+        // 2. 광고가 없는 경우: main_button_layout_height
     }
-    */
 
     /**
      * Adview
