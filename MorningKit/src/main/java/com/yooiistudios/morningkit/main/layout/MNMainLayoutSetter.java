@@ -89,7 +89,7 @@ public class MNMainLayoutSetter {
         return widgetWindowLayout.getLayoutParams().height;
     }
 
-    public static void adjustButtonLayoutParamsAtOrientation(RelativeLayout buttonLayout, int orientation) {
+    public static float adjustButtonLayoutParamsAtOrientation(RelativeLayout buttonLayout, int orientation) {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
@@ -119,9 +119,10 @@ public class MNMainLayoutSetter {
                 }
             }
         }
+        return buttonLayout.getLayoutParams().height;
     }
 
-    public static void adjustAdmobLayoutParamsAtOrientation(RelativeLayout admobLayout, int orientation) {
+    public static float adjustAdmobLayoutParamsAtOrientation(RelativeLayout admobLayout, int orientation) {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
@@ -146,6 +147,7 @@ public class MNMainLayoutSetter {
                 break;
             }
         }
+        return admobLayout.getLayoutParams().height;
     }
 
     public static void adjustAdmobViewAtOrientation(MNMainActivity mainActivity, int orientation) {
