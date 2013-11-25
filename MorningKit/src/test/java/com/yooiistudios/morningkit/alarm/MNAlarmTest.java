@@ -17,14 +17,17 @@ import static org.hamcrest.CoreMatchers.*;
  */
 @RunWith(RobolectricGradleTestRunner.class)
 public class MNAlarmTest {
+
+    MNAlarm testAlarm;
+
     @Before
     public void setUp() {
-
+        testAlarm = new MNAlarm();
     }
 
     @Test
+    // 필요한 정보들이 null값이 아닌지 테스트
     public void alarmConstructorTest() {
-        MNAlarm alarm = new MNAlarm();
-        assertNotNull(alarm);
+        assertNotNull(testAlarm);
     }
 }

@@ -29,6 +29,9 @@ public class MNAlarmListManagerTest {
         alarmListForTestLoad = new ArrayList<MNAlarm>();
     }
 
+    /**
+     * Save & Load
+     */
     @Test
     public void saveAlarmListTest() {
 
@@ -36,6 +39,37 @@ public class MNAlarmListManagerTest {
 
     @Test
     public void loadAlarmListTest() {
+
+    }
+
+    /**
+     * Manipulating Alarm
+     */
+    @Test
+    public void replaceAlarmTest() {
+
+    }
+
+    @Test
+    public void addAlarmTest() {
+
+    }
+
+    @Test
+    public void findAlarmWithAlarmIDTest() {
+
+    }
+
+    @Test
+    public void removeAlarmTest() {
+
+    }
+
+    /**
+     * Sort
+     */
+    @Test
+    public void sortAlarmListTest() {
 
     }
 }
