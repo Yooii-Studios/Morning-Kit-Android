@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.alarm;
+package com.yooiistudios.morningkit.alarm.model;
 
 import android.content.Context;
 
@@ -19,22 +19,25 @@ public class MNAlarmMaker {
             alarm.isRepeatOn = false;
             alarm.alarmLabel = "Alarm";
             alarm.alarmCalendar = Calendar.getInstance();
+            alarm.alarmCalendar.set(Calendar.SECOND, 0);
 
             for (int i=0; i<7; i++) {
                 alarm.alarmRepeatOnOfWeek.add(Boolean.FALSE);
             }
 
-            alarm.alarmID = MNAlarmIdMaker.getValidAlarmID(context);
+            alarm.alarmId = MNAlarmIdMaker.getValidAlarmID(context);
         }
 
         return alarm;
     }
 
-    public static MNAlarm makeAlarmWithTime(Context context, int hour, int minute) {
+    public static MNAlarm makeAlarmWithTime(Context context, int hourOfDay, int minute) {
         MNAlarm alarm = MNAlarmMaker.makeAlarm(context);
         if (alarm != null) {
             alarm.isAlarmOn = false;
 
+            alarm.alarmCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            alarm.alarmCalendar.set(Calendar.MINUTE, minute);
         }
         return alarm;
     }

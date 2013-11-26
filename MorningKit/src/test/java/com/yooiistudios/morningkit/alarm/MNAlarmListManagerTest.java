@@ -1,17 +1,13 @@
 package com.yooiistudios.morningkit.alarm;
 
+import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 //import static org.junit.matchers.JUnitMatchers.*;
 
 /**
