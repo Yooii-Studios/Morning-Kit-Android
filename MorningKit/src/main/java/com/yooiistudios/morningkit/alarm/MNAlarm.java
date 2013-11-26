@@ -30,8 +30,13 @@ public class MNAlarm {
     /**
      * Methods
      */
-    public MNAlarm() {
+    // 이 메서드 호출을 방지, 일반적으로 MNAlarmMaker에서 생성해 사용할 것
+    private MNAlarm() {}
 
+    public static MNAlarm newInstance() {
+        MNAlarm alarm = new MNAlarm();
+        alarm.alarmRepeatOnOfWeek = new ArrayList<Boolean>();
+        return alarm;
     }
 
     public void stopAlarm() {
@@ -44,5 +49,16 @@ public class MNAlarm {
 
     public void snoozeAlarm() {
 
+    }
+
+    // 혹시나 깊은 복사를 사용할 경우를 대비해서 가져옴
+    // 아래 주석은 Eclipse에서 그대로 가져옴
+//    @SuppressWarnings("unchecked")
+    public MNAlarm clone() throws CloneNotSupportedException {
+        MNAlarm obj = (MNAlarm)super.clone();
+        obj.alarmCalendar = (Calendar) alarmCalendar.clone();
+        obj.alarmRepeatOnOfWeek = (ArrayList<Boolean>)alarmRepeatOnOfWeek.clone();
+
+        return obj;
     }
 }
