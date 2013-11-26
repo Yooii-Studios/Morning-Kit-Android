@@ -8,7 +8,7 @@ import com.yooiistudios.morningkit.MN;
 /**
  * Created by StevenKim on 2013. 11. 26..
  */
-public class MNAlarmIDMaker {
+public class MNAlarmIdMaker {
     public static int getValidAlarmID(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(
                 MN.alarm.SHARED_PREFS_FILE, Context.MODE_PRIVATE);

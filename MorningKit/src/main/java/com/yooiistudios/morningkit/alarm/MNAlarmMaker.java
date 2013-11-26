@@ -1,9 +1,6 @@
 package com.yooiistudios.morningkit.alarm;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-
-import com.yooiistudios.morningkit.MN;
 
 import java.util.Calendar;
 
@@ -27,7 +24,7 @@ public class MNAlarmMaker {
                 alarm.alarmRepeatOnOfWeek.add(Boolean.FALSE);
             }
 
-            alarm.alarmID = MNAlarmIDMaker.getValidAlarmID(context);
+            alarm.alarmID = MNAlarmIdMaker.getValidAlarmID(context);
         }
 
         return alarm;
