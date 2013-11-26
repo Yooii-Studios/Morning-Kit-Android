@@ -1,12 +1,13 @@
 package com.yooiistudios.morningkit.alarm.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
  * Created by StevenKim on 2013. 11. 11..
  */
-public class MNAlarm {
+public class MNAlarm implements Serializable, Cloneable {
     private static final String TAG = "MNAlarm";
 
     /**

@@ -1,6 +1,11 @@
 package com.yooiistudios.morningkit.alarm;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.MNMainActivity;
@@ -12,7 +17,12 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 //import static org.junit.matchers.JUnitMatchers.*;
 
 /**
@@ -21,40 +31,52 @@ import java.util.ArrayList;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config (shadows = { AdWebViewShadow.class })
 public class MNAlarmListManagerTest {
-    ArrayList<MNAlarm> alarmListForTestSave;
-    ArrayList<MNAlarm> alarmListForTestLoad;
     ArrayList<MNAlarm> dummyAlarmList;
-
+    ArrayList<MNAlarm> dummySortAlarmList;
     MNMainActivity mainActivity;
 
     @Before
     public void setUp() {
         mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
-
-        // 미리 save 테스트용 ArrayList, load 테스트용 ArrayList를 만들어 두자
-        alarmListForTestSave = new ArrayList<MNAlarm>();
-        alarmListForTestSave.add(MNAlarmMaker.makeAlarm(mainActivity.getBaseContext()));
-        alarmListForTestSave.add(MNAlarmMaker.makeAlarm(mainActivity.getBaseContext()));
-        alarmListForTestSave.add(MNAlarmMaker.makeAlarm(mainActivity.getBaseContext()));
-
-        alarmListForTestLoad = new ArrayList<MNAlarm>();
-
         dummyAlarmList = new ArrayList<MNAlarm>();
+        dummySortAlarmList = new ArrayList<MNAlarm>();
     }
 
     /**
      * Save & Load
      */
     @Test
-    public void saveAndLoadAlarmListTest() {
+    public void saveAndLoadAlarmListTest() throws IOException {
 
         // SharedPreference를 비운다
+        SharedPreferences prefs = mainActivity.getSharedPreferences(MN.alarm.SHARED_PREFS_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove(MN.alarm.ALARM_LIST);
+        editor.commit();
 
-        // 알람 리스트를 첫 로드할 경우는 알람이 2개가 있어야 함
+        // 알람 리스트를 첫 로드할 경우는 알람이 2개가 있어야 함(6:30 / 7:30)
+        dummyAlarmList = MNAlarmListManager.loadAlarmList(mainActivity.getBaseContext());
+        assertThat(dummyAlarmList.size(), is(2));
+
+        // 6:30, 7:00 을 확인
+        if (dummyAlarmList.size() == 2) {
+            MNAlarm firstAlarm = dummyAlarmList.get(0);
+            MNAlarm secondAlarm = dummyAlarmList.get(1);
+
+            assertThat(firstAlarm.alarmCalendar.get(Calendar.HOUR_OF_DAY), is(6));
+            assertThat(firstAlarm.alarmCalendar.get(Calendar.MINUTE), is(30));
+
+            assertThat(secondAlarm.alarmCalendar.get(Calendar.HOUR_OF_DAY), is(7));
+            assertThat(secondAlarm.alarmCalendar.get(Calendar.MINUTE), is(0));
+        }
 
         // 알람 하나를 추가하고 저장한다
+        dummyAlarmList.add(MNAlarmMaker.makeAlarm(mainActivity.getBaseContext()));
+        MNAlarmListManager.saveAlarmList(dummyAlarmList, mainActivity.getBaseContext());
 
         // 알람을 다시 로드하면 3개가 있어야 함
+        dummyAlarmList = MNAlarmListManager.loadAlarmList(mainActivity.getBaseContext());
+        assertThat(dummyAlarmList.size(), is(3));
     }
 
     /**
