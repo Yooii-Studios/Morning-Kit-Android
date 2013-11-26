@@ -19,6 +19,7 @@ public class MNAlarmMaker {
             alarm.isRepeatOn = false;
             alarm.alarmLabel = "Alarm";
             alarm.alarmCalendar = Calendar.getInstance();
+            alarm.alarmCalendar.set(Calendar.SECOND, 0);
 
             for (int i=0; i<7; i++) {
                 alarm.alarmRepeatOnOfWeek.add(Boolean.FALSE);
@@ -30,11 +31,20 @@ public class MNAlarmMaker {
         return alarm;
     }
 
-    public static MNAlarm makeAlarmWithTime(Context context, int hour, int minute) {
+    public static MNAlarm makeAlarmWithTime(Context context, int hourOfDay, int minute) {
         MNAlarm alarm = MNAlarmMaker.makeAlarm(context);
         if (alarm != null) {
             alarm.isAlarmOn = false;
 
+            Calendar currentTimeCalendar = Calendar.getInstance();
+            if (alarm.alarmCalendar.getTimeInMillis() > currentTimeCalendar.getTimeInMillis()) {
+                alarm.alarmCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                alarm.alarmCalendar.set(Calendar.MINUTE, minute);
+            }else{
+                alarm.alarmCalendar.add(Calendar.DAY_OF_MONTH, 1);
+                alarm.alarmCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                alarm.alarmCalendar.set(Calendar.MINUTE, minute);
+            }
         }
         return alarm;
     }
