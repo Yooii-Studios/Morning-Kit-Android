@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
+import java.util.Calendar;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 //import static org.junit.matchers.JUnitMatchers.*;
@@ -37,21 +39,23 @@ public class MNAlarmMakerTest {
     public void makeNewDefaultAlarmTest() {
         assertNotNull(defaultAlarm);
 
-        // 알람 ID를 제대로 할당했는지 테스트
-        // 제대로 된 사운드 타입이 할당되었는지 테스트
-        // 제대로 된 사운드 리소스가 대입되었는지 테스트
         assertThat(defaultAlarm, notNullValue());
         assertThat(defaultAlarm.isAlarmOn, is(true));
         assertThat(defaultAlarm.isSnoozeOn, is(false));
         assertThat(defaultAlarm.isRepeatOn, is(false));
         assertThat(defaultAlarm.alarmLabel, is("Alarm"));
+        // 알람 ID를 제대로 할당했는지 테스트
         assertThat(defaultAlarm.alarmID, is(not(-1)));
         assertThat(defaultAlarm.alarmCalendar, notNullValue());
 
+        // 초기 설정은 모두 false
         for (int i = 0; i < defaultAlarm.alarmRepeatOnOfWeek.size(); i++) {
             Boolean alarmRepeatOnSpecificWeekday = defaultAlarm.alarmRepeatOnOfWeek.get(i);
             assertThat(alarmRepeatOnSpecificWeekday, is(false));
         }
+
+        // 제대로 된 사운드 타입이 할당되었는지 테스트
+        // 제대로 된 사운드 리소스가 대입되었는지 테스트
     }
 
     @Test
@@ -60,5 +64,14 @@ public class MNAlarmMakerTest {
 
         assertThat(customAlarm.isAlarmOn, is(false));
         // 특정 시간으로 넣었을 때 올해/이번달/오늘 or 내일의 특정 시간으로 나오는지 테스트
+        int hour = customAlarm.alarmCalendar.get(Calendar.HOUR_OF_DAY);
+        int minute = customAlarm.alarmCalendar.get(Calendar.MINUTE);
+
+        // 시간부터 체크
+        assertThat(hour, is(6));
+        assertThat(minute, is(30));
+
+        // 현재 시간보다 hour가 작으면 어제인지, 크면 오늘인지 체크하기
+        
     }
 }
