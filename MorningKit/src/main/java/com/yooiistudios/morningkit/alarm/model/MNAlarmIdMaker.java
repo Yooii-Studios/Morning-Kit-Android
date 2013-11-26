@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.alarm;
+package com.yooiistudios.morningkit.alarm.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,7 +12,7 @@ public class MNAlarmIdMaker {
     public static int getValidAlarmID(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(
                 MN.alarm.SHARED_PREFS_FILE, Context.MODE_PRIVATE);
-        int alarmId = prefs.getInt("alarmID", -1);
+        int alarmId = prefs.getInt("alarmId", -1);
         if (alarmId == -1) {
             alarmId = 0;
         } else {
@@ -21,7 +21,7 @@ public class MNAlarmIdMaker {
                 alarmId = 0;
             }
         }
-        prefs.edit().putInt("alarmID", alarmId).commit();
+        prefs.edit().putInt("alarmId", alarmId).commit();
 
         return alarmId;
     }

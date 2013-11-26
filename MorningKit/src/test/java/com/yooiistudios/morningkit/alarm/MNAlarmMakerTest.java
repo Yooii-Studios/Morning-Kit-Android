@@ -1,5 +1,7 @@
 package com.yooiistudios.morningkit.alarm;
 
+import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
@@ -45,7 +47,7 @@ public class MNAlarmMakerTest {
         assertThat(defaultAlarm.isRepeatOn, is(false));
         assertThat(defaultAlarm.alarmLabel, is("Alarm"));
         // 알람 ID를 제대로 할당했는지 테스트
-        assertThat(defaultAlarm.alarmID, is(not(-1)));
+        assertThat(defaultAlarm.alarmId, is(not(-1)));
         assertThat(defaultAlarm.alarmCalendar, notNullValue());
         // 알람 초는 0초로 설정해야함
         assertThat(defaultAlarm.alarmCalendar.get(Calendar.SECOND), is(0));
@@ -71,27 +73,8 @@ public class MNAlarmMakerTest {
         int hour = customAlarm.alarmCalendar.get(Calendar.HOUR_OF_DAY);
         int minute = customAlarm.alarmCalendar.get(Calendar.MINUTE);
 
-        // 시간부터 체크
+        // 시간만 일단 체크(오늘/내일 판단은 startAlarmTest() 에서 구현하기로)
         assertThat(hour, is(6));
         assertThat(minute, is(30));
-
-        // alarmCalendar가 현재 시간보다 전이면 어제인지, 후면 오늘인지 체크하기
-        Calendar currentTimeCalendar = Calendar.getInstance();
-        int currentTimeHour = currentTimeCalendar.get(Calendar.HOUR_OF_DAY);
-        int currentTimeMinute = currentTimeCalendar.get(Calendar.MINUTE);
-
-        // 시간을 비교해서 하루를 더해주는 부분은 이미 적용이 되어 실제 코드에서 적용이 되어 있으므로
-        // 테스트 코드를 다시 작성해야 함
-        /*
-        if (customAlarm.alarmCalendar.getTimeInMillis() > currentTimeCalendar.getTimeInMillis()) {
-            // 오늘인지 확인
-            assertThat(customAlarm.alarmCalendar.get(Calendar.DAY_OF_MONTH),
-                    is(currentTimeCalendar.get(Calendar.DAY_OF_MONTH)));
-        }else{
-            // 어제인지 확인
-            assertThat(customAlarm.alarmCalendar.get(Calendar.DAY_OF_MONTH),
-                    is(currentTimeCalendar.get(Calendar.DAY_OF_MONTH) - 1));
-        }
-        */
     }
 }

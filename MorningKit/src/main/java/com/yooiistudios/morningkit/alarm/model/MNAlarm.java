@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.alarm;
+package com.yooiistudios.morningkit.alarm.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,7 +21,7 @@ public class MNAlarm {
     public String              alarmLabel;
 
     // 한 알람당 8개 할당. n+0번 ~ n+6번: 미반복/월(0번이 월요일이거나 미반복) ~ 일, n+7번: 스누즈
-    public int                 alarmID;
+    public int                  alarmId;
 
     public Calendar            alarmCalendar;
 
@@ -44,7 +44,14 @@ public class MNAlarm {
     }
 
     public void startAlarm() {
-
+        // 현재 시간과 비교하여 오늘, 내일 판단하기
+        /*
+        Calendar currentTimeCalendar = Calendar.getInstance();
+        if (alarmCalendar.getTimeInMillis() > currentTimeCalendar.getTimeInMillis()) {
+        }else{
+            alarmCalendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        */
     }
 
     public void snoozeAlarm() {
