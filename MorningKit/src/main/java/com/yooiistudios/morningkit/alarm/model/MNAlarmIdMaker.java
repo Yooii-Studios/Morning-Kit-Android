@@ -7,6 +7,7 @@ import com.yooiistudios.morningkit.MN;
 
 /**
  * Created by StevenKim on 2013. 11. 26..
+ * MNAlarmIdMaker
  */
 public class MNAlarmIdMaker {
 
@@ -30,23 +31,26 @@ public class MNAlarmIdMaker {
 
     /**
      * get validate Id automatically. increase 8 for each id.
-     * @param context
-     * @return
+     * @param context used to get SharedPreferences
+     * @return auto-increase id or -1 if error happens.
      */
     public static int getValidAlarmID(Context context) {
 
+        int alarmId = -1;
         SharedPreferences prefs = MNAlarmIdMaker.getInstance(context).prefs;
-        int alarmId = prefs.getInt("alarmId", -1);
-        if (alarmId == -1) {
-            alarmId = 0;
-        } else {
-            alarmId += 8;
-            if (alarmId >= Integer.MAX_VALUE) {
+        if (prefs != null) {
+            alarmId = prefs.getInt("alarmId", -1);
+            if (alarmId == -1) {
                 alarmId = 0;
+            } else {
+                alarmId += 8;
+                if (alarmId >= Integer.MAX_VALUE) {
+                    alarmId = 0;
+                }
             }
-        }
-        prefs.edit().putInt("alarmId", alarmId).commit();
+            prefs.edit().putInt("alarmId", alarmId).commit();
 
+        }
         return alarmId;
     }
 }

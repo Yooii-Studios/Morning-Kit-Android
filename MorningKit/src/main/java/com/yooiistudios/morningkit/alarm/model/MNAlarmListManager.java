@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Created by StevenKim on 2013. 11. 11..
+ * MNAlarmListManager
  */
 public class MNAlarmListManager {
     private static final String TAG = "MNAlarmListManager";
@@ -34,12 +35,9 @@ public class MNAlarmListManager {
     }
 
     /**
-     * Static Method
-     */
-    /**
-     * load alarmList(ArrayList<MNAlarm>) from SharedPreferences using ObjectSerializer. If it's first load, two alarms will be added automatically.
-     * @param context
-     * @return
+     * load alarmList(ArrayList<MNAlarm>) from SharedPreferences using ObjectSerializer.
+     * @param context used to get SharedPreferences
+     * @return ArrayList<MNAlarm>, and if it's first load, two alarms will be added automatically.
      */
     @SuppressWarnings("unchecked")
     public static ArrayList<MNAlarm> loadAlarmList(Context context) {
@@ -73,8 +71,8 @@ public class MNAlarmListManager {
 
     /**
      * save alarmList(ArrayList<MNAlarm>) to SharedPreferences using ObjectSerializer.
-     * @param alarmList
-     * @param context
+     * @param alarmList ArrayList that contains MNAlarm
+     * @param context used to get SharedPreferences
      * @throws IOException
      */
     public static void saveAlarmList(ArrayList<MNAlarm> alarmList, Context context) throws IOException {

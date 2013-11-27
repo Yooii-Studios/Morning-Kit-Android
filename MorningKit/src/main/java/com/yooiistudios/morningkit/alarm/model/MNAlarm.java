@@ -6,6 +6,7 @@ import java.util.Calendar;
 
 /**
  * Created by StevenKim on 2013. 11. 11..
+ * MNAlarm
  */
 public class MNAlarm implements Serializable, Cloneable {
     private static final String TAG = "MNAlarm";
@@ -42,8 +43,8 @@ public class MNAlarm implements Serializable, Cloneable {
 
     /**
      * get MNAlarm instance with specific alarmId from alarmList
-     * @param alarmId
-     * @param alarmList
+     * @param alarmId unique identifier for MNAlarm
+     * @param alarmList ArrayList that contains MNAlarm
      * @return MNAlarm
      */
     public static MNAlarm getInstance(int alarmId, ArrayList<MNAlarm> alarmList) {
@@ -78,7 +79,7 @@ public class MNAlarm implements Serializable, Cloneable {
 
     // 혹시나 깊은 복사를 사용할 경우를 대비해서 가져옴
     // 아래 주석은 Eclipse에서 그대로 가져옴
-//    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public MNAlarm clone() throws CloneNotSupportedException {
         MNAlarm obj = (MNAlarm)super.clone();
         obj.alarmCalendar = (Calendar) alarmCalendar.clone();

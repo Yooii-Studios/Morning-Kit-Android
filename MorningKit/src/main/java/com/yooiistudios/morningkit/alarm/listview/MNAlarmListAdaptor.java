@@ -10,7 +10,8 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import java.util.ArrayList;
 
 /**
- * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. in ${PROJECT_NAME} from Yooii Studios Co., LTD. in ${PROJECT_NAME} from Yooii Studios Co., LTD. in ${PROJECT_NAME} from Yooii Studios Co., LTD. on 2013. 11. 27..
+ * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 11. 27.
+ * MNAlarmListAdaptor
  */
 public class MNAlarmListAdaptor extends BaseAdapter {
     private static final String TAG = "MNAlarmListAdapter";

@@ -6,6 +6,7 @@ import java.util.Calendar;
 
 /**
  * Created by StevenKim on 2013. 11. 11..
+ * MNAlarmMaker
  */
 public class MNAlarmMaker {
     private static final String TAG = "MNAlarmMaker";
