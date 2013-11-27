@@ -72,7 +72,8 @@ public class MNAlarmListManagerTest {
 
         // 알람 하나를 추가하고 저장한다
         dummyAlarmList.add(MNAlarmMaker.makeAlarm(mainActivity.getBaseContext()));
-        MNAlarmListManager.saveAlarmList(dummyAlarmList, mainActivity.getBaseContext());
+//        MNAlarmListManager.saveAlarmList(dummyAlarmList, mainActivity.getBaseContext());
+        MNAlarmListManager.saveAlarmList(mainActivity.getBaseContext());
 
         // 알람을 다시 로드하면 3개가 있어야 함
         dummyAlarmList = MNAlarmListManager.loadAlarmList(mainActivity.getBaseContext());
