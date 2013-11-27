@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 //import static org.junit.matchers.JUnitMatchers.*;
@@ -18,16 +20,33 @@ import static org.hamcrest.CoreMatchers.*;
 public class MNAlarmTest {
 
     MNAlarm alarm;
+    ArrayList<MNAlarm> alarmList;
 
     @Before
     public void setUp() {
         alarm = MNAlarm.newInstance();
+
+        alarmList = new ArrayList<MNAlarm>();
+        MNAlarm testAlarm1 = MNAlarm.newInstance();
+        testAlarm1.alarmId = 30;
+        alarmList.add(testAlarm1);
+
+        MNAlarm testAlarm2 = MNAlarm.newInstance();
+        testAlarm2.alarmId = 38;
+        alarmList.add(testAlarm2);
     }
 
     @Test
     // 필요한 정보들이 null값이 아닌지 테스트
     public void alarmConstructorTest() {
         assertThat(alarm, notNullValue());
+    }
+
+    @Test
+    // 알람 생성 테스트
+    public void alarmGetInstanceTest() {
+        assertThat(MNAlarm.getInstance(30, alarmList), notNullValue());
+        assertThat(MNAlarm.getInstance(38, alarmList), notNullValue());
     }
 
     @Test
