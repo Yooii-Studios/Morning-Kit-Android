@@ -10,6 +10,8 @@ import java.util.Calendar;
 public class MNAlarmMaker {
     private static final String TAG = "MNAlarmMaker";
 
+    private MNAlarmMaker() {}
+
     public static MNAlarm makeAlarm(Context context) {
         MNAlarm alarm = MNAlarm.newInstance();
 

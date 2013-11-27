@@ -15,14 +15,38 @@ import java.util.ArrayList;
 public class MNAlarmListManager {
     private static final String TAG = "MNAlarmListManager";
 
+    /**
+     * Singleton
+     */
+    private volatile static MNAlarmListManager instance;
+    private volatile SharedPreferences prefs;
+    private MNAlarmListManager() {}
+    public static MNAlarmListManager getInstance(Context context) {
+        if (instance == null) {
+            synchronized (MNAlarmListManager.class) {
+                if (instance == null) {
+                    instance = new MNAlarmListManager();
+                    instance.prefs = context.getSharedPreferences(MN.alarm.SHARED_PREFS_FILE, Context.MODE_PRIVATE);
+                }
+            }
+        }
+        return instance;
+    }
+
+    /**
+     * Static Method
+     */
+    /**
+     * load alarmList(ArrayList<MNAlarm>) from SharedPreferences using ObjectSerializer. If it's first load, two alarms will be added automatically.
+     * @param context
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public static ArrayList<MNAlarm> loadAlarmList(Context context) {
         ArrayList<MNAlarm> alarmList = null;
 
-        SharedPreferences prefs = context.getSharedPreferences(MN.alarm.SHARED_PREFS_FILE, Context.MODE_PRIVATE);
-
         try {
-            String alarmListDataString = prefs.getString(MN.alarm.ALARM_LIST, null);
+            String alarmListDataString = MNAlarmListManager.getInstance(context).prefs.getString(MN.alarm.ALARM_LIST, null);
             if (alarmListDataString != null) {
                 alarmList = (ArrayList<MNAlarm>) ObjectSerializer.deserialize(alarmListDataString);
 
@@ -47,9 +71,14 @@ public class MNAlarmListManager {
         return alarmList;
     }
 
+    /**
+     * save alarmList(ArrayList<MNAlarm>) to SharedPreferences using ObjectSerializer.
+     * @param alarmList
+     * @param context
+     * @throws IOException
+     */
     public static void saveAlarmList(ArrayList<MNAlarm> alarmList, Context context) throws IOException {
-        SharedPreferences prefs = context.getSharedPreferences(MN.alarm.SHARED_PREFS_FILE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
+        SharedPreferences.Editor editor = MNAlarmListManager.getInstance(context).prefs.edit();
         if (alarmList != null) {
             editor.putString(MN.alarm.ALARM_LIST, ObjectSerializer.serialize(alarmList));
         }else{
