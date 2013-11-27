@@ -9,9 +9,33 @@ import com.yooiistudios.morningkit.MN;
  * Created by StevenKim on 2013. 11. 26..
  */
 public class MNAlarmIdMaker {
+
+    /**
+     * Singleton
+     */
+    private volatile static MNAlarmIdMaker instance;
+    private volatile SharedPreferences prefs;
+    private MNAlarmIdMaker() {}
+    public static MNAlarmIdMaker getInstance(Context context) {
+        if (instance == null) {
+            synchronized (MNAlarmIdMaker.class) {
+                if (instance == null) {
+                    instance = new MNAlarmIdMaker();
+                    instance.prefs = context.getSharedPreferences(MN.alarm.SHARED_PREFS_FILE, Context.MODE_PRIVATE);
+                }
+            }
+        }
+        return instance;
+    }
+
+    /**
+     * get validate Id automatically. increase 8 for each id.
+     * @param context
+     * @return
+     */
     public static int getValidAlarmID(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(
-                MN.alarm.SHARED_PREFS_FILE, Context.MODE_PRIVATE);
+
+        SharedPreferences prefs = MNAlarmIdMaker.getInstance(context).prefs;
         int alarmId = prefs.getInt("alarmId", -1);
         if (alarmId == -1) {
             alarmId = 0;

@@ -36,7 +36,11 @@ public class MNAlarmListManager {
     /**
      * Static Method
      */
-
+    /**
+     * load alarmList(ArrayList<MNAlarm>) from SharedPreferences using ObjectSerializer. If it's first load, two alarms will be added automatically.
+     * @param context
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public static ArrayList<MNAlarm> loadAlarmList(Context context) {
         ArrayList<MNAlarm> alarmList = null;
@@ -67,6 +71,12 @@ public class MNAlarmListManager {
         return alarmList;
     }
 
+    /**
+     * save alarmList(ArrayList<MNAlarm>) to SharedPreferences using ObjectSerializer.
+     * @param alarmList
+     * @param context
+     * @throws IOException
+     */
     public static void saveAlarmList(ArrayList<MNAlarm> alarmList, Context context) throws IOException {
         SharedPreferences.Editor editor = MNAlarmListManager.getInstance(context).prefs.edit();
         if (alarmList != null) {
