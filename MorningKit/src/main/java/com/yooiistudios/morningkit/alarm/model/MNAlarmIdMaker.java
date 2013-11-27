@@ -16,7 +16,7 @@ public class MNAlarmIdMaker {
      */
     private volatile static MNAlarmIdMaker instance;
     private volatile SharedPreferences prefs;
-    private MNAlarmIdMaker() {}
+    private MNAlarmIdMaker() { throw new AssertionError(); } // You shouldn't create instance
     public static MNAlarmIdMaker getInstance(Context context) {
         if (instance == null) {
             synchronized (MNAlarmIdMaker.class) {
