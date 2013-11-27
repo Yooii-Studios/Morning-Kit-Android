@@ -40,6 +40,23 @@ public class MNAlarm implements Serializable, Cloneable {
         return alarm;
     }
 
+    /**
+     * get MNAlarm instance with specific alarmId from alarmList
+     * @param alarmId
+     * @param alarmList
+     * @return MNAlarm
+     */
+    public static MNAlarm getInstance(int alarmId, ArrayList<MNAlarm> alarmList) {
+        MNAlarm alarmToFind = null;
+
+        for (MNAlarm alarm : alarmList ) {
+            if (alarm.alarmId == alarmId) {
+                alarmToFind = alarm;
+            }
+        }
+        return alarmToFind;
+    }
+
     public void stopAlarm() {
 
     }
