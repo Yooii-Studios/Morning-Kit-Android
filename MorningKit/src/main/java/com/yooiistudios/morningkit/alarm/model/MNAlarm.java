@@ -49,7 +49,6 @@ public class MNAlarm implements Serializable, Cloneable {
      */
     public static MNAlarm getInstance(int alarmId, ArrayList<MNAlarm> alarmList) {
         MNAlarm alarmToFind = null;
-
         for (MNAlarm alarm : alarmList ) {
             if (alarm.alarmId == alarmId) {
                 alarmToFind = alarm;

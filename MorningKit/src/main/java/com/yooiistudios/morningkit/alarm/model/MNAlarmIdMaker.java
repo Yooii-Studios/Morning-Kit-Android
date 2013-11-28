@@ -35,7 +35,6 @@ public class MNAlarmIdMaker {
      * @return auto-increase id or -1 if error happens.
      */
     public static int getValidAlarmID(Context context) {
-
         int alarmId = -1;
         SharedPreferences prefs = MNAlarmIdMaker.getInstance(context).prefs;
         if (prefs != null) {

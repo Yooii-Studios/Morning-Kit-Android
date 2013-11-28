@@ -29,7 +29,6 @@ public class MNAlarmListManager {
                 if (instance == null) {
                     instance = new MNAlarmListManager();
                     instance.prefs = context.getSharedPreferences(MN.alarm.SHARED_PREFS_FILE, Context.MODE_PRIVATE);
-                    instance.alarmList = loadAlarmList(context);
                 }
             }
         }
@@ -42,7 +41,10 @@ public class MNAlarmListManager {
      * @return ArrayList<MNAlarm>
      */
     public static ArrayList<MNAlarm> alarmList(Context context) {
-        return MNAlarmListManager.getInstance(context).alarmList;
+        if (getInstance(context).alarmList == null) {
+            getInstance(context).alarmList = loadAlarmList(context);
+        }
+        return getInstance(context).alarmList;
     }
 
     /**
@@ -52,34 +54,26 @@ public class MNAlarmListManager {
      */
     @SuppressWarnings("unchecked")
     public static ArrayList<MNAlarm> loadAlarmList(Context context) {
-//        ArrayList<MNAlarm> alarmList = null;
-
-        if (MNAlarmListManager.getInstance(context).prefs != null) {
+        if (getInstance(context).prefs != null) {
             try {
-                String alarmListDataString = MNAlarmListManager.getInstance(context).prefs.getString(MN.alarm.ALARM_LIST, null);
+                String alarmListDataString = getInstance(context).prefs.getString(MN.alarm.ALARM_LIST, null);
                 if (alarmListDataString != null) {
-                    MNAlarmListManager.getInstance(context).alarmList = (ArrayList<MNAlarm>) ObjectSerializer.deserialize(alarmListDataString);
-
-//                alarmList = (ArrayList<MNAlarm>) ObjectSerializer
-//                        .deserialize(prefs.getString(MN.alarm.ALARM_LIST,
-//                                ObjectSerializer
-//                                        .serialize(new ArrayList<MNAlarm>())));
-                }else{
-                    MNAlarmListManager.getInstance(context).alarmList = new ArrayList<MNAlarm>();
+                    getInstance(context).alarmList = (ArrayList<MNAlarm>) ObjectSerializer.deserialize(alarmListDataString);
+                } else {
+                    getInstance(context).alarmList = new ArrayList<MNAlarm>();
 
                     MNAlarm firstAlarm = MNAlarmMaker.makeAlarmWithTime(context, 6, 30);
                     MNAlarm secondAlarm = MNAlarmMaker.makeAlarmWithTime(context, 7, 0);
 
-                    MNAlarmListManager.getInstance(context).alarmList.add(firstAlarm);
-                    MNAlarmListManager.getInstance(context).alarmList.add(secondAlarm);
-                    MNAlarmListManager.saveAlarmList(context);
+                    getInstance(context).alarmList.add(firstAlarm);
+                    getInstance(context).alarmList.add(secondAlarm);
+                    saveAlarmList(context);
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
-        return MNAlarmListManager.getInstance(context).alarmList;
+        return getInstance(context).alarmList;
     }
 
     /**
@@ -88,11 +82,11 @@ public class MNAlarmListManager {
      * @throws IOException
      */
     public static void saveAlarmList(Context context) throws IOException {
-        SharedPreferences.Editor editor = MNAlarmListManager.getInstance(context).prefs.edit();
+        SharedPreferences.Editor editor = getInstance(context).prefs.edit();
         if (editor != null) {
-            if (MNAlarmListManager.getInstance(context).alarmList != null) {
-                editor.putString(MN.alarm.ALARM_LIST, ObjectSerializer.serialize(MNAlarmListManager.getInstance(context).alarmList));
-            }else{
+            if (getInstance(context).alarmList != null) {
+                editor.putString(MN.alarm.ALARM_LIST, ObjectSerializer.serialize(getInstance(context).alarmList));
+            } else {
                 editor.remove(MN.alarm.ALARM_LIST);
             }
             editor.commit();
