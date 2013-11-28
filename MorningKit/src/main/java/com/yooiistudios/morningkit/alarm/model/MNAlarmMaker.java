@@ -11,7 +11,7 @@ import java.util.Calendar;
 public class MNAlarmMaker {
     private static final String TAG = "MNAlarmMaker";
 
-    private MNAlarmMaker() {}
+    private MNAlarmMaker() { throw new AssertionError(); } // You must not create instance
 
     public static MNAlarm makeAlarm(Context context) {
         MNAlarm alarm = MNAlarm.newInstance();

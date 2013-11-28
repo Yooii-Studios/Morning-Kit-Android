@@ -23,7 +23,7 @@ public class MNAlarm implements Serializable, Cloneable {
     public String              alarmLabel;
 
     // 한 알람당 8개 할당. n+0번 ~ n+6번: 미반복/월(0번이 월요일이거나 미반복) ~ 일, n+7번: 스누즈
-    public int                  alarmId;
+    public int                 alarmId;
 
     public Calendar            alarmCalendar;
 
@@ -49,7 +49,6 @@ public class MNAlarm implements Serializable, Cloneable {
      */
     public static MNAlarm getInstance(int alarmId, ArrayList<MNAlarm> alarmList) {
         MNAlarm alarmToFind = null;
-
         for (MNAlarm alarm : alarmList ) {
             if (alarm.alarmId == alarmId) {
                 alarmToFind = alarm;
