@@ -17,6 +17,7 @@ import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.alarm.listview.MNAlarmListAdaptor;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
 import butterknife.InjectView;
@@ -55,6 +56,7 @@ public class MNMainActivity extends Activity implements AdListener
         mWidgetWindowLayout.initWithWidgetMatrix();
 
         // 알람
+        mAlarmListView.initWithListAdaptor(new MNAlarmListAdaptor(this.getBaseContext()));
 
         // 애드몹
 //        mAdView = new AdView(this, AdSize.BANNER, MN.ads.ADMOB_ID);
