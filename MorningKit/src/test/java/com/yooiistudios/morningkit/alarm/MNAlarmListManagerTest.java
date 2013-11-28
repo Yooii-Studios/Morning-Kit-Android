@@ -47,12 +47,15 @@ public class MNAlarmListManagerTest {
      */
     @Test
     public void saveAndLoadAlarmListTest() throws IOException {
-
+        
         // SharedPreference를 비운다
         SharedPreferences prefs = mainActivity.getSharedPreferences(MN.alarm.SHARED_PREFS_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.remove(MN.alarm.ALARM_LIST);
         editor.commit();
+
+        // 무조건 alarmList를 읽으면 null은 되면 안된다(초기화 로직도 존재함)
+        assertThat(MNAlarmListManager.getAlarmList(mainActivity.getBaseContext()), notNullValue());
 
         // 알람 리스트를 첫 로드할 경우는 알람이 2개가 있어야 함(6:30 / 7:30)
         dummyAlarmList = MNAlarmListManager.loadAlarmList(mainActivity.getBaseContext());

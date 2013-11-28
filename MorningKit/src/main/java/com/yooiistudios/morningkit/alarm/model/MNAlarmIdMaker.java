@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.yooiistudios.morningkit.MN;
+import com.yooiistudios.morningkit.common.sharedpreferences.MNSharedPreferences;
 
 /**
  * Created by StevenKim on 2013. 11. 26..
@@ -11,8 +12,7 @@ import com.yooiistudios.morningkit.MN;
  */
 public class MNAlarmIdMaker {
 
-    private static SharedPreferences prefs;
-    private MNAlarmIdMaker() { throw new AssertionError(); } // You shouldn't create instance
+    private MNAlarmIdMaker() { throw new AssertionError(); } // You must not create instance
 
     /**
      * get validate Id automatically. increase 8 for each id.
@@ -20,10 +20,8 @@ public class MNAlarmIdMaker {
      * @return auto-increase id or -1 if error happens.
      */
     public static int getValidAlarmID(Context context) {
-        if (prefs == null) {
-            prefs = context.getSharedPreferences(MN.alarm.SHARED_PREFS_FILE, Context.MODE_PRIVATE);
-        }
 
+        SharedPreferences prefs = MNSharedPreferences.getAlarmSharedPrefs(context);
         int alarmId = prefs.getInt("alarmId", -1);
         if (alarmId == -1) {
             alarmId = 0;
