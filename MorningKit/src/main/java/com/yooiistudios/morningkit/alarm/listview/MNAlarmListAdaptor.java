@@ -65,7 +65,7 @@ public class MNAlarmListAdaptor extends BaseAdapter {
             e.printStackTrace();
         }
         if (position < MNAlarmListManager.getAlarmList(mContext).size()) {
-            convertView = mLayoutInflater.inflate(R.layout.alarm_create_item, parent, false);
+            convertView = mLayoutInflater.inflate(R.layout.alarm_item, parent, false);
             if (convertView != null) {
                 convertView.setLongClickable(false);
             }
