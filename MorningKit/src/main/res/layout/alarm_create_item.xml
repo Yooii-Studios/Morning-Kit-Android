@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/alarm_item_leftRelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="69dp"
+    android:layout_alignParentLeft="true"
+    android:clickable="false"
+    android:focusable="false"
+    android:background="#444444"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/alarm_create_item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="@string/add_an_alarm"
+        android:textColor="#ffffff"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/alarm_create_item_plus_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/icon_plus_s3" />
+
+    <ImageView
+        android:id="@+id/alarm_create_item_dividing_bar_image_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/alarm_create_item_plus_image"
+       	android:layout_marginRight="10dp"
+        android:src="@drawable/alarm_dividing_bar_gray_s3" />
+
+</RelativeLayout>

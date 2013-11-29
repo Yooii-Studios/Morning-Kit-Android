@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
+import com.yooiistudios.morningkit.alarm.listview.MNAlarmListAdaptor;
+
 /**
  * Created by yongbinbae on 13. 10. 22..
  */
@@ -26,5 +28,9 @@ public class MNMainAlarmListView extends ListView
 
     private void init() {
 
+    }
+
+    public void initWithListAdaptor(MNAlarmListAdaptor listAdaptor) {
+        setAdapter(listAdaptor);
     }
 }

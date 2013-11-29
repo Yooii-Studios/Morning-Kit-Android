@@ -66,11 +66,11 @@ public class MNAlarmListManagerTest {
             MNAlarm firstAlarm = dummyAlarmList.get(0);
             MNAlarm secondAlarm = dummyAlarmList.get(1);
 
-            assertThat(firstAlarm.alarmCalendar.get(Calendar.HOUR_OF_DAY), is(6));
-            assertThat(firstAlarm.alarmCalendar.get(Calendar.MINUTE), is(30));
+            assertThat(firstAlarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY), is(6));
+            assertThat(firstAlarm.getAlarmCalendar().get(Calendar.MINUTE), is(30));
 
-            assertThat(secondAlarm.alarmCalendar.get(Calendar.HOUR_OF_DAY), is(7));
-            assertThat(secondAlarm.alarmCalendar.get(Calendar.MINUTE), is(0));
+            assertThat(secondAlarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY), is(7));
+            assertThat(secondAlarm.getAlarmCalendar().get(Calendar.MINUTE), is(0));
         }
 
         // 알람 하나를 추가하고 저장한다

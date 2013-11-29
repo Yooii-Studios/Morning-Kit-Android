@@ -28,11 +28,11 @@ public class MNAlarmTest {
 
         alarmList = new ArrayList<MNAlarm>();
         MNAlarm testAlarm1 = MNAlarm.newInstance();
-        testAlarm1.alarmId = 30;
+        testAlarm1.setAlarmId(30);
         alarmList.add(testAlarm1);
 
         MNAlarm testAlarm2 = MNAlarm.newInstance();
-        testAlarm2.alarmId = 38;
+        testAlarm2.setAlarmId(38);
         alarmList.add(testAlarm2);
     }
 
