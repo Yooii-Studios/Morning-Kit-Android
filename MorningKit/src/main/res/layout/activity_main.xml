@@ -17,7 +17,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#444444">
 
             <com.yooiistudios.morningkit.main.MNWidgetWindowLayout
@@ -57,7 +57,8 @@
             android:layout_centerVertical="true"
             android:src="@drawable/icon_refresh_off_s3"
             android:scaleType="fitCenter"
-            android:layout_alignParentStart="false" />
+            android:layout_alignParentStart="false"
+            android:contentDescription="@string/loading"/>
 
         <ImageView
             android:layout_width="38dp"
@@ -66,7 +67,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/icon_setting_off_s3"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/loading"/>
     </RelativeLayout>
 
     <RelativeLayout
