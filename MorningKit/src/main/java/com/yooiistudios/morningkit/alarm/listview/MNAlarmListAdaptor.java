@@ -49,7 +49,7 @@ public class MNAlarmListAdaptor extends BaseAdapter {
     public long getItemId(int position) {
         try {
             MNAlarm alarm = MNAlarmListManager.getAlarmList(mContext).get(position);
-            return alarm.alarmId;
+            return alarm.getAlarmId();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -42,19 +42,19 @@ public class MNAlarmMakerTest {
         assertNotNull(defaultAlarm);
 
         assertThat(defaultAlarm, notNullValue());
-        assertThat(defaultAlarm.isAlarmOn, is(true));
-        assertThat(defaultAlarm.isSnoozeOn, is(false));
-        assertThat(defaultAlarm.isRepeatOn, is(false));
-        assertThat(defaultAlarm.alarmLabel, is("Alarm"));
+        assertThat(defaultAlarm.isAlarmOn(), is(true));
+        assertThat(defaultAlarm.isSnoozeOn(), is(false));
+        assertThat(defaultAlarm.isRepeatOn(), is(false));
+        assertThat(defaultAlarm.getAlarmLabel(), is("Alarm"));
         // 알람 ID를 제대로 할당했는지 테스트
-        assertThat(defaultAlarm.alarmId, is(not(-1)));
-        assertThat(defaultAlarm.alarmCalendar, notNullValue());
+        assertThat(defaultAlarm.getAlarmId(), is(not(-1)));
+        assertThat(defaultAlarm.getAlarmCalendar(), notNullValue());
         // 알람 초는 0초로 설정해야함
-        assertThat(defaultAlarm.alarmCalendar.get(Calendar.SECOND), is(0));
+        assertThat(defaultAlarm.getAlarmCalendar().get(Calendar.SECOND), is(0));
 
         // 초기 설정은 모두 false
-        for (int i = 0; i < defaultAlarm.alarmRepeatOnOfWeek.size(); i++) {
-            Boolean alarmRepeatOnSpecificWeekday = defaultAlarm.alarmRepeatOnOfWeek.get(i);
+        for (int i = 0; i < defaultAlarm.getAlarmRepeatOnOfWeek().size(); i++) {
+            Boolean alarmRepeatOnSpecificWeekday = defaultAlarm.getAlarmRepeatOnOfWeek().get(i);
             assertThat(alarmRepeatOnSpecificWeekday, is(false));
         }
 
@@ -67,11 +67,11 @@ public class MNAlarmMakerTest {
         assertNotNull(customAlarm);
 
         // 기본으로 끈 채로 추가
-        assertThat(customAlarm.isAlarmOn, is(false));
+        assertThat(customAlarm.isAlarmOn(), is(false));
 
         // 특정 시간으로 넣었을 때 올해/이번달/오늘 or 내일의 특정 시간으로 나오는지 테스트
-        int hour = customAlarm.alarmCalendar.get(Calendar.HOUR_OF_DAY);
-        int minute = customAlarm.alarmCalendar.get(Calendar.MINUTE);
+        int hour = customAlarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY);
+        int minute = customAlarm.getAlarmCalendar().get(Calendar.MINUTE);
 
         // 시간만 일단 체크(오늘/내일 판단은 startAlarmTest() 에서 구현하기로)
         assertThat(hour, is(6));

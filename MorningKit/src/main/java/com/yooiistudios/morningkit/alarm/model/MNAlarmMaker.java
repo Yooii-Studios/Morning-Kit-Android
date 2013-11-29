@@ -17,18 +17,18 @@ public class MNAlarmMaker {
         MNAlarm alarm = MNAlarm.newInstance();
 
         if (alarm != null) {
-            alarm.isAlarmOn = true;
-            alarm.isSnoozeOn = false;
-            alarm.isRepeatOn = false;
-            alarm.alarmLabel = "Alarm";
-            alarm.alarmCalendar = Calendar.getInstance();
-            alarm.alarmCalendar.set(Calendar.SECOND, 0);
+            alarm.setAlarmOn(true);
+            alarm.setSnoozeOn(false);
+            alarm.setRepeatOn(false);
+            alarm.setAlarmLabel("Alarm");
+            alarm.setAlarmCalendar(Calendar.getInstance());
+            alarm.getAlarmCalendar().set(Calendar.SECOND, 0);
 
             for (int i=0; i<7; i++) {
-                alarm.alarmRepeatOnOfWeek.add(Boolean.FALSE);
+                alarm.getAlarmRepeatOnOfWeek().add(Boolean.FALSE);
             }
 
-            alarm.alarmId = MNAlarmIdMaker.getValidAlarmID(context);
+            alarm.setAlarmId(MNAlarmIdMaker.getValidAlarmID(context));
         }
 
         return alarm;
@@ -37,10 +37,10 @@ public class MNAlarmMaker {
     public static MNAlarm makeAlarmWithTime(Context context, int hourOfDay, int minute) {
         MNAlarm alarm = MNAlarmMaker.makeAlarm(context);
         if (alarm != null) {
-            alarm.isAlarmOn = false;
+            alarm.setAlarmOn(false);
 
-            alarm.alarmCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            alarm.alarmCalendar.set(Calendar.MINUTE, minute);
+            alarm.getAlarmCalendar().set(Calendar.HOUR_OF_DAY, hourOfDay);
+            alarm.getAlarmCalendar().set(Calendar.MINUTE, minute);
         }
         return alarm;
     }
