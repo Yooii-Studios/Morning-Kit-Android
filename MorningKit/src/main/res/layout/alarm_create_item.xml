@@ -13,7 +13,7 @@
     android:paddingRight="@dimen/margin_outer"
     android:orientation="vertical" >
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:id="@+id/alarm_create_inner_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,7 +43,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/icon_plus_s3" />
+            android:src="@drawable/icon_plus_s3"
+            android:contentDescription="@string/loading"/>
 
         <ImageView
             android:id="@+id/alarm_create_item_dividing_bar_image_create"
@@ -52,7 +53,7 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/alarm_create_item_plus_image"
             android:layout_marginRight="10dp"
-            android:src="@drawable/alarm_dividing_bar_gray_s3" />
-
+            android:src="@drawable/alarm_dividing_bar_gray_s3"
+            android:contentDescription="@string/loading"/>
     </RelativeLayout>
 </RelativeLayout>
