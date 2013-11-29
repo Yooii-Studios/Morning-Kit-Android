@@ -7,7 +7,7 @@
     android:orientation="vertical" >
 
     <RelativeLayout 
-        android:id="@+id/alarm_item_leftRelativeLayout"
+        android:id="@+id/alarm_item_left_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="false"
@@ -163,7 +163,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@drawable/alarm_dividing_bar_gray_s3" />
+                android:src="@drawable/alarm_dividing_bar_gray_s3"
+                android:contentDescription="@string/loading"/>
         </RelativeLayout>
 
         <RelativeLayout
