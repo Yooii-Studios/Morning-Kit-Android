@@ -70,12 +70,14 @@ public class MNAlarmListAdaptor extends BaseAdapter {
             convertView = mLayoutInflater.inflate(R.layout.alarm_item, parent, false);
             if (convertView != null) {
                 convertView.setLongClickable(false);
+                convertView.setTag(alarm);
             }
             return convertView;
         }else{
             convertView = mLayoutInflater.inflate(R.layout.alarm_create_item, parent, false);
             if (convertView != null) {
                 convertView.setLongClickable(false);
+                convertView.setTag("alarm_create_item");
             }
             return convertView;
         }
