@@ -58,13 +58,15 @@ public class MNAlarmListAdaptor extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        MNAlarm alarm = null;
-        try {
-            alarm = MNAlarmListManager.getAlarmList(mContext).get(position);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         if (position < MNAlarmListManager.getAlarmList(mContext).size()) {
+            MNAlarm alarm = null;
+            try {
+                alarm = MNAlarmListManager.getAlarmList(mContext).get(position);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             convertView = mLayoutInflater.inflate(R.layout.alarm_item, parent, false);
             if (convertView != null) {
                 convertView.setLongClickable(false);
