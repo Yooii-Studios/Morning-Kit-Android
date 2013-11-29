@@ -3,6 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- 전체 -->
+    <dimen name="rounded_corner_radius">6dp</dimen>
+
     <!-- 앱 전체적으로 쓰이는 패딩 -->
     <dimen name="margin_outer">6dp</dimen>
     <dimen name="margin_inner">3dp</dimen>

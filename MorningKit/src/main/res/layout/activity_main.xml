@@ -30,6 +30,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#4444dd"
+                android:dividerHeight="0dp"
+                android:divider="#ffffff"
                 android:id="@+id/main_alarm_list_view" />
 
         </LinearLayout>
