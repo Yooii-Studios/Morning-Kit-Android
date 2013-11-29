@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/alarm_item_leftRelativeLayout"
+    android:id="@+id/alarm_create_outer_layout"
     android:layout_width="match_parent"
     android:layout_height="69dp"
     android:layout_alignParentLeft="true"
