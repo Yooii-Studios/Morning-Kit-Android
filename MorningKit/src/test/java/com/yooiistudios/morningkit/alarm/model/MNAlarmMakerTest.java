@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.alarm;
+package com.yooiistudios.morningkit.alarm.model;
 
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
