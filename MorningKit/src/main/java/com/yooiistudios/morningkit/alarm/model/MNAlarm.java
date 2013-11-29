@@ -86,4 +86,13 @@ public class MNAlarm implements Serializable, Cloneable {
 
         return obj;
     }
+    
+    @Override
+    public String toString() {
+        return String.format("alarmId: %d / alarmLabel: %s / on: %s, repeat: %s / ",
+                alarmId,
+                alarmLabel,
+                isAlarmOn ? "Yes" : "No",
+                isRepeatOn ? "Yes" : "No");
+    }
 }
