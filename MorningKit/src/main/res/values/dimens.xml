@@ -27,4 +27,10 @@
     <dimen name="alarm_item_inner_height">65dp</dimen>
     <dimen name="alarm_item_outer_height">71dp</dimen> <!-- inner + margin_inner*2  -->
 
+    <dimen name="alarm_item_divider_with">2dp</dimen>
+
+    <dimen name="alarm_create_item_plus_size">60dp</dimen>
+    <dimen name="alarm_item_switch_size">60dp</dimen>
+
+
 </resources>

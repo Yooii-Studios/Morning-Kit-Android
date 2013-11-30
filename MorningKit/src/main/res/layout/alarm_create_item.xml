@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/alarm_item_outer_height"
     android:layout_alignParentLeft="true"
+    android:background="#38aa38"
     android:clickable="false"
     android:focusable="false"
-    android:background="#38aa38"
     android:paddingTop="@dimen/margin_inner"
     android:paddingBottom="@dimen/margin_inner"
     android:paddingLeft="@dimen/margin_outer"
@@ -19,10 +19,11 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:clickable="false"
         android:focusable="false"
         android:background="@drawable/shape_rounded_view_classic_gray"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/alarm_create_item_text"
@@ -34,26 +35,39 @@
             android:gravity="center_vertical"
             android:text="@string/add_an_alarm"
             android:textColor="#ffffff"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:id="@+id/alarm_create_item_dividing_bar_image_create"
+            android:layout_width="@dimen/alarm_item_divider_with"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/alarm_create_item_plus_image"
+            android:src="@drawable/alarm_dividing_bar_default"
+            android:contentDescription="@string/loading"
+            android:layout_centerInParent="true"/>
 
         <ImageView
             android:id="@+id/alarm_create_item_plus_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/alarm_create_item_plus_size"
+            android:layout_height="@dimen/alarm_create_item_plus_size"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/icon_plus_s3"
-            android:contentDescription="@string/loading"/>
+            android:scaleType="fitCenter"
+            android:src="@drawable/alarm_plus_icon_s3"
+            android:contentDescription="@string/loading"
+            android:background="#aa00aa"
+            android:layout_centerInParent="true"/>
 
+        <!--
         <ImageView
             android:id="@+id/alarm_create_item_dividing_bar_image_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/alarm_create_item_plus_image"
-            android:layout_marginRight="10dp"
             android:src="@drawable/alarm_dividing_bar_gray_s3"
             android:contentDescription="@string/loading"/>
+        -->
     </RelativeLayout>
 </RelativeLayout>

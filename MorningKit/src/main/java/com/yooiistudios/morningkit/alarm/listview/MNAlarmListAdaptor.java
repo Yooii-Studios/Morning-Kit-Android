@@ -5,12 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
-
-import java.util.ArrayList;
 
 enum MNAlarmListAdaptorType { MainAlarmListAdaptor, ConfigureAlarmListAdaptor; }
 
@@ -68,9 +67,28 @@ public class MNAlarmListAdaptor extends BaseAdapter {
             }
 
             convertView = mLayoutInflater.inflate(R.layout.alarm_item, parent, false);
-            if (convertView != null) {
+            if (convertView != null && alarm != null) {
                 convertView.setLongClickable(false);
                 convertView.setTag(alarm);
+
+                // Alarm Switch Button
+                final ImageButton alarmSwitchButton = (ImageButton) convertView.findViewById(R.id.alarm_item_switch_imagebutton);
+                if (alarm.isAlarmOn()) {
+                    alarmSwitchButton.setSelected(true);
+                }else{
+                    alarmSwitchButton.setSelected(false);
+                }
+                alarmSwitchButton.setTag(alarm);
+                alarmSwitchButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (alarmSwitchButton.isSelected()) {
+                            alarmSwitchButton.setSelected(false);
+                        } else {
+                            alarmSwitchButton.setSelected(true);
+                        }
+                    }
+                });
             }
             return convertView;
         }else{
