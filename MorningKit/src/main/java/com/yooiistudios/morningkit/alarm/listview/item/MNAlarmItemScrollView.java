@@ -64,6 +64,8 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
 
     public static MNAlarmItemScrollView newInstance(Context context, int position, View alarmView) {
         MNAlarmItemScrollView alarmItemScrollView = new MNAlarmItemScrollView(context);
+        Integer positionInteger = position;
+        alarmItemScrollView.setTag(positionInteger);
         alarmItemScrollView.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
         alarmItemScrollView.mItemIndex = position;
         alarmItemScrollView.mAlarmView = alarmView;
@@ -239,4 +241,10 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
 
 //        Log.i(TAG, "" + getHeight());
     }
+
+    /**
+     * Getter & Setter
+     */
+    public ArrayList<LinearLayout> getLayoutItems() { return mLayoutItems; }
+    public View getAlarmView() { return mAlarmView; }
 }
