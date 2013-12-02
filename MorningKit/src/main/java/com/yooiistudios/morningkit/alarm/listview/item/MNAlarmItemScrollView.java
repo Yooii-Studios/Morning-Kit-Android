@@ -83,6 +83,7 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
 
     private void initScrollView() {
         setHorizontalScrollBarEnabled(false);
+        setHorizontalFadingEdgeEnabled(false);
 
         initLayoutItems();
         initInternalWrapper();
