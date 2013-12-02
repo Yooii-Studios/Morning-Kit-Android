@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.alarm.listview;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemScrollView;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 
@@ -90,7 +92,18 @@ public class MNAlarmListAdaptor extends BaseAdapter {
                     }
                 });
             }
-            return convertView;
+
+            final MNAlarmItemScrollView alarmItemScrollView = MNAlarmItemScrollView.newInstance(mContext, position, convertView);
+            if (alarmItemScrollView != null) {
+                Log.i(TAG, "alarmItemScrollView is not null");
+            } else {
+                Log.i(TAG, "alarmItemScrollView is null");
+            }
+
+//            return convertView;
+            return alarmItemScrollView;
+//            return MNAlarmItemScrollView.newInstance(mContext, position, convertView);
+
         }else{
             convertView = mLayoutInflater.inflate(R.layout.alarm_create_item, parent, false);
             if (convertView != null) {
