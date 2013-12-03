@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.alarm.listview;
 
 import android.view.View;
 
+import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemClickListener;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemScrollView;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
@@ -38,11 +39,11 @@ public class MNAlarmListViewTest {
     @Before
     public void setUp() {
         mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
-        alarmListAdaptor = new MNAlarmListAdapter(mainActivity.getBaseContext());
+        alarmListAdaptor = new MNAlarmListAdapter(mainActivity.getBaseContext(), MNAlarmItemClickListener.newInstance(mainActivity.getAlarmListView()));
     }
 
     @Test
-    public void alarmListAdaptorTest() {
+    public void mainAlarmListAdaptorTest() {
         // MNAlarmListAdaptor의 초기화를 위해서 Context가 null이 아닌지 체크
         assertThat(mainActivity.getBaseContext(), notNullValue());
         // null 체크
@@ -53,7 +54,7 @@ public class MNAlarmListViewTest {
     }
 
     @Test
-    public void alarmListViewTest() {
+    public void alarmItemsTest() {
         assertThat(mainActivity.getAlarmListView().getCount(), is(alarmListAdaptor.getCount()));
 
         for(int i=0; i<mainActivity.getAlarmListView().getChildCount()-1; i++) {
@@ -64,7 +65,7 @@ public class MNAlarmListViewTest {
                 assertThat(alarmItemScrollView.getLayoutItems(), notNullValue());
                 assertThat(alarmItemScrollView.getLayoutItems().size(), is(3));
                 // 알람아이템 스크롤뷰의 태그는 position
-                assertThat((Integer) alarmItemScrollView.getTag(), is(i));
+                assertThat((Integer)alarmItemScrollView.getTag(), is(i));
                 // 알람뷰확인, 태그는 MNAlarm
                 assertThat(alarmItemScrollView.getAlarmView(), notNullValue());
                 assertThat(alarmItemScrollView.getAlarmView().getTag(), notNullValue());
@@ -78,9 +79,15 @@ public class MNAlarmListViewTest {
         View alarmCreateAlarmItemView =
                 mainActivity.getAlarmListView().getChildAt(MNAlarmListManager.getAlarmList(mainActivity.getBaseContext()).size());
         if (alarmCreateAlarmItemView != null) {
-            assertThat(alarmCreateAlarmItemView.getTag(), is(String.class));
-            String tag = (String)alarmCreateAlarmItemView.getTag();
-            assertThat(tag, is("alarm_create_item"));
+//            assertThat(alarmCreateAlarmItemView.getTag(), is(String.class));
+//            String tag = (String)alarmCreateAlarmItemView.getTag();
+            assertThat((Integer)alarmCreateAlarmItemView.getTag(), is(-1));
         }
+    }
+
+    @Test
+    public void mainAlarmListViewTest() {
+        assertThat(mainActivity.getAlarmListView().getAlarmItemClickListener(), notNullValue());
+        assertThat(mainActivity.getAlarmListView().getAlarmItemClickListener().getAlarmListView(), notNullValue());
     }
 }

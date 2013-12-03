@@ -52,7 +52,7 @@ dependencies {
         mavenCentral()
     }
     // 안드로이드 기본
-    compile 'com.android.support:support-v4:18.0.+'
+    compile 'com.android.support:support-v4:+'
 	compile 'com.android.support:appcompat-v7:+'
 
     // 필요한 라이브러리들

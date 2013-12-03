@@ -53,7 +53,7 @@ public class MNMainActivity extends Activity implements AdListener
         mWidgetWindowLayout.initWithWidgetMatrix();
 
         // 알람
-        mAlarmListView.initWithListAdapter(new MNAlarmListAdapter(this.getBaseContext()));
+        mAlarmListView.initWithListAdapter();
 
         // 애드몹
 //        mAdView = new AdView(this, AdSize.BANNER, MN.ads.ADMOB_ID);

@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.alarm.listview;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +22,14 @@ public class MNAlarmListAdapter extends BaseAdapter {
     private static final String TAG = "MNAlarmListAdapter";
     private LayoutInflater mLayoutInflater;
     private Context mContext;
+    private View.OnClickListener mAlarmItemClickListener;
 //    private MNAlarmListAdapterType type;
 
     private MNAlarmListAdapter() {}
-    public MNAlarmListAdapter(Context context) {
+    public MNAlarmListAdapter(Context context, View.OnClickListener alarmItemClickListener) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mContext = context;
+        mAlarmItemClickListener = alarmItemClickListener;
     }
 
     @Override
@@ -38,21 +39,25 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        try {
-            return MNAlarmListManager.getAlarmList(mContext).get(position);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (position < MNAlarmListManager.getAlarmList(mContext).size()) {
+            try {
+                return MNAlarmListManager.getAlarmList(mContext).get(position);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
 
     @Override
     public long getItemId(int position) {
-        try {
-            MNAlarm alarm = MNAlarmListManager.getAlarmList(mContext).get(position);
-            return alarm.getAlarmId();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (position < MNAlarmListManager.getAlarmList(mContext).size()) {
+            try {
+                MNAlarm alarm = MNAlarmListManager.getAlarmList(mContext).get(position);
+                return alarm.getAlarmId();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return 0;
     }
@@ -70,6 +75,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
             convertView = mLayoutInflater.inflate(R.layout.alarm_item, parent, false);
             if (convertView != null && alarm != null) {
+                convertView.setOnClickListener(mAlarmItemClickListener);
                 convertView.setLongClickable(false);
                 convertView.setTag(alarm);
 
@@ -99,7 +105,8 @@ public class MNAlarmListAdapter extends BaseAdapter {
             convertView = mLayoutInflater.inflate(R.layout.alarm_create_item, parent, false);
             if (convertView != null) {
                 convertView.setLongClickable(false);
-                convertView.setTag("alarm_create_item");
+                convertView.setOnClickListener(mAlarmItemClickListener);
+                convertView.setTag(-1);
             }
             return convertView;
         }
