@@ -48,22 +48,24 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
     /**
      * Constructor
      */
-    // 일단 필요없을듯
-    public MNAlarmItemScrollView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
-
-    public MNAlarmItemScrollView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+    // 사용하지 않을 것으로 예상
+//    public MNAlarmItemScrollView(Context context, AttributeSet attrs, int defStyle) {
+//        super(context, attrs, defStyle);
+//    }
+//
+//    public MNAlarmItemScrollView(Context context, AttributeSet attrs) {
+//        super(context, attrs);
+//    }
 
     // newInstance를 사용해서만 생성할 수 있음
-    public MNAlarmItemScrollView(Context context) {
+    private MNAlarmItemScrollView(Context context) {
         super(context);
     }
 
     public static MNAlarmItemScrollView newInstance(Context context, int position, View alarmView) {
         MNAlarmItemScrollView alarmItemScrollView = new MNAlarmItemScrollView(context);
+        Integer positionInteger = position;
+        alarmItemScrollView.setTag(positionInteger);
         alarmItemScrollView.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
         alarmItemScrollView.mItemIndex = position;
         alarmItemScrollView.mAlarmView = alarmView;
@@ -83,6 +85,7 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
 
     private void initScrollView() {
         setHorizontalScrollBarEnabled(false);
+        setHorizontalFadingEdgeEnabled(false);
 
         initLayoutItems();
         initInternalWrapper();
@@ -113,7 +116,7 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
 
         LinearLayout rightLayout = (LinearLayout) View.inflate(getContext(),
                 R.layout.alarm_item_blank, null);
-//        rightLayout.setBackgroundColor(0xffff00);
+//        rightLayout.setBackgroundColor(0xff5511);
         p = new LinearLayout.LayoutParams(mDeviceWidth, LayoutParams.WRAP_CONTENT);
         rightLayout.setLayoutParams(p);
         rightLayout.setGravity(Gravity.CENTER);
@@ -238,4 +241,10 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
 
 //        Log.i(TAG, "" + getHeight());
     }
+
+    /**
+     * Getter & Setter
+     */
+    public ArrayList<LinearLayout> getLayoutItems() { return mLayoutItems; }
+    public View getAlarmView() { return mAlarmView; }
 }

@@ -92,17 +92,8 @@ public class MNAlarmListAdaptor extends BaseAdapter {
                     }
                 });
             }
-
-            final MNAlarmItemScrollView alarmItemScrollView = MNAlarmItemScrollView.newInstance(mContext, position, convertView);
-            if (alarmItemScrollView != null) {
-                Log.i(TAG, "alarmItemScrollView is not null");
-            } else {
-                Log.i(TAG, "alarmItemScrollView is null");
-            }
-
-//            return convertView;
-            return alarmItemScrollView;
-//            return MNAlarmItemScrollView.newInstance(mContext, position, convertView);
+//            return alarmItemScrollView;
+            return MNAlarmItemScrollView.newInstance(mContext, position, convertView);
 
         }else{
             convertView = mLayoutInflater.inflate(R.layout.alarm_create_item, parent, false);
