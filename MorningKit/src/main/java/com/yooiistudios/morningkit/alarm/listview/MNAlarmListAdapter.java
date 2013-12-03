@@ -18,7 +18,7 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-enum MNAlarmListAdapterType {MainAlarmListAdapter, ConfigureAlarmListAdapter; }
+enum MNAlarmListAdapterType { MAIN, CONFIGURE; }
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 11. 27.

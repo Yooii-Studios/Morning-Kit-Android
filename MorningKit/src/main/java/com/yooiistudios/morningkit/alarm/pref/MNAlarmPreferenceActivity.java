@@ -13,16 +13,21 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.bus.MNBusProvider;
 
+import lombok.Getter;
+
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 3.
  *
  * MNAlarmPreferenceActivity
  * 알람을 추가, 수정하는 액티비티
  */
+enum MNAlarmPreferenceType { ADD, EDIT; }
+
 public class MNAlarmPreferenceActivity extends ActionBarActivity implements View.OnClickListener{
 
     private static final String TAG = "MNAlarmPreferenceActivity";
-    private MNAlarm alarm;
+    @Getter private MNAlarm alarm;
+    @Getter private MNAlarmPreferenceType alarmPreferenceType;
 
     /**
      * Lifecycle
@@ -40,8 +45,10 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
         if (extras != null) {
             int alarmId = extras.getInt(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
             if (alarmId != -1) {
+                alarmPreferenceType = MNAlarmPreferenceType.EDIT;
                 alarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
             }else{
+                alarmPreferenceType = MNAlarmPreferenceType.ADD;
                 alarm = MNAlarmMaker.makeAlarm(this.getBaseContext());
             }
             Log.i(TAG, "alarmId: " + alarm.getAlarmId());
