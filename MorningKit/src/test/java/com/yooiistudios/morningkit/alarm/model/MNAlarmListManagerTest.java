@@ -98,7 +98,12 @@ public class MNAlarmListManagerTest {
 
     @Test
     public void findAlarmWithAlarmIDTest() {
-
+        dummyAlarmList = MNAlarmListManager.loadAlarmList(mainActivity.getBaseContext());
+        for (MNAlarm alarm : dummyAlarmList) {
+            MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), mainActivity.getBaseContext());
+            assertThat(targetAlarm, is(alarm));
+            assertThat(targetAlarm.getAlarmId(), is(alarm.getAlarmId()));
+        }
     }
 
     @Test

@@ -1,12 +1,11 @@
 package com.yooiistudios.morningkit.alarm.listview.item;
 
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.squareup.otto.Bus;
+import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
 import com.yooiistudios.morningkit.main.MNMainAlarmListView;
@@ -53,6 +52,8 @@ public class MNAlarmItemClickListener implements View.OnClickListener {
                 Log.i(TAG, "alarm is not null");
                 Bus bus = new Bus();
                 bus.post(alarm);
+
+                i.putExtra(MN.alarm.ALARM_PREFERENCE_ALARM_ID, alarm.getAlarmId());
             } else {
                 Log.i(TAG, "alarm is null");
             }

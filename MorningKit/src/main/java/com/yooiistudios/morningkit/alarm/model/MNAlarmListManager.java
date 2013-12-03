@@ -90,9 +90,31 @@ public class MNAlarmListManager {
         }
     }
 
-    public static ArrayList<MNAlarm> sortAlarmList(Context context) {
+    /**
+     * sort alarmList(ArrayList<MNAlarm>) by time string as ascending
+     * @param context used to get SharedPreferences
+     */
+    public static void sortAlarmList(Context context) {
         ArrayList<MNAlarm> sortedAlarmList = null;
+    }
 
-        return sortedAlarmList;
+    /**
+     * find alarm by specific alarmId in alarmList
+     * @param targetAlarmId alarmId to be searched
+     * @param context used to get SharedPreferences
+     * @return MNAlarm
+     */
+    public static MNAlarm findAlarmById(int targetAlarmId, Context context) {
+        if (targetAlarmId != -1) {
+            MNAlarm targetAlarm = null;
+            for (MNAlarm alarm : MNAlarmListManager.getAlarmList(context)) {
+                if (alarm.getAlarmId() == targetAlarmId) {
+                    targetAlarm = alarm;
+                }
+            }
+            return targetAlarm;
+        } else {
+            return null;
+        }
     }
 }

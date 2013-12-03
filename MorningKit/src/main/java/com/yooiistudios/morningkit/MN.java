@@ -22,6 +22,9 @@ public final class MN {
         public static final String ALARM_LIST = "alarm_list2";
         public static final String ALARM_POSITION_TO_MODIFY = "AlarmPositionToModify";
 
+        // Preferences
+        public static final String ALARM_PREFERENCE_ALARM_ID = "ALARM_PREFERENCE_ALARM_ID";
+
         // Sound SourcePath and Name for save
         public static final String ALARM_SOUND_SOURCE_TYPE = "alarm_sound_source_type3";
         public static final String ALARM_SOUND_SOURCE_PATH = "alarm_sound_source_path2";
