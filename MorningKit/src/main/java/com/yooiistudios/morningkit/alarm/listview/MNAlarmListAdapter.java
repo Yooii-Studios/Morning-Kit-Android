@@ -6,11 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemScrollView;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 enum MNAlarmListAdapterType {MainAlarmListAdapter, ConfigureAlarmListAdapter; }
 
@@ -20,14 +26,14 @@ enum MNAlarmListAdapterType {MainAlarmListAdapter, ConfigureAlarmListAdapter; }
  */
 public class MNAlarmListAdapter extends BaseAdapter {
     private static final String TAG = "MNAlarmListAdapter";
-    private LayoutInflater mLayoutInflater;
+//    private LayoutInflater mLayoutInflater;
     private Context mContext;
     private View.OnClickListener mAlarmItemClickListener;
 //    private MNAlarmListAdapterType type;
 
     private MNAlarmListAdapter() {}
     public MNAlarmListAdapter(Context context, View.OnClickListener alarmItemClickListener) {
-        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mContext = context;
         mAlarmItemClickListener = alarmItemClickListener;
     }
@@ -73,14 +79,21 @@ public class MNAlarmListAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
 
-            convertView = mLayoutInflater.inflate(R.layout.alarm_item, parent, false);
+            // changed code to 'Butter Knife' code
+//            convertView = mLayoutInflater.inflate(R.layout.alarm_item, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.alarm_item, parent, false);
             if (convertView != null && alarm != null) {
                 convertView.setOnClickListener(mAlarmItemClickListener);
                 convertView.setLongClickable(false);
                 convertView.setTag(alarm);
 
+                // MNAlarmItemViewHolder
+                MNAlarmItemViewHolder alarmViewHolder = new MNAlarmItemViewHolder(convertView);
+
                 // Alarm Switch Button
-                final ImageButton alarmSwitchButton = (ImageButton) convertView.findViewById(R.id.alarm_item_switch_imagebutton);
+//                final ImageButton alarmSwitchButton = (ImageButton) convertView.findViewById(R.id.alarm_item_switch_imagebutton);
+//                final ImageButton alarmSwitchButton = ButterKnife.findById(convertView, R.id.alarm_item_switch_imagebutton);
+                final ImageButton alarmSwitchButton = alarmViewHolder.alarmSwitchImageButton;
                 if (alarm.isAlarmOn()) {
                     alarmSwitchButton.setSelected(true);
                 }else{
@@ -102,13 +115,44 @@ public class MNAlarmListAdapter extends BaseAdapter {
             return MNAlarmItemScrollView.newInstance(mContext, position, convertView);
 
         }else{
-            convertView = mLayoutInflater.inflate(R.layout.alarm_create_item, parent, false);
+            // change to 'Butter Knife' code
+//            convertView = mLayoutInflater.inflate(R.layout.alarm_create_item, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.alarm_create_item, parent, false);
             if (convertView != null) {
                 convertView.setLongClickable(false);
                 convertView.setOnClickListener(mAlarmItemClickListener);
                 convertView.setTag(-1);
+
+                // MNAlarmCreateItemViewHolder
+                MNAlarmCreateItemViewHolder alarmCreateItemViewHolder = new MNAlarmCreateItemViewHolder(convertView);
             }
             return convertView;
+        }
+    }
+
+    static class MNAlarmItemViewHolder {
+        @InjectView(R.id.alarm_item_outer_layout)           RelativeLayout  outerLayout;
+        @InjectView(R.id.alarm_item_inner_layout)           RelativeLayout  innerLayout;
+        @InjectView(R.id.alarm_item_time_textview)          TextView        timeTextView;
+        @InjectView(R.id.alarm_item_repeat_textview)        TextView        repeatTextView;
+        @InjectView(R.id.alarm_item_alarm_label_textview)   TextView        alarmLabelTextView;
+        @InjectView(R.id.alarm_item_dividing_bar_imageview) ImageView       dividingBarImageView;
+        @InjectView(R.id.alarm_item_switch_imagebutton)     ImageButton     alarmSwitchImageButton;
+
+        public MNAlarmItemViewHolder(View view) {
+            ButterKnife.inject(this, view);
+        }
+    }
+
+    static class MNAlarmCreateItemViewHolder {
+        @InjectView(R.id.alarm_create_outer_layout)                 RelativeLayout  outerLayout;
+        @InjectView(R.id.alarm_create_inner_layout)                 RelativeLayout  innerLayout;
+        @InjectView(R.id.alarm_create_item_text)                    TextView        createAlarmTextView;
+        @InjectView(R.id.alarm_create_item_dividing_bar_image_view) ImageView       dividingBarImageView;
+        @InjectView(R.id.alarm_create_item_plus_image_view)         ImageView       plusImageView;
+
+        public MNAlarmCreateItemViewHolder(View view) {
+            ButterKnife.inject(this, view);
         }
     }
 }

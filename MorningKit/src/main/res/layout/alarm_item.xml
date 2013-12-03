@@ -44,7 +44,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/alarm_hypen"
+            android:id="@+id/alarm_item_repeat_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/alarm_item_ampm_textview"

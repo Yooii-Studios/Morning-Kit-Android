@@ -14,12 +14,12 @@ import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.alarm.listview.MNAlarmListAdapter;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import butterknife.Views;
+
 
 public class MNMainActivity extends Activity implements AdListener
 {
@@ -47,7 +47,7 @@ public class MNMainActivity extends Activity implements AdListener
         setContentView(R.layout.activity_main);
 
         // 기존의 레거시 코드 대신에 이 한줄로 findViewById를 모두 대체
-        Views.inject(this);
+        ButterKnife.inject(this);
 
         // 위젯 윈도우
         mWidgetWindowLayout.initWithWidgetMatrix();

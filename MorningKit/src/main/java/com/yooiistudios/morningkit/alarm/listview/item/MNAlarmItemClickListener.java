@@ -36,12 +36,12 @@ public class MNAlarmItemClickListener implements View.OnClickListener {
         Intent i = new Intent(mAlarmListView.getContext(), MNAlarmPreferenceActivity.class);
 
         if (v.getTag() == MNAlarm.class) {
-            // Edit alarm
+            // Edit alarm: alarmId
             MNAlarm alarm = (MNAlarm)v.getTag();
-            Log.i(TAG, "itemClick: alarmId: " + alarm.getAlarmId());
+//            Log.i(TAG, "itemClick: alarmId: " + alarm.getAlarmId());
         } else {
-            // Add an alarm
-            Log.i(TAG, "itemClick: " + v.getTag().toString()); // + position);
+            // Add an alarm : -1
+//            Log.i(TAG, "itemClick: " + v.getTag().toString()); // + position);
         }
 
         if (mAlarmListView.getContext() != null) {
