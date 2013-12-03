@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLog;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
@@ -31,6 +32,8 @@ public class MNMainAdmobLayoutTest {
 
     @Before
     public void setUp() {
+        ShadowLog.stream = System.out;
+
         // visible() 이 뷰를 띄울 수 있게 해주는 중요한 메서드
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().postResume().visible().get();
         mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();

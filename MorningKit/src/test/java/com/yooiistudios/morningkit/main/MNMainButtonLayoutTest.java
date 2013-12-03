@@ -38,6 +38,8 @@ public class MNMainButtonLayoutTest {
 
     @Before
     public void setUp() {
+        ShadowLog.stream = System.out;
+
         // visible() 이 뷰를 띄울 수 있게 해주는 중요한 메서드
         // 로그 관련이라는데 아직 잘 모르겠다.
 //        System.setProperty("robolectric.logging", "stdout");

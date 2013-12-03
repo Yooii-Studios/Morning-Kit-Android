@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLog;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -38,6 +39,8 @@ public class MNAlarmListViewTest {
 
     @Before
     public void setUp() {
+        ShadowLog.stream = System.out;
+
         mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
         alarmListAdaptor = new MNAlarmListAdapter(mainActivity.getBaseContext(), MNAlarmItemClickListener.newInstance(mainActivity.getAlarmListView()));
     }

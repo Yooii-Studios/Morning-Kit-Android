@@ -7,10 +7,13 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.bytecode.Setup;
 import org.robolectric.res.Fs;
+import org.robolectric.shadows.ShadowAudioManager;
+import org.robolectric.shadows.ShadowContextWrapper;
 
 /**
  * Created by StevenKim on 2013. 10. 31..
  */
+@Config(shadows = {ShadowAudioManager.class, ShadowContextWrapper.class})
 public class RobolectricGradleTestRunner extends RobolectricTestRunner {
     public RobolectricGradleTestRunner(final Class<?> testClass) throws InitializationError {
         super(testClass);

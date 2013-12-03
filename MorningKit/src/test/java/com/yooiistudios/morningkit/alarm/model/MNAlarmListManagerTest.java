@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLog;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,6 +38,8 @@ public class MNAlarmListManagerTest {
 
     @Before
     public void setUp() {
+        ShadowLog.stream = System.out;
+
         mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
         dummyAlarmList = new ArrayList<MNAlarm>();
         dummySortAlarmList = new ArrayList<MNAlarm>();

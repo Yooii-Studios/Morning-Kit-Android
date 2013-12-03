@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLog;
 
 import java.util.Calendar;
 
@@ -31,6 +32,8 @@ public class MNAlarmMakerTest {
 
     @Before
     public void setUp() {
+        ShadowLog.stream = System.out;
+
         mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
 
         defaultAlarm = MNAlarmMaker.makeAlarm(mainActivity.getBaseContext());
