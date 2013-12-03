@@ -71,7 +71,7 @@ public class MNAlarmListViewTest {
                 assertThat(alarmItemScrollView.getAlarmView().getTag(), notNullValue());
                 // instanceOf로 확인하는 것이 정석인 듯 하나 is()로도 확인이 가능한듯
 //            assertThat(firstAlarmItemView.getTag(), instanceOf(MNAlarm.class));
-                assertThat(alarmItemScrollView.getAlarmView().getTag(), is(MNAlarm.class));
+                assertThat(alarmItemScrollView.getAlarmView().getTag().getClass(), is(MNAlarm.class));
             }
         }
 

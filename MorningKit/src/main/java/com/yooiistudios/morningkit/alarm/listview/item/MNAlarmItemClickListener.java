@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.squareup.otto.Bus;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
 import com.yooiistudios.morningkit.main.MNMainAlarmListView;
@@ -35,16 +36,28 @@ public class MNAlarmItemClickListener implements View.OnClickListener {
 
         Intent i = new Intent(mAlarmListView.getContext(), MNAlarmPreferenceActivity.class);
 
-        if (v.getTag() == MNAlarm.class) {
+        MNAlarm alarm = null;
+        if (v.getTag().getClass() == MNAlarm.class) {
             // Edit alarm: alarmId
-            MNAlarm alarm = (MNAlarm)v.getTag();
-//            Log.i(TAG, "itemClick: alarmId: " + alarm.getAlarmId());
+            alarm = (MNAlarm)v.getTag();
+            Log.i(TAG, "itemClick, alarmId: " + alarm.getAlarmId());
         } else {
             // Add an alarm : -1
-//            Log.i(TAG, "itemClick: " + v.getTag().toString()); // + position);
+            Log.i(TAG, "itemClick: " + v.getTag().toString()); // + position);
         }
 
         if (mAlarmListView.getContext() != null) {
+
+            // Event bus
+            if (alarm != null) {
+                Log.i(TAG, "alarm is not null");
+                Bus bus = new Bus();
+                bus.post(alarm);
+            } else {
+                Log.i(TAG, "alarm is null");
+            }
+
+            // Start activity
             mAlarmListView.getContext().startActivity(i);
         }
     }
