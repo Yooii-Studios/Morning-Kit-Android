@@ -12,6 +12,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
+import com.yooiistudios.morningkit.common.bus.MNBusProvider;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 3.
@@ -22,7 +23,6 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 public class MNAlarmPreferenceActivity extends ActionBarActivity implements View.OnClickListener{
 
     private static final String TAG = "MNAlarmPreferenceActivity";
-    private Bus mBus;
     private MNAlarm mAlarm;
 
     /**
@@ -35,18 +35,18 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
 
         setContentView(R.layout.activity_alarm_pref);
 
-        mBus = new Bus();
-        mBus.register(this);
+        MNBusProvider.getInstance().register(this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             int alarmId = extras.getInt(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
-            Log.i(TAG, "alarmId: " + alarmId);
             if (alarmId != -1) {
                 mAlarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
             }else{
                 mAlarm = MNAlarmMaker.makeAlarm(this.getBaseContext());
             }
+            Log.i(TAG, "alarmId: " + mAlarm.getAlarmId());
+            MNBusProvider.getInstance().post(mAlarm);
         }
 
         getSupportActionBar().setTitle(R.string.add_an_alarm);
@@ -59,19 +59,14 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
     protected void onResume() {
         super.onResume();
 
-        if (mBus == null) {
-            mBus = new Bus();
-        }
-        mBus.register(this);
+        MNBusProvider.getInstance().register(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
 
-        if (mBus != null) {
-            mBus.unregister(this);
-        }
+        MNBusProvider.getInstance().unregister(this);
     }
 
     @Subscribe
