@@ -267,4 +267,8 @@
 	<string name="photo_theme_choose">Choose</string>
 	<string name="photo_theme_first_open_notice">Please resize the picture to fit the frame so that it fills the screen</string>
 
+    <!-- Android Only -->
+    <!-- Alarm Pref -->
+
+
 </resources>
