@@ -3,10 +3,7 @@ package com.yooiistudios.morningkit.main;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RelativeLayout;
@@ -17,7 +14,7 @@ import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.alarm.listview.MNAlarmListAdaptor;
+import com.yooiistudios.morningkit.alarm.listview.MNAlarmListAdapter;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
 import butterknife.InjectView;
@@ -56,7 +53,7 @@ public class MNMainActivity extends Activity implements AdListener
         mWidgetWindowLayout.initWithWidgetMatrix();
 
         // 알람
-        mAlarmListView.initWithListAdaptor(new MNAlarmListAdaptor(this.getBaseContext()));
+        mAlarmListView.initWithListAdapter(new MNAlarmListAdapter(this.getBaseContext()));
 
         // 애드몹
 //        mAdView = new AdView(this, AdSize.BANNER, MN.ads.ADMOB_ID);

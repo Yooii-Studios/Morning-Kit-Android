@@ -4,13 +4,16 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
-import com.yooiistudios.morningkit.alarm.listview.MNAlarmListAdaptor;
+import com.yooiistudios.morningkit.alarm.listview.MNAlarmListAdapter;
 
 /**
  * Created by yongbinbae on 13. 10. 22..
  */
 public class MNMainAlarmListView extends ListView
 {
+    /**
+     * Constructor
+     */
     public MNMainAlarmListView(Context context) {
         super(context);
         init();
@@ -30,7 +33,7 @@ public class MNMainAlarmListView extends ListView
 
     }
 
-    public void initWithListAdaptor(MNAlarmListAdaptor listAdaptor) {
-        setAdapter(listAdaptor);
+    public void initWithListAdapter(MNAlarmListAdapter listAdapter) {
+        setAdapter(listAdapter);
     }
 }

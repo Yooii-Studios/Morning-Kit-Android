@@ -13,20 +13,20 @@ import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemScrollView;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 
-enum MNAlarmListAdaptorType { MainAlarmListAdaptor, ConfigureAlarmListAdaptor; }
+enum MNAlarmListAdapterType {MainAlarmListAdapter, ConfigureAlarmListAdapter; }
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 11. 27.
- * MNAlarmListAdaptor
+ * MNAlarmListAdapter
  */
-public class MNAlarmListAdaptor extends BaseAdapter {
+public class MNAlarmListAdapter extends BaseAdapter {
     private static final String TAG = "MNAlarmListAdapter";
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-//    private MNAlarmListAdaptorType type;
+//    private MNAlarmListAdapterType type;
 
-    private MNAlarmListAdaptor() {}
-    public MNAlarmListAdaptor(Context context) {
+    private MNAlarmListAdapter() {}
+    public MNAlarmListAdapter(Context context) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mContext = context;
     }

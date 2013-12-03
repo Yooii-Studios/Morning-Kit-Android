@@ -2,11 +2,9 @@ package com.yooiistudios.morningkit.alarm.listview;
 
 import android.view.View;
 
-import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemScrollView;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
@@ -17,10 +15,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -39,12 +33,12 @@ public class MNAlarmListViewTest {
     MNAlarm defaultAlarm;
     MNAlarm customAlarm;
     MNMainActivity mainActivity;
-    MNAlarmListAdaptor alarmListAdaptor;
+    MNAlarmListAdapter alarmListAdaptor;
 
     @Before
     public void setUp() {
         mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
-        alarmListAdaptor = new MNAlarmListAdaptor(mainActivity.getBaseContext());
+        alarmListAdaptor = new MNAlarmListAdapter(mainActivity.getBaseContext());
     }
 
     @Test
