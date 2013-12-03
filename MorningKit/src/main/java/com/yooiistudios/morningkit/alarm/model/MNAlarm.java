@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Created by StevenKim on 2013. 11. 11..
  * MNAlarm
@@ -14,18 +18,18 @@ public class MNAlarm implements Serializable, Cloneable {
     /**
      * Variables
      */
-    private boolean             isAlarmOn;
-    private boolean             isSnoozeOn;
-    private boolean             isRepeatOn;
+    @Getter @Setter private boolean             isAlarmOn;
+    @Getter @Setter private boolean             isSnoozeOn;
+    @Getter @Setter private boolean             isRepeatOn;
 
-    private ArrayList<Boolean>  alarmRepeatOnOfWeek;
+    @Getter @Setter private ArrayList<Boolean>  alarmRepeatOnOfWeek;
 
-    private String              alarmLabel;
+    @Getter @Setter private String              alarmLabel;
 
     // 한 알람당 8개 할당. n+0번 ~ n+6번: 미반복/월(0번이 월요일이거나 미반복) ~ 일, n+7번: 스누즈
-    private int                 alarmId;
+    @Getter @Setter private int                 alarmId;
 
-    private Calendar            alarmCalendar;
+    @Getter @Setter private Calendar            alarmCalendar;
 
     // 사운드
 
@@ -37,7 +41,7 @@ public class MNAlarm implements Serializable, Cloneable {
 
     public static MNAlarm newInstance() {
         MNAlarm alarm = new MNAlarm();
-        alarm.setAlarmRepeatOnOfWeek(new ArrayList<Boolean>());
+        alarm.alarmRepeatOnOfWeek = new ArrayList<Boolean>();
         return alarm;
     }
 
@@ -99,59 +103,59 @@ public class MNAlarm implements Serializable, Cloneable {
     /**
      * Getter and Setter
      */
-    public boolean isAlarmOn() {
-        return isAlarmOn;
-    }
-
-    public void setAlarmOn(boolean isAlarmOn) {
-        this.isAlarmOn = isAlarmOn;
-    }
-
-    public boolean isSnoozeOn() {
-        return isSnoozeOn;
-    }
-
-    public void setSnoozeOn(boolean isSnoozeOn) {
-        this.isSnoozeOn = isSnoozeOn;
-    }
-
-    public boolean isRepeatOn() {
-        return isRepeatOn;
-    }
-
-    public void setRepeatOn(boolean isRepeatOn) {
-        this.isRepeatOn = isRepeatOn;
-    }
-
-    public ArrayList<Boolean> getAlarmRepeatOnOfWeek() {
-        return alarmRepeatOnOfWeek;
-    }
-
-    public void setAlarmRepeatOnOfWeek(ArrayList<Boolean> alarmRepeatOnOfWeek) {
-        this.alarmRepeatOnOfWeek = alarmRepeatOnOfWeek;
-    }
-
-    public String getAlarmLabel() {
-        return alarmLabel;
-    }
-
-    public void setAlarmLabel(String alarmLabel) {
-        this.alarmLabel = alarmLabel;
-    }
-
-    public int getAlarmId() {
-        return alarmId;
-    }
-
-    public void setAlarmId(int alarmId) {
-        this.alarmId = alarmId;
-    }
-
-    public Calendar getAlarmCalendar() {
-        return alarmCalendar;
-    }
-
-    public void setAlarmCalendar(Calendar alarmCalendar) {
-        this.alarmCalendar = alarmCalendar;
-    }
+//    public boolean isAlarmOn() {
+//        return isAlarmOn;
+//    }
+//
+//    public void setAlarmOn(boolean isAlarmOn) {
+//        this.isAlarmOn = isAlarmOn;
+//    }
+//
+//    public boolean isSnoozeOn() {
+//        return isSnoozeOn;
+//    }
+//
+//    public void setSnoozeOn(boolean isSnoozeOn) {
+//        this.isSnoozeOn = isSnoozeOn;
+//    }
+//
+//    public boolean isRepeatOn() {
+//        return isRepeatOn;
+//    }
+//
+//    public void setRepeatOn(boolean isRepeatOn) {
+//        this.isRepeatOn = isRepeatOn;
+//    }
+//
+//    public ArrayList<Boolean> getAlarmRepeatOnOfWeek() {
+//        return alarmRepeatOnOfWeek;
+//    }
+//
+//    public void setAlarmRepeatOnOfWeek(ArrayList<Boolean> alarmRepeatOnOfWeek) {
+//        this.alarmRepeatOnOfWeek = alarmRepeatOnOfWeek;
+//    }
+//
+//    public String getAlarmLabel() {
+//        return alarmLabel;
+//    }
+//
+//    public void setAlarmLabel(String alarmLabel) {
+//        this.alarmLabel = alarmLabel;
+//    }
+//
+//    public int getAlarmId() {
+//        return alarmId;
+//    }
+//
+//    public void setAlarmId(int alarmId) {
+//        this.alarmId = alarmId;
+//    }
+//
+//    public Calendar getAlarmCalendar() {
+//        return alarmCalendar;
+//    }
+//
+//    public void setAlarmCalendar(Calendar alarmCalendar) {
+//        this.alarmCalendar = alarmCalendar;
+//    }
 }

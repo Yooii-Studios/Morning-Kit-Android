@@ -19,19 +19,20 @@ import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import lombok.Getter;
 
 
 public class MNMainActivity extends Activity implements AdListener
 {
     private static final String TAG = "MNMainActivity";
 
-    @InjectView(R.id.main_container_layout) RelativeLayout mContainerLayout;
-    @InjectView(R.id.main_scroll_view) ScrollView mScrollView;
-    @InjectView(R.id.main_widget_window_layout) MNWidgetWindowLayout mWidgetWindowLayout;
-    @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView mAlarmListView;
-    @InjectView(R.id.main_button_layout) RelativeLayout mButtonLayout;
-    @InjectView(R.id.main_admob_layout) RelativeLayout mAdmobLayout;
-    @InjectView(R.id.adView) AdView mAdView;
+    @Getter @InjectView(R.id.main_container_layout) RelativeLayout containerLayout;
+    @Getter @InjectView(R.id.main_scroll_view) ScrollView scrollView;
+    @Getter @InjectView(R.id.main_widget_window_layout) MNWidgetWindowLayout widgetWindowLayout;
+    @Getter @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView alarmListView;
+    @Getter @InjectView(R.id.main_button_layout) RelativeLayout buttonLayout;
+    @Getter @InjectView(R.id.main_admob_layout) RelativeLayout admobLayout;
+    @Getter @InjectView(R.id.adView) AdView adView;
 
     /**
      * Lifecycle
@@ -50,15 +51,15 @@ public class MNMainActivity extends Activity implements AdListener
         ButterKnife.inject(this);
 
         // 위젯 윈도우
-        mWidgetWindowLayout.initWithWidgetMatrix();
+        widgetWindowLayout.initWithWidgetMatrix();
 
         // 알람
-        mAlarmListView.initWithListAdapter();
+        alarmListView.initWithListAdapter();
 
         // 애드몹
-//        mAdView = new AdView(this, AdSize.BANNER, MN.ads.ADMOB_ID);
-//        mAdmobLayout.addView(mAdView);
-//        mAdView.loadAd(new AdRequest());
+//        adView = new AdView(this, AdSize.BANNER, MN.ads.ADMOB_ID);
+//        admobLayout.addView(adView);
+//        adView.loadAd(new AdRequest());
 
 
         // 이전 버전
@@ -90,15 +91,15 @@ public class MNMainActivity extends Activity implements AdListener
     {
         // Activity visible to user
         // 테마와 관련된 작업 실행
-        mContainerLayout.setBackgroundColor(Color.WHITE);
+        containerLayout.setBackgroundColor(Color.WHITE);
 
         // 버튼 레이아웃
-        GradientDrawable buttonShape = (GradientDrawable)mButtonLayout.getBackground();
+        GradientDrawable buttonShape = (GradientDrawable) buttonLayout.getBackground();
         if (buttonShape != null) {
             buttonShape.setColor(Color.parseColor("#BB000000"));
         }
         // 애드몹 레이아웃
-        mAdmobLayout.setBackgroundColor(Color.parseColor("#BB000000"));
+        admobLayout.setBackgroundColor(Color.parseColor("#BB000000"));
         super.onResume();
     }
 
@@ -128,8 +129,8 @@ public class MNMainActivity extends Activity implements AdListener
     protected void onDestroy()
     {
         // Acitivity is destroyed
-        if (mAdView != null) {
-            mAdView.destroy();
+        if (adView != null) {
+            adView.destroy();
         }
         super.onDestroy();
     }
@@ -142,19 +143,19 @@ public class MNMainActivity extends Activity implements AdListener
         super.onConfigurationChanged(newConfig);
 
         // 스크롤뷰
-        MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(mScrollView, newConfig.orientation);
+        MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(scrollView, newConfig.orientation);
         // 위젯윈도우 레이아웃
-        MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(mWidgetWindowLayout, newConfig.orientation);
+        MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(widgetWindowLayout, newConfig.orientation);
         // 버튼 레이아웃
-        MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(mButtonLayout, newConfig.orientation);
+        MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(buttonLayout, newConfig.orientation);
         // 애드몹 레이아웃
-        MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(mAdmobLayout, newConfig.orientation);
+        MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(admobLayout, newConfig.orientation);
         // 애드뷰 방향에 따라 위치 옮기기
         MNMainLayoutSetter.adjustAdmobViewAtOrientation(this, newConfig.orientation);
         // 애드몹 레이아웃 width 체크
-        MNMainLayoutSetter.checkAdmobLayoutWidthAndAdjust(mAdmobLayout, mButtonLayout, newConfig.orientation);
+        MNMainLayoutSetter.checkAdmobLayoutWidthAndAdjust(admobLayout, buttonLayout, newConfig.orientation);
         // 알람 리스트뷰
-        MNMainLayoutSetter.adjustAlarmListView(mAlarmListView, mWidgetWindowLayout, newConfig.orientation);
+        MNMainLayoutSetter.adjustAlarmListView(alarmListView, widgetWindowLayout, newConfig.orientation);
     }
 
     /**
@@ -171,15 +172,13 @@ public class MNMainActivity extends Activity implements AdListener
     /**
      * Getter
      */
-    public RelativeLayout getmContainerLayout() { return mContainerLayout; }
-    public ScrollView getMainScrollView() { return mScrollView; }
-    public MNWidgetWindowLayout getWidgetWindowLayout() {
-        return mWidgetWindowLayout;
-    }
-    public MNMainAlarmListView getAlarmListView() { return mAlarmListView; }
-    public RelativeLayout getButtonLayout() { return mButtonLayout; }
-    public RelativeLayout getAdmobLayout() { return mAdmobLayout; }
-    public AdView getAdView() { return mAdView; }
+//    public RelativeLayout getmContainerLayout() { return containerLayout; }
+//    public ScrollView getMainScrollView() { return scrollView; }
+//    public MNWidgetWindowLayout getWidgetWindowLayout() { return widgetWindowLayout; }
+//    public MNMainAlarmListView getAlarmListView() { return alarmListView; }
+//    public RelativeLayout getButtonLayout() { return buttonLayout; }
+//    public RelativeLayout getAdmobLayout() { return admobLayout; }
+//    public AdView getAdView() { return adView; }
 
     /**
      * Admob

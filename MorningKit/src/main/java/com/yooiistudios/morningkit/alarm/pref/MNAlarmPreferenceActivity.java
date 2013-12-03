@@ -5,7 +5,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
@@ -23,7 +22,7 @@ import com.yooiistudios.morningkit.common.bus.MNBusProvider;
 public class MNAlarmPreferenceActivity extends ActionBarActivity implements View.OnClickListener{
 
     private static final String TAG = "MNAlarmPreferenceActivity";
-    private MNAlarm mAlarm;
+    private MNAlarm alarm;
 
     /**
      * Lifecycle
@@ -41,12 +40,12 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
         if (extras != null) {
             int alarmId = extras.getInt(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
             if (alarmId != -1) {
-                mAlarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
+                alarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
             }else{
-                mAlarm = MNAlarmMaker.makeAlarm(this.getBaseContext());
+                alarm = MNAlarmMaker.makeAlarm(this.getBaseContext());
             }
-            Log.i(TAG, "alarmId: " + mAlarm.getAlarmId());
-            MNBusProvider.getInstance().post(mAlarm);
+            Log.i(TAG, "alarmId: " + alarm.getAlarmId());
+            MNBusProvider.getInstance().post(alarm);
         }
 
         getSupportActionBar().setTitle(R.string.add_an_alarm);
@@ -72,7 +71,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
     @Subscribe
     public void initAlarm(MNAlarm alarm) {
         Log.i(TAG, "bus: initAlarm");
-        mAlarm = alarm;
+        this.alarm = alarm;
     }
 
     private void initListView() {

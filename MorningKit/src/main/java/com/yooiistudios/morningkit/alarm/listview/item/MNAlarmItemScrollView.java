@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.alarm.listview.item;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -16,6 +15,8 @@ import com.yooiistudios.morningkit.common.size.MNDeviceSizeChecker;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 2.
  *
@@ -28,14 +29,14 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
     /**
      * Variables
      */
-    private ArrayList<LinearLayout> mLayoutItems = null;
-    private GestureDetector mGestureDetector;
-    private int mActiveFeature = 1;
-    private int mActiveFeatureDestination = 1;
-    private View mAlarmView;
-    private int mDeviceWidth = 0;
+    @Getter private ArrayList<LinearLayout> layoutItems = null;
+    private GestureDetector gestureDetector;
+    private int activeFeature = 1;
+    private int activeFeatureDestination = 1;
+    @Getter private View alarmView;
+    private int deviceWidth = 0;
 
-    private int mItemIndex = -1;
+    private int itemIndex = -1;
 
     private float actionDown_X;
     private float actionUp_X;
@@ -43,7 +44,6 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
     private int limitedVelocityX = 1500;
     private int limitedPercent = 30;
-    public int itemIndex = -1;
 
     /**
      * Constructor
@@ -67,9 +67,9 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
         Integer positionInteger = position;
         alarmItemScrollView.setTag(positionInteger);
         alarmItemScrollView.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
-        alarmItemScrollView.mItemIndex = position;
-        alarmItemScrollView.mAlarmView = alarmView;
-        alarmItemScrollView.mDeviceWidth = MNDeviceSizeChecker.getDeviceWidth(context);
+        alarmItemScrollView.itemIndex = position;
+        alarmItemScrollView.alarmView = alarmView;
+        alarmItemScrollView.deviceWidth = MNDeviceSizeChecker.getDeviceWidth(context);
 
         alarmItemScrollView.initScrollView();
 
@@ -93,34 +93,34 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
     }
 
     private void initLayoutItems() {
-        mLayoutItems = new ArrayList<LinearLayout>();
+        layoutItems = new ArrayList<LinearLayout>();
 
         // LinearLayout leftLayout = (LinearLayout)
         // layoutInflater.inflate(R.layout.alarm_item_blank, scrollView);
         LinearLayout leftLayout = (LinearLayout) View.inflate(getContext(),
                 R.layout.alarm_item_blank, null);
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(mDeviceWidth,
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(deviceWidth,
                 LayoutParams.WRAP_CONTENT);
         leftLayout.setLayoutParams(p);
         leftLayout.setGravity(Gravity.CENTER);
-        mLayoutItems.add(leftLayout);
+        layoutItems.add(leftLayout);
 
         LinearLayout middleLayout = (LinearLayout) View.inflate(getContext(),
                 R.layout.alarm_item_blank, null);
-        middleLayout.addView(mAlarmView);
+        middleLayout.addView(alarmView);
 //        middleLayout.setBackgroundColor(0x00000000);
-        p = new LinearLayout.LayoutParams(mDeviceWidth, LayoutParams.WRAP_CONTENT);
+        p = new LinearLayout.LayoutParams(deviceWidth, LayoutParams.WRAP_CONTENT);
         middleLayout.setLayoutParams(p);
         middleLayout.setGravity(Gravity.CENTER);
-        mLayoutItems.add(middleLayout);
+        layoutItems.add(middleLayout);
 
         LinearLayout rightLayout = (LinearLayout) View.inflate(getContext(),
                 R.layout.alarm_item_blank, null);
 //        rightLayout.setBackgroundColor(0xff5511);
-        p = new LinearLayout.LayoutParams(mDeviceWidth, LayoutParams.WRAP_CONTENT);
+        p = new LinearLayout.LayoutParams(deviceWidth, LayoutParams.WRAP_CONTENT);
         rightLayout.setLayoutParams(p);
         rightLayout.setGravity(Gravity.CENTER);
-        mLayoutItems.add(rightLayout);
+        layoutItems.add(rightLayout);
     }
 
     private void initInternalWrapper() {
@@ -133,44 +133,44 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
 
         // for -> for each
 
-//        for (int i = 0; i < mLayoutItems.size(); i++) {
-//            LinearLayout featureLayout = mLayoutItems.get(i);
+//        for (int i = 0; i < layoutItems.size(); i++) {
+//            LinearLayout featureLayout = layoutItems.get(i);
 //            // ...
 //            // Create the view for each screen in the scroll view
 //            // ...
 //            internalWrapper.addView(featureLayout);
 //        }
 
-        for(LinearLayout featureLayout : mLayoutItems) {
+        for(LinearLayout featureLayout : layoutItems) {
             internalWrapper.addView(featureLayout);
         }
     }
 
     private void initGesture() {
-        mGestureDetector = new GestureDetector(getContext(), new MyGestureDetector());
+        gestureDetector = new GestureDetector(getContext(), new MyGestureDetector());
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // If the user swipes
-                if (mGestureDetector.onTouchEvent(event)) {
+                if (gestureDetector.onTouchEvent(event)) {
                     return true;
                 } else if ((event.getAction() == MotionEvent.ACTION_UP || event
                         .getAction() == MotionEvent.ACTION_CANCEL)) {
 
                     // 몇 %인지 표시하기
-//					Log.i(TAG, "dragging percent is: " + Math.abs(actionDown_X - actionUp_X) / mDeviceWidth * 100);
+//					Log.i(TAG, "dragging percent is: " + Math.abs(actionDown_X - actionUp_X) / deviceWidth * 100);
 
                     // onFling이 되지 않을 경우는 전체 width의 35%이상 드래그될 경우 삭제한다.
-                    if (Math.abs(actionDown_X - actionUp_X) / mDeviceWidth * 100 > limitedPercent) {
+                    if (Math.abs(actionDown_X - actionUp_X) / deviceWidth * 100 > limitedPercent) {
 
                         if ((actionDown_X - actionUp_X) >= 0) {
                             // 왼쪽으로 드래그
                             Log.i(TAG, "remove to left");
-                            mActiveFeature = 2;
+                            activeFeature = 2;
                         }else{
                             // 오른쪽으로 드래그
                             Log.i(TAG, "remove to right");
-                            mActiveFeature = 0;
+                            activeFeature = 0;
                         }
                         Log.i(TAG, "dragged more than 30% : should remove");
 
@@ -178,14 +178,14 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
 //						int scrollX = getScrollX();
                         int featureWidth = v.getMeasuredWidth();
 //						Log.i(TAG, "featureWidth: " + featureWidth);
-//						mActiveFeature = ((scrollX + (featureWidth / 16)) / featureWidth);
-//						Log.i(TAG, "mActiveFeature: " + mActiveFeature);
-                        int scrollTo = mActiveFeature * featureWidth;
+//						activeFeature = ((scrollX + (featureWidth / 16)) / featureWidth);
+//						Log.i(TAG, "activeFeature: " + activeFeature);
+                        int scrollTo = activeFeature * featureWidth;
                         smoothScrollTo(scrollTo, 0);
                     }else{
 //						Log.i(TAG, "need scroll to original position");
                         int featureWidth = v.getMeasuredWidth();
-                        int scrollTo = mActiveFeature * featureWidth;
+                        int scrollTo = activeFeature * featureWidth;
                         smoothScrollTo(scrollTo, 0);
                     }
                     return true;
@@ -212,9 +212,9 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
             if (velocityX * -1 > limitedVelocityX){
 //				Log.i(TAG, "onFling: removeALarmToLeft");
                 int featureWidth = getMeasuredWidth();
-                mActiveFeature = (mActiveFeature < (mLayoutItems.size() - 1)) ? mActiveFeature + 1
-                        : mLayoutItems.size() - 1;
-                smoothScrollTo(mActiveFeature * featureWidth, 0);
+                activeFeature = (activeFeature < (layoutItems.size() - 1)) ? activeFeature + 1
+                        : layoutItems.size() - 1;
+                smoothScrollTo(activeFeature * featureWidth, 0);
                 return true;
             }
 
@@ -223,8 +223,8 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
             else if(velocityX > limitedVelocityX){
 //				Log.i(TAG, "onFling: removeALarmToRight");
                 int featureWidth = getMeasuredWidth();
-                mActiveFeature = (mActiveFeature > 0) ? mActiveFeature - 1 : 0;
-                smoothScrollTo(mActiveFeature * featureWidth, 0);
+                activeFeature = (activeFeature > 0) ? activeFeature - 1 : 0;
+                smoothScrollTo(activeFeature * featureWidth, 0);
                 return true;
             }
             return false;
@@ -234,17 +234,11 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
     // 로드 시작시 scrollTo를 실행해줌
     protected void onLayout (boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        if (mDeviceWidth == 0) {
-            mDeviceWidth = MNDeviceSizeChecker.getDeviceWidth(getContext());
+        if (deviceWidth == 0) {
+            deviceWidth = MNDeviceSizeChecker.getDeviceWidth(getContext());
         }
-        this.scrollTo(mDeviceWidth, 0);
+        this.scrollTo(deviceWidth, 0);
 
 //        Log.i(TAG, "" + getHeight());
     }
-
-    /**
-     * Getter & Setter
-     */
-    public ArrayList<LinearLayout> getLayoutItems() { return mLayoutItems; }
-    public View getAlarmView() { return mAlarmView; }
 }

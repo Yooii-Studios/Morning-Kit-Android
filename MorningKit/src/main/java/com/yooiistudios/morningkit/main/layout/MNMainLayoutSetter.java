@@ -206,7 +206,7 @@ public class MNMainLayoutSetter {
                 // 알람 리스트뷰
                 alarmListView.setVisibility(View.VISIBLE);
                 LinearLayout.LayoutParams alarmListViewLayoutParams = (LinearLayout.LayoutParams) alarmListView.getLayoutParams();
-                if (alarmListViewLayoutParams != null) {
+                if (alarmListViewLayoutParams != null && widgetWindowLayout.getLayoutParams() != null) {
                     float alarmListViewHeight = MNDeviceSizeChecker.getDeviceHeight(alarmListView.getContext()) - widgetWindowLayout.getLayoutParams().height;
                     alarmListViewLayoutParams.height = (int)alarmListViewHeight;
                 }

@@ -2,13 +2,12 @@ package com.yooiistudios.morningkit.main;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.yooiistudios.morningkit.alarm.listview.MNAlarmListAdapter;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemClickListener;
+
+import lombok.Getter;
 
 /**
  * Created by Steven Kim on 13. 10. 22..
@@ -19,7 +18,7 @@ import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemClickListener;
 public class MNMainAlarmListView extends ListView
 {
     private static final String TAG = "MNMainAlarmListView";
-    private MNAlarmItemClickListener mAlarmItemClickListener;
+    @Getter private MNAlarmItemClickListener alarmItemClickListener;
 
     /**
      * Constructor
@@ -44,13 +43,7 @@ public class MNMainAlarmListView extends ListView
     }
 
     public void initWithListAdapter() {
-        mAlarmItemClickListener = MNAlarmItemClickListener.newInstance(this);
-        setAdapter(new MNAlarmListAdapter(getContext(), mAlarmItemClickListener));
+        alarmItemClickListener = MNAlarmItemClickListener.newInstance(this);
+        setAdapter(new MNAlarmListAdapter(getContext(), alarmItemClickListener));
     }
-
-    /**
-     * Getter & Setter
-     */
-
-    public MNAlarmItemClickListener getAlarmItemClickListener() { return mAlarmItemClickListener; }
 }

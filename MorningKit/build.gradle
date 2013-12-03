@@ -68,6 +68,9 @@ dependencies {
     // http 관련
     compile 'com.squareup.okhttp:okhttp:1.2.1'
 
+    // Getter & Setter를 annotation으로 해결
+    // (Android Studio용 플러그인용 jar 파일을 웹에서 받아서 <설정 -> plugin -> disk에서 설치> 필요)
+    compile 'org.projectlombok:lombok:1.12.2'
 
     //////////////////////////////////////////////////////////////
     // http://changyeopkim.blogspot.kr/2013/05/android.html 참고 //
