@@ -71,9 +71,6 @@ public class MNMainActivityTest {
         assertThat(mainActivity.getAdView(), instanceOf(AdView.class));
     }
 
-    /**
-     * Scroll View
-     */
     /*
     @Test
     @Config(qualifiers="port")
@@ -87,8 +84,6 @@ public class MNMainActivityTest {
 
     }
     */
-
-
 
     /**
      * Alarm
