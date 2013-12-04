@@ -17,7 +17,8 @@ import lombok.Getter;
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 3.
  *
  * MNAlarmItemClickListener
- * 알람 클릭 로직을 담당
+ *  1. 알람 클릭 로직을 담당
+ *  2. 생성/수정에 맞추어 알람설정 액티비티 생성 담당
  */
 public class MNAlarmItemClickListener implements View.OnClickListener {
 

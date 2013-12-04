@@ -6,9 +6,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
- 
+
+/**
+ * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 11. 28.
+ *
+ * ObjectSerializer (유틸리티 클래스)
+ *  1. SharedPreferences 에 저장하기 위해 serialize (Object to String)
+ *  2. SharedPreferences 에서 로드하기 위해 deserialize (from String to Object)
+ */
 public class ObjectSerializer {
- 
+
+    private ObjectSerializer() { throw new AssertionError(); } // You must not create instance
     public static String serialize(Serializable obj) throws IOException {
         if (obj == null) return "";
         ByteArrayOutputStream serialObj = new ByteArrayOutputStream();

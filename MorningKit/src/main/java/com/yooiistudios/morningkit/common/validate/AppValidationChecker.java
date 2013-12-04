@@ -9,11 +9,11 @@ import android.widget.Toast;
 public class AppValidationChecker
 {
     private static final int VALIDATE_YEAR = 2013;
-    
     private static final int VALIDATE_MONTH = Calendar.NOVEMBER;
-    
     private static final int VALIDATE_DAY = 9;
-    
+
+    private AppValidationChecker() { throw new AssertionError(); } // You must not create instance
+
     public static void validationCheck(Activity c)
     {
         Calendar calendarForCheck = Calendar.getInstance();

@@ -10,7 +10,9 @@ import lombok.Setter;
 
 /**
  * Created by StevenKim on 2013. 11. 11..
+ *
  * MNAlarm
+ *  알람 자료구조
  */
 public class MNAlarm implements Serializable, Cloneable {
     private static final String TAG = "MNAlarm";

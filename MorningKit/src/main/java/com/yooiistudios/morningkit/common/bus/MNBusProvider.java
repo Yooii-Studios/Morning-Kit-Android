@@ -5,8 +5,8 @@ import com.squareup.otto.Bus;
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 3.
  *
- * MNBusProvider
- * 웹에서 BusProvider를 보고 유사하게 만들되 Thread-safe 부분 보강.
+ * MNBusProvider (Singleton)
+ *  웹에서 BusProvider를 보고 유사하게 만들되 Thread-safe 부분 보강.
  *
  */
 public class MNBusProvider {

@@ -6,7 +6,11 @@ import java.util.Calendar;
 
 /**
  * Created by StevenKim on 2013. 11. 11..
- * MNAlarmMaker
+ *
+ * MNAlarmMaker (유틸리티 클래스)
+ *  알람을 생성해주는 Factory 클래스
+ *  1. 초기화된 현재 시간의 알람 생성
+ *  2. 1번 + 특정 시간의 알람 생성
  */
 public class MNAlarmMaker {
     private static final String TAG = "MNAlarmMaker";

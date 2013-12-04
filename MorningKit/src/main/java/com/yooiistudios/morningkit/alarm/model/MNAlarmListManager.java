@@ -12,7 +12,10 @@ import java.util.ArrayList;
 
 /**
  * Created by StevenKim on 2013. 11. 11..
+ *
  * MNAlarmListManager
+ *  알람 리스트에 관한 모든 것을 관장하는 유틸리티 클래스,
+ *  싱글턴으로 알람 리스트를 가지고 있어서 접근 가능
  */
 public class MNAlarmListManager {
     private static final String TAG = "MNAlarmListManager";

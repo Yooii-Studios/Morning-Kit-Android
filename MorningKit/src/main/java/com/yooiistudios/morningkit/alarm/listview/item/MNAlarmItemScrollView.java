@@ -21,7 +21,7 @@ import lombok.Getter;
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 2.
  *
  * MNAlarmItemScrollView
- * 알람 리스트뷰에 들어갈 뷰로써 수평 스크롤뷰이고 알람뷰를 내포하고 있다. 스크롤로 알람을 삭제할 수 있는 기능을 구현
+ *  알람 리스트뷰에 들어갈 뷰로써 수평 스크롤뷰이고 알람뷰를 내포하고 있다. 스크롤로 알람을 삭제할 수 있는 기능을 구현
  */
 public class MNAlarmItemScrollView extends HorizontalScrollView {
     private static final String TAG = "MNAlarmItemScrollView";

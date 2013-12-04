@@ -8,7 +8,9 @@ import com.yooiistudios.morningkit.common.sharedpreferences.MNSharedPreferences;
 
 /**
  * Created by StevenKim on 2013. 11. 26..
- * MNAlarmIdMaker
+ *
+ * MNAlarmIdMaker (유틸리티 클래스)
+ *  유효한 unique & auto-increase Alarm ID를 생성
  */
 public class MNAlarmIdMaker {
 
