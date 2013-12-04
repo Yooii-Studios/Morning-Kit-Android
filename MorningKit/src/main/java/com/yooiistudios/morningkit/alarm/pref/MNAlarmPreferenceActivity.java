@@ -19,7 +19,7 @@ import lombok.Getter;
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 3.
  *
  * MNAlarmPreferenceActivity
- * 알람을 추가, 수정하는 액티비티
+ *  알람을 추가, 수정하는 액티비티
  */
 enum MNAlarmPreferenceType { ADD, EDIT; }
 
