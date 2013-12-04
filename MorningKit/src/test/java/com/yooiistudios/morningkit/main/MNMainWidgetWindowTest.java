@@ -29,7 +29,7 @@ import static org.hamcrest.CoreMatchers.*;
 @Config (shadows = { AdWebViewShadow.class })
 public class MNMainWidgetWindowTest {
 
-    MNMainActivity mainActivity;
+    MNMainActivity_ mainActivity;
 
     @Before
     public void setUp() {
@@ -38,7 +38,7 @@ public class MNMainWidgetWindowTest {
         // visible() 이 뷰를 띄울 수 있게 해주는 중요한 메서드
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().start().resume().visible().get();
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().postResume().get();
-        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
+        mainActivity = Robolectric.buildActivity(MNMainActivity_.class).create().visible().get();
     }
 
     /**

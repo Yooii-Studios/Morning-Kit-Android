@@ -36,7 +36,7 @@ import static org.junit.Assert.assertTrue;
 @Config (shadows = { AdWebViewShadow.class })
 public class MNMainButtonLayoutTest {
 
-    MNMainActivity mainActivity;
+    MNMainActivity_ mainActivity;
 
     @Before
     public void setUp() {
@@ -49,7 +49,7 @@ public class MNMainButtonLayoutTest {
 
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().start().resume().visible().get();
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().postResume().visible().get();
-        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
+        mainActivity = Robolectric.buildActivity(MNMainActivity_.class).create().visible().get();
     }
 
 

@@ -2,6 +2,10 @@ buildscript {
     repositories {
         mavenCentral()
         mavenLocal()
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.6.+'
@@ -16,6 +20,9 @@ apply plugin: 'android'
 repositories {
     mavenCentral()
     mavenLocal()
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
 }
 
 android {
@@ -34,7 +41,8 @@ android {
 
 apply plugin: 'android-unit-test'
 
-ext.androidAnnotationsVersion = '2.7.1';
+//ext.androidAnnotationsVersion = '2.7.1';
+ext.androidAnnotationsVersion = '3.0-SNAPSHOT';
 
 configurations {
     apt
@@ -43,6 +51,10 @@ configurations {
 dependencies {
     repositories {
         mavenCentral()
+        mavenLocal()
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
     }
     // 안드로이드 기본
     compile 'com.android.support:support-v4:+'

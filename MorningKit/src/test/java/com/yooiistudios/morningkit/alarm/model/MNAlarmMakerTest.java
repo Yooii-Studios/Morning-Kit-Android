@@ -4,6 +4,7 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.MNMainActivity;
+import com.yooiistudios.morningkit.main.MNMainActivity_;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
@@ -30,13 +31,13 @@ public class MNAlarmMakerTest {
 
     MNAlarm defaultAlarm;
     MNAlarm customAlarm;
-    MNMainActivity mainActivity;
+    MNMainActivity_ mainActivity;
 
     @Before
     public void setUp() {
         ShadowLog.stream = System.out;
 
-        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
+        mainActivity = Robolectric.buildActivity(MNMainActivity_.class).create().visible().get();
 
         defaultAlarm = MNAlarmMaker.makeAlarm(mainActivity.getBaseContext());
         customAlarm = MNAlarmMaker.makeAlarmWithTime(mainActivity.getBaseContext(), 6, 30);
