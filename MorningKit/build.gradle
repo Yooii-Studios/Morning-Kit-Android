@@ -2,27 +2,16 @@ buildscript {
     repositories {
         mavenCentral()
         mavenLocal()
-//        maven {
-//            url 'https://oss.sonatype.org/content/repositories/snapshots/'
-//            url 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
-//        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.6.+'
-
-        // Jake Wharton이 에러를 수정해서 mavenCentral이 아닌 다른 곳에 SNAPSHOT 버전을 만들어 해결함
+        // JaKe Wharton 것을 쓰다가 jcandksolutions가 문제를 해결해서 여기의 것을 사용
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
-//        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.1-SNAPSHOT'
-
-        // jcandksolutions가 문제를 해결해서 여기의 것을 사용
         classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.1'
-//        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.+'
-//        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.1-SNAPSHOT'
     }
 }
 
 apply plugin: 'android'
-//apply plugin: 'android-test'
 
 repositories {
     mavenCentral()
@@ -38,15 +27,12 @@ android {
         targetSdkVersion 18
         packageName "com.yooiistudios.morningkit"
     }
-
     sourceSets {
         instrumentTest.setRoot('src/test')
     }
 }
 
-// 출시전까지 주석
 apply plugin: 'android-unit-test'
-//apply plugin: 'android-instrumentTest'
 
 ext.androidAnnotationsVersion = '2.7.1';
 
@@ -62,10 +48,7 @@ dependencies {
     compile 'com.android.support:support-v4:+'
 	compile 'com.android.support:appcompat-v7:+'
 
-    // 필요한 라이브러리들
-    // 아래와 같은 방식으로도 가능하지만(maven 방식), 짧게 사용함
-//    compile group:'com.github.kevinsawicki', name:'wishlist', version:'0.9'
-
+    // 필요한 오픈소스 라이브러리들
     // JSON 관련 유명한 라이브러리
     compile 'com.google.code.gson:gson:2.2.4'
 
@@ -77,6 +60,7 @@ dependencies {
 
     // Getter & Setter를 annotation으로 해결
     // (Android Studio용 플러그인용 jar 파일을 웹에서 받아서 <설정 -> plugin -> disk에서 설치> 필요)
+    // apt가 있는 이유는 Android Annotation을 사용하는 android.applicationVariants.all 부분에서 apt를 빌드할 때 같이 빌드되기 위함
     apt 'org.projectlombok:lombok:1.12.2'
     compile 'org.projectlombok:lombok:1.12.2'
 
@@ -90,28 +74,22 @@ dependencies {
     // http://changyeopkim.blogspot.kr/2013/05/android.html 참고 //
     //////////////////////////////////////////////////////////////
 
-    // 믿고쓰는 스퀘어산 이벤트 버스. Activity Result를 통해서 번들을 주고 받거나 하지 않아서 편리
-    // http://square.github.com/otto/
+    // 믿고쓰는 스퀘어산 이벤트 버스. Activity Result를 통해서 번들을 주고 받거나 하지 않아서 편리 / http://square.github.com/otto/
     compile 'com.squareup:otto:1.3.4'
 
     // 뷰 관련 코드를 깔끔하게 정리. 에버노트에서 관련 내용 찾을 것 (3.0.0 -> 4.0.1로 변경)
     compile 'com.jakewharton:butterknife:4.0.1'
 
-    // HttpURLConnection을 깔끔하게 정리
-    // https://github.com/kevinsawicki/http-request
+    // HttpURLConnection을 깔끔하게 정리 / https://github.com/kevinsawicki/http-request
     compile 'com.github.kevinsawicki:http-request:5.4.1'
 
-    // 안드로이드 SDK에서 지원하지 않지만 제작자가 원하는 기능들이 포함(조사 필요?)
-    // https://github.com/kevinsawicki/wishlist
-    // 이것 때문에 실행이 안되었음
+    // https://github.com/kevinsawicki/wishlist 실행이 안되서 사용안함
 //    compile 'com.github.kevinsawicki:wishlist:0.9'
 
-    // xml 시리얼, 디시리얼라이즈 관련
-//    http://simple.sourceforge.net/home.php
+    // xml 시리얼, 디시리얼라이즈 관련 / http://simple.sourceforge.net/home.php
 //    compile 'org.simpleframework:simple-xml:2.7.1'
 
     // 모든 jar 파일 로딩
-    //    compile files('libs/AppRate_1.1.jar');
     compile fileTree(dir: 'libs', include: '*.jar')
 
     //////////

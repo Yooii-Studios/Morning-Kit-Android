@@ -28,7 +28,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
 
     private static final String TAG = "MNAlarmPreferenceActivity";
 
-    @Getter @Extra(MN.alarm.ALARM_PREFERENCE_ALARM_ID) private int alarmId = -1;
+    @Getter @Extra(MN.alarm.ALARM_PREFERENCE_ALARM_ID) int alarmId = -1;
     @Getter private MNAlarm alarm;
     @Getter private MNAlarmPreferenceType alarmPreferenceType;
 
