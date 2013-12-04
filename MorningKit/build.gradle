@@ -72,6 +72,10 @@ dependencies {
     // (Android Studio용 플러그인용 jar 파일을 웹에서 받아서 <설정 -> plugin -> disk에서 설치> 필요)
     compile 'org.projectlombok:lombok:1.12.2'
 
+    // 마찬가지로 Annotation을 활용해 코드를 간소화
+    compile 'com.googlecode.androidannotations:androidannotations:2.7'
+    compile 'com.googlecode.androidannotations:androidannotations-api:2.7'
+
     //////////////////////////////////////////////////////////////
     // http://changyeopkim.blogspot.kr/2013/05/android.html 참고 //
     //////////////////////////////////////////////////////////////
