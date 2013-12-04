@@ -42,10 +42,8 @@ public class MNAlarmItemClickListener implements View.OnClickListener {
         if (v.getTag().getClass() == MNAlarm.class) {
             // Edit alarm: alarmId
             alarm = (MNAlarm)v.getTag();
-            Log.i(TAG, "itemClick, alarmId: " + alarm.getAlarmId());
         } else {
             // Add an alarm : -1
-            Log.i(TAG, "itemClick: " + v.getTag().toString()); // + position);
         }
 
         if (alarmListView.getContext() != null) {
@@ -58,7 +56,7 @@ public class MNAlarmItemClickListener implements View.OnClickListener {
 
             // Event bus
             if (alarm != null) {
-                Log.i(TAG, "alarm is not null");
+                Log.i(TAG, "alarm is not null: id: " + alarm.getAlarmId());
 //                Bus bus = new Bus();
 //                bus.register(this);
 //                bus.post(alarm);
