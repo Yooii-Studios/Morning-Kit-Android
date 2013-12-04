@@ -14,6 +14,7 @@ buildscript {
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.1-SNAPSHOT'
 
+        // jcandksolutions가 문제를 해결해서 여기의 것을 사용
         classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.1'
 //        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.+'
 //        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.1-SNAPSHOT'
@@ -47,6 +48,12 @@ android {
 apply plugin: 'android-unit-test'
 //apply plugin: 'android-instrumentTest'
 
+ext.androidAnnotationsVersion = '2.7.1';
+
+configurations {
+    apt
+}
+
 dependencies {
     repositories {
         mavenCentral()
@@ -70,7 +77,14 @@ dependencies {
 
     // Getter & Setter를 annotation으로 해결
     // (Android Studio용 플러그인용 jar 파일을 웹에서 받아서 <설정 -> plugin -> disk에서 설치> 필요)
+    apt 'org.projectlombok:lombok:1.12.2'
     compile 'org.projectlombok:lombok:1.12.2'
+
+    // Android Annotations. 사용하기 위해 Preferences -> Annotations Processor 에서 전체적으로 세팅을 해야만 한다
+    // 자세한 내용은 http://www.ashokgelal.com/2012/12/setting-up-intellij-idea-12-with-maven-actionbarsherlock-roboelectric-androidannotations/
+    // 그리고 위쪽의 configuration/apt 부분과 아래쪽 build/source/apt 부분이 필수적
+    apt "com.googlecode.androidannotations:androidannotations:${androidAnnotationsVersion}"
+    compile "com.googlecode.androidannotations:androidannotations-api:${androidAnnotationsVersion}"
 
     //////////////////////////////////////////////////////////////
     // http://changyeopkim.blogspot.kr/2013/05/android.html 참고 //
@@ -80,8 +94,7 @@ dependencies {
     // http://square.github.com/otto/
     compile 'com.squareup:otto:1.3.4'
 
-    // 뷰 관련 코드를 깔끔하게 정리. 에버노트에서 관련 내용 찾을 것
-//    compile 'com.jakewharton:butterknife:3.0.0'
+    // 뷰 관련 코드를 깔끔하게 정리. 에버노트에서 관련 내용 찾을 것 (3.0.0 -> 4.0.1로 변경)
     compile 'com.jakewharton:butterknife:4.0.1'
 
     // HttpURLConnection을 깔끔하게 정리
@@ -97,11 +110,13 @@ dependencies {
 //    http://simple.sourceforge.net/home.php
 //    compile 'org.simpleframework:simple-xml:2.7.1'
 
-//    compile files('libs/AppRate_1.1.jar');
     // 모든 jar 파일 로딩
+    //    compile files('libs/AppRate_1.1.jar');
     compile fileTree(dir: 'libs', include: '*.jar')
 
-    // TEST
+    //////////
+    // TEST //
+    //////////
     testCompile 'junit:junit:4.10'
     testCompile 'org.robolectric:robolectric:2.2'
     testCompile 'com.squareup:fest-android:1.0.+'
@@ -118,14 +133,38 @@ tasks.withType(Compile) {
     options.encoding = "UTF-8"
 }
 
-//apply plugin: 'java'
-//
-//task instrumentTest(type: Test, dependsOn: test) {
-//    include '**/*Simple*'
-//}
-
 tasks.withType(Test) {
     testLogging {
         events 'started', 'passed'
+    }
+}
+
+def getSourceSetName(variant) {
+    return new File((String)variant.dirName).getName();
+}
+
+android.applicationVariants.all { variant ->
+    def aptOutputDir = project.file("build/source/apt")
+    def aptOutput = new File(aptOutputDir, variant.dirName)
+    println "****************************"
+    println "variant: ${variant.name}"
+    println "manifest:  ${variant.processResources.manifestFile}"
+    println "aptOutput:  ${aptOutput}"
+    println "****************************"
+
+    android.sourceSets[getSourceSetName(variant)].java.srcDirs+= aptOutput.getPath()
+
+    variant.javaCompile.options.compilerArgs += [
+            '-processorpath', configurations.apt.getAsPath(),
+            '-AandroidManifestFile=' + variant.processResources.manifestFile,
+            '-s', aptOutput
+    ]
+
+    variant.javaCompile.source = variant.javaCompile.source.filter { p ->
+        return !p.getPath().startsWith(aptOutputDir.getPath())
+    }
+
+    variant.javaCompile.doFirst {
+        aptOutput.mkdirs()
     }
 }

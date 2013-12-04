@@ -1,11 +1,11 @@
 package com.yooiistudios.morningkit.alarm.pref;
 
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 
-import com.squareup.otto.Subscribe;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.Extra;
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
@@ -23,39 +23,28 @@ import lombok.Getter;
  */
 enum MNAlarmPreferenceType { ADD, EDIT; }
 
+@EActivity(R.layout.activity_alarm_pref)
 public class MNAlarmPreferenceActivity extends ActionBarActivity implements View.OnClickListener{
 
     private static final String TAG = "MNAlarmPreferenceActivity";
+
+    @Getter @Extra(MN.alarm.ALARM_PREFERENCE_ALARM_ID) private int alarmId = -1;
     @Getter private MNAlarm alarm;
     @Getter private MNAlarmPreferenceType alarmPreferenceType;
 
-    /**
-     * Lifecycle
-     */
-    /** Called when the activity is first created. */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @AfterViews
+    void initAlarmPreferenceActivity() {
 
-        setContentView(R.layout.activity_alarm_pref);
-
-        MNBusProvider.getInstance().register(this);
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            int alarmId = extras.getInt(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
-            if (alarmId != -1) {
-                alarmPreferenceType = MNAlarmPreferenceType.EDIT;
-                alarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
-            }else{
-                alarmPreferenceType = MNAlarmPreferenceType.ADD;
-                alarm = MNAlarmMaker.makeAlarm(this.getBaseContext());
-            }
-            Log.i(TAG, "alarmId: " + alarm.getAlarmId());
-            MNBusProvider.getInstance().post(alarm);
+        if (alarmId != -1) {
+            alarmPreferenceType = MNAlarmPreferenceType.EDIT;
+            alarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
+            getSupportActionBar().setTitle(R.string.edit_alarm);
+        }else{
+            alarmPreferenceType = MNAlarmPreferenceType.ADD;
+            alarm = MNAlarmMaker.makeAlarm(this.getBaseContext());
+            getSupportActionBar().setTitle(R.string.add_an_alarm);
         }
 
-        getSupportActionBar().setTitle(R.string.add_an_alarm);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
 
         initListView();
@@ -73,12 +62,6 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
         super.onPause();
 
         MNBusProvider.getInstance().unregister(this);
-    }
-
-    @Subscribe
-    public void initAlarm(MNAlarm alarm) {
-        Log.i(TAG, "bus: initAlarm");
-        this.alarm = alarm;
     }
 
     private void initListView() {

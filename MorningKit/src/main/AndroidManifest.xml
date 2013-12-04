@@ -43,7 +43,7 @@
 
         <!-- Alarm -->
         <activity
-            android:name="com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity"
+            android:name="com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity_"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         </activity>
