@@ -1,14 +1,11 @@
 package com.yooiistudios.morningkit.alarm.listview.item;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 
-import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
-import com.yooiistudios.morningkit.common.bus.MNBusProvider;
+import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity_;
 import com.yooiistudios.morningkit.main.MNMainAlarmListView;
 
 import lombok.Getter;
@@ -36,7 +33,7 @@ public class MNAlarmItemClickListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        Intent i = new Intent(alarmListView.getContext(), MNAlarmPreferenceActivity.class);
+        Intent i = new Intent(alarmListView.getContext(), MNAlarmPreferenceActivity_.class);
 
         MNAlarm alarm = null;
         if (v.getTag().getClass() == MNAlarm.class) {
@@ -47,31 +44,13 @@ public class MNAlarmItemClickListener implements View.OnClickListener {
         }
 
         if (alarmListView.getContext() != null) {
-
             // Start activity with extra(alarmId)
             if (alarm != null) {
                 i.putExtra(MN.alarm.ALARM_PREFERENCE_ALARM_ID, alarm.getAlarmId());
+            }else{
+                i.putExtra(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
             }
             alarmListView.getContext().startActivity(i);
-
-            // Event bus
-            if (alarm != null) {
-                Log.i(TAG, "alarm is not null: id: " + alarm.getAlarmId());
-//                Bus bus = new Bus();
-//                bus.register(this);
-//                bus.post(alarm);
-                MNBusProvider.getInstance().register(this);
-                MNBusProvider.getInstance().post(alarm);
-
-
-            } else {
-                Log.i(TAG, "alarm is null");
-            }
         }
-    }
-
-    @Subscribe
-    public void testAlarmBus(MNAlarm alarm) {
-        Log.i(TAG, "testAlarmBus: " + alarm.getAlarmId());
     }
 }
