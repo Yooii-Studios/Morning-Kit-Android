@@ -15,6 +15,8 @@ import static org.hamcrest.CoreMatchers.*;
 
 /**
  * Created by StevenKim on 2013. 11. 11..
+ *
+ * MNAlarmTest
  */
 @RunWith(RobolectricGradleTestRunner.class)
 public class MNAlarmTest {

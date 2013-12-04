@@ -21,6 +21,8 @@ import static org.hamcrest.CoreMatchers.*;
 
 /**
  * Created by StevenKim on 2013. 11. 4..
+ *
+ * MNMainAdmobLayoutTest
  */
 @RunWith(RobolectricGradleTestRunner.class)
 //@RunWith(RobolectricTestRunner.class)

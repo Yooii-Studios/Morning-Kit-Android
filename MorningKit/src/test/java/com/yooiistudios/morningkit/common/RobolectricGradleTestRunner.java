@@ -10,6 +10,9 @@ import org.robolectric.res.Fs;
 
 /**
  * Created by StevenKim on 2013. 10. 31..
+ *
+ * RobolectricGradleTestRunner
+ *  Robolectric을 커스터마이징해 플러그인에 대응
  */
 public class RobolectricGradleTestRunner extends RobolectricTestRunner {
     public RobolectricGradleTestRunner(final Class<?> testClass) throws InitializationError {

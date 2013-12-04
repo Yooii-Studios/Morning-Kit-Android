@@ -2,6 +2,8 @@ package org.robolectric;
 
 /**
  * Created by StevenKim on 2013. 10. 31..
+ *
+ * AndroidManifestExt
  */
 
 import org.robolectric.res.FsFile;

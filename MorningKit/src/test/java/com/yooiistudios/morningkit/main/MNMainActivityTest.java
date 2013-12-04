@@ -27,6 +27,8 @@ import static org.hamcrest.CoreMatchers.*;
 
 /**
  * Created by StevenKim on 2013. 10. 31..
+ *
+ * MNMainActivityTest
  */
 // guide for using Robolectric and JUnit
 // Class name must be ended with xxxTest in test class

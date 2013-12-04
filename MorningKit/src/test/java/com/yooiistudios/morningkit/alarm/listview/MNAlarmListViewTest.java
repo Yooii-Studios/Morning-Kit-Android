@@ -26,6 +26,8 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Created by StevenKim on 2013. 11. 11..
+
+ * MNAlarmListViewTest
  */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config (shadows = { AdWebViewShadow.class })

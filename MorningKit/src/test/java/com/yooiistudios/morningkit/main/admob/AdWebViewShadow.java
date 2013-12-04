@@ -8,6 +8,9 @@ import org.robolectric.shadows.ShadowWebView;
 
 /**
  * Created by StevenKim on 2013. 11. 5..
+ *
+ * AdWebViewShadow
+ *  AdView 때문에 Robolectric Test 실패를 하는 것을 막기 위한 클래스
  */
 @Implements(AdWebView.class)
 public class AdWebViewShadow extends ShadowWebView {
