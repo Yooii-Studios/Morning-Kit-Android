@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.alarm.pref;
 
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.googlecode.androidannotations.annotations.AfterViews;
@@ -28,10 +27,10 @@ enum MNAlarmPreferenceType { ADD, EDIT; }
 public class MNAlarmPreferenceActivity extends ActionBarActivity implements View.OnClickListener{
 
     private static final String TAG = "MNAlarmPreferenceActivity";
+
+    @Getter @Extra(MN.alarm.ALARM_PREFERENCE_ALARM_ID) private int alarmId = -1;
     @Getter private MNAlarm alarm;
     @Getter private MNAlarmPreferenceType alarmPreferenceType;
-
-    @Extra(MN.alarm.ALARM_PREFERENCE_ALARM_ID) int alarmId = -1;
 
     @AfterViews
     void initAlarmPreferenceActivity() {

@@ -14,6 +14,7 @@ buildscript {
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.1-SNAPSHOT'
 
+        // jcandksolutions가 문제를 해결해서 여기의 것을 사용
         classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.1'
 //        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.+'
 //        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.1-SNAPSHOT'
@@ -39,11 +40,6 @@ android {
     }
 
     sourceSets {
-//        main {
-//            java {
-//                srcDir 'build/source/apt'
-//            }
-//        }
         instrumentTest.setRoot('src/test')
     }
 }
