@@ -21,7 +21,12 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import lombok.Getter;
 
-
+/**
+ * Created by Steven Kim on 13. 10. 22..
+ *
+ * MNMainActivity
+ *  앱에서 가장 중요한 메인 액티비티
+ */
 public class MNMainActivity extends Activity implements AdListener
 {
     private static final String TAG = "MNMainActivity";

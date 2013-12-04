@@ -14,6 +14,7 @@ import android.view.ViewTreeObserver;
  */
 public class MNViewSizeMeasure {
 
+    private MNViewSizeMeasure() { throw new AssertionError(); } // You must not create instance
     public interface OnGlobalLayoutObserver {
         public void onLayoutLoad();
     }

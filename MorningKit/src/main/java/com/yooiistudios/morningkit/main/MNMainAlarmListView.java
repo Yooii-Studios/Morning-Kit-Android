@@ -13,7 +13,7 @@ import lombok.Getter;
  * Created by Steven Kim on 13. 10. 22..
  *
  * MNMainAlarmListView
- * 메인화면의 알람리스트뷰
+ *  메인화면의 알람리스트뷰
  */
 public class MNMainAlarmListView extends ListView
 {

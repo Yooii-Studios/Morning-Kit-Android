@@ -7,7 +7,9 @@ import com.yooiistudios.morningkit.MN;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 11. 28.
+ *
  * MNSharedPreferences
+ *  모든 SharedPreferences 접근을 이곳에서 관장
  */
 public class MNSharedPreferences {
 
