@@ -18,11 +18,13 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-enum MNAlarmListAdapterType {MainAlarmListAdapter, ConfigureAlarmListAdapter; }
+enum MNAlarmListAdapterType { MAIN, CONFIGURE; }
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 11. 27.
+ *
  * MNAlarmListAdapter
+ *  메인화면 + 설정화면의 알람 리스트뷰에 적용 가능한 리스트 어댑터
  */
 public class MNAlarmListAdapter extends BaseAdapter {
     private static final String TAG = "MNAlarmListAdapter";

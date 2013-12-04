@@ -12,6 +12,9 @@ import org.robolectric.shadows.ShadowContextWrapper;
 
 /**
  * Created by StevenKim on 2013. 10. 31..
+ *
+ * RobolectricGradleTestRunner
+ *  Robolectric을 커스터마이징해 플러그인에 대응
  */
 @Config(shadows = {ShadowAudioManager.class, ShadowContextWrapper.class})
 public class RobolectricGradleTestRunner extends RobolectricTestRunner {

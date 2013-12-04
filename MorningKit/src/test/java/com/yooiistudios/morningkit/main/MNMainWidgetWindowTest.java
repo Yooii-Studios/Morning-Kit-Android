@@ -1,9 +1,5 @@
 package com.yooiistudios.morningkit.main;
 
-/**
- * Created by StevenKim on 2013. 11. 12..
- */
-
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -24,6 +20,11 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 //import static org.junit.matchers.JUnitMatchers.*;
 
+/**
+ * Created by StevenKim on 2013. 11. 12..
+ *
+ * MNMainWidgetWindowTest
+ */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config (shadows = { AdWebViewShadow.class })
 public class MNMainWidgetWindowTest {

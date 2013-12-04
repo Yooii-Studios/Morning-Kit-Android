@@ -28,6 +28,8 @@ import static org.hamcrest.CoreMatchers.*;
 
 /**
  * Created by StevenKim on 2013. 11. 11..
+ *
+ * MNAlarmListManagerTest
  */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config (shadows = { AdWebViewShadow.class })

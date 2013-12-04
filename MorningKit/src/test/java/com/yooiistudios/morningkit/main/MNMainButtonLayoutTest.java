@@ -29,6 +29,8 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Created by StevenKim on 2013. 11. 4..
+ *
+ * MNMainButtonLayoutTest
  */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config (shadows = { AdWebViewShadow.class })
