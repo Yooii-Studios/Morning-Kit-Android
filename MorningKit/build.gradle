@@ -80,8 +80,7 @@ dependencies {
     // http://square.github.com/otto/
     compile 'com.squareup:otto:1.3.4'
 
-    // 뷰 관련 코드를 깔끔하게 정리. 에버노트에서 관련 내용 찾을 것
-//    compile 'com.jakewharton:butterknife:3.0.0'
+    // 뷰 관련 코드를 깔끔하게 정리. 에버노트에서 관련 내용 찾을 것 (3.0.0 -> 4.0.1로 변경)
     compile 'com.jakewharton:butterknife:4.0.1'
 
     // HttpURLConnection을 깔끔하게 정리
@@ -97,8 +96,8 @@ dependencies {
 //    http://simple.sourceforge.net/home.php
 //    compile 'org.simpleframework:simple-xml:2.7.1'
 
-//    compile files('libs/AppRate_1.1.jar');
     // 모든 jar 파일 로딩
+    //    compile files('libs/AppRate_1.1.jar');
     compile fileTree(dir: 'libs', include: '*.jar')
 
     // TEST
@@ -117,12 +116,6 @@ dependencies {
 tasks.withType(Compile) {
     options.encoding = "UTF-8"
 }
-
-//apply plugin: 'java'
-//
-//task instrumentTest(type: Test, dependsOn: test) {
-//    include '**/*Simple*'
-//}
 
 tasks.withType(Test) {
     testLogging {
