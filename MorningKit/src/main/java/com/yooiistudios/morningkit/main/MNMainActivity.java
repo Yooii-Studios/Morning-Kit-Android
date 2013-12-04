@@ -13,6 +13,9 @@ import com.google.ads.Ad;
 import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.ViewById;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
@@ -27,33 +30,37 @@ import lombok.Getter;
  * MNMainActivity
  *  앱에서 가장 중요한 메인 액티비티
  */
+@EActivity(R.layout.activity_main)
 public class MNMainActivity extends Activity implements AdListener
 {
     private static final String TAG = "MNMainActivity";
 
-    @Getter @InjectView(R.id.main_container_layout) RelativeLayout containerLayout;
-    @Getter @InjectView(R.id.main_scroll_view) ScrollView scrollView;
-    @Getter @InjectView(R.id.main_widget_window_layout) MNWidgetWindowLayout widgetWindowLayout;
-    @Getter @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView alarmListView;
-    @Getter @InjectView(R.id.main_button_layout) RelativeLayout buttonLayout;
-    @Getter @InjectView(R.id.main_admob_layout) RelativeLayout admobLayout;
-    @Getter @InjectView(R.id.adView) AdView adView;
+    @Getter @ViewById(R.id.main_container_layout) RelativeLayout containerLayout;
+    @Getter @ViewById(R.id.main_scroll_view) ScrollView scrollView;
+    @Getter @ViewById(R.id.main_widget_window_layout) MNWidgetWindowLayout widgetWindowLayout;
+    @Getter @ViewById(R.id.main_alarm_list_view) MNMainAlarmListView alarmListView;
+    @Getter @ViewById(R.id.main_button_layout) RelativeLayout buttonLayout;
+    @Getter @ViewById(R.id.main_admob_layout) RelativeLayout admobLayout;
+    @Getter @ViewById(R.id.adView) AdView adView;
 
     /**
      * Lifecycle
      */
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        // 특정 날짜 이후로 앱이 죽게 폭탄 설치 - 현재는 주석 처리
-//        AppValidationChecker.validationCheck(this);
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState)
+//    {
+//        // 특정 날짜 이후로 앱이 죽게 폭탄 설치 - 현재는 주석 처리
+////        AppValidationChecker.validationCheck(this);
+//
+//        // Activity start, Load the xml layout
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//    }
 
-        // Activity start, Load the xml layout
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+    @AfterViews
+    void initMainActivity() {
         // 기존의 레거시 코드 대신에 이 한줄로 findViewById를 모두 대체
-        ButterKnife.inject(this);
+//        ButterKnife.inject(this);
 
         // 위젯 윈도우
         widgetWindowLayout.initWithWidgetMatrix();

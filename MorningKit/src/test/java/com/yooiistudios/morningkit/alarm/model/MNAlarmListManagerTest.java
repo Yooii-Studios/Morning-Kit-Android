@@ -9,6 +9,7 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.MNMainActivity;
+import com.yooiistudios.morningkit.main.MNMainActivity_;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
@@ -36,13 +37,13 @@ import static org.hamcrest.CoreMatchers.*;
 public class MNAlarmListManagerTest {
     ArrayList<MNAlarm> dummyAlarmList;
     ArrayList<MNAlarm> dummySortAlarmList;
-    MNMainActivity mainActivity;
+    MNMainActivity_ mainActivity;
 
     @Before
     public void setUp() {
         ShadowLog.stream = System.out;
 
-        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
+        mainActivity = Robolectric.buildActivity(MNMainActivity_.class).create().visible().get();
         dummyAlarmList = new ArrayList<MNAlarm>();
         dummySortAlarmList = new ArrayList<MNAlarm>();
     }

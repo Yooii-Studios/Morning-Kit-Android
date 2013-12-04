@@ -8,6 +8,7 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.MNMainActivity;
+import com.yooiistudios.morningkit.main.MNMainActivity_;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
@@ -36,14 +37,14 @@ public class MNAlarmListViewTest {
 
     MNAlarm defaultAlarm;
     MNAlarm customAlarm;
-    MNMainActivity mainActivity;
+    MNMainActivity_ mainActivity;
     MNAlarmListAdapter alarmListAdaptor;
 
     @Before
     public void setUp() {
         ShadowLog.stream = System.out;
 
-        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
+        mainActivity = Robolectric.buildActivity(MNMainActivity_.class).create().visible().get();
         alarmListAdaptor = new MNAlarmListAdapter(mainActivity.getBaseContext(), MNAlarmItemClickListener.newInstance(mainActivity.getAlarmListView()));
     }
 
