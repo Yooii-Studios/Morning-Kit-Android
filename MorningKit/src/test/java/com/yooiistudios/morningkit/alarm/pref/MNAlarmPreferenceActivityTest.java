@@ -33,7 +33,7 @@ import static org.junit.Assert.assertThat;
  * 알람설정 액티비티의 테스트 코드
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(shadows = { AdWebViewShadow.class })
+@Config(shadows = { AdWebViewShadow.class }, reportSdk = 10) // Gingerbread
 public class MNAlarmPreferenceActivityTest {
 
     MNMainActivity mainActivity;
