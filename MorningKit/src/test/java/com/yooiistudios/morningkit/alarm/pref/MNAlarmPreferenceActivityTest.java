@@ -6,7 +6,6 @@ import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.MNMainActivity_;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
@@ -56,7 +55,7 @@ public class MNAlarmPreferenceActivityTest {
     }
 
     @Test
-    public void testExtra() {
+    public void alarmIdFromExtraBunldeShouldBeValidate() {
         assertThat(true, is(true));
     }
 }
