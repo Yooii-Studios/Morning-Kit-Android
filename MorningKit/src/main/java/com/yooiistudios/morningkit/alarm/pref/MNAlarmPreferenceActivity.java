@@ -46,14 +46,14 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
             if (alarmId != -1) {
                 alarmPreferenceType = MNAlarmPreferenceType.EDIT;
                 alarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
-//                getSupportActionBar().setTitle(R.string.edit_alarm); // 추후 구현 다시 하자
+                getSupportActionBar().setTitle(R.string.edit_alarm); // 추후 구현 다시 하자
             }else{
                 alarmPreferenceType = MNAlarmPreferenceType.ADD;
                 alarm = MNAlarmMaker.makeAlarm(this.getBaseContext());
-//                getSupportActionBar().setTitle(R.string.add_an_alarm); // 추후 구현 다시 하자
+                getSupportActionBar().setTitle(R.string.add_an_alarm); // 추후 구현 다시 하자
             }
         }
-//        getSupportActionBar().setDisplayShowHomeEnabled(false); // 추후 구현 다시 하자
+        getSupportActionBar().setDisplayShowHomeEnabled(false); // 추후 구현 다시 하자
         initListView();
     }
 
