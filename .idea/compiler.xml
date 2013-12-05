@@ -15,6 +15,7 @@
     </wildcardResourcePatterns>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true">
+        <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true">
           <entry name="$MAVEN_REPOSITORY$/com/googlecode/androidannotations/androidannotations/2.7/androidannotations-2.7.jar" />
           <entry name="$MAVEN_REPOSITORY$/com/googlecode/androidannotations/androidannotations-api/2.7/androidannotations-api-2.7.jar" />
