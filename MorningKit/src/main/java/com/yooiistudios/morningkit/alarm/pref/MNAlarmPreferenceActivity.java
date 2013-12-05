@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.alarm.pref;
 
+import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
@@ -23,7 +24,6 @@ import lombok.Getter;
  */
 enum MNAlarmPreferenceType { ADD, EDIT; }
 
-@EActivity(R.layout.activity_alarm_pref)
 public class MNAlarmPreferenceActivity extends ActionBarActivity implements View.OnClickListener{
 
     private static final String TAG = "MNAlarmPreferenceActivity";
@@ -32,7 +32,14 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
     @Getter private MNAlarm alarm;
     @Getter private MNAlarmPreferenceType alarmPreferenceType;
 
-    @AfterViews
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_alarm_pref);
+
+        initAlarmPreferenceActivity();
+    }
+
     void initAlarmPreferenceActivity() {
 
         if (alarmId != -1) {
