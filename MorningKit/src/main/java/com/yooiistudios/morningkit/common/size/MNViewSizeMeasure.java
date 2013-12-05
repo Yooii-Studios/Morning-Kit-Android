@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.common;
+package com.yooiistudios.morningkit.common.size;
 
 import android.graphics.Point;
 import android.os.Build;
@@ -7,9 +7,14 @@ import android.view.ViewTreeObserver;
 
 /**
  * Created by StevenKim on 2013. 11. 4..
+ *
+ * MNViewSizeMeasure
+ * 예전 동현이가 테스트시 UI width, height를 재기 위해서 만들어 주었으나
+ * 현재는 사용되고 있지 않음
  */
 public class MNViewSizeMeasure {
 
+    private MNViewSizeMeasure() { throw new AssertionError(); } // You must not create instance
     public interface OnGlobalLayoutObserver {
         public void onLayoutLoad();
     }

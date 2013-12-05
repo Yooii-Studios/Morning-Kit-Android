@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.common;
+package com.yooiistudios.morningkit.common.size;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -7,10 +7,19 @@ import android.os.Build;
 import android.view.Display;
 import android.view.WindowManager;
 
-
+/**
+ * Created by MNDeviceSizeChecker in MorningKit from Yooii Studios Co., LTD. on 2013. 10. 22.
+ *
+ * MNDeviceSizeChecker (유틸리티 클래스)
+ *  1. 기기의 사이즈 확인
+ *  2. 폰 or 태블릿 여부 확인(> 7인치)
+ */
 public class MNDeviceSizeChecker 
 {
 	public static final String TAG = "MNDeviceSizeChecker";
+
+    private MNDeviceSizeChecker() { throw new AssertionError(); } // You must not create instance
+
 	public static boolean isDeviceLargerThan7inch(Context context) 
 	{
 		//사이즈 계산

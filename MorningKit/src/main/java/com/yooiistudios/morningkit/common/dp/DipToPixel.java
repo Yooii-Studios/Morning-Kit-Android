@@ -1,13 +1,18 @@
-package com.yooiistudios.morningkit.common;
+package com.yooiistudios.morningkit.common.dp;
 
 /**
  * Created by yongbinbae on 2013. 10. 24..
+ *
+ * DipToPixel (유틸리티 클래스)
+ *  1. dp -> pixel
+ *  2. pixel -> dp
  */
 
 import android.content.Context;
 
 public class DipToPixel {
 
+    private DipToPixel() { throw new AssertionError(); } // You must not create instance
     public static float getDisplayMetricsDensity(Context context)
     {
         return context.getResources().getDisplayMetrics().density;

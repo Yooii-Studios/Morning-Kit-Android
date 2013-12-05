@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/alarm_item_outer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/alarm_item_outer_height"
+    android:background="#38aa38"
+    android:clickable="false"
+    android:focusable="false"
+    android:paddingTop="@dimen/margin_inner"
+    android:paddingBottom="@dimen/margin_inner"
+    android:paddingLeft="@dimen/margin_outer"
+    android:paddingRight="@dimen/margin_outer"
+    android:orientation="vertical" >
+
+    <RelativeLayout 
+        android:id="@+id/alarm_item_inner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_rounded_view_classic_gray"
+        android:clickable="false"
+        android:focusable="false"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/alarm_item_time_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:text="8:30"
+            android:textColor="#ffffff"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/alarm_item_ampm_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarm_item_time_textview"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@+id/alarm_item_time_textview"
+            android:text="AM"
+            android:textColor="#ffffffff"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/alarm_item_repeat_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
+            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
+            android:layout_marginLeft="@dimen/margin_outer"
+            android:layout_toRightOf="@+id/alarm_item_ampm_textview"
+            android:text="/ M T W F S S"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:layout_toLeftOf="@+id/alarm_item_dividing_bar_imageview" />
+
+        <TextView
+            android:id="@+id/alarm_item_alarm_label_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/alarm_item_time_textview"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="Good Morning!"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:layout_toLeftOf="@+id/alarm_item_dividing_bar_imageview" />
+
+        <!--
+        <TextView
+            android:id="@+id/alarm_repeat_mon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
+            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@+id/alarm_hypen"
+            android:text="@string/monday_short"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/alarm_repeat_tue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
+            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/alarm_repeat_mon"
+            android:text="@string/tuesday_short"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/alarm_repeat_wed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
+            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/alarm_repeat_tue"
+            android:text="@string/wednesday_short"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/alarm_repeat_thu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
+            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/alarm_repeat_wed"
+            android:text="@string/thursday_short"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/alarm_repeat_fri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
+            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/alarm_repeat_thu"
+            android:text="@string/friday_short"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/alarm_repeat_sat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
+            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/alarm_repeat_fri"
+            android:text="@string/saturday_short"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/alarm_repeat_sun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
+            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/alarm_repeat_sat"
+            android:text="@string/sunday_short"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+        -->
+        <!--
+        <RelativeLayout
+            android:id="@+id/alarm_item_middle_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/alarm_item_right_layout"
+            android:clickable="false"
+            android:focusable="false"
+            android:orientation="vertical" >
+
+
+        </RelativeLayout>
+        -->
+
+        <ImageView
+            android:id="@+id/alarm_item_dividing_bar_imageview"
+            android:layout_width="@dimen/alarm_item_divider_with"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/alarm_item_switch_imagebutton"
+            android:src="@drawable/alarm_dividing_bar_default"
+            android:contentDescription="@string/loading"
+            android:layout_centerInParent="true"/>
+
+        <!--
+        <CheckBox
+            android:id="@+id/alarm_item_alarm_checkbox"
+            android:layout_width="@dimen/alarm_create_item_plus_size"
+            android:layout_height="@dimen/alarm_create_item_plus_size"
+            android:layout_alignParentRight="true"
+            android:background="#aa00aa"
+            android:button="@drawable/selector_alarm_checkbox"
+            android:layout_marginRight="@dimen/margin_outer" />
+
+        -->
+        <ImageButton
+            android:id="@+id/alarm_item_switch_imagebutton"
+            android:layout_width="@dimen/alarm_item_switch_size"
+            android:layout_height="@dimen/alarm_item_switch_size"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/selector_alarm_imagebutton"
+            android:background="#ffaa00aa"
+            android:contentDescription="@string/loading"
+            android:layout_centerInParent="true"/>
+        <!--
+        android:background="@drawable/alarm_switch_empty_classic_gray_retina"
+        -->
+
+        <!--
+        <RelativeLayout
+            android:id="@+id/alarm_item_right_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical" >
+        </RelativeLayout>
+        -->
+    </RelativeLayout>
+
+</RelativeLayout>

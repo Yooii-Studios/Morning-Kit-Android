@@ -14,8 +14,13 @@
       <entry name="!?*.clj" />
     </wildcardResourcePatterns>
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="false">
-        <processorPath useClasspath="true" />
+      <profile default="true" name="Default" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true">
+          <entry name="$MAVEN_REPOSITORY$/com/googlecode/androidannotations/androidannotations/2.7/androidannotations-2.7.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/googlecode/androidannotations/androidannotations-api/2.7/androidannotations-api-2.7.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/sun/codemodel/codemodel/2.4.1/codemodel-2.4.1.jar" />
+        </processorPath>
       </profile>
     </annotationProcessing>
   </component>
