@@ -43,24 +43,13 @@ public class MNMainActivity extends Activity implements AdListener
     @Getter @ViewById(R.id.main_admob_layout) RelativeLayout admobLayout;
     @Getter @ViewById(R.id.adView) AdView adView;
 
-    /**
-     * Lifecycle
-     */
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState)
-//    {
-//        // 특정 날짜 이후로 앱이 죽게 폭탄 설치 - 현재는 주석 처리
-////        AppValidationChecker.validationCheck(this);
-//
-//        // Activity start, Load the xml layout
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//    }
-
     @AfterViews
     void initMainActivity() {
         // 기존의 레거시 코드 대신에 이 한줄로 findViewById를 모두 대체
 //        ButterKnife.inject(this);
+
+//        // 특정 날짜 이후로 앱이 죽게 폭탄 설치 - 현재는 주석 처리
+//        AppValidationChecker.validationCheck(this);
 
         // 위젯 윈도우
         widgetWindowLayout.initWithWidgetMatrix();
