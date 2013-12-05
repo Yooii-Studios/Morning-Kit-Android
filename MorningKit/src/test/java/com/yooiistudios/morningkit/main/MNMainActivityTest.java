@@ -1,17 +1,12 @@
 package com.yooiistudios.morningkit.main;
 
 // necessary import
-import android.content.res.Resources;
-import android.view.View;
-import android.view.ViewGroup;
+
 import android.widget.RelativeLayout;
 
 import com.google.ads.AdView;
-import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.common.size.MNDeviceSizeChecker;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
-import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,10 +15,9 @@ import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
-import java.lang.Exception;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 //import static org.junit.matchers.JUnitMatchers.*;
 
 /**
@@ -37,7 +31,7 @@ import static org.hamcrest.CoreMatchers.*;
 @Config (shadows = { AdWebViewShadow.class })
 public class MNMainActivityTest {
 
-    MNMainActivity_ mainActivity;
+    MNMainActivity mainActivity;
 
     @Before
     public void setUp() {
@@ -46,7 +40,7 @@ public class MNMainActivityTest {
         // visible() 이 뷰를 띄울 수 있게 해주는 중요한 메서드
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().start().resume().visible().get();
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().postResume().get();
-        mainActivity = Robolectric.buildActivity(MNMainActivity_.class).create().visible().get();
+        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
     }
 
     @Test

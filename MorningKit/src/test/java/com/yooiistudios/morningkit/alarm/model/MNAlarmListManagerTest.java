@@ -4,12 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.yooiistudios.morningkit.MN;
-import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.MNMainActivity;
-import com.yooiistudios.morningkit.main.MNMainActivity_;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
@@ -23,8 +19,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 //import static org.junit.matchers.JUnitMatchers.*;
 
 /**
@@ -37,13 +34,13 @@ import static org.hamcrest.CoreMatchers.*;
 public class MNAlarmListManagerTest {
     ArrayList<MNAlarm> dummyAlarmList;
     ArrayList<MNAlarm> dummySortAlarmList;
-    MNMainActivity_ mainActivity;
+    MNMainActivity mainActivity;
 
     @Before
     public void setUp() {
         ShadowLog.stream = System.out;
 
-        mainActivity = Robolectric.buildActivity(MNMainActivity_.class).create().visible().get();
+        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
         dummyAlarmList = new ArrayList<MNAlarm>();
         dummySortAlarmList = new ArrayList<MNAlarm>();
     }

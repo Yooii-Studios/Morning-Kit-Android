@@ -6,7 +6,7 @@ import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.main.MNMainActivity_;
+import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
@@ -16,8 +16,10 @@ import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 //import static org.junit.matchers.JUnitMatchers.*;
 
 /**
@@ -30,32 +32,40 @@ import static org.hamcrest.CoreMatchers.*;
 @Config(shadows = { AdWebViewShadow.class })
 public class MNAlarmPreferenceActivityTest {
 
-    MNMainActivity_ mainActivity;
-    MNAlarmPreferenceActivity_ alarmPreferenceActivity_add_alarm;
-    MNAlarmPreferenceActivity_ alarmPreferenceActivity_edit_alarm;
+    MNMainActivity mainActivity;
+    MNAlarmPreferenceActivity alarmPreferenceActivity_add_alarm;
+    MNAlarmPreferenceActivity alarmPreferenceActivity_edit_alarm;
 
     @Before
     public void setUp() {
         ShadowLog.stream = System.out;
 
-        mainActivity = Robolectric.buildActivity(MNMainActivity_.class).create().visible().get();
+        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
 
         // 'Add alarm' Activity
-        Intent intent_add_alarm = new Intent(mainActivity.getBaseContext(), MNAlarmPreferenceActivity_.class);
-        alarmPreferenceActivity_add_alarm = Robolectric.buildActivity(MNAlarmPreferenceActivity_.class)
+        Intent intent_add_alarm = new Intent(mainActivity.getBaseContext(), MNAlarmPreferenceActivity.class);
+        intent_add_alarm.putExtra(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
+        alarmPreferenceActivity_add_alarm = Robolectric.buildActivity(MNAlarmPreferenceActivity.class)
                 .withIntent(intent_add_alarm).create().visible().get();
 
         // 'Edit alarm' Activity
-        Intent intent_edit_alarm = new Intent(mainActivity.getBaseContext(), MNAlarmPreferenceActivity_.class);
+        Intent intent_edit_alarm = new Intent(mainActivity.getBaseContext(), MNAlarmPreferenceActivity.class);
         MNAlarm alarm = MNAlarmMaker.makeAlarm(mainActivity.getBaseContext());
         alarm.setAlarmId(50);
         intent_edit_alarm.putExtra(MN.alarm.ALARM_PREFERENCE_ALARM_ID, alarm.getAlarmId());
-        alarmPreferenceActivity_edit_alarm = Robolectric.buildActivity(MNAlarmPreferenceActivity_.class)
+        alarmPreferenceActivity_edit_alarm = Robolectric.buildActivity(MNAlarmPreferenceActivity.class)
                 .withIntent(intent_edit_alarm).create().visible().get();
     }
 
     @Test
     public void alarmIdFromExtraBunldeShouldBeValidate() {
-        assertThat(true, is(true));
+//        assertThat(alarmPreferenceActivity_add_alarm.getAlarmId(), is(-1));
+//        assertThat(alarmPreferenceActivity_add_alarm.getAlarm(), notNullValue());
+//        assertThat(alarmPreferenceActivity_add_alarm.getAlarm().getAlarmId(), is(not(-1)));
+
+        assertThat(alarmPreferenceActivity_edit_alarm.getAlarmId(), is(not(-1)));
+        assertThat(alarmPreferenceActivity_edit_alarm.getAlarm(), notNullValue());
+        assertThat(alarmPreferenceActivity_edit_alarm.getAlarm().getAlarmId(), is(50));
+        assertThat(alarmPreferenceActivity_edit_alarm.getAlarm().getAlarmId(), is(alarmPreferenceActivity_add_alarm.getAlarmId()));
     }
 }

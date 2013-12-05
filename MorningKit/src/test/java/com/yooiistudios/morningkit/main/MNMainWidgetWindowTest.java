@@ -14,10 +14,8 @@ import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
-import java.lang.Exception;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 //import static org.junit.matchers.JUnitMatchers.*;
 
 /**
@@ -29,7 +27,7 @@ import static org.hamcrest.CoreMatchers.*;
 @Config (shadows = { AdWebViewShadow.class })
 public class MNMainWidgetWindowTest {
 
-    MNMainActivity_ mainActivity;
+    MNMainActivity mainActivity;
 
     @Before
     public void setUp() {
@@ -38,7 +36,7 @@ public class MNMainWidgetWindowTest {
         // visible() 이 뷰를 띄울 수 있게 해주는 중요한 메서드
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().start().resume().visible().get();
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().postResume().get();
-        mainActivity = Robolectric.buildActivity(MNMainActivity_.class).create().visible().get();
+        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
     }
 
     /**

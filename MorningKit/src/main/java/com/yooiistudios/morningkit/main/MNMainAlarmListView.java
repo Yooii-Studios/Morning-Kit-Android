@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
-import com.googlecode.androidannotations.annotations.EView;
 import com.yooiistudios.morningkit.alarm.listview.MNAlarmListAdapter;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemClickListener;
 

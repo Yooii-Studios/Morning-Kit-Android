@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity_;
+import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
 import com.yooiistudios.morningkit.main.MNMainAlarmListView;
 
 import lombok.Getter;
@@ -33,7 +33,7 @@ public class MNAlarmItemClickListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        Intent i = new Intent(alarmListView.getContext(), MNAlarmPreferenceActivity_.class);
+        Intent i = new Intent(alarmListView.getContext(), MNAlarmPreferenceActivity.class);
 
         MNAlarm alarm = null;
         if (v.getTag().getClass() == MNAlarm.class) {
