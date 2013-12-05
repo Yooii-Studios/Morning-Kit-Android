@@ -39,7 +39,6 @@ public class MNAlarmPreferenceActivityTest {
     MNMainActivity mainActivity;
     MNAlarmPreferenceActivity alarmPreferenceActivity_add_alarm;
     MNAlarmPreferenceActivity alarmPreferenceActivity_edit_alarm;
-//    ArrayList<MNAlarm> dummyAlarmList;
 
     @Before
     public void setUp() throws Exception {
