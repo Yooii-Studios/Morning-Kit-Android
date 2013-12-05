@@ -24,9 +24,10 @@
         android:icon="@drawable/ic_launcher_round"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <!-- Main -->
         <activity
-            android:name="com.yooiistudios.morningkit.main.MNMainActivity_"
+            android:name="com.yooiistudios.morningkit.main.MNMainActivity"
             android:label="@string/app_name"
             android:screenOrientation="sensor"
             android:theme="@android:style/Theme.Black.NoTitleBar"
@@ -43,7 +44,7 @@
 
         <!-- Alarm -->
         <activity
-            android:name="com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity_"
+            android:name="com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         </activity>

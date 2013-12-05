@@ -11,12 +11,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.googlecode.androidannotations.annotations.EView;
-import com.googlecode.androidannotations.annotations.ViewById;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemScrollView;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 enum MNAlarmListAdapterType { MAIN, CONFIGURE; }
 
@@ -71,11 +72,12 @@ public class MNAlarmListAdapter extends BaseAdapter {
                 convertView.setLongClickable(false);
 
                 // MNAlarmItemViewHolder
-                MNAlarmItemViewHolder alarmViewHolder = new MNAlarmItemViewHolder(convertView);
+//                MNAlarmItemViewHolder alarmViewHolder = new MNAlarmItemViewHolder(convertView);
 
                 // Alarm Switch Button
 //                final ImageButton alarmSwitchButton = (ImageButton) convertView.findViewById(R.id.alarm_item_switch_imagebutton);
 //                final ImageButton alarmSwitchButton = ButterKnife.findById(convertView, R.id.alarm_item_switch_imagebutton);
+                /*
                 final ImageButton alarmSwitchButton = alarmViewHolder.alarmSwitchImageButton;
                 if (alarm.isAlarmOn()) {
                     alarmSwitchButton.setSelected(true);
@@ -93,6 +95,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
                         }
                     }
                 });
+                */
             }
 //            return alarmItemScrollView;
             return MNAlarmItemScrollView.newInstance(context, position, convertView);
@@ -108,7 +111,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
                 convertView.setLongClickable(false);
 
                 // MNAlarmCreateItemViewHolder
-                MNAlarmCreateItemViewHolder alarmCreateItemViewHolder = new MNAlarmCreateItemViewHolder(convertView);
+//                MNAlarmCreateItemViewHolder alarmCreateItemViewHolder = new MNAlarmCreateItemViewHolder(convertView);
             }
             return convertView;
         }
@@ -145,55 +148,27 @@ public class MNAlarmListAdapter extends BaseAdapter {
     }
 
     static class MNAlarmItemViewHolder {
-//        @ViewById(R.id.alarm_item_outer_layout)           RelativeLayout  outerLayout;
-//        @ViewById(R.id.alarm_item_inner_layout)           RelativeLayout  innerLayout;
-//        @ViewById(R.id.alarm_item_time_textview)          TextView        timeTextView;
-//        @ViewById(R.id.alarm_item_repeat_textview)        TextView        repeatTextView;
-//        @ViewById(R.id.alarm_item_alarm_label_textview)   TextView        alarmLabelTextView;
-//        @ViewById(R.id.alarm_item_dividing_bar_imageview) ImageView       dividingBarImageView;
-//        @ViewById(R.id.alarm_item_switch_imagebutton)     ImageButton     alarmSwitchImageButton;
-
-        RelativeLayout  outerLayout;
-        RelativeLayout  innerLayout;
-        TextView        timeTextView;
-        TextView        repeatTextView;
-        TextView        alarmLabelTextView;
-        ImageView       dividingBarImageView;
-        ImageButton     alarmSwitchImageButton;
+//        @InjectView(R.id.alarm_item_outer_layout)           RelativeLayout  outerLayout;
+//        @InjectView(R.id.alarm_item_inner_layout)           RelativeLayout  innerLayout;
+//        @InjectView(R.id.alarm_item_time_textview)          TextView        timeTextView;
+//        @InjectView(R.id.alarm_item_repeat_textview)        TextView        repeatTextView;
+//        @InjectView(R.id.alarm_item_alarm_label_textview)   TextView        alarmLabelTextView;
+//        @InjectView(R.id.alarm_item_dividing_bar_imageview) ImageView       dividingBarImageView;
+//        @InjectView(R.id.alarm_item_switch_imagebutton)     ImageButton     alarmSwitchImageButton;
 
         public MNAlarmItemViewHolder(View view) {
-//            ButterKnife.inject(this, view);
-
-            outerLayout = (RelativeLayout) view.findViewById(R.id.alarm_item_outer_layout);
-            innerLayout = (RelativeLayout) view.findViewById(R.id.alarm_item_inner_layout);
-            timeTextView = (TextView) view.findViewById(R.id.alarm_item_time_textview);
-            repeatTextView = (TextView) view.findViewById(R.id.alarm_item_repeat_textview);
-            alarmLabelTextView = (TextView) view.findViewById(R.id.alarm_item_alarm_label_textview);
-            dividingBarImageView = (ImageView) view.findViewById(R.id.alarm_item_dividing_bar_imageview);
-            alarmSwitchImageButton = (ImageButton) view.findViewById(R.id.alarm_item_switch_imagebutton);
+            ButterKnife.inject(this, view);
         }
     }
-
     static class MNAlarmCreateItemViewHolder {
-//        @ViewById(R.id.alarm_create_outer_layout)                 RelativeLayout  outerLayout;
-//        @ViewById(R.id.alarm_create_inner_layout)                 RelativeLayout  innerLayout;
-//        @ViewById(R.id.alarm_create_item_text)                    TextView        createAlarmTextView;
-//        @ViewById(R.id.alarm_create_item_dividing_bar_image_view) ImageView       dividingBarImageView;
-//        @ViewById(R.id.alarm_create_item_plus_image_view)         ImageView       plusImageView;
-
-        RelativeLayout  outerLayout;
-        RelativeLayout  innerLayout;
-        TextView        createAlarmTextView;
-        ImageView       dividingBarImageView;
-        ImageView       plusImageView;
+//        @InjectView(R.id.alarm_create_outer_layout)                 RelativeLayout  outerLayout;
+//        @InjectView(R.id.alarm_create_inner_layout)                 RelativeLayout  innerLayout;
+//        @InjectView(R.id.alarm_create_item_textview)                TextView        createAlarmTextView;
+//        @InjectView(R.id.alarm_create_item_dividing_bar_image_view) ImageView       dividingBarImageView;
+//        @InjectView(R.id.alarm_create_item_plus_image_view)         ImageView       plusImageView;
 
         public MNAlarmCreateItemViewHolder(View view) {
-//            ButterKnife.inject(this, view);
-            outerLayout = (RelativeLayout) view.findViewById(R.id.alarm_create_outer_layout);
-            innerLayout = (RelativeLayout) view.findViewById(R.id.alarm_create_inner_layout);
-            createAlarmTextView = (TextView) view.findViewById(R.id.alarm_create_item_textview);
-            dividingBarImageView = (ImageView) view.findViewById(R.id.alarm_create_item_dividing_bar_image_view);
-            plusImageView = (ImageView) view.findViewById(R.id.alarm_create_item_plus_image_view);
+            ButterKnife.inject(this, view);
         }
     }
 }

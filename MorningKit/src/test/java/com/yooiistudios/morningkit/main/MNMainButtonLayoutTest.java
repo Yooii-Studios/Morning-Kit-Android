@@ -1,13 +1,8 @@
 package com.yooiistudios.morningkit.main;
 
-import android.content.res.Resources;
-import android.graphics.Point;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.ads.AdSize;
-import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
@@ -20,12 +15,7 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by StevenKim on 2013. 11. 4..
@@ -36,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 @Config (shadows = { AdWebViewShadow.class })
 public class MNMainButtonLayoutTest {
 
-    MNMainActivity_ mainActivity;
+    MNMainActivity mainActivity;
 
     @Before
     public void setUp() {
@@ -49,7 +39,7 @@ public class MNMainButtonLayoutTest {
 
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().start().resume().visible().get();
 //        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().postResume().visible().get();
-        mainActivity = Robolectric.buildActivity(MNMainActivity_.class).create().visible().get();
+        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
     }
 
 
