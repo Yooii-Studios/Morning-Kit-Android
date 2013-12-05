@@ -5,4 +5,19 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="MN.Alarm.Pref.Styled" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <!-- Setting values in the android namespace affects API levels 11+ -->
+        <item name="actionBarStyle">@style/MN.Alarm.Pref.Styled.ActionBar</item>
+    </style>
+
+    <style name="MN.Alarm.Pref.Styled.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Setting values in the android namespace affects API levels 11+ -->
+        <!--
+        <item name="android:background">@drawable/@drawable/ab_custom_solid_styled</item>
+        <item name="android:backgroundStacked">@drawable/ab_custom_stacked_solid_styled</item>
+        <item name="android:backgroundSplit">@drawable/ab_custom_bottom_solid_styled</item>
+        -->
+    </style>
+
 </resources>
