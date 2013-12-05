@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.alarm.listview;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,36 +40,6 @@ public class MNAlarmListAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
-        return MNAlarmListManager.getAlarmList(context).size() + 1;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        if (position < MNAlarmListManager.getAlarmList(context).size()) {
-            try {
-                return MNAlarmListManager.getAlarmList(context).get(position);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        if (position < MNAlarmListManager.getAlarmList(context).size()) {
-            try {
-                MNAlarm alarm = MNAlarmListManager.getAlarmList(context).get(position);
-                return alarm.getAlarmId();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return 0;
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (position < MNAlarmListManager.getAlarmList(context).size()) {
@@ -79,13 +50,25 @@ public class MNAlarmListAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
 
+            // recycle convertView - 나중에 필요해지면 사용하자
+//            if (convertView == null || convertView.getId() != R.layout.alarm_item) {
+//                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_item, parent, false);
+//                if (convertView != null && alarm != null) {
+//                    convertView.setTag(alarm);
+//                    convertView.setId(R.layout.alarm_item);
+//                }
+//            }else{
+//                Log.i(TAG, "recycle convertView");
+//            }
+
             // changed code to 'Butter Knife' code
 //            convertView = mLayoutInflater.inflate(R.layout.alarm_item, parent, false);
             convertView = LayoutInflater.from(context).inflate(R.layout.alarm_item, parent, false);
             if (convertView != null && alarm != null) {
+                convertView.setTag(alarm);
+                convertView.setId(R.layout.alarm_item);
                 convertView.setOnClickListener(alarmItemClickListener);
                 convertView.setLongClickable(false);
-                convertView.setTag(alarm);
 
                 // MNAlarmItemViewHolder
                 MNAlarmItemViewHolder alarmViewHolder = new MNAlarmItemViewHolder(convertView);
@@ -119,15 +102,46 @@ public class MNAlarmListAdapter extends BaseAdapter {
 //            convertView = mLayoutInflater.inflate(R.layout.alarm_create_item, parent, false);
             convertView = LayoutInflater.from(context).inflate(R.layout.alarm_create_item, parent, false);
             if (convertView != null) {
-                convertView.setLongClickable(false);
-                convertView.setOnClickListener(alarmItemClickListener);
                 convertView.setTag(-1);
+                convertView.setId(R.layout.alarm_create_item);
+                convertView.setOnClickListener(alarmItemClickListener);
+                convertView.setLongClickable(false);
 
                 // MNAlarmCreateItemViewHolder
                 MNAlarmCreateItemViewHolder alarmCreateItemViewHolder = new MNAlarmCreateItemViewHolder(convertView);
             }
             return convertView;
         }
+    }
+
+    @Override
+    public int getCount() {
+        return MNAlarmListManager.getAlarmList(context).size() + 1;
+    }
+
+    @Override
+    public Object getItem(int position) {
+        if (position < MNAlarmListManager.getAlarmList(context).size()) {
+            try {
+                return MNAlarmListManager.getAlarmList(context).get(position);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        if (position < MNAlarmListManager.getAlarmList(context).size()) {
+            try {
+                MNAlarm alarm = MNAlarmListManager.getAlarmList(context).get(position);
+                return alarm.getAlarmId();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
     }
 
     static class MNAlarmItemViewHolder {
