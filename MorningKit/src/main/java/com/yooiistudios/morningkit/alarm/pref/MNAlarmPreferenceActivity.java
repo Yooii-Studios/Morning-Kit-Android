@@ -55,20 +55,6 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
         initListView();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        MNBusProvider.getInstance().register(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        MNBusProvider.getInstance().unregister(this);
-    }
-
     private void initListView() {
 
     }
