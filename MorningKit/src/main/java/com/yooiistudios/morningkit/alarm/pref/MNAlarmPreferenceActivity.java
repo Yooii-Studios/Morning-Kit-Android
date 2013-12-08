@@ -2,7 +2,8 @@ package com.yooiistudios.morningkit.alarm.pref;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.yooiistudios.morningkit.MN;
@@ -22,7 +23,7 @@ import lombok.Getter;
  * MNAlarmPreferenceActivity
  *  알람을 추가, 수정하는 액티비티
  */
-public class MNAlarmPreferenceActivity extends ActionBarActivity implements View.OnClickListener{
+public class MNAlarmPreferenceActivity extends ActionBarActivity {
 
     private static final String TAG = "MNAlarmPreferenceActivity";
 
@@ -38,6 +39,9 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
         initAlarmPreferenceActivity();
     }
 
+    /**
+     * Init
+     */
     void initAlarmPreferenceActivity() {
         ButterKnife.inject(this);
         Bundle extras = getIntent().getExtras();
@@ -62,8 +66,29 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
         prefListView.setAdapter(new MNAlarmPreferenceListAdapter(this));
     }
 
+    /**
+     * Action Bar
+     */
     @Override
-    public void onClick(View v) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        getMenuInflater().inflate(R.menu.pref_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.pref_action_ok:
+                // Save the alarm
+                finish();
+                return true;
+            case R.id.pref_action_cancel:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
