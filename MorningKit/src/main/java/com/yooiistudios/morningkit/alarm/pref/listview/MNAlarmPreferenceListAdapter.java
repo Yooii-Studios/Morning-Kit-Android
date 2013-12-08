@@ -1,8 +1,12 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import com.yooiistudios.morningkit.R;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 7.
@@ -12,25 +16,35 @@ import android.widget.BaseAdapter;
  */
 public class MNAlarmPreferenceListAdapter extends BaseAdapter{
 
+    Context context;
+
+    private MNAlarmPreferenceListAdapter() {}
+    public MNAlarmPreferenceListAdapter(Context context) {
+        this.context = context;
+    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        MNAlarmPrefItemType indexType = MNAlarmPrefItemType.valueOf(position);
-        switch (indexType) {
-            case REPEAT:
-                break;
-            case LABEL:
-                break;
-            case SOUND_TYPE:
-                break;
-            case SOUND_NAME:
-                break;
-            case SNOOZE:
-                break;
-            default:
-                throw new AssertionError("Undefined position");
+        MNAlarmPrefListItemType indexType = MNAlarmPrefListItemType.valueOf(position);
+        convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_item, parent, false);
+        if (convertView != null) {
+            convertView.setTag(indexType);
+            switch (indexType) {
+                case REPEAT:
+                    break;
+                case LABEL:
+                    break;
+                case SOUND_TYPE:
+                    break;
+                case SOUND_NAME:
+                    break;
+                case SNOOZE:
+                    break;
+                default:
+                    throw new AssertionError("Undefined position");
+            }
         }
-        return null;
+        return convertView;
     }
 
     @Override
@@ -45,6 +59,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return MNAlarmPrefItemType.values().length;
+        return MNAlarmPrefListItemType.values().length;
     }
+
 }

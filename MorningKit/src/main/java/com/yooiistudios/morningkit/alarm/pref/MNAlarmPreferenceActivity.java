@@ -2,17 +2,18 @@ package com.yooiistudios.morningkit.alarm.pref;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
-import com.yooiistudios.morningkit.common.bus.MNBusProvider;
+import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPreferenceListAdapter;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import lombok.Getter;
 
 /**
@@ -28,6 +29,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
     @Getter private int alarmId;
     @Getter private MNAlarm alarm;
     @Getter private MNAlarmPreferenceType alarmPreferenceType;
+    @Getter @InjectView(R.id.alarm_pref_listview) ListView prefListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
     }
 
     void initAlarmPreferenceActivity() {
+        ButterKnife.inject(this);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             alarmId = extras.getInt(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
@@ -56,7 +59,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
     }
 
     private void initListView() {
-
+        prefListView.setAdapter(new MNAlarmPreferenceListAdapter(this));
     }
 
     @Override
