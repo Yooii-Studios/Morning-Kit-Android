@@ -1,12 +1,13 @@
 package com.yooiistudios.morningkit.alarm.pref;
 
 import android.content.Intent;
-import android.util.Log;
+import android.view.View;
 
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
+import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPrefListItemType;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
@@ -80,5 +81,20 @@ public class MNAlarmPreferenceActivityTest {
         assertThat(alarmPreferenceActivity_edit_alarm.getAlarmId(), is(50));
         assertThat(alarmPreferenceActivity_edit_alarm.getAlarm(), notNullValue());
         assertThat(alarmPreferenceActivity_edit_alarm.getAlarm().getAlarmId(), is(alarmPreferenceActivity_edit_alarm.getAlarmId()));
+    }
+
+    @Test
+    public void prefListViewTest() {
+        assertThat(alarmPreferenceActivity_edit_alarm.getPrefListView(), notNullValue());
+        // 현재로서는 5개
+        assertThat(alarmPreferenceActivity_edit_alarm.getPrefListView().getCount(), is(MNAlarmPrefListItemType.values().length));
+
+        for(int i=0; i<alarmPreferenceActivity_edit_alarm.getPrefListView().getChildCount(); i++) {
+            View prefItemView = alarmPreferenceActivity_edit_alarm.getPrefListView().getChildAt(i);
+            // Tag 검사, 각 enum의 값이 들어가 있어야 한다
+            if (prefItemView != null) {
+                assertThat((MNAlarmPrefListItemType)prefItemView.getTag(), is(MNAlarmPrefListItemType.valueOf(i)));
+            }
+        }
     }
 }

@@ -2,17 +2,22 @@ package com.yooiistudios.morningkit.alarm.pref;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
-import com.yooiistudios.morningkit.common.bus.MNBusProvider;
+import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPreferenceListAdapter;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import lombok.Getter;
 
 /**
@@ -21,13 +26,14 @@ import lombok.Getter;
  * MNAlarmPreferenceActivity
  *  알람을 추가, 수정하는 액티비티
  */
-public class MNAlarmPreferenceActivity extends ActionBarActivity implements View.OnClickListener{
+public class MNAlarmPreferenceActivity extends ActionBarActivity {
 
     private static final String TAG = "MNAlarmPreferenceActivity";
 
     @Getter private int alarmId;
     @Getter private MNAlarm alarm;
     @Getter private MNAlarmPreferenceType alarmPreferenceType;
+    @Getter @InjectView(R.id.alarm_pref_listview) ListView prefListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +42,11 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
         initAlarmPreferenceActivity();
     }
 
+    /**
+     * Init
+     */
     void initAlarmPreferenceActivity() {
+        ButterKnife.inject(this);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             alarmId = extras.getInt(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
@@ -55,26 +65,53 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity implements View
         initListView();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        MNBusProvider.getInstance().register(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        MNBusProvider.getInstance().unregister(this);
-    }
-
     private void initListView() {
+        prefListView.setAdapter(new MNAlarmPreferenceListAdapter(this));
+    }
 
+    /**
+     * Action Bar
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        getMenuInflater().inflate(R.menu.pref_actions, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public void onClick(View v) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.pref_action_ok:
+                // Add/Edit the alarm
+                applyAlarmPreferneces();
+                finish();
+                return true;
 
+            case R.id.pref_action_cancel:
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void applyAlarmPreferneces() {
+        switch (alarmPreferenceType) {
+            case ADD:
+                MNAlarmListManager.addAlarmToAlarmList(alarm, this);
+                break;
+            case EDIT:
+                MNAlarmListManager.replaceAlarmToAlarmList(alarm, this);
+                break;
+        }
+        MNAlarmListManager.sortAlarmList(this);
+        try {
+            MNAlarmListManager.saveAlarmList(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

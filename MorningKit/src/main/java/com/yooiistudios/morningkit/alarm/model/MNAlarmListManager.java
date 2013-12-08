@@ -77,6 +77,36 @@ public class MNAlarmListManager {
     }
 
     /**
+     * add alarm to alarmList(ArrayList<MNAlarm>)
+     * @param targetAlarm will be saved to alarmList
+     * @param context used to get SharedPreferences
+     */
+    public static void addAlarmToAlarmList(MNAlarm targetAlarm, Context context) {
+        if (targetAlarm == null) {
+            throw new IllegalArgumentException("MNAlarm must not be null");
+        }
+        if (context == null) {
+            throw new IllegalArgumentException("Context must not be null");
+        }
+        MNAlarmListManager.getInstance().alarmList.add(targetAlarm);
+    }
+
+    public static void replaceAlarmToAlarmList(MNAlarm targetAlarm, Context context) {
+        if (targetAlarm != null && context != null) {
+            int indexOfAlarm = MNAlarmListManager.findIndexOfAlarmById(targetAlarm.getAlarmId(), context);
+            if (indexOfAlarm != -1 && indexOfAlarm < MNAlarmListManager.getAlarmList(context).size()) {
+                MNAlarmListManager.getAlarmList(context).set(indexOfAlarm, targetAlarm);
+            }else{
+                throw new IndexOutOfBoundsException("Can't get proper index");
+            }
+        } else if (targetAlarm == null) {
+            throw new IllegalArgumentException("MNAlarm must not be null");
+        } else {
+            throw new IllegalArgumentException("Context must not be null");
+        }
+    }
+
+    /**
      * save alarmList(ArrayList<MNAlarm>) to SharedPreferences using ObjectSerializer.
      * @param context used to get SharedPreferences
      * @throws IOException
@@ -119,5 +149,27 @@ public class MNAlarmListManager {
         } else {
             return null;
         }
+    }
+
+    /**
+     * find index of alarm by specific alarmId in alarmList
+     * @param targetAlarmId alarmId to be searched
+     * @param context used to get SharedPreferences
+     * @return int or -1 if not found
+     */
+    public static int findIndexOfAlarmById(int targetAlarmId, Context context) {
+        if (targetAlarmId != -1) {
+            MNAlarm targetAlarm = null;
+            ArrayList<MNAlarm> alarmList = MNAlarmListManager.getAlarmList(context);
+            for (int i=0; i<alarmList.size(); i++) {
+                MNAlarm alarm = alarmList.get(i);
+                if (alarm.getAlarmId() == targetAlarmId) {
+                    return i;
+                }
+            }
+        } else {
+            throw new IllegalArgumentException("targetAlarmId can't be -1");
+        }
+        return -1;
     }
 }
