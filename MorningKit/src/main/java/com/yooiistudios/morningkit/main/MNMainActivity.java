@@ -93,6 +93,10 @@ public class MNMainActivity extends Activity implements AdListener
     protected void onResume()
     {
         // Activity visible to user
+
+        // Alarm
+        alarmListView.refreshListView();
+
         // 테마와 관련된 작업 실행
         containerLayout.setBackgroundColor(Color.WHITE);
 
