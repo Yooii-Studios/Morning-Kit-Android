@@ -13,6 +13,9 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPreferenceListAdapter;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import lombok.Getter;
@@ -81,14 +84,34 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.pref_action_ok:
-                // Save the alarm
+                // Add/Edit the alarm
+                applyAlarmPreferneces();
                 finish();
                 return true;
+
             case R.id.pref_action_cancel:
                 finish();
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void applyAlarmPreferneces() {
+        switch (alarmPreferenceType) {
+            case ADD:
+                MNAlarmListManager.addAlarmToAlarmList(alarm, this);
+                break;
+            case EDIT:
+                MNAlarmListManager.replaceAlarmToAlarmList(alarm, this);
+                break;
+        }
+        MNAlarmListManager.sortAlarmList(this);
+        try {
+            MNAlarmListManager.saveAlarmList(this);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
