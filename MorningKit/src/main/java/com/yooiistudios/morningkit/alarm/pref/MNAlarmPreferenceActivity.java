@@ -36,7 +36,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     @Getter private MNAlarmPreferenceType alarmPreferenceType;
     @Getter @InjectView(R.id.alarm_pref_listview) ListView prefListView;
 
-    Menu actionBarMenu;
+    @Getter Menu actionBarMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
