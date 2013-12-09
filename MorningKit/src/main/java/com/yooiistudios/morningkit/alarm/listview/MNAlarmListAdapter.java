@@ -1,6 +1,8 @@
 package com.yooiistudios.morningkit.alarm.listview;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +12,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemScrollView;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
+import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -28,12 +32,14 @@ public class MNAlarmListAdapter extends BaseAdapter {
     private static final String TAG = "MNAlarmListAdapter";
     private Context context;
     private View.OnClickListener alarmItemClickListener;
+    private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 //    private MNAlarmListAdapterType type;
 
     private MNAlarmListAdapter() {}
     public MNAlarmListAdapter(Context context, View.OnClickListener alarmItemClickListener) {
         this.context = context;
         this.alarmItemClickListener = alarmItemClickListener;
+        MNAlarmScrollViewBusProvider.getInstance().register(this);
     }
 
     @Override
@@ -151,14 +157,37 @@ public class MNAlarmListAdapter extends BaseAdapter {
         }
     }
     static class MNAlarmCreateItemViewHolder {
-        @InjectView(R.id.alarm_create_outer_layout)                     RelativeLayout  outerLayout;
-        @InjectView(R.id.alarm_create_inner_layout)                     RelativeLayout  innerLayout;
-        @InjectView(R.id.alarm_create_item_textview)                    TextView        createAlarmTextView;
-        @InjectView(R.id.alarm_create_item_dividing_bar_image_view)     ImageView       dividingBarImageView;
-        @InjectView(R.id.alarm_create_item_plus_image_view)             ImageView       plusImageView;
+        @InjectView(R.id.alarm_create_outer_layout)                 RelativeLayout  outerLayout;
+        @InjectView(R.id.alarm_create_inner_layout)                 RelativeLayout  innerLayout;
+        @InjectView(R.id.alarm_create_item_textview)                TextView        createAlarmTextView;
+        @InjectView(R.id.alarm_create_item_dividing_bar_image_view) ImageView       dividingBarImageView;
+        @InjectView(R.id.alarm_create_item_plus_image_view)         ImageView       plusImageView;
 
         public MNAlarmCreateItemViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
+    }
+
+    @Subscribe
+    public void removeAlarmById(final MNAlarm alarm) {
+//        Log.i(TAG, "removeAlarmById: " + alarm.getAlarmId());
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(delayMillisec);
+                    ((Activity)context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            MNAlarmListManager.removeAlarmFromAlarmList(alarm.getAlarmId(), context);
+                            notifyDataSetChanged();
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }

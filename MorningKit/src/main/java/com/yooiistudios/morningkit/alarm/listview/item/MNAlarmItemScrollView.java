@@ -10,7 +10,11 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeChecker;
 
 import java.util.ArrayList;
@@ -210,7 +214,7 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                float velocityY) {
 
-            Log.i(TAG, "onFling");
+//            Log.i(TAG, "onFling");
 //			setAlarmItemViewTouchingState();
 
             // right to left
@@ -264,6 +268,7 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
             destinationContainerType = activeContainerType;
 
             Log.i(TAG, "onScrollChanged: " + destinationContainerType.toString());
+            MNAlarmScrollViewBusProvider.getInstance().post(((MNAlarm) alarmView.getTag()));
         }
     }
 
