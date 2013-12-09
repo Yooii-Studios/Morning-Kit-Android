@@ -61,5 +61,4 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
     public int getCount() {
         return MNAlarmPrefListItemType.values().length;
     }
-
 }
