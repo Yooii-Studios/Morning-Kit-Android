@@ -91,6 +91,11 @@ public class MNAlarmListManager {
         MNAlarmListManager.getInstance().alarmList.add(targetAlarm);
     }
 
+    /**
+     * find the same alarm with targetAlarm's alarmId in alarmList, and replace it
+     * @param targetAlarm will be used to replace the alarm
+     * @param context used to get SharedPreferences
+     */
     public static void replaceAlarmToAlarmList(MNAlarm targetAlarm, Context context) {
         if (targetAlarm != null && context != null) {
             int indexOfAlarm = MNAlarmListManager.findIndexOfAlarmById(targetAlarm.getAlarmId(), context);
@@ -104,6 +109,16 @@ public class MNAlarmListManager {
         } else {
             throw new IllegalArgumentException("Context must not be null");
         }
+    }
+
+    /**
+     * remove the alarm with alarmId from alarmList;
+     * @param alarmId will be uesed to find the alarm
+     * @param context used to get SharedPreferences
+     */
+    public static void removeAlarmFromAlarmList(int alarmId, Context context) {
+        MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarmId, context);
+        MNAlarmListManager.getAlarmList(context).remove(targetAlarm);
     }
 
     /**

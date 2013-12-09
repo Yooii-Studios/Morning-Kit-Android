@@ -20,9 +20,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
-//import static org.junit.matchers.JUnitMatchers.*;
 
 /**
  * Created by StevenKim on 2013. 11. 11..
@@ -91,17 +92,38 @@ public class MNAlarmListManagerTest {
      */
     @Test
     public void replaceAlarmTest() {
+        int sizeOfAlarmList = MNAlarmListManager.getAlarmList(mainActivity).size();
+        assertThat(sizeOfAlarmList, is(not(0)));
 
+        MNAlarm originalAlarm = MNAlarmListManager.getAlarmList(mainActivity).get(0);
+        boolean isAlarmOn = originalAlarm.isAlarmOn();
+        originalAlarm.setAlarmOn(!originalAlarm.isAlarmOn());
+        MNAlarmListManager.replaceAlarmToAlarmList(originalAlarm, mainActivity);
+        assertThat(MNAlarmListManager.getAlarmList(mainActivity).size(), is(sizeOfAlarmList));
+
+        // 변경한 isAlarmOn을 체크해서 알람이 교체되었는지 확인 필요
+        MNAlarm testAlarm = MNAlarmListManager.findAlarmById(originalAlarm.getAlarmId(), mainActivity);
+        assertThat(testAlarm.isAlarmOn(), is(not(isAlarmOn)));
     }
 
     @Test
     public void addAlarmTest() {
+        int sizeOfAlarmList = MNAlarmListManager.getAlarmList(mainActivity).size();
+        MNAlarm alarm = MNAlarmMaker.makeAlarm(mainActivity);
+        alarm.setAlarmId(500);
 
+        MNAlarmListManager.addAlarmToAlarmList(alarm, mainActivity);
+        assertThat(MNAlarmListManager.getAlarmList(mainActivity).size(), is(sizeOfAlarmList+1));
+
+        MNAlarm testAlarm = MNAlarmListManager.findAlarmById(500, mainActivity);
+        assertThat(testAlarm, notNullValue());
+        assertThat(testAlarm.getAlarmId(), is(alarm.getAlarmId()));
     }
 
     @Test
     public void findAlarmWithAlarmIDTest() {
-        dummyAlarmList = MNAlarmListManager.loadAlarmList(mainActivity.getBaseContext());
+        dummyAlarmList = MNAlarmListManager.getAlarmList(mainActivity.getBaseContext());
+        assertThat(MNAlarmListManager.getAlarmList(mainActivity).size(), is(not(0)));
         for (MNAlarm alarm : dummyAlarmList) {
             MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), mainActivity.getBaseContext());
             assertThat(targetAlarm, is(alarm));
@@ -111,7 +133,13 @@ public class MNAlarmListManagerTest {
 
     @Test
     public void removeAlarmTest() {
+        int sizeOfAlarmList = MNAlarmListManager.getAlarmList(mainActivity).size();
+        assertThat(sizeOfAlarmList, is(not(0)));
 
+        MNAlarm targetAlarm = MNAlarmListManager.getAlarmList(mainActivity).get(0);
+        MNAlarmListManager.removeAlarmFromAlarmList(targetAlarm.getAlarmId(), mainActivity);
+        assertThat(MNAlarmListManager.findAlarmById(targetAlarm.getAlarmId(), mainActivity), nullValue());
+        assertThat(MNAlarmListManager.getAlarmList(mainActivity).size(), is(sizeOfAlarmList-1));
     }
 
     /**
