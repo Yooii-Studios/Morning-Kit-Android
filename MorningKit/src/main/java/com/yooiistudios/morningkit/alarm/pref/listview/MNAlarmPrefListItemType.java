@@ -24,7 +24,7 @@ public enum MNAlarmPrefListItemType {
     private static final int SOUND_NAME_INDEX = 3;
     private static final int SNOOZE_INDEX = 4;
 
-    private MNAlarmPrefListItemType() { throw new AssertionError(); }
+    private MNAlarmPrefListItemType() {}
     public static MNAlarmPrefListItemType valueOf(int index) {
 
         switch (index) {
