@@ -51,8 +51,8 @@ public class MNViewSizeMeasure {
     }
     private static void removeGlobalOnLayoutListenerUnderAPI16(View view, ViewTreeObserver.OnGlobalLayoutListener listener){
         ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
-        if (viewTreeObserver != null) {
-            view.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
-        }
+//        if (viewTreeObserver != null) {
+//            view.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
+//        }
     }
 }

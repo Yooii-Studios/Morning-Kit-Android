@@ -2,9 +2,11 @@ package com.yooiistudios.morningkit.main;
 
 // necessary import
 
+import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.google.ads.AdView;
+import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
@@ -46,43 +48,23 @@ public class MNMainActivityTest {
     @Test
     public void shouldViewsAndLayoutsBeNotNull() throws Exception {
         assertThat(mainActivity, notNullValue());
-//        assertNotNull(mainActivity);
         assertThat(mainActivity, instanceOf(MNMainActivity.class));
 
         assertThat(mainActivity.getAlarmListView(), notNullValue());
-//        assertNotNull(mainActivity.getAlarmListView());
         assertThat(mainActivity.getAlarmListView(), instanceOf(MNMainAlarmListView.class));
 
         assertThat(mainActivity.getWidgetWindowLayout(), notNullValue());
-//        assertNotNull(mainActivity.getWidgetWindowLayout());
         assertThat(mainActivity.getWidgetWindowLayout(), instanceOf(MNWidgetWindowLayout.class));
 
         assertThat(mainActivity.getButtonLayout(), notNullValue());
-//        assertNotNull(mainActivity.getButtonLayout());
         assertThat(mainActivity.getButtonLayout(), instanceOf(RelativeLayout.class));
 
         assertThat(mainActivity.getAdmobLayout(), notNullValue());
-//        assertNotNull(mainActivity.getAdmobLayout());
         assertThat(mainActivity.getAdmobLayout(), instanceOf(RelativeLayout.class));
 
         assertThat(mainActivity.getAdView(), notNullValue());
-//        assertNotNull(mainActivity.getAdView());
         assertThat(mainActivity.getAdView(), instanceOf(AdView.class));
     }
-
-    /*
-    @Test
-    @Config(qualifiers="port")
-    public void checkScrollViewHeightOnPortrait() throws Exception {
-
-    }
-
-    @Test
-    @Config(qualifiers="land")
-    public void checkScrollViewHeightOnLandscape() throws Exception {
-
-    }
-    */
 
     /**
      * Alarm
