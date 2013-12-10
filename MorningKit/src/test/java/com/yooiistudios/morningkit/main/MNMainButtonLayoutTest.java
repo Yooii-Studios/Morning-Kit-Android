@@ -79,18 +79,4 @@ public class MNMainButtonLayoutTest {
 
         // 2. 광고가 없는 경우: main_button_layout_height
     }
-
-    /**
-     * Adview
-     */
-
-    /*
-    @Test
-    @Config(qualifiers="port")
-    // Portrait 모드에서는 ButtonLayout 안에 속해 있어야함
-    // 테스트 불가. onConfigurationChanged가 제대로 실행이 되지 않나 봄
-    public void checkAdmobViewNotInButtonLayoutOnPortrait() throws Exception {
-        assertThat(mainActivity.getButtonLayout().findViewById(R.id.adView), nullValue());
-    }
-    */
 }

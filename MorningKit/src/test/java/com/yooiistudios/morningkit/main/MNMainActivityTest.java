@@ -2,11 +2,9 @@ package com.yooiistudios.morningkit.main;
 
 // necessary import
 
-import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.google.ads.AdView;
-import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 

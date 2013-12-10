@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.main;
 
 import android.content.res.Configuration;
-import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
@@ -45,26 +44,24 @@ public class MNMainScrollViewTest {
     }
 
     @Test
-    @Config(qualifiers="port")
+    @Config(qualifiers = "port")
     public void checkScrollViewHeightOnPortrait() throws Exception {
         Configuration newConfig = new Configuration();
         newConfig.orientation = Configuration.ORIENTATION_PORTRAIT;
         mainActivity.onConfigurationChanged(newConfig);
 
-        if (mainScrollView.getResources() != null) {
-            RelativeLayout.LayoutParams scrollViewParams = (RelativeLayout.LayoutParams) mainActivity.getScrollView().getLayoutParams();
-            if (scrollViewParams != null) {
-                // bottomMargin은 0, 최하단까지 MATCH_PARENT
-                // ABOVE 룰 취소
-                assertThat(scrollViewParams.bottomMargin, is(0));
-                int[] layoutRules = scrollViewParams.getRules();
-                assertThat(layoutRules[RelativeLayout.ABOVE], is(0));
-            }
+        RelativeLayout.LayoutParams scrollViewParams = (RelativeLayout.LayoutParams) mainActivity.getScrollView().getLayoutParams();
+        if (scrollViewParams != null) {
+            // bottomMargin은 0, 최하단까지 MATCH_PARENT
+            // ABOVE 룰 취소
+            assertThat(scrollViewParams.bottomMargin, is(0));
+            int[] layoutRules = scrollViewParams.getRules();
+            assertThat(layoutRules[RelativeLayout.ABOVE], is(0));
         }
     }
 
     @Test
-    @Config(qualifiers="land")
+    @Config(qualifiers = "land")
     public void checkScrollViewHeightOnLandscape() throws Exception {
         Configuration newConfig = new Configuration();
         newConfig.orientation = Configuration.ORIENTATION_LANDSCAPE;
@@ -72,9 +69,7 @@ public class MNMainScrollViewTest {
 
         if (mainScrollView.getResources() != null) {
             // bottomMargin = outer 마진 - inner 마진
-            int expectedBottomMargin =
-                    (int) (mainScrollView.getResources().getDimension(R.dimen.margin_outer)
-                            - mainScrollView.getResources().getDimension(R.dimen.margin_inner));
+            int expectedBottomMargin = (int) (mainScrollView.getResources().getDimension(R.dimen.margin_outer) - mainScrollView.getResources().getDimension(R.dimen.margin_inner));
 
             RelativeLayout.LayoutParams scrollViewParams = (RelativeLayout.LayoutParams) mainActivity.getScrollView().getLayoutParams();
             assertThat(scrollViewParams, notNullValue());
@@ -85,5 +80,23 @@ public class MNMainScrollViewTest {
                 assertThat(layoutRules[RelativeLayout.ABOVE], is(R.id.main_button_layout));
             }
         }
+    }
+
+    @Test
+    @Config(qualifiers = "port")
+    public void testScrollContainerLayoutParamsOnPortrait() throws Exception {
+        Configuration newConfig = new Configuration();
+        newConfig.orientation = Configuration.ORIENTATION_LANDSCAPE;
+        mainActivity.onConfigurationChanged(newConfig);
+    }
+
+    @Test
+    @Config(qualifiers = "land")
+    public void testScrollContainerLayoutParamsOnLandscape() throws Exception {
+        Configuration newConfig = new Configuration();
+        newConfig.orientation = Configuration.ORIENTATION_LANDSCAPE;
+        mainActivity.onConfigurationChanged(newConfig);
+
+
     }
 }
