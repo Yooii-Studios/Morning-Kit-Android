@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 

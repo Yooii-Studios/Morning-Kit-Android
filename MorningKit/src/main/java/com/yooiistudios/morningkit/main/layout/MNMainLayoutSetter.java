@@ -11,18 +11,21 @@ import android.widget.ScrollView;
 
 import com.google.ads.AdSize;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.dp.DipToPixel;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeChecker;
-import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.MNMainAlarmListView;
 import com.yooiistudios.morningkit.main.MNWidgetWindowLayout;
 
 /**
  * Created by StevenKim on 2013. 11. 10..
+ *
+ * MNMainLayoutSetter
+ *  메인 액티비티의 layout들의 width, height를 계산해주는 유틸리티 클래스
  */
 public class MNMainLayoutSetter {
     private final static String TAG = "MNMainLayoutSetter";
+
+    private MNMainLayoutSetter() { throw new AssertionError("You MUST NOT create this class"); }
 
     public static void adjustScrollViewLayoutParamsAtOrientation(ScrollView scrollView, int orientation) {
         switch (orientation) {
@@ -174,32 +177,23 @@ public class MNMainLayoutSetter {
     public static void checkAdmobLayoutWidthAndAdjust(final RelativeLayout admobLayout, final RelativeLayout buttonLayout, int orientation) {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
-                final Context context = admobLayout.getContext();
-                MNViewSizeMeasure.setViewSizeObserver(admobLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
-                    @Override
-                    public void onLayoutLoad() {
-                        AdSize adSize = AdSize.createAdSize(AdSize.BANNER, context);
-                        if (admobLayout.getWidth() > adSize.getWidthInPixels(context)) {
-                            int calcaulatedButtonLayoutWidth = 0;
-                            if (context != null) {
-                                calcaulatedButtonLayoutWidth = MNDeviceSizeChecker.getDeviceWidth(context) - (int)(context.getResources().getDimension(R.dimen.margin_main_button_layout) * 2);
-                            }else{
-                                throw new IllegalArgumentException();
-                            }
-                            // 1. 계산한 버튼 레이아웃 width 보다 광고뷰 width가 더 짧을 경우는 버튼 레이아웃에 맞추어줌
-                            if (adSize.getWidthInPixels(context) <= calcaulatedButtonLayoutWidth) { // buttonLayout.getWidth()) {
-//                                Log.i(TAG, "adSize.getWidth() is shorter than buttonLayout.getWidth()");
-                                RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
-                                RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
-                                if (admobLayoutParams != null && buttonLayoutParams != null) {
-                                    admobLayoutParams.leftMargin = buttonLayoutParams.leftMargin;
-                                    admobLayoutParams.rightMargin = buttonLayoutParams.rightMargin;
-                                }
-                            }
-                            // 2. 더 넓을 경우는 match_parent 그대로 놔두어야 할듯(기본)
+                Context context = admobLayout.getContext();
+                if (context != null) {
+                    AdSize adSize = AdSize.createAdSize(AdSize.BANNER, context);
+                    int calcaulatedButtonLayoutWidth = 0;
+                    calcaulatedButtonLayoutWidth = MNDeviceSizeChecker.getDeviceWidth(context) - (int)(context.getResources().getDimension(R.dimen.margin_main_button_layout) * 2);
+
+                    if (adSize.getWidthInPixels(context) <= calcaulatedButtonLayoutWidth) { // buttonLayout.getWidth()) {
+                        RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
+                        RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
+                        if (admobLayoutParams != null && buttonLayoutParams != null) {
+                            admobLayoutParams.leftMargin = buttonLayoutParams.leftMargin;
+                            admobLayoutParams.rightMargin = buttonLayoutParams.rightMargin;
                         }
                     }
-                });
+                } else {
+                    throw new AssertionError("Context is null");
+                }
                 break;
             }
         }
