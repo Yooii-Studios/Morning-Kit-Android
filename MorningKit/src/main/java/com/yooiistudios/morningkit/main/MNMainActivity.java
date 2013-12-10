@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
@@ -98,7 +100,7 @@ public class MNMainActivity extends Activity implements AdListener
         alarmListView.refreshListView();
 
         // 테마와 관련된 작업 실행
-        containerLayout.setBackgroundColor(Color.WHITE);
+//        containerLayout.setBackgroundColor(Color.WHITE);
 
         // 버튼 레이아웃
         GradientDrawable buttonShape = (GradientDrawable) buttonLayout.getBackground();
@@ -175,17 +177,6 @@ public class MNMainActivity extends Activity implements AdListener
     @OnClick(R.id.main_configure_image) void configureButtonClicked() {
         Log.i(TAG, "configureButtonClicked");
     }
-
-    /**
-     * Getter
-     */
-//    public RelativeLayout getmContainerLayout() { return containerLayout; }
-//    public ScrollView getMainScrollView() { return scrollView; }
-//    public MNWidgetWindowLayout getWidgetWindowLayout() { return widgetWindowLayout; }
-//    public MNMainAlarmListView getAlarmListView() { return alarmListView; }
-//    public RelativeLayout getButtonLayout() { return buttonLayout; }
-//    public RelativeLayout getAdmobLayout() { return admobLayout; }
-//    public AdView getAdView() { return adView; }
 
     /**
      * Admob

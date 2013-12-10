@@ -11,6 +11,7 @@ import android.widget.ScrollView;
 
 import com.google.ads.AdSize;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.dp.DipToPixel;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeChecker;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.main.MNMainActivity;
@@ -179,9 +180,14 @@ public class MNMainLayoutSetter {
                     public void onLayoutLoad() {
                         AdSize adSize = AdSize.createAdSize(AdSize.BANNER, context);
                         if (admobLayout.getWidth() > adSize.getWidthInPixels(context)) {
-//                            Log.i(TAG, "AdMobLayout.getWidth() is bigger than adSize.getWidth()");
-                            // 1. 버튼 레이아웃 width 보다 광고뷰 width가 더 짧을 경우는 버튼 레이아웃에 맞추어줌
-                            if (adSize.getWidthInPixels(context) <= buttonLayout.getWidth()) {
+                            int calcaulatedButtonLayoutWidth = 0;
+                            if (context != null) {
+                                calcaulatedButtonLayoutWidth = MNDeviceSizeChecker.getDeviceWidth(context) - (int)(context.getResources().getDimension(R.dimen.margin_main_button_layout) * 2);
+                            }else{
+                                throw new IllegalArgumentException();
+                            }
+                            // 1. 계산한 버튼 레이아웃 width 보다 광고뷰 width가 더 짧을 경우는 버튼 레이아웃에 맞추어줌
+                            if (adSize.getWidthInPixels(context) <= calcaulatedButtonLayoutWidth) { // buttonLayout.getWidth()) {
 //                                Log.i(TAG, "adSize.getWidth() is shorter than buttonLayout.getWidth()");
                                 RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
                                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
