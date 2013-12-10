@@ -32,7 +32,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
     private static final String TAG = "MNAlarmListAdapter";
     private Context context;
     private View.OnClickListener alarmItemClickListener;
-    private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
+    private int delayMilliSec = 90;	// 알람이 삭제되는 딜레이
 //    private MNAlarmListAdapterType type;
 
     private MNAlarmListAdapter() {}
@@ -176,7 +176,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(delayMillisec);
+                    Thread.sleep(delayMilliSec);
                     ((Activity)context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
