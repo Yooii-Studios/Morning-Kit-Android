@@ -1,7 +1,10 @@
 package com.yooiistudios.morningkit.main;
 
+import android.content.res.Configuration;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
@@ -48,7 +51,7 @@ public class MNMainWidgetWindowTest {
 
 //        mainActivity.onConfigurationChanged(mainActivity.getResources().getConfiguration());
 
-        float expectedHeight = MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(mainActivity.getWidgetWindowLayout(), mainActivity.getResources().getConfiguration().orientation);
+        float expectedHeight = MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(mainActivity.getWidgetWindowLayout(), Configuration.ORIENTATION_PORTRAIT);
 
         int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
         int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
@@ -58,7 +61,8 @@ public class MNMainWidgetWindowTest {
         // 2 * 2일 경우
         widgetMatrix = 2;
 
-        assertThat(mainActivity.getWidgetWindowLayout().getMeasuredHeight(), is((int)expectedHeight));
+        Log.i("MNMainWidgetWindowTest", "port/height: " + expectedHeight);
+        assertThat(mainActivity.getWidgetWindowLayout().getMeasuredHeight(), is((int) expectedHeight));
 
         // 2 * 1일 경우는 추후 테스트
         widgetMatrix = 1;
@@ -71,13 +75,15 @@ public class MNMainWidgetWindowTest {
         // Device height - buttonLayout height - (outerPadding - innerPadding)를 확인하면 됨
         // 위젯 윈도우뷰의 아래쪽은 innerPadding 만큼만 주기 때문에 (outerPadding - innerPadding)만큼의 공간을 따로 주어야 함
 
-        float expectedHeight = MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(mainActivity.getWidgetWindowLayout(), mainActivity.getResources().getConfiguration().orientation);
+        float expectedHeight = MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(mainActivity.getWidgetWindowLayout(), Configuration.ORIENTATION_LANDSCAPE);
 
         int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
         int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
         mainActivity.getWidgetWindowLayout().measure(widthMeasureSpec, heightMeasureSpec);
 
-        assertThat(mainActivity.getWidgetWindowLayout().getMeasuredHeight(), is((int)expectedHeight));
+        Log.i("MNMainWidgetWindowTest", "land/height: " + expectedHeight);
+        // landscape 모드에서는 parent layout에 MATCH_PARENT로 맞추어줌
+        assertThat((int)expectedHeight, is(LinearLayout.LayoutParams.MATCH_PARENT));
     }
 }
 

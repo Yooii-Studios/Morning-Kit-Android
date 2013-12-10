@@ -1,5 +1,7 @@
 package com.yooiistudios.morningkit.main;
 
+import android.content.res.Configuration;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -51,12 +53,13 @@ public class MNMainButtonLayoutTest {
     @Config(qualifiers="port")
     public void checkButtonLayoutHeightOnPortrait() throws Exception {
 
-        float expectedHeight = MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), mainActivity.getResources().getConfiguration().orientation);
+        float expectedHeight = MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), Configuration.ORIENTATION_PORTRAIT);
 
         int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
         int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
         mainActivity.getButtonLayout().measure(widthMeasureSpec, heightMeasureSpec);
 
+        Log.i("MNMainButtonLayoutTest", "port/height: " + expectedHeight);
         assertThat(mainActivity.getButtonLayout().getMeasuredHeight(), is((int) expectedHeight));
     }
 
@@ -65,12 +68,13 @@ public class MNMainButtonLayoutTest {
     public void checkButtonLayoutHeightOnLandscape() throws Exception {
 
         // 1. 광고가 있는 경우: SMART_BANNER의 높이 + inner margin * 2가 되어야 한다.
-        float expectedHeight = MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), mainActivity.getResources().getConfiguration().orientation);
+        float expectedHeight = MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), Configuration.ORIENTATION_LANDSCAPE);
 
         int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
         int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
         mainActivity.getButtonLayout().measure(widthMeasureSpec, heightMeasureSpec);
 
+        Log.i("MNMainButtonLayoutTest", "land/height: " + expectedHeight);
         assertThat(mainActivity.getButtonLayout().getMeasuredHeight(), is((int) expectedHeight));
 
         // 2. 광고가 없는 경우: main_button_layout_height

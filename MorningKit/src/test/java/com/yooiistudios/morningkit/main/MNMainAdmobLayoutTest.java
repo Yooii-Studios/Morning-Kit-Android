@@ -1,5 +1,7 @@
 package com.yooiistudios.morningkit.main;
 
+import android.content.res.Configuration;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -66,16 +68,14 @@ public class MNMainAdmobLayoutTest {
     public void checkAdmobLayoutHeightOnPortrait() throws Exception {
 
         // 1. 광고가 있을 때
-        float expectedHeight = MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(mainActivity.getAdmobLayout(), mainActivity.getResources().getConfiguration().orientation);
+        float expectedHeight = MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(mainActivity.getAdmobLayout(), Configuration.ORIENTATION_PORTRAIT);
 
         int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
         int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
         mainActivity.getAdmobLayout().measure(widthMeasureSpec, heightMeasureSpec);
 
+        Log.i("MNMainAdmobLayoutTest", "port/height: " + expectedHeight);
         assertThat(mainActivity.getAdmobLayout().getMeasuredHeight(), is((int) expectedHeight));
-//                Resources resources = mainActivity.getResources();
-//                float expectedHeight = resources.getDimension(R.dimen.main_admob_layout_height);
-//                assertThat(mainActivity.getAdmobLayout().getHeight(), is((int) expectedHeight));
 //
         // 2. 광고가 없을 때는 높이가 0이어야 함
 
@@ -86,12 +86,13 @@ public class MNMainAdmobLayoutTest {
     public void checkAdmobLayoutHeightOnLandscape() throws Exception {
         // 가로는 무조건 이 레이아웃이 0이어야만 한다.
 
-        float expectedHeight = MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(mainActivity.getAdmobLayout(), mainActivity.getResources().getConfiguration().orientation);
+        float expectedHeight = MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(mainActivity.getAdmobLayout(), Configuration.ORIENTATION_LANDSCAPE);
 
         int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
         int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
         mainActivity.getAdmobLayout().measure(widthMeasureSpec, heightMeasureSpec);
 
+        Log.i("MNMainAdmobLayoutTest", "land/height: " + expectedHeight);
         assertThat(mainActivity.getAdmobLayout().getMeasuredHeight(), is((int) expectedHeight));
     }
 }
