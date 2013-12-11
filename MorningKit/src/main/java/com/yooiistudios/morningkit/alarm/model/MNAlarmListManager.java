@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.alarm.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.common.serialize.ObjectSerializer;
@@ -48,6 +49,11 @@ public class MNAlarmListManager {
         }
         return MNAlarmListManager.getInstance().alarmList;
     }
+    public static void removeAlarmList(Context context) throws IOException {
+        MNAlarmListManager.getInstance().alarmList = null;
+        MNAlarmListManager.getInstance().alarmList = newDefaultAlarmList(context);
+        saveAlarmList(context);
+    }
 
     /**
      * load alarmList(ArrayList<MNAlarm>) from SharedPreferences using ObjectSerializer.
@@ -61,19 +67,42 @@ public class MNAlarmListManager {
             if (alarmListDataString != null) {
                 MNAlarmListManager.getInstance().alarmList = (ArrayList<MNAlarm>) ObjectSerializer.deserialize(alarmListDataString);
             } else {
-                MNAlarmListManager.getInstance().alarmList = new ArrayList<MNAlarm>();
-
-                MNAlarm firstAlarm = MNAlarmMaker.makeAlarmWithTime(context, 6, 30);
-                MNAlarm secondAlarm = MNAlarmMaker.makeAlarmWithTime(context, 7, 0);
-
-                MNAlarmListManager.getInstance().alarmList.add(firstAlarm);
-                MNAlarmListManager.getInstance().alarmList.add(secondAlarm);
+                MNAlarmListManager.getInstance().alarmList = newDefaultAlarmList(context);
                 saveAlarmList(context);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return MNAlarmListManager.getInstance().alarmList;
+    }
+
+    public static ArrayList<MNAlarm> newDefaultAlarmList(Context context) {
+        ArrayList<MNAlarm> defaultAlarmList = new ArrayList<MNAlarm>();
+
+        MNAlarm firstAlarm = MNAlarmMaker.makeAlarmWithTime(context, 6, 30);
+        MNAlarm secondAlarm = MNAlarmMaker.makeAlarmWithTime(context, 7, 0);
+
+        defaultAlarmList.add(firstAlarm);
+        defaultAlarmList.add(secondAlarm);
+
+        return defaultAlarmList;
+    }
+
+    /**
+     * save alarmList(ArrayList<MNAlarm>) to SharedPreferences using ObjectSerializer.
+     * @param context used to get SharedPreferences
+     * @throws IOException
+     */
+    public static void saveAlarmList(Context context) throws IOException {
+        SharedPreferences.Editor editor = MNSharedPreferences.getAlarmSharedPrefs(context).edit();
+        if (editor != null) {
+            if (MNAlarmListManager.getInstance().alarmList != null) {
+                editor.putString(MN.alarm.ALARM_LIST, ObjectSerializer.serialize(MNAlarmListManager.getInstance().alarmList));
+            } else {
+                editor.remove(MN.alarm.ALARM_LIST);
+            }
+            editor.commit();
+        }
     }
 
     /**
@@ -88,7 +117,7 @@ public class MNAlarmListManager {
         if (context == null) {
             throw new IllegalArgumentException("Context must not be null");
         }
-        MNAlarmListManager.getInstance().alarmList.add(targetAlarm);
+        MNAlarmListManager.getAlarmList(context).add(targetAlarm);
     }
 
     /**
@@ -119,23 +148,6 @@ public class MNAlarmListManager {
     public static void removeAlarmFromAlarmList(int alarmId, Context context) {
         MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarmId, context);
         MNAlarmListManager.getAlarmList(context).remove(targetAlarm);
-    }
-
-    /**
-     * save alarmList(ArrayList<MNAlarm>) to SharedPreferences using ObjectSerializer.
-     * @param context used to get SharedPreferences
-     * @throws IOException
-     */
-    public static void saveAlarmList(Context context) throws IOException {
-        SharedPreferences.Editor editor = MNSharedPreferences.getAlarmSharedPrefs(context).edit();
-        if (editor != null) {
-            if (MNAlarmListManager.getInstance().alarmList != null) {
-                editor.putString(MN.alarm.ALARM_LIST, ObjectSerializer.serialize(MNAlarmListManager.getInstance().alarmList));
-            } else {
-                editor.remove(MN.alarm.ALARM_LIST);
-            }
-            editor.commit();
-        }
     }
 
     /**

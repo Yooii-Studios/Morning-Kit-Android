@@ -2,18 +2,20 @@ package com.yooiistudios.morningkit.main.layout;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.google.ads.AdSize;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeChecker;
 import com.yooiistudios.morningkit.main.MNMainActivity;
-import com.yooiistudios.morningkit.main.MNMainAlarmListView;
 import com.yooiistudios.morningkit.main.MNWidgetWindowLayout;
 
 /**
@@ -31,30 +33,20 @@ public class MNMainLayoutSetter {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) scrollView.getLayoutParams();
-                if (scrollViewLayoutParams != null) {
-                    // ABOVE 설정 삭제
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                        scrollViewLayoutParams.removeRule(RelativeLayout.ABOVE);
-                    }else{
-                        scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, 0);
-                    }
-                    scrollViewLayoutParams.bottomMargin = 0;
+                // ABOVE 설정 삭제
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    scrollViewLayoutParams.removeRule(RelativeLayout.ABOVE);
                 }else{
-                    Log.d(TAG, "scrollViewLayoutParams is null");
+                    scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, 0);
                 }
+                scrollViewLayoutParams.bottomMargin = 0;
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
                 RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) scrollView.getLayoutParams();
-                if (scrollViewLayoutParams != null) {
-                    scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, R.id.main_button_layout);
-                    // 아래쪽으로 margin_outer - margin_inner 만큼 주어야 윗 마진(margin_outer)과 같아짐
-                    if (scrollView.getResources() != null) {
-                        scrollViewLayoutParams.bottomMargin = (int)(scrollView.getResources().getDimension(R.dimen.margin_outer) - scrollView.getResources().getDimension(R.dimen.margin_inner));
-                    }else{
-                        Log.d(TAG, "scrollView.getResources() is null");
-                    }
-                }
+                scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, R.id.main_button_layout);
+                // 아래쪽으로 margin_outer - margin_inner 만큼 주어야 윗 마진(margin_outer)과 같아짐
+                scrollViewLayoutParams.bottomMargin = (int)(scrollView.getResources().getDimension(R.dimen.margin_outer) - scrollView.getResources().getDimension(R.dimen.margin_inner));
                 break;
             }
         }
@@ -64,29 +56,15 @@ public class MNMainLayoutSetter {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) widgetWindowLayout.getLayoutParams();
-                if (widgetWindowLayoutParams != null) {
-                    widgetWindowLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
-                    if (widgetWindowLayout.getResources() != null) {
-                        float widgetWindowHeight = widgetWindowLayout.getResources().getDimension(R.dimen.widget_height) * 2
-                                + widgetWindowLayout.getResources().getDimension(R.dimen.margin_outer)
-                                + widgetWindowLayout.getResources().getDimension(R.dimen.margin_outer)
-                                + widgetWindowLayout.getResources().getDimension(R.dimen.margin_inner);
-                        widgetWindowLayoutParams.height = (int)widgetWindowHeight;
-                    }else{
-                        Log.e(TAG, "widgetWindowLayout.getResources() is null");
-                    }
-                }else{
-                    Log.e(TAG, "widgetWindowLayoutParams is null");
-                }
+                widgetWindowLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                float widgetWindowHeight = getWidgetWindowLayoutHeightOnPortrait(widgetWindowLayout);
+                widgetWindowLayoutParams.height = (int) widgetWindowHeight;
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
+                Context context = widgetWindowLayout.getContext();
                 LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) widgetWindowLayout.getLayoutParams();
-                if (widgetWindowLayoutParams != null) {
-                    widgetWindowLayoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
-                }else{
-                    Log.e(TAG, "widgetWindowLayoutParams is null");
-                }
+                widgetWindowLayoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
                 break;
             }
         }
@@ -97,30 +75,14 @@ public class MNMainLayoutSetter {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
-                if (buttonLayoutParams != null) {
-                    if (buttonLayout.getResources() != null) {
-                        buttonLayoutParams.height = (int)buttonLayout.getResources().getDimension(R.dimen.main_button_layout_height);
-                    }else{
-                        Log.e(TAG, "buttonLayout.getResources() is null");
-                    }
-                }else{
-                    Log.e(TAG, "buttonLayoutParams is null");
-                }
+                buttonLayoutParams.height = (int)buttonLayout.getResources().getDimension(R.dimen.main_button_layout_height);
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
                 RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
-                if (buttonLayoutParams != null) {
-                    if (buttonLayout.getResources() != null) {
-                        buttonLayoutParams.height =
-                                (int)(buttonLayout.getResources().getDimension(R.dimen.main_button_layout_height)
-                                        + buttonLayout.getResources().getDimension(R.dimen.margin_outer) * 2);
-                    }else{
-                        Log.e(TAG, "buttonLayout.getResources() is null");
-                    }
-                }else{
-                    Log.e(TAG, "buttonLayoutParams is null");
-                }
+                buttonLayoutParams.height =
+                        (int)(buttonLayout.getResources().getDimension(R.dimen.main_button_layout_height)
+                            + buttonLayout.getResources().getDimension(R.dimen.margin_outer) * 2);
             }
         }
         return buttonLayout.getLayoutParams().height;
@@ -130,24 +92,12 @@ public class MNMainLayoutSetter {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
-                if (admobLayoutParams != null) {
-                    if (admobLayout.getResources() != null) {
-                        admobLayoutParams.height = (int)admobLayout.getResources().getDimension(R.dimen.main_admob_layout_height);
-                    }else{
-                        Log.e(TAG, "admobLayout.getResources() is null");
-                    }
-                }else{
-                    Log.e(TAG, "admobLayoutParams is null");
-                }
+                admobLayoutParams.height = (int)admobLayout.getResources().getDimension(R.dimen.main_admob_layout_height);
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
-                if (admobLayoutParams != null) {
-                    admobLayoutParams.height = 0;
-                }else{
-                    Log.e(TAG, "admobLayoutParams is null");
-                }
+                admobLayoutParams.height = 0;
                 break;
             }
         }
@@ -178,37 +128,44 @@ public class MNMainLayoutSetter {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 Context context = admobLayout.getContext();
-                if (context != null) {
-                    AdSize adSize = AdSize.createAdSize(AdSize.BANNER, context);
-                    int calcaulatedButtonLayoutWidth = 0;
-                    calcaulatedButtonLayoutWidth = MNDeviceSizeChecker.getDeviceWidth(context) - (int)(context.getResources().getDimension(R.dimen.margin_main_button_layout) * 2);
+                AdSize adSize = AdSize.createAdSize(AdSize.BANNER, context);
+                int calcaulatedButtonLayoutWidth;
+                calcaulatedButtonLayoutWidth = MNDeviceSizeChecker.getDeviceWidth(context) - (int)(context.getResources().getDimension(R.dimen.margin_main_button_layout) * 2);
 
-                    if (adSize.getWidthInPixels(context) <= calcaulatedButtonLayoutWidth) { // buttonLayout.getWidth()) {
-                        RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
-                        RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
-                        if (admobLayoutParams != null && buttonLayoutParams != null) {
-                            admobLayoutParams.leftMargin = buttonLayoutParams.leftMargin;
-                            admobLayoutParams.rightMargin = buttonLayoutParams.rightMargin;
-                        }
+                if (adSize.getWidthInPixels(context) <= calcaulatedButtonLayoutWidth) { // buttonLayout.getWidth()) {
+                    RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
+                    RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
+                    if (admobLayoutParams != null && buttonLayoutParams != null) {
+                        admobLayoutParams.leftMargin = buttonLayoutParams.leftMargin;
+                        admobLayoutParams.rightMargin = buttonLayoutParams.rightMargin;
                     }
-                } else {
-                    throw new AssertionError("Context is null");
                 }
                 break;
             }
         }
     }
 
-    public static void adjustAlarmListView(MNMainAlarmListView alarmListView, MNWidgetWindowLayout widgetWindowLayout, int orientation) {
+    public static void adjustAlarmListView(MNMainActivity mainActivity, int orientation) {
+        LinearLayout.LayoutParams alarmListViewLayoutParams = (LinearLayout.LayoutParams) mainActivity.getAlarmListView().getLayoutParams();
+
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
 
                 // 알람 리스트뷰
-                alarmListView.setVisibility(View.VISIBLE);
-                LinearLayout.LayoutParams alarmListViewLayoutParams = (LinearLayout.LayoutParams) alarmListView.getLayoutParams();
-                if (alarmListViewLayoutParams != null && widgetWindowLayout.getLayoutParams() != null) {
-                    float alarmListViewHeight = MNDeviceSizeChecker.getDeviceHeight(alarmListView.getContext()) - widgetWindowLayout.getLayoutParams().height;
-                    alarmListViewLayoutParams.height = (int)alarmListViewHeight;
+                mainActivity.getAlarmListView().setVisibility(View.VISIBLE);
+
+                float contentHeight = getScrollContentHeightExceptAlarmsOnPortrait(mainActivity)
+                        + getAlarmListViewHeightOnPortrait(mainActivity);
+
+                int deviceHeight = MNDeviceSizeChecker.getDeviceHeight(mainActivity);
+
+                if (contentHeight > deviceHeight) {
+//                    Log.i(TAG, "contentHeight > deviceHeight");
+                    alarmListViewLayoutParams.height =
+                            (int) (getAlarmListViewHeightOnPortrait(mainActivity) + getBottomLayoutHeightOnPortrait(mainActivity));
+                } else {
+//                    Log.i(TAG, "contentHeight <= deviceHeight");
+                    alarmListViewLayoutParams.height = (int) getAlarmListViewHeightOnPortrait(mainActivity);
                 }
                 break;
             }
@@ -217,9 +174,74 @@ public class MNMainLayoutSetter {
                 // 알람 리스트뷰
                 // Gone: 안보이고 차지한 공간도 사라짐
                 // INVISIBLE: 안보이지만 공간은 차지함
-                alarmListView.setVisibility(View.GONE);
+                mainActivity.getAlarmListView().setVisibility(View.GONE);
+                alarmListViewLayoutParams.height = 0;
                 break;
             }
         }
+    }
+
+    /**
+     * ScrollContentLayout
+     * MNAlarmListView의 height만 조절하면 제대로 height 가 자동으로 조절 되어 따로 작업을 하지 않음
+     */
+    public static float adjustScrollContentLayoutHeight(MNMainActivity mainActivity, int orientation) {
+        LinearLayout scrollContentLayout = mainActivity.getScrollContentLayout();
+        /*
+        Context context = mainActivity.getBaseContext();
+
+        switch (orientation) {
+            case Configuration.ORIENTATION_PORTRAIT:
+                break;
+            case Configuration.ORIENTATION_LANDSCAPE: {
+                int deviceHeight = MNDeviceSizeChecker.getDeviceHeight(context);
+
+                Resources resources = mainActivity.getResources();
+                int bottomPadding = (int)(resources.getDimension(R.dimen.margin_outer) - resources.getDimension(R.dimen.margin_inner));
+
+//                Log.i(TAG, "buttonLayout height: " + mainActivity.getScrollView().getLayoutParams().height);
+                Log.i(TAG, "bottomPadding: " + bottomPadding);
+                Log.i(TAG, "deviceHeight: " + deviceHeight);
+                Log.i(TAG, "scrollView height: " + mainActivity.getScrollView().getLayoutParams().height);
+                Log.i(TAG, "buttonLayout height: " + (int)adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), Configuration.ORIENTATION_LANDSCAPE));
+                int scrollViewHeight = deviceHeight - (int)adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), Configuration.ORIENTATION_LANDSCAPE) - bottomPadding;
+                Log.i(TAG, "scrollViewHeight: " + scrollViewHeight);
+
+                LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mainActivity.getWidgetWindowLayout().getLayoutParams();
+                FrameLayout.LayoutParams scrollContentLayoutParams = (FrameLayout.LayoutParams) mainActivity.getScrollContentLayout().getLayoutParams();
+                widgetWindowLayoutParams.height = scrollViewHeight;
+                scrollContentLayoutParams.height = scrollViewHeight;
+                break;
+            }
+        }
+        */
+        return scrollContentLayout.getLayoutParams().height;
+    }
+
+    /**
+     * Getting height of main layouts & views
+     */
+    public static float getWidgetWindowLayoutHeightOnPortrait(MNWidgetWindowLayout widgetWindowLayout) {
+        Resources resources = widgetWindowLayout.getResources();
+        return resources.getDimension(R.dimen.widget_height) * 2
+                + resources.getDimension(R.dimen.margin_outer)
+                + resources.getDimension(R.dimen.margin_outer)
+                + resources.getDimension(R.dimen.margin_inner);
+    }
+
+    public static float getAlarmListViewHeightOnPortrait(Context context) {
+        return context.getResources().getDimension(R.dimen.alarm_item_outer_height) * (MNAlarmListManager.getAlarmList(context).size() + 1);
+    }
+
+    public static float getBottomLayoutHeightOnPortrait(MNMainActivity mainActivity) {
+        Resources resources = mainActivity.getResources();
+        return resources.getDimension(R.dimen.margin_outer) - resources.getDimension(R.dimen.margin_inner)
+                + adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), Configuration.ORIENTATION_PORTRAIT)
+                + adjustAdmobLayoutParamsAtOrientation(mainActivity.getAdmobLayout(), Configuration.ORIENTATION_PORTRAIT);
+    }
+
+    public static float getScrollContentHeightExceptAlarmsOnPortrait(MNMainActivity mainActivity) {
+        return getWidgetWindowLayoutHeightOnPortrait(mainActivity.getWidgetWindowLayout())
+                + getBottomLayoutHeightOnPortrait(mainActivity);
     }
 }
