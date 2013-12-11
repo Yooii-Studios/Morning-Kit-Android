@@ -45,6 +45,7 @@ public class MNViewSizeMeasure {
             }
         }
     }
+    
     @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
     private static void removeGlobalOnLayoutListenerUnderAPI16(View view, ViewTreeObserver.OnGlobalLayoutListener listener){
         ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
