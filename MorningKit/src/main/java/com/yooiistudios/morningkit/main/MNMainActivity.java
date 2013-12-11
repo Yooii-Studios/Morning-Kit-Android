@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
@@ -13,7 +14,11 @@ import com.google.ads.Ad;
 import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
+import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
+import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
 import butterknife.ButterKnife;
@@ -33,17 +38,21 @@ public class MNMainActivity extends Activity implements AdListener
 
     @Getter @InjectView(R.id.main_container_layout) RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view) ScrollView scrollView;
+    @Getter @InjectView(R.id.main_scroll_content_layout) LinearLayout scrollContentLayout;
     @Getter @InjectView(R.id.main_widget_window_layout) MNWidgetWindowLayout widgetWindowLayout;
     @Getter @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView alarmListView;
     @Getter @InjectView(R.id.main_button_layout) RelativeLayout buttonLayout;
     @Getter @InjectView(R.id.main_admob_layout) RelativeLayout admobLayout;
     @Getter @InjectView(R.id.adView) AdView adView;
 
+    private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initMainActivity();
+        scrollView.smoothScrollTo(0, 0);
     }
 
     void initMainActivity() {
@@ -90,15 +99,20 @@ public class MNMainActivity extends Activity implements AdListener
     }
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         // Activity visible to user
+        Log.i(TAG, "onResume");
+
+        MNAlarmScrollViewBusProvider.getInstance().register(this);
 
         // Alarm
         alarmListView.refreshListView();
+        MNMainLayoutSetter.adjustAlarmListView(this, getResources().getConfiguration().orientation);
+
+//        onConfigurationChanged(getResources().getConfiguration());
 
         // 테마와 관련된 작업 실행
-        containerLayout.setBackgroundColor(Color.WHITE);
+//        containerLayout.setBackgroundColor(Color.WHITE);
 
         // 버튼 레이아웃
         GradientDrawable buttonShape = (GradientDrawable) buttonLayout.getBackground();
@@ -128,7 +142,7 @@ public class MNMainActivity extends Activity implements AdListener
     protected void onStop()
     {
         // Activity no longer visible
-
+        MNAlarmScrollViewBusProvider.getInstance().unregister(this);
         super.onStop();
     }
 
@@ -149,6 +163,8 @@ public class MNMainActivity extends Activity implements AdListener
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
+        Log.i(TAG, "onConfigurationChanged");
+
         // 스크롤뷰
         MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(scrollView, newConfig.orientation);
         // 위젯윈도우 레이아웃
@@ -162,7 +178,12 @@ public class MNMainActivity extends Activity implements AdListener
         // 애드몹 레이아웃 width 체크
         MNMainLayoutSetter.checkAdmobLayoutWidthAndAdjust(admobLayout, buttonLayout, newConfig.orientation);
         // 알람 리스트뷰
-        MNMainLayoutSetter.adjustAlarmListView(alarmListView, widgetWindowLayout, newConfig.orientation);
+        MNMainLayoutSetter.adjustAlarmListView(this, newConfig.orientation);
+        // 스크롤컨텐트 레이아웃 높이 조절
+        MNMainLayoutSetter.adjustScrollContentLayoutHeight(this, newConfig.orientation);
+
+        Log.i(TAG, "scrollView height: " + scrollView.getHeight());
+        Log.i(TAG, "scrollViewContent height: " + scrollContentLayout.getHeight());
     }
 
     /**
@@ -175,17 +196,6 @@ public class MNMainActivity extends Activity implements AdListener
     @OnClick(R.id.main_configure_image) void configureButtonClicked() {
         Log.i(TAG, "configureButtonClicked");
     }
-
-    /**
-     * Getter
-     */
-//    public RelativeLayout getmContainerLayout() { return containerLayout; }
-//    public ScrollView getMainScrollView() { return scrollView; }
-//    public MNWidgetWindowLayout getWidgetWindowLayout() { return widgetWindowLayout; }
-//    public MNMainAlarmListView getAlarmListView() { return alarmListView; }
-//    public RelativeLayout getButtonLayout() { return buttonLayout; }
-//    public RelativeLayout getAdmobLayout() { return admobLayout; }
-//    public AdView getAdView() { return adView; }
 
     /**
      * Admob
@@ -209,5 +219,31 @@ public class MNMainActivity extends Activity implements AdListener
 
     @Override
     public void onReceiveAd(Ad arg0) {
+    }
+
+    /**
+     * MNAlarmItemScrollView
+     */
+    @Subscribe
+    public void removeAlarmById(final MNAlarm alarm) {
+        Log.i(TAG, "removeAlarmById");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(delayMillisec);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            MNAlarmListManager.removeAlarmFromAlarmList(alarm.getAlarmId(), MNMainActivity.this);
+                            (MNMainActivity.this).getAlarmListView().refreshListView();
+                            MNMainLayoutSetter.adjustAlarmListView(MNMainActivity.this, getResources().getConfiguration().orientation);
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }

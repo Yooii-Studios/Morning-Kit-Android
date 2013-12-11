@@ -72,7 +72,7 @@ public class MNWidgetWindowLayout extends LinearLayout
                     int width = size.x;
                     int height = size.y;
 
-                    Log.i(TAG, "" + width + " " + height);
+//                    Log.i(TAG, "" + width + " " + height);
 
                     FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width/2,
                             DipToPixel.getPixel(getContext(), MN.widget.WIDGET_HEIGHT_PHONE_DP));

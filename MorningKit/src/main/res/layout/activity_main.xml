@@ -3,6 +3,7 @@
     android:id="@+id/main_container_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffdda2"
     tools:context=".MainActivity"
     tools:ignore="MergeRootFrame" >
 
@@ -12,12 +13,13 @@
         android:id="@+id/main_scroll_view"
         android:layout_gravity="left|top"
         android:fillViewport="true"
-        android:background="#000000">
+        android:background="#ddff50">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/main_scroll_content_layout"
             android:background="#444444">
 
             <com.yooiistudios.morningkit.main.MNWidgetWindowLayout

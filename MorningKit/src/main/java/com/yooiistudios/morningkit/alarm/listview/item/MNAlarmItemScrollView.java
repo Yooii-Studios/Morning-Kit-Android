@@ -279,7 +279,6 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
             deviceWidth = MNDeviceSizeChecker.getDeviceWidth(getContext());
         }
         this.scrollTo(deviceWidth, 0);
-
 //        Log.i(TAG, "" + getHeight());
     }
 }

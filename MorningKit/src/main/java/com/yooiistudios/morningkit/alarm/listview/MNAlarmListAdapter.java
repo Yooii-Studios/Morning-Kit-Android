@@ -32,7 +32,6 @@ public class MNAlarmListAdapter extends BaseAdapter {
     private static final String TAG = "MNAlarmListAdapter";
     private Context context;
     private View.OnClickListener alarmItemClickListener;
-    private int delayMilliSec = 90;	// 알람이 삭제되는 딜레이
 //    private MNAlarmListAdapterType type;
 
     private MNAlarmListAdapter() {}
@@ -166,28 +165,5 @@ public class MNAlarmListAdapter extends BaseAdapter {
         public MNAlarmCreateItemViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
-    }
-
-    @Subscribe
-    public void removeAlarmById(final MNAlarm alarm) {
-//        Log.i(TAG, "removeAlarmById: " + alarm.getAlarmId());
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(delayMilliSec);
-                    ((Activity)context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            MNAlarmListManager.removeAlarmFromAlarmList(alarm.getAlarmId(), context);
-                            notifyDataSetChanged();
-                        }
-                    });
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 }

@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.common.size;
 
+import android.annotation.TargetApi;
 import android.graphics.Point;
 import android.os.Build;
 import android.view.View;
@@ -26,11 +27,6 @@ public class MNViewSizeMeasure {
                 @Override
                 public void onGlobalLayout() {
                     removeGlobalLayoutListener(view, this);
-
-                    // 사이즈는 필요하면 getWidth()와 getHeight()로 구할 수 있음
-//                    Point viewSize = new Point();
-//                    viewSize.x = view.getWidth();
-//                    viewSize.y = view.getHeight();
                     if (listener != null) {
                         listener.onLayoutLoad();
                     }
@@ -49,6 +45,8 @@ public class MNViewSizeMeasure {
             }
         }
     }
+
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
     private static void removeGlobalOnLayoutListenerUnderAPI16(View view, ViewTreeObserver.OnGlobalLayoutListener listener){
         ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
         if (viewTreeObserver != null) {
