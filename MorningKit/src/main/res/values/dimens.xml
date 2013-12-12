@@ -33,5 +33,9 @@
     <dimen name="alarm_create_item_plus_size">60dp</dimen>
     <dimen name="alarm_item_switch_size">60dp</dimen>
 
+        <!-- Alarm Preferences -->
+    <dimen name="alarm_pref_list_item_title_textview_width">130dp</dimen>
+    <dimen name="alarm_pref_list_item_padding">10dp</dimen>
+
 
 </resources>
