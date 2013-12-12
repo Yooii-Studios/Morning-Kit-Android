@@ -20,9 +20,8 @@ public class MNDeviceSizeChecker
 
     private MNDeviceSizeChecker() { throw new AssertionError(); } // You must not create instance
 
-	public static boolean isDeviceLargerThan7inch(Context context) 
+	public static boolean isTablet(Context context)
 	{
-		//사이즈 계산
 		Configuration config = context.getResources().getConfiguration();
 		if (config.smallestScreenWidthDp >= 600) {
 			return true;
@@ -30,6 +29,13 @@ public class MNDeviceSizeChecker
 			return false;
 		}	
 	}
+
+    // http://stackoverflow.com/questions/16784101/how-to-find-tablet-or-phone-in-android-programmatically
+//    public static boolean isTablet(Context context) {
+//        boolean xlarge = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
+//        boolean large = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
+//        return (xlarge || large);
+//    }
 	
 	// DipToPixel의 픽셀이 미세하게 안맞는 경우가 있어 Device 크키는 새로 구현 - 우성 
 	@SuppressWarnings("deprecation")
