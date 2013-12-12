@@ -1,17 +1,12 @@
 package com.yooiistudios.morningkit.main;
 
-import android.content.Context;
 import android.content.res.Configuration;
-import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.common.size.MNDeviceSizeChecker;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
-import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,10 +16,8 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 10.

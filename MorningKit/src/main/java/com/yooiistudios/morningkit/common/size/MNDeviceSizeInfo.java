@@ -1,25 +1,31 @@
 package com.yooiistudios.morningkit.common.size;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Build;
 import android.view.Display;
+import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * Created by MNDeviceSizeChecker in MorningKit from Yooii Studios Co., LTD. on 2013. 10. 22.
+ * Created by MNDeviceSizeInfo in MorningKit from Yooii Studios Co., LTD. on 2013. 10. 22.
  *
- * MNDeviceSizeChecker (유틸리티 클래스)
+ * MNDeviceSizeInfo (유틸리티 클래스)
  *  1. 기기의 사이즈 확인
  *  2. 폰 or 태블릿 여부 확인(> 7인치)
  */
-public class MNDeviceSizeChecker 
+public class MNDeviceSizeInfo
 {
-	public static final String TAG = "MNDeviceSizeChecker";
+	public static final String TAG = "MNDeviceSizeInfo";
 
-    private MNDeviceSizeChecker() { throw new AssertionError(); } // You must not create instance
+    private MNDeviceSizeInfo() { throw new AssertionError(); } // You must not create instance
 
+    /**
+     * Table Check
+     */
 	public static boolean isTablet(Context context)
 	{
 		Configuration config = context.getResources().getConfiguration();
@@ -36,9 +42,21 @@ public class MNDeviceSizeChecker
 //        boolean large = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
 //        return (xlarge || large);
 //    }
-	
-	// DipToPixel의 픽셀이 미세하게 안맞는 경우가 있어 Device 크키는 새로 구현 - 우성 
-	@SuppressWarnings("deprecation")
+
+    public static int getStatusBarHeight(Context context) {
+//        xxhdpi 75dp
+//        xhdpi 50dp
+        if (!(context instanceof Activity)) {
+            throw new AssertionError();
+
+        }
+        Rect CheckRect = new Rect();
+        Window window = ((Activity) context).getWindow();
+        window.getDecorView().getWindowVisibleDisplayFrame(CheckRect);
+        return CheckRect.top;
+    }
+
+    // DipToPixel의 픽셀이 미세하게 안맞는 경우가 있어 Device 크키는 새로 구현 - 우성
 	public static int getDeviceHeight(Context context) {
 		/*
 		Configuration config = context.getResources().getConfiguration();
@@ -67,7 +85,6 @@ public class MNDeviceSizeChecker
 	    return measuredHeight;
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static int getDeviceWidth(Context context) {
 		/*
 		Configuration config = context.getResources().getConfiguration();

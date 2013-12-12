@@ -7,7 +7,7 @@ import android.util.Log;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.common.size.MNDeviceSizeChecker;
+import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
@@ -18,8 +18,11 @@ import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 11.
@@ -72,7 +75,7 @@ public class MNMainAlarmListViewTest {
         // 컨텐츠의 합이 디바이스 높이보다 낮다는 것을 확인
         Log.i(TAG, "sizeOfAlarms: " + MNAlarmListManager.getAlarmList(context).size());
         float scrollContentHeight = scrollContentHeightExceptAlarms + alarmListViewContentHeight;
-        assertTrue((scrollContentHeight <= MNDeviceSizeChecker.getDeviceHeight(context)));
+        assertTrue((scrollContentHeight <= MNDeviceSizeInfo.getDeviceHeight(context)));
 
         // 스크롤뷰컨테이너 레이아웃의 높이가 deviceHeight 인지 확인
         assertThat(mainActivity.getAlarmListView().getLayoutParams(), notNullValue());
@@ -116,7 +119,7 @@ public class MNMainAlarmListViewTest {
         assertThat((int) alarmListViewContentHeight, is(not(0)));
 
         float scrollContentHeight = scrollContentHeightExceptAlarms + alarmListViewContentHeight;
-        assertTrue(scrollContentHeight > MNDeviceSizeChecker.getDeviceHeight(context));
+        assertTrue(scrollContentHeight > MNDeviceSizeInfo.getDeviceHeight(context));
 
         float bottomLayoutHeight = MNMainLayoutSetter.getBottomLayoutHeightOnPortrait(mainActivity);
 

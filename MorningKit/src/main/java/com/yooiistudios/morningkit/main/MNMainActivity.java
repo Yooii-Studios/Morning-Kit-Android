@@ -19,6 +19,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
+import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
 import butterknife.ButterKnife;
@@ -182,8 +183,16 @@ public class MNMainActivity extends Activity implements AdListener
         // 스크롤컨텐트 레이아웃 높이 조절
         MNMainLayoutSetter.adjustScrollContentLayoutHeight(this, newConfig.orientation);
 
-        Log.i(TAG, "scrollView height: " + scrollView.getHeight());
-        Log.i(TAG, "scrollViewContent height: " + scrollContentLayout.getHeight());
+        containerLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                Log.i(TAG, "status bar height: " + MNDeviceSizeInfo.getStatusBarHeight(MNMainActivity.this));
+                Log.i(TAG, "Device height: " + MNDeviceSizeInfo.getDeviceHeight(MNMainActivity.this));
+                Log.i(TAG, "scrollView height: " + scrollView.getHeight());
+                Log.i(TAG, "scrollViewContent height: " + scrollContentLayout.getHeight());
+                Log.i(TAG, "buttonLayout height: " + buttonLayout.getHeight());
+            }
+        });
     }
 
     /**

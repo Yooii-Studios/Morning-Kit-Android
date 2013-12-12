@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import com.google.ads.AdSize;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.common.size.MNDeviceSizeChecker;
+import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
@@ -57,7 +57,7 @@ public class MNMainAdmobLayoutTest {
         newConfig.orientation = Configuration.ORIENTATION_PORTRAIT;
         mainActivity.onConfigurationChanged(newConfig);
 
-        int deviceWidth = MNDeviceSizeChecker.getDeviceWidth(mainActivity);
+        int deviceWidth = MNDeviceSizeInfo.getDeviceWidth(mainActivity);
         assertThat(deviceWidth, is(not(0)));
 
         // 광고가 있을 때만 테스트를 제대로 하면 됨
