@@ -77,20 +77,4 @@ public class MNMainScrollViewTest {
         int[] layoutRules = scrollViewParams.getRules();
         assertThat(layoutRules[RelativeLayout.ABOVE], is(R.id.main_button_layout));
     }
-
-    @Test
-    @Config(qualifiers = "port")
-    public void testScrollContainerLayoutParamsOnPortrait() throws Exception {
-        Configuration newConfig = new Configuration();
-        newConfig.orientation = Configuration.ORIENTATION_PORTRAIT;
-        mainActivity.onConfigurationChanged(newConfig);
-    }
-
-    @Test
-    @Config(qualifiers = "land")
-    public void testScrollContainerLayoutParamsOnLandscape() throws Exception {
-        Configuration newConfig = new Configuration();
-        newConfig.orientation = Configuration.ORIENTATION_LANDSCAPE;
-        mainActivity.onConfigurationChanged(newConfig);
-    }
 }

@@ -6,6 +6,7 @@
     <!-- 앱 전체적으로 쓰이는 패딩 -->
     <dimen name="margin_outer">6dp</dimen>
     <dimen name="margin_inner">3dp</dimen>
+    <dimen name="margin_outer_minus_inner">3dp</dimen>
 
     <!-- 버튼레이아웃은 outer 패딩의 2배 -->
     <dimen name="margin_main_button_layout">12dp</dimen>

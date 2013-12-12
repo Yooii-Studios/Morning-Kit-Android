@@ -15,7 +15,6 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.MNMainActivity;
-import com.yooiistudios.morningkit.main.MNWidgetWindowLayout;
 
 /**
  * Created by StevenKim on 2013. 11. 10..
@@ -45,45 +44,21 @@ public class MNMainLayoutSetter {
                 RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) scrollView.getLayoutParams();
                 scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, R.id.main_button_layout);
                 // 아래쪽으로 margin_outer - margin_inner 만큼 주어야 윗 마진(margin_outer)과 같아짐
-                Log.i(TAG, "margin_outer: " + scrollView.getResources().getDimension(R.dimen.margin_outer));
-                Log.i(TAG, "margin_inner: " + scrollView.getResources().getDimension(R.dimen.margin_inner));
-                Log.i(TAG, "bottomMargin: " + (int)(scrollView.getResources().getDimension(R.dimen.margin_outer) - scrollView.getResources().getDimension(R.dimen.margin_inner)));
-                scrollViewLayoutParams.bottomMargin = (int)(scrollView.getResources().getDimension(R.dimen.margin_outer) - scrollView.getResources().getDimension(R.dimen.margin_inner));
+                scrollViewLayoutParams.bottomMargin = (int)(scrollView.getResources().getDimension(R.dimen.margin_outer_minus_inner));
                 break;
             }
         }
     }
 
-    public static float adjustWidgetLayoutParamsAtOrientation(MNWidgetWindowLayout widgetWindowLayout, int orientation) {
-        switch (orientation) {
-            case Configuration.ORIENTATION_PORTRAIT: {
-                LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) widgetWindowLayout.getLayoutParams();
-                widgetWindowLayoutParams.height = (int) getWidgetWindowLayoutHeightOnPortrait(widgetWindowLayout);
-                break;
-            }
-            case Configuration.ORIENTATION_LANDSCAPE: {
-                LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) widgetWindowLayout.getLayoutParams();
-                widgetWindowLayoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
-                break;
-            }
-        }
-        return widgetWindowLayout.getLayoutParams().height;
+    public static float adjustWidgetLayoutParamsAtOrientation(MNMainActivity mainActivity, int orientation) {
+        LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mainActivity.getWidgetWindowLayout().getLayoutParams();
+        widgetWindowLayoutParams.height = (int) getWidgetWindowLayoutHeight(mainActivity, orientation);
+        return widgetWindowLayoutParams.height;
     }
 
     public static float adjustButtonLayoutParamsAtOrientation(RelativeLayout buttonLayout, int orientation) {
-        switch (orientation) {
-            case Configuration.ORIENTATION_PORTRAIT: {
-                RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
-                buttonLayoutParams.height = (int)buttonLayout.getResources().getDimension(R.dimen.main_button_layout_height);
-                break;
-            }
-            case Configuration.ORIENTATION_LANDSCAPE: {
-                RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
-                buttonLayoutParams.height =
-                        (int)(buttonLayout.getResources().getDimension(R.dimen.main_button_layout_height)
-                            + buttonLayout.getResources().getDimension(R.dimen.margin_outer) * 2);
-            }
-        }
+        RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
+        buttonLayoutParams.height = (int)getButtonLayoutHeight(buttonLayout.getContext(), orientation);
         return buttonLayout.getLayoutParams().height;
     }
 
@@ -91,7 +66,7 @@ public class MNMainLayoutSetter {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
-                admobLayoutParams.height = (int)admobLayout.getResources().getDimension(R.dimen.main_admob_layout_height);
+                admobLayoutParams.height = (int) getAdmobLayoutHeightOnPortrait(admobLayout.getContext());
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
@@ -161,7 +136,7 @@ public class MNMainLayoutSetter {
                 if (contentHeight > deviceHeight) {
 //                    Log.i(TAG, "contentHeight > deviceHeight");
                     alarmListViewLayoutParams.height =
-                            (int) (getAlarmListViewHeightOnPortrait(mainActivity) + getBottomLayoutHeightOnPortrait(mainActivity));
+                            (int) (getAlarmListViewHeightOnPortrait(mainActivity) + getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT));
                 } else {
 //                    Log.i(TAG, "contentHeight <= deviceHeight");
                     alarmListViewLayoutParams.height = (int) getAlarmListViewHeightOnPortrait(mainActivity);
@@ -220,27 +195,70 @@ public class MNMainLayoutSetter {
     /**
      * Getting height of main layouts & views
      */
-    public static float getWidgetWindowLayoutHeightOnPortrait(MNWidgetWindowLayout widgetWindowLayout) {
-        Resources resources = widgetWindowLayout.getResources();
-        return resources.getDimension(R.dimen.widget_height) * 2
-                + resources.getDimension(R.dimen.margin_outer)
-                + resources.getDimension(R.dimen.margin_outer)
-                + resources.getDimension(R.dimen.margin_inner);
+    public static float getWidgetWindowLayoutHeight(MNMainActivity mainActivity, int orientation) {
+        Resources resources = mainActivity.getResources();
+
+        switch (orientation) {
+            case Configuration.ORIENTATION_PORTRAIT:
+                return resources.getDimension(R.dimen.widget_height) * 2
+                        + resources.getDimension(R.dimen.margin_outer)
+                        + resources.getDimension(R.dimen.margin_outer)
+                        + resources.getDimension(R.dimen.margin_inner);
+
+            case Configuration.ORIENTATION_LANDSCAPE:
+                int deviceHeight = MNDeviceSizeInfo.getDeviceHeight(mainActivity);
+                int statusBarHeight = MNDeviceSizeInfo.getStatusBarHeight(mainActivity);
+                int bottomLayoutHeight = (int)getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_LANDSCAPE);
+                return deviceHeight - statusBarHeight - bottomLayoutHeight;
+
+            default:
+                return -1;
+        }
     }
 
     public static float getAlarmListViewHeightOnPortrait(Context context) {
         return context.getResources().getDimension(R.dimen.alarm_item_outer_height) * (MNAlarmListManager.getAlarmList(context).size() + 1);
     }
 
-    public static float getBottomLayoutHeightOnPortrait(MNMainActivity mainActivity) {
+    public static float getBottomLayoutHeight(MNMainActivity mainActivity, int orientation) {
         Resources resources = mainActivity.getResources();
-        return resources.getDimension(R.dimen.margin_outer) - resources.getDimension(R.dimen.margin_inner)
-                + adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), Configuration.ORIENTATION_PORTRAIT)
-                + adjustAdmobLayoutParamsAtOrientation(mainActivity.getAdmobLayout(), Configuration.ORIENTATION_PORTRAIT);
+        switch (orientation) {
+            case Configuration.ORIENTATION_PORTRAIT:
+                return resources.getDimension(R.dimen.margin_outer_minus_inner)
+                        + getButtonLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT)
+                        + getAdmobLayoutHeightOnPortrait(mainActivity);
+
+            case Configuration.ORIENTATION_LANDSCAPE:
+                return resources.getDimension(R.dimen.margin_outer_minus_inner)
+                        + getButtonLayoutHeight(mainActivity, Configuration.ORIENTATION_LANDSCAPE);
+
+            default:
+                Log.e(TAG, "not expected orientation: " + orientation);
+                return -1;
+        }
+    }
+
+    public static float getAdmobLayoutHeightOnPortrait(Context context) {
+        return (int)context.getResources().getDimension(R.dimen.main_admob_layout_height);
+    }
+
+    public static float getButtonLayoutHeight(Context context, int orientation) {
+        switch (orientation) {
+            case Configuration.ORIENTATION_PORTRAIT:
+                return (int) context.getResources().getDimension(R.dimen.main_button_layout_height);
+
+            case Configuration.ORIENTATION_LANDSCAPE:
+                return (int) (context.getResources().getDimension(R.dimen.main_button_layout_height)
+                                + context.getResources().getDimension(R.dimen.margin_outer) * 2);
+
+            default: // Test에서 Undefined 사용
+                Log.e(TAG, "not expected orientation: " + orientation);
+                return -1;
+        }
     }
 
     public static float getScrollContentHeightExceptAlarmsOnPortrait(MNMainActivity mainActivity) {
-        return getWidgetWindowLayoutHeightOnPortrait(mainActivity.getWidgetWindowLayout())
-                + getBottomLayoutHeightOnPortrait(mainActivity);
+        return getWidgetWindowLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT)
+                + getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT);
     }
 }

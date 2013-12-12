@@ -47,8 +47,7 @@ public class MNDeviceSizeInfo
 //        xxhdpi 75dp
 //        xhdpi 50dp
         if (!(context instanceof Activity)) {
-            throw new AssertionError();
-
+            throw new AssertionError("Context must be instanceof Activity");
         }
         Rect CheckRect = new Rect();
         Window window = ((Activity) context).getWindow();

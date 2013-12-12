@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/main_scroll_content_layout"
-            android:background="#444444">
+            android:background="#ca22ac">
 
             <com.yooiistudios.morningkit.main.MNWidgetWindowLayout
                 android:layout_width="match_parent"

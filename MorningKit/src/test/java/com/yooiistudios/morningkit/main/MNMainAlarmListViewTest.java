@@ -121,7 +121,7 @@ public class MNMainAlarmListViewTest {
         float scrollContentHeight = scrollContentHeightExceptAlarms + alarmListViewContentHeight;
         assertTrue(scrollContentHeight > MNDeviceSizeInfo.getDeviceHeight(context));
 
-        float bottomLayoutHeight = MNMainLayoutSetter.getBottomLayoutHeightOnPortrait(mainActivity);
+        float bottomLayoutHeight = MNMainLayoutSetter.getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT);
 
         // 스크롤뷰컨테이너 레이아웃의 높이가 scrollContentHeight 인지 확인
         assertThat(mainActivity.getAlarmListView().getLayoutParams(), notNullValue());

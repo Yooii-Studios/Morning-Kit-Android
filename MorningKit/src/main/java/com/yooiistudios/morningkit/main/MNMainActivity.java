@@ -165,32 +165,32 @@ public class MNMainActivity extends Activity implements AdListener
         super.onConfigurationChanged(newConfig);
 
         Log.i(TAG, "onConfigurationChanged");
-
-        // 스크롤뷰
-        MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(scrollView, newConfig.orientation);
-        // 위젯윈도우 레이아웃
-        MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(widgetWindowLayout, newConfig.orientation);
-        // 버튼 레이아웃
-        MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(buttonLayout, newConfig.orientation);
-        // 애드몹 레이아웃
-        MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(admobLayout, newConfig.orientation);
-        // 애드뷰 방향에 따라 위치 옮기기
-        MNMainLayoutSetter.adjustAdmobViewAtOrientation(this, newConfig.orientation);
-        // 애드몹 레이아웃 width 체크
-        MNMainLayoutSetter.checkAdmobLayoutWidthAndAdjust(admobLayout, buttonLayout, newConfig.orientation);
-        // 알람 리스트뷰
-        MNMainLayoutSetter.adjustAlarmListView(this, newConfig.orientation);
-        // 스크롤컨텐트 레이아웃 높이 조절
-        MNMainLayoutSetter.adjustScrollContentLayoutHeight(this, newConfig.orientation);
-
+        final Configuration config = newConfig;
         containerLayout.post(new Runnable() {
             @Override
             public void run() {
-                Log.i(TAG, "status bar height: " + MNDeviceSizeInfo.getStatusBarHeight(MNMainActivity.this));
-                Log.i(TAG, "Device height: " + MNDeviceSizeInfo.getDeviceHeight(MNMainActivity.this));
-                Log.i(TAG, "scrollView height: " + scrollView.getHeight());
-                Log.i(TAG, "scrollViewContent height: " + scrollContentLayout.getHeight());
-                Log.i(TAG, "buttonLayout height: " + buttonLayout.getHeight());
+                // 스크롤뷰
+                MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(scrollView, config.orientation);
+                // 위젯윈도우 레이아웃
+                MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(MNMainActivity.this, config.orientation);
+                // 버튼 레이아웃
+                MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(buttonLayout, config.orientation);
+                // 애드몹 레이아웃
+                MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(admobLayout, config.orientation);
+                // 애드뷰 방향에 따라 위치 옮기기
+                MNMainLayoutSetter.adjustAdmobViewAtOrientation(MNMainActivity.this, config.orientation);
+                // 애드몹 레이아웃 width 체크
+                MNMainLayoutSetter.checkAdmobLayoutWidthAndAdjust(admobLayout, buttonLayout, config.orientation);
+                // 알람 리스트뷰
+                MNMainLayoutSetter.adjustAlarmListView(MNMainActivity.this, config.orientation);
+                // 스크롤컨텐트 레이아웃 높이 조절 - 위젯 윈도우만 조절해주어도 됨
+//                MNMainLayoutSetter.adjustScrollContentLayoutHeight(MNMainActivity.this, config.orientation);
+
+//                Log.i(TAG, "status bar height: " + MNDeviceSizeInfo.getStatusBarHeight(MNMainActivity.this));
+//                Log.i(TAG, "Device height: " + MNDeviceSizeInfo.getDeviceHeight(MNMainActivity.this));
+//                Log.i(TAG, "scrollView height: " + scrollView.getHeight());
+//                Log.i(TAG, "scrollViewContent height: " + scrollContentLayout.getHeight());
+//                Log.i(TAG, "buttonLayout height: " + buttonLayout.getHeight());
             }
         });
     }
