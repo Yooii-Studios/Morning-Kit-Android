@@ -75,7 +75,7 @@ public class MNMainActivityTest {
         // 디바이스 높이 - 위젯 윈도우 높이
 //        int wid
 //        mainActivity.getWidgetWindowLayout().measure();
-//        int expectedHeight = MNDeviceSizeChecker.getDeviceHeight(mainActivity)
+//        int expectedHeight = MNDeviceSizeInfo.getDeviceHeight(mainActivity)
 //                - mainActivity.getWidgetWindowLayout().getHeight();
 //        assertThat(mainActivity.getAlarmListView().getHeight(), is(expectedHeight));
     }

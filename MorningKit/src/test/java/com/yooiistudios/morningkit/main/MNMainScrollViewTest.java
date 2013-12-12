@@ -9,7 +9,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.common.size.MNDeviceSizeChecker;
+import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
@@ -131,7 +131,7 @@ public class MNMainScrollViewTest {
         // 컨텐츠의 합이 디바이스 높이보다 낮다는 것을 확인
         Log.i(TAG, "sizeOfAlarms: " + MNAlarmListManager.getAlarmList(context).size());
         float scrollContentHeight = scrollContentHeightExceptAlarms + alarmListViewContentHeight;
-        assertTrue((scrollContentHeight <= MNDeviceSizeChecker.getDeviceHeight(context)));
+        assertTrue((scrollContentHeight <= MNDeviceSizeInfo.getDeviceHeight(context)));
 
         // 스크롤뷰컨테이너 레이아웃의 높이가 deviceHeight 인지 확인
         assertThat(mainActivity.getAlarmListView().getLayoutParams(), notNullValue());
@@ -175,7 +175,7 @@ public class MNMainScrollViewTest {
         assertThat((int) alarmListViewContentHeight, is(not(0)));
 
         float scrollContentHeight = scrollContentHeightExceptAlarms + alarmListViewContentHeight;
-        assertTrue(scrollContentHeight > MNDeviceSizeChecker.getDeviceHeight(context));
+        assertTrue(scrollContentHeight > MNDeviceSizeInfo.getDeviceHeight(context));
 
         float bottomLayoutHeight = MNMainLayoutSetter.getBottomLayoutHeightOnPortrait(mainActivity);
 

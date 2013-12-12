@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -14,7 +13,7 @@ import android.widget.ScrollView;
 import com.google.ads.AdSize;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
-import com.yooiistudios.morningkit.common.size.MNDeviceSizeChecker;
+import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.MNWidgetWindowLayout;
 
@@ -46,6 +45,9 @@ public class MNMainLayoutSetter {
                 RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) scrollView.getLayoutParams();
                 scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, R.id.main_button_layout);
                 // 아래쪽으로 margin_outer - margin_inner 만큼 주어야 윗 마진(margin_outer)과 같아짐
+                Log.i(TAG, "margin_outer: " + scrollView.getResources().getDimension(R.dimen.margin_outer));
+                Log.i(TAG, "margin_inner: " + scrollView.getResources().getDimension(R.dimen.margin_inner));
+                Log.i(TAG, "bottomMargin: " + (int)(scrollView.getResources().getDimension(R.dimen.margin_outer) - scrollView.getResources().getDimension(R.dimen.margin_inner)));
                 scrollViewLayoutParams.bottomMargin = (int)(scrollView.getResources().getDimension(R.dimen.margin_outer) - scrollView.getResources().getDimension(R.dimen.margin_inner));
                 break;
             }
@@ -56,13 +58,10 @@ public class MNMainLayoutSetter {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) widgetWindowLayout.getLayoutParams();
-                widgetWindowLayoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
-                float widgetWindowHeight = getWidgetWindowLayoutHeightOnPortrait(widgetWindowLayout);
-                widgetWindowLayoutParams.height = (int) widgetWindowHeight;
+                widgetWindowLayoutParams.height = (int) getWidgetWindowLayoutHeightOnPortrait(widgetWindowLayout);
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
-                Context context = widgetWindowLayout.getContext();
                 LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) widgetWindowLayout.getLayoutParams();
                 widgetWindowLayoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
                 break;
@@ -130,7 +129,7 @@ public class MNMainLayoutSetter {
                 Context context = admobLayout.getContext();
                 AdSize adSize = AdSize.createAdSize(AdSize.BANNER, context);
                 int calcaulatedButtonLayoutWidth;
-                calcaulatedButtonLayoutWidth = MNDeviceSizeChecker.getDeviceWidth(context) - (int)(context.getResources().getDimension(R.dimen.margin_main_button_layout) * 2);
+                calcaulatedButtonLayoutWidth = MNDeviceSizeInfo.getDeviceWidth(context) - (int)(context.getResources().getDimension(R.dimen.margin_main_button_layout) * 2);
 
                 if (adSize.getWidthInPixels(context) <= calcaulatedButtonLayoutWidth) { // buttonLayout.getWidth()) {
                     RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
@@ -157,7 +156,7 @@ public class MNMainLayoutSetter {
                 float contentHeight = getScrollContentHeightExceptAlarmsOnPortrait(mainActivity)
                         + getAlarmListViewHeightOnPortrait(mainActivity);
 
-                int deviceHeight = MNDeviceSizeChecker.getDeviceHeight(mainActivity);
+                int deviceHeight = MNDeviceSizeInfo.getDeviceHeight(mainActivity);
 
                 if (contentHeight > deviceHeight) {
 //                    Log.i(TAG, "contentHeight > deviceHeight");
@@ -194,7 +193,7 @@ public class MNMainLayoutSetter {
             case Configuration.ORIENTATION_PORTRAIT:
                 break;
             case Configuration.ORIENTATION_LANDSCAPE: {
-                int deviceHeight = MNDeviceSizeChecker.getDeviceHeight(context);
+                int deviceHeight = MNDeviceSizeInfo.getDeviceHeight(context);
 
                 Resources resources = mainActivity.getResources();
                 int bottomPadding = (int)(resources.getDimension(R.dimen.margin_outer) - resources.getDimension(R.dimen.margin_inner));

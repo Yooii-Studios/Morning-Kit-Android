@@ -10,12 +10,10 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
-import com.yooiistudios.morningkit.common.size.MNDeviceSizeChecker;
+import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 
 import java.util.ArrayList;
 
@@ -75,7 +73,7 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
         alarmItemScrollView.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
         alarmItemScrollView.itemIndex = position;
         alarmItemScrollView.alarmView = alarmView;
-        alarmItemScrollView.deviceWidth = MNDeviceSizeChecker.getDeviceWidth(context);
+        alarmItemScrollView.deviceWidth = MNDeviceSizeInfo.getDeviceWidth(context);
 
         alarmItemScrollView.initScrollView();
 
@@ -276,7 +274,7 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
     protected void onLayout (boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         if (deviceWidth == 0) {
-            deviceWidth = MNDeviceSizeChecker.getDeviceWidth(getContext());
+            deviceWidth = MNDeviceSizeInfo.getDeviceWidth(getContext());
         }
         this.scrollTo(deviceWidth, 0);
 //        Log.i(TAG, "" + getHeight());
