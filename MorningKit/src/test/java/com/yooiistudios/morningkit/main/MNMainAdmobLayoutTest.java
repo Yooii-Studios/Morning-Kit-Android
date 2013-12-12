@@ -52,7 +52,7 @@ public class MNMainAdmobLayoutTest {
 //    @Config(qualifiers = "large-720x1280-port-xhdpi")
 //    @Config(qualifiers = "port-xhdpi")
     @Config(qualifiers = "port")
-    public void testCalculatingAdmobLayoutWidthOnPortrait() {
+    public void testAdmobLayoutWidthOnPortrait() {
         Configuration newConfig = new Configuration();
         newConfig.orientation = Configuration.ORIENTATION_PORTRAIT;
         mainActivity.onConfigurationChanged(newConfig);
@@ -95,10 +95,14 @@ public class MNMainAdmobLayoutTest {
 
     @Test
     @Config(qualifiers="port")
-    public void checkAdmobLayoutHeightOnPortrait() throws Exception {
+    public void testAdmobLayoutHeightOnPortrait() throws Exception {
+
+        Configuration newConfig = new Configuration();
+        newConfig.orientation = Configuration.ORIENTATION_PORTRAIT;
+        mainActivity.onConfigurationChanged(newConfig);
 
         // 1. 광고가 있을 때
-        float expectedHeight = MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(mainActivity.getAdmobLayout(), Configuration.ORIENTATION_PORTRAIT);
+        float expectedHeight = MNMainLayoutSetter.getAdmobLayoutHeightOnPortrait(mainActivity);
 
         int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
         int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
@@ -113,16 +117,12 @@ public class MNMainAdmobLayoutTest {
 
     @Test
     @Config(qualifiers="land")
-    public void checkAdmobLayoutHeightOnLandscape() throws Exception {
+    public void testAdmobLayoutHeightOnLandscape() throws Exception {
+        Configuration newConfig = new Configuration();
+        newConfig.orientation = Configuration.ORIENTATION_LANDSCAPE;
+        mainActivity.onConfigurationChanged(newConfig);
+
         // 가로는 무조건 이 레이아웃이 0이어야만 한다.
-
-        float expectedHeight = MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(mainActivity.getAdmobLayout(), Configuration.ORIENTATION_LANDSCAPE);
-
-        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
-        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
-        mainActivity.getAdmobLayout().measure(widthMeasureSpec, heightMeasureSpec);
-
-//        Log.i("MNMainAdmobLayoutTest", "land/height: " + expectedHeight);
-        assertThat(mainActivity.getAdmobLayout().getMeasuredHeight(), is((int) expectedHeight));
+        assertThat(mainActivity.getAdmobLayout().getLayoutParams().height, is(0));
     }
 }

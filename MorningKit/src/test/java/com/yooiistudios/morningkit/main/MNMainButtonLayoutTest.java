@@ -53,7 +53,7 @@ public class MNMainButtonLayoutTest {
     @Config(qualifiers="port")
     public void checkButtonLayoutHeightOnPortrait() throws Exception {
 
-        float expectedHeight = MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), Configuration.ORIENTATION_PORTRAIT);
+        float expectedHeight = MNMainLayoutSetter.getButtonLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT);
 
         int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
         int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
@@ -68,7 +68,7 @@ public class MNMainButtonLayoutTest {
     public void checkButtonLayoutHeightOnLandscape() throws Exception {
 
         // 1. 광고가 있는 경우: SMART_BANNER의 높이 + inner margin * 2가 되어야 한다.
-        float expectedHeight = MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), Configuration.ORIENTATION_LANDSCAPE);
+        float expectedHeight = MNMainLayoutSetter.getButtonLayoutHeight(mainActivity, Configuration.ORIENTATION_LANDSCAPE);
 
         int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
         int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);

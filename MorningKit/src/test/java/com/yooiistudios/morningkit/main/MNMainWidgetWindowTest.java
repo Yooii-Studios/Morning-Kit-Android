@@ -51,7 +51,7 @@ public class MNMainWidgetWindowTest {
 
 //        mainActivity.onConfigurationChanged(mainActivity.getResources().getConfiguration());
 
-        float expectedHeight = MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(mainActivity, Configuration.ORIENTATION_PORTRAIT);
+        float expectedHeight = MNMainLayoutSetter.getWidgetWindowLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT);
 
         int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.EXACTLY);
         int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);

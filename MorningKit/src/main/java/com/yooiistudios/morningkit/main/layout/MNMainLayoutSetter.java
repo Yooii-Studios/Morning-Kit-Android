@@ -50,19 +50,17 @@ public class MNMainLayoutSetter {
         }
     }
 
-    public static float adjustWidgetLayoutParamsAtOrientation(MNMainActivity mainActivity, int orientation) {
+    public static void adjustWidgetLayoutParamsAtOrientation(MNMainActivity mainActivity, int orientation) {
         LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mainActivity.getWidgetWindowLayout().getLayoutParams();
         widgetWindowLayoutParams.height = (int) getWidgetWindowLayoutHeight(mainActivity, orientation);
-        return widgetWindowLayoutParams.height;
     }
 
-    public static float adjustButtonLayoutParamsAtOrientation(RelativeLayout buttonLayout, int orientation) {
+    public static void adjustButtonLayoutParamsAtOrientation(RelativeLayout buttonLayout, int orientation) {
         RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
         buttonLayoutParams.height = (int)getButtonLayoutHeight(buttonLayout.getContext(), orientation);
-        return buttonLayout.getLayoutParams().height;
     }
 
-    public static float adjustAdmobLayoutParamsAtOrientation(RelativeLayout admobLayout, int orientation) {
+    public static void adjustAdmobLayoutParamsAtOrientation(RelativeLayout admobLayout, int orientation) {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
@@ -75,7 +73,6 @@ public class MNMainLayoutSetter {
                 break;
             }
         }
-        return admobLayout.getLayoutParams().height;
     }
 
     public static void adjustAdmobViewAtOrientation(MNMainActivity mainActivity, int orientation) {
@@ -159,7 +156,7 @@ public class MNMainLayoutSetter {
      * ScrollContentLayout
      * MNAlarmListView의 height만 조절하면 제대로 height 가 자동으로 조절 되어 따로 작업을 하지 않음
      */
-    public static float adjustScrollContentLayoutHeight(MNMainActivity mainActivity, int orientation) {
+    public static void adjustScrollContentLayoutHeight(MNMainActivity mainActivity, int orientation) {
         LinearLayout scrollContentLayout = mainActivity.getScrollContentLayout();
         /*
         Context context = mainActivity.getBaseContext();
@@ -189,7 +186,6 @@ public class MNMainLayoutSetter {
             }
         }
         */
-        return scrollContentLayout.getLayoutParams().height;
     }
 
     /**
