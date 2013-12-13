@@ -9,13 +9,10 @@ package com.yooiistudios.morningkit.alarm.pref.listview;
 public enum MNAlarmPrefListItemType {
     REPEAT, LABEL, SOUND_TYPE, SOUND_NAME, SNOOZE, TIME;
 
-    // REPEAT(0)과 같은 방식을 현재로서는 사용하지 않을 것 같음
-//    private final int index;
-
+//    @Getter private final int index;
 //    MNAlarmPrefListItemType(int index) {
 //        this.index = index;
 //    }
-//    public int getIndex() { return index; }
 
     // 추후 수정의 용이성을 위해
     private static final int REPEAT_INDEX = 0;
@@ -25,7 +22,11 @@ public enum MNAlarmPrefListItemType {
     private static final int SNOOZE_INDEX = 4;
     private static final int TIME_INDEX = 5;
 
+    /**
+     * Methods
+     */
     private MNAlarmPrefListItemType() {}
+
     public static MNAlarmPrefListItemType valueOf(int index) {
 
         switch (index) {
@@ -38,5 +39,19 @@ public enum MNAlarmPrefListItemType {
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
+    /*
+    public static int indexOf(MNAlarmPrefListItemType alarmPrefListItemType) {
+
+        switch (alarmPrefListItemType) {
+            case REPEAT: return REPEAT_INDEX;
+            case LABEL: return LABEL_INDEX;
+            case SOUND_TYPE: return SOUND_TYPE_INDEX;
+            case SOUND_NAME: return SOUND_NAME_INDEX;
+            case SNOOZE: return SNOOZE_INDEX;
+            case TIME: return TIME_INDEX;
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+    */
 }
 
