@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 
@@ -40,14 +39,11 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
     @Getter private View alarmView;
     private int deviceWidth = 0;
 
-    private int itemIndex = -1;
-
     private float actionDown_X;
     private float actionUp_X;
 
-    private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
-    private int limitedVelocityX = 800;
-    private int limitedPercent = 30;
+    private final int limitedVelocityX = 800;
+    private final int limitedPercent = 30;
 
     /**
      * Constructor
@@ -71,7 +67,6 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
         Integer positionInteger = position;
         alarmItemScrollView.setTag(positionInteger);
         alarmItemScrollView.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
-        alarmItemScrollView.itemIndex = position;
         alarmItemScrollView.alarmView = alarmView;
         alarmItemScrollView.deviceWidth = MNDeviceSizeInfo.getDeviceWidth(context);
 
@@ -266,7 +261,7 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
             destinationContainerType = activeContainerType;
 
             Log.i(TAG, "onScrollChanged: " + destinationContainerType.toString());
-            MNAlarmScrollViewBusProvider.getInstance().post(((MNAlarm) alarmView.getTag()));
+            MNAlarmScrollViewBusProvider.getInstance().post((alarmView.getTag()));
         }
     }
 

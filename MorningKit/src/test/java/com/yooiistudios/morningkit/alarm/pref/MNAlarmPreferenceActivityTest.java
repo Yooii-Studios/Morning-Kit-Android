@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.alarm.pref;
 import android.content.Intent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
@@ -94,15 +95,38 @@ public class MNAlarmPreferenceActivityTest {
 
     @Test
     public void prefListViewTest() {
-        assertThat(alarmPreferenceActivity_edit_alarm.getPrefListView(), notNullValue());
-        // 현재로서는 5개
-        assertThat(alarmPreferenceActivity_edit_alarm.getPrefListView().getCount(), is(MNAlarmPrefListItemType.values().length));
+        ListView prefListView = alarmPreferenceActivity_edit_alarm.getPrefListView();
+        assertThat(prefListView, notNullValue());
+        // 현재로서는 6개
+        assertThat(prefListView.getCount(), is(MNAlarmPrefListItemType.values().length));
 
-        for(int i=0; i<alarmPreferenceActivity_edit_alarm.getPrefListView().getChildCount(); i++) {
-            View prefItemView = alarmPreferenceActivity_edit_alarm.getPrefListView().getChildAt(i);
+        for(int i=0; i<prefListView.getChildCount(); i++) {
+            View convertView = prefListView.getChildAt(i);
+            assertThat(convertView, notNullValue());
+
             // Tag 검사, 각 enum의 값이 들어가 있어야 한다
-            if (prefItemView != null) {
-                assertThat((MNAlarmPrefListItemType)prefItemView.getTag(), is(MNAlarmPrefListItemType.valueOf(i)));
+            MNAlarmPrefListItemType alarmPrefListItemType = (MNAlarmPrefListItemType)convertView.getTag();
+            assertThat((MNAlarmPrefListItemType)convertView.getTag(), is(MNAlarmPrefListItemType.valueOf(i)));
+
+            // REPEAT, LABEL, SOUND_TYPE, SOUND_NAME, SNOOZE, TIME 순서
+            switch (alarmPrefListItemType) {
+                case REPEAT:
+                    break;
+
+                case LABEL:
+                    break;
+
+                case SOUND_TYPE:
+                    break;
+
+                case SOUND_NAME:
+                    break;
+
+                case SNOOZE:
+                    break;
+
+                case TIME:
+                    break;
             }
         }
     }

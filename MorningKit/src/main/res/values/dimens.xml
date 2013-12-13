@@ -25,13 +25,19 @@
     <dimen name="widget_height">115dp</dimen> <!-- 115dp는 스샷에서 위젯 크기 직접 잼 -->
 
     <!-- Alarm -->
+    <dimen name="alarm_item_outer_height">71dp</dimen> <!-- inner + margin_inner * 2  -->
     <dimen name="alarm_item_inner_height">65dp</dimen>
-    <dimen name="alarm_item_outer_height">71dp</dimen> <!-- inner + margin_inner*2  -->
 
     <dimen name="alarm_item_divider_with">2dp</dimen>
 
     <dimen name="alarm_create_item_plus_size">60dp</dimen>
     <dimen name="alarm_item_switch_size">60dp</dimen>
+
+        <!-- Alarm Preferences -->
+    <dimen name="alarm_pref_list_item_outer_height">60dp</dimen> <!-- inner + margin_inner * 2  -->
+    <dimen name="alarm_pref_list_item_title_textview_width">110dp</dimen>
+    <dimen name="alarm_pref_list_item_padding">10dp</dimen>
+    <dimen name="alarm_pref_list_item_textview_font_size">22sp</dimen>
 
 
 </resources>
