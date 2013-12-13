@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmPrefListViewItemMaker;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 7.
@@ -28,22 +29,22 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
         MNAlarmPrefListItemType indexType = MNAlarmPrefListItemType.valueOf(position);
         switch (indexType) {
             case REPEAT:
-                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_default_item, parent, false);
+                convertView = MNAlarmPrefListViewItemMaker.makeRepeatItem(context, parent);
                 break;
             case LABEL:
-                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_default_item, parent, false);
+                convertView = MNAlarmPrefListViewItemMaker.makeLabelItem(context, parent);
                 break;
             case SOUND_TYPE:
-                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_default_item, parent, false);
+                convertView = MNAlarmPrefListViewItemMaker.makeSoundTypeItem(context, parent);
                 break;
             case SOUND_NAME:
-                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_default_item, parent, false);
+                convertView = MNAlarmPrefListViewItemMaker.makeSoundNameItem(context, parent);
                 break;
             case SNOOZE:
-                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_snooze_item, parent, false);
+                convertView = MNAlarmPrefListViewItemMaker.makeSnoozeItem(context, parent);
                 break;
             case TIME:
-                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_default_item, parent, false);
+                convertView = MNAlarmPrefListViewItemMaker.makeTimeItem(context, parent);
                 break;
             default:
                 throw new AssertionError("Undefined position");

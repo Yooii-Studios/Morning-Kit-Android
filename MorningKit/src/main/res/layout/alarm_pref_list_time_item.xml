@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/alarm_pref_list_time_item_outer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:background="#38aa38"
+    android:clickable="false"
+    android:focusable="false"
+    android:paddingTop="@dimen/margin_inner"
+    android:paddingBottom="@dimen/margin_inner"
+    android:paddingLeft="@dimen/margin_outer"
+    android:paddingRight="@dimen/margin_outer"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/alarm_pref_list_time_item_inner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/alarm_pref_list_item_padding"
+        android:clickable="false"
+        android:focusable="false"
+        android:background="@drawable/shape_rounded_view_classic_gray"
+        android:orientation="vertical">
+
+        <TimePicker
+            android:id="@+id/alarm_pref_list_time_item_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</RelativeLayout>
