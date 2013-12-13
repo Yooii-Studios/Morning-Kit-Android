@@ -26,7 +26,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         MNAlarmPrefListItemType indexType = MNAlarmPrefListItemType.valueOf(position);
-        convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_item, parent, false);
+        convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_default_item, parent, false);
         if (convertView != null) {
             convertView.setTag(indexType);
             switch (indexType) {
