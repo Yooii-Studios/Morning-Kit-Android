@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.main;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.ScrollView;
 
 /**
@@ -11,8 +12,9 @@ import android.widget.ScrollView;
  *  메인 스크롤뷰
  */
 public class MNMainScrollView extends ScrollView {
+    private static final String TAG = "MNMainScrollView";
     private Context context;
-    private static final int MAX_Y_OVERSCROLL_DISTANCE = 150;
+    private static final int MAX_Y_OVERSCROLL_DISTANCE = 200;
     private int maxYOverscrollDistance;
 
     /**
@@ -60,6 +62,18 @@ public class MNMainScrollView extends ScrollView {
         // This is where the magic happens, we have replaced the incoming
         // maxOverScrollY with our own custom variable maxYOverscrollDistance;
 //        return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
+//        Log.i(TAG, "deltaY: " + deltaY);
+//        Log.i(TAG, "scrollY: " + scrollY);
+//        Log.i(TAG, "scrollRangeY: " + scrollRangeY);
+//        Log.i(TAG, "maxYOverscrollDistance: " + maxYOverscrollDistance);
+        if (scrollY < 0 || scrollY > scrollRangeY) {
+//            Log.i(TAG, "overScrolling");
+            Log.i(TAG, "deltaY: " + deltaY);
+            Log.i(TAG, "scrollY: " + scrollY);
+            Log.i(TAG, "scrollRangeY: " + scrollRangeY);
+            Log.i(TAG, "maxYOverscrollDistance: " + maxYOverscrollDistance);
+//            float ratio = scrollRangeY / scrollY
+        }
         return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxYOverscrollDistance, isTouchEvent);
     }
 }
