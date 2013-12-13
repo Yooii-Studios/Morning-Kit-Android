@@ -58,7 +58,6 @@ public class MNMainScrollView extends ScrollView {
     @Override
     protected boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX, int scrollRangeY, int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
 
-
         // This is where the magic happens, we have replaced the incoming
         // maxOverScrollY with our own custom variable maxYOverscrollDistance;
 //        return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
