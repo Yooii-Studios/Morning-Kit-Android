@@ -26,24 +26,29 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         MNAlarmPrefListItemType indexType = MNAlarmPrefListItemType.valueOf(position);
-        convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_default_item, parent, false);
-        if (convertView != null) {
-            convertView.setTag(indexType);
-            switch (indexType) {
-                case REPEAT:
-                    break;
-                case LABEL:
-                    break;
-                case SOUND_TYPE:
-                    break;
-                case SOUND_NAME:
-                    break;
-                case SNOOZE:
-                    break;
-                default:
-                    throw new AssertionError("Undefined position");
-            }
+        switch (indexType) {
+            case REPEAT:
+                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_default_item, parent, false);
+                break;
+            case LABEL:
+                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_default_item, parent, false);
+                break;
+            case SOUND_TYPE:
+                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_default_item, parent, false);
+                break;
+            case SOUND_NAME:
+                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_default_item, parent, false);
+                break;
+            case SNOOZE:
+                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_snooze_item, parent, false);
+                break;
+            case TIME:
+                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_default_item, parent, false);
+                break;
+            default:
+                throw new AssertionError("Undefined position");
         }
+        convertView.setTag(indexType);
         return convertView;
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/alarm_pref_list_item_switch_outer_layout"
+    android:id="@+id/alarm_pref_list_item_snooze_outer_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/alarm_item_outer_height"
     android:layout_alignParentLeft="true"
@@ -14,7 +14,7 @@
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:id="@+id/alarm_pref_list_item_switch_inner_layout"
+        android:id="@+id/alarm_pref_list_item_snooze_inner_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -27,29 +27,23 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/alarm_pref_list_item_switch_title_textview"
+            android:id="@+id/alarm_pref_list_item_snooze_title_textview"
             android:layout_width="@dimen/alarm_pref_list_item_title_textview_width"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
-            android:text="Label Label"
+            android:text="LabelLabel"
             android:background="#33aa33"
             android:textColor="#ffffff"
-            android:textSize="24sp"
+            android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
             android:layout_centerInParent="true"/>
 
-        <TextView
-            android:id="@+id/alarm_pref_list_item_switch_detail_textview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/snoozeCheckBox"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical|right"
-            android:text="@string/alarm_default_label"
-            android:background="#aa33aa"
-            android:textColor="#ffffff"
-            android:textSize="24sp"
-            android:layout_toRightOf="@id/alarm_pref_list_item_switch_title_textview"
-            android:layout_centerInParent="true"/>
+            android:checked="true" />
     </RelativeLayout>
 </RelativeLayout>
