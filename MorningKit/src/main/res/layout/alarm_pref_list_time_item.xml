@@ -26,7 +26,7 @@
         android:background="@drawable/shape_rounded_view_classic_gray"
         android:orientation="vertical">
 
-        <TimePicker
+        <com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmTimePicker
             android:id="@+id/alarm_pref_list_time_item_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

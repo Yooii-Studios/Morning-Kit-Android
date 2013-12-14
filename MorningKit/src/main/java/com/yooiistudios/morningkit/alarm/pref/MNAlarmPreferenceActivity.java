@@ -3,19 +3,22 @@ package com.yooiistudios.morningkit.alarm.pref;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TimePicker;
 
+import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPreferenceListAdapter;
+import com.yooiistudios.morningkit.common.bus.MNAlarmPrefActivityBusProvider;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -34,7 +37,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     @Getter private int alarmId;
     @Getter private MNAlarm alarm;
     @Getter private MNAlarmPreferenceType alarmPreferenceType;
-    @Getter @InjectView(R.id.alarm_pref_listview) ListView prefListView;
+    @Getter @InjectView(R.id.alarm_pref_listview) ListView listView;
 
     @Getter Menu actionBarMenu;
 
@@ -48,7 +51,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     /**
      * Init
      */
-    void initAlarmPreferenceActivity() {
+    private void initAlarmPreferenceActivity() {
         ButterKnife.inject(this);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -107,7 +110,8 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     }
 
     private void initListView() {
-        prefListView.setAdapter(new MNAlarmPreferenceListAdapter(this));
+        listView.setAdapter(new MNAlarmPreferenceListAdapter(this, alarm));
+//        MNAlarmPrefActivityBusProvider.getInstance().register(this);
     }
 
     /**
@@ -156,4 +160,18 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Otto bus
+     */
+    /*
+    @Subscribe
+    public void onAlarmTimePickerChanged(TimePicker timePicker) {
+        int hourOfDay = 0, minute = 0;
+        hourOfDay = timePicker.getCurrentHour();
+        minute = timePicker.getCurrentMinute();
+        Log.i(TAG, "onAlarmTimePickerChanged: " + hourOfDay + ":" + minute);
+//        Log.i(TAG, "onAlarmTimePickerChanged: " + hour + ":" + minute);
+    }
+    */
 }

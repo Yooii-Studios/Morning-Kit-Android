@@ -2,15 +2,12 @@ package com.yooiistudios.morningkit.alarm.pref;
 
 import android.content.Intent;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListView;
 
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
-import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPrefListItemType;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
@@ -29,7 +26,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-//import static org.junit.matchers.JUnitMatchers.*;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 4.
@@ -41,6 +37,7 @@ import static org.junit.Assert.assertThat;
 @Config(shadows = { AdWebViewShadow.class }) //reportSdk = 10) // Gingerbread
 public class MNAlarmPreferenceActivityTest {
 
+    private static final String TAG = "MNAlarmPreferenceActivityTest";
     MNMainActivity mainActivity;
     MNAlarmPreferenceActivity alarmPreferenceActivity_add_alarm;
     MNAlarmPreferenceActivity alarmPreferenceActivity_edit_alarm;
@@ -91,44 +88,6 @@ public class MNAlarmPreferenceActivityTest {
         assertThat(alarmPreferenceActivity_edit_alarm.getAlarmId(), is(50));
         assertThat(alarmPreferenceActivity_edit_alarm.getAlarm(), notNullValue());
         assertThat(alarmPreferenceActivity_edit_alarm.getAlarm().getAlarmId(), is(alarmPreferenceActivity_edit_alarm.getAlarmId()));
-    }
-
-    @Test
-    public void prefListViewTest() {
-        ListView prefListView = alarmPreferenceActivity_edit_alarm.getPrefListView();
-        assertThat(prefListView, notNullValue());
-        // 현재로서는 6개
-        assertThat(prefListView.getCount(), is(MNAlarmPrefListItemType.values().length));
-
-        for(int i=0; i<prefListView.getChildCount(); i++) {
-            View convertView = prefListView.getChildAt(i);
-            assertThat(convertView, notNullValue());
-
-            // Tag 검사, 각 enum의 값이 들어가 있어야 한다
-            MNAlarmPrefListItemType alarmPrefListItemType = (MNAlarmPrefListItemType)convertView.getTag();
-            assertThat((MNAlarmPrefListItemType)convertView.getTag(), is(MNAlarmPrefListItemType.valueOf(i)));
-
-            // REPEAT, LABEL, SOUND_TYPE, SOUND_NAME, SNOOZE, TIME 순서
-            switch (alarmPrefListItemType) {
-                case REPEAT:
-                    break;
-
-                case LABEL:
-                    break;
-
-                case SOUND_TYPE:
-                    break;
-
-                case SOUND_NAME:
-                    break;
-
-                case SNOOZE:
-                    break;
-
-                case TIME:
-                    break;
-            }
-        }
     }
 
     @Test

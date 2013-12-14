@@ -1,12 +1,11 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmPrefListViewItemMaker;
 
 /**
@@ -17,39 +16,36 @@ import com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmPrefListViewI
  */
 public class MNAlarmPreferenceListAdapter extends BaseAdapter{
 
-    Context context;
+    private static final String TAG = "MNAlarmPreferenceListAdapter";
+    private Context context;
+    private MNAlarm alarm;
 
     private MNAlarmPreferenceListAdapter() {}
-    public MNAlarmPreferenceListAdapter(Context context) {
+    public MNAlarmPreferenceListAdapter(Context context, MNAlarm alarm) {
         this.context = context;
+        this.alarm = alarm;
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         MNAlarmPrefListItemType indexType = MNAlarmPrefListItemType.valueOf(position);
         switch (indexType) {
             case REPEAT:
-                convertView = MNAlarmPrefListViewItemMaker.makeRepeatItem(context, parent);
+                convertView = MNAlarmPrefListViewItemMaker.makeRepeatItem(context, parent, alarm);
                 break;
             case LABEL:
-                convertView = MNAlarmPrefListViewItemMaker.makeLabelItem(context, parent);
+                convertView = MNAlarmPrefListViewItemMaker.makeLabelItem(context, parent, alarm);
                 break;
-            case SOUND_TYPE:
-                convertView = MNAlarmPrefListViewItemMaker.makeSoundTypeItem(context, parent);
-                break;
-            case SOUND_NAME:
-                convertView = MNAlarmPrefListViewItemMaker.makeSoundNameItem(context, parent);
+            case SOUND:
+                convertView = MNAlarmPrefListViewItemMaker.makeSoundItem(context, parent, alarm);
                 break;
             case SNOOZE:
-                convertView = MNAlarmPrefListViewItemMaker.makeSnoozeItem(context, parent);
+                convertView = MNAlarmPrefListViewItemMaker.makeSnoozeItem(context, parent, alarm);
                 break;
             case TIME:
-                convertView = MNAlarmPrefListViewItemMaker.makeTimeItem(context, parent);
+                convertView = MNAlarmPrefListViewItemMaker.makeTimeItem(context, parent, alarm);
                 break;
-            default:
-                throw new AssertionError("Undefined position");
         }
-        convertView.setTag(indexType);
         return convertView;
     }
 
@@ -60,7 +56,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
