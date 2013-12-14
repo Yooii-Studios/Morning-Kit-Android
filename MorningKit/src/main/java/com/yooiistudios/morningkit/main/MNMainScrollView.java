@@ -14,7 +14,7 @@ import android.widget.ScrollView;
 public class MNMainScrollView extends ScrollView {
     private static final String TAG = "MNMainScrollView";
     private Context context;
-    private static final int MAX_Y_OVERSCROLL_DISTANCE = 200;
+    private static final int MAX_Y_OVERSCROLL_DISTANCE = 80;
     private int maxYOverscrollDistance;
 
     /**
@@ -61,18 +61,27 @@ public class MNMainScrollView extends ScrollView {
         // This is where the magic happens, we have replaced the incoming
         // maxOverScrollY with our own custom variable maxYOverscrollDistance;
 //        return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
-//        Log.i(TAG, "deltaY: " + deltaY);
-//        Log.i(TAG, "scrollY: " + scrollY);
-//        Log.i(TAG, "scrollRangeY: " + scrollRangeY);
-//        Log.i(TAG, "maxYOverscrollDistance: " + maxYOverscrollDistance);
-        if (scrollY < 0 || scrollY > scrollRangeY) {
-//            Log.i(TAG, "overScrolling");
-            Log.i(TAG, "deltaY: " + deltaY);
-            Log.i(TAG, "scrollY: " + scrollY);
-            Log.i(TAG, "scrollRangeY: " + scrollRangeY);
-            Log.i(TAG, "maxYOverscrollDistance: " + maxYOverscrollDistance);
-//            float ratio = scrollRangeY / scrollY
+        float ratio = 1;
+
+        if (scrollY < 0 || scrollY >= scrollRangeY) {
+            float convertedScrollY;
+            if (scrollY < 0) {
+                convertedScrollY = Math.abs(scrollY);
+            } else {
+                convertedScrollY = scrollY - scrollRangeY;
+            }
+            // 관성을 주기 위해 10.f 값으로 조절
+            ratio = (float) maxYOverscrollDistance / convertedScrollY / 10.f;
+            if (ratio > 1) {
+                ratio = 1;
+            }
         }
-        return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxYOverscrollDistance, isTouchEvent);
+
+        if ((scrollY < 0 && deltaY > 0) || (scrollY >= scrollRangeY && deltaY < 0)) {
+//            Log.i(TAG, "normal way to back");
+            return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxYOverscrollDistance, isTouchEvent);
+        } else {
+            return super.overScrollBy(deltaX, (int) (deltaY * ratio), scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxYOverscrollDistance, isTouchEvent);
+        }
     }
 }
