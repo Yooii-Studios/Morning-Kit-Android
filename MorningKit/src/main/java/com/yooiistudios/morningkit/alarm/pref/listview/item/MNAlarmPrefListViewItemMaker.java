@@ -49,6 +49,7 @@ public class MNAlarmPrefListViewItemMaker {
         return convertView;
     }
 
+    // ringotns, music, app music, none
     public static View makeSoundItem(Context context, ViewGroup parent, final MNAlarm alarm) {
         View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_default_item, parent, false);
         MNAlarmPrefDefaultItemViewHolder viewHolder = new MNAlarmPrefDefaultItemViewHolder(convertView);
