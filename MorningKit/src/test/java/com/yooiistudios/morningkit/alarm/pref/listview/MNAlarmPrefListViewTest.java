@@ -1,16 +1,12 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
 import android.content.Intent;
-import android.util.Log;
-import android.view.View;
-import android.widget.ListView;
 
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
-import com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmPrefListViewItemMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;

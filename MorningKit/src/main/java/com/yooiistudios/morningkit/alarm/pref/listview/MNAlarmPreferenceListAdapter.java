@@ -1,12 +1,17 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 
+import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmPrefListViewItemMaker;
+import com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmPrefItemMaker;
+import com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmPrefLabelItemMaker;
+import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 7.
@@ -24,6 +29,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
     public MNAlarmPreferenceListAdapter(Context context, MNAlarm alarm) {
         this.context = context;
         this.alarm = alarm;
+        MNAlarmPrefBusProvider.getInstance().register(this);
     }
 
     @Override
@@ -31,19 +37,19 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
         MNAlarmPrefListItemType indexType = MNAlarmPrefListItemType.valueOf(position);
         switch (indexType) {
             case REPEAT:
-                convertView = MNAlarmPrefListViewItemMaker.makeRepeatItem(context, parent, alarm);
+                convertView = MNAlarmPrefItemMaker.makeRepeatItem(context, parent, alarm);
                 break;
             case LABEL:
-                convertView = MNAlarmPrefListViewItemMaker.makeLabelItem(context, parent, alarm);
+                convertView = MNAlarmPrefLabelItemMaker.makeLabelItem(context, parent, alarm);
                 break;
             case SOUND:
-                convertView = MNAlarmPrefListViewItemMaker.makeSoundItem(context, parent, alarm);
+                convertView = MNAlarmPrefItemMaker.makeSoundItem(context, parent, alarm);
                 break;
             case SNOOZE:
-                convertView = MNAlarmPrefListViewItemMaker.makeSnoozeItem(context, parent, alarm);
+                convertView = MNAlarmPrefItemMaker.makeSnoozeItem(context, parent, alarm);
                 break;
             case TIME:
-                convertView = MNAlarmPrefListViewItemMaker.makeTimeItem(context, parent, alarm);
+                convertView = MNAlarmPrefItemMaker.makeTimeItem(context, parent, alarm);
                 break;
         }
         return convertView;
@@ -62,5 +68,15 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
     @Override
     public int getCount() {
         return MNAlarmPrefListItemType.values().length;
+    }
+
+    @Subscribe
+    public void onLabelChanged(EditText labelEditText) {
+        if (labelEditText.getTag() == MNAlarmPrefListItemType.LABEL) {
+            alarm.setAlarmLabel(labelEditText.getText().toString());
+            notifyDataSetChanged();
+        } else {
+            throw new AssertionError("labelEditText must have MNAlarmPrefListItemType.LABEL tag!");
+        }
     }
 }

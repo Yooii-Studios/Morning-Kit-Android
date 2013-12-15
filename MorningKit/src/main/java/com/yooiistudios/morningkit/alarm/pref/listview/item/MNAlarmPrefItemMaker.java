@@ -1,20 +1,13 @@
 package com.yooiistudios.morningkit.alarm.pref.listview.item;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Build;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -35,10 +28,10 @@ import butterknife.Optional;
  * MNAlarmPrefListViewItemMaker
  *  각 아이템들을 만들어 주는 리스트뷰
  */
-public class MNAlarmPrefListViewItemMaker {
+public class MNAlarmPrefItemMaker {
     private static final String TAG = "MNAlarmPrefListViewItemMaker";
     // REPEAT, LABEL, SOUND_TYPE, SOUND_NAME, SNOOZE, TIME;
-    private MNAlarmPrefListViewItemMaker() { throw new AssertionError("You MUST NOT create this class"); }
+    private MNAlarmPrefItemMaker() { throw new AssertionError("You MUST NOT create this class"); }
 
     public static View makeTimeItem(Context context, ViewGroup parent, final MNAlarm alarm) {
         View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_time_item, parent, false);
@@ -62,77 +55,6 @@ public class MNAlarmPrefListViewItemMaker {
         MNAlarmPrefDefaultItemViewHolder viewHolder = new MNAlarmPrefDefaultItemViewHolder(convertView);
         convertView.setTag(viewHolder);
         viewHolder.titleTextView.setText(R.string.alarm_pref_repeat);
-        return convertView;
-    }
-
-    public static View makeLabelItem(final Context context, ViewGroup parent, final MNAlarm alarm) {
-        View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_default_item, parent, false);
-        MNAlarmPrefDefaultItemViewHolder viewHolder = new MNAlarmPrefDefaultItemViewHolder(convertView);
-        convertView.setTag(viewHolder);
-
-        // Check for default alarm
-        viewHolder.titleTextView.setText(R.string.alarm_pref_label);
-        if (alarm.getAlarmLabel().equals("Alarm")) {
-            viewHolder.detailTextView.setText(R.string.alarm_default_label);
-        } else {
-            viewHolder.detailTextView.setText(alarm.getAlarmLabel());
-        }
-
-        // ClickListener
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FrameLayout dialogLayout = (FrameLayout) LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_label_item_dialog, null);
-                final MNAlarmPrefLabelDialogViewHolder dialogViewHolder = new MNAlarmPrefLabelDialogViewHolder(dialogLayout);
-
-                // Label EditText
-                if (alarm.getAlarmLabel().equals("Alarm")) {
-                    dialogViewHolder.labelEditText.setText(R.string.alarm_default_label);
-                } else {
-                    dialogViewHolder.labelEditText.setText(alarm.getAlarmLabel());
-                }
-                dialogViewHolder.labelEditText.setSelection(dialogViewHolder.labelEditText.length());
-
-                // Clear Button
-                dialogViewHolder.clearButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogViewHolder.labelEditText.setText("");
-                    }
-                });
-
-                // AlertDialog
-                final AlertDialog alertDialog =
-                        new AlertDialog.Builder(context).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Log.i(TAG, "positivieButton");
-                            }
-                        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Log.i(TAG, "negativeButton");
-                            }
-                        }).setOnCancelListener(new DialogInterface.OnCancelListener() {
-                            @Override
-                            public void onCancel(DialogInterface dialog) {
-                                Log.i(TAG, "onCancel");
-                            }
-                        }).create();
-                alertDialog.setTitle(R.string.alarm_pref_label);
-                alertDialog.setView(dialogLayout);
-                alertDialog.setCanceledOnTouchOutside(false);
-                alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(dialogViewHolder.labelEditText, InputMethodManager.SHOW_IMPLICIT);
-                    }
-                });
-                alertDialog.show();
-            }
-        });
-
         return convertView;
     }
 
@@ -229,18 +151,6 @@ public class MNAlarmPrefListViewItemMaker {
         @InjectView(R.id.alarm_pref_list_time_item_picker)           MNAlarmTimePicker  alarmTimePicker;
 
         public MNAlarmPrefTimeItemViewHolder(View view) {
-            ButterKnife.inject(this, view);
-        }
-    }
-
-    /**
-     * Dialog ViewHolder
-     */
-    static class MNAlarmPrefLabelDialogViewHolder {
-        @InjectView(R.id.alarm_pref_label_dialog_editText)      EditText labelEditText;
-        @InjectView(R.id.alarm_pref_label_dialog_clear_button)  Button clearButton;
-
-        public MNAlarmPrefLabelDialogViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
     }
