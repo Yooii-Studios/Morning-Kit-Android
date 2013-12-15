@@ -62,7 +62,7 @@ public class MNAlarmPrefLabelItemMaker {
         return convertView;
     }
 
-    static AlertDialog makeLabelAlertDialog(final Context context, FrameLayout dialogLayout, final LabelDialogLayoutHolder dialogLayoutHolder) {
+    public static AlertDialog makeLabelAlertDialog(final Context context, FrameLayout dialogLayout, final LabelDialogLayoutHolder dialogLayoutHolder) {
         AlertDialog alertDialog = new AlertDialog.Builder(context).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

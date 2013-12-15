@@ -1,7 +1,10 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
@@ -94,5 +97,33 @@ public class MNAlarmPrefLabelItemMakerTest {
             assertThat(alarmPrefActivity.getAlarm().getAlarmLabel(), is(TEST_ALARM_LABEL));
             assertThat(viewHolder.getDetailTextView().getText().toString(), is(TEST_ALARM_LABEL));
         }
+    }
+
+    @Test
+    public void testLabelDialog() throws Exception {
+        FrameLayout dialogLayout = (FrameLayout) LayoutInflater.from(alarmPrefActivity_edit).inflate(R.layout.alarm_pref_list_label_item_dialog, null);
+        assertThat(dialogLayout, notNullValue());
+
+        final MNAlarmPrefLabelItemMaker.LabelDialogLayoutHolder dialogLayoutHolder
+                = new MNAlarmPrefLabelItemMaker.LabelDialogLayoutHolder(dialogLayout, alarmPrefActivity_edit.getAlarm());
+
+        // 실행 전 제대로 레이블이 들어가 있는지 확인
+        assertThat(dialogLayoutHolder, notNullValue());
+        assertThat(dialogLayoutHolder.getLabelEditText().getText().toString(), is(TEST_ALARM_LABEL));
+
+        // 클리어 버튼을 클릭시 동작하는지 확인
+        dialogLayoutHolder.getClearButton().performClick();
+        assertThat(dialogLayoutHolder.getLabelEditText().getText().toString(), is(""));
+
+        // 레이블을 수정했다고 가정
+        dialogLayoutHolder.getLabelEditText().setText(TEST_ALARM_LABEL_AFTER);
+
+        // AlertDialog 생성
+        AlertDialog alertDialog = MNAlarmPrefLabelItemMaker.makeLabelAlertDialog(alarmPrefActivity_edit, dialogLayout, dialogLayoutHolder);
+        alertDialog.show();
+
+        // 확인 버튼 클릭
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
+        assertThat(alarmPrefActivity_edit.getAlarm().getAlarmLabel(), is(TEST_ALARM_LABEL_AFTER));
     }
 }
