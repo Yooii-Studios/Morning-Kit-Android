@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,8 +8,8 @@ import android.widget.EditText;
 
 import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmPrefItemMaker;
-import com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmPrefLabelItemMaker;
+import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefItemMaker;
+import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefLabelItemMaker;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 
 /**

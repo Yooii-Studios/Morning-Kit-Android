@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.alarm.pref.listview.item;
+package com.yooiistudios.morningkit.alarm.pref.listview.item.maker;
 
 import android.content.Context;
 import android.os.Build;
@@ -15,6 +15,7 @@ import android.widget.TimePicker;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmTimePicker;
 
 import java.util.Calendar;
 
@@ -148,7 +149,8 @@ public class MNAlarmPrefItemMaker {
     static class MNAlarmPrefTimeItemViewHolder {
         @InjectView(R.id.alarm_pref_list_time_item_outer_layout)     RelativeLayout     outerLayout;
         @InjectView(R.id.alarm_pref_list_time_item_inner_layout)     RelativeLayout     innerLayout;
-        @InjectView(R.id.alarm_pref_list_time_item_picker)           MNAlarmTimePicker  alarmTimePicker;
+        @InjectView(R.id.alarm_pref_list_time_item_picker)
+        MNAlarmTimePicker alarmTimePicker;
 
         public MNAlarmPrefTimeItemViewHolder(View view) {
             ButterKnife.inject(this, view);
