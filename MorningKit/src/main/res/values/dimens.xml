@@ -39,5 +39,9 @@
     <dimen name="alarm_pref_list_item_padding">10dp</dimen>
     <dimen name="alarm_pref_list_item_textview_font_size">22sp</dimen>
 
+            <!-- Label Dialog -->
+    <dimen name="alarm_pref_list_label_item_dialog_padding_button">5dp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_font_size">22sp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_button_size">30dp</dimen>
 
 </resources>
