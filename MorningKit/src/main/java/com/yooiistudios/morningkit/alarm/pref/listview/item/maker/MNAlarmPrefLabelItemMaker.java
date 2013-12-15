@@ -88,11 +88,11 @@ public class MNAlarmPrefLabelItemMaker {
     /**
      * ViewHolder
      */
-    static class LabelItemViewHolder {
-        @InjectView(R.id.alarm_pref_list_default_item_outer_layout)     RelativeLayout  outerLayout;
-        @InjectView(R.id.alarm_pref_list_default_item_inner_layout)     RelativeLayout  innerLayout;
-        @InjectView(R.id.alarm_pref_list_default_item_title_textview)   TextView        titleTextView;
-        @InjectView(R.id.alarm_pref_list_default_item_detail_textview)  TextView        detailTextView;
+    public static class LabelItemViewHolder {
+        @Getter @InjectView(R.id.alarm_pref_list_default_item_outer_layout)     RelativeLayout  outerLayout;
+        @Getter @InjectView(R.id.alarm_pref_list_default_item_inner_layout)     RelativeLayout  innerLayout;
+        @Getter @InjectView(R.id.alarm_pref_list_default_item_title_textview)   TextView        titleTextView;
+        @Getter @InjectView(R.id.alarm_pref_list_default_item_detail_textview)  TextView        detailTextView;
 
         public LabelItemViewHolder(View view) {
             ButterKnife.inject(this, view);
@@ -103,8 +103,7 @@ public class MNAlarmPrefLabelItemMaker {
      * Dialog ViewHolder
      */
     public static class LabelDialogLayoutHolder {
-        @Getter
-        @InjectView(R.id.alarm_pref_label_dialog_editText)              EditText    labelEditText;
+        @Getter @InjectView(R.id.alarm_pref_label_dialog_editText)      EditText    labelEditText;
         @Getter @InjectView(R.id.alarm_pref_label_dialog_clear_button)  Button      clearButton;
 
         public LabelDialogLayoutHolder(View view, MNAlarm alarm) {

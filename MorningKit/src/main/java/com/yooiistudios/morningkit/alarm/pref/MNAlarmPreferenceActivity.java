@@ -60,14 +60,16 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
                     if (getActionBar() != null) {
                         getActionBar().setTitle(R.string.edit_alarm);
                     }
-                }else{
+                } else {
                     getSupportActionBar().setTitle(R.string.edit_alarm); // 추후 구현 다시 하자
                 }
-            }else{
+            } else {
                 alarmPreferenceType = MNAlarmPreferenceType.ADD;
                 alarm = MNAlarmMaker.makeAlarm(this.getBaseContext());
 
             }
+        } else {
+            throw new AssertionError("no extras in MNAlarmPreferenceActivity!");
         }
         initTitle();
         initListView();
