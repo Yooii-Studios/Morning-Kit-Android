@@ -40,6 +40,23 @@ public class MNAlarmPrefListViewItemMaker {
     // REPEAT, LABEL, SOUND_TYPE, SOUND_NAME, SNOOZE, TIME;
     private MNAlarmPrefListViewItemMaker() { throw new AssertionError("You MUST NOT create this class"); }
 
+    public static View makeTimeItem(Context context, ViewGroup parent, final MNAlarm alarm) {
+        View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_time_item, parent, false);
+        MNAlarmPrefTimeItemViewHolder viewHolder = new MNAlarmPrefTimeItemViewHolder(convertView);
+        convertView.setTag(viewHolder);
+        viewHolder.alarmTimePicker.setIs24HourView(DateFormat.is24HourFormat(context));
+        viewHolder.alarmTimePicker.setCurrentHour(alarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY));
+        viewHolder.alarmTimePicker.setCurrentMinute(alarm.getAlarmCalendar().get(Calendar.MINUTE));
+        viewHolder.alarmTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                alarm.getAlarmCalendar().set(Calendar.HOUR_OF_DAY, hourOfDay);
+                alarm.getAlarmCalendar().set(Calendar.MINUTE, minute);
+            }
+        });
+        return convertView;
+    }
+
     public static View makeRepeatItem(Context context, ViewGroup parent, final MNAlarm alarm) {
         View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_default_item, parent, false);
         MNAlarmPrefDefaultItemViewHolder viewHolder = new MNAlarmPrefDefaultItemViewHolder(convertView);
@@ -151,23 +168,6 @@ public class MNAlarmPrefListViewItemMaker {
                 }
             });
         }
-        return convertView;
-    }
-
-    public static View makeTimeItem(Context context, ViewGroup parent, final MNAlarm alarm) {
-        View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_time_item, parent, false);
-        MNAlarmPrefTimeItemViewHolder viewHolder = new MNAlarmPrefTimeItemViewHolder(convertView);
-        convertView.setTag(viewHolder);
-        viewHolder.alarmTimePicker.setIs24HourView(DateFormat.is24HourFormat(context));
-        viewHolder.alarmTimePicker.setCurrentHour(alarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY));
-        viewHolder.alarmTimePicker.setCurrentMinute(alarm.getAlarmCalendar().get(Calendar.MINUTE));
-        viewHolder.alarmTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                alarm.getAlarmCalendar().set(Calendar.HOUR_OF_DAY, hourOfDay);
-                alarm.getAlarmCalendar().set(Calendar.MINUTE, minute);
-            }
-        });
         return convertView;
     }
 
