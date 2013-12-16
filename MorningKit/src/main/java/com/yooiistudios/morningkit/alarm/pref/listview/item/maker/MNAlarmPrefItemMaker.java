@@ -22,6 +22,7 @@ import java.util.Calendar;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.Optional;
+import lombok.Getter;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 13.
@@ -48,14 +49,6 @@ public class MNAlarmPrefItemMaker {
                 alarm.getAlarmCalendar().set(Calendar.MINUTE, minute);
             }
         });
-        return convertView;
-    }
-
-    public static View makeRepeatItem(Context context, ViewGroup parent, final MNAlarm alarm) {
-        View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_default_item, parent, false);
-        MNAlarmPrefDefaultItemViewHolder viewHolder = new MNAlarmPrefDefaultItemViewHolder(convertView);
-        convertView.setTag(viewHolder);
-        viewHolder.titleTextView.setText(R.string.alarm_pref_repeat);
         return convertView;
     }
 
@@ -98,10 +91,10 @@ public class MNAlarmPrefItemMaker {
      * ViewHolder
      */
     static class MNAlarmPrefDefaultItemViewHolder {
-        @InjectView(R.id.alarm_pref_list_default_item_outer_layout)     RelativeLayout  outerLayout;
-        @InjectView(R.id.alarm_pref_list_default_item_inner_layout)     RelativeLayout  innerLayout;
-        @InjectView(R.id.alarm_pref_list_default_item_title_textview)   TextView        titleTextView;
-        @InjectView(R.id.alarm_pref_list_default_item_detail_textview)  TextView        detailTextView;
+        @Getter @InjectView(R.id.alarm_pref_list_default_item_outer_layout)     RelativeLayout  outerLayout;
+        @Getter @InjectView(R.id.alarm_pref_list_default_item_inner_layout)     RelativeLayout  innerLayout;
+        @Getter @InjectView(R.id.alarm_pref_list_default_item_title_textview)   TextView        titleTextView;
+        @Getter @InjectView(R.id.alarm_pref_list_default_item_detail_textview)  TextView        detailTextView;
 
         public MNAlarmPrefDefaultItemViewHolder(View view) {
             ButterKnife.inject(this, view);
@@ -109,18 +102,6 @@ public class MNAlarmPrefItemMaker {
     }
 
     /*
-    public static class MNAlarmPrefRepeatItemViewHolder extends MNAlarmPrefDefaultItemViewHolder {
-        public MNAlarmPrefRepeatItemViewHolder(View view) {
-            super(view);
-        }
-    }
-
-    public static class MNAlarmPrefLabelItemViewHolder extends MNAlarmPrefDefaultItemViewHolder {
-        public MNAlarmPrefLabelItemViewHolder(View view) {
-            super(view);
-        }
-    }
-
     public static class MNAlarmPrefSoundItemViewHolder extends MNAlarmPrefDefaultItemViewHolder {
         public MNAlarmPrefSoundItemViewHolder(View view) {
             super(view);

@@ -88,14 +88,9 @@ public class MNAlarmPrefLabelItemMaker {
     /**
      * ViewHolder
      */
-    public static class LabelItemViewHolder {
-        @Getter @InjectView(R.id.alarm_pref_list_default_item_outer_layout)     RelativeLayout  outerLayout;
-        @Getter @InjectView(R.id.alarm_pref_list_default_item_inner_layout)     RelativeLayout  innerLayout;
-        @Getter @InjectView(R.id.alarm_pref_list_default_item_title_textview)   TextView        titleTextView;
-        @Getter @InjectView(R.id.alarm_pref_list_default_item_detail_textview)  TextView        detailTextView;
-
+    public static class LabelItemViewHolder extends MNAlarmPrefItemMaker.MNAlarmPrefDefaultItemViewHolder {
         public LabelItemViewHolder(View view) {
-            ButterKnife.inject(this, view);
+            super(view);
         }
     }
 

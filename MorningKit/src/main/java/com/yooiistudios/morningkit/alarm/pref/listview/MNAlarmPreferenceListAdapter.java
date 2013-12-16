@@ -10,6 +10,7 @@ import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefLabelItemMaker;
+import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefRepeatItemMaker;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 
 /**
@@ -36,7 +37,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
         MNAlarmPrefListItemType indexType = MNAlarmPrefListItemType.valueOf(position);
         switch (indexType) {
             case REPEAT:
-                convertView = MNAlarmPrefItemMaker.makeRepeatItem(context, parent, alarm);
+                convertView = MNAlarmPrefRepeatItemMaker.makeRepeatItem(context, parent, alarm);
                 break;
             case LABEL:
                 convertView = MNAlarmPrefLabelItemMaker.makeLabelItem(context, parent, alarm);

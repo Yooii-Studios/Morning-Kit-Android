@@ -29,7 +29,7 @@ public class MNAlarmMaker {
             alarm.getAlarmCalendar().set(Calendar.SECOND, 0);
 
             for (int i=0; i<7; i++) {
-                alarm.getAlarmRepeatOnOfWeek().add(Boolean.FALSE);
+                alarm.getAlarmRepeatList().add(Boolean.FALSE);
             }
 
             alarm.setAlarmId(MNAlarmIdMaker.getValidAlarmID(context));

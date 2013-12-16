@@ -59,8 +59,8 @@ public class MNAlarmMakerTest {
         assertThat(defaultAlarm.getAlarmCalendar().get(Calendar.SECOND), is(0));
 
         // 초기 설정은 모두 false
-        for (int i = 0; i < defaultAlarm.getAlarmRepeatOnOfWeek().size(); i++) {
-            Boolean alarmRepeatOnSpecificWeekday = defaultAlarm.getAlarmRepeatOnOfWeek().get(i);
+        for (int i = 0; i < defaultAlarm.getAlarmRepeatList().size(); i++) {
+            Boolean alarmRepeatOnSpecificWeekday = defaultAlarm.getAlarmRepeatList().get(i);
             assertThat(alarmRepeatOnSpecificWeekday, is(false));
         }
 

@@ -24,7 +24,7 @@ public class MNAlarm implements Serializable, Cloneable {
     @Getter @Setter private boolean             isSnoozeOn;
     @Getter @Setter private boolean             isRepeatOn;
 
-    @Getter @Setter private ArrayList<Boolean>  alarmRepeatOnOfWeek;
+    @Getter @Setter private ArrayList<Boolean>  alarmRepeatList;
 
     @Getter @Setter private String              alarmLabel;
 
@@ -43,7 +43,7 @@ public class MNAlarm implements Serializable, Cloneable {
 
     public static MNAlarm newInstance() {
         MNAlarm alarm = new MNAlarm();
-        alarm.alarmRepeatOnOfWeek = new ArrayList<Boolean>();
+        alarm.alarmRepeatList = new ArrayList<Boolean>(7);
         return alarm;
     }
 
@@ -88,7 +88,7 @@ public class MNAlarm implements Serializable, Cloneable {
     public MNAlarm clone() throws CloneNotSupportedException {
         MNAlarm obj = (MNAlarm)super.clone();
         obj.alarmCalendar = (Calendar) alarmCalendar.clone();
-        obj.alarmRepeatOnOfWeek = (ArrayList<Boolean>)alarmRepeatOnOfWeek.clone();
+        obj.alarmRepeatList = (ArrayList<Boolean>) alarmRepeatList.clone();
 
         return obj;
     }
