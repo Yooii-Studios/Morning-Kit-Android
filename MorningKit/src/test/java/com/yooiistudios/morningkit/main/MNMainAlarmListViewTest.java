@@ -96,7 +96,7 @@ public class MNMainAlarmListViewTest {
             MNAlarmListManager.addAlarmToAlarmList(MNAlarmMaker.makeAlarm(context), context);
         }
         assertThat(MNAlarmListManager.getAlarmList(context).size(), is(sizeOfAlarmList + 5));
-        Log.i(TAG, "sizeOfAlarms: " + MNAlarmListManager.getAlarmList(context).size());
+        MNAlarmListManager.saveAlarmList(mainActivity);
 
         // 방향 지정(리프레시)
         Configuration newConfig = new Configuration();

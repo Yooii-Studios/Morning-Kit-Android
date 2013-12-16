@@ -22,6 +22,8 @@ import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
+import java.io.IOException;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -245,6 +247,11 @@ public class MNMainActivity extends Activity implements AdListener
                         @Override
                         public void run() {
                             MNAlarmListManager.removeAlarmFromAlarmList(alarm.getAlarmId(), MNMainActivity.this);
+                            try {
+                                MNAlarmListManager.saveAlarmList(MNMainActivity.this);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             (MNMainActivity.this).getAlarmListView().refreshListView();
                             MNMainLayoutSetter.adjustAlarmListView(MNMainActivity.this, getResources().getConfiguration().orientation);
                         }

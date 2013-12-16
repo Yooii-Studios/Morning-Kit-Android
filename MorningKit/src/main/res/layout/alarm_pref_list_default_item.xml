@@ -36,7 +36,9 @@
             android:background="#33aa33"
             android:textColor="#ffffff"
             android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/alarm_pref_list_default_item_detail_textview"
@@ -50,6 +52,8 @@
             android:textColor="#ffffff"
             android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
             android:layout_toRightOf="@id/alarm_pref_list_default_item_title_textview"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:ellipsize="marquee"/>
     </RelativeLayout>
 </RelativeLayout>

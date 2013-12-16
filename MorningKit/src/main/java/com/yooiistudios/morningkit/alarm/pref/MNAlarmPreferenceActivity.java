@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.alarm.pref;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 3.
@@ -31,7 +33,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     private static final String TAG = "MNAlarmPreferenceActivity";
 
     @Getter private int alarmId;
-    @Getter private MNAlarm alarm;
+    @Getter @Setter private MNAlarm alarm;
     @Getter private MNAlarmPreferenceType alarmPreferenceType;
     @Getter @InjectView(R.id.alarm_pref_listview) ListView listView;
 
@@ -52,7 +54,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             alarmId = extras.getInt(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
-//            Log.i(TAG, "alarmId: " + alarmId);
+            Log.i(TAG, "alarmId: " + alarmId);
             if (alarmId != -1) {
                 alarmPreferenceType = MNAlarmPreferenceType.EDIT;
                 alarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
@@ -158,18 +160,4 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Otto bus
-     */
-    /*
-    @Subscribe
-    public void onAlarmTimePickerChanged(TimePicker timePicker) {
-        int hourOfDay = 0, minute = 0;
-        hourOfDay = timePicker.getCurrentHour();
-        minute = timePicker.getCurrentMinute();
-        Log.i(TAG, "onAlarmTimePickerChanged: " + hourOfDay + ":" + minute);
-//        Log.i(TAG, "onAlarmTimePickerChanged: " + hour + ":" + minute);
-    }
-    */
 }

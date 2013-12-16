@@ -3,6 +3,8 @@ package com.yooiistudios.morningkit.alarm.pref.listview.item.maker;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
@@ -46,11 +46,14 @@ public class MNAlarmPrefLabelItemMaker {
         } else {
             viewHolder.detailTextView.setText(alarm.getAlarmLabel());
         }
+        viewHolder.detailTextView.setSelected(true);
 
         // ClickListener
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // V/X 표시 오프
+
                 FrameLayout dialogLayout = (FrameLayout) LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_label_item_dialog, null);
                 final LabelDialogLayoutHolder dialogLayoutHolder = new LabelDialogLayoutHolder(dialogLayout, alarm);
 
@@ -63,14 +66,31 @@ public class MNAlarmPrefLabelItemMaker {
     }
 
     public static AlertDialog makeLabelAlertDialog(final Context context, FrameLayout dialogLayout, final LabelDialogLayoutHolder dialogLayoutHolder) {
-        AlertDialog alertDialog = new AlertDialog.Builder(context).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            builder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_DARK);
+        } else {
+            builder = new AlertDialog.Builder(context);
+        }
+        AlertDialog alertDialog = builder
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // to MNAlarmPreferecnceListAdapter
+                        // V/X 표시 온
                         MNAlarmPrefBusProvider.getInstance().post(dialogLayoutHolder.labelEditText);
                     }
-                }).setNegativeButton(R.string.cancel, null)
-                        .create();
+                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // V/X 표시 온
+                    }
+                }).setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        // V/X 표시 온
+                    }
+                }).create();
 
         alertDialog.setTitle(R.string.alarm_pref_label);
         alertDialog.setView(dialogLayout);
@@ -80,6 +100,15 @@ public class MNAlarmPrefLabelItemMaker {
             public void onShow(DialogInterface dialog) {
                 InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(dialogLayoutHolder.labelEditText, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+        alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    // V / X 표시 온
+                }
+                return false;
             }
         });
         return alertDialog;

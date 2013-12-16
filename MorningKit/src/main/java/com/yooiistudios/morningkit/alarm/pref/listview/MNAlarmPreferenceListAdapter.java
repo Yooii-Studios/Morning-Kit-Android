@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,6 +13,8 @@ import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefIte
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefLabelItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefRepeatItemMaker;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
+
+import java.util.ArrayList;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 7.
@@ -77,6 +80,18 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
             notifyDataSetChanged();
         } else {
             throw new AssertionError("labelEditText must have MNAlarmPrefListItemType.LABEL tag!");
+        }
+    }
+
+    @Subscribe
+    public void onRepeatChanged(boolean[] repeats) {
+        if (alarm != null) {
+            for (int i = 0; i < this.alarm.getAlarmRepeatList().size(); i++) {
+                this.alarm.getAlarmRepeatList().set(i, repeats[i]);
+            }
+            notifyDataSetChanged();
+        } else {
+            throw new AssertionError("alarm must not be null!");
         }
     }
 }
