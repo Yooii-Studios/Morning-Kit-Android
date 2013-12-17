@@ -73,6 +73,9 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
         return MNAlarmPrefListItemType.values().length;
     }
 
+    /**
+     * Otto: MNAlarmPrefBusProvider
+     */
     @Subscribe
     public void onLabelChanged(EditText labelEditText) {
         if (labelEditText.getTag() == MNAlarmPrefListItemType.LABEL) {
