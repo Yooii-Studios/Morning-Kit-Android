@@ -77,12 +77,12 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
      * Otto: MNAlarmPrefBusProvider
      */
     @Subscribe
-    public void onLabelChanged(EditText labelEditText) {
-        if (labelEditText.getTag() == MNAlarmPrefListItemType.LABEL) {
-            alarm.setAlarmLabel(labelEditText.getText().toString());
+    public void onLabelChanged(String labelString) {
+        if (labelString != null) {
+            alarm.setAlarmLabel(labelString);
             notifyDataSetChanged();
         } else {
-            throw new AssertionError("labelEditText must have MNAlarmPrefListItemType.LABEL tag!");
+            throw new AssertionError("labelString must be null!");
         }
     }
 

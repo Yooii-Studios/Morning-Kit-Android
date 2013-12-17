@@ -78,7 +78,7 @@ public class MNAlarmPrefLabelItemMaker {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         MNAlarmPrefBusProvider.getInstance().post(context);
-                        MNAlarmPrefBusProvider.getInstance().post(dialogLayoutHolder.labelEditText);
+                        MNAlarmPrefBusProvider.getInstance().post(dialogLayoutHolder.labelEditText.getText().toString());
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
