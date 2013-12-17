@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 import com.yooiistudios.morningkit.alarm.listview.MNAlarmListAdapter;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemClickListener;
+import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 
 import lombok.Getter;
 
@@ -45,5 +46,10 @@ public class MNMainAlarmListView extends ListView
     public void initWithListAdapter() {
         alarmItemClickListener = MNAlarmItemClickListener.newInstance(this);
         setAdapter(new MNAlarmListAdapter(getContext(), alarmItemClickListener));
+    }
+
+    public void refreshListView() {
+        MNAlarmListManager.loadAlarmList(getContext());
+        ((MNAlarmListAdapter) getAdapter()).notifyDataSetChanged();
     }
 }

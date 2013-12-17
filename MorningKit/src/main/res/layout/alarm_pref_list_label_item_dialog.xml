@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/alarm_item_inner_height"
+    android:paddingLeft="@dimen/alarm_pref_list_label_item_dialog_padding_button"
+    android:paddingRight="@dimen/alarm_pref_list_label_item_dialog_padding_button"
+    android:background="#3aa33a">
+
+    <EditText
+        android:id="@+id/alarm_pref_label_dialog_editText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:ems="10"
+        android:hint="@string/alarm_pref_label"
+        android:longClickable="false"
+        android:singleLine="true"
+        android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
+        android:background="#aa11cc">
+    </EditText>
+
+    <Button
+        android:id="@+id/alarm_pref_label_dialog_clear_button"
+        android:layout_width="@dimen/alarm_pref_list_label_item_dialog_button_size"
+        android:layout_height="@dimen/alarm_pref_list_label_item_dialog_button_size"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginRight="@dimen/alarm_pref_list_label_item_dialog_padding_button"
+        android:background="@drawable/ic_action_cancel" />
+
+</FrameLayout>

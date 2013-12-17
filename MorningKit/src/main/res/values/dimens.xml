@@ -9,6 +9,7 @@
     <!-- 앱 전체적으로 쓰이는 패딩 -->
     <dimen name="margin_outer">6dp</dimen>
     <dimen name="margin_inner">3dp</dimen>
+    <dimen name="margin_outer_minus_inner">3dp</dimen>
 
     <!-- 버튼레이아웃은 outer 패딩의 2배 -->
     <dimen name="margin_main_button_layout">12dp</dimen>
@@ -24,13 +25,23 @@
     <dimen name="widget_height">115dp</dimen> <!-- 115dp는 스샷에서 위젯 크기 직접 잼 -->
 
     <!-- Alarm -->
+    <dimen name="alarm_item_outer_height">71dp</dimen> <!-- inner + margin_inner * 2  -->
     <dimen name="alarm_item_inner_height">65dp</dimen>
-    <dimen name="alarm_item_outer_height">71dp</dimen> <!-- inner + margin_inner*2  -->
 
     <dimen name="alarm_item_divider_with">2dp</dimen>
 
     <dimen name="alarm_create_item_plus_size">60dp</dimen>
     <dimen name="alarm_item_switch_size">60dp</dimen>
 
+        <!-- Alarm Preferences -->
+    <dimen name="alarm_pref_list_item_outer_height">60dp</dimen> <!-- inner + margin_inner * 2  -->
+    <dimen name="alarm_pref_list_item_title_textview_width">110dp</dimen>
+    <dimen name="alarm_pref_list_item_padding">10dp</dimen>
+    <dimen name="alarm_pref_list_item_textview_font_size">22sp</dimen>
+
+            <!-- Label Dialog -->
+    <dimen name="alarm_pref_list_label_item_dialog_padding_button">5dp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_font_size">22sp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_button_size">30dp</dimen>
 
 </resources>

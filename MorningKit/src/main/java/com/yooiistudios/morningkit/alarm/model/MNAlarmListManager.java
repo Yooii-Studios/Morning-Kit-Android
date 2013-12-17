@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.alarm.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.common.serialize.ObjectSerializer;
@@ -48,6 +49,11 @@ public class MNAlarmListManager {
         }
         return MNAlarmListManager.getInstance().alarmList;
     }
+    public static void removeAlarmList(Context context) throws IOException {
+        MNAlarmListManager.getInstance().alarmList = null;
+        MNAlarmListManager.getInstance().alarmList = newDefaultAlarmList(context);
+        saveAlarmList(context);
+    }
 
     /**
      * load alarmList(ArrayList<MNAlarm>) from SharedPreferences using ObjectSerializer.
@@ -61,19 +67,25 @@ public class MNAlarmListManager {
             if (alarmListDataString != null) {
                 MNAlarmListManager.getInstance().alarmList = (ArrayList<MNAlarm>) ObjectSerializer.deserialize(alarmListDataString);
             } else {
-                MNAlarmListManager.getInstance().alarmList = new ArrayList<MNAlarm>();
-
-                MNAlarm firstAlarm = MNAlarmMaker.makeAlarmWithTime(context, 6, 30);
-                MNAlarm secondAlarm = MNAlarmMaker.makeAlarmWithTime(context, 7, 0);
-
-                MNAlarmListManager.getInstance().alarmList.add(firstAlarm);
-                MNAlarmListManager.getInstance().alarmList.add(secondAlarm);
+                MNAlarmListManager.getInstance().alarmList = newDefaultAlarmList(context);
                 saveAlarmList(context);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return MNAlarmListManager.getInstance().alarmList;
+    }
+
+    public static ArrayList<MNAlarm> newDefaultAlarmList(Context context) {
+        ArrayList<MNAlarm> defaultAlarmList = new ArrayList<MNAlarm>();
+
+        MNAlarm firstAlarm = MNAlarmMaker.makeAlarmWithTime(context, 6, 30);
+        MNAlarm secondAlarm = MNAlarmMaker.makeAlarmWithTime(context, 7, 0);
+
+        defaultAlarmList.add(firstAlarm);
+        defaultAlarmList.add(secondAlarm);
+
+        return defaultAlarmList;
     }
 
     /**
@@ -91,6 +103,51 @@ public class MNAlarmListManager {
             }
             editor.commit();
         }
+    }
+
+    /**
+     * add alarm to alarmList(ArrayList<MNAlarm>)
+     * @param targetAlarm will be saved to alarmList
+     * @param context used to get SharedPreferences
+     */
+    public static void addAlarmToAlarmList(MNAlarm targetAlarm, Context context) {
+        if (targetAlarm == null) {
+            throw new IllegalArgumentException("MNAlarm must not be null");
+        }
+        if (context == null) {
+            throw new IllegalArgumentException("Context must not be null");
+        }
+        MNAlarmListManager.getAlarmList(context).add(targetAlarm);
+    }
+
+    /**
+     * find the same alarm with targetAlarm's alarmId in alarmList, and replace it
+     * @param targetAlarm will be used to replace the alarm
+     * @param context used to get SharedPreferences
+     */
+    public static void replaceAlarmToAlarmList(MNAlarm targetAlarm, Context context) {
+        if (targetAlarm != null && context != null) {
+            int indexOfAlarm = MNAlarmListManager.findIndexOfAlarmById(targetAlarm.getAlarmId(), context);
+            if (indexOfAlarm != -1 && indexOfAlarm < MNAlarmListManager.getAlarmList(context).size()) {
+                MNAlarmListManager.getAlarmList(context).set(indexOfAlarm, targetAlarm);
+            }else{
+                throw new IndexOutOfBoundsException("Can't get proper index");
+            }
+        } else if (targetAlarm == null) {
+            throw new IllegalArgumentException("MNAlarm must not be null");
+        } else {
+            throw new IllegalArgumentException("Context must not be null");
+        }
+    }
+
+    /**
+     * remove the alarm with alarmId from alarmList;
+     * @param alarmId will be uesed to find the alarm
+     * @param context used to get SharedPreferences
+     */
+    public static void removeAlarmFromAlarmList(int alarmId, Context context) {
+        MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarmId, context);
+        MNAlarmListManager.getAlarmList(context).remove(targetAlarm);
     }
 
     /**
@@ -119,5 +176,27 @@ public class MNAlarmListManager {
         } else {
             return null;
         }
+    }
+
+    /**
+     * find index of alarm by specific alarmId in alarmList
+     * @param targetAlarmId alarmId to be searched
+     * @param context used to get SharedPreferences
+     * @return int or -1 if not found
+     */
+    public static int findIndexOfAlarmById(int targetAlarmId, Context context) {
+        if (targetAlarmId != -1) {
+            MNAlarm targetAlarm = null;
+            ArrayList<MNAlarm> alarmList = MNAlarmListManager.getAlarmList(context);
+            for (int i=0; i<alarmList.size(); i++) {
+                MNAlarm alarm = alarmList.get(i);
+                if (alarm.getAlarmId() == targetAlarmId) {
+                    return i;
+                }
+            }
+        } else {
+            throw new IllegalArgumentException("targetAlarmId can't be -1");
+        }
+        return -1;
     }
 }

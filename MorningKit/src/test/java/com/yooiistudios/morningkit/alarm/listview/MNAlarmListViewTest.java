@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.alarm.listview;
 
+import android.util.Log;
 import android.view.View;
 
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemClickListener;
@@ -59,9 +60,11 @@ public class MNAlarmListViewTest {
     public void alarmItemsTest() {
         assertThat(mainActivity.getAlarmListView().getCount(), is(alarmListAdaptor.getCount()));
 
-        for(int i=0; i<mainActivity.getAlarmListView().getChildCount()-1; i++) {
+        for(int i=0; i<mainActivity.getAlarmListView().getCount()-1; i++) {
             MNAlarmItemScrollView alarmItemScrollView = (MNAlarmItemScrollView) mainActivity.getAlarmListView().getChildAt(i);
             assertThat(alarmItemScrollView, notNullValue());
+            assertThat(alarmItemScrollView, is(MNAlarmItemScrollView.class));
+
             if (alarmItemScrollView != null) {
                 // LayoutItems 확인
                 assertThat(alarmItemScrollView.getLayoutItems(), notNullValue());
