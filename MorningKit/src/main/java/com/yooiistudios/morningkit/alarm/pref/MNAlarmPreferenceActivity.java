@@ -1,19 +1,23 @@
 package com.yooiistudios.morningkit.alarm.pref;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
+import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPreferenceListAdapter;
+import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 
 import java.io.IOException;
 
@@ -51,10 +55,10 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
      */
     private void initAlarmPreferenceActivity() {
         ButterKnife.inject(this);
+        MNAlarmPrefBusProvider.getInstance().register(this);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             alarmId = extras.getInt(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
-            Log.i(TAG, "alarmId: " + alarmId);
             if (alarmId != -1) {
                 alarmPreferenceType = MNAlarmPreferenceType.EDIT;
                 alarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
@@ -144,7 +148,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         }
     }
 
-    public void applyAlarmPreferneces() {
+    private void applyAlarmPreferneces() {
         switch (alarmPreferenceType) {
             case ADD:
                 MNAlarmListManager.addAlarmToAlarmList(alarm, this);
@@ -159,5 +163,20 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Otto: MNAlarmPrefBusProvider
+     */
+    @Subscribe
+    public void setActionBarMenuToVisible(Context context) {
+        actionBarMenu.findItem(R.id.pref_action_ok).setVisible(true);
+        actionBarMenu.findItem(R.id.pref_action_cancel).setVisible(true);
+    }
+
+    @Subscribe
+    public void setActionBarMenuToInvisible(View view) {
+        actionBarMenu.findItem(R.id.pref_action_ok).setVisible(false);
+        actionBarMenu.findItem(R.id.pref_action_cancel).setVisible(false);
     }
 }
