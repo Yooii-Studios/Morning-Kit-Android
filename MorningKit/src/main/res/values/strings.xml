@@ -269,6 +269,6 @@
 
     <!-- Android Only -->
     <!-- Alarm Pref -->
-
+    <string name="alarm_sound_string_app_music">Morning Kit Music</string>
 
 </resources>

@@ -92,16 +92,17 @@ public class MNAlarmPrefRepeatItemMaker {
                 Log.i(TAG, "onCancel");
                 MNAlarmPrefBusProvider.getInstance().post(context);
             }
-        }).setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    MNAlarmPrefBusProvider.getInstance().post(context);
-                    Log.i(TAG, "onKey: KEYCODE_BACK");
-                }
-                return false;
-            }
         }).create();
+//                .setOnKeyListener(new DialogInterface.OnKeyListener() {
+//            @Override
+//            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+//                if (keyCode == KeyEvent.KEYCODE_BACK) {
+//                    Log.i(TAG, "keycode_back");
+//                    MNAlarmPrefBusProvider.getInstance().post(context);
+//                }
+//                return false;
+//            }
+//        })
         alertDialog.setTitle(R.string.alarm_pref_repeat);
         alertDialog.setCanceledOnTouchOutside(false);
         return alertDialog;

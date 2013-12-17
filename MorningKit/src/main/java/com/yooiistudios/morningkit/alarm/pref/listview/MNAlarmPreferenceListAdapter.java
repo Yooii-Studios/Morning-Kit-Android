@@ -12,6 +12,7 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefLabelItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefRepeatItemMaker;
+import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefSoundItemMaker;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
                 convertView = MNAlarmPrefLabelItemMaker.makeLabelItem(context, parent, alarm);
                 break;
             case SOUND:
-                convertView = MNAlarmPrefItemMaker.makeSoundItem(context, parent, alarm);
+                convertView = MNAlarmPrefSoundItemMaker.makeSoundItem(context, parent, alarm);
                 break;
             case SNOOZE:
                 convertView = MNAlarmPrefItemMaker.makeSnoozeItem(context, parent, alarm);

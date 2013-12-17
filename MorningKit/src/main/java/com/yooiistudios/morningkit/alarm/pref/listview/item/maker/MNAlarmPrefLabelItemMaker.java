@@ -102,15 +102,15 @@ public class MNAlarmPrefLabelItemMaker {
                 imm.showSoftInput(dialogLayoutHolder.labelEditText, InputMethodManager.SHOW_IMPLICIT);
             }
         });
-        alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    MNAlarmPrefBusProvider.getInstance().post(context);
-                }
-                return false;
-            }
-        });
+//        alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+//            @Override
+//            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+//                if (keyCode == KeyEvent.KEYCODE_BACK) {
+//                    MNAlarmPrefBusProvider.getInstance().post(context);
+//                }
+//                return false;
+//            }
+//        });
         return alertDialog;
     }
 
