@@ -54,7 +54,6 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             alarmId = extras.getInt(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
-            Log.i(TAG, "alarmId: " + alarmId);
             if (alarmId != -1) {
                 alarmPreferenceType = MNAlarmPreferenceType.EDIT;
                 alarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
