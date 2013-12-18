@@ -89,10 +89,12 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
 
     @Subscribe
     public void onRepeatChanged(boolean[] repeats) {
+        Log.i(TAG, "onRepeatChanged");
         if (alarm != null) {
             for (int i = 0; i < this.alarm.getAlarmRepeatList().size(); i++) {
                 this.alarm.getAlarmRepeatList().set(i, repeats[i]);
             }
+            Log.i(TAG, "repeats: " + this.alarm.getAlarmRepeatList());
             notifyDataSetChanged();
         } else {
             throw new AssertionError("alarm must not be null!");

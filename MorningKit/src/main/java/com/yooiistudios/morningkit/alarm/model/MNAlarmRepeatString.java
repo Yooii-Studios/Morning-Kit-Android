@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.alarm.model;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.yooiistudios.morningkit.R;
 
@@ -24,17 +23,12 @@ public class MNAlarmRepeatString {
             if (repeat) {
                 repeatCheckerBuilder.append(i);
             }
-//            if (repeatList.get(i) == Boolean.FALSE) {
-//                Log.i(TAG, "repeatList.get(" + i + ") is Boolean.FALSE");
-//            }
         }
         return repeatCheckerBuilder.toString();
     }
 
     public static String makeRepeatDetailString(ArrayList<Boolean> alarmRepeatList, Context context) {
         String repeatChecker = makeRepeatCheckerString(alarmRepeatList);
-
-        Log.i(TAG, repeatChecker);
 
         if (repeatChecker.equals("")) {
             return context.getString(R.string.alarm_pref_repeat_never);

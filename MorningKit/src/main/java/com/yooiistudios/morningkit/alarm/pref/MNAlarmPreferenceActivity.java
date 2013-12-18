@@ -113,7 +113,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         }
     }
 
-    private void initListView() {
+    protected void initListView() {
         listView.setAdapter(new MNAlarmPreferenceListAdapter(this, alarm));
 //        MNAlarmPrefActivityBusProvider.getInstance().register(this);
     }

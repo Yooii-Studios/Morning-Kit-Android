@@ -1,6 +1,9 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.util.SparseBooleanArray;
 import android.view.View;
 
 import com.yooiistudios.morningkit.MN;
@@ -12,6 +15,7 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarmRepeatString;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefRepeatItemMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
+import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
@@ -98,6 +102,8 @@ public class MNAlarmPrefRepeatItemMakerTest {
     }
 
     private void testEachRepeatItem(MNAlarmPreferenceActivity alarmPrefActivity, MNAlarm alarm) {
+        // 각 반복 아이템을 만들었을 경우 title 텍스튜와 detail 텍스트가 각각 원하는 결과가 나오는지 확인
+        // 특히 makeRepeatDetailString이 각각 이상적인 결과가 나오는지 확인, detailTextView에 적용이 되는지 확인
         View convertView = MNAlarmPrefRepeatItemMaker.makeRepeatItem(alarmPrefActivity, null, alarm);
         assertThat(convertView, notNullValue());
 
@@ -111,24 +117,78 @@ public class MNAlarmPrefRepeatItemMakerTest {
     @Test
     public void testRepeatDialog() throws Exception {
 
-//        alarmPrefActivity_edit.setAlarm(makeNonRepeatAlarm());
-/*
-        final String[] repeatStrings = new String[]{
-                alarmPrefActivity_edit.getString(R.string.every_monday),
-                alarmPrefActivity_edit.getString(R.string.every_tuesday),
-                alarmPrefActivity_edit.getString(R.string.every_wednesday),
-                alarmPrefActivity_edit.getString(R.string.every_thursday),
-                alarmPrefActivity_edit.getString(R.string.every_friday),
-                alarmPrefActivity_edit.getString(R.string.every_saturday),
-                alarmPrefActivity_edit.getString(R.string.every_sunday)};
+        Context context = alarmPrefActivity_edit;
 
-        final boolean[] isRepeatOn = new boolean[7];
-        for (int i = 0; i < isRepeatOn.length; i++) {
-            isRepeatOn[i] = alarmPrefActivity_edit.getAlarm().getAlarmRepeatList().get(i);
-        }
-        */
+        // 각 다이얼로그에서 월~금을 체크해서 확인하면 알람설정 액티비티의 알람 반복 ArrayList가 제대로 설정이 되어 있어야 함
+        // 해당 ArrayList로 String을 만들었을 경우 이상적인 결과가 나와야 함
+
+        // Weekends
+        alarmPrefActivity_edit.getAlarm().setAlarmRepeatList(makeNonRepeatAlarm().getAlarmRepeatList());
+        AlertDialog weekendsAlertDialog = MNAlarmPrefRepeatItemMaker.makeRepeatAlertDialog(context, alarmPrefActivity_edit.getAlarm());
+        weekendsAlertDialog.show();
+        weekendsAlertDialog.getListView().setItemChecked(5, true);
+        weekendsAlertDialog.getListView().setItemChecked(6, true);
+
+        boolean[] weekendsRepeats = getRepeatsFromAlertDialog(weekendsAlertDialog);
+        MNAlarmPrefBusProvider.getInstance().post(weekendsRepeats);
+        String weekendsString = MNAlarmRepeatString.makeRepeatDetailString(alarmPrefActivity_edit.getAlarm().getAlarmRepeatList(), context);
+        assertThat(weekendsString, is(context.getString(R.string.alarm_pref_repeat_weekends)));
+        weekendsAlertDialog.dismiss();
+
+        // Weekdays
+        alarmPrefActivity_edit.getAlarm().setAlarmRepeatList(makeNonRepeatAlarm().getAlarmRepeatList());
+        AlertDialog weekDaysAlertDialog = MNAlarmPrefRepeatItemMaker.makeRepeatAlertDialog(context, alarmPrefActivity_edit.getAlarm());
+        weekDaysAlertDialog.show();
+        weekDaysAlertDialog.getListView().setItemChecked(0, true);
+        weekDaysAlertDialog.getListView().setItemChecked(1, true);
+        weekDaysAlertDialog.getListView().setItemChecked(2, true);
+        weekDaysAlertDialog.getListView().setItemChecked(3, true);
+        weekDaysAlertDialog.getListView().setItemChecked(4, true);
+
+        boolean[] weekdaysRepeats = getRepeatsFromAlertDialog(weekDaysAlertDialog);
+        MNAlarmPrefBusProvider.getInstance().post(weekdaysRepeats);
+        String weekdaysString = MNAlarmRepeatString.makeRepeatDetailString(alarmPrefActivity_edit.getAlarm().getAlarmRepeatList(), context);
+        assertThat(weekdaysString, is(context.getString(R.string.alarm_pref_repeat_weekdays)));
+        weekDaysAlertDialog.dismiss();
+
+        // Everyday
+        alarmPrefActivity_edit.getAlarm().setAlarmRepeatList(makeNonRepeatAlarm().getAlarmRepeatList());
+        AlertDialog everydayAlertDialog = MNAlarmPrefRepeatItemMaker.makeRepeatAlertDialog(context, alarmPrefActivity_edit.getAlarm());
+        everydayAlertDialog.show();
+        everydayAlertDialog.getListView().setItemChecked(0, true);
+        everydayAlertDialog.getListView().setItemChecked(1, true);
+        everydayAlertDialog.getListView().setItemChecked(2, true);
+        everydayAlertDialog.getListView().setItemChecked(3, true);
+        everydayAlertDialog.getListView().setItemChecked(4, true);
+        everydayAlertDialog.getListView().setItemChecked(5, true);
+        everydayAlertDialog.getListView().setItemChecked(6, true);
+
+        boolean[] everydayRepeats = getRepeatsFromAlertDialog(everydayAlertDialog);
+        MNAlarmPrefBusProvider.getInstance().post(everydayRepeats);
+        String everydayString = MNAlarmRepeatString.makeRepeatDetailString(alarmPrefActivity_edit.getAlarm().getAlarmRepeatList(), context);
+        assertThat(everydayString, is(context.getString(R.string.alarm_pref_repeat_everyday)));
+        everydayAlertDialog.dismiss();
     }
 
+    private boolean[] getRepeatsFromAlertDialog(AlertDialog alertDialog) {
+        SparseBooleanArray repeatArray = alertDialog.getListView().getCheckedItemPositions();
+        boolean[] repeats = new boolean[7];
+        for (int i = 0; i < repeats.length; i++) {
+            repeats[i] = repeatArray.get(i);
+        }
+        return repeats;
+    }
+
+    @Test
+    public void testAddAlarmPreferenceActivity() throws Exception {
+        // 알람을 추가할 경우에는 알람의 반복이 비어 있어야 함
+        String repeatString = MNAlarmRepeatString.makeRepeatDetailString(alarmPrefActivity_add.getAlarm().getAlarmRepeatList(), alarmPrefActivity_add);
+        assertThat(repeatString, is("Never"));
+    }
+
+    /**
+     * Making dummy alarms
+     */
     private MNAlarm makeNonRepeatAlarm() {
         MNAlarm nonRepeatAlarm = MNAlarmMaker.makeAlarm(alarmPrefActivity_edit);
         for (int i = 0; i < nonRepeatAlarm.getAlarmRepeatList().size(); i++) {
