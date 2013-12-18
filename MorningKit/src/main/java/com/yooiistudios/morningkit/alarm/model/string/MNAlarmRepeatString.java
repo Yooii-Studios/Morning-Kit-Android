@@ -1,6 +1,11 @@
 package com.yooiistudios.morningkit.alarm.model.string;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 
 import com.yooiistudios.morningkit.R;
 
@@ -27,6 +32,7 @@ public class MNAlarmRepeatString {
         return repeatCheckerBuilder.toString();
     }
 
+    // This is for MNAlarmPreferenceActivity
     public static String makeRepeatDetailString(ArrayList<Boolean> alarmRepeatList, Context context) {
         String repeatChecker = makeRepeatCheckerString(alarmRepeatList);
 
@@ -79,5 +85,46 @@ public class MNAlarmRepeatString {
             }
             return repeatDetailStringBuilder.toString();
         }
+    }
+
+    // This is for MNAlarmListView
+    public static SpannableString makeShortRepeatString(ArrayList<Boolean> alarmRepeatList, Context context) {
+        String repeatChecker = makeRepeatCheckerString(alarmRepeatList);
+        SpannableString shortRepeatSpannableString;
+
+        if (repeatChecker.equals("")) {
+            shortRepeatSpannableString = new SpannableString("");
+        } else if (repeatChecker.equals("0123456")) {
+            shortRepeatSpannableString = new SpannableString("/ " + context.getString(R.string.alarm_pref_repeat_everyday));
+            shortRepeatSpannableString.setSpan(new ForegroundColorSpan(Color.CYAN), 0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else if (repeatChecker.equals("01234")) {
+            shortRepeatSpannableString = new SpannableString("/ " + context.getString(R.string.alarm_pref_repeat_weekdays));
+            shortRepeatSpannableString.setSpan(new ForegroundColorSpan(Color.CYAN), 0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else if (repeatChecker.equals("56")) {
+            shortRepeatSpannableString = new SpannableString("/ " + context.getString(R.string.alarm_pref_repeat_weekends));
+            shortRepeatSpannableString.setSpan(new ForegroundColorSpan(Color.CYAN), 0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else {
+            Log.i(TAG, "repeatChecker: " + repeatChecker);
+            shortRepeatSpannableString =
+                    new SpannableString("/ "
+                            + context.getString(R.string.monday_short) + " "
+                            + context.getString(R.string.tuesday_short) + " "
+                            + context.getString(R.string.wednesday_short) + " "
+                            + context.getString(R.string.thursday_short) + " "
+                            + context.getString(R.string.friday_short) + " "
+                            + context.getString(R.string.saturday_short) + " "
+                            + context.getString(R.string.sunday_short));
+
+            for (int i = 0; i < alarmRepeatList.size(); i++) {
+                // 맨 앞의 "/ "가 2만큼 차지 -> 2, 4, 6, 8 ...
+                int index = (i + 1) * 2;
+                if (alarmRepeatList.get(i)) {
+                    shortRepeatSpannableString.setSpan(new ForegroundColorSpan(Color.CYAN), index, index + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                } else {
+                    shortRepeatSpannableString.setSpan(new ForegroundColorSpan(Color.GRAY), index, index + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            }
+        }
+        return shortRepeatSpannableString;
     }
 }

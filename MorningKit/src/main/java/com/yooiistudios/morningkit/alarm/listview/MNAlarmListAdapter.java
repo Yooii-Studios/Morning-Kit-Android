@@ -15,6 +15,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemScrollView;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
+import com.yooiistudios.morningkit.alarm.model.string.MNAlarmRepeatString;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmTimeString;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 
@@ -81,7 +82,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
                 initAmPmTextView(alarmItemViewHolder);
 
                 // Repeat
-                initRepeatTextView(alarmItemViewHolder);
+                initRepeatTextView(alarmItemViewHolder, alarm);
 
                 // Label
                 initLabelTextView(alarm, alarmItemViewHolder);
@@ -122,17 +123,19 @@ public class MNAlarmListAdapter extends BaseAdapter {
         }
     }
 
-    private void initRepeatTextView(MNAlarmItemViewHolder alarmItemViewHolder) {
+    private void initRepeatTextView(MNAlarmItemViewHolder alarmItemViewHolder, MNAlarm alarm) {
         RelativeLayout.LayoutParams repeatTextViewLayoutParams = (RelativeLayout.LayoutParams) alarmItemViewHolder.repeatTextView.getLayoutParams();
         if (DateFormat.is24HourFormat(context)) {
             repeatTextViewLayoutParams.addRule(RelativeLayout.RIGHT_OF, R.id.alarm_item_time_textview);
         } else {
             repeatTextViewLayoutParams.addRule(RelativeLayout.RIGHT_OF, R.id.alarm_item_ampm_textview);
         }
+        alarmItemViewHolder.repeatTextView.setText(MNAlarmRepeatString.makeShortRepeatString(alarm.getAlarmRepeatList(), context));
     }
 
     private void initLabelTextView(MNAlarm alarm, MNAlarmItemViewHolder alarmItemViewHolder) {
         alarmItemViewHolder.labelTextView.setText(alarm.getAlarmLabel());
+        alarmItemViewHolder.labelTextView.setSelected(true);
     }
 
     private void initSwitchButton(MNAlarm alarm, MNAlarmItemViewHolder alarmViewHolder) {
@@ -191,7 +194,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
         @InjectView(R.id.alarm_item_time_textview)          TextView        timeTextView;
         @InjectView(R.id.alarm_item_ampm_textview)          TextView        ampmTextView;
         @InjectView(R.id.alarm_item_repeat_textview)        TextView        repeatTextView;
-        @InjectView(R.id.alarm_item_alarm_label_textview)   TextView        labelTextView;
+        @InjectView(R.id.alarm_item_label_textview)   TextView        labelTextView;
         @InjectView(R.id.alarm_item_dividing_bar_imageview) ImageView       dividingBarImageView;
         @InjectView(R.id.alarm_item_switch_imagebutton)     ImageButton     switchImageButton;
 
