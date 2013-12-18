@@ -5,14 +5,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmRepeatString;
+import com.yooiistudios.morningkit.alarm.model.string.MNAlarmRepeatString;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 
 /**

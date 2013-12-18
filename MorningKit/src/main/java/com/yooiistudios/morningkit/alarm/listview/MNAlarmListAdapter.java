@@ -1,8 +1,6 @@
 package com.yooiistudios.morningkit.alarm.listview;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +10,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemScrollView;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
+
+import java.util.Calendar;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -71,30 +70,23 @@ public class MNAlarmListAdapter extends BaseAdapter {
                 convertView.setLongClickable(false);
 
                 // MNAlarmItemViewHolder
-                MNAlarmItemViewHolder alarmViewHolder = new MNAlarmItemViewHolder(convertView);
+                MNAlarmItemViewHolder alarmItemViewHolder = new MNAlarmItemViewHolder(convertView);
 
-                // Alarm Switch Button
-//                final ImageButton alarmSwitchButton = (ImageButton) convertView.findViewById(R.id.alarm_item_switch_imagebutton);
-//                final ImageButton alarmSwitchButton = ButterKnife.findById(convertView, R.id.alarm_item_switch_imagebutton);
-                final ImageButton alarmSwitchButton = alarmViewHolder.alarmSwitchImageButton;
-                if (alarm.isAlarmOn()) {
-                    alarmSwitchButton.setSelected(true);
-                }else{
-                    alarmSwitchButton.setSelected(false);
-                }
-                alarmSwitchButton.setTag(alarm);
-                alarmSwitchButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (alarmSwitchButton.isSelected()) {
-                            alarmSwitchButton.setSelected(false);
-                        } else {
-                            alarmSwitchButton.setSelected(true);
-                        }
-                    }
-                });
+                // Alarm Time
+                int hourOfDay = alarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY);
+                int minute = alarm.getAlarmCalendar().get(Calendar.MINUTE);
+//                alarmViewHolder.timeTextView.setText(MNAlarmTimeString.makeTimeString(hourOfDay, minute, context));
+
+                // AM / PM
+
+                // Repeat
+
+                // Label
+                alarmItemViewHolder.labelTextView.setText(alarm.getAlarmLabel());
+
+                // Switch Button
+                initAlarmSwitchButton(alarm, alarmItemViewHolder);
             }
-//            return alarmItemScrollView;
             return MNAlarmItemScrollView.newInstance(context, position, convertView);
 
         }else{
@@ -110,6 +102,26 @@ public class MNAlarmListAdapter extends BaseAdapter {
             }
             return convertView;
         }
+    }
+
+    private void initAlarmSwitchButton(MNAlarm alarm, MNAlarmItemViewHolder alarmViewHolder) {
+        final ImageButton alarmSwitchButton = alarmViewHolder.switchImageButton;
+        if (alarm.isAlarmOn()) {
+            alarmSwitchButton.setSelected(true);
+        }else{
+            alarmSwitchButton.setSelected(false);
+        }
+        alarmSwitchButton.setTag(alarm);
+        alarmSwitchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (alarmSwitchButton.isSelected()) {
+                    alarmSwitchButton.setSelected(false);
+                } else {
+                    alarmSwitchButton.setSelected(true);
+                }
+            }
+        });
     }
 
     @Override
@@ -147,9 +159,9 @@ public class MNAlarmListAdapter extends BaseAdapter {
         @InjectView(R.id.alarm_item_inner_layout)           RelativeLayout  innerLayout;
         @InjectView(R.id.alarm_item_time_textview)          TextView        timeTextView;
         @InjectView(R.id.alarm_item_repeat_textview)        TextView        repeatTextView;
-        @InjectView(R.id.alarm_item_alarm_label_textview)   TextView        alarmLabelTextView;
+        @InjectView(R.id.alarm_item_alarm_label_textview)   TextView        labelTextView;
         @InjectView(R.id.alarm_item_dividing_bar_imageview) ImageView       dividingBarImageView;
-        @InjectView(R.id.alarm_item_switch_imagebutton)     ImageButton     alarmSwitchImageButton;
+        @InjectView(R.id.alarm_item_switch_imagebutton)     ImageButton     switchImageButton;
 
         public MNAlarmItemViewHolder(View view) {
             ButterKnife.inject(this, view);

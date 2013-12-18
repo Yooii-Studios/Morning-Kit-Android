@@ -11,7 +11,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmRepeatString;
+import com.yooiistudios.morningkit.alarm.model.string.MNAlarmRepeatString;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefRepeatItemMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
