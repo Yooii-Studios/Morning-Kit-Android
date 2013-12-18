@@ -14,6 +14,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemScrollView;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
+import com.yooiistudios.morningkit.alarm.model.string.MNAlarmTimeString;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 
 import java.util.Calendar;
@@ -72,10 +73,10 @@ public class MNAlarmListAdapter extends BaseAdapter {
                 // MNAlarmItemViewHolder
                 MNAlarmItemViewHolder alarmItemViewHolder = new MNAlarmItemViewHolder(convertView);
 
+                // Background
+
                 // Alarm Time
-                int hourOfDay = alarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY);
-                int minute = alarm.getAlarmCalendar().get(Calendar.MINUTE);
-//                alarmViewHolder.timeTextView.setText(MNAlarmTimeString.makeTimeString(hourOfDay, minute, context));
+                alarmItemViewHolder.timeTextView.setText(MNAlarmTimeString.makeTimeString(alarm.getAlarmCalendar(), context));
 
                 // AM / PM
 
@@ -83,6 +84,8 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
                 // Label
                 alarmItemViewHolder.labelTextView.setText(alarm.getAlarmLabel());
+
+                // Dividing Bar
 
                 // Switch Button
                 initAlarmSwitchButton(alarm, alarmItemViewHolder);
