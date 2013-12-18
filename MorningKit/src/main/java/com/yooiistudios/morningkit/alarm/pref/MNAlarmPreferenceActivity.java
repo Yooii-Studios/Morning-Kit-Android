@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.squareup.otto.Subscribe;
+import com.urqa.clientinterface.URQAController;
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
@@ -47,6 +48,8 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_pref);
+        // UrQA 라이브러리 추가
+        URQAController.InitializeAndStartSession(getApplicationContext(), String.valueOf(72369777));
         initAlarmPreferenceActivity();
     }
 
