@@ -1,6 +1,5 @@
 package com.yooiistudios.morningkit.alarm.listview;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -18,8 +17,6 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmTimeString;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
-
-import java.util.Calendar;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -78,26 +75,21 @@ public class MNAlarmListAdapter extends BaseAdapter {
                 // Background
 
                 // Alarm Time
-                alarmItemViewHolder.timeTextView.setText(MNAlarmTimeString.makeTimeString(alarm.getAlarmCalendar(), context));
+                initTimeTextView(alarm, alarmItemViewHolder);
 
                 // AM / PM
-                if (DateFormat.is24HourFormat(context)) {
-                    // 24시간제면 width를 0으로 조정,
-                    alarmItemViewHolder.ampmTextView.getLayoutParams().width = 0;
-                } else {
-                    // wrap_content
-                    alarmItemViewHolder.ampmTextView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                }
+                initAmPmTextView(alarmItemViewHolder);
 
                 // Repeat
+                initRepeatTextView(alarmItemViewHolder);
 
                 // Label
-                alarmItemViewHolder.labelTextView.setText(alarm.getAlarmLabel());
+                initLabelTextView(alarm, alarmItemViewHolder);
 
                 // Dividing Bar
 
                 // Switch Button
-                initAlarmSwitchButton(alarm, alarmItemViewHolder);
+                initSwitchButton(alarm, alarmItemViewHolder);
             }
             return MNAlarmItemScrollView.newInstance(context, position, convertView);
 
@@ -116,7 +108,34 @@ public class MNAlarmListAdapter extends BaseAdapter {
         }
     }
 
-    private void initAlarmSwitchButton(MNAlarm alarm, MNAlarmItemViewHolder alarmViewHolder) {
+    private void initTimeTextView(MNAlarm alarm, MNAlarmItemViewHolder alarmItemViewHolder) {
+        alarmItemViewHolder.timeTextView.setText(MNAlarmTimeString.makeTimeString(alarm.getAlarmCalendar(), context));
+    }
+
+    private void initAmPmTextView(MNAlarmItemViewHolder alarmItemViewHolder) {
+        if (DateFormat.is24HourFormat(context)) {
+            // 24시간제면 width를 0으로 조정,
+            alarmItemViewHolder.ampmTextView.getLayoutParams().width = 0;
+        } else {
+            // wrap_content
+            alarmItemViewHolder.ampmTextView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        }
+    }
+
+    private void initRepeatTextView(MNAlarmItemViewHolder alarmItemViewHolder) {
+        RelativeLayout.LayoutParams repeatTextViewLayoutParams = (RelativeLayout.LayoutParams) alarmItemViewHolder.repeatTextView.getLayoutParams();
+        if (DateFormat.is24HourFormat(context)) {
+            repeatTextViewLayoutParams.addRule(RelativeLayout.RIGHT_OF, R.id.alarm_item_time_textview);
+        } else {
+            repeatTextViewLayoutParams.addRule(RelativeLayout.RIGHT_OF, R.id.alarm_item_ampm_textview);
+        }
+    }
+
+    private void initLabelTextView(MNAlarm alarm, MNAlarmItemViewHolder alarmItemViewHolder) {
+        alarmItemViewHolder.labelTextView.setText(alarm.getAlarmLabel());
+    }
+
+    private void initSwitchButton(MNAlarm alarm, MNAlarmItemViewHolder alarmViewHolder) {
         final ImageButton alarmSwitchButton = alarmViewHolder.switchImageButton;
         if (alarm.isAlarmOn()) {
             alarmSwitchButton.setSelected(true);
