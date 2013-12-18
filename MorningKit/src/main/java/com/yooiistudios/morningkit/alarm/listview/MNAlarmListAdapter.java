@@ -1,6 +1,8 @@
 package com.yooiistudios.morningkit.alarm.listview;
 
+import android.app.ActionBar;
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +81,13 @@ public class MNAlarmListAdapter extends BaseAdapter {
                 alarmItemViewHolder.timeTextView.setText(MNAlarmTimeString.makeTimeString(alarm.getAlarmCalendar(), context));
 
                 // AM / PM
+                if (DateFormat.is24HourFormat(context)) {
+                    // 24시간제면 width를 0으로 조정,
+                    alarmItemViewHolder.ampmTextView.getLayoutParams().width = 0;
+                } else {
+                    // wrap_content
+                    alarmItemViewHolder.ampmTextView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                }
 
                 // Repeat
 
@@ -161,6 +170,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
         @InjectView(R.id.alarm_item_outer_layout)           RelativeLayout  outerLayout;
         @InjectView(R.id.alarm_item_inner_layout)           RelativeLayout  innerLayout;
         @InjectView(R.id.alarm_item_time_textview)          TextView        timeTextView;
+        @InjectView(R.id.alarm_item_ampm_textview)          TextView        ampmTextView;
         @InjectView(R.id.alarm_item_repeat_textview)        TextView        repeatTextView;
         @InjectView(R.id.alarm_item_alarm_label_textview)   TextView        labelTextView;
         @InjectView(R.id.alarm_item_dividing_bar_imageview) ImageView       dividingBarImageView;
