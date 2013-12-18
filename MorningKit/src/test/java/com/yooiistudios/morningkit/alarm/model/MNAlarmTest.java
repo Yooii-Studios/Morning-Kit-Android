@@ -1,22 +1,16 @@
 package com.yooiistudios.morningkit.alarm.model;
 
-import android.util.Log;
-
-import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowAudioManager;
-import org.robolectric.shadows.ShadowContextWrapper;
 import org.robolectric.shadows.ShadowLog;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 //import static org.junit.matchers.JUnitMatchers.*;
 
 /**

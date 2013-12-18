@@ -7,7 +7,7 @@ package com.yooiistudios.morningkit.alarm.pref.listview;
  *  순서의 수정의 용이성을 위해 enum으로 선언
  */
 public enum MNAlarmPrefListItemType {
-    TIME, REPEAT, LABEL, SOUND, SNOOZE, ; // SOUND_NAME,
+    TIME, REPEAT, LABEL, SOUND, SNOOZE; // SOUND_NAME,
 
 //    @Getter private final int index;
 //    MNAlarmPrefListItemType(int index) {
