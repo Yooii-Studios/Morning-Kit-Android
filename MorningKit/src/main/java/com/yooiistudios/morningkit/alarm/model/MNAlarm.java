@@ -48,10 +48,11 @@ public class MNAlarm implements Serializable, Cloneable {
     }
 
     public void stopAlarm() {
-
+        isAlarmOn = false;
     }
 
     public void startAlarm() {
+        isAlarmOn = true;
         // 현재 시간과 비교하여 오늘, 내일 판단하기
         /*
         Calendar currentTimeCalendar = Calendar.getInstance();
