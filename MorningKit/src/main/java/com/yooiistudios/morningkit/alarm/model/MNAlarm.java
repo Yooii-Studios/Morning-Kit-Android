@@ -1,5 +1,8 @@
 package com.yooiistudios.morningkit.alarm.model;
 
+import android.app.PendingIntent;
+import android.content.Context;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,8 +50,10 @@ public class MNAlarm implements Serializable, Cloneable {
         return alarm;
     }
 
-    public void stopAlarm() {
+    public void stopAlarm(Context context) {
         isAlarmOn = false;
+
+        PendingIntent sender = PendingIntent.getActivity(context, alarmId, null, PendingIntent.FLAG_ONE_SHOT);
     }
 
     public void startAlarm() {
