@@ -150,10 +150,10 @@ public class MNAlarmListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (alarmSwitchButton.isSelected()) {
                     alarmSwitchButton.setSelected(false);
-                    alarm.stopAlarm();
+                    alarm.stopAlarm(context);
                 } else {
                     alarmSwitchButton.setSelected(true);
-                    alarm.startAlarm();
+                    alarm.startAlarm(context);
                 }
                 // Theme
                 initThemeOfAlarmViewHolder(alarm, alarmItemViewHolder);

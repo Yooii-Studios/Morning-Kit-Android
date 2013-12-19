@@ -56,7 +56,7 @@ public class MNAlarm implements Serializable, Cloneable {
         PendingIntent sender = PendingIntent.getActivity(context, alarmId, null, PendingIntent.FLAG_ONE_SHOT);
     }
 
-    public void startAlarm() {
+    public void startAlarm(Context context) {
         isAlarmOn = true;
         // 현재 시간과 비교하여 오늘, 내일 판단하기
         /*

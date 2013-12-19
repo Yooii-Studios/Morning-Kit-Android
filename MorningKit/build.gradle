@@ -16,6 +16,10 @@ apply plugin: 'android'
 
 repositories {
     mavenCentral()
+    mavenLocal()
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
 }
 
 android {
@@ -42,13 +46,6 @@ apply plugin: 'android-unit-test'
 //}
 
 dependencies {
-    repositories {
-        mavenCentral()
-        mavenLocal()
-        maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots/'
-        }
-    }
     // 안드로이드 기본
     compile 'com.android.support:support-v4:+'
 	compile 'com.android.support:appcompat-v7:+'
