@@ -35,7 +35,6 @@ public class MNAlarmListAdapter extends BaseAdapter {
     private static final String TAG = "MNAlarmListAdapter";
     private Context context;
     private View.OnClickListener alarmItemClickListener;
-//    private MNAlarmListAdapterType type;
 
     private MNAlarmListAdapter() {}
     public MNAlarmListAdapter(Context context, View.OnClickListener alarmItemClickListener) {
@@ -54,17 +53,6 @@ public class MNAlarmListAdapter extends BaseAdapter {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            // recycle convertView - 나중에 필요해지면 사용하자
-//            if (convertView == null || convertView.getId() != R.layout.alarm_item) {
-//                convertView = LayoutInflater.from(context).inflate(R.layout.alarm_item, parent, false);
-//                if (convertView != null && alarm != null) {
-//                    convertView.setTag(alarm);
-//                    convertView.setId(R.layout.alarm_item);
-//                }
-//            }else{
-//                Log.i(TAG, "recycle convertView");
-//            }
 
             // changed code to 'Butter Knife' code
             convertView = LayoutInflater.from(context).inflate(R.layout.alarm_item, parent, false);
