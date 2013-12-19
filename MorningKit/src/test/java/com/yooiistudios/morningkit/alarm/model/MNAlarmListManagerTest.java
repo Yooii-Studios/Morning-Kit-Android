@@ -146,7 +146,37 @@ public class MNAlarmListManagerTest {
      * Sort
      */
     @Test
-    public void sortAlarmListTest() {
+    public void sortAlarmListTest() throws Exception {
+        Context context = mainActivity;
 
+        // 지우면 6:30 / 7:00 두 개가 있음
+        MNAlarmListManager.removeAlarmList(context);
+        MNAlarm alarm_06_30 = MNAlarmListManager.getAlarmList(context).get(0);
+        assertThat(MNAlarmComparator.makeComparator(alarm_06_30), is(630));
+
+        MNAlarm alarm_07_00 = MNAlarmListManager.getAlarmList(context).get(1);
+        assertThat(MNAlarmComparator.makeComparator(alarm_07_00), is(700));
+
+        MNAlarm alarm_14_15 = MNAlarmMaker.makeAlarmWithTime(context, 14, 15);
+        assertThat(MNAlarmComparator.makeComparator(alarm_14_15), is(1415));
+        MNAlarmListManager.addAlarmToAlarmList(alarm_14_15, context);
+
+        MNAlarm alarm_00_00 = MNAlarmMaker.makeAlarmWithTime(context, 0, 0);
+        assertThat(MNAlarmComparator.makeComparator(alarm_00_00), is(0));
+        MNAlarmListManager.addAlarmToAlarmList(alarm_00_00, context);
+
+        MNAlarm alarm_03_01 = MNAlarmMaker.makeAlarmWithTime(context, 3, 1);
+        assertThat(MNAlarmComparator.makeComparator(alarm_03_01), is(301));
+        MNAlarmListManager.addAlarmToAlarmList(alarm_03_01, context);
+
+        assertThat(MNAlarmListManager.getAlarmList(context).size(), is(5));
+
+        // 소팅
+        MNAlarmListManager.sortAlarmList(context);
+
+        // 이상적인 순서: 00:00 / 03:01 / 06:30 / 07:00 / 14:15
+        assertThat(MNAlarmListManager.getAlarmList(context).get(0).getAlarmId(), is(alarm_00_00.getAlarmId()));
+        assertThat(MNAlarmListManager.getAlarmList(context).get(1).getAlarmId(), is(alarm_03_01.getAlarmId()));
+        assertThat(MNAlarmListManager.getAlarmList(context).get(4).getAlarmId(), is(alarm_14_15.getAlarmId()));
     }
 }

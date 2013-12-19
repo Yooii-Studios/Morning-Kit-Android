@@ -47,13 +47,6 @@ public class MNAlarmTest {
     }
 
     @Test
-    // 알람 생성 테스트
-    public void alarmGetInstanceTest() {
-        assertThat(MNAlarm.getInstance(30, alarmList), notNullValue());
-        assertThat(MNAlarm.getInstance(38, alarmList), notNullValue());
-    }
-
-    @Test
     public void startNonRepeatAlarmTest() {
         // Calendar 시간 비교해서 오늘, 내일 제대로 적용 되는지 테스트
 

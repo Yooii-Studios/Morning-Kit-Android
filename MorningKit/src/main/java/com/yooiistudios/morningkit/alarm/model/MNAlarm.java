@@ -47,22 +47,6 @@ public class MNAlarm implements Serializable, Cloneable {
         return alarm;
     }
 
-    /**
-     * get MNAlarm instance with specific alarmId from alarmList
-     * @param alarmId unique identifier for MNAlarm
-     * @param alarmList ArrayList that contains MNAlarm
-     * @return MNAlarm
-     */
-    public static MNAlarm getInstance(int alarmId, ArrayList<MNAlarm> alarmList) {
-        MNAlarm alarmToFind = null;
-        for (MNAlarm alarm : alarmList ) {
-            if (alarm.alarmId == alarmId) {
-                alarmToFind = alarm;
-            }
-        }
-        return alarmToFind;
-    }
-
     public void stopAlarm() {
 
     }
@@ -101,63 +85,4 @@ public class MNAlarm implements Serializable, Cloneable {
                 isAlarmOn ? "Yes" : "No",
                 isRepeatOn ? "Yes" : "No");
     }
-
-    /**
-     * Getter and Setter
-     */
-//    public boolean isAlarmOn() {
-//        return isAlarmOn;
-//    }
-//
-//    public void setAlarmOn(boolean isAlarmOn) {
-//        this.isAlarmOn = isAlarmOn;
-//    }
-//
-//    public boolean isSnoozeOn() {
-//        return isSnoozeOn;
-//    }
-//
-//    public void setSnoozeOn(boolean isSnoozeOn) {
-//        this.isSnoozeOn = isSnoozeOn;
-//    }
-//
-//    public boolean isRepeatOn() {
-//        return isRepeatOn;
-//    }
-//
-//    public void setRepeatOn(boolean isRepeatOn) {
-//        this.isRepeatOn = isRepeatOn;
-//    }
-//
-//    public ArrayList<Boolean> getAlarmRepeatOnOfWeek() {
-//        return alarmRepeatOnOfWeek;
-//    }
-//
-//    public void setAlarmRepeatOnOfWeek(ArrayList<Boolean> alarmRepeatOnOfWeek) {
-//        this.alarmRepeatOnOfWeek = alarmRepeatOnOfWeek;
-//    }
-//
-//    public String getAlarmLabel() {
-//        return alarmLabel;
-//    }
-//
-//    public void setAlarmLabel(String alarmLabel) {
-//        this.alarmLabel = alarmLabel;
-//    }
-//
-//    public int getAlarmId() {
-//        return alarmId;
-//    }
-//
-//    public void setAlarmId(int alarmId) {
-//        this.alarmId = alarmId;
-//    }
-//
-//    public Calendar getAlarmCalendar() {
-//        return alarmCalendar;
-//    }
-//
-//    public void setAlarmCalendar(Calendar alarmCalendar) {
-//        this.alarmCalendar = alarmCalendar;
-//    }
 }
