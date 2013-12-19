@@ -8,6 +8,7 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.theme.MNColor;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 16.
  *
  * MNAlarmRepeatString
+ *  반복 값이 있는 ArrrayList<Boolean> -> String
  */
 public class MNAlarmRepeatString {
     private static final String TAG = "MNAlarmRepeatString";
@@ -96,15 +98,14 @@ public class MNAlarmRepeatString {
             shortRepeatSpannableString = new SpannableString("");
         } else if (repeatChecker.equals("0123456")) {
             shortRepeatSpannableString = new SpannableString("/ " + context.getString(R.string.alarm_pref_repeat_everyday));
-            shortRepeatSpannableString.setSpan(new ForegroundColorSpan(Color.CYAN), 0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            shortRepeatSpannableString.setSpan(new ForegroundColorSpan(MNColor.getAlarmMainFontColor()), 0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else if (repeatChecker.equals("01234")) {
             shortRepeatSpannableString = new SpannableString("/ " + context.getString(R.string.alarm_pref_repeat_weekdays));
-            shortRepeatSpannableString.setSpan(new ForegroundColorSpan(Color.CYAN), 0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            shortRepeatSpannableString.setSpan(new ForegroundColorSpan(MNColor.getAlarmMainFontColor()), 0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else if (repeatChecker.equals("56")) {
             shortRepeatSpannableString = new SpannableString("/ " + context.getString(R.string.alarm_pref_repeat_weekends));
-            shortRepeatSpannableString.setSpan(new ForegroundColorSpan(Color.CYAN), 0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            shortRepeatSpannableString.setSpan(new ForegroundColorSpan(MNColor.getAlarmMainFontColor()), 0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
-            Log.i(TAG, "repeatChecker: " + repeatChecker);
             shortRepeatSpannableString =
                     new SpannableString("/ "
                             + context.getString(R.string.monday_short) + " "
@@ -119,9 +120,9 @@ public class MNAlarmRepeatString {
                 // 맨 앞의 "/ "가 2만큼 차지 -> 2, 4, 6, 8 ...
                 int index = (i + 1) * 2;
                 if (alarmRepeatList.get(i)) {
-                    shortRepeatSpannableString.setSpan(new ForegroundColorSpan(Color.CYAN), index, index + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    shortRepeatSpannableString.setSpan(new ForegroundColorSpan(MNColor.getAlarmMainFontColor()), index, index + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 } else {
-                    shortRepeatSpannableString.setSpan(new ForegroundColorSpan(Color.GRAY), index, index + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    shortRepeatSpannableString.setSpan(new ForegroundColorSpan(MNColor.getAlarmSubFontColor()), index, index + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             }
         }

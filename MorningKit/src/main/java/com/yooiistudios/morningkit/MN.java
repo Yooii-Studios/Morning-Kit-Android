@@ -117,57 +117,27 @@ public final class MN {
     }
 
     public final static class generalSetting {
-        public final static class BackGroundColor {
-            public final static int DEFAULT = 0;
-            public final static int WHITE = 1;
-            public final static int LIGHT_GRAY = 2;
-            public final static int GRAY = 3;
-            public final static int BLACK = 4;
-            public final static int RED = 5;
-            public final static int ORANGE = 6;
-            public final static int YELLOW = 7;
-            public final static int GREEN = 8;
-            public final static int BLUE = 9;
-            public final static int INDIGO = 10;
-            public final static int PURPLE = 11;
-        }
-
-        public final static class MainFontColor {
-            public final static int WHITE = 0;
-            public final static int GRAY = 1;
-            public final static int BLACK = 2;
-            public final static int RED = 3;
-            public final static int BLUE = 4;
-            public final static int YELLOW = 5;
-            public final static int GREEN = 6;
-            public final static int PINK = 7;
-
-        }
-
-        public final static class SubFontColor {
-            public final static int WHITE = 0;
-            public final static int GRAY = 1;
-            public final static int BLACK = 2;
-            public final static int RED = 3;
-            public final static int BLUE = 4;
-            public final static int YELLOW = 5;
-            public final static int GREEN = 6;
-            public final static int PINK = 7;
-        }
-
         public final static class Language {
 
             public final static int Default = -1;
         }
+    }
 
-        public final static class Theme {
-            public final static String SHARED_PREFS_FILE = "Theme_SHARED_PREFS_FILE";
-            public final static String CAMERA_FACING_INFO = "CAMERA_FACING_INFO";
-            public final static int REQ_CODE_PICK_IMAGE_PORTRAIT = 0;
-            public final static int REQ_CODE_PICK_IMAGE_LANDSCAPE = 1;
-            public final static int REQ_CROP_FROM_CAMERA_PORTRAIT = 2;
-            public final static int REQ_CROP_FROM_CAMERA_LANDSCAPE = 3;
-        }
+    public final static class theme {
+        public final static String SHARED_PREFS_FILE = "Theme_SHARED_PREFS_FILE";
+        public final static String CAMERA_FACING_INFO = "CAMERA_FACING_INFO";
+        public final static int REQ_CODE_PICK_IMAGE_PORTRAIT = 0;
+        public final static int REQ_CODE_PICK_IMAGE_LANDSCAPE = 1;
+        public final static int REQ_CROP_FROM_CAMERA_PORTRAIT = 2;
+        public final static int REQ_CROP_FROM_CAMERA_LANDSCAPE = 3;
+
+        public final static int WATER_LILY_ID = 0;
+        public final static int TRANQUILITY_BACK_CAMERA_ID = 1;
+        public final static int REFLECTION_FRONT_CAMERA_ID = 2;
+        public final static int PHOTO_ID = 3;
+        public final static int MODERNITY_WHITE_ID = 4;
+        public final static int SLATE_GRAY_ID = 5;
+        public final static int CELESTIAL_SKY_BLUE_ID = 6;
     }
 }
 
