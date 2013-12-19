@@ -169,6 +169,7 @@ public class MNAlarmListManagerTest {
         assertThat(MNAlarmComparator.makeComparator(alarm_03_01), is(301));
         MNAlarmListManager.addAlarmToAlarmList(alarm_03_01, context);
 
+        // 기존 2개 알람에 3개 추가해 총 5개임을 확인
         assertThat(MNAlarmListManager.getAlarmList(context).size(), is(5));
 
         // 소팅
