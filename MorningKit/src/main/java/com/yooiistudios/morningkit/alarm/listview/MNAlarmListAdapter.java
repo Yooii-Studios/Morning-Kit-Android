@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemScrollView;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
+import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmRepeatString;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmTimeString;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;

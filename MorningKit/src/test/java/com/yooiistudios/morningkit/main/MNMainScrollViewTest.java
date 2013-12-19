@@ -4,7 +4,7 @@ import android.content.res.Configuration;
 import android.widget.RelativeLayout;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
+import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 

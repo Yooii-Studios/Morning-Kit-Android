@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.util.Log;
 
-import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
+import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
+import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
