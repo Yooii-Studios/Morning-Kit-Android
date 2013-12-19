@@ -2,7 +2,7 @@ package com.yooiistudios.morningkit.alarm.model;
 
 import android.content.Context;
 
-import com.yooiistudios.morningkit.MN;
+import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmTimeString;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.MNMainActivity;
