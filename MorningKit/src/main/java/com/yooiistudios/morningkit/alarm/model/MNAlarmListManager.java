@@ -186,7 +186,6 @@ public class MNAlarmListManager {
      */
     public static int findIndexOfAlarmById(int targetAlarmId, Context context) {
         if (targetAlarmId != -1) {
-            MNAlarm targetAlarm = null;
             ArrayList<MNAlarm> alarmList = MNAlarmListManager.getAlarmList(context);
             for (int i=0; i<alarmList.size(); i++) {
                 MNAlarm alarm = alarmList.get(i);
