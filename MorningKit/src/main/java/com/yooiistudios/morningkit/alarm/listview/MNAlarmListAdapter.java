@@ -20,6 +20,8 @@ import com.yooiistudios.morningkit.alarm.model.string.MNAlarmTimeString;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.theme.MNColor;
 
+import java.util.Calendar;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -80,10 +82,10 @@ public class MNAlarmListAdapter extends BaseAdapter {
                 initTimeTextView(alarm, alarmItemViewHolder);
 
                 // AM / PM
-                initAmPmTextView(alarmItemViewHolder);
+                initAmPmTextView(alarm, alarmItemViewHolder);
 
                 // Repeat
-                initRepeatTextView(alarmItemViewHolder, alarm);
+                initRepeatTextView(alarmItemViewHolder);
 
                 // Label
                 initLabelTextView(alarm, alarmItemViewHolder);
@@ -117,17 +119,22 @@ public class MNAlarmListAdapter extends BaseAdapter {
         alarmItemViewHolder.timeTextView.setText(MNAlarmTimeString.makeTimeString(alarm.getAlarmCalendar(), context));
     }
 
-    private void initAmPmTextView(MNAlarmItemViewHolder alarmItemViewHolder) {
+    private void initAmPmTextView(MNAlarm alarm, MNAlarmItemViewHolder alarmItemViewHolder) {
         if (DateFormat.is24HourFormat(context)) {
             // 24시간제면 width 를 0으로 조정,
             alarmItemViewHolder.ampmTextView.getLayoutParams().width = 0;
         } else {
             // wrap_content
             alarmItemViewHolder.ampmTextView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            if (alarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY) < 12) {
+                alarmItemViewHolder.ampmTextView.setText(R.string.alarm_am);
+            } else {
+                alarmItemViewHolder.ampmTextView.setText(R.string.alarm_pm);
+            }
         }
     }
 
-    private void initRepeatTextView(MNAlarmItemViewHolder alarmItemViewHolder, MNAlarm alarm) {
+    private void initRepeatTextView(MNAlarmItemViewHolder alarmItemViewHolder) {
         RelativeLayout.LayoutParams repeatTextViewLayoutParams = (RelativeLayout.LayoutParams) alarmItemViewHolder.repeatTextView.getLayoutParams();
         if (DateFormat.is24HourFormat(context)) {
             repeatTextViewLayoutParams.addRule(RelativeLayout.RIGHT_OF, R.id.alarm_item_time_textview);
