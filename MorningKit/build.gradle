@@ -5,7 +5,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.6.+'
+        classpath 'com.android.tools.build:gradle:0.7.+'
         // JaKe Wharton 것을 쓰다가 jcandksolutions가 문제를 해결해서 여기의 것을 사용
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
         classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.1'
@@ -24,7 +24,9 @@ repositories {
 
 android {
     compileSdkVersion 18
-    buildToolsVersion "18.1.1"
+//    buildToolsVersion "18.1.1"
+    buildToolsVersion "19.0.1"
+
 
     defaultConfig {
         minSdkVersion 10
@@ -33,6 +35,10 @@ android {
     }
     sourceSets {
         instrumentTest.setRoot('src/test')
+    }
+    packagingOptions { // gralde 0.7.1 + Studio 0.4.0 에서 생긴 duplicate 버그를 해결하기 위함
+//        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 }
 

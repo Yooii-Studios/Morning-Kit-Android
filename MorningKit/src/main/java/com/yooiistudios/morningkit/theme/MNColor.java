@@ -26,6 +26,8 @@ public class MNColor {
     }
 
     public static int getAlarmSubFontColor() {
+
         return Color.GRAY;
     }
+
 }

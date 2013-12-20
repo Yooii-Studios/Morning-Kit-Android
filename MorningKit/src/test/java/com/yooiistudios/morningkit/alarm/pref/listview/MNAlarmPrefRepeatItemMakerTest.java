@@ -9,8 +9,9 @@ import android.view.View;
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
+import com.yooiistudios.morningkit.alarm.model.MNDummyAlarmMaker;
 import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
+import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmRepeatString;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefRepeatItemMaker;
@@ -76,27 +77,27 @@ public class MNAlarmPrefRepeatItemMakerTest {
         // boolean의 ArrayList을 대입하면, 해당한는 반복 String을 반환
 
         // 반복 없음 -> Never
-        MNAlarm nonRepeatAlarm = makeNonRepeatAlarm();
+        MNAlarm nonRepeatAlarm = MNDummyAlarmMaker.makeNonRepeatAlarm(alarmPrefActivity_edit);
         assertThat(MNAlarmRepeatString.makeRepeatDetailString(nonRepeatAlarm.getAlarmRepeatList(), alarmPrefActivity_edit), is("Never"));
         testEachRepeatItem(alarmPrefActivity_edit, nonRepeatAlarm);
 
         // 월, 목, 토 -> Mon Tue Sat 와 같은 식
-        MNAlarm severalRepeatAlarm = makeSeveralRepeatAlarm();
+        MNAlarm severalRepeatAlarm = MNDummyAlarmMaker.makeSeveralRepeatAlarm(alarmPrefActivity_edit);
         assertThat(MNAlarmRepeatString.makeRepeatDetailString(severalRepeatAlarm.getAlarmRepeatList(), alarmPrefActivity_edit), is("Mon Thu Sat"));
         testEachRepeatItem(alarmPrefActivity_edit, severalRepeatAlarm);
 
         // 월화수목금 -> Every Weekday
-        MNAlarm weekdaysRepeatAlarm = makeWeekdaysRepeatAlarm();
+        MNAlarm weekdaysRepeatAlarm = MNDummyAlarmMaker.makeWeekdaysRepeatAlarm(alarmPrefActivity_edit);
         assertThat(MNAlarmRepeatString.makeRepeatDetailString(weekdaysRepeatAlarm.getAlarmRepeatList(), alarmPrefActivity_edit), is("Weekdays"));
         testEachRepeatItem(alarmPrefActivity_edit, weekdaysRepeatAlarm);
 
         // 토일 -> Every Weekends
-        MNAlarm weekendsRepeatAlarm = makeWeekendsRepeatAlarm();
+        MNAlarm weekendsRepeatAlarm = MNDummyAlarmMaker.makeWeekendsRepeatAlarm(alarmPrefActivity_edit);
         assertThat(MNAlarmRepeatString.makeRepeatDetailString(weekendsRepeatAlarm.getAlarmRepeatList(), alarmPrefActivity_edit), is("Weekends"));
         testEachRepeatItem(alarmPrefActivity_edit, weekendsRepeatAlarm);
 
         // 월~일 -> Everyday
-        MNAlarm everdayRepeatAlarm = makeEverydayRepeatAlarm();
+        MNAlarm everdayRepeatAlarm = MNDummyAlarmMaker.makeEverydayRepeatAlarm(alarmPrefActivity_edit);
         assertThat(MNAlarmRepeatString.makeRepeatDetailString(everdayRepeatAlarm.getAlarmRepeatList(), alarmPrefActivity_edit), is("Everyday"));
         testEachRepeatItem(alarmPrefActivity_edit, everdayRepeatAlarm);
     }
@@ -123,7 +124,7 @@ public class MNAlarmPrefRepeatItemMakerTest {
         // 해당 ArrayList로 String을 만들었을 경우 이상적인 결과가 나와야 함
 
         // Weekends
-        alarmPrefActivity_edit.getAlarm().setAlarmRepeatList(makeNonRepeatAlarm().getAlarmRepeatList());
+        alarmPrefActivity_edit.getAlarm().setAlarmRepeatList(MNDummyAlarmMaker.makeNonRepeatAlarm(alarmPrefActivity_edit).getAlarmRepeatList());
         AlertDialog weekendsAlertDialog = MNAlarmPrefRepeatItemMaker.makeRepeatAlertDialog(context, alarmPrefActivity_edit.getAlarm());
         weekendsAlertDialog.show();
         weekendsAlertDialog.getListView().setItemChecked(5, true);
@@ -136,7 +137,7 @@ public class MNAlarmPrefRepeatItemMakerTest {
         weekendsAlertDialog.dismiss();
 
         // Weekdays
-        alarmPrefActivity_edit.getAlarm().setAlarmRepeatList(makeNonRepeatAlarm().getAlarmRepeatList());
+        alarmPrefActivity_edit.getAlarm().setAlarmRepeatList(MNDummyAlarmMaker.makeNonRepeatAlarm(alarmPrefActivity_edit).getAlarmRepeatList());
         AlertDialog weekDaysAlertDialog = MNAlarmPrefRepeatItemMaker.makeRepeatAlertDialog(context, alarmPrefActivity_edit.getAlarm());
         weekDaysAlertDialog.show();
         weekDaysAlertDialog.getListView().setItemChecked(0, true);
@@ -152,7 +153,7 @@ public class MNAlarmPrefRepeatItemMakerTest {
         weekDaysAlertDialog.dismiss();
 
         // Everyday
-        alarmPrefActivity_edit.getAlarm().setAlarmRepeatList(makeNonRepeatAlarm().getAlarmRepeatList());
+        alarmPrefActivity_edit.getAlarm().setAlarmRepeatList(MNDummyAlarmMaker.makeNonRepeatAlarm(alarmPrefActivity_edit).getAlarmRepeatList());
         AlertDialog everydayAlertDialog = MNAlarmPrefRepeatItemMaker.makeRepeatAlertDialog(context, alarmPrefActivity_edit.getAlarm());
         everydayAlertDialog.show();
         everydayAlertDialog.getListView().setItemChecked(0, true);
@@ -184,57 +185,5 @@ public class MNAlarmPrefRepeatItemMakerTest {
         // 알람을 추가할 경우에는 알람의 반복이 비어 있어야 함
         String repeatString = MNAlarmRepeatString.makeRepeatDetailString(alarmPrefActivity_add.getAlarm().getAlarmRepeatList(), alarmPrefActivity_add);
         assertThat(repeatString, is("Never"));
-    }
-
-    /**
-     * Making dummy alarms
-     */
-    private MNAlarm makeNonRepeatAlarm() {
-        MNAlarm nonRepeatAlarm = MNAlarmMaker.makeAlarm(alarmPrefActivity_edit);
-        for (int i = 0; i < nonRepeatAlarm.getAlarmRepeatList().size(); i++) {
-            nonRepeatAlarm.getAlarmRepeatList().set(i, Boolean.FALSE);
-        }
-        return nonRepeatAlarm;
-    }
-
-    private MNAlarm makeSeveralRepeatAlarm() {
-        MNAlarm severalRepeatAlarm = MNAlarmMaker.makeAlarm(alarmPrefActivity_edit);
-        for (int i = 0; i < severalRepeatAlarm.getAlarmRepeatList().size(); i++) {
-            severalRepeatAlarm.getAlarmRepeatList().set(i, Boolean.FALSE);
-            if (i == 0 || i == 3 || i == 5) {
-                severalRepeatAlarm.getAlarmRepeatList().set(i, Boolean.TRUE);
-            }
-        }
-        return severalRepeatAlarm;
-    }
-
-    private MNAlarm makeWeekdaysRepeatAlarm() {
-        MNAlarm weekdaysRepeatAlarm = MNAlarmMaker.makeAlarm(alarmPrefActivity_edit);
-        for (int i = 0; i < weekdaysRepeatAlarm.getAlarmRepeatList().size(); i++) {
-            weekdaysRepeatAlarm.getAlarmRepeatList().set(i, Boolean.TRUE);
-            if (i == 5 || i == 6) {
-                weekdaysRepeatAlarm.getAlarmRepeatList().set(i, Boolean.FALSE);
-            }
-        }
-        return weekdaysRepeatAlarm;
-    }
-
-    private MNAlarm makeWeekendsRepeatAlarm() {
-        MNAlarm weekendsRepeatAlarm = MNAlarmMaker.makeAlarm(alarmPrefActivity_edit);
-        for (int i = 0; i < weekendsRepeatAlarm.getAlarmRepeatList().size(); i++) {
-            weekendsRepeatAlarm.getAlarmRepeatList().set(i, Boolean.FALSE);
-            if (i == 5 || i == 6) {
-                weekendsRepeatAlarm.getAlarmRepeatList().set(i, Boolean.TRUE);
-            }
-        }
-        return weekendsRepeatAlarm;
-    }
-
-    private MNAlarm makeEverydayRepeatAlarm() {
-        MNAlarm everydayRepeatAlarm = MNAlarmMaker.makeAlarm(alarmPrefActivity_edit);
-        for (int i = 0; i < everydayRepeatAlarm.getAlarmRepeatList().size(); i++) {
-            everydayRepeatAlarm.getAlarmRepeatList().set(i, Boolean.TRUE);
-        }
-        return everydayRepeatAlarm;
     }
 }

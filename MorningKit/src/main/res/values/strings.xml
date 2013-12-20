@@ -5,13 +5,13 @@
 	<string name="app_name">Morning Kit</string>
 	<string name="ok">OK</string>
 	<string name="cancel">Cancel</string>
-	<string name="loading">Loading...</string>
+	<string name="loading">Loading&#8230;</string>
 	<string name="default_string">Default</string>
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
 	<string name="no_network_connection">No Network Connection</string>
 	<string name="no_location_detected">Location Not Available</string>
-	<string name="searching">Searching...</string>
+	<string name="searching">Searching&#8230;</string>
 	<string name="done">Done</string>
 	<string name="open">open</string>
 

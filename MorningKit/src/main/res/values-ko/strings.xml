@@ -6,13 +6,13 @@
 	<string name="ok">확인</string>
 	<string name="cancel">취소</string>
 	<string name="no_image">이미지 없음</string>
-	<string name="loading">로딩 중...</string>
+	<string name="loading">로딩 중&#8230;</string>
 	<string name="default_string">기본</string>
 	<string name="yes">예</string>
 	<string name="no">아니오</string>
 	<string name="no_network_connection">네트워크 접속불가</string>
 	<string name="no_location_detected">위치 실패</string>
-	<string name="searching">검색 중...</string>
+	<string name="searching">검색 중&#8230;</string>
 	<string name="done">완료</string>
 	<string name="open">열기</string>
 
@@ -122,7 +122,6 @@
 	<string name="weather_use_current_location">현재 위치 사용</string>
 	<string name="weather_current_location">현재 위치</string>
 	<string name="weather_search_city">도시 검색 (영어)</string>
-	<string name="weather_search_auto_location_detection">자동 위치 확인</string>
 	<string name="display_local_time">현지 시간 표시</string>
 	<string name="weather_choose_your_city">도시를 선택하세요</string>
 
@@ -202,7 +201,6 @@
 	<string name="tutorial1_label3">밀어서 알람 삭제</string>
 	<string name="tutorial1_label4">새로고침</string>
 	<string name="tutorial1_label5">설정</string>
-	<string name="tutorial1_label6">이곳에서 패널, 알람, 테마를 추가 및 변경할 수 있습니다</string>
 	<string name="tutorial1_tap_screen">화면을 터치해 주세요</string>
 	<string name="tutorial1_skip_tutorial">튜토리얼 건너뛰기</string>
 
@@ -214,7 +212,6 @@
 	<string name="unlock_everything">$1.99면 모닝키트의 모든 기능을 사용하실 수 있습니다!</string>
 	<string name="unlock_everything_highlight">모든 기능</string>
 	<string name="unlock_only_this">$0.99면 이 기능을 사용하실 수 있습니다</string>
-	<string name="unlock_only_this_highlight"></string>
 	<string name="unlock_review">리뷰를 남겨주시면 이 기능을 무료로 사용하실 수 있습니다</string>
 	<string name="unlock_review_highlight">리뷰</string>
 	<string name="unlock_connector">유이 커넥터에 가입하시면 이 기능을 무료로 사용하실 수 있습니다</string>
@@ -270,4 +267,9 @@
 	<string name="photo_theme_move_and_scale">이동 및 확대</string>
 	<string name="photo_theme_choose">선택</string>
 	<string name="photo_theme_first_open_notice">사진을 이동하고 확대해서 사진을 프레임보다 크게 맞추어 주세요.\n프레임보다 작게 설정될 경우 사진이 화면에 맞게 표시되지 않을 수 있습니다</string>
+
+    <!-- Android Only -->
+    <!-- Alarm Pref -->
+    <string name="alarm_sound_string_app_music">모닝키트 음악</string>
+
 </resources>

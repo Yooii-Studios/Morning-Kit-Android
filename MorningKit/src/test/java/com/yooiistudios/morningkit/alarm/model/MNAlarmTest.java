@@ -1,14 +1,22 @@
 package com.yooiistudios.morningkit.alarm.model;
 
+import android.app.AlarmManager;
+import android.content.Context;
+
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
+import com.yooiistudios.morningkit.main.MNMainActivity;
+import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
 import java.util.ArrayList;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 //import static org.junit.matchers.JUnitMatchers.*;
@@ -19,15 +27,19 @@ import static org.junit.Assert.assertThat;
  * MNAlarmTest
  */
 @RunWith(RobolectricGradleTestRunner.class)
+@Config(shadows = { AdWebViewShadow.class })
 public class MNAlarmTest {
 
     MNAlarm alarm;
     ArrayList<MNAlarm> alarmList;
+    MNMainActivity mainActivity;
+    Context context;
 
     @Before
     public void setUp() {
         ShadowLog.stream = System.out;
 
+        // Alarm
         alarm = MNAlarm.newInstance();
 
         alarmList = new ArrayList<MNAlarm>();
@@ -38,6 +50,10 @@ public class MNAlarmTest {
         MNAlarm testAlarm2 = MNAlarm.newInstance();
         testAlarm2.setAlarmId(38);
         alarmList.add(testAlarm2);
+
+        // Main
+        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
+        context = mainActivity;
     }
 
     @Test
@@ -48,6 +64,13 @@ public class MNAlarmTest {
 
     @Test
     public void startNonRepeatAlarmTest() {
+        MNAlarm nonRepeatAlarm = MNDummyAlarmMaker.makeNonRepeatAlarm(context);
+        nonRepeatAlarm.startAlarm(context);
+
+        AlarmManager alarmManager = MNAlarmManager.getAlarmManager(context);
+        assertThat(alarmManager, notNullValue());
+
+
         // Calendar 시간 비교해서 오늘, 내일 제대로 적용 되는지 테스트
 
         // 시간을 비교해서 하루를 더해주는 부분은 이미 적용이 되어 실제 코드에서 적용이 되어 있으므로
