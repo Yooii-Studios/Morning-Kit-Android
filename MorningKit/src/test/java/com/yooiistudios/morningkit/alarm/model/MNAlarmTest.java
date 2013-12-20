@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.alarm.model;
 import android.app.AlarmManager;
 import android.content.Context;
 
+import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
@@ -15,7 +16,9 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -63,13 +66,50 @@ public class MNAlarmTest {
     }
 
     @Test
+    public void testAdjustAlarmCalendar() throws Exception {
+
+        Calendar nowCalendar = Calendar.getInstance();
+
+        // 시간 정보만 있는 과거의 Calendar로 변경
+        MNAlarm alarm_03_10 = MNAlarmMaker.makeAlarmWithTime(context, 3, 10);
+        testAdjustAlarmCalendarForEachAlarm(alarm_03_10);
+
+        MNAlarm alarm_08_30 = MNAlarmMaker.makeAlarmWithTime(context, 8, 30);
+        testAdjustAlarmCalendarForEachAlarm(alarm_08_30);
+
+        MNAlarm alarm_13_05 = MNAlarmMaker.makeAlarmWithTime(context, 13, 5);
+        testAdjustAlarmCalendarForEachAlarm(alarm_13_05);
+
+        MNAlarm alarm_17_10 = MNAlarmMaker.makeAlarmWithTime(context, 17, 10);
+        testAdjustAlarmCalendarForEachAlarm(alarm_17_10);
+
+        MNAlarm alarm_22_50 = MNAlarmMaker.makeAlarmWithTime(context, 22, 50);
+        testAdjustAlarmCalendarForEachAlarm(alarm_22_50);
+    }
+
+    private void testAdjustAlarmCalendarForEachAlarm(MNAlarm alarm) {
+        Calendar nowCalendar = Calendar.getInstance();
+        if (alarm.getAlarmCalendar().getTimeInMillis() - nowCalendar.getTimeInMillis() > 0) {
+            alarm.startAlarm(context);
+            assertThat(alarm.getAlarmCalendar().get(Calendar.DAY_OF_MONTH), is(nowCalendar.get(Calendar.DAY_OF_MONTH)));
+        } else {
+            alarm.startAlarm(context);
+            assertThat(alarm.getAlarmCalendar().get(Calendar.DAY_OF_MONTH), is(not(nowCalendar.get(Calendar.DAY_OF_MONTH))));
+        }
+    }
+
+    // AlarmManager에서 정보를 가져오는 함수가 없어 테스트가 불가능할듯
+    @Test
     public void startNonRepeatAlarmTest() {
+        /*
         MNAlarm nonRepeatAlarm = MNDummyAlarmMaker.makeNonRepeatAlarm(context);
         nonRepeatAlarm.startAlarm(context);
 
         AlarmManager alarmManager = MNAlarmManager.getAlarmManager(context);
         assertThat(alarmManager, notNullValue());
 
+        nonRepeatAlarm.startAlarm(context);
+        */
 
         // Calendar 시간 비교해서 오늘, 내일 제대로 적용 되는지 테스트
 

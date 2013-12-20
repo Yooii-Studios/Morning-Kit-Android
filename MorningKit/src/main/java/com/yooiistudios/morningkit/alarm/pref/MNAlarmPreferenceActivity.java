@@ -148,6 +148,8 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     }
 
     private void applyAlarmPreferneces() {
+        alarm.startAlarm(this);
+
         switch (alarmPreferenceType) {
             case ADD:
                 MNAlarmListManager.addAlarmToAlarmList(alarm, this);

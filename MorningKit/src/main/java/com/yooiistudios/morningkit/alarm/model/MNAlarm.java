@@ -1,9 +1,12 @@
 package com.yooiistudios.morningkit.alarm.model;
 
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
+import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 
 import java.io.Serializable;
@@ -53,6 +56,18 @@ public class MNAlarm implements Serializable, Cloneable {
         return alarm;
     }
 
+    private void adjustAlarmCalendar() {
+        Calendar newAlarmCalendar = Calendar.getInstance();
+        newAlarmCalendar.set(Calendar.HOUR_OF_DAY, alarmCalendar.get(Calendar.HOUR_OF_DAY));
+        newAlarmCalendar.set(Calendar.MINUTE, alarmCalendar.get(Calendar.MINUTE));
+        newAlarmCalendar.set(Calendar.SECOND, 0);
+        alarmCalendar = newAlarmCalendar;
+
+        if (alarmCalendar.getTimeInMillis() <= Calendar.getInstance().getTimeInMillis()) {
+            alarmCalendar.add(Calendar.DATE, 1);
+        }
+    }
+
     public void stopAlarm(Context context) {
         isAlarmOn = false;
 
@@ -62,6 +77,15 @@ public class MNAlarm implements Serializable, Cloneable {
 
     public void startAlarm(Context context) {
         isAlarmOn = true;
+
+        adjustAlarmCalendar();
+
+        if (isRepeatOn) {
+            startRepeatAlarm(context);
+        } else {
+            startNonRepeatAlarm(context);
+            MNAlarmToast.show(context, alarmCalendar);
+        }
         // 현재 시간과 비교하여 오늘, 내일 판단하기
         /*
         Calendar currentTimeCalendar = Calendar.getInstance();
@@ -70,6 +94,22 @@ public class MNAlarm implements Serializable, Cloneable {
             alarmCalendar.add(Calendar.DAY_OF_MONTH, 1);
         }
         */
+    }
+
+    private void startNonRepeatAlarm(Context context) {
+        AlarmManager alarmManager = MNAlarmManager.getAlarmManager(context);
+
+        Intent intent = new Intent(context, MNMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(MN.alarm.ALARM_ID, alarmId);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_ONE_SHOT);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), pendingIntent);
+    }
+
+    private void startRepeatAlarm(Context context) {
+
     }
 
     public void snoozeAlarm() {

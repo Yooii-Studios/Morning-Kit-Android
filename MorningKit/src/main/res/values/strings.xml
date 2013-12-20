@@ -24,14 +24,14 @@
 	<string name="alarm_snooze_stirng">Your alarm will start again in 9 minutes</string>
 
 	<!-- Alarm Toaster -->
-	<string name="alarm_set_toast_part1">Alarm set for </string>
+	<string name="alarm_set_toast_part1">Alarm set for&#160;</string>
 	<string name="alarm_set_toast_part2">from now</string>
-	<string name="alarm_day"> day </string>
-	<string name="alarm_days"> days </string>
-	<string name="alarm_hour"> hour </string>
-	<string name="alarm_hours"> hours </string>
-	<string name="alarm_minute"> minute </string>
-	<string name="alarm_minutes"> minutes </string>
+	<string name="alarm_day">&#160;day&#160;</string>
+	<string name="alarm_days">&#160;days&#160;</string>
+	<string name="alarm_hour">&#160;hour&#160;</string>
+	<string name="alarm_hours">&#160;hours&#160;</string>
+	<string name="alarm_minute">&#160;minute&#160;</string>
+	<string name="alarm_minutes">&#160;minutes&#160;</string>
 
 	<!-- Alarm Preference -->
 	<string name="alarm_pref_repeat">Repeat</string>
@@ -270,5 +270,7 @@
     <!-- Android Only -->
     <!-- Alarm Pref -->
     <string name="alarm_sound_string_app_music">Morning Kit Music</string>
+    <!-- Alarm -->
+    <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
 
 </resources>
