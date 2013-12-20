@@ -1,7 +1,12 @@
-package com.yooiistudios.morningkit.alarm.model;
+package com.yooiistudios.morningkit.alarm.model.wake;
 
 import android.app.AlarmManager;
 import android.content.Context;
+import android.content.Intent;
+
+import com.yooiistudios.morningkit.MN;
+import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 19.
@@ -29,6 +34,5 @@ public class MNAlarmManager {
         }
         return instance;
     }
-
     public static AlarmManager getAlarmManager(Context context) { return MNAlarmManager.getInstance(context).alarmManager; }
 }

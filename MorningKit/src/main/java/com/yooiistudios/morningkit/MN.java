@@ -10,7 +10,7 @@ public final class MN {
     public static final String FLICKR_API_KEY = "ccc5c75e5380273b78d246a71353fab9";
 
     public static final class main {
-        public static final String APP_TAG = "YOOII_MORNING KIT";
+        public static final String APP_TAG = "YOOII_MORNING_KIT";
     }
 
     public static final class alarm {

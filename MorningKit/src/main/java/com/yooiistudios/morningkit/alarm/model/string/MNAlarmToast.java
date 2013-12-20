@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.alarm.model;
+package com.yooiistudios.morningkit.alarm.model.string;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -44,6 +44,7 @@ public class MNAlarmToast {
             }
         }
         if (minuteGap != 0) {
+            // 추후 구현
 //            if (GeneralSetting.getLanguageName().equals("English") ) {
 //                // 앞에 뭐가 있으면 and 붙임
 //                if (dayGap != 0 || hourGap != 0) {
