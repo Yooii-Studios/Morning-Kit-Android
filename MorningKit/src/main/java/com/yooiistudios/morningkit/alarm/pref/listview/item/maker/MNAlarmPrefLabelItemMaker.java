@@ -35,7 +35,7 @@ public class MNAlarmPrefLabelItemMaker {
      * Methods
      */
     public static View makeLabelItem(final Context context, ViewGroup parent, final MNAlarm alarm) {
-        View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_default_item, parent, false);
+        final View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_default_item, parent, false);
         LabelItemViewHolder viewHolder = new LabelItemViewHolder(convertView);
         convertView.setTag(viewHolder);
 
@@ -52,12 +52,13 @@ public class MNAlarmPrefLabelItemMaker {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // V/X 표시 오프
+                // ActionBar Menu
+                MNAlarmPrefBusProvider.getInstance().post(convertView);
 
+                // AlertDialog
                 FrameLayout dialogLayout = (FrameLayout) LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_label_item_dialog, null);
                 final LabelDialogLayoutHolder dialogLayoutHolder = new LabelDialogLayoutHolder(dialogLayout, alarm);
 
-                // AlertDialog
                 AlertDialog alertDialog = makeLabelAlertDialog(context, dialogLayout, dialogLayoutHolder);
                 alertDialog.show();
             }
@@ -76,19 +77,18 @@ public class MNAlarmPrefLabelItemMaker {
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // to MNAlarmPreferecnceListAdapter
-                        // V/X 표시 온
-                        MNAlarmPrefBusProvider.getInstance().post(dialogLayoutHolder.labelEditText);
+                        MNAlarmPrefBusProvider.getInstance().post(context);
+                        MNAlarmPrefBusProvider.getInstance().post(dialogLayoutHolder.labelEditText.getText().toString());
                     }
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // V/X 표시 온
+                        MNAlarmPrefBusProvider.getInstance().post(context);
                     }
                 }).setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
-                        // V/X 표시 온
+                        MNAlarmPrefBusProvider.getInstance().post(context);
                     }
                 }).create();
 
@@ -102,15 +102,15 @@ public class MNAlarmPrefLabelItemMaker {
                 imm.showSoftInput(dialogLayoutHolder.labelEditText, InputMethodManager.SHOW_IMPLICIT);
             }
         });
-        alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    // V / X 표시 온
-                }
-                return false;
-            }
-        });
+//        alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+//            @Override
+//            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+//                if (keyCode == KeyEvent.KEYCODE_BACK) {
+//                    MNAlarmPrefBusProvider.getInstance().post(context);
+//                }
+//                return false;
+//            }
+//        });
         return alertDialog;
     }
 

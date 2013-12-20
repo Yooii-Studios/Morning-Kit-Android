@@ -1,7 +1,8 @@
-package com.yooiistudios.morningkit.alarm.model;
+package com.yooiistudios.morningkit.alarm.model.factory;
 
 import android.content.Context;
-import android.util.Log;
+
+import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 
 import java.util.Calendar;
 

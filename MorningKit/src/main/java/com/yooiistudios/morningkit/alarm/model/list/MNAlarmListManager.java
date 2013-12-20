@@ -1,15 +1,18 @@
-package com.yooiistudios.morningkit.alarm.model;
+package com.yooiistudios.morningkit.alarm.model.list;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.yooiistudios.morningkit.MN;
+import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.serialize.ObjectSerializer;
 import com.yooiistudios.morningkit.common.sharedpreferences.MNSharedPreferences;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by StevenKim on 2013. 11. 11..
@@ -155,7 +158,21 @@ public class MNAlarmListManager {
      * @param context used to get SharedPreferences
      */
     public static void sortAlarmList(Context context) {
-        ArrayList<MNAlarm> sortedAlarmList = null;
+        ArrayList<MNAlarm> originalAlarmList = MNAlarmListManager.getAlarmList(context);
+        ArrayList<MNAlarm> sortedAlarmList = new ArrayList<MNAlarm>(originalAlarmList.size());
+
+        for (MNAlarm alarm : originalAlarmList) {
+            sortedAlarmList.add(alarm);
+        }
+
+        Comparator<MNAlarm> alarmComparator = new Comparator<MNAlarm>() {
+            @Override
+            public int compare(MNAlarm lhs, MNAlarm rhs) {
+                return MNAlarmComparator.makeComparator(lhs) > MNAlarmComparator.makeComparator(rhs) ? 1 : -1;
+            }
+        };
+        Collections.sort(sortedAlarmList, alarmComparator);
+        MNAlarmListManager.getInstance().alarmList = sortedAlarmList;
     }
 
     /**
@@ -186,7 +203,6 @@ public class MNAlarmListManager {
      */
     public static int findIndexOfAlarmById(int targetAlarmId, Context context) {
         if (targetAlarmId != -1) {
-            MNAlarm targetAlarm = null;
             ArrayList<MNAlarm> alarmList = MNAlarmListManager.getAlarmList(context);
             for (int i=0; i<alarmList.size(); i++) {
                 MNAlarm alarm = alarmList.get(i);

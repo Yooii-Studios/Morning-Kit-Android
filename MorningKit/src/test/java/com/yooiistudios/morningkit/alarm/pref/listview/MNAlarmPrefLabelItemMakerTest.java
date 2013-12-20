@@ -9,11 +9,12 @@ import android.widget.FrameLayout;
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmMaker;
+import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
+import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefLabelItemMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
+import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
@@ -123,7 +124,9 @@ public class MNAlarmPrefLabelItemMakerTest {
         alertDialog.show();
 
         // 확인 버튼 클릭
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
+        // 액티비티로 post가 가지 않음 -> 어쩔 수 없이 내부 코드로 확인
+//        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
+        MNAlarmPrefBusProvider.getInstance().post(dialogLayoutHolder.getLabelEditText().getText().toString());
         assertThat(alarmPrefActivity_edit.getAlarm().getAlarmLabel(), is(TEST_ALARM_LABEL_AFTER));
     }
 }

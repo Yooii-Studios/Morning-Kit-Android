@@ -29,6 +29,8 @@ import lombok.Getter;
  *
  * MNAlarmPrefListViewItemMaker
  *  각 아이템들을 만들어 주는 리스트뷰
+ *  -> 현재 타임, 스누즈만 만들어줌
+ *  -> 나머지는 각 메이커에서 만듬
  */
 public class MNAlarmPrefItemMaker {
     private static final String TAG = "MNAlarmPrefListViewItemMaker";
@@ -41,7 +43,8 @@ public class MNAlarmPrefItemMaker {
         convertView.setTag(viewHolder);
         viewHolder.alarmTimePicker.setIs24HourView(DateFormat.is24HourFormat(context));
         viewHolder.alarmTimePicker.setCurrentHour(alarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY));
-        viewHolder.alarmTimePicker.setCurrentMinute(alarm.getAlarmCalendar().get(Calendar.MINUTE));
+        viewHolder.alarmTimePicker.setCurrentMinute(alarm.getAlarmCalendar().get(Calendar.MINUTE) + 1);
+        alarm.getAlarmCalendar().add(Calendar.MINUTE, 1);
         viewHolder.alarmTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
@@ -49,15 +52,6 @@ public class MNAlarmPrefItemMaker {
                 alarm.getAlarmCalendar().set(Calendar.MINUTE, minute);
             }
         });
-        return convertView;
-    }
-
-    // ringotns, music, app music, none
-    public static View makeSoundItem(Context context, ViewGroup parent, final MNAlarm alarm) {
-        View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_default_item, parent, false);
-        MNAlarmPrefDefaultItemViewHolder viewHolder = new MNAlarmPrefDefaultItemViewHolder(convertView);
-        convertView.setTag(viewHolder);
-        viewHolder.titleTextView.setText(R.string.alarm_pref_sound_type);
         return convertView;
     }
 
@@ -100,14 +94,6 @@ public class MNAlarmPrefItemMaker {
             ButterKnife.inject(this, view);
         }
     }
-
-    /*
-    public static class MNAlarmPrefSoundItemViewHolder extends MNAlarmPrefDefaultItemViewHolder {
-        public MNAlarmPrefSoundItemViewHolder(View view) {
-            super(view);
-        }
-    }
-    */
 
     static class MNAlarmPrefSnoozeItemViewHolder {
         @InjectView(R.id.alarm_pref_list_snooze_item_outer_layout)      RelativeLayout  outerLayout;

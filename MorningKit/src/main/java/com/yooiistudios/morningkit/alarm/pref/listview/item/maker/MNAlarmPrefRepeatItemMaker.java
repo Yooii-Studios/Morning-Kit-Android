@@ -5,14 +5,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmRepeatString;
+import com.yooiistudios.morningkit.alarm.model.string.MNAlarmRepeatString;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 
 /**
@@ -25,7 +24,7 @@ public class MNAlarmPrefRepeatItemMaker {
     private MNAlarmPrefRepeatItemMaker() { throw new AssertionError("You MUST NOT create this class"); }
 
     public static View makeRepeatItem(final Context context, ViewGroup parent, final MNAlarm alarm) {
-        View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_default_item, parent, false);
+        final View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_default_item, parent, false);
         RepeatItemViewHolder viewHolder = new RepeatItemViewHolder(convertView);
         convertView.setTag(viewHolder);
         viewHolder.titleTextView.setText(R.string.alarm_pref_repeat);
@@ -36,6 +35,9 @@ public class MNAlarmPrefRepeatItemMaker {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // ActionBar Menu
+                MNAlarmPrefBusProvider.getInstance().post(convertView);
+
                 // AlertDialog
                 AlertDialog alertDialog = makeRepeatAlertDialog(context, alarm);
                 alertDialog.show();
@@ -44,7 +46,7 @@ public class MNAlarmPrefRepeatItemMaker {
         return convertView;
     }
 
-    public static AlertDialog makeRepeatAlertDialog(Context context, final MNAlarm alarm) {
+    public static AlertDialog makeRepeatAlertDialog(final Context context, final MNAlarm alarm) {
 
         final String[] repeatStrings = new String[]{
                 context.getString(R.string.every_monday),
@@ -74,31 +76,32 @@ public class MNAlarmPrefRepeatItemMaker {
         }).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // V/X 표시 온
+                MNAlarmPrefBusProvider.getInstance().post(context);
                 MNAlarmPrefBusProvider.getInstance().post(repeats);
             }
         }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.i(TAG, "negativeButton: onClick");
-                // V/X 표시 온
+                MNAlarmPrefBusProvider.getInstance().post(context);
             }
         }).setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
                 Log.i(TAG, "onCancel");
-                // V/X 표시 온
-            }
-        }).setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    // V/X 표시 온
-                    Log.i(TAG, "onKey: KEYCODE_BACK");
-                }
-                return false;
+                MNAlarmPrefBusProvider.getInstance().post(context);
             }
         }).create();
+//                .setOnKeyListener(new DialogInterface.OnKeyListener() {
+//            @Override
+//            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+//                if (keyCode == KeyEvent.KEYCODE_BACK) {
+//                    Log.i(TAG, "keycode_back");
+//                    MNAlarmPrefBusProvider.getInstance().post(context);
+//                }
+//                return false;
+//            }
+//        })
         alertDialog.setTitle(R.string.alarm_pref_repeat);
         alertDialog.setCanceledOnTouchOutside(false);
         return alertDialog;

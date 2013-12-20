@@ -6,7 +6,7 @@ import android.widget.ListView;
 
 import com.yooiistudios.morningkit.alarm.listview.MNAlarmListAdapter;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemClickListener;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
+import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 
 import lombok.Getter;
 

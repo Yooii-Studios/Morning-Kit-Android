@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.alarm.model;
+package com.yooiistudios.morningkit.alarm.model.factory;
 
 import android.content.Context;
 import android.content.SharedPreferences;

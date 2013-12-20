@@ -12,6 +12,7 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefLabelItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefRepeatItemMaker;
+import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefSoundItemMaker;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
                 convertView = MNAlarmPrefLabelItemMaker.makeLabelItem(context, parent, alarm);
                 break;
             case SOUND:
-                convertView = MNAlarmPrefItemMaker.makeSoundItem(context, parent, alarm);
+                convertView = MNAlarmPrefSoundItemMaker.makeSoundItem(context, parent, alarm);
                 break;
             case SNOOZE:
                 convertView = MNAlarmPrefItemMaker.makeSnoozeItem(context, parent, alarm);
@@ -73,22 +74,27 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
         return MNAlarmPrefListItemType.values().length;
     }
 
+    /**
+     * Otto: MNAlarmPrefBusProvider
+     */
     @Subscribe
-    public void onLabelChanged(EditText labelEditText) {
-        if (labelEditText.getTag() == MNAlarmPrefListItemType.LABEL) {
-            alarm.setAlarmLabel(labelEditText.getText().toString());
+    public void onLabelChanged(String labelString) {
+        if (labelString != null) {
+            alarm.setAlarmLabel(labelString);
             notifyDataSetChanged();
         } else {
-            throw new AssertionError("labelEditText must have MNAlarmPrefListItemType.LABEL tag!");
+            throw new AssertionError("labelString must be null!");
         }
     }
 
     @Subscribe
     public void onRepeatChanged(boolean[] repeats) {
+        Log.i(TAG, "onRepeatChanged");
         if (alarm != null) {
             for (int i = 0; i < this.alarm.getAlarmRepeatList().size(); i++) {
                 this.alarm.getAlarmRepeatList().set(i, repeats[i]);
             }
+            Log.i(TAG, "repeats: " + this.alarm.getAlarmRepeatList());
             notifyDataSetChanged();
         } else {
             throw new AssertionError("alarm must not be null!");

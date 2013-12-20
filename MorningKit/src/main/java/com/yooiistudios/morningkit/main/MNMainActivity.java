@@ -6,20 +6,21 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import com.google.ads.Ad;
 import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.squareup.otto.Subscribe;
+import com.urqa.clientinterface.URQAController;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.MNAlarmListManager;
+import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
+import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
-import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
 import java.io.IOException;
@@ -53,7 +54,18 @@ public class MNMainActivity extends Activity implements AdListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 알람이 있을 경우는 화면을 켜주게 구현
+        if (MNAlarmWake.isAlarmReserved(getIntent())) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                    WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                    WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        }
+
         setContentView(R.layout.activity_main);
+        // UrQA 라이브러리 추가
+        URQAController.InitializeAndStartSession(getApplicationContext(), String.valueOf(72369777));
         initMainActivity();
         scrollView.smoothScrollTo(0, 0);
     }
@@ -91,6 +103,12 @@ public class MNMainActivity extends Activity implements AdListener
 
         // 최초 실행시는 회전 감지를 안하기에, 명시적으로 최초 한번은 해줌
         onConfigurationChanged(getResources().getConfiguration());
+
+        // 알람 체크
+        if (MNAlarmWake.isAlarmReserved(getIntent())) {
+
+        }
+        MNAlarmWake.processingAlarmWake(getIntent(), this);
     }
 
     @Override

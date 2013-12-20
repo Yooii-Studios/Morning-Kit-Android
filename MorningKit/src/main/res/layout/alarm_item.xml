@@ -30,18 +30,22 @@
             android:layout_marginLeft="10dp"
             android:text="8:30"
             android:textColor="#ffffff"
-            android:textSize="30sp" />
+            android:textSize="@dimen/alarm_item_time_font_size"
+            android:maxLines="1"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/alarm_item_ampm_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/alarm_item_time_textview"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="@dimen/alarm_item_ampm_margin_left"
             android:layout_toRightOf="@+id/alarm_item_time_textview"
             android:text="AM"
             android:textColor="#ffffffff"
-            android:textSize="18sp" />
+            android:textSize="@dimen/alarm_item_ampm_font_size"
+            android:maxLines="1"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/alarm_item_repeat_textview"
@@ -53,123 +57,26 @@
             android:layout_toRightOf="@+id/alarm_item_ampm_textview"
             android:text="/ M T W F S S"
             android:textColor="#ffffff"
-            android:textSize="15sp"
-            android:layout_toLeftOf="@+id/alarm_item_dividing_bar_imageview" />
+            android:textSize="@dimen/alarm_item_repeat_font_size"
+            android:layout_toLeftOf="@+id/alarm_item_dividing_bar_imageview"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="marquee"/>
 
         <TextView
-            android:id="@+id/alarm_item_alarm_label_textview"
+            android:id="@+id/alarm_item_label_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/alarm_item_time_textview"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
-            android:ellipsize="end"
+            android:layout_marginBottom="@dimen/alarm_item_label_margin_bottom"
+            android:ellipsize="marquee"
             android:maxLines="1"
             android:singleLine="true"
             android:text="Good Morning!"
             android:textColor="#ffffff"
-            android:textSize="16sp"
+            android:textSize="@dimen/alarm_item_label_font_size"
             android:layout_toLeftOf="@+id/alarm_item_dividing_bar_imageview" />
-
-        <!--
-        <TextView
-            android:id="@+id/alarm_repeat_mon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
-            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
-            android:layout_marginLeft="6dp"
-            android:layout_toRightOf="@+id/alarm_hypen"
-            android:text="@string/monday_short"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/alarm_repeat_tue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
-            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
-            android:layout_marginLeft="2dp"
-            android:layout_toRightOf="@+id/alarm_repeat_mon"
-            android:text="@string/tuesday_short"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/alarm_repeat_wed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
-            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
-            android:layout_marginLeft="2dp"
-            android:layout_toRightOf="@+id/alarm_repeat_tue"
-            android:text="@string/wednesday_short"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/alarm_repeat_thu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
-            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
-            android:layout_marginLeft="2dp"
-            android:layout_toRightOf="@+id/alarm_repeat_wed"
-            android:text="@string/thursday_short"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/alarm_repeat_fri"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
-            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
-            android:layout_marginLeft="2dp"
-            android:layout_toRightOf="@+id/alarm_repeat_thu"
-            android:text="@string/friday_short"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/alarm_repeat_sat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
-            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
-            android:layout_marginLeft="2dp"
-            android:layout_toRightOf="@+id/alarm_repeat_fri"
-            android:text="@string/saturday_short"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/alarm_repeat_sun"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/alarm_item_ampm_textview"
-            android:layout_alignBottom="@+id/alarm_item_ampm_textview"
-            android:layout_marginLeft="2dp"
-            android:layout_toRightOf="@+id/alarm_repeat_sat"
-            android:text="@string/sunday_short"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-        -->
-        <!--
-        <RelativeLayout
-            android:id="@+id/alarm_item_middle_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/alarm_item_right_layout"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="vertical" >
-
-
-        </RelativeLayout>
-        -->
 
         <ImageView
             android:id="@+id/alarm_item_dividing_bar_imageview"
@@ -180,17 +87,6 @@
             android:contentDescription="@string/loading"
             android:layout_centerInParent="true"/>
 
-        <!--
-        <CheckBox
-            android:id="@+id/alarm_item_alarm_checkbox"
-            android:layout_width="@dimen/alarm_create_item_plus_size"
-            android:layout_height="@dimen/alarm_create_item_plus_size"
-            android:layout_alignParentRight="true"
-            android:background="#aa00aa"
-            android:button="@drawable/selector_alarm_checkbox"
-            android:layout_marginRight="@dimen/margin_outer" />
-
-        -->
         <ImageButton
             android:id="@+id/alarm_item_switch_imagebutton"
             android:layout_width="@dimen/alarm_item_switch_size"
@@ -201,21 +97,6 @@
             android:background="#ffaa00aa"
             android:contentDescription="@string/loading"
             android:layout_centerInParent="true"/>
-        <!--
-        android:background="@drawable/alarm_switch_empty_classic_gray_retina"
-        -->
-
-        <!--
-        <RelativeLayout
-            android:id="@+id/alarm_item_right_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical" >
-        </RelativeLayout>
-        -->
     </RelativeLayout>
 
 </RelativeLayout>

@@ -1,10 +1,19 @@
 package com.yooiistudios.morningkit.alarm.model;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+
+import com.yooiistudios.morningkit.MN;
+import com.yooiistudios.morningkit.alarm.model.string.MNAlarmToast;
+import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmManager;
+import com.yooiistudios.morningkit.main.MNMainActivity;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -47,27 +56,36 @@ public class MNAlarm implements Serializable, Cloneable {
         return alarm;
     }
 
-    /**
-     * get MNAlarm instance with specific alarmId from alarmList
-     * @param alarmId unique identifier for MNAlarm
-     * @param alarmList ArrayList that contains MNAlarm
-     * @return MNAlarm
-     */
-    public static MNAlarm getInstance(int alarmId, ArrayList<MNAlarm> alarmList) {
-        MNAlarm alarmToFind = null;
-        for (MNAlarm alarm : alarmList ) {
-            if (alarm.alarmId == alarmId) {
-                alarmToFind = alarm;
-            }
+    private void adjustAlarmCalendar() {
+        Calendar newAlarmCalendar = Calendar.getInstance();
+        newAlarmCalendar.set(Calendar.HOUR_OF_DAY, alarmCalendar.get(Calendar.HOUR_OF_DAY));
+        newAlarmCalendar.set(Calendar.MINUTE, alarmCalendar.get(Calendar.MINUTE));
+        newAlarmCalendar.set(Calendar.SECOND, 0);
+        alarmCalendar = newAlarmCalendar;
+
+        if (alarmCalendar.getTimeInMillis() <= Calendar.getInstance().getTimeInMillis()) {
+            alarmCalendar.add(Calendar.DATE, 1);
         }
-        return alarmToFind;
     }
 
-    public void stopAlarm() {
+    public void stopAlarm(Context context) {
+        isAlarmOn = false;
 
+        Intent intent = new Intent(context, MNMainActivity.class);
+        PendingIntent sender = PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_ONE_SHOT);
     }
 
-    public void startAlarm() {
+    public void startAlarm(Context context) {
+        isAlarmOn = true;
+
+        adjustAlarmCalendar();
+
+        if (isRepeatOn) {
+            startRepeatAlarm(context);
+        } else {
+            startNonRepeatAlarm(context);
+            MNAlarmToast.show(context, alarmCalendar);
+        }
         // 현재 시간과 비교하여 오늘, 내일 판단하기
         /*
         Calendar currentTimeCalendar = Calendar.getInstance();
@@ -76,6 +94,22 @@ public class MNAlarm implements Serializable, Cloneable {
             alarmCalendar.add(Calendar.DAY_OF_MONTH, 1);
         }
         */
+    }
+
+    private void startNonRepeatAlarm(Context context) {
+        AlarmManager alarmManager = MNAlarmManager.getAlarmManager(context);
+
+        Intent intent = new Intent(context, MNMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(MN.alarm.ALARM_ID, alarmId);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_ONE_SHOT);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), pendingIntent);
+    }
+
+    private void startRepeatAlarm(Context context) {
+
     }
 
     public void snoozeAlarm() {
@@ -101,63 +135,4 @@ public class MNAlarm implements Serializable, Cloneable {
                 isAlarmOn ? "Yes" : "No",
                 isRepeatOn ? "Yes" : "No");
     }
-
-    /**
-     * Getter and Setter
-     */
-//    public boolean isAlarmOn() {
-//        return isAlarmOn;
-//    }
-//
-//    public void setAlarmOn(boolean isAlarmOn) {
-//        this.isAlarmOn = isAlarmOn;
-//    }
-//
-//    public boolean isSnoozeOn() {
-//        return isSnoozeOn;
-//    }
-//
-//    public void setSnoozeOn(boolean isSnoozeOn) {
-//        this.isSnoozeOn = isSnoozeOn;
-//    }
-//
-//    public boolean isRepeatOn() {
-//        return isRepeatOn;
-//    }
-//
-//    public void setRepeatOn(boolean isRepeatOn) {
-//        this.isRepeatOn = isRepeatOn;
-//    }
-//
-//    public ArrayList<Boolean> getAlarmRepeatOnOfWeek() {
-//        return alarmRepeatOnOfWeek;
-//    }
-//
-//    public void setAlarmRepeatOnOfWeek(ArrayList<Boolean> alarmRepeatOnOfWeek) {
-//        this.alarmRepeatOnOfWeek = alarmRepeatOnOfWeek;
-//    }
-//
-//    public String getAlarmLabel() {
-//        return alarmLabel;
-//    }
-//
-//    public void setAlarmLabel(String alarmLabel) {
-//        this.alarmLabel = alarmLabel;
-//    }
-//
-//    public int getAlarmId() {
-//        return alarmId;
-//    }
-//
-//    public void setAlarmId(int alarmId) {
-//        this.alarmId = alarmId;
-//    }
-//
-//    public Calendar getAlarmCalendar() {
-//        return alarmCalendar;
-//    }
-//
-//    public void setAlarmCalendar(Calendar alarmCalendar) {
-//        this.alarmCalendar = alarmCalendar;
-//    }
 }
