@@ -30,5 +30,5 @@ public class MNAlarmManager {
         return instance;
     }
 
-    public AlarmManager getAlarmManager(Context context) { return MNAlarmManager.getInstance(context).alarmManager; }
+    public static AlarmManager getAlarmManager(Context context) { return MNAlarmManager.getInstance(context).alarmManager; }
 }

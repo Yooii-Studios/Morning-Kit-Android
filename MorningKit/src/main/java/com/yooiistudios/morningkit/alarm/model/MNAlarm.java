@@ -2,6 +2,9 @@ package com.yooiistudios.morningkit.alarm.model;
 
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+
+import com.yooiistudios.morningkit.main.MNMainActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -53,7 +56,8 @@ public class MNAlarm implements Serializable, Cloneable {
     public void stopAlarm(Context context) {
         isAlarmOn = false;
 
-        PendingIntent sender = PendingIntent.getActivity(context, alarmId, null, PendingIntent.FLAG_ONE_SHOT);
+        Intent intent = new Intent(context, MNMainActivity.class);
+        PendingIntent sender = PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_ONE_SHOT);
     }
 
     public void startAlarm(Context context) {
