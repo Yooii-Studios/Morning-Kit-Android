@@ -72,7 +72,10 @@ public class MNAlarm implements Serializable, Cloneable {
         isAlarmOn = false;
 
         Intent intent = new Intent(context, MNMainActivity.class);
-        PendingIntent sender = PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_ONE_SHOT);
+
+        AlarmManager alarmManager = MNAlarmManager.getAlarmManager(context);
+        alarmManager.cancel(pendingIntent);
     }
 
     public void startAlarm(Context context) {

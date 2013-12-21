@@ -255,7 +255,6 @@ public class MNMainActivity extends Activity implements AdListener
      */
     @Subscribe
     public void removeAlarmById(final MNAlarm alarm) {
-        Log.i(TAG, "removeAlarmById");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -264,6 +263,7 @@ public class MNMainActivity extends Activity implements AdListener
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            alarm.stopAlarm(MNMainActivity.this);
                             MNAlarmListManager.removeAlarmFromAlarmList(alarm.getAlarmId(), MNMainActivity.this);
                             try {
                                 MNAlarmListManager.saveAlarmList(MNMainActivity.this);
