@@ -3,7 +3,7 @@ package com.yooiistudios.morningkit.alarm.model;
 import android.content.Context;
 
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmToast;
-import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmManager;
+import com.yooiistudios.morningkit.alarm.model.wake.SKAlarmManager;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 
 import java.io.Serializable;
@@ -55,13 +55,13 @@ public class MNAlarm implements Serializable, Cloneable {
     public void stopAlarm(Context context) {
         isAlarmOn = false;
 
-        MNAlarmManager.cancelAlarm(alarmId, context, MNMainActivity.class);
+        SKAlarmManager.cancelAlarm(alarmId, context, MNMainActivity.class);
     }
 
     public void startAlarm(Context context) {
         isAlarmOn = true;
 
-        alarmCalendar = MNAlarmManager.adjustCalendar(alarmCalendar);
+        alarmCalendar = SKAlarmManager.adjustCalendar(alarmCalendar);
 
         if (isRepeatOn) {
             startRepeatAlarm(context);
@@ -73,7 +73,7 @@ public class MNAlarm implements Serializable, Cloneable {
 
     private void startNonRepeatAlarm(Context context) {
 //        MNAlarmWakeDialog.show(this, context);
-        MNAlarmManager.setAlarm(alarmId, alarmCalendar, context, MNMainActivity.class);
+        SKAlarmManager.setAlarm(alarmId, alarmCalendar, context, MNMainActivity.class);
     }
 
     private void startRepeatAlarm(Context context) {
