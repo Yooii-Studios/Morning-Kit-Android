@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.view.Gravity;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
