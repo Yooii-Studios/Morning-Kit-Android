@@ -8,6 +8,7 @@ import android.content.Intent;
 import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmToast;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmManager;
+import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWakeDialog;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 
 import java.io.Serializable;
