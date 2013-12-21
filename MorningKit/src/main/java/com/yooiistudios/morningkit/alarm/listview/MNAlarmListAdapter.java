@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.alarm.listview;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemScrollView;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
@@ -201,6 +203,13 @@ public class MNAlarmListAdapter extends BaseAdapter {
             }
         }
         return 0;
+    }
+
+    @Subscribe // After WakeDialogAction
+    public void refreshListAdaptor(Context context) {
+        Log.i(TAG, "refreshListAdaptor");
+        MNAlarmListManager.loadAlarmList(context);
+        notifyDataSetChanged();
     }
 
     static class MNAlarmItemViewHolder {

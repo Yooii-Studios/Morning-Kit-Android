@@ -15,8 +15,6 @@ public final class MN {
 
     public static final class alarm {
 
-        public static final String ALARM_ID = "alarmId";
-
         // Local Data Paths
         public static final String SHARED_PREFS_FILE = "alarm_data2";
         public static final String ALARM_LIST = "alarm_list2";

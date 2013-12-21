@@ -1,11 +1,7 @@
 package com.yooiistudios.morningkit.alarm.model;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 
-import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmToast;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmManager;
 import com.yooiistudios.morningkit.main.MNMainActivity;
@@ -56,32 +52,16 @@ public class MNAlarm implements Serializable, Cloneable {
         return alarm;
     }
 
-    private void adjustAlarmCalendar() {
-        Calendar newAlarmCalendar = Calendar.getInstance();
-        newAlarmCalendar.set(Calendar.HOUR_OF_DAY, alarmCalendar.get(Calendar.HOUR_OF_DAY));
-        newAlarmCalendar.set(Calendar.MINUTE, alarmCalendar.get(Calendar.MINUTE));
-        newAlarmCalendar.set(Calendar.SECOND, 0);
-        alarmCalendar = newAlarmCalendar;
-
-        if (alarmCalendar.getTimeInMillis() <= Calendar.getInstance().getTimeInMillis()) {
-            alarmCalendar.add(Calendar.DATE, 1);
-        }
-    }
-
     public void stopAlarm(Context context) {
         isAlarmOn = false;
 
-        Intent intent = new Intent(context, MNMainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_ONE_SHOT);
-
-        AlarmManager alarmManager = MNAlarmManager.getAlarmManager(context);
-        alarmManager.cancel(pendingIntent);
+        MNAlarmManager.cancelAlarm(alarmId, context, MNMainActivity.class);
     }
 
     public void startAlarm(Context context) {
         isAlarmOn = true;
 
-        adjustAlarmCalendar();
+        alarmCalendar = MNAlarmManager.adjustCalendar(alarmCalendar);
 
         if (isRepeatOn) {
             startRepeatAlarm(context);
@@ -89,26 +69,11 @@ public class MNAlarm implements Serializable, Cloneable {
             startNonRepeatAlarm(context);
             MNAlarmToast.show(context, alarmCalendar);
         }
-        // 현재 시간과 비교하여 오늘, 내일 판단하기
-        /*
-        Calendar currentTimeCalendar = Calendar.getInstance();
-        if (alarmCalendar.getTimeInMillis() > currentTimeCalendar.getTimeInMillis()) {
-        }else{
-            alarmCalendar.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        */
     }
 
     private void startNonRepeatAlarm(Context context) {
-        AlarmManager alarmManager = MNAlarmManager.getAlarmManager(context);
-
-        Intent intent = new Intent(context, MNMainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(MN.alarm.ALARM_ID, alarmId);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_ONE_SHOT);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), pendingIntent);
+//        MNAlarmWakeDialog.show(this, context);
+        MNAlarmManager.setAlarm(alarmId, alarmCalendar, context, MNMainActivity.class);
     }
 
     private void startRepeatAlarm(Context context) {

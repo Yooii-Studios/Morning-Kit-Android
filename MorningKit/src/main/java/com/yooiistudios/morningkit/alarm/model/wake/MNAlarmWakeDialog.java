@@ -9,7 +9,10 @@ import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
+import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 
+import java.io.IOException;
 import java.text.DateFormat;
 
 /**
@@ -28,7 +31,7 @@ public class MNAlarmWakeDialog {
         ((TextView)wakeDialog.findViewById(android.R.id.message)).setGravity(Gravity.CENTER);
     }
 
-    private static AlertDialog makeWakeAlertDialog(MNAlarm alarm, Context context) {
+    private static AlertDialog makeWakeAlertDialog(final MNAlarm alarm, final Context context) {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             builder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_DARK);
@@ -38,7 +41,14 @@ public class MNAlarmWakeDialog {
         AlertDialog wakeDialog = builder.setPositiveButton(R.string.alarm_wake_dismiss, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), context);
+                targetAlarm.setAlarmOn(false);
+                try {
+                    MNAlarmListManager.saveAlarmList(context);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                MNAlarmScrollViewBusProvider.getInstance().post(context);
             }
         }).setNegativeButton(R.string.alarm_wake_snooze, new DialogInterface.OnClickListener() {
             @Override

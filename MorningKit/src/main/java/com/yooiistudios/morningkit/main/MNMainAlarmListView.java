@@ -40,7 +40,6 @@ public class MNMainAlarmListView extends ListView
     }
 
     private void init() {
-
     }
 
     public void initWithListAdapter() {
