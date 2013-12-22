@@ -20,6 +20,9 @@
 
 Release Notes
 
+0.1.1 버전:
+- 불필요한 앱 아이콘을 모두 삭제, AndroidManifest.xml 에도 적용
+
 0.1.0 버전:
 - 최초로 샘플 프로젝트와 SKAlarmManager를 통합
 - 루트 프로젝트의 setting.gradle의 link를 통해 복사하지 않고 사용 가능하게 고안
