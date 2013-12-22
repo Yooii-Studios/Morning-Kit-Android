@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.alarm.model.wake;
+package com.yooiistudios.stevenkim.alarmmanager;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -13,7 +13,7 @@ import java.util.Calendar;
  * MNAlarmManager
  *  Handling logic for AlarmManager
  */
-public class MNAlarmManager {
+public class SKAlarmManager {
 
     public static final String ALARM_ID = "ALARM_ID";
     private AlarmManager alarmManager;
@@ -21,13 +21,13 @@ public class MNAlarmManager {
     /**
      * Singleton
      */
-    private volatile static MNAlarmManager instance;
-    private MNAlarmManager() {}
-    public static MNAlarmManager getInstance(Context context) {
+    private volatile static SKAlarmManager instance;
+    private SKAlarmManager() {}
+    public static SKAlarmManager getInstance(Context context) {
         if (instance == null) {
-            synchronized (MNAlarmManager.class) {
+            synchronized (SKAlarmManager.class) {
                 if (instance == null) {
-                    instance = new MNAlarmManager();
+                    instance = new SKAlarmManager();
                     instance.alarmManager =
                             (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 }
@@ -36,7 +36,7 @@ public class MNAlarmManager {
         return instance;
     }
     public static AlarmManager getAlarmManager(Context context) {
-        return MNAlarmManager.getInstance(context).alarmManager;
+        return SKAlarmManager.getInstance(context).alarmManager;
     }
 
     /**
@@ -48,7 +48,7 @@ public class MNAlarmManager {
      * @param activity Class to insert into Intent and used as Context
      */
     public static void setAlarm(int alarmId, Calendar calendar, Context context, Class activity) {
-        AlarmManager alarmManager = MNAlarmManager.getAlarmManager(context);
+        AlarmManager alarmManager = SKAlarmManager.getAlarmManager(context);
 
         Intent intent = new Intent(context, activity);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -74,7 +74,7 @@ public class MNAlarmManager {
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_ONE_SHOT);
 
-        AlarmManager alarmManager = MNAlarmManager.getAlarmManager(context);
+        AlarmManager alarmManager = SKAlarmManager.getAlarmManager(context);
         alarmManager.cancel(pendingIntent);
     }
 

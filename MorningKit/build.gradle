@@ -2,7 +2,6 @@ buildscript {
     repositories {
         mavenCentral()
         mavenLocal()
-
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.7.+'
@@ -17,15 +16,13 @@ apply plugin: 'android'
 repositories {
     mavenCentral()
     mavenLocal()
-    maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots/'
-    }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
 android {
     compileSdkVersion 18
 //    buildToolsVersion "18.1.1"
-    buildToolsVersion "19.0.1"
+    buildToolsVersion '19.0.1'
 
 
     defaultConfig {
@@ -52,6 +49,10 @@ apply plugin: 'android-unit-test'
 //}
 
 dependencies {
+
+    // 내가 만든 SKAlarmManager 프로젝트
+    compile project(':libraries:SKAlarmManager')
+
     // 안드로이드 기본
     compile 'com.android.support:support-v4:+'
 	compile 'com.android.support:appcompat-v7:+'

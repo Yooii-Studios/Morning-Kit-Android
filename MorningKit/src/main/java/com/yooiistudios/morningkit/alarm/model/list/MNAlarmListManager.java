@@ -69,9 +69,16 @@ public class MNAlarmListManager {
             String alarmListDataString = MNSharedPreferences.getAlarmSharedPrefs(context).getString(MN.alarm.ALARM_LIST, null);
             if (alarmListDataString != null) {
                 MNAlarmListManager.getInstance().alarmList = (ArrayList<MNAlarm>) ObjectSerializer.deserialize(alarmListDataString);
+                if (MNAlarmListManager.getInstance().alarmList == null) {
+                    throw new NullPointerException("AlarmList should not be null");
+                }
             } else {
                 MNAlarmListManager.getInstance().alarmList = newDefaultAlarmList(context);
-                saveAlarmList(context);
+                if (MNAlarmListManager.getInstance().alarmList != null) {
+                    saveAlarmList(context);
+                } else {
+                    throw new NullPointerException("AlarmList should not be null");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
