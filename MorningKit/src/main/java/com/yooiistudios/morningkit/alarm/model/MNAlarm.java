@@ -22,6 +22,9 @@ import lombok.Setter;
 public class MNAlarm implements Serializable, Cloneable {
     private static final String TAG = "MNAlarm";
 
+    // 로직의 변경이 있을 때 같은 클래스임을 명시적으로 알려 주는 코드
+    private static final long serialVersionUID = 1L;
+
     /**
      * Variables
      */

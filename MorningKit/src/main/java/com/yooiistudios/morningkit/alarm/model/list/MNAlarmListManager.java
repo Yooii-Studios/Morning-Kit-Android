@@ -86,6 +86,11 @@ public class MNAlarmListManager {
         return MNAlarmListManager.getInstance().alarmList;
     }
 
+    /**
+     * make new defulat AlarmList
+     * @param context used to get SharedPreferences
+     * @return ArrayList<MNAlarm>
+     */
     public static ArrayList<MNAlarm> newDefaultAlarmList(Context context) {
         ArrayList<MNAlarm> defaultAlarmList = new ArrayList<MNAlarm>();
 
