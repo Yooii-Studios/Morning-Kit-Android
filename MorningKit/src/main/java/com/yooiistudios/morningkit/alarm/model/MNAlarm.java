@@ -3,8 +3,8 @@ package com.yooiistudios.morningkit.alarm.model;
 import android.content.Context;
 
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmToast;
-import com.yooiistudios.morningkit.alarm.model.wake.SKAlarmManager;
 import com.yooiistudios.morningkit.main.MNMainActivity;
+import com.yooiistudios.stevenkim.alarmmanager.SKAlarmManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
+import com.yooiistudios.stevenkim.alarmmanager.SKAlarmManager;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 20.

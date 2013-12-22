@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.alarm.model.wake;
+package com.yooiistudios.stevenkim.alarmmanager;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
