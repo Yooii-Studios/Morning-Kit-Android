@@ -3,6 +3,11 @@ apply plugin: 'signing'
 
 def sonatypeRepositoryUrl
 
+allprojects {
+    version = VERSION_NAME
+    group = GROUP
+}
+
 def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false
 }
@@ -81,7 +86,7 @@ afterEvaluate { project ->
 
     artifacts {
         //archives packageReleaseJar
-        archives androidSourcesJar
         archives androidJavadocsJar
+        archives androidSourcesJar
     }
 }
