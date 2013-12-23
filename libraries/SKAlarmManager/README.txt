@@ -20,6 +20,15 @@
 
 Release Notes
 
+0.2.2 버전:
+- git tree 를 제대로 수정 및 bitbucket에 업로드
+
+0.2.1 버전:
+- 다시 Sample 프로젝트와 통합
+
+0.2.0 버전:
+- sonatype oss 에 artifact로 deploy하기 위한 작업(maven_push.gradle)
+
 0.1.1 버전:
 - 불필요한 앱 아이콘을 모두 삭제, AndroidManifest.xml 에도 적용
 

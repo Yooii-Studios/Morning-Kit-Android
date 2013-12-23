@@ -19,8 +19,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 18
-        versionCode 1
-        versionName "0.1.0"
+        versionCode Integer.parseInt(project.VERSION_CODE) // in gradle.properties
+        versionName project.VERSION_NAME
     }
     release {
         runProguard false
@@ -29,5 +29,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:+'
+//    compile 'com.android.support:appcompat-v7:+'
 }
+
+apply from: 'maven_push.gradle'
