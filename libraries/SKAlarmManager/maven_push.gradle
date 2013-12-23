@@ -15,11 +15,6 @@ if (isReleaseBuild()) {
     sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
 }
 
-//signing {
-//    required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
-//    sign configurations.archives
-//}
-
 afterEvaluate { project ->
     uploadArchives {
         repositories {
