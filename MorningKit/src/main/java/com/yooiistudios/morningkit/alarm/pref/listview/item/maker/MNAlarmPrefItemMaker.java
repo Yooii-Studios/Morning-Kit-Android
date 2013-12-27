@@ -15,6 +15,7 @@ import android.widget.TimePicker;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceType;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmTimePicker;
 
 import java.util.Calendar;
@@ -37,14 +38,19 @@ public class MNAlarmPrefItemMaker {
     // REPEAT, LABEL, SOUND_TYPE, SOUND_NAME, SNOOZE, TIME;
     private MNAlarmPrefItemMaker() { throw new AssertionError("You MUST NOT create this class"); }
 
-    public static View makeTimeItem(Context context, ViewGroup parent, final MNAlarm alarm) {
+    public static View makeTimeItem(Context context, ViewGroup parent, final MNAlarm alarm, MNAlarmPreferenceType alarmPreferenceType) {
         View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_time_item, parent, false);
         MNAlarmPrefTimeItemViewHolder viewHolder = new MNAlarmPrefTimeItemViewHolder(convertView);
         convertView.setTag(viewHolder);
         viewHolder.alarmTimePicker.setIs24HourView(DateFormat.is24HourFormat(context));
         viewHolder.alarmTimePicker.setCurrentHour(alarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY));
-        viewHolder.alarmTimePicker.setCurrentMinute(alarm.getAlarmCalendar().get(Calendar.MINUTE) + 1);
-        alarm.getAlarmCalendar().add(Calendar.MINUTE, 1);
+
+        viewHolder.alarmTimePicker.setCurrentMinute(alarm.getAlarmCalendar().get(Calendar.MINUTE));
+        if (alarmPreferenceType == MNAlarmPreferenceType.ADD) {
+            viewHolder.alarmTimePicker.setCurrentMinute(alarm.getAlarmCalendar().get(Calendar.MINUTE) + 1);
+            alarm.getAlarmCalendar().add(Calendar.MINUTE, 1);
+        }
+
         viewHolder.alarmTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
