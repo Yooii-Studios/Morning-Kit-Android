@@ -76,7 +76,6 @@ public class MNAlarm implements Serializable, Cloneable {
             startRepeatAlarm(context, true);
         } else {
             startNonRepeatAlarm(context, true);
-            MNAlarmToast.show(context, alarmCalendar);
         }
     }
 
@@ -94,7 +93,7 @@ public class MNAlarm implements Serializable, Cloneable {
 
     private void startNonRepeatAlarm(Context context, boolean isToastOn) {
 //        MNAlarmWakeDialog.show(this, context);
-        SKAlarmManager.setAlarm(alarmId, alarmCalendar, context, MNMainActivity.class);
+        SKAlarmManager.setAlarm(alarmId, alarmId, alarmCalendar, context, MNMainActivity.class);
 
         if (isToastOn) {
             MNAlarmToast.show(context, alarmCalendar);
@@ -106,8 +105,8 @@ public class MNAlarm implements Serializable, Cloneable {
 
         for (int i = 0; i < alarmRepeatList.size(); i++) {
             Calendar repeatCalendar = (Calendar) alarmCalendar.clone();
-//            repeatCalendar.add(Calendar.DATE, i);
-            repeatCalendar.add(Calendar.SECOND, i * 5); // for test
+            repeatCalendar.add(Calendar.DATE, i);
+//            repeatCalendar.add(Calendar.SECOND, i * 5); // for test
 
             // Calendar DayOfWeek
             // 1 ~ 7
@@ -123,22 +122,20 @@ public class MNAlarm implements Serializable, Cloneable {
 //            Log.i(TAG, "convertedDayOfWeek: " + convertedDayOfWeek);
 
             // Test
-            SKAlarmManager.setAlarm(alarmId + i, repeatCalendar, context, MNMainActivity.class);
-            if (isToastOn && !isToastShown) {
-                MNAlarmToast.show(context, repeatCalendar);
-                isToastShown = true;
-            }
+//            SKAlarmManager.setAlarm(alarmId, alarmId + i, repeatCalendar, context, MNMainActivity.class);
+//            if (isToastOn && !isToastShown) {
+//                MNAlarmToast.show(context, repeatCalendar);
+//                isToastShown = true;
+//            }
 
-            /*
             if (alarmRepeatList.get(convertedDayOfWeek)) {
-                SKAlarmManager.setAlarm(alarmId + i, repeatCalendar, context, MNMainActivity.class);
+                SKAlarmManager.setAlarm(alarmId, alarmId + i, repeatCalendar, context, MNMainActivity.class);
 
                 if (isToastOn && !isToastShown) {
                     MNAlarmToast.show(context, repeatCalendar);
                     isToastShown = true;
                 }
             }
-            */
         }
     }
 

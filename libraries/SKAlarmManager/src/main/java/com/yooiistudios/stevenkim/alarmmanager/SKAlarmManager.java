@@ -16,6 +16,7 @@ import java.util.Calendar;
 public class SKAlarmManager {
 
     public static final String ALARM_ID = "ALARM_ID";
+    public static final String ALARM_UNIQUE_ID = "ALARM_UNIQUE_ID";
     private AlarmManager alarmManager;
 
     /**
@@ -47,12 +48,13 @@ public class SKAlarmManager {
      * @param context used to get AlarmManager
      * @param activity Class to insert into Intent and used as Context
      */
-    public static void setAlarm(int alarmId, Calendar calendar, Context context, Class activity) {
+    public static void setAlarm(int alarmUniqueId, int alarmId, Calendar calendar, Context context, Class activity) {
         AlarmManager alarmManager = SKAlarmManager.getAlarmManager(context);
 
         Intent intent = new Intent(context, activity);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(ALARM_UNIQUE_ID, alarmUniqueId);
         intent.putExtra(ALARM_ID, alarmId);
 
         PendingIntent pendingIntent =

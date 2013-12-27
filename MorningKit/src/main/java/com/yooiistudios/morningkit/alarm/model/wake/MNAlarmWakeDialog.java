@@ -43,7 +43,10 @@ public class MNAlarmWakeDialog {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), context);
-                targetAlarm.setAlarmOn(false);
+                targetAlarm.stopAlarm(context);
+                if (alarm.isRepeatOn()) {
+                    targetAlarm.startAlarm(context);
+                }
                 try {
                     MNAlarmListManager.saveAlarmList(context);
                 } catch (IOException e) {
