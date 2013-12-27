@@ -43,7 +43,8 @@ public class SKAlarmManager {
     /**
      * Add an alarm into AlarmManager
      *
-     * @param alarmId  unique Id to distinguish between alarms
+     * @param alarmUniqueId  unique Id to distinguish between alarms
+     * @param alarmId  this is used for repeated alarms in one alarm to distinguish each others
      * @param calendar Calendar instance to set into an alarm
      * @param context used to get AlarmManager
      * @param activity Class to insert into Intent and used as Context
