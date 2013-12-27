@@ -58,7 +58,13 @@ public class MNAlarm implements Serializable, Cloneable {
     public void stopAlarm(Context context) {
         isAlarmOn = false;
 
-        SKAlarmManager.cancelAlarm(alarmId, context, MNMainActivity.class);
+        if (isRepeatOn) {
+            for (int i = 0; i < alarmRepeatList.size(); i++) {
+                SKAlarmManager.cancelAlarm(alarmId + i, context, MNMainActivity.class);
+            }
+        } else {
+            SKAlarmManager.cancelAlarm(alarmId, context, MNMainActivity.class);
+        }
     }
 
     public void startAlarm(Context context) {
@@ -67,20 +73,70 @@ public class MNAlarm implements Serializable, Cloneable {
         alarmCalendar = SKAlarmManager.adjustCalendar(alarmCalendar);
 
         if (isRepeatOn) {
-            startRepeatAlarm(context);
+            startRepeatAlarm(context, true);
         } else {
-            startNonRepeatAlarm(context);
+            startNonRepeatAlarm(context, true);
+        }
+    }
+
+    public void startAlarmWithNoToast(Context context) {
+        isAlarmOn = true;
+
+        alarmCalendar = SKAlarmManager.adjustCalendar(alarmCalendar);
+
+        if (isRepeatOn) {
+            startRepeatAlarm(context, false);
+        } else {
+            startNonRepeatAlarm(context, false);
+        }
+    }
+
+    private void startNonRepeatAlarm(Context context, boolean isToastOn) {
+//        MNAlarmWakeDialog.show(this, context);
+        SKAlarmManager.setAlarm(alarmId, alarmId, alarmCalendar, context, MNMainActivity.class);
+
+        if (isToastOn) {
             MNAlarmToast.show(context, alarmCalendar);
         }
     }
 
-    private void startNonRepeatAlarm(Context context) {
-//        MNAlarmWakeDialog.show(this, context);
-        SKAlarmManager.setAlarm(alarmId, alarmCalendar, context, MNMainActivity.class);
-    }
+    private void startRepeatAlarm(Context context, boolean isToastOn) {
+        boolean isToastShown = false;
 
-    private void startRepeatAlarm(Context context) {
+        for (int i = 0; i < alarmRepeatList.size(); i++) {
+            Calendar repeatCalendar = (Calendar) alarmCalendar.clone();
+            repeatCalendar.add(Calendar.DATE, i);
+//            repeatCalendar.add(Calendar.SECOND, i * 5); // for test
 
+            // Calendar DayOfWeek
+            // 1 ~ 7
+            // Sun ~ Sat
+
+            // RepeatList
+            // 0 ~ 6
+            // Mon ~ Sun
+            int convertedDayOfWeek = repeatCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+            if (convertedDayOfWeek < 0) {
+                convertedDayOfWeek += 7;
+            }
+//            Log.i(TAG, "convertedDayOfWeek: " + convertedDayOfWeek);
+
+            // Test
+//            SKAlarmManager.setAlarm(alarmId, alarmId + i, repeatCalendar, context, MNMainActivity.class);
+//            if (isToastOn && !isToastShown) {
+//                MNAlarmToast.show(context, repeatCalendar);
+//                isToastShown = true;
+//            }
+
+            if (alarmRepeatList.get(convertedDayOfWeek)) {
+                SKAlarmManager.setAlarm(alarmId, alarmId + i, repeatCalendar, context, MNMainActivity.class);
+
+                if (isToastOn && !isToastShown) {
+                    MNAlarmToast.show(context, repeatCalendar);
+                    isToastShown = true;
+                }
+            }
+        }
     }
 
     public void snoozeAlarm() {

@@ -24,7 +24,8 @@ public class MNAlarmWake {
     public static void checkReservedAlarm(Intent intent, Context context) {
         int alarmId = intent.getIntExtra(SKAlarmManager.ALARM_ID, -1);
         if (alarmId != -1) {
-            MNAlarm alarm = MNAlarmListManager.findAlarmById(alarmId, context);
+            int alarmUniqueId = intent.getIntExtra(SKAlarmManager.ALARM_UNIQUE_ID, -1);
+            MNAlarm alarm = MNAlarmListManager.findAlarmById(alarmUniqueId, context);
             if (alarm != null) {
                 MNAlarmWakeDialog.show(alarm, context);
             } else {
