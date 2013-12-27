@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 
 import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceType;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefLabelItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefRepeatItemMaker;
@@ -24,11 +25,13 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
     private static final String TAG = "MNAlarmPreferenceListAdapter";
     private Context context;
     private MNAlarm alarm;
+    private MNAlarmPreferenceType alarmPreferenceType;
 
     private MNAlarmPreferenceListAdapter() {}
-    public MNAlarmPreferenceListAdapter(Context context, MNAlarm alarm) {
+    public MNAlarmPreferenceListAdapter(Context context, MNAlarm alarm, MNAlarmPreferenceType alarmPreferenceType) {
         this.context = context;
         this.alarm = alarm;
+        this.alarmPreferenceType = alarmPreferenceType;
         MNAlarmPrefBusProvider.getInstance().register(this);
     }
 
@@ -49,7 +52,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
                 convertView = MNAlarmPrefItemMaker.makeSnoozeItem(context, parent, alarm);
                 break;
             case TIME:
-                convertView = MNAlarmPrefItemMaker.makeTimeItem(context, parent, alarm);
+                convertView = MNAlarmPrefItemMaker.makeTimeItem(context, parent, alarm, alarmPreferenceType);
                 break;
         }
         return convertView;
