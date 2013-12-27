@@ -58,7 +58,13 @@ public class MNAlarm implements Serializable, Cloneable {
     public void stopAlarm(Context context) {
         isAlarmOn = false;
 
-        SKAlarmManager.cancelAlarm(alarmId, context, MNMainActivity.class);
+        if (isRepeatOn) {
+            for (int i = 0; i < alarmRepeatList.size(); i++) {
+                SKAlarmManager.cancelAlarm(alarmId + i, context, MNMainActivity.class);
+            }
+        } else {
+            SKAlarmManager.cancelAlarm(alarmId, context, MNMainActivity.class);
+        }
     }
 
     public void startAlarm(Context context) {
@@ -96,6 +102,8 @@ public class MNAlarm implements Serializable, Cloneable {
     }
 
     private void startRepeatAlarm(Context context, boolean isToastOn) {
+        boolean isToastShown = false;
+
         for (int i = 0; i < alarmRepeatList.size(); i++) {
             Calendar repeatCalendar = (Calendar) alarmCalendar.clone();
 //            repeatCalendar.add(Calendar.DATE, i);
@@ -108,17 +116,29 @@ public class MNAlarm implements Serializable, Cloneable {
             // RepeatList
             // 0 ~ 6
             // Mon ~ Sun
-            int calendarIndex = repeatCalendar.get(Calendar.DAY_OF_WEEK) - 2;
-            if (calendarIndex < 0) {
-                calendarIndex += 7;
+            int convertedDayOfWeek = repeatCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+            if (convertedDayOfWeek < 0) {
+                convertedDayOfWeek += 7;
             }
-//            Log.i(TAG, "calendarIndex: " + calendarIndex);
+//            Log.i(TAG, "convertedDayOfWeek: " + convertedDayOfWeek);
 
+            // Test
             SKAlarmManager.setAlarm(alarmId + i, repeatCalendar, context, MNMainActivity.class);
-
-            if (i == 0) {
+            if (isToastOn && !isToastShown) {
                 MNAlarmToast.show(context, repeatCalendar);
+                isToastShown = true;
             }
+
+            /*
+            if (alarmRepeatList.get(convertedDayOfWeek)) {
+                SKAlarmManager.setAlarm(alarmId + i, repeatCalendar, context, MNMainActivity.class);
+
+                if (isToastOn && !isToastShown) {
+                    MNAlarmToast.show(context, repeatCalendar);
+                    isToastShown = true;
+                }
+            }
+            */
         }
     }
 
