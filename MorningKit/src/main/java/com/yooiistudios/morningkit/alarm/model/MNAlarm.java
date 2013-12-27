@@ -67,20 +67,59 @@ public class MNAlarm implements Serializable, Cloneable {
         alarmCalendar = SKAlarmManager.adjustCalendar(alarmCalendar);
 
         if (isRepeatOn) {
-            startRepeatAlarm(context);
+            startRepeatAlarm(context, true);
         } else {
-            startNonRepeatAlarm(context);
+            startNonRepeatAlarm(context, true);
             MNAlarmToast.show(context, alarmCalendar);
         }
     }
 
-    private void startNonRepeatAlarm(Context context) {
-//        MNAlarmWakeDialog.show(this, context);
-        SKAlarmManager.setAlarm(alarmId, alarmCalendar, context, MNMainActivity.class);
+    public void startAlarmWithNoToast(Context context) {
+        isAlarmOn = true;
+
+        alarmCalendar = SKAlarmManager.adjustCalendar(alarmCalendar);
+
+        if (isRepeatOn) {
+            startRepeatAlarm(context, false);
+        } else {
+            startNonRepeatAlarm(context, false);
+        }
     }
 
-    private void startRepeatAlarm(Context context) {
+    private void startNonRepeatAlarm(Context context, boolean isToastOn) {
+//        MNAlarmWakeDialog.show(this, context);
+        SKAlarmManager.setAlarm(alarmId, alarmCalendar, context, MNMainActivity.class);
 
+        if (isToastOn) {
+            MNAlarmToast.show(context, alarmCalendar);
+        }
+    }
+
+    private void startRepeatAlarm(Context context, boolean isToastOn) {
+        for (int i = 0; i < alarmRepeatList.size(); i++) {
+            Calendar repeatCalendar = (Calendar) alarmCalendar.clone();
+//            repeatCalendar.add(Calendar.DATE, i);
+            repeatCalendar.add(Calendar.SECOND, i * 5); // for test
+
+            // Calendar DayOfWeek
+            // 1 ~ 7
+            // Sun ~ Sat
+
+            // RepeatList
+            // 0 ~ 6
+            // Mon ~ Sun
+            int calendarIndex = repeatCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+            if (calendarIndex < 0) {
+                calendarIndex += 7;
+            }
+//            Log.i(TAG, "calendarIndex: " + calendarIndex);
+
+            SKAlarmManager.setAlarm(alarmId + i, repeatCalendar, context, MNMainActivity.class);
+
+            if (i == 0) {
+                MNAlarmToast.show(context, repeatCalendar);
+            }
+        }
     }
 
     public void snoozeAlarm() {
