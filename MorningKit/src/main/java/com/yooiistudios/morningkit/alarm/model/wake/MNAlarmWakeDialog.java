@@ -14,6 +14,7 @@ import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.util.Calendar;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 20.
@@ -75,7 +76,7 @@ public class MNAlarmWakeDialog {
         DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         return alarm.getAlarmLabel() + "\n" +
-                timeFormat.format(alarm.getAlarmCalendar().getTime()) + "\n" +
-                dateFormat.format(alarm.getAlarmCalendar().getTime());
+                timeFormat.format(Calendar.getInstance().getTime()) + "\n" +
+                dateFormat.format(Calendar.getInstance().getTime());
     }
 }
