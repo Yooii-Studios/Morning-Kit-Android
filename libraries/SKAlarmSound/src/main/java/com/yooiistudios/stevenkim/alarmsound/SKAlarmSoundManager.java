@@ -19,9 +19,9 @@ import java.io.File;
 public class SKAlarmSoundManager {
 
 //    private SKAlarmSoundManager() { throw new AssertionError("You MUST not craete class!"); }
-    private static final String ALARM_SOUND_TYPE = "ALARM_SOUND_TYPE";
-    private static final String ALARM_SOUND_TITLE = "ALARM_SOUND_TITLE";
-    private static final String ALARM_SOUND_PATH = "ALARM_SOUND_PATH";
+    private static final String ALARM_SOUND_TYPE = "SK_ALARM_SOUND_TYPE";
+    private static final String ALARM_SOUND_TITLE = "SK_ALARM_SOUND_TITLE";
+    private static final String ALARM_SOUND_PATH = "SK_ALARM_SOUND_PATH";
 
     /**
      * Singleton
