@@ -120,14 +120,6 @@ public class MNAlarm implements Serializable, Cloneable {
             if (convertedDayOfWeek < 0) {
                 convertedDayOfWeek += 7;
             }
-//            Log.i(TAG, "convertedDayOfWeek: " + convertedDayOfWeek);
-
-            // Test
-//            SKAlarmManager.setAlarm(alarmId, alarmId + i, repeatCalendar, context, MNMainActivity.class);
-//            if (isToastOn && !isToastShown) {
-//                MNAlarmToast.show(context, repeatCalendar);
-//                isToastShown = true;
-//            }
 
             if (alarmRepeatList.get(convertedDayOfWeek)) {
                 SKAlarmManager.setAlarm(alarmId, alarmId + i, repeatCalendar, context, MNMainActivity.class);
