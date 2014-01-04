@@ -5,6 +5,7 @@ import android.content.Context;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmToast;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.stevenkim.alarmmanager.SKAlarmManager;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSound;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class MNAlarm implements Serializable, Cloneable {
 
     @Getter @Setter private Calendar            alarmCalendar;
 
-    // 사운드
+    @Getter @Setter private SKAlarmSound        alarmSound;
 
     /**
      * Methods

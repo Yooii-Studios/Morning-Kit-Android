@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
+import com.yooiistudios.stevenkim.alarmsound.OnAlarmSoundClickListener;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundDialog;
 
 /**
@@ -28,26 +29,15 @@ public class MNAlarmPrefSoundItemMaker {
     private MNAlarmPrefSoundItemMaker() { throw new AssertionError("You MUST NOT create this class"); }
 
     // ringotns, music, app music, none
-    public static View makeSoundItem(final Context context, ViewGroup parent, final MNAlarm alarm) {
-        final View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_default_item, parent, false);
+    public static View makeSoundItem(final Context context, ViewGroup parent, final MNAlarm alarm,
+                                     final OnAlarmSoundClickListener alarmSoundClickListener) {
+        final View convertView =
+                LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_default_item, parent, false);
+
         SoundItemViewHolder viewHolder = new SoundItemViewHolder(convertView);
         convertView.setTag(viewHolder);
         viewHolder.titleTextView.setText(R.string.alarm_pref_sound_type);
-
-        // 기본 사운드 소스 - 임시
-        String soundSource = "content://settings/system/ringtone";
-        Uri ringtoneSource = Uri.parse(soundSource);
-        if (!ringtoneSource.toString().isEmpty()) {
-            Ringtone ringtone = RingtoneManager.getRingtone(context, ringtoneSource);
-//            soundType = MN.alarm.ALARM_SOUNDTYPE_RINGTONE;
-//            soundName = ringtone.getTitle(context);
-            if (ringtone != null) {
-                viewHolder.detailTextView.setText(ringtone.getTitle(context));
-            } else {
-                Log.e(TAG, "unexpected situation! there must be default ringtone!");
-                viewHolder.detailTextView.setText(R.string.alarm_sound_string_ringtones);
-            }
-        }
+        viewHolder.detailTextView.setText(alarm.getAlarmSound().getSoundTitle());
         viewHolder.detailTextView.setSelected(true);
 
         // ClickListener
@@ -58,11 +48,8 @@ public class MNAlarmPrefSoundItemMaker {
                 MNAlarmPrefBusProvider.getInstance().post(convertView);
 
                 // from SKAlarmSound
-                SKAlarmSoundDialog.makeSoundDialog(context, null, null).show();
-
-                // AlertDialog
-//                AlertDialog alertDialog = makeSoundAlertDialog(context, alarm);
-//                alertDialog.show();
+                SKAlarmSoundDialog.makeSoundDialog(context, alarm.getAlarmSound(),
+                        alarmSoundClickListener).show();
             }
         });
 

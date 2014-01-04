@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
@@ -13,6 +14,8 @@ import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefLab
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefRepeatItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefSoundItemMaker;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
+import com.yooiistudios.stevenkim.alarmsound.OnAlarmSoundClickListener;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSound;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 7.
@@ -20,7 +23,7 @@ import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
  * MNAlarmPreferenceListAdapter
  *  알람설정 리스트뷰를 초기화하는 어댑터
  */
-public class MNAlarmPreferenceListAdapter extends BaseAdapter{
+public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarmSoundClickListener{
 
     private static final String TAG = "MNAlarmPreferenceListAdapter";
     private Context context;
@@ -46,7 +49,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
                 convertView = MNAlarmPrefLabelItemMaker.makeLabelItem(context, parent, alarm);
                 break;
             case SOUND:
-                convertView = MNAlarmPrefSoundItemMaker.makeSoundItem(context, parent, alarm);
+                convertView = MNAlarmPrefSoundItemMaker.makeSoundItem(context, parent, alarm, this);
                 break;
             case SNOOZE:
                 convertView = MNAlarmPrefItemMaker.makeSnoozeItem(context, parent, alarm);
@@ -102,5 +105,29 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
         } else {
             throw new AssertionError("alarm must not be null!");
         }
+    }
+
+    @Override
+    public void onAlarmSoundSelected(SKAlarmSound alarmSound) {
+        if (alarm != null) {
+            if (alarmSound != null) {
+                alarm.setAlarmSound(alarmSound);
+                notifyDataSetChanged();
+            } else {
+                throw new AssertionError("alarmSound must not be null!");
+            }
+        } else {
+            throw new AssertionError("alarm must not be null!");
+        }
+    }
+
+    @Override
+    public void onAlarmSoundSelectCanceled() {
+
+    }
+
+    @Override
+    public void onAlarmSoundSelectFailedDueToUsbConnection() {
+        Toast.makeText(context, "Can't access due to USB connection", Toast.LENGTH_SHORT).show();
     }
 }
