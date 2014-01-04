@@ -22,6 +22,7 @@ import com.yooiistudios.morningkit.alarm.model.string.MNAlarmTimeString;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.theme.MNColor;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 import butterknife.ButterKnife;
@@ -157,8 +158,16 @@ public class MNAlarmListAdapter extends BaseAdapter {
                     alarmSwitchButton.setSelected(true);
                     alarm.startAlarm(context);
                 }
-                // Theme
+
+                // refresh theme
                 initThemeOfAlarmViewHolder(alarm, alarmItemViewHolder);
+
+                // save alarmList
+                try {
+                    MNAlarmListManager.saveAlarmList(context);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
