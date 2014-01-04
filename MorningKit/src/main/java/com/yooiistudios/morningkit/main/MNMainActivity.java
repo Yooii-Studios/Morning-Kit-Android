@@ -105,7 +105,11 @@ public class MNMainActivity extends Activity implements AdListener
         onConfigurationChanged(getResources().getConfiguration());
 
         // 알람 체크
-        MNAlarmWake.checkReservedAlarm(getIntent(), this);
+        try {
+            MNAlarmWake.checkReservedAlarm(getIntent(), this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
