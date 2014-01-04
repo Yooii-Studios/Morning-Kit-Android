@@ -32,8 +32,8 @@ public class SKAlarmSoundDialog {
      * @param alarmSoundClickListener callback listener(usually Activity)
      * @return AlertDialog
      */
-    public static AlertDialog makeSoundAlertDialog(final Context context, final SKAlarmSound alarmSound,
-                                                   final OnAlarmSoundClickListener alarmSoundClickListener) {
+    public static AlertDialog makeSoundDialog(final Context context, final SKAlarmSound alarmSound,
+                                              final OnAlarmSoundClickListener alarmSoundClickListener) {
         // SingleChoiceItems
         final String[] soundTypes = new String[] {
                 context.getString(R.string.alarm_sound_string_none),
@@ -56,7 +56,9 @@ public class SKAlarmSoundDialog {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0:
-                        alarmSoundClickListener.onAlarmSoundSelected(SKAlarmSoundFactory.makeMuteAlarmSound(context));
+                        if (alarmSoundClickListener != null) {
+                            alarmSoundClickListener.onAlarmSoundSelected(SKAlarmSoundFactory.makeMuteAlarmSound(context));
+                        }
                         break;
                     case 1:
                         AlertDialog ringtoneDialog = makeRingtoneDialog(context, alarmSound, alarmSoundClickListener);
@@ -78,7 +80,9 @@ public class SKAlarmSoundDialog {
         }).setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                if (alarmSoundClickListener != null) {
+                    alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                }
             }
         }).create();
 
@@ -186,7 +190,9 @@ public class SKAlarmSoundDialog {
                     }
 
                     // callback
-                    alarmSoundClickListener.onAlarmSoundSelected(newAlarmSound);
+                    if (alarmSoundClickListener != null) {
+                        alarmSoundClickListener.onAlarmSoundSelected(newAlarmSound);
+                    }
                 }
 
                 // stop ringtone
@@ -203,7 +209,9 @@ public class SKAlarmSoundDialog {
 //                mediaPlayer.reset();
 //                mediaPlayer.release();
                 ringtones.close();
-                alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                if (alarmSoundClickListener != null) {
+                    alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                }
             }
         }).setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
@@ -214,7 +222,9 @@ public class SKAlarmSoundDialog {
 //                mediaPlayer.reset();
 //                mediaPlayer.release();
                 ringtones.close();
-                alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                if (alarmSoundClickListener != null) {
+                    alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                }
             }
         }).create();
 
@@ -301,7 +311,9 @@ public class SKAlarmSoundDialog {
                         else {
                             newAlarmSound = SKAlarmSoundFactory.makeDefaultAlarmSound(context);
                         }
-                        alarmSoundClickListener.onAlarmSoundSelected(newAlarmSound);
+                        if (alarmSoundClickListener != null) {
+                            alarmSoundClickListener.onAlarmSoundSelected(newAlarmSound);
+                        }
                     }
                     musicCursor.close();
                     SKAlarmSoundPlayer.stop();
@@ -309,14 +321,18 @@ public class SKAlarmSoundDialog {
             }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                    if (alarmSoundClickListener != null) {
+                        alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                    }
                     SKAlarmSoundPlayer.stop();
                     musicCursor.close();
                 }
             }).setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
-                    alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                    if (alarmSoundClickListener != null) {
+                        alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                    }
                     SKAlarmSoundPlayer.stop();
                     musicCursor.close();
                 }
@@ -327,7 +343,9 @@ public class SKAlarmSoundDialog {
             return alertDialog;
         } else {
             // can't access the file system because of the USB Connection
-            alarmSoundClickListener.onAlarmSoundSelectFailedDueToUsbConnection();
+            if (alarmSoundClickListener != null) {
+                alarmSoundClickListener.onAlarmSoundSelectFailedDueToUsbConnection();
+            }
             return null;
         }
     }
@@ -394,7 +412,9 @@ public class SKAlarmSoundDialog {
                         soundRawString = String.valueOf(appSoundRawInt);
                     }
                     SKAlarmSound newAlarmSound = SKAlarmSound.newInstance(SKAlarmSoundType.APP_MUSIC, appMusics[selectedIndex], soundRawString);
-                    alarmSoundClickListener.onAlarmSoundSelected(newAlarmSound);
+                    if (alarmSoundClickListener != null) {
+                        alarmSoundClickListener.onAlarmSoundSelected(newAlarmSound);
+                    }
 
                     SKAlarmSoundManager.saveLatestAlarmSound(newAlarmSound, context);
                 }
@@ -403,13 +423,17 @@ public class SKAlarmSoundDialog {
         }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                if (alarmSoundClickListener != null) {
+                    alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                }
                 SKAlarmSoundPlayer.stop();
             }
         }).setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                if (alarmSoundClickListener != null) {
+                    alarmSoundClickListener.onAlarmSoundSelectCanceled();
+                }
                 SKAlarmSoundPlayer.stop();
             }
         }).create();

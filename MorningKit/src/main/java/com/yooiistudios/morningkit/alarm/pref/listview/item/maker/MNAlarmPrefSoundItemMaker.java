@@ -8,7 +8,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import android.view.ViewGroup;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundDialog;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 17.
@@ -57,9 +57,12 @@ public class MNAlarmPrefSoundItemMaker {
                 // ActionBar Menu
                 MNAlarmPrefBusProvider.getInstance().post(convertView);
 
+                // from SKAlarmSound
+                SKAlarmSoundDialog.makeSoundDialog(context, null, null).show();
+
                 // AlertDialog
-                AlertDialog alertDialog = makeSoundAlertDialog(context, alarm);
-                alertDialog.show();
+//                AlertDialog alertDialog = makeSoundAlertDialog(context, alarm);
+//                alertDialog.show();
             }
         });
 
