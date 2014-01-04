@@ -59,11 +59,6 @@ public class MNAlarmWakeDialog {
             public void onClick(DialogInterface dialog, int which) {
 
             }
-        }).setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-
-            }
         }).create();
 
         wakeDialog.setCancelable(false);
