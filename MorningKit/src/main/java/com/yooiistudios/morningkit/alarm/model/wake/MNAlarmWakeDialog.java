@@ -11,6 +11,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundPlayer;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -42,6 +43,8 @@ public class MNAlarmWakeDialog {
         AlertDialog wakeDialog = builder.setPositiveButton(R.string.alarm_wake_dismiss, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                SKAlarmSoundPlayer.stop();
+
                 MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), context);
                 targetAlarm.stopAlarm(context);
                 if (alarm.isRepeatOn()) {
@@ -57,7 +60,7 @@ public class MNAlarmWakeDialog {
         }).setNegativeButton(R.string.alarm_wake_snooze, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                SKAlarmSoundPlayer.stop();
             }
         }).create();
 

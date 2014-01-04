@@ -6,6 +6,9 @@ import android.content.Intent;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.stevenkim.alarmmanager.SKAlarmManager;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundPlayer;
+
+import java.io.IOException;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 20.
@@ -21,13 +24,14 @@ public class MNAlarmWake {
         return alarmId != -1;
     }
 
-    public static void checkReservedAlarm(Intent intent, Context context) {
+    public static void checkReservedAlarm(Intent intent, Context context) throws IOException {
         int alarmId = intent.getIntExtra(SKAlarmManager.ALARM_ID, -1);
         if (alarmId != -1) {
             int alarmUniqueId = intent.getIntExtra(SKAlarmManager.ALARM_UNIQUE_ID, -1);
             MNAlarm alarm = MNAlarmListManager.findAlarmById(alarmUniqueId, context);
             if (alarm != null) {
                 MNAlarmWakeDialog.show(alarm, context);
+                SKAlarmSoundPlayer.playAlarmSound(alarm.getAlarmSound(), context);
             } else {
                 throw new AssertionError("The target alarm must exist in the list.");
             }
