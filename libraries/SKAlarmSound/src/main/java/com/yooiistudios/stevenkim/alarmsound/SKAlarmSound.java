@@ -1,12 +1,14 @@
 package com.yooiistudios.stevenkim.alarmsound;
 
+import java.io.Serializable;
+
 /**
  * Created by StevenKim in SKAlarmSoundSample from Yooii Studios Co., LTD. on 2014. 1. 2.
  *
  * AlarmSound
  *  Model
  */
-public class SKAlarmSound {
+public class SKAlarmSound implements Serializable {
 
     private SKAlarmSoundType alarmSoundType;
     private String soundTitle;
@@ -19,7 +21,7 @@ public class SKAlarmSound {
         setSoundPath(soundPath);
     }
 
-    // Factory
+    // construction method
     public static SKAlarmSound newInstance(SKAlarmSoundType alarmSoundType, String soundTitle, String soundPathString) {
         return new SKAlarmSound(alarmSoundType, soundTitle, soundPathString);
     }
