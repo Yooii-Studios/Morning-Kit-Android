@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">SKAlarmSound</string>
+
+    <!-- General -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="default_string">Default</string>
+
+    <!-- Alarm Preference -->
+    <string name="alarm_pref_sound_type">Sound</string>
+
+    <!-- Alarm Sound -->
+    <string name="alarm_sound_string_none">Mute</string>
+    <string name="alarm_sound_string_vibrate">Vibrate</string>
+    <string name="alarm_sound_string_ringtones">Ringtone</string>
+    <string name="alarm_sound_string_music">Music</string>
+    <string name="alarm_ocean_short">Ocean</string>
+    <string name="alarm_ride">Ride</string>
+
+    <!-- Android Only -->
+    <!-- Alarm Pref -->
+    <string name="alarm_sound_string_app_music">Morning Kit Music</string>
+    <string name="alarm_sound_string_app_music_dream">Dream</string>
+
+</resources>

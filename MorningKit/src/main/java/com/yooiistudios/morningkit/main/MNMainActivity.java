@@ -18,8 +18,8 @@ import com.squareup.otto.Subscribe;
 import com.urqa.clientinterface.URQAController;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
+import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 
@@ -105,10 +105,11 @@ public class MNMainActivity extends Activity implements AdListener
         onConfigurationChanged(getResources().getConfiguration());
 
         // 알람 체크
-        if (MNAlarmWake.isAlarmReserved(getIntent())) {
-
+        try {
+            MNAlarmWake.checkReservedAlarm(getIntent(), this);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        MNAlarmWake.processingAlarmWake(getIntent(), this);
     }
 
     @Override
@@ -255,7 +256,6 @@ public class MNMainActivity extends Activity implements AdListener
      */
     @Subscribe
     public void removeAlarmById(final MNAlarm alarm) {
-        Log.i(TAG, "removeAlarmById");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -264,6 +264,7 @@ public class MNMainActivity extends Activity implements AdListener
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            alarm.stopAlarm(MNMainActivity.this);
                             MNAlarmListManager.removeAlarmFromAlarmList(alarm.getAlarmId(), MNMainActivity.this);
                             try {
                                 MNAlarmListManager.saveAlarmList(MNMainActivity.this);

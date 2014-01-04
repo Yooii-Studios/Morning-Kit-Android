@@ -1,1 +1,4 @@
 include ':MorningKit'
+include ':libraries:SKAlarmManager'
+include ':libraries:SKAlarmSound'
+// project (':SKAlarmManager').projectDir = new File(settingsDir, '/libraries/SKAlarmManager')

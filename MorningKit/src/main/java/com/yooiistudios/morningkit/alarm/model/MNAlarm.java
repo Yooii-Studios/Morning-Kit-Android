@@ -1,14 +1,11 @@
 package com.yooiistudios.morningkit.alarm.model;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 
-import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmToast;
-import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmManager;
 import com.yooiistudios.morningkit.main.MNMainActivity;
+import com.yooiistudios.stevenkim.alarmmanager.SKAlarmManager;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSound;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,6 +23,9 @@ import lombok.Setter;
 public class MNAlarm implements Serializable, Cloneable {
     private static final String TAG = "MNAlarm";
 
+    // 로직의 변경이 있을 때 같은 클래스임을 명시적으로 알려 주는 코드
+    private static final long serialVersionUID = 1L;
+
     /**
      * Variables
      */
@@ -42,7 +42,7 @@ public class MNAlarm implements Serializable, Cloneable {
 
     @Getter @Setter private Calendar            alarmCalendar;
 
-    // 사운드
+    @Getter @Setter private SKAlarmSound        alarmSound;
 
     /**
      * Methods
@@ -56,64 +56,84 @@ public class MNAlarm implements Serializable, Cloneable {
         return alarm;
     }
 
-    private void adjustAlarmCalendar() {
-        Calendar newAlarmCalendar = Calendar.getInstance();
-        newAlarmCalendar.set(Calendar.HOUR_OF_DAY, alarmCalendar.get(Calendar.HOUR_OF_DAY));
-        newAlarmCalendar.set(Calendar.MINUTE, alarmCalendar.get(Calendar.MINUTE));
-        newAlarmCalendar.set(Calendar.SECOND, 0);
-        alarmCalendar = newAlarmCalendar;
-
-        if (alarmCalendar.getTimeInMillis() <= Calendar.getInstance().getTimeInMillis()) {
-            alarmCalendar.add(Calendar.DATE, 1);
-        }
-    }
-
     public void stopAlarm(Context context) {
         isAlarmOn = false;
 
-        Intent intent = new Intent(context, MNMainActivity.class);
-        PendingIntent sender = PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_ONE_SHOT);
+        if (isRepeatOn) {
+            for (int i = 0; i < alarmRepeatList.size(); i++) {
+                SKAlarmManager.cancelAlarm(alarmId + i, context, MNMainActivity.class);
+            }
+        } else {
+            SKAlarmManager.cancelAlarm(alarmId, context, MNMainActivity.class);
+        }
     }
 
     public void startAlarm(Context context) {
         isAlarmOn = true;
 
-        adjustAlarmCalendar();
+        alarmCalendar = SKAlarmManager.adjustCalendar(alarmCalendar);
 
         if (isRepeatOn) {
-            startRepeatAlarm(context);
+            startRepeatAlarm(context, true);
         } else {
-            startNonRepeatAlarm(context);
+            startNonRepeatAlarm(context, true);
+        }
+    }
+
+    public void startAlarmWithNoToast(Context context) {
+        isAlarmOn = true;
+
+        alarmCalendar = SKAlarmManager.adjustCalendar(alarmCalendar);
+
+        if (isRepeatOn) {
+            startRepeatAlarm(context, false);
+        } else {
+            startNonRepeatAlarm(context, false);
+        }
+    }
+
+    private void startNonRepeatAlarm(Context context, boolean isToastOn) {
+//        MNAlarmWakeDialog.show(this, context);
+        SKAlarmManager.setAlarm(alarmId, alarmId, alarmCalendar, context, MNMainActivity.class);
+
+        if (isToastOn) {
             MNAlarmToast.show(context, alarmCalendar);
         }
-        // 현재 시간과 비교하여 오늘, 내일 판단하기
-        /*
-        Calendar currentTimeCalendar = Calendar.getInstance();
-        if (alarmCalendar.getTimeInMillis() > currentTimeCalendar.getTimeInMillis()) {
-        }else{
-            alarmCalendar.add(Calendar.DAY_OF_MONTH, 1);
+    }
+
+    private void startRepeatAlarm(Context context, boolean isToastOn) {
+        boolean isToastShown = false;
+
+        for (int i = 0; i < alarmRepeatList.size(); i++) {
+            Calendar repeatCalendar = (Calendar) alarmCalendar.clone();
+            repeatCalendar.add(Calendar.DATE, i);
+
+            // Calendar DayOfWeek : 1 ~ 7 : Sun ~ Sat
+            // RepeatList         : 0 ~ 6 : Mon ~ Sun
+            int convertedDayOfWeek = repeatCalendar.get(Calendar.DAY_OF_WEEK) - 2;
+            if (convertedDayOfWeek < 0) {
+                convertedDayOfWeek += 7;
+            }
+
+            if (alarmRepeatList.get(convertedDayOfWeek)) {
+                SKAlarmManager.setAlarm(alarmId, alarmId + i, repeatCalendar, context, MNMainActivity.class);
+
+                if (isToastOn && !isToastShown) {
+                    MNAlarmToast.show(context, repeatCalendar);
+                    isToastShown = true;
+                }
+            }
         }
-        */
     }
 
-    private void startNonRepeatAlarm(Context context) {
-        AlarmManager alarmManager = MNAlarmManager.getAlarmManager(context);
+    public void snoozeAlarm(Context context) {
+        Calendar snoozeCalendar = Calendar.getInstance();
+        snoozeCalendar.set(Calendar.SECOND, 0);
+        snoozeCalendar.add(Calendar.MINUTE, 10);
 
-        Intent intent = new Intent(context, MNMainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(MN.alarm.ALARM_ID, alarmId);
+        SKAlarmManager.setAlarm(alarmId, alarmId + 7, snoozeCalendar, context, MNMainActivity.class);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_ONE_SHOT);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), pendingIntent);
-    }
-
-    private void startRepeatAlarm(Context context) {
-
-    }
-
-    public void snoozeAlarm() {
-
+        MNAlarmToast.show(context, snoozeCalendar);
     }
 
     // 혹시나 깊은 복사를 사용할 경우를 대비해서 가져옴

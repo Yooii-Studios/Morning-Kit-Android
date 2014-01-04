@@ -129,14 +129,18 @@ public class MNMainLayoutSetter {
                         + getAlarmListViewHeightOnPortrait(mainActivity);
 
                 int deviceHeight = MNDeviceSizeInfo.getDeviceHeight(mainActivity);
+                float bottomLayoutHeight = getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT);
 
-                if (contentHeight > deviceHeight) {
-//                    Log.i(TAG, "contentHeight > deviceHeight");
+                // 컨텐츠가 디바이스 높이보다 크거나, 작지만 버튼 레이아웃을 침범할 정도로 높을 때
+                if (contentHeight > deviceHeight
+                        || (contentHeight <= deviceHeight
+                            && contentHeight > deviceHeight - bottomLayoutHeight)) {
                     alarmListViewLayoutParams.height =
-                            (int) (getAlarmListViewHeightOnPortrait(mainActivity) + getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT));
+                            (int) (getAlarmListViewHeightOnPortrait(mainActivity)
+                                    + getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT));
                 } else {
-//                    Log.i(TAG, "contentHeight <= deviceHeight");
-                    alarmListViewLayoutParams.height = (int) getAlarmListViewHeightOnPortrait(mainActivity);
+                    alarmListViewLayoutParams.height =
+                            (int) getAlarmListViewHeightOnPortrait(mainActivity);
                 }
                 break;
             }

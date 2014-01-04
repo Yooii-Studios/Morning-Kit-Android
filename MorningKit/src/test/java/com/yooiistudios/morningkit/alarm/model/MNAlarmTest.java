@@ -1,7 +1,7 @@
 package com.yooiistudios.morningkit.alarm.model;
 
-import android.app.AlarmManager;
 import android.content.Context;
+import android.util.Log;
 
 import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
@@ -15,6 +15,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -69,8 +70,12 @@ public class MNAlarmTest {
     public void testAdjustAlarmCalendar() throws Exception {
 
         Calendar nowCalendar = Calendar.getInstance();
+        Log.i("MNAlarmTest", new SimpleDateFormat("MM/dd/HH:mm").format(nowCalendar.getTime()));
 
         // 시간 정보만 있는 과거의 Calendar로 변경
+        MNAlarm alarm_23_05 = MNAlarmMaker.makeAlarmWithTime(context, 23, 5);
+        testAdjustAlarmCalendarForEachAlarm(alarm_23_05);
+
         MNAlarm alarm_03_10 = MNAlarmMaker.makeAlarmWithTime(context, 3, 10);
         testAdjustAlarmCalendarForEachAlarm(alarm_03_10);
 
@@ -89,12 +94,14 @@ public class MNAlarmTest {
 
     private void testAdjustAlarmCalendarForEachAlarm(MNAlarm alarm) {
         Calendar nowCalendar = Calendar.getInstance();
-        if (alarm.getAlarmCalendar().getTimeInMillis() - nowCalendar.getTimeInMillis() > 0) {
+
+        // 알람이 현재 시각보다 이전 시간/분 이라면 내일로 설정이 되기에 날짜가 달라야 한다
+        if (alarm.getAlarmCalendar().before(nowCalendar)) {
             alarm.startAlarm(context);
-            assertThat(alarm.getAlarmCalendar().get(Calendar.DAY_OF_MONTH), is(nowCalendar.get(Calendar.DAY_OF_MONTH)));
+            assertThat(alarm.getAlarmCalendar().get(Calendar.DATE), is(not(nowCalendar.get(Calendar.DATE))));
         } else {
             alarm.startAlarm(context);
-            assertThat(alarm.getAlarmCalendar().get(Calendar.DAY_OF_MONTH), is(not(nowCalendar.get(Calendar.DAY_OF_MONTH))));
+            assertThat(alarm.getAlarmCalendar().get(Calendar.DATE), is(nowCalendar.get(Calendar.DATE)));
         }
     }
 

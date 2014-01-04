@@ -2,10 +2,9 @@ buildscript {
     repositories {
         mavenCentral()
         mavenLocal()
-
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.android.tools.build:gradle:0.7.1' // 0.7.+ 로 해서 0.7.2 버전에 버그가 있음
         // JaKe Wharton 것을 쓰다가 jcandksolutions가 문제를 해결해서 여기의 것을 사용
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
         classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.1'
@@ -17,15 +16,13 @@ apply plugin: 'android'
 repositories {
     mavenCentral()
     mavenLocal()
-    maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots/'
-    }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
 android {
     compileSdkVersion 18
 //    buildToolsVersion "18.1.1"
-    buildToolsVersion "19.0.1"
+    buildToolsVersion '19.0.1'
 
 
     defaultConfig {
@@ -52,6 +49,11 @@ apply plugin: 'android-unit-test'
 //}
 
 dependencies {
+
+    // 내가 만든 모듈
+    compile project(':libraries:SKAlarmManager')
+    compile project(':libraries:SKAlarmSound')
+
     // 안드로이드 기본
     compile 'com.android.support:support-v4:+'
 	compile 'com.android.support:appcompat-v7:+'

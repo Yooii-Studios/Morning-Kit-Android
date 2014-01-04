@@ -1,21 +1,21 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
+import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceType;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefLabelItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefRepeatItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefSoundItemMaker;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
-
-import java.util.ArrayList;
+import com.yooiistudios.stevenkim.alarmsound.OnAlarmSoundClickListener;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSound;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 7.
@@ -23,16 +23,18 @@ import java.util.ArrayList;
  * MNAlarmPreferenceListAdapter
  *  알람설정 리스트뷰를 초기화하는 어댑터
  */
-public class MNAlarmPreferenceListAdapter extends BaseAdapter{
+public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarmSoundClickListener{
 
     private static final String TAG = "MNAlarmPreferenceListAdapter";
     private Context context;
     private MNAlarm alarm;
+    private MNAlarmPreferenceType alarmPreferenceType;
 
     private MNAlarmPreferenceListAdapter() {}
-    public MNAlarmPreferenceListAdapter(Context context, MNAlarm alarm) {
+    public MNAlarmPreferenceListAdapter(Context context, MNAlarm alarm, MNAlarmPreferenceType alarmPreferenceType) {
         this.context = context;
         this.alarm = alarm;
+        this.alarmPreferenceType = alarmPreferenceType;
         MNAlarmPrefBusProvider.getInstance().register(this);
     }
 
@@ -47,13 +49,13 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
                 convertView = MNAlarmPrefLabelItemMaker.makeLabelItem(context, parent, alarm);
                 break;
             case SOUND:
-                convertView = MNAlarmPrefSoundItemMaker.makeSoundItem(context, parent, alarm);
+                convertView = MNAlarmPrefSoundItemMaker.makeSoundItem(context, parent, alarm, this);
                 break;
             case SNOOZE:
                 convertView = MNAlarmPrefItemMaker.makeSnoozeItem(context, parent, alarm);
                 break;
             case TIME:
-                convertView = MNAlarmPrefItemMaker.makeTimeItem(context, parent, alarm);
+                convertView = MNAlarmPrefItemMaker.makeTimeItem(context, parent, alarm, alarmPreferenceType);
                 break;
         }
         return convertView;
@@ -89,15 +91,45 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter{
 
     @Subscribe
     public void onRepeatChanged(boolean[] repeats) {
-        Log.i(TAG, "onRepeatChanged");
+//        Log.i(TAG, "onRepeatChanged");
         if (alarm != null) {
-            for (int i = 0; i < this.alarm.getAlarmRepeatList().size(); i++) {
-                this.alarm.getAlarmRepeatList().set(i, repeats[i]);
+            alarm.setRepeatOn(false);
+            for (int i = 0; i < alarm.getAlarmRepeatList().size(); i++) {
+                if (alarm.getAlarmRepeatList().get(i)) {
+                    alarm.setRepeatOn(true);
+                }
+                alarm.getAlarmRepeatList().set(i, repeats[i]);
             }
-            Log.i(TAG, "repeats: " + this.alarm.getAlarmRepeatList());
+//            Log.i(TAG, "repeats: " + alarm.getAlarmRepeatList());
             notifyDataSetChanged();
         } else {
             throw new AssertionError("alarm must not be null!");
         }
+    }
+
+    @Override
+    public void onAlarmSoundSelected(SKAlarmSound alarmSound) {
+        MNAlarmPrefBusProvider.getInstance().post(context);
+        if (alarm != null) {
+            if (alarmSound != null) {
+                alarm.setAlarmSound(alarmSound);
+                notifyDataSetChanged();
+            } else {
+                throw new AssertionError("alarmSound must not be null!");
+            }
+        } else {
+            throw new AssertionError("alarm must not be null!");
+        }
+    }
+
+    @Override
+    public void onAlarmSoundSelectCanceled() {
+        MNAlarmPrefBusProvider.getInstance().post(context);
+    }
+
+    @Override
+    public void onAlarmSoundSelectFailedDueToUsbConnection() {
+        MNAlarmPrefBusProvider.getInstance().post(context);
+        Toast.makeText(context, "Can't access due to USB connection", Toast.LENGTH_SHORT).show();
     }
 }
