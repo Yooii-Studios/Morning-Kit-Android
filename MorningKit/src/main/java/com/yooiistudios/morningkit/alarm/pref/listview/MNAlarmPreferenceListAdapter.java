@@ -109,6 +109,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
 
     @Override
     public void onAlarmSoundSelected(SKAlarmSound alarmSound) {
+        MNAlarmPrefBusProvider.getInstance().post(context);
         if (alarm != null) {
             if (alarmSound != null) {
                 alarm.setAlarmSound(alarmSound);
@@ -123,11 +124,12 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
 
     @Override
     public void onAlarmSoundSelectCanceled() {
-
+        MNAlarmPrefBusProvider.getInstance().post(context);
     }
 
     @Override
     public void onAlarmSoundSelectFailedDueToUsbConnection() {
+        MNAlarmPrefBusProvider.getInstance().post(context);
         Toast.makeText(context, "Can't access due to USB connection", Toast.LENGTH_SHORT).show();
     }
 }
