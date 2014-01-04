@@ -94,12 +94,11 @@ public class SKAlarmManager {
         newCalendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE));
         newCalendar.set(Calendar.SECOND, 0);
 
-        if (calendar.before(newCalendar)) {
+        if (newCalendar.before(Calendar.getInstance())) {
             newCalendar.add(Calendar.DATE, 1);
         } else {
             return calendar;
         }
-
         return newCalendar;
     }
 }
