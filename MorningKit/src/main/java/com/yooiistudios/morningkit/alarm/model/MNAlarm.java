@@ -132,8 +132,17 @@ public class MNAlarm implements Serializable, Cloneable {
         }
     }
 
-    public void snoozeAlarm() {
+    public void snoozeAlarm(Context context) {
+        Calendar snoozeCalendar = Calendar.getInstance();
+        snoozeCalendar.set(Calendar.SECOND, 0);
+        // for test
+//        snoozeCalendar.add(Calendar.MINUTE, 1);
+        // real code
+        snoozeCalendar.add(Calendar.MINUTE, 10);
 
+        SKAlarmManager.setAlarm(alarmId, alarmId + 7, snoozeCalendar, context, MNMainActivity.class);
+
+        MNAlarmToast.show(context, snoozeCalendar);
     }
 
     // 혹시나 깊은 복사를 사용할 경우를 대비해서 가져옴

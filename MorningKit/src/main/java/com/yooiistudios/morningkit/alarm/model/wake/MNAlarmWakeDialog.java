@@ -61,6 +61,10 @@ public class MNAlarmWakeDialog {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 SKAlarmSoundPlayer.stop();
+
+                MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), context);
+                targetAlarm.snoozeAlarm(context);
+
             }
         }).create();
 
