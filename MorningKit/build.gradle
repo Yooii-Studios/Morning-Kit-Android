@@ -50,8 +50,9 @@ apply plugin: 'android-unit-test'
 
 dependencies {
 
-    // 내가 만든 SKAlarmManager 프로젝트
+    // 내가 만든 모듈
     compile project(':libraries:SKAlarmManager')
+    compile project(':libraries:SKAlarmSound')
 
     // 안드로이드 기본
     compile 'com.android.support:support-v4:+'

@@ -3,6 +3,8 @@ package com.yooiistudios.morningkit.alarm.model.factory;
 import android.content.Context;
 
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundFactory;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundManager;
 
 import java.util.Calendar;
 
@@ -29,6 +31,7 @@ public class MNAlarmMaker {
             alarm.setAlarmLabel("Alarm");
             alarm.setAlarmCalendar(Calendar.getInstance());
             alarm.getAlarmCalendar().set(Calendar.SECOND, 0);
+            alarm.setAlarmSound(SKAlarmSoundManager.loadLatestAlarmSound(context));
 
             for (int i=0; i<7; i++) {
 //                alarm.getAlarmRepeatList().add(Boolean.FALSE);
