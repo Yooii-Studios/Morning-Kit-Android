@@ -31,6 +31,6 @@ public class SKAlarmSoundFactory {
      * @return mute alarm sound
      */
     public static SKAlarmSound makeMuteAlarmSound(Context context) {
-        return SKAlarmSound.newInstance(SKAlarmSoundType.MUTE, "", null);
+        return SKAlarmSound.newInstance(SKAlarmSoundType.MUTE, context.getString(R.string.alarm_sound_string_none), null);
     }
 }
