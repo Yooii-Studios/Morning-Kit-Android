@@ -107,15 +107,9 @@ public class MNAlarm implements Serializable, Cloneable {
         for (int i = 0; i < alarmRepeatList.size(); i++) {
             Calendar repeatCalendar = (Calendar) alarmCalendar.clone();
             repeatCalendar.add(Calendar.DATE, i);
-//            repeatCalendar.add(Calendar.SECOND, i * 5); // for test
 
-            // Calendar DayOfWeek
-            // 1 ~ 7
-            // Sun ~ Sat
-
-            // RepeatList
-            // 0 ~ 6
-            // Mon ~ Sun
+            // Calendar DayOfWeek : 1 ~ 7 : Sun ~ Sat
+            // RepeatList         : 0 ~ 6 : Mon ~ Sun
             int convertedDayOfWeek = repeatCalendar.get(Calendar.DAY_OF_WEEK) - 2;
             if (convertedDayOfWeek < 0) {
                 convertedDayOfWeek += 7;
@@ -135,9 +129,6 @@ public class MNAlarm implements Serializable, Cloneable {
     public void snoozeAlarm(Context context) {
         Calendar snoozeCalendar = Calendar.getInstance();
         snoozeCalendar.set(Calendar.SECOND, 0);
-        // for test
-//        snoozeCalendar.add(Calendar.MINUTE, 1);
-        // real code
         snoozeCalendar.add(Calendar.MINUTE, 10);
 
         SKAlarmManager.setAlarm(alarmId, alarmId + 7, snoozeCalendar, context, MNMainActivity.class);
