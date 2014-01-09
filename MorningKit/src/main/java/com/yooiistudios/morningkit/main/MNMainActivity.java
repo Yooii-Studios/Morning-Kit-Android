@@ -64,6 +64,7 @@ public class MNMainActivity extends Activity implements AdListener
         }
 
         setContentView(R.layout.activity_main);
+
         // UrQA 라이브러리 추가
         URQAController.InitializeAndStartSession(getApplicationContext(), String.valueOf(72369777));
         initMainActivity();

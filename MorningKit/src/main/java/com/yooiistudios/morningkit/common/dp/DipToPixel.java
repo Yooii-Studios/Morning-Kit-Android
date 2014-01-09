@@ -9,6 +9,7 @@ package com.yooiistudios.morningkit.common.dp;
  */
 
 import android.content.Context;
+import android.util.TypedValue;
 
 public class DipToPixel {
 
@@ -48,5 +49,17 @@ public class DipToPixel {
         return dp;
     }
 
+    public static int dpToPixel(Context c, float dp){
+        int result = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, c.getResources().getDisplayMetrics());
+        if (result < 1)
+            result = 1;
+        return result;
+    }
+
+    public static int pixelToDP(Context c, int pixel){
+        float scale = c.getResources().getDisplayMetrics().density;
+
+        return (int)(pixel * scale);
+    }
 }
 

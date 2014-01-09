@@ -30,6 +30,24 @@ android {
         targetSdkVersion 18
         packageName "com.yooiistudios.morningkit"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("/Development/Android/keystore/morningkit.jks")
+            storePassword "1q2w3e" // System.console().readLine("Enter keystore password: ")
+            keyAlias "morningkit_key"
+            keyPassword "1q2w3e" // System.console().readLine("Enter key password: ")
+        }
+    }
+
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+        }
+    }
+
     sourceSets {
         instrumentTest.setRoot('src/test')
     }
