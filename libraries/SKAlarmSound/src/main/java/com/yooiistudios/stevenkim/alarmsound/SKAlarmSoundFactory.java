@@ -18,8 +18,8 @@ public class SKAlarmSoundFactory {
      */
     public static SKAlarmSound makeDefaultAlarmSound(Context context) {
         // get default sound stuff from the device(Context)
-        String soundTitle = "";
-        String soundPath = "";
+        String soundTitle = context.getString(R.string.default_string);
+        String soundPath = "content://settings/system/ringtone";
 
         // init defaultAlarmSound
         return SKAlarmSound.newInstance(SKAlarmSoundType.RINGTONE, soundTitle, soundPath);

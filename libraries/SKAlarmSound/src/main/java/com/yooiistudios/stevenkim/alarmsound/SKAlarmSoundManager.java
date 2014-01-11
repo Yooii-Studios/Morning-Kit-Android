@@ -4,9 +4,9 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import java.io.File;
 
@@ -51,19 +51,23 @@ public class SKAlarmSoundManager {
     public static boolean validateAlarmSound(String path, Context context) {
         ContentResolver cr = context.getContentResolver();
         String[] projection = {MediaStore.MediaColumns.DATA};
-        Cursor cur = cr.query(Uri.parse(path), projection, null, null, null);
-        if(cur != null)
-        {
-            boolean success = cur.moveToFirst();
-            if (success) {
-                String filePath = cur.getString(0);
-                return new File(filePath).exists();
-            }
+        try {
+            Cursor cur = cr.query(Uri.parse(path), projection, null, null, null);
+            if(cur != null)
+            {
+                boolean success = cur.moveToFirst();
+                if (success) {
+                    String filePath = cur.getString(0);
+                    return new File(filePath).exists();
+                }
 //		   Log.i(TAG, "soundSource is not available");
-            return false;
-        } else {
-            // content Uri was invalid or some other error occurred
+                return false;
+            } else {
+                // content Uri was invalid or some other error occurred
 //			Log.i(TAG, "soundSource is not available");
+                return false;
+            }
+        } catch (SQLiteException e) {
             return false;
         }
     }
@@ -85,6 +89,7 @@ public class SKAlarmSoundManager {
     /**
      * Return the lastest SKAlarmSound instance from the device.
      * If the one doesn't exist, return the one with the system default ringtone.
+     * If the one isn't validate, also return the default ringtone
      *
      * @param context Context to access the Android
      * @return SKAlarmSound which is selected recently.
@@ -96,7 +101,11 @@ public class SKAlarmSoundManager {
             String soundPath, soundTitle;
             soundTitle = getSharedPreferences(context).getString(ALARM_SOUND_TITLE, context.getString(R.string.default_string));
             soundPath = getSharedPreferences(context).getString(ALARM_SOUND_PATH, "content://settings/system/ringtone");
-            return SKAlarmSound.newInstance(SKAlarmSoundType.fromInteger(soundTypeInt), soundTitle, soundPath);
+            if (validateAlarmSound(soundPath, context)) {
+                return SKAlarmSound.newInstance(SKAlarmSoundType.fromInteger(soundTypeInt), soundTitle, soundPath);
+            } else {
+                return SKAlarmSoundFactory.makeDefaultAlarmSound(context);
+            }
         } else {
             return SKAlarmSoundFactory.makeDefaultAlarmSound(context);
         }

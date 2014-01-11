@@ -146,11 +146,6 @@ public class SKAlarmSoundDialog {
 
                 try{
                     SKAlarmSoundPlayer.play(uri, context);
-//                    mediaPlayer.reset();
-//
-//                    mediaPlayer.setDataSource(context, uri);
-//                    mediaPlayer.prepare();
-//                    mediaPlayer.start();
                 }catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -251,7 +246,7 @@ public class SKAlarmSoundDialog {
             int selectedIndex = -1;
 
             // search for the previously selected music index
-            if (alarmSound != null && alarmSound.getAlarmSoundType() == SKAlarmSoundType.MUSIC
+            if (alarmSound != null && alarmSound.getSoundPath() != null && alarmSound.getAlarmSoundType() == SKAlarmSoundType.MUSIC
                     && SKAlarmSoundManager.validateAlarmSound(alarmSound.getSoundPath(), context)) {
                 for (musicCursor.moveToFirst(); !musicCursor.isAfterLast(); musicCursor.moveToNext()) {
                     selectedIndex++;
