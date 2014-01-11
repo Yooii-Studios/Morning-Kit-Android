@@ -17,6 +17,10 @@ import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPreferenceListAdapter;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSound;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundFactory;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundManager;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundType;
 
 import java.io.IOException;
 
@@ -61,18 +65,16 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
             if (alarmId != -1) {
                 alarmPreferenceType = MNAlarmPreferenceType.EDIT;
                 alarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    if (getActionBar() != null) {
-                        getActionBar().setTitle(R.string.edit_alarm);
-                    }
-                } else {
-                    getSupportActionBar().setTitle(R.string.edit_alarm); 
-                }
             } else {
                 alarmPreferenceType = MNAlarmPreferenceType.ADD;
                 alarm = MNAlarmMaker.makeAlarm(this.getBaseContext());
-
             }
+            if ((alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.MUSIC ||
+                    alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.RINGTONE) &&
+                    !SKAlarmSoundManager.validateAlarmSound(alarm.getAlarmSound().getSoundPath(), this)) {
+                alarm.setAlarmSound(SKAlarmSoundFactory.makeDefaultAlarmSound(this));
+            }
+
         } else {
             throw new AssertionError("no extras in MNAlarmPreferenceActivity!");
         }
