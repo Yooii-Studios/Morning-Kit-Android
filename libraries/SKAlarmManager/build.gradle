@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.1' // 0.7.+ 로 해서 0.7.2 버전에 버그가 있음
+        classpath 'com.android.tools.build:gradle:0.7.+' // 0.7.+ 로 해서 0.7.2 버전에 버그가 있음
     }
 }
 apply plugin: 'android-library'
