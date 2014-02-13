@@ -6,7 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/MorningKit/MorningKit-MorningKit.iml" filepath="$PROJECT_DIR$/MorningKit/MorningKit-MorningKit.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraries/SKAlarmManager/SKAlarmManager.iml" filepath="$PROJECT_DIR$/libraries/SKAlarmManager/SKAlarmManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraries/SKAlarmSound/SKAlarmSound.iml" filepath="$PROJECT_DIR$/libraries/SKAlarmSound/SKAlarmSound.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libraries/libraries.iml" filepath="$PROJECT_DIR$/libraries/libraries.iml" />
     </modules>
   </component>
 </project>
