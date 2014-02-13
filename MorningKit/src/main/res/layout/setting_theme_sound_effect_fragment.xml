@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yooiistudios.morningkit.setting.theme.soundeffect.MNSoundEffectFragment"
+    android:padding="@dimen/margin_inner"
+    android:background="@android:color/transparent" >
+
+    <ListView
+        android:id="@+id/setting_theme_soundeffect_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="0dp"
+        android:divider="#00ffffff" />
+
+</RelativeLayout>

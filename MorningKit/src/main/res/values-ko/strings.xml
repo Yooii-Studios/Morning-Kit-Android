@@ -272,5 +272,6 @@
     <!-- Alarm Pref -->
     <string name="alarm_sound_string_app_music">모닝키트 음악</string>
     <string name="alarm_set_for_less_than_1_minute">알람이 1분 내에 울립니다</string>
+    <string name="store_item_full_version">풀버전</string>
 
 </resources>

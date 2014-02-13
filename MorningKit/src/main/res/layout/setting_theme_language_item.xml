@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/setting_theme_language_item_outer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/alarm_item_outer_height"
+    android:layout_alignParentLeft="true"
+    android:clickable="false"
+    android:focusable="false"
+    android:orientation="vertical" >
+
+    <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
+        android:id="@+id/setting_theme_language_item_shadow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/alarm_item_outer_height" />
+
+    <RelativeLayout
+        android:id="@+id/setting_theme_language_item_inner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/setting_theme_language_item_padding"
+        android:layout_margin="@dimen/margin_inner"
+        android:clickable="false"
+        android:focusable="false"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/setting_theme_language_item_title_textview"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_item_title_textview_height"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/setting_theme_language_item_check_imageview"
+            android:text="한국어"
+            android:textColor="#000000"
+            android:textSize="@dimen/setting_item_title_font_size"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/setting_theme_language_item_detail_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/setting_theme_language_item_title_textview"
+            android:layout_toLeftOf="@id/setting_theme_language_item_check_imageview"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/setting_item_detail_textview_left_margin"
+            android:text="Korean"
+            android:textColor="#000000"
+            android:textSize="@dimen/setting_item_detail_font_size"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:id="@+id/setting_theme_language_item_check_imageview"
+            android:layout_width="@dimen/setting_theme_detail_item_imageview_size"
+            android:layout_height="@dimen/setting_theme_detail_item_imageview_size"
+            android:background="@drawable/setting_theme_check_classic_white"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/setting_theme_detail_item_imageview_right_margin"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/setting_theme_language_item_lock_imageview"
+            android:layout_width="@dimen/setting_theme_detail_item_imageview_size"
+            android:layout_height="@dimen/setting_theme_detail_item_imageview_size"
+            android:background="@drawable/setting_theme_lock_classic_white"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/setting_theme_detail_item_imageview_right_margin"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+</RelativeLayout>

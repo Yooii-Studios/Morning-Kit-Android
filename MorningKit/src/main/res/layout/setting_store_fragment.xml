@@ -1,0 +1,235 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/setting_store_layout"
+    android:background="@color/setting_store_background_color"
+    tools:context="com.yooiistudios.morningkit.setting.store.MNStoreFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/setting_store_full_version_layout"
+        android:clipChildren="false">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setting_store_full_version_image_view"
+            android:src="@drawable/selector_store_full_version_image"
+            android:scaleType="fitStart"
+            android:clickable="true"
+            android:adjustViewBounds="true"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/setting_store_full_version_image_view"
+            android:layout_marginLeft="@dimen/setting_store_full_version_button_left_margin"
+            android:layout_marginBottom="@dimen/setting_store_full_version_button_bottom_margin">
+
+            <ImageView
+                android:id="@+id/setting_store_full_version_button_imageview"
+                android:layout_width="@dimen/setting_store_full_version_button_size"
+                android:layout_height="@dimen/setting_store_full_version_button_size"
+                android:src="@drawable/selector_store_full_version_button"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:clickable="true"/>
+
+            <TextView
+                android:id="@+id/setting_store_full_version_button_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="true"
+                android:layout_alignTop="@id/setting_store_full_version_button_imageview"
+                android:layout_alignRight="@id/setting_store_full_version_button_imageview"
+                android:layout_alignBottom="@id/setting_store_full_version_button_imageview"
+                android:layout_alignLeft="@id/setting_store_full_version_button_imageview"
+                android:gravity="center"
+                android:text="@string/loading"
+                android:textColor="@color/setting_store_full_version_button_text_color"
+                android:textSize="@dimen/setting_store_full_version_button_textsize"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/setting_store_full_version_text_margin"
+            android:paddingRight="@dimen/setting_store_full_version_text_margin"
+            android:layout_marginTop="@dimen/setting_store_full_version_title_margin_top"
+            android:text="@string/store_buy_full_version"
+            android:textColor="@color/setting_store_full_version_text_color"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textSize="@dimen/setting_store_full_version_title_textsize"
+            android:gravity="center"
+            android:id="@+id/setting_store_full_version_title"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/setting_store_full_version_text_margin"
+            android:paddingRight="@dimen/setting_store_full_version_text_margin"
+            android:layout_below="@+id/setting_store_full_version_title"
+            android:text="@string/store_buy_full_version_description"
+            android:textColor="@color/setting_store_full_version_text_color"
+            android:singleLine="true"
+            android:textSize="@dimen/setting_store_full_version_description_textsize"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/setting_store_full_version_description"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_store_tab_height"
+        android:weightSum="3"
+        android:background="@color/setting_store_tab_unselected_color"
+        android:layout_below="@id/setting_store_full_version_layout"
+        android:baselineAligned="false"
+        android:id="@+id/setting_store_tab_layout">
+
+        <RelativeLayout
+            android:id="@+id/setting_store_tab_function_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/setting_store_tab_unselected_color">
+
+            <TextView
+                android:id="@+id/setting_store_tab_function_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/store_tab_functions"
+                android:textColor="@color/setting_store_tab_unselected_text_color"
+                android:textSize="@dimen/setting_store_tab_textsize"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_store_tab_bar_height"
+                android:layout_alignParentBottom="true"
+                android:background="@color/setting_store_tab_selected_color"/>
+
+            <View
+                android:id="@+id/setting_store_tab_left_divider"
+                android:layout_width="@dimen/setting_store_tab_divider_width"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/setting_store_tab_divider_margin"
+                android:layout_marginBottom="@dimen/setting_store_tab_divider_margin"
+                android:background="@drawable/shop_dividing_bar" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/setting_store_tab_panel_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/setting_store_tab_selected_color">
+
+            <TextView
+                android:id="@+id/setting_store_tab_panel_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/store_tab_widgets"
+                android:textColor="@color/setting_store_tab_selected_text_color"
+                android:textSize="@dimen/setting_store_tab_textsize"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_store_tab_bar_height"
+                android:layout_alignParentBottom="true"
+                android:background="@color/setting_store_tab_selected_color"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/setting_store_tab_theme_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/setting_store_tab_unselected_color">
+
+            <TextView
+                android:id="@+id/setting_store_tab_theme_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/store_tab_themes"
+                android:textColor="@color/setting_store_tab_unselected_text_color"
+                android:textSize="@dimen/setting_store_tab_textsize"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_store_tab_bar_height"
+                android:layout_alignParentBottom="true"
+                android:background="@color/setting_store_tab_selected_color"/>
+
+            <View
+                android:id="@+id/setting_store_tab_right_divider"
+                android:layout_width="@dimen/setting_store_tab_divider_width"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="@dimen/setting_store_tab_divider_margin"
+                android:layout_marginBottom="@dimen/setting_store_tab_divider_margin"
+                android:background="@drawable/shop_dividing_bar" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/setting_store_tab_layout"
+        android:id="@+id/setting_store_function_gridview"
+        android:numColumns="auto_fit"
+        android:layout_marginTop="@dimen/setting_store_gridview_spacing_inner"
+        android:layout_marginLeft="@dimen/setting_store_gridview_spacing_inner"
+        android:layout_marginRight="@dimen/setting_store_gridview_spacing_inner"
+        android:layout_marginBottom="@dimen/setting_store_gridview_spacing_outer"
+        android:stretchMode="columnWidth"
+        android:listSelector="#00000000"/>
+
+    <GridView
+        android:id="@+id/setting_store_panel_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/setting_store_tab_layout"
+        android:numColumns="auto_fit"
+        android:layout_marginTop="@dimen/setting_store_gridview_spacing_inner"
+        android:layout_marginLeft="@dimen/setting_store_gridview_spacing_inner"
+        android:layout_marginRight="@dimen/setting_store_gridview_spacing_inner"
+        android:layout_marginBottom="@dimen/setting_store_gridview_spacing_outer"
+        android:stretchMode="columnWidth"
+        android:listSelector="#00000000"/>
+
+    <GridView
+        android:id="@+id/setting_store_theme_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/setting_store_tab_layout"
+        android:numColumns="auto_fit"
+        android:layout_marginTop="@dimen/setting_store_gridview_spacing_inner"
+        android:layout_marginLeft="@dimen/setting_store_gridview_spacing_inner"
+        android:layout_marginRight="@dimen/setting_store_gridview_spacing_inner"
+        android:layout_marginBottom="@dimen/setting_store_gridview_spacing_outer"
+        android:stretchMode="columnWidth"
+        android:listSelector="#00000000"/>
+
+    <View
+        android:id="@+id/setting_store_loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/setting_store_loading_view_color"
+        android:visibility="invisible"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLargeInverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/setting_store_progressBar"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminate="false" />
+</RelativeLayout>

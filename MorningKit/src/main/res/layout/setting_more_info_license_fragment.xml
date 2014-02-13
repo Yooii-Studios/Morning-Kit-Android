@@ -1,0 +1,18 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:paddingTop="@dimen/margin_inner"
+    android:id="@+id/setting_info_container"
+    tools:context="com.yooiistudios.morningkit.setting.info.moreinfo.license.MNLicenseFragment">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:dividerHeight="0dp"
+        android:divider="#ffffffff"
+        android:id="@+id/setting_more_info_license_listview" />
+
+</RelativeLayout>
