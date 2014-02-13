@@ -168,10 +168,10 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
                 MNSoundEffectsPlayer.play(R.raw.effect_view_close, this);
 
                 // test
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    startActivity(new Intent(this, MNMainActivity.class));
-                    return false;
-                }
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//                    startActivity(new Intent(this, MNMainActivity.class));
+//                    return false;
+//                }
             }
         }
         return super.onOptionsItemSelected(item);
