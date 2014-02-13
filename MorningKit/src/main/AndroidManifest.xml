@@ -65,13 +65,7 @@
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.yooiistudios.morningkit.MainActivity" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                android:value="com.yooiistudios.morningkit.main.MNMainActivity" />
         </activity>
         <activity
             android:name="com.yooiistudios.morningkit.setting.info.moreinfo.MNMoreInfoActivity"
