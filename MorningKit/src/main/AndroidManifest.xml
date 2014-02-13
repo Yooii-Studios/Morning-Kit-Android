@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yooiistudios.morningkit"
-    android:versionCode="8"
-    android:versionName="0.1.0" >
-
-    <uses-sdk
-        android:minSdkVersion="10"
-        android:targetSdkVersion="18" />
+    android:versionCode="11"
+    android:versionName="0.4.0" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,9 +12,18 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="com.android.vending.BILLING"/>
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -48,6 +53,108 @@
             android:name="com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        </activity>
+
+        <!-- Setting -->
+        <activity
+            android:name="com.yooiistudios.morningkit.setting.MNSettingActivity"
+            android:parentActivityName="com.yooiistudios.morningkit.main.MNMainActivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/MNSettingActionBarTheme.Default" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yooiistudios.morningkit.main.MNMainActivity" />
+        </activity>
+        <activity
+            android:name="com.yooiistudios.morningkit.setting.info.moreinfo.MNMoreInfoActivity"
+            android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/MNSettingActionBarTheme.Default" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yooiistudios.morningkit.setting.MNSettingActivity" />
+        </activity>
+        <activity
+            android:name="com.yooiistudios.morningkit.setting.info.credit.MNCreditActivity"
+            android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
+            android:screenOrientation="sensorPortrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yooiistudios.morningkit.setting.MNSettingActivity" />
+        </activity>
+        <activity
+            android:name="com.yooiistudios.morningkit.setting.theme.soundeffect.MNSoundEffectActivity"
+            android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
+            android:screenOrientation="sensorPortrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yooiistudios.morningkit.setting.MNSettingActivity" />
+        </activity>
+        <activity
+            android:name="com.yooiistudios.morningkit.setting.MNSettingDetailActivity"
+            android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
+            android:screenOrientation="sensorPortrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yooiistudios.morningkit.setting.MNSettingActivity" />
+        </activity>
+        <activity
+            android:name="com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixActivity"
+            android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
+            android:screenOrientation="sensorPortrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yooiistudios.morningkit.setting.MNSettingActivity" />
+        </activity>
+        <activity
+            android:name="com.yooiistudios.morningkit.setting.theme.language.MNLanguageActivity"
+            android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
+            android:screenOrientation="sensorPortrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yooiistudios.morningkit.setting.MNSettingActivity" />
+        </activity>
+        <activity
+            android:name="com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeDetailActivity"
+            android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
+            android:screenOrientation="sensorPortrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yooiistudios.morningkit.setting.MNSettingActivity" />
+        </activity>
+        <activity
+            android:name="com.yooiistudios.morningkit.setting.theme.themedetail.photo.MNThemePhotoActivity"
+            android:parentActivityName="com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeDetailActivity"
+            android:screenOrientation="sensorPortrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeDetailActivity" />
+        </activity>
+        <activity
+            android:name="com.yooiistudios.morningkit.common.unlock.MNUnlockActivity"
+            android:screenOrientation="sensorPortrait" >
+        </activity>
+        <activity
+            android:name="com.yooiistudios.morningkit.setting.store.MNStoreActivity"
+            android:screenOrientation="sensorPortrait" >
         </activity>
     </application>
 

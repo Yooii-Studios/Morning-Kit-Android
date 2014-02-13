@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_selector_page1_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2"
+    android:padding="@dimen/margin_inner" >
+
+    <LinearLayout
+        android:id="@+id/widget_selector_page1_line1_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+        <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
+            android:id="@+id/widget_selector_page1_1_shadow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/widget_selector_page1_1_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/weather"
+                android:textStyle="bold"
+                android:textSize="@dimen/panel_select_pager_font_size" />
+        </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+        <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
+            android:id="@+id/widget_selector_page1_2_shadow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/widget_selector_page1_2_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/calendar"
+                android:textStyle="bold"
+                android:textSize="@dimen/panel_select_pager_font_size" />
+        </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+        <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
+            android:id="@+id/widget_selector_page1_3_shadow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/widget_selector_page1_3_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/reminder"
+                android:textStyle="bold"
+                android:textSize="@dimen/panel_select_pager_font_size" />
+        </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/widget_selector_page1_line2_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:weightSum="3"
+        android:baselineAligned="false">
+        <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
+            android:id="@+id/widget_selector_page1_4_shadow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/widget_selector_page1_4_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/world_clock"
+                android:textStyle="bold"
+                android:textSize="@dimen/panel_select_pager_font_size" />
+        </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+        <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
+            android:id="@+id/widget_selector_page1_5_shadow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/widget_selector_page1_5_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/saying"
+                android:textStyle="bold"
+                android:textSize="@dimen/panel_select_pager_font_size" />
+        </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+        <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
+            android:id="@+id/widget_selector_page1_6_shadow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/widget_selector_page1_6_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/flickr"
+                android:textStyle="bold"
+                android:textSize="@dimen/panel_select_pager_font_size" />
+        </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/setting_more_info_license_item_inner_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:layout_centerVertical="true"
+    android:padding="@dimen/margin_outer"
+    android:clickable="false"
+    android:focusable="false"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/setting_more_info_license_item_title_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Morning Kit"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="@dimen/setting_more_info_license_title_font_size"
+        android:layout_marginBottom="@dimen/margin_inner"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/setting_more_info_license_item_link_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/setting_more_info_license_item_title_textview"
+        android:gravity="center_vertical"
+        android:text="http://www.yooiistudios.com/termservices.html"
+        android:autoLink="web"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/setting_item_detail_font_size"
+        android:layout_marginBottom="@dimen/margin_inner"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/setting_more_info_license_item_detail_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/setting_more_info_license_item_link_textview"
+        android:gravity="center_vertical"
+        android:text="JLToast is uner WTFPL. You can do what you want with JLToast."
+        android:textColor="#000000"
+        android:textSize="@dimen/setting_item_detail_font_size"
+        android:layout_centerInParent="true"/>
+</RelativeLayout>
