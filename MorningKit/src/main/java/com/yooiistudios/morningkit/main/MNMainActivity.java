@@ -224,8 +224,10 @@ public class MNMainActivity extends Activity implements AdListener
         Log.i(TAG, "refreshButtonClicked");
     }
 
-    @OnClick(R.id.main_configure_image) void configureButtonClicked() {
-        Log.i(TAG, "configureButtonClicked");
+    @OnClick(R.id.main_configure_image) void settingButtonClicked() {
+        Log.i(TAG, "settingButtonClicked");
+//        startActivity(new Intent(MNMainActivity.this, MNSettingac));
+
     }
 
     /**
