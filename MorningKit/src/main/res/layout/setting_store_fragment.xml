@@ -21,37 +21,33 @@
             android:clickable="true"
             android:adjustViewBounds="true"/>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/setting_store_full_version_button_imageview"
+            android:layout_width="@dimen/setting_store_full_version_button_size"
+            android:layout_height="@dimen/setting_store_full_version_button_size"
+            android:src="@drawable/selector_store_full_version_button"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:clickable="true"
             android:layout_alignBottom="@id/setting_store_full_version_image_view"
             android:layout_marginLeft="@dimen/setting_store_full_version_button_left_margin"
-            android:layout_marginBottom="@dimen/setting_store_full_version_button_bottom_margin">
+            android:layout_marginBottom="@dimen/setting_store_full_version_button_bottom_margin"/>
 
-            <ImageView
-                android:id="@+id/setting_store_full_version_button_imageview"
-                android:layout_width="@dimen/setting_store_full_version_button_size"
-                android:layout_height="@dimen/setting_store_full_version_button_size"
-                android:src="@drawable/selector_store_full_version_button"
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
-                android:clickable="true"/>
+        <TextView
+            android:id="@+id/setting_store_full_version_button_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:layout_alignTop="@id/setting_store_full_version_button_imageview"
+            android:layout_alignRight="@id/setting_store_full_version_button_imageview"
+            android:layout_alignBottom="@id/setting_store_full_version_button_imageview"
+            android:layout_alignLeft="@id/setting_store_full_version_button_imageview"
+            android:gravity="center"
+            android:text="@string/loading"
+            android:textColor="@color/setting_store_full_version_button_text_color"
+            android:textSize="@dimen/setting_store_full_version_button_textsize"
+            android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/setting_store_full_version_button_textview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:singleLine="true"
-                android:layout_alignTop="@id/setting_store_full_version_button_imageview"
-                android:layout_alignRight="@id/setting_store_full_version_button_imageview"
-                android:layout_alignBottom="@id/setting_store_full_version_button_imageview"
-                android:layout_alignLeft="@id/setting_store_full_version_button_imageview"
-                android:gravity="center"
-                android:text="@string/loading"
-                android:textColor="@color/setting_store_full_version_button_text_color"
-                android:textSize="@dimen/setting_store_full_version_button_textsize"
-                android:textStyle="bold"/>
-        </RelativeLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
