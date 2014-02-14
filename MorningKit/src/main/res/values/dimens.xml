@@ -53,7 +53,8 @@
 
     <!-- Panel -->
     <!-- Select Pager -->
-    <dimen name="panel_select_pager_height">165dp</dimen>
+    <dimen name="panel_select_pager_height">166dp</dimen>
+    <dimen name="panel_select_pager_item_height">68dp</dimen>
     <dimen name="panel_select_pager_page_control_height">20dp</dimen>
     <dimen name="panel_select_pager_font_size">14dp</dimen>
     <dimen name="panel_select_pager_lock_image_view_size">13dp</dimen>

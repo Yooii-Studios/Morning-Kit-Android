@@ -52,25 +52,19 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
     @InjectView(R.id.widget_selector_page2_line2_layout) LinearLayout line2_Layout;
 
     @Getter ArrayList<RoundShadowRelativeLayout> roundShadowRelativeLayouts;
-    @InjectView(R.id.widget_selector_page2_1_shadow_layout)
-    RoundShadowRelativeLayout roundShadowRelativeLayout_2_1;
-    @InjectView(R.id.widget_selector_page2_2_shadow_layout)
-    RoundShadowRelativeLayout roundShadowRelativeLayout_2_2;
-    @InjectView(R.id.widget_selector_page2_3_shadow_layout)
-    RoundShadowRelativeLayout roundShadowRelativeLayout_2_3;
-    @InjectView(R.id.widget_selector_page2_4_shadow_layout)
-    RoundShadowRelativeLayout roundShadowRelativeLayout_2_4;
-    @InjectView(R.id.widget_selector_page2_5_shadow_layout)
-    RoundShadowRelativeLayout roundShadowRelativeLayout_2_5;
-    @InjectView(R.id.widget_selector_page2_6_shadow_layout)
-    RoundShadowRelativeLayout roundShadowRelativeLayout_2_6;
+    @InjectView(R.id.widget_selector_page2_1_shadow_layout) RoundShadowRelativeLayout roundShadowRelativeLayout_2_1;
+    @InjectView(R.id.widget_selector_page2_2_shadow_layout) RoundShadowRelativeLayout roundShadowRelativeLayout_2_2;
+    @InjectView(R.id.widget_selector_page2_3_shadow_layout) RoundShadowRelativeLayout roundShadowRelativeLayout_2_3;
+    @InjectView(R.id.widget_selector_page2_4_shadow_layout) RoundShadowRelativeLayout roundShadowRelativeLayout_2_4;
+    @InjectView(R.id.widget_selector_page2_5_shadow_layout) RoundShadowRelativeLayout roundShadowRelativeLayout_2_5;
+    @InjectView(R.id.widget_selector_page2_6_shadow_layout) RoundShadowRelativeLayout roundShadowRelativeLayout_2_6;
 
     @InjectView(R.id.widget_selector_page2_1_textview) TextView textView2_1;
     @InjectView(R.id.widget_selector_page2_2_textview) TextView textView2_2;
     @InjectView(R.id.widget_selector_page2_3_textview) TextView textView2_3;
     @InjectView(R.id.widget_selector_page2_4_textview) TextView textView2_4;
-    @InjectView(R.id.widget_selector_page2_5_textview) TextView textView2_5;
-    @InjectView(R.id.widget_selector_page2_6_textview) TextView textView2_6;
+//    @InjectView(R.id.widget_selector_page2_5_textview) TextView textView2_5; // No panel yet
+//    @InjectView(R.id.widget_selector_page2_6_textview) TextView textView2_6; // No panel yey
 
     @InjectView(R.id.widget_selector_page2_2_lock_imageview) ImageView lockImageView2_2;
     @InjectView(R.id.widget_selector_page2_3_lock_imageview) ImageView lockImageView2_3;

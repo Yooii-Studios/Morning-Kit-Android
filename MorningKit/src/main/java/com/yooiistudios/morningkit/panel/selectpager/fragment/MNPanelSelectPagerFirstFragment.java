@@ -42,18 +42,12 @@ public class MNPanelSelectPagerFirstFragment extends Fragment {
     @InjectView(R.id.widget_selector_page1_line2_layout) LinearLayout line2_Layout;
 
     @Getter ArrayList<RoundShadowRelativeLayout> roundShadowRelativeLayouts;
-    @InjectView(R.id.widget_selector_page1_1_shadow_layout)
-    RoundShadowRelativeLayout roundShadowRelativeLayout_1_1;
-    @InjectView(R.id.widget_selector_page1_2_shadow_layout)
-    RoundShadowRelativeLayout roundShadowRelativeLayout_1_2;
-    @InjectView(R.id.widget_selector_page1_3_shadow_layout)
-    RoundShadowRelativeLayout roundShadowRelativeLayout_1_3;
-    @InjectView(R.id.widget_selector_page1_4_shadow_layout)
-    RoundShadowRelativeLayout roundShadowRelativeLayout_1_4;
-    @InjectView(R.id.widget_selector_page1_5_shadow_layout)
-    RoundShadowRelativeLayout roundShadowRelativeLayout_1_5;
-    @InjectView(R.id.widget_selector_page1_6_shadow_layout)
-    RoundShadowRelativeLayout roundShadowRelativeLayout_1_6;
+    @InjectView(R.id.widget_selector_page1_1_shadow_layout) RoundShadowRelativeLayout roundShadowRelativeLayout_1_1;
+    @InjectView(R.id.widget_selector_page1_2_shadow_layout) RoundShadowRelativeLayout roundShadowRelativeLayout_1_2;
+    @InjectView(R.id.widget_selector_page1_3_shadow_layout) RoundShadowRelativeLayout roundShadowRelativeLayout_1_3;
+    @InjectView(R.id.widget_selector_page1_4_shadow_layout) RoundShadowRelativeLayout roundShadowRelativeLayout_1_4;
+    @InjectView(R.id.widget_selector_page1_5_shadow_layout) RoundShadowRelativeLayout roundShadowRelativeLayout_1_5;
+    @InjectView(R.id.widget_selector_page1_6_shadow_layout) RoundShadowRelativeLayout roundShadowRelativeLayout_1_6;
 
     @InjectView(R.id.widget_selector_page1_1_textview) TextView textView1_1;
     @InjectView(R.id.widget_selector_page1_2_textview) TextView textView1_2;
@@ -84,8 +78,6 @@ public class MNPanelSelectPagerFirstFragment extends Fragment {
     }
 
     private void initShadowLayouts() {
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
-
         // 순서대로 들어가기에 뒤부터 넣어줌
         roundShadowRelativeLayout_1_6 = setShadowLayout(roundShadowRelativeLayout_1_6, line2_Layout, 5);
         roundShadowRelativeLayout_1_5 = setShadowLayout(roundShadowRelativeLayout_1_5, line2_Layout, 4);
