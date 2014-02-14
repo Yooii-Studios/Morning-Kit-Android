@@ -56,7 +56,7 @@ public class MNMoreInfoFragment extends Fragment implements MNMoreInfoItemClickL
                 break;
             }
             case MORNING_KIT_HELP: {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.yooiistudios.com/morning/help.php"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.yooiistudios.com/apps/morning/ios/help.php"));
                 startActivity(intent);
                 break;
             }
