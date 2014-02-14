@@ -224,6 +224,8 @@ public class MNMainActivity extends Activity implements AdListener
      */
     @OnClick(R.id.main_refresh_image) void refreshButtonClicked() {
         Log.i(TAG, "refreshButtonClicked");
+
+        // 기획 변경 -> 리프레시 버튼 누르면 2초 동안은 동작하지 않음
     }
 
     @OnClick(R.id.main_configure_image) void settingButtonClicked() {
