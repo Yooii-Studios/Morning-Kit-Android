@@ -61,6 +61,7 @@
             android:textSize="@dimen/setting_store_full_version_title_textsize"
             android:gravity="center"
             android:id="@+id/setting_store_full_version_title"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,8 +74,7 @@
             android:textSize="@dimen/setting_store_full_version_description_textsize"
             android:textStyle="bold"
             android:gravity="center"
-            android:id="@+id/setting_store_full_version_description"
-            />
+            android:id="@+id/setting_store_full_version_description"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,7 +87,7 @@
 
         <RelativeLayout
             android:id="@+id/setting_store_tab_function_layout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/setting_store_tab_unselected_color">
@@ -119,7 +119,7 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/setting_store_tab_panel_layout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/setting_store_tab_selected_color">
@@ -142,7 +142,7 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/setting_store_tab_theme_layout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/setting_store_tab_unselected_color">
