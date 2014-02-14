@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -22,6 +23,7 @@ import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
+import com.yooiistudios.morningkit.setting.MNSettingActivity;
 
 import java.io.IOException;
 
@@ -64,6 +66,7 @@ public class MNMainActivity extends Activity implements AdListener
         }
 
         setContentView(R.layout.activity_main);
+
         // UrQA 라이브러리 추가
         URQAController.InitializeAndStartSession(getApplicationContext(), String.valueOf(72369777));
         initMainActivity();
@@ -223,8 +226,8 @@ public class MNMainActivity extends Activity implements AdListener
         Log.i(TAG, "refreshButtonClicked");
     }
 
-    @OnClick(R.id.main_configure_image) void configureButtonClicked() {
-        Log.i(TAG, "configureButtonClicked");
+    @OnClick(R.id.main_configure_image) void settingButtonClicked() {
+        startActivity(new Intent(MNMainActivity.this, MNSettingActivity.class));
     }
 
     /**

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- the theme applied to the application or activity -->
+    <style name="MNSettingActionBarTheme.Default"
+        parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MNSettingActionBar.Default</item>
+        <item name="android:actionBarTabBarStyle">@style/MNSettingActionBarTabBar.Default</item>
+        <item name="android:actionBarTabStyle">@style/MNSettingActionBarTabs.Default</item>
+
+        <!-- Support library compatibility -->
+      <item name="actionBarStyle">@style/MNSettingActionBar.Default</item>
+      <item name="actionBarTabBarStyle">@style/MNSettingActionBarTabBar.Default</item>
+      <item name="actionBarTabStyle">@style/MNSettingActionBarTabs.Default</item>
+    </style>
+
+    <!-- the theme applied to the application or activity -->
+    <style name="MNSettingActionBarTheme.Light"
+        parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MNSettingActionBar.Light</item>
+        <item name="android:actionBarTabBarStyle">@style/MNSettingActionBarTabBar.Light</item>
+        <item name="android:actionBarTabStyle">@style/MNSettingActionBarTabs.Light</item>
+
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/MNSettingActionBar.Light</item>
+        <item name="actionBarTabBarStyle">@style/MNSettingActionBarTabBar.Light</item>
+        <item name="actionBarTabStyle">@style/MNSettingActionBarTabs.Light</item>
+    </style>
+</resources>

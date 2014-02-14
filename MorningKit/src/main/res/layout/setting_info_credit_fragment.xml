@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yooiistudios.morningkit.setting.info.credit.MNCreditActivity$PlaceholderFragment"
+    android:padding="@dimen/margin_inner"
+    android:background="@android:color/transparent" >
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="0dp"
+        android:divider="#00ffffff"
+        android:id="@+id/setting_info_credit_listview" />
+
+</RelativeLayout>

@@ -9,14 +9,11 @@ import lombok.Getter;
  *  HorizontalScrollView 안 뷰의 좌/중/우의 상태를 나타내는 enumeration
  */
 public enum MNHorizontalScrollViewContainerType {
-    LEFT(0),
-    MIDDLE(1),
-    RIGHT(2);
+    LEFT(0), MIDDLE(1), RIGHT(2);
 
     @Getter
     private final int index;
     MNHorizontalScrollViewContainerType(int index) { this.index = index; }
-
 
     @Override
     public String toString() {

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/unlock_listview_item_outer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/unlock_listview_item_outer_height"
+    android:background="#00ffffff" >
+
+    <com.yooiistudios.morningkit.common.shadow.SlateThemeShadowLayout
+        android:id="@+id/unlock_listview_item_shadow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unlock_listview_item_outer_height" >
+
+        <RelativeLayout
+            android:id="@+id/unlock_listview_item_inner_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/setting_store_gridview_padding">
+
+            <ImageView
+                android:id="@+id/unlock_listview_item_imageview"
+                android:layout_width="@dimen/unlock_listview_item_image_view_size"
+                android:layout_height="@dimen/unlock_listview_item_image_view_size"
+                android:src="@drawable/unlock_fullversion_icon_on"
+                android:scaleType="fitStart"
+                android:layout_marginLeft="@dimen/margin_outer"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:id="@+id/unlock_listview_item_description_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/unlock_listview_item_imageview"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:gravity="left|center_vertical"
+                android:padding="@dimen/margin_outer"
+                android:layout_marginLeft="@dimen/margin_inner"
+                android:layout_centerInParent="true"
+                android:text="@string/unlock_everything"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/unlock_listview_item_name_text_size"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+    </com.yooiistudios.morningkit.common.shadow.SlateThemeShadowLayout>
+</RelativeLayout>

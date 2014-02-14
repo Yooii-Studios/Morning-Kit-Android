@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Store -->
+    <color name="setting_store_full_version_text_color">#000000</color>
+    <color name="setting_store_full_version_button_text_color">#00ccff</color>
+    <color name="setting_store_background_color">#333333</color>
+    <color name="setting_store_tab_selected_color">#00cfff</color>
+    <color name="setting_store_tab_selected_text_color">#ffffff</color>
+    <color name="setting_store_tab_unselected_color">#5b5b5b</color>
+    <color name="setting_store_tab_unselected_text_color">#b3b3b3</color>
+    <color name="setting_store_loading_view_color">#cc000000</color>
+    <color name="setting_store_grid_item_background_color">#464646</color>
+    <color name="setting_store_grid_item_background_color_touched">#a1a1a1</color>
+    <color name="setting_store_grid_item_button_background_color">#b0b0b0</color>
+    <color name="setting_store_grid_item_button_border_color">#e0e0e0</color>
+</resources>

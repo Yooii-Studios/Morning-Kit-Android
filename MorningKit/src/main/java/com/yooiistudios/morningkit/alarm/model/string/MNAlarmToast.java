@@ -1,10 +1,12 @@
 package com.yooiistudios.morningkit.alarm.model.string;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.yooiistudios.morningkit.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -18,33 +20,35 @@ public class MNAlarmToast {
 
     public static void show(Context context, Calendar calendar) {
         Calendar toastCalendar = (Calendar) calendar.clone();
-        toastCalendar.add(Calendar.SECOND, 3);
+        toastCalendar.add(Calendar.SECOND, 3);  // 제대로 분을 표시하기 위한 초 뎃섬
 
         Calendar toastNowCalendar = Calendar.getInstance();
-        toastNowCalendar.add(Calendar.SECOND, 3);
+        toastNowCalendar.set(Calendar.SECOND, 0);
 
         long wholeTimeGap = toastCalendar.getTimeInMillis() - toastNowCalendar.getTimeInMillis();
         long dayGap = wholeTimeGap / 1000 / 60 / 60 / 24;
         long hourGap = wholeTimeGap / 1000 / 60 / 60 % 24;
         long minuteGap = wholeTimeGap / 1000 / 60 % 60;
 
-        String toastString = context.getString(R.string.alarm_set_toast_part1);
-        if (dayGap != 0) {
-            if (dayGap == 1) {
-                toastString = toastString + dayGap + context.getString(R.string.alarm_day);
-            }else{
-                toastString = toastString + dayGap + context.getString(R.string.alarm_days);
+        String toastString;
+        if (!(dayGap == 0 && hourGap == 0 && minuteGap <= 1)) {
+            toastString = context.getString(R.string.alarm_set_toast_part1);
+            if (dayGap != 0) {
+                if (dayGap == 1) {
+                    toastString = toastString + dayGap + context.getString(R.string.alarm_day);
+                }else{
+                    toastString = toastString + dayGap + context.getString(R.string.alarm_days);
+                }
             }
-        }
-        if (hourGap != 0) {
-            if (hourGap == 1) {
-                toastString = toastString + hourGap + context.getString(R.string.alarm_hour);
-            }else{
-                toastString = toastString + hourGap + context.getString(R.string.alarm_hours);
+            if (hourGap != 0) {
+                if (hourGap == 1) {
+                    toastString = toastString + hourGap + context.getString(R.string.alarm_hour);
+                }else{
+                    toastString = toastString + hourGap + context.getString(R.string.alarm_hours);
+                }
             }
-        }
-        if (minuteGap != 0) {
-            // 추후 구현
+            if (minuteGap != 0) {
+                // 추후 구현
 //            if (GeneralSetting.getLanguageName().equals("English") ) {
 //                // 앞에 뭐가 있으면 and 붙임
 //                if (dayGap != 0 || hourGap != 0) {
@@ -52,14 +56,15 @@ public class MNAlarmToast {
 //                }
 //            }
 
-            // 분만 있으면 and 안붙임
-            if (minuteGap == 1) {
-                toastString = toastString + minuteGap + context.getString(R.string.alarm_minute);
-            }else{
-                toastString = toastString + minuteGap + context.getString(R.string.alarm_minute);
+                // 분만 있으면 and 안붙임
+                if (minuteGap == 1) {
+                    toastString = toastString + minuteGap + context.getString(R.string.alarm_minute);
+                }else{
+                    toastString = toastString + minuteGap + context.getString(R.string.alarm_minute);
+                }
+                toastString += context.getString(R.string.alarm_set_toast_part2);
             }
-            toastString += context.getString(R.string.alarm_set_toast_part2);
-        }else{
+        } else {
             toastString = context.getString(R.string.alarm_set_for_less_than_1_minute);
         }
         Toast.makeText(context, toastString, Toast.LENGTH_SHORT).show();

@@ -1,0 +1,18 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/setting_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    tools:context="com.yooiistudios.morningkit.setting.MNSettingActivity"
+    tools:ignore="MergeRootFrame">
+
+    <com.yooiistudios.morningkit.setting.MNSettingViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/setting_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.yooiistudios.morningkit.setting.MNSettingActivity" />
+
+</RelativeLayout>

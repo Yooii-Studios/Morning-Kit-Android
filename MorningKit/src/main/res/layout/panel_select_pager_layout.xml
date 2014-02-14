@@ -1,0 +1,33 @@
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/panel_select_pager_height">
+
+    <android.support.v4.view.ViewPager
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/panel_select_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.yooiistudios.morningkit.setting.MNSettingActivity"
+        android:layout_above="@+id/panel_select_page_indicator_layout" />
+
+    <LinearLayout
+        android:id="@+id/panel_select_page_indicator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/panel_select_pager_page_control_height"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/margin_inner">
+
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/panel_select_page_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:strokeWidth="0dp"
+            app:strokeColor="#00000000"
+            app:centered="true"
+            app:snap="true"
+            app:radius="3.5dp"/>
+    </LinearLayout>
+</merge>

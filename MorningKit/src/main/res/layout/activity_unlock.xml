@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/unlock_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yooiistudios.morningkit.common.unlock.MNUnlockActivity"
+    tools:ignore="MergeRootFrame"
+    android:background="#333333">
+
+    <TextView
+        android:id="@+id/unlock_description_textview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unlock_description_height"
+        android:layout_marginTop="@dimen/margin_inner"
+        android:paddingTop="@dimen/unlock_description_padding"
+        android:paddingLeft="@dimen/unlock_description_padding_wide"
+        android:paddingRight="@dimen/unlock_description_padding_wide"
+        android:textStyle="bold"
+        android:textSize="@dimen/unlock_description_textsize"
+        android:textColor="#ffffff"
+        android:text="@string/unlock_description"
+        android:maxLines="2"
+        android:ellipsize="end"/>
+
+    <com.yooiistudios.morningkit.common.shadow.SlateThemeShadowLayout
+        android:id="@+id/unlock_shadow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/unlock_description_textview"
+        android:padding="@dimen/unlock_listview_padding">
+
+        <ListView
+            android:id="@+id/unlock_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/unlock_listview_inner_margin_top"
+            android:layout_marginLeft="@dimen/unlock_listview_inner_margin"
+            android:layout_marginRight="@dimen/unlock_listview_inner_margin"
+            android:layout_marginBottom="@dimen/unlock_listview_inner_margin"
+            android:layout_below="@id/unlock_description_textview"
+            android:dividerHeight="4dp"
+            android:divider="#434343"/>
+    </com.yooiistudios.morningkit.common.shadow.SlateThemeShadowLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset Used"
+        android:id="@+id/unlock_reset_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/margin_outer"
+        android:layout_marginBottom="@dimen/margin_outer"/>
+</RelativeLayout>
+

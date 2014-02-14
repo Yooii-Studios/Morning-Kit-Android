@@ -4,7 +4,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.1' // 0.7.+ 로 해서 0.7.2 버전에 버그가 있음
+        classpath 'com.android.tools.build:gradle:0.7.+' // 0.7.+ 로 해서 0.7.2 버전에 버그가 있음
         // JaKe Wharton 것을 쓰다가 jcandksolutions가 문제를 해결해서 여기의 것을 사용
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
         classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.1'
@@ -20,16 +20,33 @@ repositories {
 }
 
 android {
-    compileSdkVersion 18
+    compileSdkVersion 19
 //    buildToolsVersion "18.1.1"
     buildToolsVersion '19.0.1'
-
 
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 18
         packageName "com.yooiistudios.morningkit"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("/Development/Android/keystore/morningkit.jks")
+            storePassword "1q2w3e" // System.console().readLine("Enter keystore password: ")
+            keyAlias "morningkit_key"
+            keyPassword "1q2w3e" // System.console().readLine("Enter key password: ")
+        }
+    }
+
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+        }
+    }
+
     sourceSets {
         instrumentTest.setRoot('src/test')
     }
@@ -53,54 +70,26 @@ dependencies {
     // 내가 만든 모듈
     compile project(':libraries:SKAlarmManager')
     compile project(':libraries:SKAlarmSound')
+    compile project(':libraries:view-pager-indicator-library') // MNSettingActivityProject에 필요
 
     // 안드로이드 기본
     compile 'com.android.support:support-v4:+'
 	compile 'com.android.support:appcompat-v7:+'
 
+    // 모든 jar 파일 로딩
+    compile fileTree(dir: 'libs', include: '*.jar')
+
     // 필요한 오픈소스 라이브러리들
-    // JSON 관련 유명한 라이브러리
     compile 'com.google.code.gson:gson:2.2.4'
-
-    // 이미지 로딩 관련 유명
-    compile 'com.squareup.picasso:picasso:2.1.1'
-
-    // http 관련
-    compile 'com.squareup.okhttp:okhttp:1.2.1'
+    compile 'com.squareup:otto:1.3.4'
+    compile 'com.jakewharton:butterknife:4.0.1'
 
     // Getter & Setter를 annotation으로 해결
     // (Android Studio용 플러그인용 jar 파일을 웹에서 받아서 <설정 -> plugin -> disk에서 설치> 필요)
-    // apt가 있는 이유는 Android Annotation을 사용하는 android.applicationVariants.all 부분에서 apt를 빌드할 때 같이 빌드되기 위함
-//    apt 'org.projectlombok:lombok:1.12.2'
     compile 'org.projectlombok:lombok:1.12.2'
 
-    // Android Annotations. 사용하기 위해 Preferences -> Annotations Processor 에서 전체적으로 세팅을 해야만 한다
-    // 자세한 내용은 http://www.ashokgelal.com/2012/12/setting-up-intellij-idea-12-with-maven-actionbarsherlock-roboelectric-androidannotations/
-    // 그리고 위쪽의 configuration/apt 부분과 아래쪽 build/source/apt 부분이 필수적
-//    apt "com.googlecode.androidannotations:androidannotations:${androidAnnotationsVersion}"
-//    compile "com.googlecode.androidannotations:androidannotations-api:${androidAnnotationsVersion}"
-
-    //////////////////////////////////////////////////////////////
-    // http://changyeopkim.blogspot.kr/2013/05/android.html 참고 //
-    //////////////////////////////////////////////////////////////
-
-    // 믿고쓰는 스퀘어산 이벤트 버스. Activity Result를 통해서 번들을 주고 받거나 하지 않아서 편리 / http://square.github.com/otto/
-    compile 'com.squareup:otto:1.3.4'
-
-    // 뷰 관련 코드를 깔끔하게 정리. 에버노트에서 관련 내용 찾을 것 (3.0.0 -> 4.0.1로 변경)
-    compile 'com.jakewharton:butterknife:4.0.1'
-
-    // HttpURLConnection을 깔끔하게 정리 / https://github.com/kevinsawicki/http-request
-    compile 'com.github.kevinsawicki:http-request:5.4.1'
-
-    // https://github.com/kevinsawicki/wishlist 실행이 안되서 사용안함
-//    compile 'com.github.kevinsawicki:wishlist:0.9'
-
-    // xml 시리얼, 디시리얼라이즈 관련 / http://simple.sourceforge.net/home.php
-//    compile 'org.simpleframework:simple-xml:2.7.1'
-
-    // 모든 jar 파일 로딩
-    compile fileTree(dir: 'libs', include: '*.jar')
+    // 설정앱에서 사용된 라이브러리
+    compile 'com.nineoldandroids:library:2.4.0'
 
     //////////
     // TEST //
@@ -112,6 +101,18 @@ dependencies {
     instrumentTestCompile 'junit:junit:4.10'
     instrumentTestCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
     instrumentTestCompile 'com.squareup:fest-android:1.0.+'
+
+    // 이미지 로딩 관련 유명
+//    compile 'com.squareup.picasso:picasso:2.1.1'
+
+    // http 관련
+//    compile 'com.squareup.okhttp:okhttp:1.2.1'
+
+    // HttpURLConnection을 깔끔하게 정리 / https://github.com/kevinsawicki/http-request
+//    compile 'com.github.kevinsawicki:http-request:5.4.1'
+
+    // xml 시리얼, 디시리얼라이즈 관련 / http://simple.sourceforge.net/home.php
+//    compile 'org.simpleframework:simple-xml:2.7.1'
 }
 
 // 소스를 UTF-8로 컴파일, ../gradlew clean check 로 테스트할 경우 한글주석관련 warning을 없애기 위함

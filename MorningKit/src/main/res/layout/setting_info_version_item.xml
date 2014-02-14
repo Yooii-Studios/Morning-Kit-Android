@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/setting_info_item_outer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/alarm_item_outer_height"
+    android:layout_alignParentLeft="true"
+    android:clickable="false"
+    android:focusable="false"
+    android:orientation="vertical" >
+
+    <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
+        android:id="@+id/setting_info_version_item_shadow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/alarm_item_outer_height" />
+
+    <RelativeLayout
+        android:id="@+id/setting_info_item_inner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/margin_inner"
+        android:padding="@dimen/alarm_pref_list_item_padding"
+        android:clickable="false"
+        android:focusable="false"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/setting_info_version_title_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:text="Version"
+            android:textColor="#000000"
+            android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
+            android:textStyle="bold"
+            android:layout_toLeftOf="@+id/setting_info_version_detail_textview"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/setting_info_version_detail_textview"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical|right"
+            android:text="0.1.0"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+</RelativeLayout>

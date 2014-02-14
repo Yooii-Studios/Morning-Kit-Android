@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Display;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -22,7 +20,6 @@ import lombok.Getter;
  */
 public class MNWidgetWindowLayout extends LinearLayout
 {
-
     private static final String TAG = "MNWidgetWindowLayout";
 
     @Getter private LinearLayout widgetRows[];
