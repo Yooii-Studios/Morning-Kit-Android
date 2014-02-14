@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.alarm.model.list;
 
+import android.app.AlarmManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -82,6 +83,14 @@ public class MNAlarmListManager {
             }
         } catch (Exception e) {
             e.printStackTrace();
+
+            try {
+                // alarmListDataString 에 손상이 있어 deserialize를 못하는 경우 새로 알람을 만들어 준다
+                MNAlarmListManager.getInstance().alarmList = newDefaultAlarmList(context);
+                saveAlarmList(context);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
         return MNAlarmListManager.getInstance().alarmList;
     }
