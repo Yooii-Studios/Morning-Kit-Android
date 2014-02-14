@@ -57,10 +57,10 @@
         <ImageView
             android:layout_width="38dp"
             android:layout_height="38dp"
-            android:id="@+id/main_refresh_image"
+            android:id="@+id/main_refresh_imageview"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_refresh_off_s3"
+            android:src="@drawable/main_refresh_button_selector_classic_gray"
             android:scaleType="fitCenter"
             android:layout_alignParentStart="false"
             android:contentDescription="@string/loading"/>
@@ -68,10 +68,10 @@
         <ImageView
             android:layout_width="38dp"
             android:layout_height="38dp"
-            android:id="@+id/main_configure_image"
+            android:id="@+id/main_setting_imageview"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_setting_off_s3"
+            android:src="@drawable/main_setting_button_selector_classic_gray"
             android:scaleType="fitCenter"
             android:contentDescription="@string/loading"/>
     </RelativeLayout>
