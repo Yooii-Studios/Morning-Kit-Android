@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
@@ -58,7 +59,6 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setTitle(R.string.action_bar_up_button_main);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(R.drawable.status_bar_icon);
 
@@ -88,6 +88,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
             }
         });
 
+        Log.i(TAG, "checkTime");
         // For each of the sections in the app, add a tab to the action bar.
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
             // Create a tab with text corresponding to the page title defined by
@@ -98,8 +99,11 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
                     actionBar.newTab()
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
+
+            Log.i(TAG, "after add tab");
         }
         mViewPager.setCurrentItem(latestTabIndex);
+        Log.i(TAG, "after set current Item");
     }
 
     private void applyLocaledTabName() {
@@ -113,6 +117,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i(TAG, "onResume");
         applyLocaledTabName();
         AudioManager mgr = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         mgr.setStreamMute(AudioManager.STREAM_SYSTEM, true);
