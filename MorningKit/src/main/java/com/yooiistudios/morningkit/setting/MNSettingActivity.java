@@ -104,7 +104,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
 
     private void applyLocaledTabName() {
         final ActionBar actionBar = getSupportActionBar();
-
+        actionBar.setTitle(R.string.action_bar_up_button_main);
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
             actionBar.getTabAt(i).setText(mSectionsPagerAdapter.getPageTitle(i));
         }
