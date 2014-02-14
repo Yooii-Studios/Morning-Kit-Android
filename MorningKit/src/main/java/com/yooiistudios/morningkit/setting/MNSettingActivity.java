@@ -50,11 +50,14 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate");
         // Theme
         setTheme(R.style.MNSettingActionBarTheme_Light);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        Log.i(TAG, "after setContentView");
 
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
@@ -70,13 +73,19 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
             latestTabIndex = 0;
         }
 
+        Log.i(TAG, "checkTime");
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new MNSettingSectionsPagerAdapter(getSupportFragmentManager(), this);
 
+        Log.i(TAG, "after sectionPagerAdapter");
+
         // Set up the ViewPager with the sections adapter.
         mViewPager = (MNSettingViewPager) findViewById(R.id.setting_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        Log.i(TAG, "after setAdapter");
 
         // When swiping between different sections, select the corresponding
         // tab. We can also use ActionBar.Tab#select() to do this if we have
@@ -119,8 +128,12 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         super.onResume();
         Log.i(TAG, "onResume");
         applyLocaledTabName();
+
+        // Sound
         AudioManager mgr = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         mgr.setStreamMute(AudioManager.STREAM_SYSTEM, true);
+
+        Log.i(TAG, "after onResume");
     }
 
     @Override
