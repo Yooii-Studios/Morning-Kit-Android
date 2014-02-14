@@ -269,9 +269,14 @@
 	<string name="photo_theme_first_open_notice">사진을 이동하고 확대해서 사진을 프레임보다 크게 맞추어 주세요.\n프레임보다 작게 설정될 경우 사진이 화면에 맞게 표시되지 않을 수 있습니다</string>
 
     <!-- Android Only -->
-    <!-- Alarm Pref -->
-    <string name="alarm_sound_string_app_music">모닝키트 음악</string>
+    <!-- General -->
+    <string name="action_bar_up_button_main">메인</string>
+
+    <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">알람이 1분 내에 울립니다</string>
     <string name="store_item_full_version">풀버전</string>
+
+    <!-- Alarm Pref -->
+    <string name="alarm_sound_string_app_music">모닝키트 음악</string>
 
 </resources>

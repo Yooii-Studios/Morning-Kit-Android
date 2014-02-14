@@ -7,58 +7,59 @@
     android:clipToPadding="false">
 
     <LinearLayout
-        android:id="@+id/setting_panel_matrix_layout"
-        android:layout_alignParentTop="true"
+        android:id="@+id/setting_panel_matrix_layout_line_1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/setting_panel_matrix_layout_height"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:weightSum="2"
-        android:padding="@dimen/margin_inner"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:paddingTop="@dimen/margin_inner"
+        android:paddingLeft="@dimen/margin_inner"
+        android:paddingRight="@dimen/margin_inner"
         android:clipChildren="false"
         android:clipToPadding="false">
 
-        <LinearLayout
-            android:id="@+id/setting_panel_matrix_layout_line_1"
+        <com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem
+            android:id="@+id/setting_panel_matrix_item_1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="2"
+            android:layout_height="@dimen/setting_panel_item_height"
             android:layout_weight="1">
+        </com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem>
 
-            <com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem
-                android:id="@+id/setting_panel_matrix_item_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-            </com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem>
-
-            <com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem
-                android:id="@+id/setting_panel_matrix_item_2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-            </com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/setting_panel_matrix_layout_line_2"
+        <com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem
+            android:id="@+id/setting_panel_matrix_item_2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="2"
+            android:layout_height="@dimen/setting_panel_item_height"
             android:layout_weight="1">
+        </com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem>
+    </LinearLayout>
 
-            <com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem
-                android:id="@+id/setting_panel_matrix_item_3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-            </com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem>
-            <com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem
-                android:id="@+id/setting_panel_matrix_item_4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-            </com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem>
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/setting_panel_matrix_layout_line_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_below="@id/setting_panel_matrix_layout_line_1"
+        android:paddingLeft="@dimen/margin_inner"
+        android:paddingRight="@dimen/margin_inner"
+        android:paddingBottom="@dimen/margin_inner"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem
+            android:id="@+id/setting_panel_matrix_item_3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_panel_item_height"
+            android:layout_weight="1">
+        </com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem>
+
+        <com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem
+            android:id="@+id/setting_panel_matrix_item_4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_panel_item_height"
+            android:layout_weight="1">
+        </com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem>
     </LinearLayout>
 
     <com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerLayout

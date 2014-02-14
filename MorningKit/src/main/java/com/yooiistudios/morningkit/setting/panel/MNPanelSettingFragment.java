@@ -51,17 +51,12 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
     @InjectView(R.id.setting_panel_matrix_layout_line_2) LinearLayout panelMatrixItemLayoutLine2;
 
     ArrayList<MNSettingPanelMatrixItem> panelMatrixItems;
-    @InjectView(R.id.setting_panel_matrix_item_1)
-    MNSettingPanelMatrixItem panelMatrixItem1;
-    @InjectView(R.id.setting_panel_matrix_item_2)
-    MNSettingPanelMatrixItem panelMatrixItem2;
-    @InjectView(R.id.setting_panel_matrix_item_3)
-    MNSettingPanelMatrixItem panelMatrixItem3;
-    @InjectView(R.id.setting_panel_matrix_item_4)
-    MNSettingPanelMatrixItem panelMatrixItem4;
+    @InjectView(R.id.setting_panel_matrix_item_1) MNSettingPanelMatrixItem panelMatrixItem1;
+    @InjectView(R.id.setting_panel_matrix_item_2) MNSettingPanelMatrixItem panelMatrixItem2;
+    @InjectView(R.id.setting_panel_matrix_item_3) MNSettingPanelMatrixItem panelMatrixItem3;
+    @InjectView(R.id.setting_panel_matrix_item_4) MNSettingPanelMatrixItem panelMatrixItem4;
 
-    @InjectView(R.id.setting_panel_select_pager_layout)
-    MNPanelSelectPagerLayout panelSelectPagerLayout;
+    @InjectView(R.id.setting_panel_select_pager_layout) MNPanelSelectPagerLayout panelSelectPagerLayout;
 
     // for blur/clear animation
     boolean isPanelMatrixItemPressed = false;

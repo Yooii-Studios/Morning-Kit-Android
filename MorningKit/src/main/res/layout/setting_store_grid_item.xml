@@ -51,7 +51,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/setting_store_grid_item_imageview"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/margin_inner">
 
             <TextView
                 android:id="@+id/setting_store_grid_item_price_textview"

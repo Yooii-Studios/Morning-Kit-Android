@@ -27,7 +27,7 @@ public class MNSettingViewPager extends ViewPager {
     }
 
     private void init() {
-        setOffscreenPageLimit(4); // 4개 탭 까지는 항상 유지하고 있게 구현
+        setOffscreenPageLimit(1); // 4개 탭 까지는 항상 유지하고 있게 구현 -> 빠른 로딩을 위해 1개로
     }
 
     // 페이저 안의 페이저에서 스크롤이 가능하게 만들어주는 코드
