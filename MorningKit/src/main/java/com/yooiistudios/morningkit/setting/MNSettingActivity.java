@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
@@ -50,14 +49,11 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "onCreate");
         // Theme
         setTheme(R.style.MNSettingActionBarTheme_Light);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-
-        Log.i(TAG, "after setContentView");
 
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
@@ -73,19 +69,13 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
             latestTabIndex = 0;
         }
 
-        Log.i(TAG, "checkTime");
-
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new MNSettingSectionsPagerAdapter(getSupportFragmentManager(), this);
 
-        Log.i(TAG, "after sectionPagerAdapter");
-
         // Set up the ViewPager with the sections adapter.
         mViewPager = (MNSettingViewPager) findViewById(R.id.setting_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        Log.i(TAG, "after setAdapter");
 
         // When swiping between different sections, select the corresponding
         // tab. We can also use ActionBar.Tab#select() to do this if we have
@@ -97,7 +87,6 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
             }
         });
 
-        Log.i(TAG, "checkTime");
         // For each of the sections in the app, add a tab to the action bar.
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
             // Create a tab with text corresponding to the page title defined by
@@ -108,11 +97,8 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
                     actionBar.newTab()
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
-
-            Log.i(TAG, "after add tab");
         }
         mViewPager.setCurrentItem(latestTabIndex);
-        Log.i(TAG, "after set current Item");
     }
 
     private void applyLocaledTabName() {
@@ -126,14 +112,11 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(TAG, "onResume");
         applyLocaledTabName();
 
         // Sound
         AudioManager mgr = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         mgr.setStreamMute(AudioManager.STREAM_SYSTEM, true);
-
-        Log.i(TAG, "after onResume");
     }
 
     @Override

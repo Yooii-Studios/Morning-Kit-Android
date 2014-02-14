@@ -227,9 +227,7 @@ public class MNMainActivity extends Activity implements AdListener
     }
 
     @OnClick(R.id.main_configure_image) void settingButtonClicked() {
-        Log.i(TAG, "before settingButtonClicked");
         startActivity(new Intent(MNMainActivity.this, MNSettingActivity.class));
-        Log.i(TAG, "after settingButtonClicked");
     }
 
     /**
