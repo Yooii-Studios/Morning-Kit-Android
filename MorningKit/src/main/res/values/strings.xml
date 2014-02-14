@@ -268,10 +268,14 @@
 	<string name="photo_theme_first_open_notice">Please resize the picture to fit the frame so that it fills the screen</string>
 
     <!-- Android Only -->
-    <!-- Alarm Pref -->
-    <string name="alarm_sound_string_app_music">Morning Kit Music</string>
+    <!-- General -->
+    <string name="action_bar_up_button_main">Main</string>
+
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
     <string name="store_item_full_version">Full Version</string>
+
+        <!-- Alarm Pref -->
+    <string name="alarm_sound_string_app_music">Morning Kit Music</string>
 
 </resources>
