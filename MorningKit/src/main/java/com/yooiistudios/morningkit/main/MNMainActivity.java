@@ -8,6 +8,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -48,6 +49,8 @@ public class MNMainActivity extends Activity implements AdListener
     @Getter @InjectView(R.id.main_widget_window_layout) MNWidgetWindowLayout widgetWindowLayout;
     @Getter @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView alarmListView;
     @Getter @InjectView(R.id.main_button_layout) RelativeLayout buttonLayout;
+    @Getter @InjectView(R.id.main_refresh_imageview) ImageView refreshImageView;
+    @Getter @InjectView(R.id.main_refresh_imageview) ImageView settingImageView;
     @Getter @InjectView(R.id.main_admob_layout) RelativeLayout admobLayout;
     @Getter @InjectView(R.id.adView) AdView adView;
 
@@ -222,13 +225,13 @@ public class MNMainActivity extends Activity implements AdListener
     /**
      * OnClick
      */
-    @OnClick(R.id.main_refresh_image) void refreshButtonClicked() {
+    @OnClick(R.id.main_refresh_imageview) void refreshButtonClicked() {
         Log.i(TAG, "refreshButtonClicked");
 
         // 기획 변경 -> 리프레시 버튼 누르면 2초 동안은 동작하지 않음
     }
 
-    @OnClick(R.id.main_configure_image) void settingButtonClicked() {
+    @OnClick(R.id.main_setting_imageview) void settingButtonClicked() {
         startActivity(new Intent(MNMainActivity.this, MNSettingActivity.class));
     }
 
