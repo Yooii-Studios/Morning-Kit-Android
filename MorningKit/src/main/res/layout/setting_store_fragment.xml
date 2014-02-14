@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/setting_store_full_version_image_view"
-            android:src="@drawable/selector_store_full_version_image"
+            android:src="@drawable/store_full_version_image_selector"
             android:scaleType="fitStart"
             android:clickable="true"
             android:adjustViewBounds="true"/>
@@ -25,7 +25,7 @@
             android:id="@+id/setting_store_full_version_button_imageview"
             android:layout_width="@dimen/setting_store_full_version_button_size"
             android:layout_height="@dimen/setting_store_full_version_button_size"
-            android:src="@drawable/selector_store_full_version_button"
+            android:src="@drawable/store_full_version_button_selector"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:clickable="true"
