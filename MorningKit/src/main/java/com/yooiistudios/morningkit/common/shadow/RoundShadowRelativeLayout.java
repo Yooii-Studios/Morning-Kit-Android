@@ -127,6 +127,12 @@ public class RoundShadowRelativeLayout extends RelativeLayout {
         mRoundRectRadius = radius;
     }
 
+    public void setShadowColor(int color) {
+        mShadowColor = color;
+        configShadow();
+        invalidate();
+    }
+
     private void configPath() {
         mPath.reset();
         mPath.addRoundRect(mRect,
