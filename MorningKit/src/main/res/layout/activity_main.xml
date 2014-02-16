@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/main_scroll_view"
-        android:layout_gravity="left|top"
         android:fillViewport="true"
         android:background="#ddff50">
 
@@ -19,13 +18,11 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/main_scroll_content_layout"
-            android:background="#ca22ac">
+            android:id="@+id/main_scroll_content_layout">
 
             <com.yooiistudios.morningkit.main.MNPanelWindowLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/main_panel_window_layout_height"
-                android:background="#ffaaaa"
                 android:id="@+id/main_widget_window_layout"
                 android:layout_marginTop="@dimen/margin_inner"
                 android:layout_marginLeft="@dimen/margin_inner"
