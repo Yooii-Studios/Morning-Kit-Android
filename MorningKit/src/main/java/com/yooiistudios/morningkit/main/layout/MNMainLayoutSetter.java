@@ -199,11 +199,12 @@ public class MNMainLayoutSetter {
         Resources resources = mainActivity.getResources();
 
         switch (orientation) {
+            // 높이 조절을 widget_height가 shadow 영역을 포함하게 구현
             case Configuration.ORIENTATION_PORTRAIT:
-                return resources.getDimension(R.dimen.widget_height) * 2
-                        + resources.getDimension(R.dimen.margin_outer)
-                        + resources.getDimension(R.dimen.margin_outer)
-                        + resources.getDimension(R.dimen.margin_inner);
+                return resources.getDimension(R.dimen.widget_height) * 2;
+//                        + resources.getDimension(R.dimen.margin_outer)
+//                        + resources.getDimension(R.dimen.margin_outer)
+//                        + resources.getDimension(R.dimen.margin_inner);
 
             case Configuration.ORIENTATION_LANDSCAPE:
                 int deviceHeight = MNDeviceSizeInfo.getDeviceHeight(mainActivity);
