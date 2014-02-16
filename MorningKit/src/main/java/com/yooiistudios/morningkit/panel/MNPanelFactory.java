@@ -17,13 +17,7 @@ public class MNPanelFactory {
 
     public static MNPanelLayout newPanelLayoutInstance(MNPanelType newPanalType, Context context) {
         MNPanelLayout newPanalLayout = new MNPanelLayout(context);
-        newPanalLayout.setClipChildren(false);
 
-        LinearLayout.LayoutParams shadowLayoutParams
-                = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                (int) context.getResources().getDimension(R.dimen.panel_height));
-        shadowLayoutParams.weight = 1;
-        newPanalLayout.setLayoutParams(shadowLayoutParams);
 
         switch (newPanalType) {
             case WEATHER:

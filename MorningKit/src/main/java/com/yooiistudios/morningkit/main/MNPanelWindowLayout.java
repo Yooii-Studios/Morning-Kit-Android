@@ -47,11 +47,6 @@ public class MNPanelWindowLayout extends LinearLayout
 
         panelLineLayouts = new LinearLayout[2];
         panelLayouts = new MNPanelLayout[2][2];
-//        widgetSlots = new FrameLayout[2][2];
-
-//        int padding = DipToPixel.getPixel(getContext(), 3);
-
-//        this.setPadding(padding, padding, padding, padding);
 
         // 패널들이 있는 레이아웃을 추가
         for (int i = 0; i < 2; i++) {
@@ -74,29 +69,6 @@ public class MNPanelWindowLayout extends LinearLayout
                 // 패널 id에 맞게 패널 레이아웃 생성
                 panelLayouts[i][j] = MNPanelFactory.newPanelLayoutInstance(panelType, getContext());
                 panelLineLayouts[i].addView(panelLayouts[i][j]);
-
-//                widgetSlots[i][j] = new FrameLayout(getContext());
-
-//                if (getContext() != null) {
-//                    Display display = ((Activity) getContext()).getWindowManager().getDefaultDisplay();
-//                    Point size = new Point();
-//                display.getSize(size);
-                // deprecated 되서 동현이 말 듣고 수정
-//                int width = display.getWidth();
-//                int height = display.getHeight();
-//                    int width = size.x;
-//                    int height = size.y;
-
-//                    Log.i(TAG, "" + width + " " + height);
-
-//                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width/2,
-//                            DipToPixel.getPixel(getContext(), MN.widget.WIDGET_HEIGHT_PHONE_DP));
-//                    widgetSlots[i][j].setLayoutParams(params);
-//                    widgetSlots[i][j].setPadding(3, 3, 3, 3);
-//
-//                    widgetSlots[i][j].setBackgroundColor(Color.BLUE); // test
-//                    panelLayouts[i].addView(widgetSlots[i][j]);
-//                }
             }
         }
     }
@@ -105,6 +77,15 @@ public class MNPanelWindowLayout extends LinearLayout
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
                 MNShadowLayoutFactory.changeThemeOfShadowLayout(panelLayouts[i][j], getContext());
+                panelLayouts[i][j].applyTheme();
+            }
+        }
+    }
+
+    public void refreshAllPanels() {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                panelLayouts[i][j].refreshPanel();
             }
         }
     }
