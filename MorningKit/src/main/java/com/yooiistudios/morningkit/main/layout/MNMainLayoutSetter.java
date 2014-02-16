@@ -199,9 +199,12 @@ public class MNMainLayoutSetter {
         Resources resources = mainActivity.getResources();
 
         switch (orientation) {
-            // 높이 조절을 widget_height가 shadow 영역을 포함하게 구현
+            // 높이 조절을 panel shadow 영역을 포함하게 구현
             case Configuration.ORIENTATION_PORTRAIT:
-                return resources.getDimension(R.dimen.panel_height) * 2;
+                // * 2 를 하면 dp 환산 과정에서 제대로 된 결과가 나오지 않기에 일부러
+                // int로 환산해서 더해줌
+                return (int) resources.getDimension(R.dimen.panel_height) +
+                        (int) resources.getDimension(R.dimen.panel_height);
 //                        + resources.getDimension(R.dimen.margin_outer)
 //                        + resources.getDimension(R.dimen.margin_outer)
 //                        + resources.getDimension(R.dimen.margin_inner);

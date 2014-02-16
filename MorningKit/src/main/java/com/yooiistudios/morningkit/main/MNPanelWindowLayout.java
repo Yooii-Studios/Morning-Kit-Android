@@ -49,20 +49,21 @@ public class MNPanelWindowLayout extends LinearLayout
 
 //        this.setPadding(padding, padding, padding, padding);
 
+        // 패널들이 있는 레이아웃을 추가
         for (int i = 0; i < 2; i++) {
-
             panelLayouts[i] = new LinearLayout(getContext());
             panelLayouts[i].setOrientation(HORIZONTAL);
             panelLayouts[i].setWeightSum(2);
+            panelLayouts[i].setBackgroundColor(Color.DKGRAY);
 
             LayoutParams layoutParams =
                     new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT);
             panelLayouts[i].setLayoutParams(layoutParams);
-//            this.addView(panelLayouts[i]);
+            this.addView(panelLayouts[i]);
 
+            // 각 패널 레이아웃을 추가
             for (int j = 0; j < 2; j++) {
-
                 RoundShadowRelativeLayout roundShadowRelativeLayout = new RoundShadowRelativeLayout(getContext());
                 MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, getContext());
                 roundShadowRelativeLayout.setClipChildren(false);
@@ -72,8 +73,7 @@ public class MNPanelWindowLayout extends LinearLayout
                         (int) getResources().getDimension(R.dimen.panel_height));
                 shadowLayoutParams.weight = 1;
                 roundShadowRelativeLayout.setLayoutParams(shadowLayoutParams);
-//                panelLayouts[i].addView(roundShadowRelativeLayout);
-
+                panelLayouts[i].addView(roundShadowRelativeLayout);
 
 //                widgetSlots[i][j] = new FrameLayout(getContext());
 
