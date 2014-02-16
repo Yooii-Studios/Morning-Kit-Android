@@ -5,9 +5,13 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
+import com.yooiistudios.morningkit.panel.MNPanel;
+import com.yooiistudios.morningkit.panel.MNPanelFactory;
+import com.yooiistudios.morningkit.panel.MNPanelLayout;
+import com.yooiistudios.morningkit.panel.MNPanelType;
+
+import java.util.List;
 
 import lombok.Getter;
 
@@ -19,8 +23,8 @@ public class MNPanelWindowLayout extends LinearLayout
 {
     private static final String TAG = "MNWidgetWindowLayout";
 
-    @Getter private LinearLayout panelLayouts[];
-    @Getter private RoundShadowRelativeLayout[][] roundShadowRelativeLayouts;
+    @Getter private LinearLayout panelLineLayouts[];
+    @Getter private MNPanelLayout[][] panelLayouts;
 //    @Getter private FrameLayout[][] widgetSlots;
 
     public MNPanelWindowLayout(Context context)
@@ -41,8 +45,8 @@ public class MNPanelWindowLayout extends LinearLayout
     {
         this.setOrientation(VERTICAL);
 
-        panelLayouts = new LinearLayout[2];
-        roundShadowRelativeLayouts = new RoundShadowRelativeLayout[2][2];
+        panelLineLayouts = new LinearLayout[2];
+        panelLayouts = new MNPanelLayout[2][2];
 //        widgetSlots = new FrameLayout[2][2];
 
 //        int padding = DipToPixel.getPixel(getContext(), 3);
@@ -51,27 +55,25 @@ public class MNPanelWindowLayout extends LinearLayout
 
         // 패널들이 있는 레이아웃을 추가
         for (int i = 0; i < 2; i++) {
-            panelLayouts[i] = new LinearLayout(getContext());
-            panelLayouts[i].setOrientation(HORIZONTAL);
-            panelLayouts[i].setWeightSum(2);
+            panelLineLayouts[i] = new LinearLayout(getContext());
+            panelLineLayouts[i].setOrientation(HORIZONTAL);
+            panelLineLayouts[i].setWeightSum(2);
 
             LayoutParams layoutParams =
                     new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT);
-            panelLayouts[i].setLayoutParams(layoutParams);
-            this.addView(panelLayouts[i]);
+            panelLineLayouts[i].setLayoutParams(layoutParams);
+            this.addView(panelLineLayouts[i]);
 
             // 각 패널 레이아웃을 추가
             for (int j = 0; j < 2; j++) {
-                roundShadowRelativeLayouts[i][j] = new RoundShadowRelativeLayout(getContext());
-                roundShadowRelativeLayouts[i][j].setClipChildren(false);
+                // 저장된 패널 id를 로드
+                List<Integer> uniquePanelIds = MNPanel.getPanelUniqueIdList(getContext());
+                MNPanelType panelType = MNPanelType.valueOfUniqueId(uniquePanelIds.get(i * 2 + j));
 
-                LayoutParams shadowLayoutParams
-                        = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        (int) getResources().getDimension(R.dimen.panel_height));
-                shadowLayoutParams.weight = 1;
-                roundShadowRelativeLayouts[i][j].setLayoutParams(shadowLayoutParams);
-                panelLayouts[i].addView(roundShadowRelativeLayouts[i][j]);
+                // 패널 id에 맞게 패널 레이아웃 생성
+                panelLayouts[i][j] = MNPanelFactory.newPanelLayoutInstance(panelType, getContext());
+                panelLineLayouts[i].addView(panelLayouts[i][j]);
 
 //                widgetSlots[i][j] = new FrameLayout(getContext());
 
@@ -102,7 +104,7 @@ public class MNPanelWindowLayout extends LinearLayout
     public void applyTheme() {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayouts[i][j], getContext());
+                MNShadowLayoutFactory.changeThemeOfShadowLayout(panelLayouts[i][j], getContext());
             }
         }
     }
