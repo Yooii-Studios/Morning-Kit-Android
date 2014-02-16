@@ -22,7 +22,7 @@
             android:id="@+id/main_scroll_content_layout"
             android:background="#ca22ac">
 
-            <com.yooiistudios.morningkit.main.MNWidgetWindowLayout
+            <com.yooiistudios.morningkit.main.MNPanelWindowLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/main_panel_window_layout_height"
                 android:background="#ffaaaa"

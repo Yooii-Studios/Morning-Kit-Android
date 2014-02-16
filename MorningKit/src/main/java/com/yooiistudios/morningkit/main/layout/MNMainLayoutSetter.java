@@ -50,9 +50,9 @@ public class MNMainLayoutSetter {
         }
     }
 
-    public static void adjustWidgetLayoutParamsAtOrientation(MNMainActivity mainActivity, int orientation) {
-        LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mainActivity.getWidgetWindowLayout().getLayoutParams();
-        widgetWindowLayoutParams.height = (int) getWidgetWindowLayoutHeight(mainActivity, orientation);
+    public static void adjustPanelLayoutParamsAtOrientation(MNMainActivity mainActivity, int orientation) {
+        LinearLayout.LayoutParams panelWindowLayoutParams = (LinearLayout.LayoutParams) mainActivity.getPanelWindowLayout().getLayoutParams();
+        panelWindowLayoutParams.height = (int) getPanelWindowLayoutHeight(mainActivity, orientation);
     }
 
     public static void adjustButtonLayoutParamsAtOrientation(RelativeLayout buttonLayout, int orientation) {
@@ -195,13 +195,13 @@ public class MNMainLayoutSetter {
     /**
      * Getting height of main layouts & views
      */
-    public static float getWidgetWindowLayoutHeight(MNMainActivity mainActivity, int orientation) {
+    public static float getPanelWindowLayoutHeight(MNMainActivity mainActivity, int orientation) {
         Resources resources = mainActivity.getResources();
 
         switch (orientation) {
             // 높이 조절을 widget_height가 shadow 영역을 포함하게 구현
             case Configuration.ORIENTATION_PORTRAIT:
-                return resources.getDimension(R.dimen.widget_height) * 2;
+                return resources.getDimension(R.dimen.panel_height) * 2;
 //                        + resources.getDimension(R.dimen.margin_outer)
 //                        + resources.getDimension(R.dimen.margin_outer)
 //                        + resources.getDimension(R.dimen.margin_inner);
@@ -259,7 +259,7 @@ public class MNMainLayoutSetter {
     }
 
     public static float getScrollContentHeightExceptAlarmsOnPortrait(MNMainActivity mainActivity) {
-        return getWidgetWindowLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT)
+        return getPanelWindowLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT)
                 + getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT);
     }
 }
