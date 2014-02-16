@@ -26,7 +26,8 @@
                 android:id="@+id/main_widget_window_layout"
                 android:layout_marginTop="@dimen/margin_inner"
                 android:layout_marginLeft="@dimen/margin_inner"
-                android:layout_marginRight="@dimen/margin_inner"/>
+                android:layout_marginRight="@dimen/margin_inner"
+                android:background="#3f003f"/>
 
             <com.yooiistudios.morningkit.main.MNMainAlarmListView
                 android:layout_width="match_parent"
