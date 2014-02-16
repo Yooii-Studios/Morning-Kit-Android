@@ -3,14 +3,9 @@ package com.yooiistudios.morningkit.common.shadow.factory;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.CelestialThemeShadowLayout;
-import com.yooiistudios.morningkit.common.shadow.ModernityThemeShadowLayout;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.SlateThemeShadowLayout;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -23,7 +18,6 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
  */
 public class MNShadowLayoutFactory {
     private MNShadowLayoutFactory() { throw new AssertionError("You MUST not create this class!"); }
-
 
     /**
      * RoundShadowLayout 을 교체하지 않고 테마만 바꿔주게 변경하려고 함
@@ -60,9 +54,11 @@ public class MNShadowLayoutFactory {
         }
     }
 
+    // 아래의 동적 생성 메서드들은 더이상 사용하지 않을 예정
     /**
      * 기존에 있는 자식 뷰들도 전부 옮겨줌 - 추천 메서드
      */
+    /*
     public static RoundShadowRelativeLayout changeShadowLayoutWithChildren(RoundShadowRelativeLayout originalShadowLayout,
                                                                            ViewGroup parentGroup) {
         Context context = parentGroup.getContext();
@@ -108,10 +104,12 @@ public class MNShadowLayoutFactory {
 
         return newShadowRelativeLayout;
     }
+    */
 
     /**
      * 타입과 원 쉐도우레이아웃, 부모 뷰그룹(레이아웃)을 넣으면 테마에 맞게 교체하는 메서드 - 기존 메서드
      */
+    /*
     public static RoundShadowRelativeLayout changeShadowLayout(MNThemeType themeType,
                                           RoundShadowRelativeLayout originalShadowLayout,
                                           ViewGroup parentGroup) {
@@ -144,4 +142,5 @@ public class MNShadowLayoutFactory {
 
         return newShadowRelativeLayout;
     }
+    */
 }
