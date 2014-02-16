@@ -1,13 +1,17 @@
 package com.yooiistudios.morningkit.common.shadow.factory;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.shadow.CelestialThemeShadowLayout;
 import com.yooiistudios.morningkit.common.shadow.ModernityThemeShadowLayout;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
 import com.yooiistudios.morningkit.common.shadow.SlateThemeShadowLayout;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
@@ -19,6 +23,42 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
  */
 public class MNShadowLayoutFactory {
     private MNShadowLayoutFactory() { throw new AssertionError("You MUST not create this class!"); }
+
+
+    /**
+     * RoundShadowLayout 을 교체하지 않고 테마만 바꿔주게 변경하려고 함
+     */
+    public static void changeThemeOfShadowLayout(RoundShadowRelativeLayout shadowLayout, Context context) {
+
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
+        Resources resources = context.getResources();
+
+        shadowLayout.setRoundRectRadius((int)resources.getDimension(R.dimen.rounded_corner_radius));
+        shadowLayout.setBlurRadius((int)resources.getDimension(R.dimen.margin_shadow_inner));
+        shadowLayout.setShadowColor(Color.argb(140, 0, 0, 0));
+
+        switch (currentThemeType) {
+            case SLATE_GRAY:
+                shadowLayout.setSolidAreaColor(MNSettingColors.getForwardBackgroundColor(MNThemeType.SLATE_GRAY));
+                shadowLayout.setPressedColor(MNSettingColors.getPressedBackgroundColor(MNThemeType.SLATE_GRAY));
+                break;
+
+            case MODERNITY_WHITE:
+                shadowLayout.setSolidAreaColor(MNSettingColors.getForwardBackgroundColor(MNThemeType.MODERNITY_WHITE));
+                shadowLayout.setPressedColor(MNSettingColors.getPressedBackgroundColor(MNThemeType.MODERNITY_WHITE));
+                break;
+
+            case CELESTIAL_SKY_BLUE:
+                shadowLayout.setSolidAreaColor(MNSettingColors.getForwardBackgroundColor(MNThemeType.CELESTIAL_SKY_BLUE));
+                shadowLayout.setPressedColor(MNSettingColors.getPressedBackgroundColor(MNThemeType.CELESTIAL_SKY_BLUE));
+                break;
+
+            default:
+                shadowLayout.setSolidAreaColor(MNSettingColors.getForwardBackgroundColor(MNThemeType.MODERNITY_WHITE));
+                shadowLayout.setPressedColor(MNSettingColors.getPressedBackgroundColor(MNThemeType.MODERNITY_WHITE));
+                break;
+        }
+    }
 
     /**
      * 기존에 있는 자식 뷰들도 전부 옮겨줌 - 추천 메서드

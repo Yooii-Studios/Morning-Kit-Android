@@ -160,7 +160,9 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
     }
 
     private RoundShadowRelativeLayout setShadowLayout(RoundShadowRelativeLayout roundShadowRelativeLayout, LinearLayout layout, int index) {
-        roundShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayoutWithChildren(roundShadowRelativeLayout, layout);
+        // 기존 동적 생성 방식에서 색값만 변경하게 처리
+//        roundShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayoutWithChildren(roundShadowRelativeLayout, layout);
+        MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, getActivity());
         roundShadowRelativeLayout.setTag(index);
         roundShadowRelativeLayout.setPressedColor(MNSettingColors.getForwardBackgroundColor(MNTheme.getCurrentThemeType(getActivity())));
         if (index != -1 && index != -2) {
