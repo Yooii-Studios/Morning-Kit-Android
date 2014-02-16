@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:background="#ffdda2"
     tools:context=".MainActivity"
-    tools:ignore="MergeRootFrame"
-    android:clipChildren="false">
+    tools:ignore="MergeRootFrame">
 
     <com.yooiistudios.morningkit.main.MNMainScrollView
         android:layout_width="match_parent"
@@ -14,26 +13,23 @@
         android:id="@+id/main_scroll_view"
         android:layout_gravity="left|top"
         android:fillViewport="true"
-        android:background="#ddff50"
-        android:clipChildren="false">
+        android:background="#ddff50">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/main_scroll_content_layout"
-            android:background="#ca22ac"
-            android:clipChildren="false">
+            android:background="#ca22ac">
 
             <com.yooiistudios.morningkit.main.MNWidgetWindowLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/main_widget_window_layout_height"
+                android:layout_height="@dimen/main_panel_window_layout_height"
                 android:background="#ffaaaa"
                 android:id="@+id/main_widget_window_layout"
                 android:layout_marginTop="@dimen/margin_inner"
                 android:layout_marginLeft="@dimen/margin_inner"
-                android:layout_marginRight="@dimen/margin_inner"
-                android:clipChildren="false"/>
+                android:layout_marginRight="@dimen/margin_inner"/>
 
             <com.yooiistudios.morningkit.main.MNMainAlarmListView
                 android:layout_width="match_parent"
