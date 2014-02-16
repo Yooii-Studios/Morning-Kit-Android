@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.main;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -21,6 +20,7 @@ public class MNPanelWindowLayout extends LinearLayout
     private static final String TAG = "MNWidgetWindowLayout";
 
     @Getter private LinearLayout panelLayouts[];
+    @Getter private RoundShadowRelativeLayout[][] roundShadowRelativeLayouts;
 //    @Getter private FrameLayout[][] widgetSlots;
 
     public MNPanelWindowLayout(Context context)
@@ -40,9 +40,9 @@ public class MNPanelWindowLayout extends LinearLayout
     public void initWithWidgetMatrix()
     {
         this.setOrientation(VERTICAL);
-        this.setBackgroundColor(Color.RED);
 
         panelLayouts = new LinearLayout[2];
+        roundShadowRelativeLayouts = new RoundShadowRelativeLayout[2][2];
 //        widgetSlots = new FrameLayout[2][2];
 
 //        int padding = DipToPixel.getPixel(getContext(), 3);
@@ -54,7 +54,6 @@ public class MNPanelWindowLayout extends LinearLayout
             panelLayouts[i] = new LinearLayout(getContext());
             panelLayouts[i].setOrientation(HORIZONTAL);
             panelLayouts[i].setWeightSum(2);
-            panelLayouts[i].setBackgroundColor(Color.DKGRAY);
 
             LayoutParams layoutParams =
                     new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -64,16 +63,15 @@ public class MNPanelWindowLayout extends LinearLayout
 
             // 각 패널 레이아웃을 추가
             for (int j = 0; j < 2; j++) {
-                RoundShadowRelativeLayout roundShadowRelativeLayout = new RoundShadowRelativeLayout(getContext());
-                MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, getContext());
-                roundShadowRelativeLayout.setClipChildren(false);
+                roundShadowRelativeLayouts[i][j] = new RoundShadowRelativeLayout(getContext());
+                roundShadowRelativeLayouts[i][j].setClipChildren(false);
 
                 LayoutParams shadowLayoutParams
                         = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         (int) getResources().getDimension(R.dimen.panel_height));
                 shadowLayoutParams.weight = 1;
-                roundShadowRelativeLayout.setLayoutParams(shadowLayoutParams);
-                panelLayouts[i].addView(roundShadowRelativeLayout);
+                roundShadowRelativeLayouts[i][j].setLayoutParams(shadowLayoutParams);
+                panelLayouts[i].addView(roundShadowRelativeLayouts[i][j]);
 
 //                widgetSlots[i][j] = new FrameLayout(getContext());
 
@@ -97,6 +95,14 @@ public class MNPanelWindowLayout extends LinearLayout
 //                    widgetSlots[i][j].setBackgroundColor(Color.BLUE); // test
 //                    panelLayouts[i].addView(widgetSlots[i][j]);
 //                }
+            }
+        }
+    }
+
+    public void applyTheme() {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayouts[i][j], getContext());
             }
         }
     }

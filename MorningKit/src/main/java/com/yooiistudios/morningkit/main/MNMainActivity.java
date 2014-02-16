@@ -141,6 +141,7 @@ public class MNMainActivity extends Activity implements AdListener
 
         // 테마와 관련된 작업 실행
 //        containerLayout.setBackgroundColor(Color.WHITE);
+        panelWindowLayout.applyTheme();
 
         // 버튼 레이아웃
         GradientDrawable buttonShape = (GradientDrawable) buttonLayout.getBackground();
