@@ -148,11 +148,14 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
 
             // theme - shadow
             RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
+
+            // 동적 생성 -> 색 변경 로직 변경
+//            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
+            MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, activity);
 
             // onClick
-            if (newShadowRelativeLayout != null) {
-                newShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            if (roundShadowRelativeLayout != null) {
+                roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (MNSound.isSoundOn(activity)) {
@@ -182,11 +185,11 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
                     viewHolder.getLockImageView().setVisibility(View.GONE);
                 } else {
                     // 아이템 잠김
-                    newShadowRelativeLayout.setSolidAreaColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
-                    newShadowRelativeLayout.setPressedColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
+                    roundShadowRelativeLayout.setSolidAreaColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
+                    roundShadowRelativeLayout.setPressedColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
 
                     // lock onClickListener
-                    newShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
+                    roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(activity, MNUnlockActivity.class);
