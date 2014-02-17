@@ -4,9 +4,17 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.yooiistudios.morningkit.common.utf.MNUtf;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
+
+import org.json.JSONObject;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 17.
@@ -42,14 +50,14 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
 
         // 플리커 키워드를 가지고 사진 url을 추출
         String escapedKeyword = MNUtf.getConverted_UTF_8_String(keyword);
-        String queryUrlString = "http://api.flickr.com/services/rest/?sort=random&method=flickr.photos.search%@&api_key=%@&format=json&nojsoncallback=1";
-        queryUrlString += "&tags=" + escapedKeyword + "&tag_mode=any&per_page="
-                + FLICKR_FIRST_LOADING_PER_PAGE + "&page=1";
-        queryUrlString += FLICKR_API_KEY;
+        String queryUrlString = "http://api.flickr.com/services/rest/?sort=random"
+                + "&method=flickr.photos.search%@&api_key=%@&format=json&nojsoncallback=1"
+                + "&tags=" + escapedKeyword + "&tag_mode=any&per_page="
+                + FLICKR_FIRST_LOADING_PER_PAGE + "&page=1"
+                + FLICKR_API_KEY;
         Log.i(TAG, queryUrlString);
 
         // 쿼리
-        /*
         RequestQueue mRequsetQueue = Volley.newRequestQueue(getContext());
         mRequsetQueue.add(new JsonObjectRequest(Request.Method.GET, queryUrlString, null,
             new Response.Listener<JSONObject>() {
@@ -66,7 +74,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
                 }
             })
         );
-        */
 
         // 사진 url을 통해 이미지 출력
         new Thread(new Runnable() {
