@@ -51,8 +51,8 @@ public class MNMainActivityTest {
         assertThat(mainActivity.getAlarmListView(), notNullValue());
         assertThat(mainActivity.getAlarmListView(), instanceOf(MNMainAlarmListView.class));
 
-        assertThat(mainActivity.getWidgetWindowLayout(), notNullValue());
-        assertThat(mainActivity.getWidgetWindowLayout(), instanceOf(MNWidgetWindowLayout.class));
+        assertThat(mainActivity.getPanelWindowLayout(), notNullValue());
+        assertThat(mainActivity.getPanelWindowLayout(), instanceOf(MNPanelWindowLayout.class));
 
         assertThat(mainActivity.getButtonLayout(), notNullValue());
         assertThat(mainActivity.getButtonLayout(), instanceOf(RelativeLayout.class));

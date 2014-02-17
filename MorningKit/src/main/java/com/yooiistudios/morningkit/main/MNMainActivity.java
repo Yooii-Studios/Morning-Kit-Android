@@ -46,7 +46,7 @@ public class MNMainActivity extends Activity implements AdListener
     @Getter @InjectView(R.id.main_container_layout) RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view) MNMainScrollView scrollView;
     @Getter @InjectView(R.id.main_scroll_content_layout) LinearLayout scrollContentLayout;
-    @Getter @InjectView(R.id.main_widget_window_layout) MNWidgetWindowLayout widgetWindowLayout;
+    @Getter @InjectView(R.id.main_widget_window_layout) MNPanelWindowLayout panelWindowLayout;
     @Getter @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView alarmListView;
     @Getter @InjectView(R.id.main_button_layout) RelativeLayout buttonLayout;
     @Getter @InjectView(R.id.main_refresh_imageview) ImageView refreshImageView;
@@ -84,7 +84,7 @@ public class MNMainActivity extends Activity implements AdListener
 //        AppValidationChecker.validationCheck(this);
 
         // 위젯 윈도우
-        widgetWindowLayout.initWithWidgetMatrix();
+        panelWindowLayout.initWithWidgetMatrix();
 
         // 알람
         alarmListView.initWithListAdapter();
@@ -141,6 +141,7 @@ public class MNMainActivity extends Activity implements AdListener
 
         // 테마와 관련된 작업 실행
 //        containerLayout.setBackgroundColor(Color.WHITE);
+        panelWindowLayout.applyTheme();
 
         // 버튼 레이아웃
         GradientDrawable buttonShape = (GradientDrawable) buttonLayout.getBackground();
@@ -199,7 +200,7 @@ public class MNMainActivity extends Activity implements AdListener
                 // 스크롤뷰
                 MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(scrollView, config.orientation);
                 // 위젯윈도우 레이아웃
-                MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(MNMainActivity.this, config.orientation);
+                MNMainLayoutSetter.adjustPanelLayoutParamsAtOrientation(MNMainActivity.this, config.orientation);
                 // 버튼 레이아웃
                 MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(buttonLayout, config.orientation);
                 // 애드몹 레이아웃
