@@ -1,10 +1,8 @@
 package com.yooiistudios.morningkit.panel;
 
 import android.content.Context;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 16.
@@ -18,10 +16,10 @@ public class MNPanelFactory {
     public static MNPanelLayout newPanelLayoutInstance(MNPanelType newPanalType, Context context) {
         MNPanelLayout newPanalLayout = new MNPanelLayout(context);
 
-
         switch (newPanalType) {
             case WEATHER:
                 newPanalLayout.setPanelType(MNPanelType.WEATHER);
+                newPanalLayout.initNetworkPanel();
                 break;
 
             case DATE:
@@ -41,11 +39,12 @@ public class MNPanelFactory {
                 break;
 
             case FLICKR:
-                newPanalLayout.setPanelType(MNPanelType.FLICKR);
+                newPanalLayout = new MNFlickrPanelLayout(context);
                 break;
 
             case EXCHANGE_RATES:
                 newPanalLayout.setPanelType(MNPanelType.EXCHANGE_RATES);
+                newPanalLayout.initNetworkPanel();
                 break;
 
             case MEMO:
