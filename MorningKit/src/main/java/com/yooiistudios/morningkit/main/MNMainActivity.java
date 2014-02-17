@@ -129,8 +129,6 @@ public class MNMainActivity extends Activity implements AdListener
     @Override
     protected void onResume() {
         // Activity visible to user
-        Log.i(TAG, "onResume");
-
         MNAlarmScrollViewBusProvider.getInstance().register(this);
 
         // Alarm
