@@ -228,6 +228,7 @@ public class MNMainActivity extends Activity implements AdListener
         Log.i(TAG, "refreshButtonClicked");
 
         // 기획 변경 -> 리프레시 버튼 누르면 2초 동안은 동작하지 않음
+        panelWindowLayout.refreshAllPanels();
     }
 
     @OnClick(R.id.main_setting_imageview) void settingButtonClicked() {
