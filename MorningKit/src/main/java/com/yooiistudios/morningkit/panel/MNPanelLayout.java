@@ -67,17 +67,44 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
             boolean isReachable = true;
             if (isReachable) {
                 // 로딩 중 애니메이션
+                startLoadingAnimation();
+
                 // processLoading
+                processLoading();
 
                 // 로딩이 끝나고 애니메이션 해제 후
+                stopLoadingAnimation();
+
                 // updateUI
+                updateUI();
             } else {
                 // 네트워크 불가 이미지
+                showNetworkIsUnavailable();
             }
         } else {
-            // processLoading
-            // updateUI
+            processLoading();
+            updateUI();
         }
+    }
+
+    protected void processLoading() {
+
+    }
+
+    protected void updateUI() {
+
+    }
+
+    protected void startLoadingAnimation() {
+
+    }
+
+    protected void stopLoadingAnimation() {
+
+    }
+
+    protected void showNetworkIsUnavailable() {
+
     }
 
     public void applyTheme() {
