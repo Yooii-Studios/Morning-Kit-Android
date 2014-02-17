@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.panel.flickr;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -51,11 +52,10 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
         // 플리커 키워드를 가지고 사진 url을 추출
         String escapedKeyword = MNUtf.getConverted_UTF_8_String(keyword);
         String queryUrlString = "http://api.flickr.com/services/rest/?sort=random"
-                + "&method=flickr.photos.search%@&api_key=%@&format=json&nojsoncallback=1"
-                + "&tags=" + escapedKeyword + "&tag_mode=any&per_page="
-                + FLICKR_FIRST_LOADING_PER_PAGE + "&page=1"
-                + FLICKR_API_KEY;
-        Log.i(TAG, queryUrlString);
+                + "&method=flickr.photos.search"
+                + "&tags=" + escapedKeyword + "&tag_mode=any"
+                + "&per_page=" + FLICKR_FIRST_LOADING_PER_PAGE + "&page=1"
+                + "&api_key=" + FLICKR_API_KEY + "&format=json&nojsoncallback=1";
 
         // 쿼리
         RequestQueue mRequsetQueue = Volley.newRequestQueue(getContext());
@@ -63,14 +63,18 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
             new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
-                    Log.i(TAG, "onResponse");
                     Log.i(TAG, jsonObject.toString());
+
+                    // 사진 url 추출
+                    // 추출한 url을 통해 비트맵 가져오기
+                    // 가져온 비트맵 가공
                 }
             },
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    Log.i(TAG, "onResponse: " + volleyError.toString());
+                    Toast.makeText(getContext(), volleyError.toString(), Toast.LENGTH_SHORT);
+                    showNetworkIsUnavailable();
                 }
             })
         );
@@ -98,5 +102,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
     protected void updateUI() {
         stopLoadingAnimation();
         super.updateUI();
+
+        // 마무리 가공된 Bitmap을 RecycleImageView에 대입
     }
 }
