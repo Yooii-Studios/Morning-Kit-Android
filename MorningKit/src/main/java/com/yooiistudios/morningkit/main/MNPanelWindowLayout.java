@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
+import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.MNPanelFactory;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
@@ -41,8 +42,7 @@ public class MNPanelWindowLayout extends LinearLayout
         super(context, attrs, defStyle);
     }
 
-    public void initWithWidgetMatrix()
-    {
+    public void initWithWidgetMatrix() {
         this.setOrientation(VERTICAL);
 
         panelLineLayouts = new LinearLayout[2];
@@ -69,8 +69,20 @@ public class MNPanelWindowLayout extends LinearLayout
                 // 패널 id에 맞게 패널 레이아웃 생성
                 panelLayouts[i][j] = MNPanelFactory.newPanelLayoutInstance(panelType, getContext());
                 panelLineLayouts[i].addView(panelLayouts[i][j]);
+
+                // 로딩 애니메이션이 onCreate시에는 제대로 생성이 안되기 때문에 뷰 로딩 이후에 리프레시
+                final MNPanelLayout panelLayout = panelLayouts[i][j];
+                MNViewSizeMeasure.setViewSizeObserver(panelLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+                    @Override
+                    public void onLayoutLoad() {
+                        panelLayout.refreshPanel();
+                    }
+                });
             }
         }
+
+        // 패널 초기화 후 전체 리프레시
+//        refreshAllPanels();
     }
 
     public void applyTheme() {
