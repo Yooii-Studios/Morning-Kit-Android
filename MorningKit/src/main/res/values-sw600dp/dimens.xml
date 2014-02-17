@@ -17,6 +17,6 @@
 
     <!-- Widget Window -->
     <!-- 263에서 4 증가 후 나누기 1.3333 -->
-    <dimen name="main_widget_window_layout_height">263dp</dimen>
+    <dimen name="main_panel_window_layout_height">263dp</dimen>
 
 </resources>
