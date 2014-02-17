@@ -119,6 +119,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
     @Override
     public void onResume() {
         super.onResume();
+
         getView().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(MNTheme.getCurrentThemeType(getActivity())));
         checkPanelMatrix();
         initPanelMatrixItems();
@@ -138,6 +139,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         if (isPanelSelectPagerItemPressed) {
             clearPanelSelectPagerAnimation(pressedSelectPagerItemIndex);
         }
+        cancelGuideAnimation();
     }
 
     @Override
