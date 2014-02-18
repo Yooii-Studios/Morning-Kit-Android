@@ -31,6 +31,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Created by StevenKim in Morning Kit from Yooii Studios Co., LTD. on 2014. 2. 4.
@@ -42,11 +43,9 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
 
     private static final String TAG = "MNPanelSelectPagerSecondFragment";
 
-    MNPanelSelectPagerInterface panelSelectPagerInterface;
+    @Setter MNPanelSelectPagerInterface panelSelectPagerInterface;
+    // MNPanelSelectPagerInterface을 셋 해줘야함 non-default constructor 를 사용하지 않기 위함
     public MNPanelSelectPagerSecondFragment() {}
-    public MNPanelSelectPagerSecondFragment(MNPanelSelectPagerInterface panelSelectPagerInterface) {
-        this.panelSelectPagerInterface = panelSelectPagerInterface;
-    }
 
     @InjectView(R.id.widget_selector_page2_line1_layout) LinearLayout line1_Layout;
     @InjectView(R.id.widget_selector_page2_line2_layout) LinearLayout line2_Layout;

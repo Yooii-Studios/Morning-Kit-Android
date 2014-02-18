@@ -42,7 +42,7 @@ import lombok.Setter;
 public class MNStoreFragment extends Fragment implements SKIabManagerListener, IabHelper.OnIabPurchaseFinishedListener {
     private static final String TAG = "MNStoreFragment";
     @Setter @Getter private SKIabManager iabManager;
-    MNSettingActivity activity;
+    @Setter MNSettingActivity activity;
 
     @InjectView(R.id.setting_store_progressBar) ProgressBar progressBar;
     @InjectView(R.id.setting_store_loading_view) View loadingView;
@@ -66,11 +66,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @InjectView(R.id.setting_store_panel_gridview) GridView panelGridView;
     @InjectView(R.id.setting_store_theme_gridview) GridView themeGridView;
 
+    // setActivity 반드시 해줘야함
     public MNStoreFragment(){}
-    public MNStoreFragment(MNSettingActivity activity) {
-        super();
-        this.activity = activity;
-    }
 
     // 이전에 생성된 프래그먼트를 유지
     @Override

@@ -37,7 +37,9 @@ public class MNSettingSectionsPagerAdapter extends FragmentPagerAdapter{
             case 0:
                 return new MNPanelSettingFragment();
             case 1:
-                return new MNStoreFragment(settingActivity);
+                MNStoreFragment storeFragment = new MNStoreFragment();
+                storeFragment.setActivity(settingActivity);
+                return storeFragment;
             case 2:
                 return new MNThemeFragment();
             case 3:
