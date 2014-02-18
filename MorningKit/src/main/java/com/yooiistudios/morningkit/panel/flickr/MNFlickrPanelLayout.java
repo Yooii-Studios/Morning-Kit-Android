@@ -69,15 +69,12 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
             new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
-
                     // 사진 url 추출
                     try {
                         JSONObject photos = jsonObject.getJSONObject("photos");
                         if (photos != null) {
                             MNFlickrPhotoInfo flickrPhotoInfo = new MNFlickrPhotoInfo();
                             flickrPhotoInfo.setTotalPhotos(photos.getInt("total"));
-
-                            MNLog.now("totalNumbers: " + flickrPhotoInfo.getTotalPhotos());
 
                             // 총 사진 갯수가 한 페이지를 넘어가면 index를 20 내에서 난수 생성 필요
                             int totalPhotosInThisPage = flickrPhotoInfo.getTotalPhotos();
@@ -86,10 +83,32 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
                             }
 
                             // 난수
-//                            MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG()
-//                            int randomIndex
+                            MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
+                            int randomIndex = randomGenerator.nextInt(totalPhotosInThisPage);
+
+                            JSONObject photoItem = photos.getJSONArray("photo").getJSONObject(randomIndex);
+
+                            String idString, secretString, serverString, farmString;
+                            idString = photoItem.getString("id");
+                            secretString = photoItem.getString("secret");
+                            serverString = photoItem.getString("server");
+                            farmString = photoItem.getString("farm");
+
+                            if (idString != null && secretString != null && serverString != null && farmString != null) {
+                                flickrPhotoInfo.setPhotoUrlString(
+                                        String.format("http://farm%s.staticflickr.com/%s/%s_%s_z.jpg",
+                                                farmString, serverString, idString, secretString));
+                                MNLog.now(flickrPhotoInfo.getPhotoUrlString());
+                            } else {
+                                Toast.makeText(getContext(), getResources().getString(R.string.flickr_error_access_server), Toast.LENGTH_SHORT).show();
+                                TestFlight.log("flickrPhotoUrlString is null");
+                                showNetworkIsUnavailable();
+                            }
+                        } else {
+                            Toast.makeText(getContext(), getResources().getString(R.string.flickr_error_access_server), Toast.LENGTH_SHORT).show();
+                            TestFlight.log("photos is null");
+                            showNetworkIsUnavailable();
                         }
-                        MNLog.now(photos.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(getContext(), getResources().getString(R.string.flickr_error_access_server), Toast.LENGTH_SHORT).show();
@@ -99,7 +118,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
 
                     // 추출한 url을 통해 비트맵 가져오기
                     // 가져온 비트맵 가공
-                    MNLog.i(TAG, jsonObject.toString());
                 }
             },
             new Response.ErrorListener() {
