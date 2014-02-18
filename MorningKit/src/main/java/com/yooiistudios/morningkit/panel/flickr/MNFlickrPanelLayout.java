@@ -10,8 +10,10 @@ import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapLoadSaver;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
+import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrBitmapAsyncTask;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrFetcher;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrFetcherListner;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrPhotoInfo;
@@ -21,12 +23,16 @@ import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrPhotoInfo;
  *
  * MNFlickrPanelLayout
  */
-public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetcherListner, MNBitmapLoadSaver.OnLoadListener {
+public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetcherListner,
+        MNBitmapLoadSaver.OnLoadListener, MNFlickrBitmapAsyncTask.OnFlickrBitmapAsyncTaskListener {
     private static final String TAG = "MNFlickrPanelLayout";
     private static final String FLICKR_API_KEY = "ccc5c75e5380273b78d246a71353fab9";
     private static final Integer FLICKR_FIRST_LOADING_PER_PAGE = 20;
+    private MNFlickrPhotoInfo flickrPhotoInfo;
     private RecyclingImageView imageView;
-    private Bitmap flickrBitmap;
+    private Bitmap originalBitmap;
+    private Bitmap polishedBitmap;
+    private MNFlickrBitmapAsyncTask flickrBitmapAsyncTask;
 
     public MNFlickrPanelLayout(Context context) {
         super(context);
@@ -54,6 +60,11 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     protected void processLoading() {
         super.processLoading();
 
+        if (imageView != null) {
+            imageView.setImageDrawable(null);
+            polishedBitmap = null;
+        }
+
         // 플리커 키워드를 받아온다
         String keyword = "Morning";
 
@@ -67,11 +78,17 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         super.updateUI();
 
         // 마무리 가공된 Bitmap을 RecycleImageView에 대입
-        imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), flickrBitmap));
+        MNLog.i(TAG, "polishedBitmap: " + polishedBitmap.toString());
+        imageView.setImageDrawable(null);
+        imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), polishedBitmap));
     }
 
+    /**
+     * Flickr Fetcher Listener
+     */
     @Override
     public void onFlickrPhotoInfoLoaded(MNFlickrPhotoInfo flickrPhotoInfo) {
+        this.flickrPhotoInfo = flickrPhotoInfo;
         MNBitmapLoadSaver.loadBitmapUsingVolley(flickrPhotoInfo.getPhotoUrlString(), getContext(), this);
     }
 
@@ -81,10 +98,62 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         showNetworkIsUnavailable();
     }
 
+    /**
+     * BitmapLoader - using volley
+     */
     @Override
     public void onBitmapLoad(Bitmap bitmap) {
+        MNLog.i(TAG, "onBitmapLoad: " + bitmap.toString());
+
         // 로드한 비트맵을 그레이스케일과 핏 처리
-        flickrBitmap = bitmap;
+        if (originalBitmap != null) {
+            originalBitmap.recycle();
+            originalBitmap = null;
+        }
+        originalBitmap = bitmap;
+        getPolishedFlickrBitmap();
+    }
+
+    /**
+     * FlickrBitmapAsyncTask Listener
+     */
+    @Override
+    public void onProcessingLoad(Bitmap bitmap) {
+        MNLog.i(TAG, "onFinishLoad: " + bitmap.toString());
+        if (polishedBitmap != null) {
+            imageView.setImageDrawable(null);
+            polishedBitmap = null;
+        }
+        polishedBitmap = bitmap;
         updateUI();
+    }
+
+    /**
+     * Rotation
+     */
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        getPolishedFlickrBitmap();
+    }
+
+    private void getPolishedFlickrBitmap() {
+        startLoadingAnimation();
+
+        if (flickrBitmapAsyncTask != null) {
+            flickrBitmapAsyncTask.cancel(true);
+            flickrBitmapAsyncTask = null;
+        }
+
+        if (polishedBitmap != null) {
+            imageView.setImageDrawable(null);
+            polishedBitmap = null;
+        }
+
+        // originalBitmap이 있으면 로딩이 되었다고 판단
+        if (originalBitmap != null) {
+            flickrBitmapAsyncTask = new MNFlickrBitmapAsyncTask(originalBitmap, getWidth(), getHeight(), this);
+            flickrBitmapAsyncTask.execute();
+        }
     }
 }
