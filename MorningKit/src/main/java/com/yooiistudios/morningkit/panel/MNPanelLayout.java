@@ -55,8 +55,6 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
         contentLayout = new RelativeLayout(getContext());
         LayoutParams contentLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
-        int padding = (int) getResources().getDimension(R.dimen.margin_inner);
-        contentLayout.setPadding(padding, padding, padding, padding);
         contentLayout.setLayoutParams(contentLayoutParams);
         addView(contentLayout);
     }
@@ -69,9 +67,6 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
         statusLayout = new RelativeLayout(getContext());
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
-        int padding = (int) getResources().getDimension(R.dimen.margin_inner);
-        contentLayout.setPadding(padding, padding, padding, padding);
-        contentLayout.setLayoutParams(layoutParams);
         statusLayout.setLayoutParams(layoutParams);
         addView(statusLayout);
 
