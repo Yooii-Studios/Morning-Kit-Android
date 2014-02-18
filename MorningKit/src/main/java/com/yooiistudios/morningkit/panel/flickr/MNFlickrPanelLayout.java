@@ -1,31 +1,32 @@
 package com.yooiistudios.morningkit.panel.flickr;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.yooiistudios.morningkit.common.log.MNLog;
-import com.yooiistudios.morningkit.common.utf.MNUtf;
+import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
+import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
+import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapLoadSaver;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
-
-import org.json.JSONObject;
+import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrFetcher;
+import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrFetcherListner;
+import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrPhotoInfo;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 17.
  *
  * MNFlickrPanelLayout
  */
-public class MNFlickrPanelLayout extends MNPanelLayout {
+public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetcherListner, MNBitmapLoadSaver.OnLoadListener {
     private static final String TAG = "MNFlickrPanelLayout";
     private static final String FLICKR_API_KEY = "ccc5c75e5380273b78d246a71353fab9";
     private static final Integer FLICKR_FIRST_LOADING_PER_PAGE = 20;
+    private RecyclingImageView imageView;
+    private Bitmap flickrBitmap;
 
     public MNFlickrPanelLayout(Context context) {
         super(context);
@@ -40,6 +41,13 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
         super.init();
         initNetworkPanel();
         setPanelType(MNPanelType.FLICKR);
+
+        imageView = new RecyclingImageView(getContext());
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        imageView.setLayoutParams(layoutParams);
+
+        getContentLayout().addView(imageView);
     }
 
     @Override
@@ -49,55 +57,34 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
         // 플리커 키워드를 받아온다
         String keyword = "Morning";
 
-        // 플리커 키워드를 가지고 사진 url을 추출
-        String escapedKeyword = MNUtf.getConverted_UTF_8_String(keyword);
-        String queryUrlString = "http://api.flickr.com/services/rest/?sort=random"
-                + "&method=flickr.photos.search%@&api_key=%@&format=json&nojsoncallback=1"
-                + "&tags=" + escapedKeyword + "&tag_mode=any&per_page="
-                + FLICKR_FIRST_LOADING_PER_PAGE + "&page=1"
-                + FLICKR_API_KEY;
-        MNLog.i(TAG, queryUrlString);
-
-        // 쿼리
-        RequestQueue mRequsetQueue = Volley.newRequestQueue(getContext());
-        mRequsetQueue.add(new JsonObjectRequest(Request.Method.GET, queryUrlString, null,
-            new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject jsonObject) {
-                    MNLog.i(TAG, "onResponse");
-                    MNLog.i(TAG, jsonObject.toString());
-                }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError volleyError) {
-                    MNLog.i(TAG, "onResponse: " + volleyError.toString());
-                }
-            })
-        );
-
-        // 사진 url을 통해 이미지 출력
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1500);
-                    post(new Runnable() {
-                        @Override
-                        public void run() {
-                            updateUI();
-                        }
-                    });
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        // 플리커 로딩을 요청
+        MNFlickrFetcher.requestFirst(keyword, this, getContext());
     }
 
     @Override
     protected void updateUI() {
         stopLoadingAnimation();
         super.updateUI();
+
+        // 마무리 가공된 Bitmap을 RecycleImageView에 대입
+        imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), flickrBitmap));
+    }
+
+    @Override
+    public void onFlickrPhotoInfoLoaded(MNFlickrPhotoInfo flickrPhotoInfo) {
+        MNBitmapLoadSaver.loadBitmapUsingVolley(flickrPhotoInfo.getPhotoUrlString(), getContext(), this);
+    }
+
+    @Override
+    public void onErrorResponse() {
+        Toast.makeText(getContext(), getResources().getString(R.string.flickr_error_access_server), Toast.LENGTH_SHORT).show();
+        showNetworkIsUnavailable();
+    }
+
+    @Override
+    public void onBitmapLoad(Bitmap bitmap) {
+        // 로드한 비트맵을 그레이스케일과 핏 처리
+        flickrBitmap = bitmap;
+        updateUI();
     }
 }
