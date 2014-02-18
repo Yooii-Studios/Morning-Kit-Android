@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit;
 import android.app.Application;
 import android.content.res.Configuration;
 
+import com.testflightapp.lib.TestFlight;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
@@ -33,6 +34,9 @@ public class MNApplication extends Application {
     public void onCreate()
     {
         super.onCreate();
+
+        //Initialize TestFlight with your app token.
+        TestFlight.takeOff(this, "07cee2c7-f05a-47e6-a953-678eab2a719e");
 
         Configuration config = getBaseContext().getResources().getConfiguration();
 
