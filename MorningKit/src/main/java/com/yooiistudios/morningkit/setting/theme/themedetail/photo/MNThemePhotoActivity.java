@@ -83,7 +83,7 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
                     if (Build.MANUFACTURER.equals("motorola")) {
                         Bitmap bitmap = data.getParcelableExtra("data");
                         if (bitmap != null) {
-                            Log.i("MNThemePhotoActivity", "bitmap: " + bitmap.getWidth() + "/" + bitmap.getHeight());
+//                            Log.i("MNThemePhotoActivity", "bitmap: " + bitmap.getWidth() + "/" + bitmap.getHeight());
                         }
                         try {
                             SKBitmapLoader.saveBitmapToUri(this, SKBitmapLoader.getPortraitImageUri(), bitmap);

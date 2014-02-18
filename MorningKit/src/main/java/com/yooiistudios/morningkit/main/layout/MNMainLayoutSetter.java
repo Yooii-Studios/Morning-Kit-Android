@@ -13,6 +13,7 @@ import android.widget.ScrollView;
 import com.google.ads.AdSize;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 
@@ -237,7 +238,7 @@ public class MNMainLayoutSetter {
                         + getButtonLayoutHeight(mainActivity, Configuration.ORIENTATION_LANDSCAPE);
 
             default:
-                Log.e(TAG, "not expected orientation: " + orientation);
+                MNLog.e(TAG, "not expected orientation: " + orientation);
                 return -1;
         }
     }
@@ -256,7 +257,7 @@ public class MNMainLayoutSetter {
                                 + context.getResources().getDimension(R.dimen.margin_outer) * 2);
 
             default: // Test에서 Undefined 사용
-                Log.e(TAG, "not expected orientation: " + orientation);
+                MNLog.e(TAG, "not expected orientation: " + orientation);
                 return -1;
         }
     }

@@ -2,7 +2,6 @@ package com.yooiistudios.morningkit.panel.flickr;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -11,12 +10,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.testflightapp.lib.TestFlight;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.utf.MNUtf;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
+import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrPhotoInfo;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.uncommons.maths.random.MersenneTwisterRNG;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 17.
@@ -57,6 +61,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
                 + "&tags=" + escapedKeyword + "&tag_mode=any"
                 + "&per_page=" + FLICKR_FIRST_LOADING_PER_PAGE + "&page=1"
                 + "&api_key=" + FLICKR_API_KEY + "&format=json&nojsoncallback=1";
+        MNLog.i(TAG, queryUrlString);
 
         // 쿼리
         RequestQueue mRequsetQueue = Volley.newRequestQueue(getContext());
@@ -64,17 +69,45 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
             new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
-                    Log.i(TAG, jsonObject.toString());
 
                     // 사진 url 추출
+                    try {
+                        JSONObject photos = jsonObject.getJSONObject("photos");
+                        if (photos != null) {
+                            MNFlickrPhotoInfo flickrPhotoInfo = new MNFlickrPhotoInfo();
+                            flickrPhotoInfo.setTotalPhotos(photos.getInt("total"));
+
+                            MNLog.now("totalNumbers: " + flickrPhotoInfo.getTotalPhotos());
+
+                            // 총 사진 갯수가 한 페이지를 넘어가면 index를 20 내에서 난수 생성 필요
+                            int totalPhotosInThisPage = flickrPhotoInfo.getTotalPhotos();
+                            if (totalPhotosInThisPage >= FLICKR_FIRST_LOADING_PER_PAGE) {
+                                totalPhotosInThisPage = FLICKR_FIRST_LOADING_PER_PAGE;
+                            }
+
+                            // 난수
+//                            MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG()
+//                            int randomIndex
+                        }
+                        MNLog.now(photos.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getContext(), getResources().getString(R.string.flickr_error_access_server), Toast.LENGTH_SHORT).show();
+                        TestFlight.log(e.toString());
+                        showNetworkIsUnavailable();
+                    }
+
                     // 추출한 url을 통해 비트맵 가져오기
                     // 가져온 비트맵 가공
+                    MNLog.i(TAG, jsonObject.toString());
                 }
             },
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    Log.e(TAG, volleyError.toString());
+                    TestFlight.log("onErrorResponse: " + volleyError.toString());
+                    MNLog.e(TAG, "onErrorResponse: " + volleyError.toString());
+
                     Toast.makeText(getContext(), getResources().getString(R.string.flickr_error_access_server), Toast.LENGTH_SHORT).show();
                     showNetworkIsUnavailable();
                 }
