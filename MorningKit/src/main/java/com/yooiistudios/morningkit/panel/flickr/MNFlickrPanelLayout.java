@@ -11,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.utf.MNUtf;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
@@ -73,7 +74,8 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    Toast.makeText(getContext(), volleyError.toString(), Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, volleyError.toString());
+                    Toast.makeText(getContext(), getResources().getString(R.string.flickr_error_access_server), Toast.LENGTH_SHORT).show();
                     showNetworkIsUnavailable();
                 }
             })
