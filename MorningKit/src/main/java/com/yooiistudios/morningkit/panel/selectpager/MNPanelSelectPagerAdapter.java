@@ -28,9 +28,13 @@ public class MNPanelSelectPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                return new MNPanelSelectPagerFirstFragment(panelSelectPagerInterface);
+                MNPanelSelectPagerFirstFragment firstFragment = new MNPanelSelectPagerFirstFragment();
+                firstFragment.setPanelSelectPagerInterface(panelSelectPagerInterface);
+                return firstFragment;
             case 1:
-                return new MNPanelSelectPagerSecondFragment(panelSelectPagerInterface);
+                MNPanelSelectPagerSecondFragment secondFragment = new MNPanelSelectPagerSecondFragment();
+                secondFragment.setPanelSelectPagerInterface(panelSelectPagerInterface);
+                return secondFragment;
         }
         return null;
     }
