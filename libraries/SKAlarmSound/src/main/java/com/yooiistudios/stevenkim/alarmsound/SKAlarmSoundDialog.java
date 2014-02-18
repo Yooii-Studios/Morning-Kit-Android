@@ -211,7 +211,6 @@ public class SKAlarmSoundDialog {
         }).setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                Log.i(TAG, "onCancel");
                 // stop ringtone
                 SKAlarmSoundPlayer.stop();
 //                mediaPlayer.reset();

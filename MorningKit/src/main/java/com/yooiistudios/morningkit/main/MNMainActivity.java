@@ -23,6 +23,7 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 
@@ -190,7 +191,7 @@ public class MNMainActivity extends Activity implements AdListener
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        Log.i(TAG, "onConfigurationChanged");
+        MNLog.i(TAG, "onConfigurationChanged");
         final Configuration config = newConfig;
         containerLayout.post(new Runnable() {
             @Override
@@ -225,7 +226,7 @@ public class MNMainActivity extends Activity implements AdListener
      * OnClick
      */
     @OnClick(R.id.main_refresh_imageview) void refreshButtonClicked() {
-        Log.i(TAG, "refreshButtonClicked");
+        MNLog.i(TAG, "refreshButtonClicked");
 
         // 기획 변경 -> 리프레시 버튼 누르면 2초 동안은 동작하지 않음
         panelWindowLayout.refreshAllPanels();

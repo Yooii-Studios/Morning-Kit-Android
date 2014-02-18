@@ -216,7 +216,6 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
     @Subscribe // After WakeDialogAction
     public void refreshListAdaptor(Context context) {
-        Log.i(TAG, "refreshListAdaptor");
         MNAlarmListManager.loadAlarmList(context);
         notifyDataSetChanged();
     }

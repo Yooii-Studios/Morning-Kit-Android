@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManagerListener;
@@ -144,21 +145,21 @@ public class MNStoreTestFragment extends Fragment implements SKIabManagerListene
     public void onQueryFailed(IabResult result) {
         progressBar.setVisibility(ProgressBar.INVISIBLE);
         Toast.makeText(getActivity(), "onQueryFailed", Toast.LENGTH_SHORT).show();
-        Log.i(TAG, "onQueryFailed");
-        Log.i(TAG, result.toString());
+        MNLog.i(TAG, "onQueryFailed");
+        MNLog.i(TAG, result.toString());
     }
 
     @Override
     public void onIabPurchaseFinished(IabResult result, Purchase info) {
         // 구매된 리스트를 확인해 SharedPreferences에 적용하기
         if (result.isSuccess()) {
-            Log.i(TAG, result.toString());
+            MNLog.i(TAG, result.toString());
             Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
 
             if (info != null && info.getDeveloperPayload().equals(SKIabManager.DEVELOPER_PAYLOAD)) {
-                Log.i(TAG, info.toString());
-                Log.i(TAG, info.getSku());
-                Log.i(TAG, info.getDeveloperPayload());
+                MNLog.i(TAG, info.toString());
+                MNLog.i(TAG, info.getSku());
+                MNLog.i(TAG, info.getDeveloperPayload());
 
                 // 프레퍼런스에 저장
                 SKIabProducts.saveIabProduct(info.getSku(), activity);

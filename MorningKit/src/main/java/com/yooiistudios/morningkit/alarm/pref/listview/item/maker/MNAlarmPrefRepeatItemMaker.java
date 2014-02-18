@@ -82,13 +82,11 @@ public class MNAlarmPrefRepeatItemMaker {
         }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.i(TAG, "negativeButton: onClick");
                 MNAlarmPrefBusProvider.getInstance().post(context);
             }
         }).setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                Log.i(TAG, "onCancel");
                 MNAlarmPrefBusProvider.getInstance().post(context);
             }
         }).create();

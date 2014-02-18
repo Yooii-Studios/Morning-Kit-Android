@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.utf.MNUtf;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
@@ -55,7 +56,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
                 + "&tags=" + escapedKeyword + "&tag_mode=any&per_page="
                 + FLICKR_FIRST_LOADING_PER_PAGE + "&page=1"
                 + FLICKR_API_KEY;
-        Log.i(TAG, queryUrlString);
+        MNLog.i(TAG, queryUrlString);
 
         // 쿼리
         RequestQueue mRequsetQueue = Volley.newRequestQueue(getContext());
@@ -63,14 +64,14 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
             new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
-                    Log.i(TAG, "onResponse");
-                    Log.i(TAG, jsonObject.toString());
+                    MNLog.i(TAG, "onResponse");
+                    MNLog.i(TAG, jsonObject.toString());
                 }
             },
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    Log.i(TAG, "onResponse: " + volleyError.toString());
+                    MNLog.i(TAG, "onResponse: " + volleyError.toString());
                 }
             })
         );
