@@ -10,7 +10,6 @@ import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapLoadSaver;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrBitmapAsyncTask;
@@ -78,7 +77,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         super.updateUI();
 
         // 마무리 가공된 Bitmap을 RecycleImageView에 대입
-        MNLog.i(TAG, "polishedBitmap: " + polishedBitmap.toString());
         imageView.setImageDrawable(null);
         imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), polishedBitmap));
     }
@@ -103,8 +101,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
      */
     @Override
     public void onBitmapLoad(Bitmap bitmap) {
-        MNLog.i(TAG, "onBitmapLoad: " + bitmap.toString());
-
         // 로드한 비트맵을 그레이스케일과 핏 처리
         if (originalBitmap != null) {
             originalBitmap.recycle();
@@ -119,7 +115,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
      */
     @Override
     public void onProcessingLoad(Bitmap bitmap) {
-        MNLog.i(TAG, "onFinishLoad: " + bitmap.toString());
         if (polishedBitmap != null) {
             imageView.setImageDrawable(null);
             polishedBitmap = null;
@@ -138,13 +133,14 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     }
 
     private void getPolishedFlickrBitmap() {
+        // 비동기 처리 - 로딩 애니메이션 on
         startLoadingAnimation();
 
+        // 기존 작업들 취소 & 비트맵 리사이클
         if (flickrBitmapAsyncTask != null) {
             flickrBitmapAsyncTask.cancel(true);
             flickrBitmapAsyncTask = null;
         }
-
         if (polishedBitmap != null) {
             imageView.setImageDrawable(null);
             polishedBitmap = null;
