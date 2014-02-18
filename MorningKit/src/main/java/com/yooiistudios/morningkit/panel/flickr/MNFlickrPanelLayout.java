@@ -73,7 +73,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout {
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    Toast.makeText(getContext(), volleyError.toString(), Toast.LENGTH_SHORT);
+                    Toast.makeText(getContext(), volleyError.toString(), Toast.LENGTH_SHORT).show();
                     showNetworkIsUnavailable();
                 }
             })
