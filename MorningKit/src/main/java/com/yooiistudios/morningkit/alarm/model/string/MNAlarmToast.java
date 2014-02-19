@@ -1,12 +1,10 @@
 package com.yooiistudios.morningkit.alarm.model.string;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.yooiistudios.morningkit.R;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -67,6 +65,8 @@ public class MNAlarmToast {
         } else {
             toastString = context.getString(R.string.alarm_set_for_less_than_1_minute);
         }
+        // Crouton으로 변경해봄
+//        Crouton.makeText((Activity) context, toastString, Style.INFO).show();
         Toast.makeText(context, toastString, Toast.LENGTH_SHORT).show();
     }
 }

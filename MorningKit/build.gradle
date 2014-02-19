@@ -73,7 +73,6 @@ apply plugin: 'android-unit-test'
 //}
 
 dependencies {
-
     // 내가 만든 모듈
     compile project(':libraries:SKAlarmManager')
     compile project(':libraries:SKAlarmSound')
@@ -81,7 +80,7 @@ dependencies {
 
     // 안드로이드 기본
     compile 'com.android.support:support-v4:+'
-	compile 'com.android.support:appcompat-v7:+'
+    compile 'com.android.support:appcompat-v7:+'
 
     // 모든 jar 파일 로딩
     compile fileTree(dir: 'libs', include: '*.jar')
@@ -101,11 +100,15 @@ dependencies {
     // 설정앱에서 사용된 라이브러리
     compile 'com.nineoldandroids:library:2.4.0'
 
+    // 알림
+    compile 'de.keyboardsurfer.android.widget:crouton:1.8.+'
+
     //////////
     // TEST //
     //////////
     testCompile 'junit:junit:4.10'
-    testCompile 'org.robolectric:robolectric:2.3-SNAPSHOT' // ActionBarActivity의 문제를 해결하고자 2.2에서 변경
+    testCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
+    // ActionBarActivity의 문제를 해결하고자 2.2에서 변경
     testCompile 'com.squareup:fest-android:1.0.+'
 
     instrumentTestCompile 'junit:junit:4.10'
@@ -113,16 +116,13 @@ dependencies {
     instrumentTestCompile 'com.squareup:fest-android:1.0.+'
 
     // 이미지 로딩 관련 유명
-//    compile 'com.squareup.picasso:picasso:2.1.1'
-
+    //    compile 'com.squareup.picasso:picasso:2.1.1'
     // http 관련
-//    compile 'com.squareup.okhttp:okhttp:1.2.1'
-
+    //    compile 'com.squareup.okhttp:okhttp:1.2.1'
     // HttpURLConnection을 깔끔하게 정리 / https://github.com/kevinsawicki/http-request
-//    compile 'com.github.kevinsawicki:http-request:5.4.1'
-
+    //    compile 'com.github.kevinsawicki:http-request:5.4.1'
     // xml 시리얼, 디시리얼라이즈 관련 / http://simple.sourceforge.net/home.php
-//    compile 'org.simpleframework:simple-xml:2.7.1'
+    //    compile 'org.simpleframework:simple-xml:2.7.1'
 }
 
 // 소스를 UTF-8로 컴파일, ../gradlew clean check 로 테스트할 경우 한글주석관련 warning을 없애기 위함
