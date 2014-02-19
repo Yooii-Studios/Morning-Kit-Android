@@ -24,10 +24,6 @@ public class MNBitmapProcessor {
     public static Bitmap getCroppedBiamtp(Bitmap bitmap, int targetWidth, int targetHeight) {
         if (bitmap != null) {
 
-//            MNLog.i(TAG, "bitmap: " + bitmap.toString());
-//            MNLog.i(TAG, "targetWidth: " + targetWidth);
-//            MNLog.i(TAG, "targetHeight: " + targetHeight);
-
             Bitmap croppedBitmap;
             double frameRatio = (double) targetWidth / (double) targetHeight;
 
@@ -37,16 +33,16 @@ public class MNBitmapProcessor {
                 // frame.width : bitmap.width (a)와 frame.height : bitmap.height (b)를 비교
                 double widthRatio;
                 if (targetWidth > bitmap.getWidth()) {
-                    widthRatio = bitmap.getWidth() / (double) targetWidth;
+                    widthRatio = (double) bitmap.getWidth() / (double) targetWidth;
                 } else {
-                    widthRatio = (double) targetWidth / bitmap.getWidth();
+                    widthRatio = (double) targetWidth / (double) bitmap.getWidth();
                 }
 
                 double heightRatio;
                 if (targetHeight > bitmap.getHeight()) {
-                    heightRatio = bitmap.getHeight() / (double) targetHeight;
+                    heightRatio = (double) bitmap.getHeight() / (double) targetHeight;
                 } else {
-                    heightRatio = (double) targetHeight / bitmap.getHeight();
+                    heightRatio = (double) targetHeight / (double) bitmap.getHeight();
                 }
 
                 // (a)와 (b) 중 작은 쪽으로 이미지를 줄인다
@@ -75,9 +71,9 @@ public class MNBitmapProcessor {
                 Point newBitmapSize = new Point(bitmap.getWidth(), (int) (bitmap.getWidth() / frameRatio));
 
                 // 위에서 15% 아래에서부터 자름(인물 사진이라 가정)
-                double offset15PercentFromTop = newBitmapSize.y * 0.15;
+                double offset15PercentFromTop = bitmap.getHeight() * 0.15;
                 croppedBitmap = Bitmap.createBitmap(bitmap, 0, (int) offset15PercentFromTop,
-                        newBitmapSize.x, newBitmapSize.y + (int) offset15PercentFromTop);
+                        newBitmapSize.x, newBitmapSize.y);
             }
             return croppedBitmap;
         }

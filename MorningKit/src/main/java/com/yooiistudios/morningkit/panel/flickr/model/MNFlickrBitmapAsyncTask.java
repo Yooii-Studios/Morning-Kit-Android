@@ -50,7 +50,7 @@ public class MNFlickrBitmapAsyncTask extends AsyncTask<Void, Void, Bitmap> {
 //                50);
 
         return MNBitmapProcessor.getRoundedCornerBitmap(croppedBitmap, isGrayScale,
-                (int) context.getResources().getDimension(R.dimen.rounded_corner_radius));
+                (int) context.getResources().getDimension(R.dimen.panel_flickr_round_radius));
     }
 
     @Override

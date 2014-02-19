@@ -64,7 +64,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         }
 
         // 플리커 키워드를 받아온다
-        String keyword = "Morning";
+        String keyword = "Miranda Kerr";
 
         // 플리커 로딩을 요청
         MNFlickrFetcher.requestFirst(keyword, this, getContext());
@@ -151,8 +151,8 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
 
         // originalBitmap이 있으면 로딩이 되었다고 판단
         if (originalBitmap != null) {
-            flickrBitmapAsyncTask = new MNFlickrBitmapAsyncTask(originalBitmap, getWidth(), getHeight(),
-                    isGrayScale, this, getContext());
+            flickrBitmapAsyncTask = new MNFlickrBitmapAsyncTask(originalBitmap,
+                    imageView.getWidth(), imageView.getHeight(), isGrayScale, this, getContext());
             flickrBitmapAsyncTask.execute();
         }
     }
