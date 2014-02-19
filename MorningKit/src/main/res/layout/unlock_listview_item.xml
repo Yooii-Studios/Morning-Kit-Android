@@ -5,7 +5,7 @@
     android:layout_height="@dimen/unlock_listview_item_outer_height"
     android:background="#00ffffff" >
 
-    <com.yooiistudios.morningkit.common.shadow.SlateThemeShadowLayout
+    <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
         android:id="@+id/unlock_listview_item_shadow_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/unlock_listview_item_outer_height" >
@@ -42,5 +42,5 @@
                 android:textSize="@dimen/unlock_listview_item_name_text_size"
                 android:textStyle="bold"/>
         </RelativeLayout>
-    </com.yooiistudios.morningkit.common.shadow.SlateThemeShadowLayout>
+    </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
 </RelativeLayout>
