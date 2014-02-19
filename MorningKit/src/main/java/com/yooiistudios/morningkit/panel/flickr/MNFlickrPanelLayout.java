@@ -10,6 +10,7 @@ import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapLoadSaver;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrBitmapAsyncTask;
@@ -25,8 +26,6 @@ import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrPhotoInfo;
 public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetcherListner,
         MNBitmapLoadSaver.OnLoadListener, MNFlickrBitmapAsyncTask.OnFlickrBitmapAsyncTaskListener {
     private static final String TAG = "MNFlickrPanelLayout";
-    private static final String FLICKR_API_KEY = "ccc5c75e5380273b78d246a71353fab9";
-    private static final Integer FLICKR_FIRST_LOADING_PER_PAGE = 20;
     private MNFlickrPhotoInfo flickrPhotoInfo;
     private RecyclingImageView imageView;
     private Bitmap originalBitmap;
@@ -47,11 +46,11 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         initNetworkPanel();
         setPanelType(MNPanelType.FLICKR);
 
+        // image view
         imageView = new RecyclingImageView(getContext());
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(layoutParams);
-
         getContentLayout().addView(imageView);
     }
 
@@ -73,7 +72,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
 
     @Override
     protected void updateUI() {
-        stopLoadingAnimation();
         super.updateUI();
 
         // 마무리 가공된 Bitmap을 RecycleImageView에 대입
@@ -114,12 +112,13 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
      * FlickrBitmapAsyncTask Listener
      */
     @Override
-    public void onProcessingLoad(Bitmap bitmap) {
-        if (polishedBitmap != null) {
+    public void onProcessingLoad(Bitmap polishedBitmap) {
+        MNLog.i(TAG, "onProcessingLoad");
+        if (this.polishedBitmap != null) {
             imageView.setImageDrawable(null);
-            polishedBitmap = null;
+            this.polishedBitmap = null;
         }
-        polishedBitmap = bitmap;
+        this.polishedBitmap = polishedBitmap;
         updateUI();
     }
 
@@ -129,6 +128,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
+        MNLog.i(TAG, "onLayout");
         getPolishedFlickrBitmap();
     }
 

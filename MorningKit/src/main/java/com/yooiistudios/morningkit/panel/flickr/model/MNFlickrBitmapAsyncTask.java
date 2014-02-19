@@ -25,7 +25,7 @@ public class MNFlickrBitmapAsyncTask extends AsyncTask<Void, Void, Bitmap> {
     private Context context;
 
     public interface OnFlickrBitmapAsyncTaskListener {
-        public void onProcessingLoad(Bitmap bitmap);
+        public void onProcessingLoad(Bitmap polishedBitmap);
     }
 
     public MNFlickrBitmapAsyncTask(Bitmap bitmap, int width, int height, boolean isGrayScale,
@@ -43,7 +43,8 @@ public class MNFlickrBitmapAsyncTask extends AsyncTask<Void, Void, Bitmap> {
     @Override
     protected Bitmap doInBackground(Void... params) {
         // 크롭, 라운딩, 그레이스케일 등등 처리하기
-        Bitmap croppedBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, width, height);
+        Bitmap croppedBitmap = MNBitmapProcessor.getCroppedBiamtp(originalBitmap, width, height);
+//        Bitmap.createBitmap(originalBitmap, 0, 0, width, height);
 
 //        polishedBitmap = MNBitmapProcessor.getRoundedCornerBitmap(polishedBitmap, isGrayScale,
 //                50);
