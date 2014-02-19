@@ -146,9 +146,13 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
             polishedBitmap = null;
         }
 
+        // 그레이 스케일 설정 가져옴
+        boolean isGrayScale = false;
+
         // originalBitmap이 있으면 로딩이 되었다고 판단
         if (originalBitmap != null) {
-            flickrBitmapAsyncTask = new MNFlickrBitmapAsyncTask(originalBitmap, getWidth(), getHeight(), this);
+            flickrBitmapAsyncTask = new MNFlickrBitmapAsyncTask(originalBitmap, getWidth(), getHeight(),
+                    isGrayScale, this, getContext());
             flickrBitmapAsyncTask.execute();
         }
     }

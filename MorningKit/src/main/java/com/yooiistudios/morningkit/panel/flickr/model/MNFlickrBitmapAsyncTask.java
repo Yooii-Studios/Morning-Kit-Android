@@ -1,8 +1,11 @@
 package com.yooiistudios.morningkit.panel.flickr.model;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
+import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.common.log.MNLog;
 
 /**
@@ -17,26 +20,36 @@ public class MNFlickrBitmapAsyncTask extends AsyncTask<Void, Void, Bitmap> {
     private Bitmap originalBitmap;
     private int width;
     private int height;
+    boolean isGrayScale;
     private OnFlickrBitmapAsyncTaskListener flickrBitmapAsyncTaskListener;
+    private Context context;
 
     public interface OnFlickrBitmapAsyncTaskListener {
         public void onProcessingLoad(Bitmap bitmap);
     }
 
-    public MNFlickrBitmapAsyncTask(Bitmap bitmap, int width, int height,
-                                   OnFlickrBitmapAsyncTaskListener flickrBitmapAsyncTaskListener) {
+    public MNFlickrBitmapAsyncTask(Bitmap bitmap, int width, int height, boolean isGrayScale,
+                                   OnFlickrBitmapAsyncTaskListener flickrBitmapAsyncTaskListener,
+                                   Context context) {
         MNLog.i(TAG, "constructor: " + bitmap);
         this.originalBitmap = bitmap;
         this.width = width;
         this.height = height;
+        this.isGrayScale = isGrayScale;
         this.flickrBitmapAsyncTaskListener = flickrBitmapAsyncTaskListener;
+        this.context = context;
     }
 
     @Override
     protected Bitmap doInBackground(Void... params) {
         // 크롭, 라운딩, 그레이스케일 등등 처리하기
-        Bitmap polishedBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, width, height);
-        return polishedBitmap;
+        Bitmap croppedBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, width, height);
+
+//        polishedBitmap = MNBitmapProcessor.getRoundedCornerBitmap(polishedBitmap, isGrayScale,
+//                50);
+
+        return MNBitmapProcessor.getRoundedCornerBitmap(croppedBitmap, isGrayScale,
+                (int) context.getResources().getDimension(R.dimen.rounded_corner_radius));
     }
 
     @Override
