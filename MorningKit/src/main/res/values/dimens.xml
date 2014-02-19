@@ -59,6 +59,9 @@
     <dimen name="panel_select_pager_font_size">14dp</dimen>
     <dimen name="panel_select_pager_lock_image_view_size">13dp</dimen>
 
+    <!-- Flickr -->
+    <dimen name="panel_flickr_round_radius">16dp</dimen>
+
     <!-- Setting -->
     <!-- Panel -->
     <dimen name="setting_panel_matrix_layout_height">240dp</dimen>
