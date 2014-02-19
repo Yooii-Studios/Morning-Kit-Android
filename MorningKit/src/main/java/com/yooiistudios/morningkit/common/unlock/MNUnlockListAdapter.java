@@ -15,7 +15,8 @@ import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.dp.DipToPixel;
-import com.yooiistudios.morningkit.common.shadow.SlateThemeShadowLayout;
+import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
+import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -114,6 +115,9 @@ public class MNUnlockListAdapter extends BaseAdapter {
                     break;
             }
             viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getForwardBackgroundColor(MNThemeType.SLATE_GRAY));
+
+            // Shadow - Slate Gray
+            MNShadowLayoutFactory.changeThemeOfShadowLayout(viewHolder.getShadowLayout(), context, MNThemeType.SLATE_GRAY);
             viewHolder.getShadowLayout().setRoundRectRadius(DipToPixel.dpToPixel(context, 5));
 
             if (isCellUsed) {
@@ -159,7 +163,7 @@ public class MNUnlockListAdapter extends BaseAdapter {
         @Getter @InjectView(R.id.unlock_listview_item_outer_layout)         RelativeLayout outerLayout;
         @Getter @InjectView(R.id.unlock_listview_item_inner_layout)         RelativeLayout innerLayout;
         @Getter @InjectView(R.id.unlock_listview_item_shadow_layout)
-        SlateThemeShadowLayout shadowLayout;
+        RoundShadowRelativeLayout shadowLayout;
         @Getter @InjectView(R.id.unlock_listview_item_imageview)            ImageView iconImageView;
         @Getter @InjectView(R.id.unlock_listview_item_description_textview) TextView descriptionTextView;
 

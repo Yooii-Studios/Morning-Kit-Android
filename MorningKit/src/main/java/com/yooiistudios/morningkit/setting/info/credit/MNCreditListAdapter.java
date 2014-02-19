@@ -9,10 +9,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.CelestialThemeShadowLayout;
-import com.yooiistudios.morningkit.common.shadow.ModernityThemeShadowLayout;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.SlateThemeShadowLayout;
+import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -134,37 +132,38 @@ public class MNCreditListAdapter extends BaseAdapter {
 
             // theme - shadow / 일반적으로는 MNShadowLayoutFactory에서 사용하지만 여기는 커스터마이징이 필요해서 직접 코딩함
             RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-            RelativeLayout innerLayout = (RelativeLayout) roundShadowRelativeLayout.findViewById(viewHolder.getInnerLayout().getId());
-            RoundShadowRelativeLayout newShadowRelativeLayout;
+            MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, context);
+//            RelativeLayout innerLayout = (RelativeLayout) roundShadowRelativeLayout.findViewById(viewHolder.getInnerLayout().getId());
+//            RoundShadowRelativeLayout newShadowRelativeLayout;
 
-            switch (currentThemeType) {
-                case SLATE_GRAY:
-                    newShadowRelativeLayout = new SlateThemeShadowLayout(context);
-                    break;
+//            switch (currentThemeType) {
+//                case SLATE_GRAY:
+//                    newShadowRelativeLayout = new SlateThemeShadowLayout(context);
+//                    break;
+//
+//                case MODERNITY_WHITE:
+//                    newShadowRelativeLayout = new ModernityThemeShadowLayout(context);
+//                    break;
+//
+//                case CELESTIAL_SKY_BLUE:
+//                    newShadowRelativeLayout = new CelestialThemeShadowLayout(context);
+//                    break;
+//
+//                default:
+//                    newShadowRelativeLayout = new ModernityThemeShadowLayout(context);
+//                    break;
+//            }
+//            newShadowRelativeLayout.setId(viewHolder.getShadowLayout().getId());
+//            newShadowRelativeLayout.setLayoutParams(viewHolder.getShadowLayout().getLayoutParams());
 
-                case MODERNITY_WHITE:
-                    newShadowRelativeLayout = new ModernityThemeShadowLayout(context);
-                    break;
+//            roundShadowRelativeLayout.removeView(innerLayout);
+//            newShadowRelativeLayout.addView(innerLayout);
 
-                case CELESTIAL_SKY_BLUE:
-                    newShadowRelativeLayout = new CelestialThemeShadowLayout(context);
-                    break;
-
-                default:
-                    newShadowRelativeLayout = new ModernityThemeShadowLayout(context);
-                    break;
-            }
-            newShadowRelativeLayout.setId(viewHolder.getShadowLayout().getId());
-            newShadowRelativeLayout.setLayoutParams(viewHolder.getShadowLayout().getLayoutParams());
-
-            roundShadowRelativeLayout.removeView(innerLayout);
-            newShadowRelativeLayout.addView(innerLayout);
-
-            viewHolder.getOuterLayout().removeView(roundShadowRelativeLayout);
-            viewHolder.getOuterLayout().addView(newShadowRelativeLayout, 0);
+//            viewHolder.getOuterLayout().removeView(roundShadowRelativeLayout);
+//            viewHolder.getOuterLayout().addView(newShadowRelativeLayout, 0);
 
             // onClick
-            newShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 

@@ -54,6 +54,38 @@ public class MNShadowLayoutFactory {
         }
     }
 
+    // 특정 themeType으로 변경해줌
+    public static void changeThemeOfShadowLayout(RoundShadowRelativeLayout shadowLayout, Context context, MNThemeType themeType) {
+
+        Resources resources = context.getResources();
+
+        shadowLayout.setRoundRectRadius((int)resources.getDimension(R.dimen.rounded_corner_radius));
+        shadowLayout.setBlurRadius((int)resources.getDimension(R.dimen.margin_shadow_inner));
+        shadowLayout.setShadowColor(Color.argb(140, 0, 0, 0));
+
+        switch (themeType) {
+            case SLATE_GRAY:
+                shadowLayout.setSolidAreaColor(MNSettingColors.getForwardBackgroundColor(MNThemeType.SLATE_GRAY));
+                shadowLayout.setPressedColor(MNSettingColors.getPressedBackgroundColor(MNThemeType.SLATE_GRAY));
+                break;
+
+            case MODERNITY_WHITE:
+                shadowLayout.setSolidAreaColor(MNSettingColors.getForwardBackgroundColor(MNThemeType.MODERNITY_WHITE));
+                shadowLayout.setPressedColor(MNSettingColors.getPressedBackgroundColor(MNThemeType.MODERNITY_WHITE));
+                break;
+
+            case CELESTIAL_SKY_BLUE:
+                shadowLayout.setSolidAreaColor(MNSettingColors.getForwardBackgroundColor(MNThemeType.CELESTIAL_SKY_BLUE));
+                shadowLayout.setPressedColor(MNSettingColors.getPressedBackgroundColor(MNThemeType.CELESTIAL_SKY_BLUE));
+                break;
+
+            default:
+                shadowLayout.setSolidAreaColor(MNSettingColors.getForwardBackgroundColor(MNThemeType.MODERNITY_WHITE));
+                shadowLayout.setPressedColor(MNSettingColors.getPressedBackgroundColor(MNThemeType.MODERNITY_WHITE));
+                break;
+        }
+    }
+
     // 아래의 동적 생성 메서드들은 더이상 사용하지 않을 예정
     /**
      * 기존에 있는 자식 뷰들도 전부 옮겨줌 - 추천 메서드
