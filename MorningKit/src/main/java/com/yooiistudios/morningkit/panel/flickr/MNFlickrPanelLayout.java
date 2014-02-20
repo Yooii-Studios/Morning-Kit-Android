@@ -12,6 +12,7 @@ import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapLoadSaver;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrBitmapAsyncTask;
@@ -134,11 +135,16 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     /**
      * Rotation
      */
+
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        super.onLayout(changed, l, t, r, b);
-        MNLog.i(TAG, "onLayout");
-        getPolishedFlickrBitmap();
+    protected void onSizeChanged(final int w, final int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        MNViewSizeMeasure.setViewSizeObserver(imageView, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+            @Override
+            public void onLayoutLoad() {
+                getPolishedFlickrBitmap();
+            }
+        });
     }
 
     private void getPolishedFlickrBitmap() {
