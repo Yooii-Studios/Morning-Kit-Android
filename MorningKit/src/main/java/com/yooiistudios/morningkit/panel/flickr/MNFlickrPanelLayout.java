@@ -15,7 +15,6 @@ import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrBitmapAsyncTask;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrFetcher;
-import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrFetcherListner;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrPhotoInfo;
 
 /**
@@ -23,7 +22,7 @@ import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrPhotoInfo;
  *
  * MNFlickrPanelLayout
  */
-public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetcherListner,
+public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetcher.OnFetcherListner,
         MNBitmapLoadSaver.OnLoadListener, MNFlickrBitmapAsyncTask.OnFlickrBitmapAsyncTaskListener {
     private static final String TAG = "MNFlickrPanelLayout";
     private MNFlickrPhotoInfo flickrPhotoInfo;
@@ -67,7 +66,11 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         String keyword = "Miranda Kerr";
 
         // 플리커 로딩을 요청
-        MNFlickrFetcher.requestFirst(keyword, this, getContext());
+        if (flickrPhotoInfo != null) {
+            MNFlickrFetcher.requestQuery(keyword, flickrPhotoInfo.getTotalPhotos(), this, getContext());
+        } else {
+            MNFlickrFetcher.requestFirstQuery(keyword, this, getContext());
+        }
     }
 
     @Override
