@@ -60,7 +60,7 @@
     <dimen name="panel_select_pager_lock_image_view_size">13dp</dimen>
 
     <!-- Flickr -->
-    <dimen name="panel_flickr_round_radius">16dp</dimen>
+    <dimen name="panel_flickr_round_radius">7dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
 
     <!-- Setting -->
     <!-- Panel -->

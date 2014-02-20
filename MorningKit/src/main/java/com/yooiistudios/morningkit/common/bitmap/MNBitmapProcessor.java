@@ -11,6 +11,8 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import com.yooiistudios.morningkit.common.log.MNLog;
+
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 19.
  *
@@ -80,14 +82,23 @@ public class MNBitmapProcessor {
         return null;
     }
 
-    // 크롭 이후 크기가 맞춰진 비트맵의 가공을 진행
-    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, boolean isGrayScale, int radius) {
+    // 크롭 이후 패널 크기에 맞게 축소 & 가공을 진행
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int targetWidth, int targetHeight,
+                                                boolean isGrayScale, int radius) {
         if(bitmap != null) {
-            Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(output);
+            // 프레임에 맞게 비트맵 scaling
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true);
+
+            Bitmap outputBitmap = Bitmap.createBitmap(scaledBitmap.getWidth(), scaledBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+            MNLog.now("original: " + bitmap.getWidth() + "/" + bitmap.getHeight());
+            MNLog.now("output: " + outputBitmap.getWidth() + "/" + outputBitmap.getHeight());
+
+            // outputBitmap 에 캔버스를 생성에 scaleBitmap의 가공 내용을 draw
+            Canvas canvas = new Canvas(outputBitmap);
 
             final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+            final Rect rect = new Rect(0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight());
             final RectF rectF = new RectF(rect);
 
             // gray scale
@@ -104,9 +115,8 @@ public class MNBitmapProcessor {
             canvas.drawRoundRect(rectF, radius, radius, paint);
 
             paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-            canvas.drawBitmap(bitmap, rect, rect, paint);
-
-            return output;
+            canvas.drawBitmap(scaledBitmap, rect, rect, paint);
+            return outputBitmap;
         }
         return null;
     }
