@@ -86,7 +86,7 @@ public class MNBitmapProcessor {
             Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(output);
 
-            final Paint paint = new Paint();
+            final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
             final RectF rectF = new RectF(rect);
 

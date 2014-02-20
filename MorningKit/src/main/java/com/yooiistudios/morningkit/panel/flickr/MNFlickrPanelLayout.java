@@ -95,6 +95,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     public void onErrorResponse() {
         Toast.makeText(getContext(), getResources().getString(R.string.flickr_error_access_server), Toast.LENGTH_SHORT).show();
         showNetworkIsUnavailable();
+        updateUI();
     }
 
     /**
