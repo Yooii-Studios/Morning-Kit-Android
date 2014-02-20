@@ -80,9 +80,6 @@ public class MNPanelWindowLayout extends LinearLayout
                 });
             }
         }
-
-        // 패널 초기화 후 전체 리프레시
-//        refreshAllPanels();
     }
 
     public void applyTheme() {
