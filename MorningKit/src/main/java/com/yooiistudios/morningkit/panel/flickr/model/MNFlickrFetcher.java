@@ -90,27 +90,33 @@ public class MNFlickrFetcher {
                                 // 난수 생성
                                 JSONArray photoItems = photos.getJSONArray("photo");
                                 MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
-                                int randomIndex = randomGenerator.nextInt(photoItems.length());
+                                MNLog.now("photoItems.length(): " + photoItems.length());
+                                if (photoItems.length() != 0) {
+                                    int randomIndex = randomGenerator.nextInt(photoItems.length());
 
-                                // photoItem에서 url 조립
-                                JSONObject photoItem = photoItems.getJSONObject(randomIndex);
+                                    // photoItem에서 url 조립
+                                    JSONObject photoItem = photoItems.getJSONObject(randomIndex);
 
-                                String idString, secretString, serverString, farmString;
-                                idString = photoItem.getString("id");
-                                secretString = photoItem.getString("secret");
-                                serverString = photoItem.getString("server");
-                                farmString = photoItem.getString("farm");
+                                    String idString, secretString, serverString, farmString;
+                                    idString = photoItem.getString("id");
+                                    secretString = photoItem.getString("secret");
+                                    serverString = photoItem.getString("server");
+                                    farmString = photoItem.getString("farm");
 
-                                if (idString != null && secretString != null
-                                        && serverString != null && farmString != null) {
-                                    flickrPhotoInfo.setPhotoUrlString(
-                                            String.format("http://farm%s.staticflickr.com/%s/%s_%s_z.jpg",
-                                                    farmString, serverString, idString, secretString));
+                                    if (idString != null && secretString != null
+                                            && serverString != null && farmString != null) {
+                                        flickrPhotoInfo.setPhotoUrlString(
+                                                String.format("http://farm%s.staticflickr.com/%s/%s_%s_z.jpg",
+                                                        farmString, serverString, idString, secretString));
 
-                                    MNLog.i(TAG, flickrPhotoInfo.getPhotoUrlString());
-                                    onFetcherListner.onFlickrPhotoInfoLoaded(flickrPhotoInfo);
+                                        MNLog.i(TAG, flickrPhotoInfo.getPhotoUrlString());
+                                        onFetcherListner.onFlickrPhotoInfoLoaded(flickrPhotoInfo);
+                                    } else {
+                                        TestFlight.log("flickrPhotoUrlString is null");
+                                        onFetcherListner.onErrorResponse();
+                                    }
                                 } else {
-                                    TestFlight.log("flickrPhotoUrlString is null");
+                                    TestFlight.log("flickr photoItems.length() is 0");
                                     onFetcherListner.onErrorResponse();
                                 }
                             } else {
