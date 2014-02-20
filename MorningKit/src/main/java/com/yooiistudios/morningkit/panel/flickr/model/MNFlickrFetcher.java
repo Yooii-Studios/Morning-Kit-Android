@@ -30,18 +30,24 @@ public class MNFlickrFetcher {
 
     private MNFlickrFetcher() { throw new AssertionError("You MUST not create this class!"); }
 
+    public interface OnFetcherListner {
+        public void onFlickrPhotoInfoLoaded(MNFlickrPhotoInfo flickrPhotoInfo);
+        public void onErrorResponse();
+    }
+
+
     // 첫번째 리퀘스트, 사진의 첫 페이지를 로딩하며 총 사진 갯수를 측정, 다음 로딩시 더 빠르게 하기 위함
-    public static void requestFirstQuery(final String keyword, final MNFlickrFetcherListner flickrFetcherListner, Context context) {
+    public static void requestFirstQuery(final String keyword, final OnFetcherListner onFetcherListner, Context context) {
         // 플리커 키워드를 가지고 사진 url을 추출
         String queryUrlString = makeQueryUrlString(keyword, FLICKR_FIRST_LOADING_PER_PAGE, 1);
         MNLog.i(TAG, queryUrlString);
 
         // 쿼리
-        addRequest(queryUrlString, context, flickrFetcherListner);
+        addRequest(queryUrlString, context, onFetcherListner);
     }
 
     // 두 번째 리퀘스트, 총 사진 갯수를 가지고 랜덤 사진 쿼리
-    public static void requestQuery(final String keyword, int totalPhotos, final MNFlickrFetcherListner flickrFetcherListner, Context context) {
+    public static void requestQuery(final String keyword, int totalPhotos, final OnFetcherListner onFetcherListner, Context context) {
         // 랜덤 페이지 생성
         int randomPage;
         if (totalPhotos >= 4000) {
@@ -54,7 +60,7 @@ public class MNFlickrFetcher {
         String queryUrlString = makeQueryUrlString(keyword, 1, randomPage);
         MNLog.i(TAG, queryUrlString);
 
-        addRequest(queryUrlString, context, flickrFetcherListner);
+        addRequest(queryUrlString, context, onFetcherListner);
     }
 
     private static String makeQueryUrlString(String keyword, int perPage, int pageNum) {
@@ -67,7 +73,7 @@ public class MNFlickrFetcher {
                 + "&api_key=" + FLICKR_API_KEY + "&format=json&nojsoncallback=1";
     }
 
-    private static void addRequest(String queryUrlString, Context context, final MNFlickrFetcherListner flickrFetcherListner) {
+    private static void addRequest(String queryUrlString, Context context, final OnFetcherListner onFetcherListner) {
         final RequestQueue mRequsetQueue = Volley.newRequestQueue(context);
         mRequsetQueue.add(new JsonObjectRequest(Request.Method.GET, queryUrlString, null,
                 new Response.Listener<JSONObject>() {
@@ -102,19 +108,19 @@ public class MNFlickrFetcher {
                                                     farmString, serverString, idString, secretString));
 
                                     MNLog.i(TAG, flickrPhotoInfo.getPhotoUrlString());
-                                    flickrFetcherListner.onFlickrPhotoInfoLoaded(flickrPhotoInfo);
+                                    onFetcherListner.onFlickrPhotoInfoLoaded(flickrPhotoInfo);
                                 } else {
                                     TestFlight.log("flickrPhotoUrlString is null");
-                                    flickrFetcherListner.onErrorResponse();
+                                    onFetcherListner.onErrorResponse();
                                 }
                             } else {
                                 TestFlight.log("photos is null");
-                                flickrFetcherListner.onErrorResponse();
+                                onFetcherListner.onErrorResponse();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                             TestFlight.log(e.toString());
-                            flickrFetcherListner.onErrorResponse();
+                            onFetcherListner.onErrorResponse();
                         }
                     }
                 },
@@ -123,7 +129,7 @@ public class MNFlickrFetcher {
                     public void onErrorResponse(VolleyError volleyError) {
                         TestFlight.log("onErrorResponse: " + volleyError.toString());
                         MNLog.e(TAG, "onErrorResponse: " + volleyError.toString());
-                        flickrFetcherListner.onErrorResponse();
+                        onFetcherListner.onErrorResponse();
                     }
                 })
         );
