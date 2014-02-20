@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
@@ -29,6 +30,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     private RecyclingImageView imageView;
     private Bitmap originalBitmap;
     private Bitmap polishedBitmap;
+    private JsonObjectRequest queryRequest;
     private MNFlickrBitmapAsyncTask flickrBitmapAsyncTask;
 
     public MNFlickrPanelLayout(Context context) {
@@ -66,10 +68,13 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         String keyword = "Miranda Kerr";
 
         // 플리커 로딩을 요청
+        if (queryRequest != null) {
+            queryRequest.cancel();
+        }
         if (flickrPhotoInfo != null) {
-            MNFlickrFetcher.requestQuery(keyword, flickrPhotoInfo.getTotalPhotos(), this, getContext());
+            queryRequest = MNFlickrFetcher.requestQuery(keyword, flickrPhotoInfo.getTotalPhotos(), this, getContext());
         } else {
-            MNFlickrFetcher.requestFirstQuery(keyword, this, getContext());
+            queryRequest = MNFlickrFetcher.requestFirstQuery(keyword, this, getContext());
         }
     }
 

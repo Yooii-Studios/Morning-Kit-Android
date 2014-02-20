@@ -37,17 +37,17 @@ public class MNFlickrFetcher {
 
 
     // 첫번째 리퀘스트, 사진의 첫 페이지를 로딩하며 총 사진 갯수를 측정, 다음 로딩시 더 빠르게 하기 위함
-    public static void requestFirstQuery(final String keyword, final OnFetcherListner onFetcherListner, Context context) {
+    public static JsonObjectRequest requestFirstQuery(final String keyword, final OnFetcherListner onFetcherListner, Context context) {
         // 플리커 키워드를 가지고 사진 url을 추출
         String queryUrlString = makeQueryUrlString(keyword, FLICKR_FIRST_LOADING_PER_PAGE, 1);
         MNLog.i(TAG, queryUrlString);
 
         // 쿼리
-        addRequest(queryUrlString, context, onFetcherListner);
+        return addRequest(queryUrlString, context, onFetcherListner);
     }
 
     // 두 번째 리퀘스트, 총 사진 갯수를 가지고 랜덤 사진 쿼리
-    public static void requestQuery(final String keyword, int totalPhotos, final OnFetcherListner onFetcherListner, Context context) {
+    public static JsonObjectRequest requestQuery(final String keyword, int totalPhotos, final OnFetcherListner onFetcherListner, Context context) {
         // 랜덤 페이지 생성
         int randomPage;
         if (totalPhotos >= 4000) {
@@ -60,7 +60,7 @@ public class MNFlickrFetcher {
         String queryUrlString = makeQueryUrlString(keyword, 1, randomPage);
         MNLog.i(TAG, queryUrlString);
 
-        addRequest(queryUrlString, context, onFetcherListner);
+        return addRequest(queryUrlString, context, onFetcherListner);
     }
 
     private static String makeQueryUrlString(String keyword, int perPage, int pageNum) {
@@ -73,9 +73,9 @@ public class MNFlickrFetcher {
                 + "&api_key=" + FLICKR_API_KEY + "&format=json&nojsoncallback=1";
     }
 
-    private static void addRequest(String queryUrlString, Context context, final OnFetcherListner onFetcherListner) {
+    private static JsonObjectRequest addRequest(String queryUrlString, Context context, final OnFetcherListner onFetcherListner) {
         final RequestQueue mRequsetQueue = Volley.newRequestQueue(context);
-        mRequsetQueue.add(new JsonObjectRequest(Request.Method.GET, queryUrlString, null,
+        JsonObjectRequest queryRequest = new JsonObjectRequest(Request.Method.GET, queryUrlString, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
@@ -131,7 +131,11 @@ public class MNFlickrFetcher {
                         MNLog.e(TAG, "onErrorResponse: " + volleyError.toString());
                         onFetcherListner.onErrorResponse();
                     }
-                })
-        );
+                });
+
+        if (queryRequest != null) {
+            mRequsetQueue.add(queryRequest);
+        }
+        return queryRequest;
     }
 }
