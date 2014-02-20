@@ -11,6 +11,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import com.testflightapp.lib.TestFlight;
 import com.yooiistudios.morningkit.common.log.MNLog;
 
 /**
@@ -53,6 +54,20 @@ public class MNBitmapProcessor {
                     Point newBitmapSize = new Point((int) (bitmap.getHeight() * frameRatio), bitmap.getHeight());
 
                     // 자를 위치는 bitmap.width/2 - frame.width/2 에서 frame.width 만큼 자름
+                    if (bitmap.getWidth() / 2 - newBitmapSize.x / 2 <= 0) {
+                        MNLog.e(TAG, "x <= 0");
+                        MNLog.e(TAG, "bitmap.getWidth(): " + bitmap.getWidth());
+                        MNLog.e(TAG, "bitmap.getHeight(): " + bitmap.getHeight());
+                        MNLog.e(TAG, "newBitmapSize.x: " + newBitmapSize.x);
+                        MNLog.e(TAG, "newBitmapSize.y: " + newBitmapSize.y);
+
+                        TestFlight.log("x <= 0\n"
+                                + "bitmap.getWidth(): " + bitmap.getWidth() + "\n"
+                                + "bitmap.getHeight(): " + bitmap.getHeight() + "\n"
+                                + "newBitmapSize.x: " + newBitmapSize.x + "\n"
+                                + "newBitmapSize.y: " + newBitmapSize.y + "\n"
+                        );
+                    }
                     croppedBitmap = Bitmap.createBitmap(bitmap,
                             bitmap.getWidth() / 2 - newBitmapSize.x / 2, 0,
                             newBitmapSize.x, newBitmapSize.y);
