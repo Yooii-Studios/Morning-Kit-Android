@@ -109,6 +109,7 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
 
     protected void startLoadingAnimation() {
         statusLayout.setVisibility(VISIBLE);
+        contentLayout.setVisibility(INVISIBLE);
         AnimationDrawable loadingAnimation = (AnimationDrawable) loadingImageView.getBackground();
         loadingAnimation.start();
     }
@@ -117,6 +118,7 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
         AnimationDrawable loadingAnimation = (AnimationDrawable) loadingImageView.getBackground();
         loadingAnimation.stop();
         statusLayout.setVisibility(INVISIBLE);
+        contentLayout.setVisibility(VISIBLE);
     }
 
     protected void showNetworkIsUnavailable() {
