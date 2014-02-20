@@ -12,6 +12,7 @@ import com.testflightapp.lib.TestFlight;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.utf.MNUtf;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.uncommons.maths.random.MersenneTwisterRNG;
@@ -30,17 +31,43 @@ public class MNFlickrFetcher {
     private MNFlickrFetcher() { throw new AssertionError("You MUST not create this class!"); }
 
     // 첫번째 리퀘스트, 사진의 첫 페이지를 로딩하며 총 사진 갯수를 측정, 다음 로딩시 더 빠르게 하기 위함
-    public static void requestFirst(final String keyword, final MNFlickrFetcherListner flickrFetcherListner, Context context) {
+    public static void requestFirstQuery(final String keyword, final MNFlickrFetcherListner flickrFetcherListner, Context context) {
         // 플리커 키워드를 가지고 사진 url을 추출
-        String escapedKeyword = MNUtf.getConverted_UTF_8_String(keyword);
-        String queryUrlString = "http://api.flickr.com/services/rest/?sort=random"
-                + "&method=flickr.photos.search"
-                + "&tags=" + escapedKeyword + "&tag_mode=any"
-                + "&per_page=" + FLICKR_FIRST_LOADING_PER_PAGE + "&page=1"
-                + "&api_key=" + FLICKR_API_KEY + "&format=json&nojsoncallback=1";
+        String queryUrlString = makeQueryUrlString(keyword, FLICKR_FIRST_LOADING_PER_PAGE, 1);
         MNLog.i(TAG, queryUrlString);
 
         // 쿼리
+        addRequest(queryUrlString, context, flickrFetcherListner);
+    }
+
+    // 두 번째 리퀘스트, 총 사진 갯수를 가지고 랜덤 사진 쿼리
+    public static void requestQuery(final String keyword, int totalPhotos, final MNFlickrFetcherListner flickrFetcherListner, Context context) {
+        // 랜덤 페이지 생성
+        int randomPage;
+        if (totalPhotos >= 4000) {
+            totalPhotos = 4000; // 숫자가 너무 클 경우 문제가 생기기에 적절하게 조정
+        }
+        MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
+        randomPage = randomGenerator.nextInt(totalPhotos) + 1;
+
+        // 플리커 키워드를 가지고 사진 url을 추출
+        String queryUrlString = makeQueryUrlString(keyword, 1, randomPage);
+        MNLog.i(TAG, queryUrlString);
+
+        addRequest(queryUrlString, context, flickrFetcherListner);
+    }
+
+    private static String makeQueryUrlString(String keyword, int perPage, int pageNum) {
+        String escapedKeyword = MNUtf.getConverted_UTF_8_String(keyword);
+
+        return "http://api.flickr.com/services/rest/?sort=random"
+                + "&method=flickr.photos.search"
+                + "&tags=" + escapedKeyword + "&tag_mode=any"
+                + "&per_page=" + perPage + "&page=" + pageNum
+                + "&api_key=" + FLICKR_API_KEY + "&format=json&nojsoncallback=1";
+    }
+
+    private static void addRequest(String queryUrlString, Context context, final MNFlickrFetcherListner flickrFetcherListner) {
         final RequestQueue mRequsetQueue = Volley.newRequestQueue(context);
         mRequsetQueue.add(new JsonObjectRequest(Request.Method.GET, queryUrlString, null,
                 new Response.Listener<JSONObject>() {
@@ -54,18 +81,13 @@ public class MNFlickrFetcher {
 
                                 flickrPhotoInfo.setTotalPhotos(photos.getInt("total"));
 
-                                // 총 사진 갯수가 한 페이지를 넘어가면 index를 20 내에서 난수 생성 필요
-                                int totalPhotosInThisPage = flickrPhotoInfo.getTotalPhotos();
-                                if (totalPhotosInThisPage >= FLICKR_FIRST_LOADING_PER_PAGE) {
-                                    totalPhotosInThisPage = FLICKR_FIRST_LOADING_PER_PAGE;
-                                }
-
                                 // 난수 생성
+                                JSONArray photoItems = photos.getJSONArray("photo");
                                 MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
-                                int randomIndex = randomGenerator.nextInt(totalPhotosInThisPage);
+                                int randomIndex = randomGenerator.nextInt(photoItems.length());
 
                                 // photoItem에서 url 조립
-                                JSONObject photoItem = photos.getJSONArray("photo").getJSONObject(randomIndex);
+                                JSONObject photoItem = photoItems.getJSONObject(randomIndex);
 
                                 String idString, secretString, serverString, farmString;
                                 idString = photoItem.getString("id");

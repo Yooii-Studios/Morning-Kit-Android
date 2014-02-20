@@ -67,7 +67,11 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         String keyword = "Miranda Kerr";
 
         // 플리커 로딩을 요청
-        MNFlickrFetcher.requestFirst(keyword, this, getContext());
+        if (flickrPhotoInfo != null) {
+            MNFlickrFetcher.requestQuery(keyword, flickrPhotoInfo.getTotalPhotos(), this, getContext());
+        } else {
+            MNFlickrFetcher.requestFirstQuery(keyword, this, getContext());
+        }
     }
 
     @Override
