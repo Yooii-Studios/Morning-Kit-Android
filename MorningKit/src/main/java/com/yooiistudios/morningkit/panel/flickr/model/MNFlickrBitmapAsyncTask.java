@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
-import com.yooiistudios.morningkit.common.log.MNLog;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 18.
@@ -42,7 +41,7 @@ public class MNFlickrBitmapAsyncTask extends AsyncTask<Void, Void, Bitmap> {
     @Override
     protected Bitmap doInBackground(Void... params) {
         // 크롭, 라운딩, 그레이스케일 등등 처리하기
-        Bitmap croppedBitmap = MNBitmapProcessor.getCroppedBiamtp(originalBitmap, width, height);
+        Bitmap croppedBitmap = MNBitmapProcessor.getCroppedBitmap(originalBitmap, width, height);
         return MNBitmapProcessor.getRoundedCornerBitmap(croppedBitmap, width, height, isGrayScale,
                 (int) context.getResources().getDimension(R.dimen.panel_flickr_round_radius));
     }

@@ -23,7 +23,7 @@ public class MNBitmapProcessor {
     private static final String TAG = "MNBitmapProcessor";
     private MNBitmapProcessor() { throw new AssertionError("You MUST not create this class!"); }
 
-    public static Bitmap getCroppedBiamtp(Bitmap bitmap, int targetWidth, int targetHeight) {
+    public static Bitmap getCroppedBitmap(Bitmap bitmap, int targetWidth, int targetHeight) {
         if (bitmap != null) {
 
             Bitmap croppedBitmap;
