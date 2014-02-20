@@ -31,7 +31,6 @@ public class MNFlickrBitmapAsyncTask extends AsyncTask<Void, Void, Bitmap> {
     public MNFlickrBitmapAsyncTask(Bitmap bitmap, int width, int height, boolean isGrayScale,
                                    OnFlickrBitmapAsyncTaskListener flickrBitmapAsyncTaskListener,
                                    Context context) {
-        MNLog.i(TAG, "constructor: " + bitmap);
         this.originalBitmap = bitmap;
         this.width = width;
         this.height = height;
@@ -43,7 +42,6 @@ public class MNFlickrBitmapAsyncTask extends AsyncTask<Void, Void, Bitmap> {
     @Override
     protected Bitmap doInBackground(Void... params) {
         // 크롭, 라운딩, 그레이스케일 등등 처리하기
-        MNLog.now("doInBackground: " + width + "/" + height);
         Bitmap croppedBitmap = MNBitmapProcessor.getCroppedBiamtp(originalBitmap, width, height);
         return MNBitmapProcessor.getRoundedCornerBitmap(croppedBitmap, width, height, isGrayScale,
                 (int) context.getResources().getDimension(R.dimen.panel_flickr_round_radius));
@@ -52,7 +50,6 @@ public class MNFlickrBitmapAsyncTask extends AsyncTask<Void, Void, Bitmap> {
     @Override
     protected void onPostExecute(Bitmap bitmap) {
         super.onPostExecute(bitmap);
-        MNLog.i(TAG, "onPostExecute: " + bitmap); // 입력 bitmap 과 다른 비트맵 id로 만들어져 나가야 한다
         flickrBitmapAsyncTaskListener.onProcessingLoad(bitmap);
     }
 }

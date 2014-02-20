@@ -91,9 +91,6 @@ public class MNBitmapProcessor {
 
             Bitmap outputBitmap = Bitmap.createBitmap(scaledBitmap.getWidth(), scaledBitmap.getHeight(), Bitmap.Config.ARGB_8888);
 
-            MNLog.now("original: " + bitmap.getWidth() + "/" + bitmap.getHeight());
-            MNLog.now("output: " + outputBitmap.getWidth() + "/" + outputBitmap.getHeight());
-
             // outputBitmap 에 캔버스를 생성에 scaleBitmap의 가공 내용을 draw
             Canvas canvas = new Canvas(outputBitmap);
 
