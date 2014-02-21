@@ -19,6 +19,8 @@ import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrBitmapAsyncTask;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrFetcher;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrPhotoInfo;
 
+import org.json.JSONException;
+
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 17.
  *
@@ -122,7 +124,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
      * FlickrBitmapAsyncTask Listener
      */
     @Override
-    public void onProcessingLoad(Bitmap polishedBitmap) {
+    public void onBitmapProcessingLoad(Bitmap polishedBitmap) {
         MNLog.i(TAG, "onProcessingLoad");
         if (this.polishedBitmap != null) {
             imageView.setImageDrawable(null);
@@ -169,6 +171,20 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
             flickrBitmapAsyncTask = new MNFlickrBitmapAsyncTask(originalBitmap,
                     imageView.getWidth(), imageView.getHeight(), isGrayScale, this, getContext());
             flickrBitmapAsyncTask.execute();
+        }
+    }
+
+    @Override
+    protected void onPanelClick() {
+        super.onPanelClick();
+
+        try {
+            if (flickrPhotoInfo != null) {
+                getPanelDataObject().put("totalPhotos", flickrPhotoInfo.getTotalPhotos());
+                MNLog.now("totalPhotos: " + getPanelDataObject().getInt("totalPhotos"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }
