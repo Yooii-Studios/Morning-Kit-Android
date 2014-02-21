@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 
+import org.json.JSONException;
+
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 16.
  *
@@ -57,6 +59,13 @@ public class MNPanelFactory {
 
             default:
                 break;
+        }
+        try {
+            // unique Id 입력
+            newPanalLayout.getPanelDataObject().put(MNPanel.PANEL_UNIQUE_ID,
+                    newPanalLayout.getPanelType().getUniqueId());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return newPanalLayout;
     }

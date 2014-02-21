@@ -11,6 +11,7 @@ import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapLoadSaver;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
@@ -69,7 +70,8 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         }
 
         // 플리커 키워드를 받아온다
-        keyword = "Miranda Kerr";
+//        keyword = "Miranda Kerr";
+        keyword = "lamborghini";
 
         // 플리커 로딩을 요청
         if (queryRequest != null) {
@@ -182,12 +184,14 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
                 getPanelDataObject().put("photoUrlString", flickrPhotoInfo.getPhotoUrlString());
             }
             if (originalBitmap != null) {
-                getPanelDataObject().put("imageData", originalBitmap);
+                getPanelDataObject().put("imageData", MNBitmapProcessor.getStringFromBitmap(originalBitmap));
+//                getPanelDataObject().put("imageData", originalBitmap);
             }
             getPanelDataObject().put("keyword", keyword);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         // 모달 액티비티 띄우기
         super.onPanelClick();
     }

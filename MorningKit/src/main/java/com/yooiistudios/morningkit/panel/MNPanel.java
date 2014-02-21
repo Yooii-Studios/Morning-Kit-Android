@@ -17,6 +17,10 @@ import java.util.List;
  *  어느 위치에 어떤 패널이 선택되었는지 저장하는 유틸리티 클래스
  */
 public class MNPanel {
+    // JSONObject panelDataObject에 사용될 키워드
+    public static final String PANEL_UNIQUE_ID = "panelUniqueId";
+    public static final String PANEL_DATA_OBJECT = "panelDataObject";
+
     private static final String PANEL_SHARED_PREFERENCES = "PANEL_SHARED_PREFERENCES";
     private static final String PANEL_UNIQUE_ID_LIST_KEY = "PANEL_UNIQUE_ID_LIST_KEY";
 

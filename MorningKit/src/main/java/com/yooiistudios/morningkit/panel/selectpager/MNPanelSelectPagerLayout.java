@@ -1,7 +1,7 @@
 package com.yooiistudios.morningkit.panel.selectpager;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -59,10 +59,10 @@ public class MNPanelSelectPagerLayout extends RelativeLayout {
         }
     }
 
-    public void loadPanelSelectPager(Fragment fragment, MNPanelSelectPagerInterface panelSelectPagerInterface) {
+    public void loadPanelSelectPager(FragmentManager fragmentManager, MNPanelSelectPagerInterface panelSelectPagerInterface) {
         // getChildFragmentManager() 가 아니면 이 프래그먼트가 다시 보일때 panelSelectPager가 보이지 않음
         // http://stackoverflow.com/questions/6672066/fragment-inside-fragment
-        panelSelectPager.setAdapter(new MNPanelSelectPagerAdapter(fragment.getChildFragmentManager(), panelSelectPagerInterface));
+        panelSelectPager.setAdapter(new MNPanelSelectPagerAdapter(fragmentManager, panelSelectPagerInterface));
 
         // page indicator
         pageIndicator.setViewPager(panelSelectPager);
