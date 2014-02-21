@@ -35,7 +35,6 @@ public class MNFlickrFetcher {
         public void onErrorResponse();
     }
 
-
     // 첫번째 리퀘스트, 사진의 첫 페이지를 로딩하며 총 사진 갯수를 측정, 다음 로딩시 더 빠르게 하기 위함
     public static JsonObjectRequest requestFirstQuery(final String keyword, final OnFetcherListner onFetcherListner, Context context) {
         // 플리커 키워드를 가지고 사진 url을 추출
