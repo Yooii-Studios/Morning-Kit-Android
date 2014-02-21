@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.common.bitmap;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
@@ -10,9 +11,12 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.Base64;
 
 import com.testflightapp.lib.TestFlight;
 import com.yooiistudios.morningkit.common.log.MNLog;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 19.
@@ -133,6 +137,28 @@ public class MNBitmapProcessor {
         return null;
     }
 
+    public static String getStringFromBitmap(Bitmap bitmap) {
+        /*
+        * This functions converts Bitmap picture to a string which can be
+        * JSONified.
+        */
+        final int COMPRESSION_QUALITY = 100;
+        String encodedImage;
+        ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, COMPRESSION_QUALITY,
+                byteArrayBitmapStream);
+        byte[] b = byteArrayBitmapStream.toByteArray();
+        encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    public static Bitmap getBitmapFromString(String jsonString) {
+        /*
+        * This Function converts the String back to Bitmap
+        */
+        byte[] decodedString = Base64.decode(jsonString, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+    }
     /*
     // 라운딩과 통합
     public static Bitmap getGrayScaledBitmap(Bitmap bitmap) {

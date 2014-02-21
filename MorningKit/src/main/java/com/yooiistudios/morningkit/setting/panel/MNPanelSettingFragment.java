@@ -92,7 +92,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
             panelMatrixItems.add(panelMatrixItem4);
 
             // pager
-            panelSelectPagerLayout.loadPanelSelectPager(this, this);
+            panelSelectPagerLayout.loadPanelSelectPager(getChildFragmentManager(), this);
         }
         return rootView;
     }

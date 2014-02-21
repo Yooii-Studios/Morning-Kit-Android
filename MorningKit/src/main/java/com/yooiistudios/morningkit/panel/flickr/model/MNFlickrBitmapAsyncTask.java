@@ -24,7 +24,7 @@ public class MNFlickrBitmapAsyncTask extends AsyncTask<Void, Void, Bitmap> {
     private Context context;
 
     public interface OnFlickrBitmapAsyncTaskListener {
-        public void onProcessingLoad(Bitmap polishedBitmap);
+        public void onBitmapProcessingLoad(Bitmap polishedBitmap);
     }
 
     public MNFlickrBitmapAsyncTask(Bitmap bitmap, int width, int height, boolean isGrayScale,
@@ -49,6 +49,6 @@ public class MNFlickrBitmapAsyncTask extends AsyncTask<Void, Void, Bitmap> {
     @Override
     protected void onPostExecute(Bitmap bitmap) {
         super.onPostExecute(bitmap);
-        flickrBitmapAsyncTaskListener.onProcessingLoad(bitmap);
+        flickrBitmapAsyncTaskListener.onBitmapProcessingLoad(bitmap);
     }
 }
