@@ -31,6 +31,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     private static final String TAG = "MNFlickrPanelLayout";
     private MNFlickrPhotoInfo flickrPhotoInfo;
     private RecyclingImageView imageView;
+    private String keyword;
     private Bitmap originalBitmap;
     private Bitmap polishedBitmap;
     private JsonObjectRequest queryRequest;
@@ -68,7 +69,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         }
 
         // 플리커 키워드를 받아온다
-        String keyword = "Miranda Kerr";
+        keyword = "Miranda Kerr";
 
         // 플리커 로딩을 요청
         if (queryRequest != null) {
@@ -176,15 +177,18 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
 
     @Override
     protected void onPanelClick() {
-        super.onPanelClick();
-
         try {
             if (flickrPhotoInfo != null) {
-                getPanelDataObject().put("totalPhotos", flickrPhotoInfo.getTotalPhotos());
-                MNLog.now("totalPhotos: " + getPanelDataObject().getInt("totalPhotos"));
+                getPanelDataObject().put("photoUrlString", flickrPhotoInfo.getPhotoUrlString());
             }
+            if (originalBitmap != null) {
+                getPanelDataObject().put("imageData", originalBitmap);
+            }
+            getPanelDataObject().put("keyword", keyword);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        // 모달 액티비티 띄우기
+        super.onPanelClick();
     }
 }

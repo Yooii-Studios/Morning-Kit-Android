@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.panel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
+import com.yooiistudios.morningkit.panel.detail.MNPanelDetailActivity;
 
 import org.json.JSONObject;
 
@@ -145,5 +147,8 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
 
     protected void onPanelClick() {
         // 패널 타입을 체크해 액티비티를 생성 - 패널 데이터인 맵을 같이 넘길 수 있어야 한다.
+        Intent intent = new Intent(getContext(), MNPanelDetailActivity.class);
+        intent.putExtra("panelDataObject", panelDataObject.toString());
+        getContext().startActivity(intent);
     }
 }

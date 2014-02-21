@@ -14,8 +14,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="com.android.vending.BILLING"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <supports-screens
         android:anyDensity="true"
@@ -34,10 +34,10 @@
         <!-- Main -->
         <activity
             android:name="com.yooiistudios.morningkit.main.MNMainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout"
             android:label="@string/app_name"
             android:screenOrientation="sensor"
-            android:theme="@android:style/Theme.Black.NoTitleBar"
-            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout">
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,7 +52,7 @@
         <activity
             android:name="com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity"
             android:screenOrientation="sensorPortrait"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
         </activity>
 
         <!-- Setting -->
@@ -154,6 +154,10 @@
         </activity>
         <activity
             android:name="com.yooiistudios.morningkit.setting.store.MNStoreActivity"
+            android:screenOrientation="sensorPortrait" >
+        </activity>
+        <activity
+            android:name="com.yooiistudios.morningkit.panel.detail.MNPanelDetailActivity"
             android:screenOrientation="sensorPortrait" >
         </activity>
     </application>
