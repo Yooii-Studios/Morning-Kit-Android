@@ -1,13 +1,17 @@
 package com.yooiistudios.morningkit.panel.flickr.detail;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
+import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
 
 import org.json.JSONException;
@@ -24,6 +28,7 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
 
     @InjectView(R.id.flickr_detail_imageview) RecyclingImageView imageView;
     @InjectView(R.id.flickr_detail_edittext) EditText editText;
+    @InjectView(R.id.flickr_detail_grayscale_textview) TextView grayScaleTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,10 +38,10 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
             ButterKnife.inject(this, rootView);
 
             try {
-//                Bitmap bitmap = MNBitmapProcessor.getBitmapFromString(getPanelDataObject().getString("imageData"));
-//                if (bitmap != null) {
-//                    imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
-//                }
+                Bitmap bitmap = MNBitmapProcessor.getBitmapFromString(getPanelDataObject().getString("imageData"));
+                if (bitmap != null) {
+                    imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
+                }
                 editText.setText(getPanelDataObject().getString("keyword"));
             } catch (JSONException e) {
                 e.printStackTrace();

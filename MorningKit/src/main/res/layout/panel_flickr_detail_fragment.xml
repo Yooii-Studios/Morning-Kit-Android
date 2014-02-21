@@ -7,12 +7,37 @@
     <com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView
         android:id="@+id/flickr_detail_imageview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:scaleType="fitStart"
+        android:adjustViewBounds="true"/>
 
     <EditText
         android:id="@+id/flickr_detail_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/flickr_detail_imageview"/>
+        android:layout_below="@id/flickr_detail_imageview"
+        android:inputType="text"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flickr_detail_edittext">
+
+        <CheckBox
+            android:id="@+id/flickr_detail_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/flickr_detail_grayscale_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/flickr_use_gray_scale"
+            android:textStyle="bold"
+            android:layout_toLeftOf="@id/flickr_detail_checkbox"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 </RelativeLayout>
