@@ -15,8 +15,10 @@ import org.json.JSONException;
 public class MNPanelFactory {
     private MNPanelFactory() { throw new AssertionError("You MUST not create this class!"); }
 
-    public static MNPanelLayout newPanelLayoutInstance(MNPanelType newPanalType, Context context) {
+    public static MNPanelLayout newPanelLayoutInstance(MNPanelType newPanalType, int index,
+                                                       Context context) {
         MNPanelLayout newPanalLayout = new MNPanelLayout(context);
+        newPanalLayout.setIndex(index);
 
         switch (newPanalType) {
             case WEATHER:
@@ -61,9 +63,11 @@ public class MNPanelFactory {
                 break;
         }
         try {
-            // unique Id 입력
+            // unique Id, 인덱스 입력
             newPanalLayout.getPanelDataObject().put(MNPanel.PANEL_UNIQUE_ID,
                     newPanalLayout.getPanelType().getUniqueId());
+            newPanalLayout.getPanelDataObject().put(MNPanel.PANEL_INDEX,
+                    index);
         } catch (JSONException e) {
             e.printStackTrace();
         }

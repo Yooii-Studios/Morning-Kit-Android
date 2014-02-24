@@ -24,6 +24,7 @@ import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
+import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 
 import java.io.IOException;
@@ -257,6 +258,17 @@ public class MNMainActivity extends Activity implements AdListener
 
     @Override
     public void onReceiveAd(Ad arg0) {
+    }
+
+    /**
+     * Panel
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MNPanel.PANEL_DETAIL_ACTIVITY && resultCode == RESULT_OK) {
+            panelWindowLayout.refreshPanel(data);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
