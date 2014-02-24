@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.panel.detail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.yooiistudios.morningkit.R;
@@ -21,7 +22,10 @@ import butterknife.InjectView;
 
 public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelSelectPagerInterface {
 
-    @InjectView(R.id.panel_detail_select_pager_layout) MNPanelSelectPagerLayout panelSelectPagerLayout;
+    @InjectView(R.id.panel_detail_select_pager_layout)
+    MNPanelSelectPagerLayout panelSelectPagerLayout;
+    MNPanelDetailFragment panelDetailFragment;
+    Menu actionBarMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +44,12 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
                 MNLog.now("panelType: " + panelType);
 
                 // 패널 타입을 확인해 프래그먼트 생성
-                MNPanelDetailFragment panelDetailFragment;
                 switch (panelType) {
                     case FLICKR:
                         panelDetailFragment = new MNFlickrDetailFragment();
                         break;
                     default:
-                        panelDetailFragment = new MNPanelDetailFragment();
+                        panelDetailFragment = new MNFlickrDetailFragment();
                         break;
                 }
 
@@ -66,18 +69,38 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
         }
     }
 
+    /**
+     * Action Bar
+     */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        getMenuInflater().inflate(R.menu.pref_actions, menu);
+        actionBarMenu = menu;
+        return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.pref_action_ok:
+                panelDetailFragment.archivePanelData();
+                finish();
+                return true;
+
+            case R.id.pref_action_cancel:
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Panel Select Pager
+     */
     @Override
     public void onPanelSelectPagerItemClick(int position) {
 

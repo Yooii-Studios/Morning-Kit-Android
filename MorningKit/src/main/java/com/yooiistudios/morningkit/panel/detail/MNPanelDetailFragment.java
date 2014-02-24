@@ -19,7 +19,7 @@ import lombok.Setter;
  * MNPanelDetailFragment
  *  패널 디테일 프래그먼트의 핵심을 담고 있는 부모 클래스
  */
-public class MNPanelDetailFragment extends Fragment {
+public abstract class MNPanelDetailFragment extends Fragment {
 
     @Getter @Setter JSONObject panelDataObject;
 
@@ -29,4 +29,6 @@ public class MNPanelDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.panel_detail_fragment, container, false);
         return rootView;
     }
+
+    protected abstract void archivePanelData();
 }
