@@ -22,7 +22,7 @@ public class MNPanel {
     public static final String PANEL_INDEX= "PANEL_INDEX";
     public static final String PANEL_DATA_OBJECT = "panelDataObject";
 
-    public static final int PANEL_DETAIL_CHANGED = 54321;
+    public static final int PANEL_DETAIL_ACTIVITY = 54321;
 
     private static final String PANEL_SHARED_PREFERENCES = "PANEL_SHARED_PREFERENCES";
     private static final String PANEL_UNIQUE_ID_LIST_KEY = "PANEL_UNIQUE_ID_LIST_KEY";

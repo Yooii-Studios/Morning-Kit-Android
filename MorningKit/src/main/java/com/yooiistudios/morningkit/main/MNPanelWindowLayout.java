@@ -107,7 +107,7 @@ public class MNPanelWindowLayout extends LinearLayout
             panelDataObject = new JSONObject(data.getStringExtra(MNPanel.PANEL_DATA_OBJECT));
             if (panelDataObject != null) {
                 int index = panelDataObject.getInt(MNPanel.PANEL_INDEX);
-                if (index > 0 && index < 4) {
+                if (index >= 0 && index < 4) {
                     // 새 패널데이터 삽입 및 패널 갱신
                     panelLayouts[index].setPanelDataObject(panelDataObject);
                     panelLayouts[index].refreshPanel();

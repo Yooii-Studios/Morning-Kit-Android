@@ -265,7 +265,7 @@ public class MNMainActivity extends Activity implements AdListener
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == MNPanel.PANEL_DETAIL_CHANGED) {
+        if (requestCode == MNPanel.PANEL_DETAIL_ACTIVITY && resultCode == RESULT_OK) {
             panelWindowLayout.refreshPanel(data);
         }
         super.onActivityResult(requestCode, resultCode, data);
