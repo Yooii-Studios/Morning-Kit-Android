@@ -74,7 +74,6 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
                 Bitmap bitmap = MNBitmapProcessor.loadBitmapFromDirectory(getActivity(),
                         "flickr_" + getPanelDataObject().getInt(MNPanel.PANEL_INDEX),
                         ExternalStorageManager.APP_DIRECTORY_HIDDEN + "/flickr");
-                MNLog.now(bitmap.toString());
                 if (bitmap != null) {
                     imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
                 }
