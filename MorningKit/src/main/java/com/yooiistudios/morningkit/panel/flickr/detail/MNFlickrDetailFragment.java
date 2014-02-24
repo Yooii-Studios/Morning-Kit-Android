@@ -1,6 +1,5 @@
 package com.yooiistudios.morningkit.panel.flickr.detail;
 
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,9 +11,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
-import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
 
@@ -48,10 +45,10 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
                 grayscaleSwitch = (Switch) rootView.findViewById(R.id.flickr_detail_grayscale_switch);
             }
             try {
-                Bitmap bitmap = MNBitmapProcessor.getBitmapFromString(getPanelDataObject().getString("imageData"));
-                if (bitmap != null) {
-                    imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
-                }
+//                Bitmap bitmap = MNBitmapProcessor.getBitmapFromString(getPanelDataObject().getString("imageData"));
+//                if (bitmap != null) {
+//                    imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
+//                }
                 keywordEditText.setText(getPanelDataObject().getString("keyword"));
             } catch (JSONException e) {
                 e.printStackTrace();

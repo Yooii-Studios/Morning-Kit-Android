@@ -91,7 +91,7 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
                 Intent intent = new Intent();
                 intent.putExtra(MNPanel.PANEL_DATA_OBJECT,
                         panelDetailFragment.getPanelDataObject().toString());
-                setResult(RESULT_OK, intent);
+                setResult(MNPanel.PANEL_DETAIL_CHANGED, intent);
                 finish();
                 return true;
 

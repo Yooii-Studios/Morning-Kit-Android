@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -11,6 +12,9 @@ import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.MNPanelFactory;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -94,5 +98,27 @@ public class MNPanelWindowLayout extends LinearLayout
         for (int i = 0; i < 4; i++) {
                 panelLayouts[i].refreshPanel();
             }
+    }
+
+    public void refreshPanel(Intent data) {
+        // data에서 index 추출
+        JSONObject panelDataObject;
+        try {
+            panelDataObject = new JSONObject(data.getStringExtra(MNPanel.PANEL_DATA_OBJECT));
+            if (panelDataObject != null) {
+                int index = panelDataObject.getInt(MNPanel.PANEL_INDEX);
+                if (index > 0 && index < 4) {
+                    // 새 패널데이터 삽입 및 패널 갱신
+                    panelLayouts[index].setPanelDataObject(panelDataObject);
+                    panelLayouts[index].refreshPanel();
+                } else {
+                    throw new AssertionError("index must be > 0 and <= 4");
+                }
+            } else {
+                throw new AssertionError("panelDataObject must not be null");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
