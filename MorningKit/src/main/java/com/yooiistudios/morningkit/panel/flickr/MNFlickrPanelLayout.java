@@ -16,7 +16,6 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapLoadSaver;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
@@ -103,7 +102,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
             String flickrInfoString = getPanelDataObject().getString(FLICKR_DATA_FLICKR_INFO);
             Type type = new TypeToken<MNFlickrPhotoInfo>(){}.getType();
             flickrPhotoInfo = new Gson().fromJson(flickrInfoString, type);
-            MNLog.now("flickrPhotoInfo: " + flickrPhotoInfo);
         }
 
         // 플리커 키워드를 받아온다
