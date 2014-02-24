@@ -1,13 +1,13 @@
 package com.yooiistudios.morningkit.panel.detail;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.MNPanelType;
 import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
@@ -40,8 +40,8 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
             try {
                 panelDataObject = new JSONObject(intent.getStringExtra(MNPanel.PANEL_DATA_OBJECT));
                 MNPanelType panelType = MNPanelType.valueOfUniqueId(panelDataObject.getInt(MNPanel.PANEL_UNIQUE_ID));
-                MNLog.now(panelDataObject.toString());
-                MNLog.now("panelType: " + panelType);
+
+                initActionBar(panelType);
 
                 // 패널 타입을 확인해 프래그먼트 생성
                 switch (panelType) {
@@ -66,6 +66,25 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void initActionBar(MNPanelType panelType) {
+        String panelTypeName = MNPanelType.toString(panelType.getIndex(), this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            if (getActionBar() != null) {
+                getActionBar().setTitle(panelTypeName);
+            }
+        }else{
+            getSupportActionBar().setTitle(panelTypeName); // 추후 구현 다시 하자
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            if (getActionBar() != null) {
+                getActionBar().setDisplayShowHomeEnabled(false); // 추후 구현 다시 하자
+            }
+        }else{
+            getSupportActionBar().setDisplayShowHomeEnabled(false); // 추후 구현 다시 하자
         }
     }
 
