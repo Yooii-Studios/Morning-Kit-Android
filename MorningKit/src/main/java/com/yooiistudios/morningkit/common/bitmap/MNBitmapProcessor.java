@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.common.bitmap;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -11,12 +12,14 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.util.Base64;
 
 import com.testflightapp.lib.TestFlight;
+import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
 import com.yooiistudios.morningkit.common.log.MNLog;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 19.
@@ -26,6 +29,7 @@ import java.io.ByteArrayOutputStream;
  */
 public class MNBitmapProcessor {
     private static final String TAG = "MNBitmapProcessor";
+
     private MNBitmapProcessor() { throw new AssertionError("You MUST not create this class!"); }
 
     public static Bitmap getCroppedBitmap(Bitmap bitmap, int targetWidth, int targetHeight) {
@@ -137,28 +141,78 @@ public class MNBitmapProcessor {
         return null;
     }
 
-    public static String getStringFromBitmap(Bitmap bitmap) {
-        /*
-        * This functions converts Bitmap picture to a string which can be
-        * JSONified.
-        */
-        final int COMPRESSION_QUALITY = 100;
-        String encodedImage;
-        ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, COMPRESSION_QUALITY,
-                byteArrayBitmapStream);
-        byte[] b = byteArrayBitmapStream.toByteArray();
-        encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-        return encodedImage;
+    public static Bitmap getGrayScaledBitmap(Bitmap originalBitmap) {
+        if(originalBitmap != null) {
+            Bitmap grayScaledBitmap = Bitmap.createBitmap(originalBitmap.getWidth(),
+                    originalBitmap.getHeight(), Bitmap.Config.RGB_565);
+
+            Canvas canvas = new Canvas(grayScaledBitmap);
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            ColorMatrix cm = new ColorMatrix();
+            cm.setSaturation(0);
+            ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
+            paint.setColorFilter(f);
+            canvas.drawBitmap(originalBitmap, 0, 0, paint);
+            return grayScaledBitmap;
+        }
+        return null;
     }
 
-    public static Bitmap getBitmapFromString(String jsonString) {
-        /*
-        * This Function converts the String back to Bitmap
-        */
-        byte[] decodedString = Base64.decode(jsonString, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+    // 비트맵을 JSON으로 전달. 속도가 느려서 취소함
+//    public static String getStringFromBitmap(Bitmap bitmap) {
+//        /*
+//        * This functions converts Bitmap picture to a string which can be
+//        * JSONified.
+//        */
+//        final int COMPRESSION_QUALITY = 100;
+//        String encodedImage;
+//        ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.PNG, COMPRESSION_QUALITY,
+//                byteArrayBitmapStream);
+//        byte[] b = byteArrayBitmapStream.toByteArray();
+//        encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+//        return encodedImage;
+//    }
+//
+//    public static Bitmap getBitmapFromString(String jsonString) {
+//        /*
+//        * This Function converts the String back to Bitmap
+//        */
+//        byte[] decodedString = Base64.decode(jsonString, Base64.DEFAULT);
+//        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//    }
+
+    /**
+     * 비트맵을 로컬에 저장
+     */
+    public static String saveBitmapToDirectory(Context context, Bitmap image,
+                                               String fileName, String directory) throws IOException {
+        // Create an image file name - 동현 코드 사용해서 래핑
+        File storageDir = ExternalStorageManager.createExternalDirectory(context, directory);
+
+        // Save a file
+        String imagePath = storageDir + "/" + fileName + ".jpg";
+
+        FileOutputStream fileOutputStream = new FileOutputStream(imagePath);
+        image.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+
+        // 이미지 저장
+        fileOutputStream.flush();
+        fileOutputStream.close();
+
+        return imagePath;
     }
+
+    public static Bitmap loadBitmapFromDirectory(Context context, String fileName, String directory) {
+        BitmapFactory.Options option = new BitmapFactory.Options();
+        option.inSampleSize = 1;
+        option.inPurgeable = true;
+        option.inDither = true;
+
+        File storageDir = ExternalStorageManager.createExternalDirectory(context, directory);
+        return BitmapFactory.decodeFile(storageDir + "/" + fileName + ".jpg", option);
+    }
+
     /*
     // 라운딩과 통합
     public static Bitmap getGrayScaledBitmap(Bitmap bitmap) {

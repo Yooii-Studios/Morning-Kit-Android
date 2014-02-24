@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel.flickr.detail;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,8 +14,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
+import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
+import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
 
 import org.json.JSONException;
@@ -64,11 +69,21 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
                 grayscaleCheckbox.setChecked(isGrayScale);
             }
 
+            // 비트맵 로컬에서 읽어오기
             try {
-//                Bitmap bitmap = MNBitmapProcessor.getBitmapFromString(getPanelDataObject().getString("imageData"));
-//                if (bitmap != null) {
-//                    imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
-//                }
+                Bitmap bitmap = MNBitmapProcessor.loadBitmapFromDirectory(getActivity(),
+                        "flickr_" + getPanelDataObject().getInt(MNPanel.PANEL_INDEX),
+                        ExternalStorageManager.APP_DIRECTORY_HIDDEN + "/flickr");
+                MNLog.now(bitmap.toString());
+                if (bitmap != null) {
+                    imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            // 키워드 텍스트
+            try {
                 keywordEditText.setText(getPanelDataObject().getString(FLICKR_DATA_KEYWORD));
             } catch (JSONException e) {
                 e.printStackTrace();
