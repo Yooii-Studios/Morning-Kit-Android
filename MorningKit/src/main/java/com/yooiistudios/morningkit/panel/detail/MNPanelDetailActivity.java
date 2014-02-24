@@ -86,7 +86,11 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
         switch (item.getItemId()) {
             case R.id.pref_action_ok:
                 // 변경사항 저장
-                panelDetailFragment.archivePanelData();
+                try {
+                    panelDetailFragment.archivePanelData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 // 메인 액티비티에 리프레시 요청
                 Intent intent = new Intent();

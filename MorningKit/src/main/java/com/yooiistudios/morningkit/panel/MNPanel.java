@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +28,11 @@ public class MNPanel {
 
     private static final String PANEL_SHARED_PREFERENCES = "PANEL_SHARED_PREFERENCES";
     private static final String PANEL_UNIQUE_ID_LIST_KEY = "PANEL_UNIQUE_ID_LIST_KEY";
+    private static final String PANEL_DATA_LIST_KEY = "PANEL_DATA_LIST_KEY";
 
     private volatile static MNPanel instance;
     private List<Integer> panelUniqueIdList; // uniqueId를 저장함으로써 유연성을 가질 수 있는 구조 확립
+    private List<JSONObject> panelDataList; // 각 인덱스의 패널 데이터를 저장/아카이빙
 
     /**
      * Singleton
@@ -37,8 +41,8 @@ public class MNPanel {
     private MNPanel(Context context) {
         if (context != null) {
             SharedPreferences prefs = context.getSharedPreferences(PANEL_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-            String panelListJsonString = prefs.getString(PANEL_UNIQUE_ID_LIST_KEY, null);
 
+            String panelListJsonString = prefs.getString(PANEL_UNIQUE_ID_LIST_KEY, null);
             if (panelListJsonString != null) {
                 Type type = new TypeToken<List<Integer>>(){}.getType();
                 panelUniqueIdList = new Gson().fromJson(panelListJsonString, type);
@@ -51,6 +55,18 @@ public class MNPanel {
 
                 String jsonString = new Gson().toJson(panelUniqueIdList);
                 prefs.edit().putString(PANEL_UNIQUE_ID_LIST_KEY, jsonString).commit();
+            }
+
+            String panelDataJsonString = prefs.getString(PANEL_DATA_LIST_KEY, null);
+            if (panelDataJsonString != null) {
+                Type type = new TypeToken<List<JSONObject>>() {}.getType();
+                panelDataList = new Gson().fromJson(panelDataJsonString, type);
+            } else {
+                panelDataList = new ArrayList<JSONObject>();
+                panelDataList.add(new JSONObject());
+                panelDataList.add(new JSONObject());
+                panelDataList.add(new JSONObject());
+                panelDataList.add(new JSONObject());
             }
         }
     }
@@ -82,5 +98,20 @@ public class MNPanel {
         String jsonString = new Gson().toJson(MNPanel.getInstance(context).panelUniqueIdList);
         context.getSharedPreferences(PANEL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
                 .edit().putString(PANEL_UNIQUE_ID_LIST_KEY, jsonString).commit();
+    }
+
+    public static List<JSONObject> getPanelDataList(Context context) {
+        return MNPanel.getInstance(context).panelDataList;
+    }
+
+    public static void archivePanelData(Context context, JSONObject panelData, int index) {
+        // change
+        MNPanel.getInstance(context).panelDataList.remove(index);
+        MNPanel.getInstance(context).panelDataList.add(index, panelData);
+
+        // Archive
+        String jsonString = new Gson().toJson(MNPanel.getInstance(context).panelDataList);
+        context.getSharedPreferences(PANEL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+                .edit().putString(PANEL_DATA_LIST_KEY, jsonString).commit();
     }
 }

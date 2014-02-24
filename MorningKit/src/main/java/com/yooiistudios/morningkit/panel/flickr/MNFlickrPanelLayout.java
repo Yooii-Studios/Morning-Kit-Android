@@ -1,12 +1,15 @@
 package com.yooiistudios.morningkit.panel.flickr;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
@@ -21,6 +24,8 @@ import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrPhotoInfo;
 
 import org.json.JSONException;
 
+import java.lang.reflect.Type;
+
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 17.
  *
@@ -29,13 +34,23 @@ import org.json.JSONException;
 public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetcher.OnFetcherListner,
         MNBitmapLoadSaver.OnLoadListener, MNFlickrBitmapAsyncTask.OnFlickrBitmapAsyncTaskListener {
     private static final String TAG = "MNFlickrPanelLayout";
+
+    public static final String FLICKR_PREFS = "FLICKR_PREFS";
+    public static final String FLICKR_PREFS_KEYWORD = "FLICKR_PREFS_KEYWORD";
+    public static final String FLICKR_DATA_KEYWORD = "FLICKR_DATA_KEYWORD_1";
+    public static final String FLICKR_DATA_FLICKR_INFO = "FLICKR_DATA_INFO";
+    public static final String FLICKR_DATA_PHOTO_URL = "FLICKR_DATA_PHOTO_URL";
+    public static final String FLICKR_DATA_GRAYSCALE = "FLICKR_DATA_GRAYSCALE";
+    public static final String FLICKR_DATA_BITMAP_PATH = "FLICKR_DATA_BITMAP_PATH";
+
     private MNFlickrPhotoInfo flickrPhotoInfo;
     private RecyclingImageView imageView;
-    private String keyword;
+    private String keywordString;
     private Bitmap originalBitmap;
     private Bitmap polishedBitmap;
     private JsonObjectRequest queryRequest;
     private MNFlickrBitmapAsyncTask flickrBitmapAsyncTask;
+    private boolean isGrayScale;
 
     public MNFlickrPanelLayout(Context context) {
         super(context);
@@ -60,34 +75,51 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     }
 
     @Override
-    protected void processLoading() {
+    protected void processLoading() throws JSONException {
         super.processLoading();
 
+        // 이미지뷰 초기화
         if (imageView != null) {
             imageView.setImageDrawable(null);
             polishedBitmap = null;
         }
 
-        // 플리커 키워드를 받아온다
-//        keyword = "Miranda Kerr";
-        try {
-            keyword = getPanelDataObject().getString("keyword");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (keyword == null) {
-            keyword = "lamborghini";
-        }
-
-        // 플리커 로딩을 요청
+        // 기존 쿼리는 취소
         if (queryRequest != null) {
             queryRequest.cancel();
         }
-        if (flickrPhotoInfo != null) {
-            queryRequest = MNFlickrFetcher.requestQuery(keyword, flickrPhotoInfo.getTotalPhotos(), this, getContext());
-        } else {
-            queryRequest = MNFlickrFetcher.requestFirstQuery(keyword, this, getContext());
+
+        // 기존에 읽었던 플리커 정보 로딩 - Gson으로 캐스팅
+        if (getPanelDataObject().has(FLICKR_DATA_FLICKR_INFO)) {
+            String flickrInfoString = getPanelDataObject().getString(FLICKR_DATA_FLICKR_INFO);
+            Type type = new TypeToken<MNFlickrPhotoInfo>(){}.getType();
+            flickrPhotoInfo = new Gson().fromJson(flickrInfoString, type);
+            MNLog.now("flickrPhotoInfo: " + flickrPhotoInfo);
         }
+
+        // 플리커 키워드를 받아온다
+//        keyword = "Miranda Kerr";
+        String previousKeyword = keywordString;
+        if (getPanelDataObject().has(FLICKR_DATA_KEYWORD)) {
+            // 이전 스트링과 비교해서, 같지 않으면 첫 로딩, 같으면 기존에 가지고 있던 총 사진 갯수를 가지고 로딩
+            keywordString = getPanelDataObject().getString(FLICKR_DATA_KEYWORD);
+            if (keywordString.equals(previousKeyword) && flickrPhotoInfo.getTotalPhotos() != 0) {
+                // 기존 로딩
+                queryRequest = MNFlickrFetcher.requestQuery(keywordString, flickrPhotoInfo.getTotalPhotos(), this, getContext());
+            } else {
+                // 새 키워드의 첫 로딩
+                queryRequest = MNFlickrFetcher.requestFirstQuery(keywordString, this, getContext());
+            }
+        } else {
+            SharedPreferences prefs = getContext().getSharedPreferences(FLICKR_PREFS, Context.MODE_PRIVATE);
+            keywordString = prefs.getString(FLICKR_PREFS_KEYWORD, "Morning");
+
+            // 새 키워드의 첫 로딩
+            queryRequest = MNFlickrFetcher.requestFirstQuery(keywordString, this, getContext());
+        }
+
+        // 키워드 저장
+        getPanelDataObject().put(FLICKR_DATA_KEYWORD, keywordString);
     }
 
     @Override
@@ -105,6 +137,12 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     @Override
     public void onFlickrPhotoInfoLoaded(MNFlickrPhotoInfo flickrPhotoInfo) {
         this.flickrPhotoInfo = flickrPhotoInfo;
+        try {
+            getPanelDataObject().put(FLICKR_DATA_FLICKR_INFO, new Gson().toJson(flickrPhotoInfo));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        archivePanelData();
         MNBitmapLoadSaver.loadBitmapUsingVolley(flickrPhotoInfo.getPhotoUrlString(), getContext(), this);
     }
 
@@ -119,7 +157,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
      * BitmapLoader - using volley
      */
     @Override
-    public void onBitmapLoad(Bitmap bitmap) {
+    public void onBitmapLoad(Bitmap bitmap) throws JSONException {
         // 로드한 비트맵을 그레이스케일과 핏 처리
         if (originalBitmap != null) {
             originalBitmap.recycle();
@@ -153,12 +191,16 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         MNViewSizeMeasure.setViewSizeObserver(imageView, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
             @Override
             public void onLayoutLoad() {
-                getPolishedFlickrBitmap();
+                try {
+                    getPolishedFlickrBitmap();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-    private void getPolishedFlickrBitmap() {
+    private void getPolishedFlickrBitmap() throws JSONException {
         // 비동기 처리 - 로딩 애니메이션 on
         startLoadingAnimation();
 
@@ -174,6 +216,9 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
 
         // 그레이 스케일 설정 가져옴
         boolean isGrayScale = false;
+        if (getPanelDataObject().has(FLICKR_DATA_GRAYSCALE)) {
+            isGrayScale = getPanelDataObject().getBoolean(FLICKR_DATA_GRAYSCALE);
+        }
 
         // originalBitmap이 있으면 로딩이 되었다고 판단
         if (originalBitmap != null) {
@@ -187,13 +232,13 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     protected void onPanelClick() {
         try {
             if (flickrPhotoInfo != null) {
-                getPanelDataObject().put("photoUrlString", flickrPhotoInfo.getPhotoUrlString());
+                getPanelDataObject().put(FLICKR_DATA_PHOTO_URL, flickrPhotoInfo.getPhotoUrlString());
             }
             if (originalBitmap != null) {
 //                getPanelDataObject().put("imageData", MNBitmapProcessor.getStringFromBitmap(originalBitmap));
 //                getPanelDataObject().put("imageData", originalBitmap);
             }
-            getPanelDataObject().put("keyword", keyword);
+            getPanelDataObject().put(FLICKR_DATA_KEYWORD, keywordString);
         } catch (JSONException e) {
             e.printStackTrace();
         }

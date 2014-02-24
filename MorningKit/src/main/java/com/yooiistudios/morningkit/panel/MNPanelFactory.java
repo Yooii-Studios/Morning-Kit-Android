@@ -18,7 +18,6 @@ public class MNPanelFactory {
     public static MNPanelLayout newPanelLayoutInstance(MNPanelType newPanalType, int index,
                                                        Context context) {
         MNPanelLayout newPanalLayout = new MNPanelLayout(context);
-        newPanalLayout.setIndex(index);
 
         switch (newPanalType) {
             case WEATHER:
@@ -62,8 +61,12 @@ public class MNPanelFactory {
             default:
                 break;
         }
+        // 인덱스와 패널 데이터 대입
+        newPanalLayout.setPanelIndex(index);
+        newPanalLayout.setPanelDataObject(MNPanel.getPanelDataList(context).get(index));
+
         try {
-            // unique Id, 인덱스 입력
+            // 패널 데이터에 unique Id, 인덱스 입력
             newPanalLayout.getPanelDataObject().put(MNPanel.PANEL_UNIQUE_ID,
                     newPanalLayout.getPanelType().getUniqueId());
             newPanalLayout.getPanelDataObject().put(MNPanel.PANEL_INDEX,

@@ -9,6 +9,8 @@ import com.android.volley.toolbox.Volley;
 import com.testflightapp.lib.TestFlight;
 import com.yooiistudios.morningkit.common.log.MNLog;
 
+import org.json.JSONException;
+
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 18.
  *
@@ -20,7 +22,7 @@ public class MNBitmapLoadSaver {
 
     // 비트맵 로딩 리스너
     public interface OnLoadListener {
-        public void onBitmapLoad(Bitmap bitmap);
+        public void onBitmapLoad(Bitmap bitmap) throws JSONException;
     }
 
     public static void loadBitmapUsingVolley(String bitmapUrlString, Context context,
@@ -33,7 +35,11 @@ public class MNBitmapLoadSaver {
             public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
                 // 가져온 비트맵 가공
                 if (response.getBitmap() != null) {
-                    bitmapLoadListener.onBitmapLoad(response.getBitmap());
+                    try {
+                        bitmapLoadListener.onBitmapLoad(response.getBitmap());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

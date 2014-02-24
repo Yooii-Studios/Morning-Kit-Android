@@ -96,8 +96,8 @@ public class MNPanelWindowLayout extends LinearLayout
 
     public void refreshAllPanels() {
         for (int i = 0; i < 4; i++) {
-                panelLayouts[i].refreshPanel();
-            }
+            panelLayouts[i].refreshPanel();
+        }
     }
 
     public void refreshPanel(Intent data) {
