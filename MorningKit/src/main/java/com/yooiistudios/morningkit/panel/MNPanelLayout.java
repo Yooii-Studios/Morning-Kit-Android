@@ -28,6 +28,7 @@ import lombok.Setter;
 public class MNPanelLayout extends RoundShadowRelativeLayout {
 
     @Getter @Setter MNPanelType panelType;
+    @Getter @Setter int index;
     @Getter @Setter RelativeLayout contentLayout;
     @Getter @Setter RelativeLayout statusLayout;
     @Getter @Setter ImageView loadingImageView;

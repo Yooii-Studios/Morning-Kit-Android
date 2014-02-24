@@ -25,7 +25,7 @@ public class MNPanelWindowLayout extends LinearLayout
     private static final String TAG = "MNWidgetWindowLayout";
 
     @Getter private LinearLayout panelLineLayouts[];
-    @Getter private MNPanelLayout[][] panelLayouts;
+    @Getter private MNPanelLayout panelLayouts[];
 //    @Getter private FrameLayout[][] widgetSlots;
 
     public MNPanelWindowLayout(Context context)
@@ -46,7 +46,7 @@ public class MNPanelWindowLayout extends LinearLayout
         this.setOrientation(VERTICAL);
 
         panelLineLayouts = new LinearLayout[2];
-        panelLayouts = new MNPanelLayout[2][2];
+        panelLayouts = new MNPanelLayout[4];
 
         // 패널들이 있는 레이아웃을 추가
         for (int i = 0; i < 2; i++) {
@@ -67,11 +67,12 @@ public class MNPanelWindowLayout extends LinearLayout
                 MNPanelType panelType = MNPanelType.valueOfUniqueId(uniquePanelIds.get(i * 2 + j));
 
                 // 패널 id에 맞게 패널 레이아웃 생성
-                panelLayouts[i][j] = MNPanelFactory.newPanelLayoutInstance(panelType, getContext());
-                panelLineLayouts[i].addView(panelLayouts[i][j]);
+                int index = i * 2 + j;
+                panelLayouts[index] = MNPanelFactory.newPanelLayoutInstance(panelType, index, getContext());
+                panelLineLayouts[i].addView(panelLayouts[index]);
 
                 // 로딩 애니메이션이 onCreate시에는 제대로 생성이 안되기 때문에 뷰 로딩 이후에 리프레시
-                final MNPanelLayout panelLayout = panelLayouts[i][j];
+                final MNPanelLayout panelLayout = panelLayouts[index];
                 MNViewSizeMeasure.setViewSizeObserver(panelLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
                     @Override
                     public void onLayoutLoad() {
@@ -83,19 +84,15 @@ public class MNPanelWindowLayout extends LinearLayout
     }
 
     public void applyTheme() {
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
-                MNShadowLayoutFactory.changeThemeOfShadowLayout(panelLayouts[i][j], getContext());
-                panelLayouts[i][j].applyTheme();
-            }
+        for (int i = 0; i < 4; i++) {
+                MNShadowLayoutFactory.changeThemeOfShadowLayout(panelLayouts[i], getContext());
+                panelLayouts[i].applyTheme();
         }
     }
 
     public void refreshAllPanels() {
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
-                panelLayouts[i][j].refreshPanel();
+        for (int i = 0; i < 4; i++) {
+                panelLayouts[i].refreshPanel();
             }
-        }
     }
 }
