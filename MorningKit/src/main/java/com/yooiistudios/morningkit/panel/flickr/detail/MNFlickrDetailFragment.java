@@ -32,7 +32,7 @@ import butterknife.Optional;
 public class MNFlickrDetailFragment extends MNPanelDetailFragment {
 
     @InjectView(R.id.flickr_detail_imageview) RecyclingImageView imageView;
-    @InjectView(R.id.flickr_detail_edittext) EditText editText;
+    @InjectView(R.id.flickr_detail_edittext) EditText keywordEditText;
     @InjectView(R.id.flickr_detail_grayscale_textview) TextView grayScaleTextView;
     @Optional @InjectView(R.id.flickr_detail_grayscale_checkbox) CheckBox grayscaleCheckbox; // < V14
     Switch grayscaleSwitch; // >= V14
@@ -52,7 +52,7 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
                 if (bitmap != null) {
                     imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
                 }
-                editText.setText(getPanelDataObject().getString("keyword"));
+                keywordEditText.setText(getPanelDataObject().getString("keyword"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -63,5 +63,17 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
     @Override
     protected void archivePanelData() {
         MNLog.now("archivePanelData");
+
+        try {
+            // grayscale
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                getPanelDataObject().put("isGrayScaled", grayscaleSwitch.isChecked());
+            } else {
+                getPanelDataObject().put("isGrayScaled", grayscaleCheckbox.isChecked());
+            }
+            getPanelDataObject().put("keyword", keywordEditText.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
