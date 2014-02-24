@@ -21,6 +21,9 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.Optional;
 
+import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICKR_DATA_GRAYSCALE;
+import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICKR_DATA_KEYWORD;
+
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 21.
  *
@@ -49,7 +52,7 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
 //                if (bitmap != null) {
 //                    imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
 //                }
-                keywordEditText.setText(getPanelDataObject().getString("keyword"));
+                keywordEditText.setText(getPanelDataObject().getString(FLICKR_DATA_KEYWORD));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -64,11 +67,11 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
         try {
             // grayscale
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                getPanelDataObject().put("isGrayScaled", grayscaleSwitch.isChecked());
+                getPanelDataObject().put(FLICKR_DATA_GRAYSCALE, grayscaleSwitch.isChecked());
             } else {
-                getPanelDataObject().put("isGrayScaled", grayscaleCheckbox.isChecked());
+                getPanelDataObject().put(FLICKR_DATA_GRAYSCALE, grayscaleCheckbox.isChecked());
             }
-            getPanelDataObject().put("keyword", keywordEditText.getText().toString());
+            getPanelDataObject().put(FLICKR_DATA_KEYWORD, keywordEditText.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }

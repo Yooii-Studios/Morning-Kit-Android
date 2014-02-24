@@ -13,6 +13,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapLoadSaver;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
+import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrBitmapAsyncTask;
@@ -29,6 +30,12 @@ import org.json.JSONException;
 public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetcher.OnFetcherListner,
         MNBitmapLoadSaver.OnLoadListener, MNFlickrBitmapAsyncTask.OnFlickrBitmapAsyncTaskListener {
     private static final String TAG = "MNFlickrPanelLayout";
+
+    public static final String FLICKR_DATA_KEYWORD = "FLICKR_DATA_KEYWORD";
+    public static final String FLICKR_DATA_PHOTO_URL = "FLICKR_DATA_PHOTO_URL";
+    public static final String FLICKR_DATA_GRAYSCALE = "FLICKR_DATA_GRAYSCALE";
+    public static final String FLICKR_DATA_BITMAP_PATH = "FLICKR_DATA_BITMAP_PATH";
+
     private MNFlickrPhotoInfo flickrPhotoInfo;
     private RecyclingImageView imageView;
     private String keyword;
@@ -71,13 +78,15 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         // 플리커 키워드를 받아온다
 //        keyword = "Miranda Kerr";
         try {
-            keyword = getPanelDataObject().getString("keyword");
+            keyword = getPanelDataObject().getString(FLICKR_DATA_KEYWORD);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         if (keyword == null) {
             keyword = "lamborghini";
         }
+        // 키워드 아카이브
+        MNPanel.archivePanelData(getContext(), getPanelDataObject(), getPanelIndex());
 
         // 플리커 로딩을 요청
         if (queryRequest != null) {
@@ -187,13 +196,13 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     protected void onPanelClick() {
         try {
             if (flickrPhotoInfo != null) {
-                getPanelDataObject().put("photoUrlString", flickrPhotoInfo.getPhotoUrlString());
+                getPanelDataObject().put(FLICKR_DATA_PHOTO_URL, flickrPhotoInfo.getPhotoUrlString());
             }
             if (originalBitmap != null) {
 //                getPanelDataObject().put("imageData", MNBitmapProcessor.getStringFromBitmap(originalBitmap));
 //                getPanelDataObject().put("imageData", originalBitmap);
             }
-            getPanelDataObject().put("keyword", keyword);
+            getPanelDataObject().put(FLICKR_DATA_KEYWORD, keyword);
         } catch (JSONException e) {
             e.printStackTrace();
         }
