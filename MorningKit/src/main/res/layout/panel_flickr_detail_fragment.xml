@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/flickr_detail_imageview"
+        android:hint="@string/flickr_search_images"
         android:inputType="text"/>
 
     <RelativeLayout
