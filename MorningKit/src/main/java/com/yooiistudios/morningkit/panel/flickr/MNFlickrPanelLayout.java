@@ -14,6 +14,8 @@ import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapLoadSaver;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
+import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
@@ -24,6 +26,7 @@ import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrPhotoInfo;
 
 import org.json.JSONException;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 
 /**
@@ -77,6 +80,12 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     @Override
     protected void processLoading() throws JSONException {
         super.processLoading();
+
+        // 그레이 스케일 설정 가져옴
+        isGrayScale = false;
+        if (getPanelDataObject().has(FLICKR_DATA_GRAYSCALE)) {
+            isGrayScale = getPanelDataObject().getBoolean(FLICKR_DATA_GRAYSCALE);
+        }
 
         // 이미지뷰 초기화
         if (imageView != null) {
@@ -164,6 +173,10 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
             originalBitmap = null;
         }
         originalBitmap = bitmap;
+        if (isGrayScale) {
+            // 쓰레드를 일단 사용하지 않는 것으로 결정
+            originalBitmap = MNBitmapProcessor.getGrayScaledBitmap(originalBitmap);
+        }
         getPolishedFlickrBitmap();
     }
 
@@ -172,7 +185,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
      */
     @Override
     public void onBitmapProcessingLoad(Bitmap polishedBitmap) {
-        MNLog.i(TAG, "onProcessingLoad");
         if (this.polishedBitmap != null) {
             imageView.setImageDrawable(null);
             this.polishedBitmap = null;
@@ -214,12 +226,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
             polishedBitmap = null;
         }
 
-        // 그레이 스케일 설정 가져옴
-        boolean isGrayScale = false;
-        if (getPanelDataObject().has(FLICKR_DATA_GRAYSCALE)) {
-            isGrayScale = getPanelDataObject().getBoolean(FLICKR_DATA_GRAYSCALE);
-        }
-
         // originalBitmap이 있으면 로딩이 되었다고 판단
         if (originalBitmap != null) {
             flickrBitmapAsyncTask = new MNFlickrBitmapAsyncTask(originalBitmap,
@@ -235,8 +241,13 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
                 getPanelDataObject().put(FLICKR_DATA_PHOTO_URL, flickrPhotoInfo.getPhotoUrlString());
             }
             if (originalBitmap != null) {
-//                getPanelDataObject().put("imageData", MNBitmapProcessor.getStringFromBitmap(originalBitmap));
-//                getPanelDataObject().put("imageData", originalBitmap);
+                try {
+                    MNBitmapProcessor.saveBitmapToDirectory(getContext(), originalBitmap,
+                            "flickr_" + getPanelIndex(),
+                            ExternalStorageManager.APP_DIRECTORY_HIDDEN + "/flickr");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             getPanelDataObject().put(FLICKR_DATA_KEYWORD, keywordString);
         } catch (JSONException e) {
