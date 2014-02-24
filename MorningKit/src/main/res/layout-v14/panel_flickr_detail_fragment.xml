@@ -23,8 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/flickr_detail_edittext">
 
-        <CheckBox
-            android:id="@+id/flickr_detail_grayscale_checkbox"
+        <Switch
+            android:id="@+id/flickr_detail_grayscale_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
