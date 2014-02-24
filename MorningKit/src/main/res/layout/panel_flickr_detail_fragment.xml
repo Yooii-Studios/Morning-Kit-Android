@@ -2,13 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/margin_outer"
     tools:context="com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment">
 
     <com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView
         android:id="@+id/flickr_detail_imageview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitStart"
+        android:layout_height="@dimen/panel_flickr_image_view_height"
+        android:scaleType="fitCenter"
         android:adjustViewBounds="true"/>
 
     <EditText
@@ -16,10 +17,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/flickr_detail_imageview"
+        android:layout_marginTop="@dimen/margin_outer"
         android:hint="@string/flickr_search_images"
         android:inputType="text"/>
 
     <RelativeLayout
+        android:layout_marginTop="@dimen/margin_outer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/flickr_detail_edittext">
