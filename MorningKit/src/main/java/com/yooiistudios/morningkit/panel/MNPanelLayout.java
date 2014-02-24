@@ -15,6 +15,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
 import com.yooiistudios.morningkit.panel.detail.MNPanelDetailActivity;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import lombok.Getter;
@@ -102,18 +103,28 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
             // 네트워크 체크
             boolean isReachable = true;
             if (isReachable) {
-                processLoading();
+                try {
+                    processLoading();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                archivePanelData();
             } else {
                 // 네트워크 불가 이미지
                 showNetworkIsUnavailable();
             }
         } else {
-            processLoading();
+            try {
+                processLoading();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             updateUI();
+            archivePanelData();
         }
     }
 
-    protected void processLoading() {
+    protected void processLoading() throws JSONException {
         if (isUsingNetwork) {
             startLoadingAnimation();
         }
@@ -123,6 +134,10 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
         if (isUsingNetwork) {
             stopLoadingAnimation();
         }
+    }
+
+    protected void archivePanelData() {
+        MNPanel.archivePanelData(getContext(), getPanelDataObject(), getPanelIndex());
     }
 
     protected void startLoadingAnimation() {

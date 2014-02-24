@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
-import org.msgpack.util.json.JSON;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -60,8 +59,7 @@ public class MNPanel {
 
             String panelDataJsonString = prefs.getString(PANEL_DATA_LIST_KEY, null);
             if (panelDataJsonString != null) {
-                Type type = new TypeToken<List<JSON>>() {
-                }.getType();
+                Type type = new TypeToken<List<JSONObject>>() {}.getType();
                 panelDataList = new Gson().fromJson(panelDataJsonString, type);
             } else {
                 panelDataList = new ArrayList<JSONObject>();

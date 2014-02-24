@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.yooiistudios.morningkit.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import lombok.Getter;
@@ -30,5 +31,5 @@ public abstract class MNPanelDetailFragment extends Fragment {
         return rootView;
     }
 
-    protected abstract void archivePanelData();
+    protected abstract void archivePanelData() throws JSONException;
 }
