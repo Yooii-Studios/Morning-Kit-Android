@@ -94,12 +94,9 @@ public class MNFlickrBitmapSaveAsyncTask extends AsyncTask<Void, Integer, Boolea
         // url에서 사진을 bitmap으로 가져오기
         if (biggiestFlickrImageUrlString != null) {
             Bitmap bitmap = null;
-            try {
-                bitmap = MNBitmapLoadSaver.loadBitmapImageFromURL(biggiestFlickrImageUrlString);
-                onProgressUpdate(50);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+//                bitmap = MNBitmapLoadSaver.loadBitmapImageFromURL(biggiestFlickrImageUrlString);
+            bitmap = MNBitmapLoadSaver.bitmapFromUrl(biggiestFlickrImageUrlString);
+            onProgressUpdate(50);
 
             if (bitmap != null) {
                 if (isGrayScale) {

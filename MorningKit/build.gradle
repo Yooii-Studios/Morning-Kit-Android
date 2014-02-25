@@ -107,6 +107,9 @@ dependencies {
     // Clearable EditText 사용키 위함
     compile 'org.droidparts:droidparts:2.0.1'
 
+    // IOUtils
+    compile 'commons-io:commons-io:2.4'
+
     //////////
     // TEST //
     //////////
