@@ -279,4 +279,8 @@
     <!-- Alarm Pref -->
     <string name="alarm_sound_string_app_music">모닝키트 음악</string>
 
+    <!-- Panel -->
+      <!-- Flickr -->
+    <string name="saving">저장 중…</string>
+
 </resources>

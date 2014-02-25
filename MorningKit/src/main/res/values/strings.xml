@@ -279,4 +279,8 @@
     <string name="alarm_sound_string_app_music">Morning Kit Music</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Panel -->
+        <!-- Flickr -->
+    <string name="saving">Saving…</string>
+
 </resources>
