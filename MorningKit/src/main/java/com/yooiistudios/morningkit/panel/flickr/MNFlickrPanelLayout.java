@@ -41,7 +41,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     public static final String FLICKR_PREFS_KEYWORD = "FLICKR_PREFS_KEYWORD";
     public static final String FLICKR_DATA_KEYWORD = "FLICKR_DATA_KEYWORD_1";
     public static final String FLICKR_DATA_FLICKR_INFO = "FLICKR_DATA_INFO";
-    public static final String FLICKR_DATA_PHOTO_URL = "FLICKR_DATA_PHOTO_URL";
+    public static final String FLICKR_DATA_PHOTO_ID = "FLICKR_DATA_PHOTO_ID";
     public static final String FLICKR_DATA_GRAYSCALE = "FLICKR_DATA_GRAYSCALE";
     public static final String FLICKR_DATA_BITMAP_PATH = "FLICKR_DATA_BITMAP_PATH";
 
@@ -236,7 +236,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     protected void onPanelClick() {
         try {
             if (flickrPhotoInfo != null) {
-                getPanelDataObject().put(FLICKR_DATA_PHOTO_URL, flickrPhotoInfo.getPhotoUrlString());
+                getPanelDataObject().put(FLICKR_DATA_PHOTO_ID, flickrPhotoInfo.getPhotoId());
             }
             if (originalBitmap != null) {
                 try {
