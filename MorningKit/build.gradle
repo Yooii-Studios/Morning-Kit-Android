@@ -100,12 +100,8 @@ dependencies {
     // 설정앱에서 사용된 라이브러리
     compile 'com.nineoldandroids:library:2.4.0'
 
-    // 토스트를 다양하게 사용 가능
-    compile 'com.github.johnpersano:supertoasts:1.3.4@aar'
-
-    // a carefully crafted Android framework that includes:
-    // Clearable EditText 사용키 위함
-    compile 'org.droidparts:droidparts:2.0.1'
+    // 알림
+    compile 'de.keyboardsurfer.android.widget:crouton:1.8.+'
 
     //////////
     // TEST //

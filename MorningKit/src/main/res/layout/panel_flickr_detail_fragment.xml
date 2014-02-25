@@ -9,7 +9,7 @@
         android:id="@+id/flickr_detail_imageview"
         android:layout_width="match_parent"
         android:layout_height="@dimen/panel_flickr_image_view_height"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         android:adjustViewBounds="true"/>
 
     <EditText
