@@ -33,7 +33,7 @@ import butterknife.Optional;
 
 import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICKR_DATA_GRAYSCALE;
 import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICKR_DATA_KEYWORD;
-import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICKR_DATA_PHOTO_URL;
+import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICKR_DATA_PHOTO_ID;
 import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICKR_PREFS;
 import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICKR_PREFS_KEYWORD;
 
@@ -43,6 +43,8 @@ import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICK
  * MNFlickrDetailFragment
  */
 public class MNFlickrDetailFragment extends MNPanelDetailFragment implements MNFlickrBitmapSaveAsyncTask.MNFlickrBitmapSaveAsyncTaskListener {
+
+    private static final String TAG = "MNFlickrDetailFragment";
 
     @InjectView(R.id.flickr_detail_imageview) RecyclingImageView imageView;
     @InjectView(R.id.flickr_detail_edittext) EditText keywordEditText;
@@ -128,7 +130,7 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements MNF
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getPanelDataObject().has(FLICKR_DATA_PHOTO_URL)) {
+                if (getPanelDataObject().has(FLICKR_DATA_PHOTO_ID)) {
                     // AlertDialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setMessage(getResources().getString(R.string.flickr_save_to_library_guide))
@@ -137,7 +139,7 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements MNF
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             try {
-                                                saveImageToLibrary(getPanelDataObject().getString(FLICKR_DATA_PHOTO_URL));
+                                                saveImageToLibrary(getPanelDataObject().getString(FLICKR_DATA_PHOTO_ID));
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
@@ -157,6 +159,11 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements MNF
     @Override
     public void onBitmapSaveFinished() {
         Toast.makeText(getActivity(), R.string.flickr_photo_saved, Toast.LENGTH_SHORT).show();
-        MNLog.now("onBitmapSaveFinished");
+        MNLog.i(TAG, "onBitmapSaveFinished");
+    }
+
+    @Override
+    public void onBitmapSaveFailed() {
+        MNLog.e(TAG, "onBitmapSaveFailed");
     }
 }

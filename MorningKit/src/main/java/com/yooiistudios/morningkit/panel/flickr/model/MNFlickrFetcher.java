@@ -25,7 +25,7 @@ import org.uncommons.maths.random.MersenneTwisterRNG;
  */
 public class MNFlickrFetcher {
     private static final String TAG = "MNFlickrFetcher";
-    private static final String FLICKR_API_KEY = "ccc5c75e5380273b78d246a71353fab9";
+    public static final String FLICKR_API_KEY = "ccc5c75e5380273b78d246a71353fab9";
     private static final Integer FLICKR_FIRST_LOADING_PER_PAGE = 20;
 
     private MNFlickrFetcher() { throw new AssertionError("You MUST not create this class!"); }
@@ -98,6 +98,7 @@ public class MNFlickrFetcher {
 
                                     String idString, secretString, serverString, farmString;
                                     idString = photoItem.getString("id");
+                                    flickrPhotoInfo.setPhotoId(idString);
                                     secretString = photoItem.getString("secret");
                                     serverString = photoItem.getString("server");
                                     farmString = photoItem.getString("farm");

@@ -12,4 +12,5 @@ import lombok.Setter;
 public class MNFlickrPhotoInfo {
     @Getter @Setter int totalPhotos;
     @Getter @Setter String photoUrlString;
+    @Getter @Setter String photoId;
 }
