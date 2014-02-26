@@ -4,15 +4,24 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
 import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.MNPanelType;
+import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerAdapter;
 import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerInterface;
 import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerLayout;
+import com.yooiistudios.morningkit.panel.selectpager.fragment.MNPanelSelectPagerFirstFragment;
+import com.yooiistudios.morningkit.panel.selectpager.fragment.MNPanelSelectPagerSecondFragment;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -134,14 +143,60 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
      */
     @Override
     public void onPanelSelectPagerItemClick(int position) {
-        // title
-        initActionBarTitle(MNPanelType.valueOf(position));
 
-        // fragment
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        panelDetailFragment = MNPanelDetailFragment.newInstance(MNPanelType.valueOf(position), panelIndex);
-        transaction.replace(R.id.panel_detail_fragment_container, panelDetailFragment);
-        transaction.commit();
+        // 선택한 패널 타입 체크
+        int panelUniqueId = -1;
+        try {
+            if (panelDetailFragment.getPanelDataObject().has(MNPanel.PANEL_UNIQUE_ID)) {
+                panelUniqueId = panelDetailFragment.getPanelDataObject().getInt(MNPanel.PANEL_UNIQUE_ID);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (panelUniqueId != -1) {
+            int panelTypeIndex = MNPanelType.valueOfUniqueId(panelUniqueId).getIndex();
+
+            if (panelTypeIndex != position) {
+                MNLog.i(TAG, "panel should be changed");
+
+                // title
+                initActionBarTitle(MNPanelType.valueOf(position));
+
+                // panelSelectPager forward 색상 변경
+                panelSelectPagerLayout.applyTheme();
+                MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
+                ViewPager panelSelectPager = panelSelectPagerLayout.getPanelSelectPager();
+                MNPanelSelectPagerAdapter panelSelectPagerAdapter
+                        = (MNPanelSelectPagerAdapter) panelSelectPagerLayout.getPanelSelectPager().getAdapter();
+
+                RoundShadowRelativeLayout shadowRelativeLayout;
+                if (position >= 0 && position < 6) {
+                    // 페이지 1
+                    MNPanelSelectPagerFirstFragment firstFragment
+                            = (MNPanelSelectPagerFirstFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 0);
+
+                    shadowRelativeLayout = firstFragment.getRoundShadowRelativeLayouts().get(position);
+                } else {
+                    // 페이지 2
+                    int convertedPosition = position -= 6;
+                    MNPanelSelectPagerSecondFragment secondFragment
+                            = (MNPanelSelectPagerSecondFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 1);
+
+                    shadowRelativeLayout = secondFragment.getRoundShadowRelativeLayouts().get(convertedPosition);
+                }
+                if (shadowRelativeLayout != null) {
+                    shadowRelativeLayout.setSolidAreaColor(MNSettingColors.getGuidedPanelColor(currentThemeType));
+                }
+
+                // fragment
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                panelDetailFragment = MNPanelDetailFragment.newInstance(MNPanelType.valueOf(position), panelIndex);
+                transaction.replace(R.id.panel_detail_fragment_container, panelDetailFragment);
+                transaction.commit();
+            } else {
+                MNLog.i(TAG, "panel type is same, not changed");
+            }
+        }
     }
 
     @Override

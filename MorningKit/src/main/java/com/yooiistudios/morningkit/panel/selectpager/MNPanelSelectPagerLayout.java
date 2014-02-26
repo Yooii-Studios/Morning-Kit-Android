@@ -26,8 +26,7 @@ import lombok.Getter;
 public class MNPanelSelectPagerLayout extends RelativeLayout {
 
     @Getter @InjectView(R.id.panel_select_view_pager) ViewPager panelSelectPager;
-    @Getter @InjectView(R.id.panel_select_page_indicator)
-    CirclePageIndicator pageIndicator;
+    @Getter @InjectView(R.id.panel_select_page_indicator) CirclePageIndicator pageIndicator;
 
     public MNPanelSelectPagerLayout(Context context) {
         super(context);
