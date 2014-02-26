@@ -39,7 +39,6 @@ public class MNFlickrFetcher {
     public static JsonObjectRequest requestFirstQuery(final String keyword, final OnFetcherListner onFetcherListner, Context context) {
         // 플리커 키워드를 가지고 사진 url을 추출
         String queryUrlString = makeQueryUrlString(keyword, FLICKR_FIRST_LOADING_PER_PAGE, 1);
-        MNLog.i(TAG, queryUrlString);
 
         // 쿼리
         return addRequest(queryUrlString, context, onFetcherListner);
@@ -57,7 +56,6 @@ public class MNFlickrFetcher {
 
         // 플리커 키워드를 가지고 사진 url을 추출
         String queryUrlString = makeQueryUrlString(keyword, 1, randomPage);
-        MNLog.i(TAG, queryUrlString);
 
         return addRequest(queryUrlString, context, onFetcherListner);
     }

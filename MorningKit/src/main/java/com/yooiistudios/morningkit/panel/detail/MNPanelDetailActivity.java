@@ -4,24 +4,17 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
+import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.MNPanelType;
-import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerAdapter;
 import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerInterface;
 import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerLayout;
-import com.yooiistudios.morningkit.panel.selectpager.fragment.MNPanelSelectPagerFirstFragment;
-import com.yooiistudios.morningkit.panel.selectpager.fragment.MNPanelSelectPagerSecondFragment;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +29,7 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
     @InjectView(R.id.panel_detail_select_pager_layout)
     MNPanelSelectPagerLayout panelSelectPagerLayout;
     MNPanelDetailFragment panelDetailFragment;
-    int panelIndex;
+    int panelWindowIndex;
     Menu actionBarMenu;
 
     @Override
@@ -48,7 +41,7 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
         if (savedInstanceState == null) {
             // 인텐트에서 패널 데이터를 가져오기
             Intent intent = getIntent();
-            panelIndex = intent.getIntExtra(MNPanel.PANEL_INDEX, 0);
+            panelWindowIndex = intent.getIntExtra(MNPanel.PANEL_INDEX, 0);
             JSONObject panelDataObject;
             try {
                 panelDataObject = new JSONObject(intent.getStringExtra(MNPanel.PANEL_DATA_OBJECT));
@@ -57,14 +50,16 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
                 initActionBar(panelType);
 
                 // 패널 타입을 확인해 프래그먼트 생성
-                panelDetailFragment = MNPanelDetailFragment.newInstance(panelType, panelIndex);
+                panelDetailFragment = MNPanelDetailFragment.newInstance(panelType, panelWindowIndex);
 
                 // 데이터를 프래그먼트에 넣어주기
                 panelDetailFragment.setPanelDataObject(panelDataObject);
 
-                // 패널셀렉트페이저 로딩
+                // 패널셀렉트페이저 로딩 및 색 설정
                 panelSelectPagerLayout.loadPanelSelectPager(getSupportFragmentManager(), this);
+                initPanelSelectPagerColor();
 
+                // 프래그먼트 시작
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.panel_detail_fragment_container, panelDetailFragment)
                         .commit();
@@ -72,6 +67,27 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void initPanelSelectPagerColor() {
+        int panelUniqueId = -1;
+        try {
+            if (panelDetailFragment.getPanelDataObject().has(MNPanel.PANEL_UNIQUE_ID)) {
+                panelUniqueId = panelDetailFragment.getPanelDataObject().getInt(MNPanel.PANEL_UNIQUE_ID);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        
+        if (panelUniqueId != -1) {
+            final int currentPanelTypeIndex = MNPanelType.valueOfUniqueId(panelUniqueId).getIndex();
+            MNViewSizeMeasure.setViewSizeObserver(panelSelectPagerLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+                @Override
+                public void onLayoutLoad() {
+                    panelSelectPagerLayout.setColorOfPanelSelectPager(currentPanelTypeIndex, -1);
+                }
+            });
         }
     }
 
@@ -163,59 +179,16 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
                 initActionBarTitle(MNPanelType.valueOf(position));
 
                 // panelSelectPager forward 색상 변경
-                setColorOfPanelSelectPager(position, previousPanelTypeIndex);
+                panelSelectPagerLayout.setColorOfPanelSelectPager(position, previousPanelTypeIndex);
 
                 // fragment
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                panelDetailFragment = MNPanelDetailFragment.newInstance(MNPanelType.valueOf(position), panelIndex);
+                panelDetailFragment = MNPanelDetailFragment.newInstance(MNPanelType.valueOf(position), panelWindowIndex);
                 transaction.replace(R.id.panel_detail_fragment_container, panelDetailFragment);
                 transaction.commit();
             } else {
                 MNLog.i(TAG, "panel type is same, not changed");
             }
-        }
-    }
-
-    private void setColorOfPanelSelectPager(int position, int previousPanelTypeIndex) {
-        ViewPager panelSelectPager = panelSelectPagerLayout.getPanelSelectPager();
-        MNPanelSelectPagerAdapter panelSelectPagerAdapter
-                = (MNPanelSelectPagerAdapter) panelSelectPagerLayout.getPanelSelectPager().getAdapter();
-
-        MNPanelSelectPagerFirstFragment firstFragment
-                = (MNPanelSelectPagerFirstFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 0);
-        MNPanelSelectPagerSecondFragment secondFragment
-                = (MNPanelSelectPagerSecondFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 1);
-
-        // 새로 선택된 레이아웃
-        RoundShadowRelativeLayout selectedShadowRelativeLayout
-                = getShadowRoundLayout(position, firstFragment, secondFragment);
-
-        if (selectedShadowRelativeLayout != null) {
-            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
-            selectedShadowRelativeLayout.setSolidAreaColor(MNSettingColors.getGuidedPanelColor(currentThemeType));
-        }
-
-        // 기존의 레이아웃
-        RoundShadowRelativeLayout previouslySelectedShadowRelativeLayout
-                = getShadowRoundLayout(previousPanelTypeIndex, firstFragment, secondFragment);
-
-        if (previouslySelectedShadowRelativeLayout != null) {
-            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
-            previouslySelectedShadowRelativeLayout.setSolidAreaColor(MNSettingColors.getForwardBackgroundColor(currentThemeType));
-        }
-    }
-
-    private RoundShadowRelativeLayout getShadowRoundLayout(int position,
-                                                           MNPanelSelectPagerFirstFragment firstFragment,
-                                                           MNPanelSelectPagerSecondFragment secondFragment) {
-        RoundShadowRelativeLayout shadowRelativeLayout;
-        if (position >= 0 && position < 6) {
-            // 페이지 1
-            return firstFragment.getRoundShadowRelativeLayouts().get(position);
-        } else {
-            // 페이지 2
-            int offset = firstFragment.getRoundShadowRelativeLayouts().size();
-            return secondFragment.getRoundShadowRelativeLayouts().get(position - offset);
         }
     }
 
