@@ -154,39 +154,16 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
             e.printStackTrace();
         }
         if (panelUniqueId != -1) {
-            int panelTypeIndex = MNPanelType.valueOfUniqueId(panelUniqueId).getIndex();
+            int previousPanelTypeIndex = MNPanelType.valueOfUniqueId(panelUniqueId).getIndex();
 
-            if (panelTypeIndex != position) {
+            if (previousPanelTypeIndex != position) {
                 MNLog.i(TAG, "panel should be changed");
 
                 // title
                 initActionBarTitle(MNPanelType.valueOf(position));
 
                 // panelSelectPager forward 색상 변경
-                panelSelectPagerLayout.applyTheme();
-                MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
-                ViewPager panelSelectPager = panelSelectPagerLayout.getPanelSelectPager();
-                MNPanelSelectPagerAdapter panelSelectPagerAdapter
-                        = (MNPanelSelectPagerAdapter) panelSelectPagerLayout.getPanelSelectPager().getAdapter();
-
-                RoundShadowRelativeLayout shadowRelativeLayout;
-                if (position >= 0 && position < 6) {
-                    // 페이지 1
-                    MNPanelSelectPagerFirstFragment firstFragment
-                            = (MNPanelSelectPagerFirstFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 0);
-
-                    shadowRelativeLayout = firstFragment.getRoundShadowRelativeLayouts().get(position);
-                } else {
-                    // 페이지 2
-                    int convertedPosition = position -= 6;
-                    MNPanelSelectPagerSecondFragment secondFragment
-                            = (MNPanelSelectPagerSecondFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 1);
-
-                    shadowRelativeLayout = secondFragment.getRoundShadowRelativeLayouts().get(convertedPosition);
-                }
-                if (shadowRelativeLayout != null) {
-                    shadowRelativeLayout.setSolidAreaColor(MNSettingColors.getGuidedPanelColor(currentThemeType));
-                }
+                setColorOfPanelSelectPager(position, previousPanelTypeIndex);
 
                 // fragment
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -196,6 +173,49 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
             } else {
                 MNLog.i(TAG, "panel type is same, not changed");
             }
+        }
+    }
+
+    private void setColorOfPanelSelectPager(int position, int previousPanelTypeIndex) {
+        ViewPager panelSelectPager = panelSelectPagerLayout.getPanelSelectPager();
+        MNPanelSelectPagerAdapter panelSelectPagerAdapter
+                = (MNPanelSelectPagerAdapter) panelSelectPagerLayout.getPanelSelectPager().getAdapter();
+
+        MNPanelSelectPagerFirstFragment firstFragment
+                = (MNPanelSelectPagerFirstFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 0);
+        MNPanelSelectPagerSecondFragment secondFragment
+                = (MNPanelSelectPagerSecondFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 1);
+
+        // 새로 선택된 레이아웃
+        RoundShadowRelativeLayout selectedShadowRelativeLayout
+                = getShadowRoundLayout(position, firstFragment, secondFragment);
+
+        if (selectedShadowRelativeLayout != null) {
+            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
+            selectedShadowRelativeLayout.setSolidAreaColor(MNSettingColors.getGuidedPanelColor(currentThemeType));
+        }
+
+        // 기존의 레이아웃
+        RoundShadowRelativeLayout previouslySelectedShadowRelativeLayout
+                = getShadowRoundLayout(previousPanelTypeIndex, firstFragment, secondFragment);
+
+        if (previouslySelectedShadowRelativeLayout != null) {
+            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
+            previouslySelectedShadowRelativeLayout.setSolidAreaColor(MNSettingColors.getForwardBackgroundColor(currentThemeType));
+        }
+    }
+
+    private RoundShadowRelativeLayout getShadowRoundLayout(int position,
+                                                           MNPanelSelectPagerFirstFragment firstFragment,
+                                                           MNPanelSelectPagerSecondFragment secondFragment) {
+        RoundShadowRelativeLayout shadowRelativeLayout;
+        if (position >= 0 && position < 6) {
+            // 페이지 1
+            return firstFragment.getRoundShadowRelativeLayouts().get(position);
+        } else {
+            // 페이지 2
+            int offset = firstFragment.getRoundShadowRelativeLayouts().size();
+            return secondFragment.getRoundShadowRelativeLayouts().get(position - offset);
         }
     }
 
