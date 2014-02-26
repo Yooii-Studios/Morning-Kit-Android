@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICK
  *
  * MNFlickrDetailFragment
  */
-public class MNFlickrDetailFragment extends MNPanelDetailFragment implements MNFlickrBitmapSaveAsyncTask.MNFlickrBitmapSaveAsyncTaskListener {
+public class MNFlickrDetailFragment extends MNPanelDetailFragment {
 
     private static final String TAG = "MNFlickrDetailFragment";
 
@@ -53,6 +54,8 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements MNF
     Switch grayscaleSwitch; // >= V14
 
     boolean isGrayScale;
+
+    MNFlickrBitmapSaveAsyncTask bitmapSaveAsyncTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -149,27 +152,28 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements MNF
                                             }
                                         }
                                     })
-                            .setNegativeButton(getResources().getString(R.string.cancel), null)
-                            .create().show();
+                            .setNegativeButton(getResources().getString(R.string.cancel), null);
+
+                    // 중앙정렬
+                    AlertDialog dialog = builder.show();
+                    TextView messageText = (TextView)dialog.findViewById(android.R.id.message);
+                    if (messageText != null) {
+                        messageText.setGravity(Gravity.CENTER);
+                    }
+                    dialog.show();
                 }
             }
         });
     }
 
-    private void saveImageToLibrary(String flickrUrlString) {
-        new MNFlickrBitmapSaveAsyncTask(flickrUrlString, isGrayScale, this, getActivity()).execute();
-    }
-
-    /**
-     * 사진 저장 후 콜백. 사실 의미없는 메서드
-     */
-    @Override
-    public void onBitmapSaveFinished() {
-        MNLog.i(TAG, "onBitmapSaveFinished");
-    }
-
-    @Override
-    public void onBitmapSaveFailed() {
-        MNLog.e(TAG, "onBitmapSaveFailed");
+    private void saveImageToLibrary(String imageId) {
+        if (bitmapSaveAsyncTask != null) {
+            bitmapSaveAsyncTask.cancel(true);
+            bitmapSaveAsyncTask = null;
+        }
+        bitmapSaveAsyncTask = new MNFlickrBitmapSaveAsyncTask(imageId, isGrayScale, getActivity(),
+                getActivity().getApplicationContext());
+        bitmapSaveAsyncTask.execute();
+//        new MNFlickrPhotoSavingThread(getActivity().getApplicationContext, imageId, isGrayScale).start();
     }
 }

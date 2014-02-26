@@ -103,7 +103,7 @@ public class MNBitmapLoadSaver {
     */
 
     // 외부 SD 카드에 플리커 사진 저장 - 유니크한 이름을 위해 Morning Kit_현재 시간 MilliSec.PNG로
-    static public String saveBitmapToLibraryInSDCard(Bitmap bitmap) throws FileNotFoundException {
+    static public String saveBitmapToLibraryInSDCard(Bitmap bitmap) throws IOException {
 
         String external_storage_path =  Environment.getExternalStorageDirectory().toString();
         String appAbsolutePath = external_storage_path + "/MorningKit/";
@@ -118,6 +118,8 @@ public class MNBitmapLoadSaver {
         String filePath = appAbsolutePath + fileName;
         FileOutputStream fos = new FileOutputStream(filePath);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+        fos.flush();
+        fos.close();
 
         return filePath;
     }
