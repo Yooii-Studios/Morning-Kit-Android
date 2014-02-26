@@ -2,15 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/margin_outer"
+    android:padding="@dimen/panel_detail_padding"
     tools:context="com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment">
 
     <com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView
         android:id="@+id/flickr_detail_imageview"
         android:layout_width="match_parent"
         android:layout_height="@dimen/panel_flickr_image_view_height"
-        android:scaleType="centerInside"
-        android:adjustViewBounds="true"/>
+        android:scaleType="center"/>
 
     <EditText
         android:id="@+id/flickr_detail_edittext"

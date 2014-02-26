@@ -52,6 +52,9 @@
     <dimen name="alarm_pref_list_label_item_dialog_button_size">30dp</dimen>
 
     <!-- Panel -->
+    <!-- Detail Activity -->
+    <dimen name="panel_detail_padding">10dp</dimen>
+
     <!-- Select Pager -->
     <dimen name="panel_select_pager_height">166dp</dimen>
     <dimen name="panel_select_pager_item_height">68dp</dimen>

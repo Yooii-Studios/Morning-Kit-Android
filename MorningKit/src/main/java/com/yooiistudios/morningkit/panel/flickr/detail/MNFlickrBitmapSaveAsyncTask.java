@@ -109,20 +109,18 @@ public class MNFlickrBitmapSaveAsyncTask extends AsyncTask<Void, Integer, Boolea
                 try {
                     filePath = MNBitmapLoadSaver.saveBitmapToLibraryInSDCard(bitmap);
                     bitmap.recycle();
+                    onProgressUpdate(100);
+
+                    // 저장되었다면 Media 업데이트하기
+                    MediaScannerConnection.scanFile(context, new String[]{filePath}, null, null);
+
+                    return true;
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-                onProgressUpdate(100);
-
-                // 저장되었다면 Media 업데이트하기
-                MediaScannerConnection.scanFile(context, new String[]{filePath}, null, null);
-                return true;
-            } else {
-                return false;
             }
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -132,6 +130,7 @@ public class MNFlickrBitmapSaveAsyncTask extends AsyncTask<Void, Integer, Boolea
             superActivityToast.dismiss();
         }
         if (isBitmapSaved) {
+            Toast.makeText(context, R.string.flickr_photo_saved, Toast.LENGTH_SHORT).show();
             flickrBitmapSaveAsyncTaskListener.onBitmapSaveFinished();
         } else {
             flickrBitmapSaveAsyncTaskListener.onBitmapSaveFailed();

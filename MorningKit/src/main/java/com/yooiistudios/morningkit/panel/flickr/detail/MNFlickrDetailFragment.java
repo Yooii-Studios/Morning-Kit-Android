@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
@@ -84,6 +84,7 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements MNF
                         ExternalStorageManager.APP_DIRECTORY_HIDDEN + "/flickr");
                 if (bitmap != null) {
                     imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                     setImgViewOnClickListener();
                 }
             } catch (JSONException e) {
@@ -100,6 +101,9 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements MNF
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            // 그레이스케일 텍스트뷰
+            grayScaleTextView.setText(R.string.flickr_use_gray_scale);
 
         }
         return rootView;
@@ -156,9 +160,11 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements MNF
         new MNFlickrBitmapSaveAsyncTask(flickrUrlString, isGrayScale, this, getActivity()).execute();
     }
 
+    /**
+     * 사진 저장 후 콜백. 사실 의미없는 메서드
+     */
     @Override
     public void onBitmapSaveFinished() {
-        Toast.makeText(getActivity(), R.string.flickr_photo_saved, Toast.LENGTH_SHORT).show();
         MNLog.i(TAG, "onBitmapSaveFinished");
     }
 
