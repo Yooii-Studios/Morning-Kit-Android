@@ -39,7 +39,6 @@ public class MNFlickrFetcher {
     public static JsonObjectRequest requestFirstQuery(final String keyword, final OnFetcherListner onFetcherListner, Context context) {
         // 플리커 키워드를 가지고 사진 url을 추출
         String queryUrlString = makeQueryUrlString(keyword, FLICKR_FIRST_LOADING_PER_PAGE, 1);
-        MNLog.i(TAG, queryUrlString);
 
         // 쿼리
         return addRequest(queryUrlString, context, onFetcherListner);
@@ -57,7 +56,6 @@ public class MNFlickrFetcher {
 
         // 플리커 키워드를 가지고 사진 url을 추출
         String queryUrlString = makeQueryUrlString(keyword, 1, randomPage);
-        MNLog.i(TAG, queryUrlString);
 
         return addRequest(queryUrlString, context, onFetcherListner);
     }
@@ -89,7 +87,6 @@ public class MNFlickrFetcher {
                                 // 난수 생성
                                 JSONArray photoItems = photos.getJSONArray("photo");
                                 MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
-                                MNLog.now("photoItems.length(): " + photoItems.length());
                                 if (photoItems.length() != 0) {
                                     int randomIndex = randomGenerator.nextInt(photoItems.length());
 
@@ -109,7 +106,6 @@ public class MNFlickrFetcher {
                                                 String.format("http://farm%s.staticflickr.com/%s/%s_%s_z.jpg",
                                                         farmString, serverString, idString, secretString));
 
-                                        MNLog.i(TAG, flickrPhotoInfo.getPhotoUrlString());
                                         onFetcherListner.onFlickrPhotoInfoLoaded(flickrPhotoInfo);
                                     } else {
                                         TestFlight.log("flickrPhotoUrlString is null");

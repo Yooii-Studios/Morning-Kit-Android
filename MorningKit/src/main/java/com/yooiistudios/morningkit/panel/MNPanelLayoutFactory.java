@@ -12,8 +12,8 @@ import org.json.JSONException;
  * MNPanelFactory
  *  패널 레이아웃을 생성해주는 클래스
  */
-public class MNPanelFactory {
-    private MNPanelFactory() { throw new AssertionError("You MUST not create this class!"); }
+public class MNPanelLayoutFactory {
+    private MNPanelLayoutFactory() { throw new AssertionError("You MUST not create this class!"); }
 
     public static MNPanelLayout newPanelLayoutInstance(MNPanelType newPanalType, int index,
                                                        Context context) {

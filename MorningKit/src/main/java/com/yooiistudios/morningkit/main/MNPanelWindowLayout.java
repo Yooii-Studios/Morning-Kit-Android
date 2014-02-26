@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.MNPanel;
-import com.yooiistudios.morningkit.panel.MNPanelFactory;
+import com.yooiistudios.morningkit.panel.MNPanelLayoutFactory;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.MNPanelType;
 
@@ -72,7 +72,7 @@ public class MNPanelWindowLayout extends LinearLayout
 
                 // 패널 id에 맞게 패널 레이아웃 생성
                 int index = i * 2 + j;
-                panelLayouts[index] = MNPanelFactory.newPanelLayoutInstance(panelType, index, getContext());
+                panelLayouts[index] = MNPanelLayoutFactory.newPanelLayoutInstance(panelType, index, getContext());
                 panelLineLayouts[i].addView(panelLayouts[index]);
 
                 // 로딩 애니메이션이 onCreate시에는 제대로 생성이 안되기 때문에 뷰 로딩 이후에 리프레시
