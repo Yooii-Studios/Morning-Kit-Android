@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.MNPanelType;
 import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerInterface;
@@ -147,11 +146,9 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
 
     @Override
     public void onPanelSelectPagerUnlockItemClick(int position) {
-        MNLog.i(TAG, "onPanelSelectPagerUnlockItemClick");
     }
 
     @Override
     public void onPanelSelectPagerStoreItemClick(int position) {
-        MNLog.i(TAG, "onPanelSelectPagerStoreItemClick");
     }
 }

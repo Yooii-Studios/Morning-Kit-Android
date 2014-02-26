@@ -94,15 +94,22 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
             }
 
             // 키워드 텍스트
-            try {
-                String keywordString = getPanelDataObject().getString(FLICKR_DATA_KEYWORD);
-                keywordEditText.setText(keywordString);
-                keywordEditText.setSelection(keywordString.length());
-                keywordEditText.setPrivateImeOptions("defaultInputmode=english;");
-                keywordEditText.requestFocus();
-            } catch (JSONException e) {
-                e.printStackTrace();
+            String keywordString = null;
+            if (getPanelDataObject().has(FLICKR_DATA_KEYWORD)) {
+                try {
+                    keywordString = getPanelDataObject().getString(FLICKR_DATA_KEYWORD);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    keywordString = "Morning";
+                }
+            } else {
+                SharedPreferences prefs = getActivity().getSharedPreferences(FLICKR_PREFS, Context.MODE_PRIVATE);
+                keywordString = prefs.getString(FLICKR_PREFS_KEYWORD, "Morning");
             }
+            keywordEditText.setText(keywordString);
+            keywordEditText.setSelection(keywordString.length());
+            keywordEditText.setPrivateImeOptions("defaultInputmode=english;");
+            keywordEditText.requestFocus();
 
             // 그레이스케일 텍스트뷰
             grayScaleTextView.setText(R.string.flickr_use_gray_scale);
