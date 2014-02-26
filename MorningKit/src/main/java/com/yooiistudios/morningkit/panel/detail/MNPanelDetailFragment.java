@@ -7,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.panel.MNPanel;
+import com.yooiistudios.morningkit.panel.MNPanelType;
+import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
+import com.yooiistudios.morningkit.panel.memo.detail.MNMemoDetailFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +27,30 @@ import lombok.Setter;
 public abstract class MNPanelDetailFragment extends Fragment {
 
     @Getter @Setter JSONObject panelDataObject;
+
+    public static MNPanelDetailFragment newInstance(MNPanelType panelType, int panelIndex) {
+        MNPanelDetailFragment newPanelDetailFragment;
+        switch (panelType) {
+            case FLICKR:
+                newPanelDetailFragment = new MNFlickrDetailFragment();
+                break;
+            default:
+                newPanelDetailFragment = new MNMemoDetailFragment();
+                break;
+        }
+
+        // 기본적인 panelDataObject 세팅
+        JSONObject newJSONObject = new JSONObject();
+        try {
+            newJSONObject.put(MNPanel.PANEL_UNIQUE_ID, panelType.getUniqueId());
+            newJSONObject.put(MNPanel.PANEL_INDEX, panelIndex);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        newPanelDetailFragment.setPanelDataObject(newJSONObject);
+
+        return newPanelDetailFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

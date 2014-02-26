@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class MNPanel {
     // JSONObject panelDataObject에 사용될 키워드
-    public static final String PANEL_UNIQUE_ID = "panelUniqueId";
+    public static final String PANEL_UNIQUE_ID = "PANEL_UNIQUE_ID";
     public static final String PANEL_INDEX = "PANEL_INDEX";
-    public static final String PANEL_DATA_OBJECT = "panelDataObject";
+    public static final String PANEL_DATA_OBJECT = "PANEL_DATA_OBJECT";
 
     public static final int PANEL_DETAIL_ACTIVITY = 54321;
 

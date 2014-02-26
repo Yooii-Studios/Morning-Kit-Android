@@ -22,7 +22,6 @@ import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
 
@@ -114,8 +113,6 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
 
     @Override
     protected void archivePanelData() throws JSONException {
-        MNLog.now("archivePanelData");
-
         // grayscale
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             getPanelDataObject().put(FLICKR_DATA_GRAYSCALE, grayscaleSwitch.isChecked());

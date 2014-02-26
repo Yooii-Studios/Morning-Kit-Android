@@ -3,14 +3,15 @@ package com.yooiistudios.morningkit.panel.detail;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.MNPanelType;
-import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
 import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerInterface;
 import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerLayout;
 
@@ -22,9 +23,12 @@ import butterknife.InjectView;
 
 public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelSelectPagerInterface {
 
+    private static final String TAG = "MNPanelDetailActivity";
+
     @InjectView(R.id.panel_detail_select_pager_layout)
     MNPanelSelectPagerLayout panelSelectPagerLayout;
     MNPanelDetailFragment panelDetailFragment;
+    int panelIndex;
     Menu actionBarMenu;
 
     @Override
@@ -36,6 +40,7 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
         if (savedInstanceState == null) {
             // 인텐트에서 패널 데이터를 가져오기
             Intent intent = getIntent();
+            panelIndex = intent.getIntExtra(MNPanel.PANEL_INDEX, 0);
             JSONObject panelDataObject;
             try {
                 panelDataObject = new JSONObject(intent.getStringExtra(MNPanel.PANEL_DATA_OBJECT));
@@ -44,14 +49,7 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
                 initActionBar(panelType);
 
                 // 패널 타입을 확인해 프래그먼트 생성
-                switch (panelType) {
-                    case FLICKR:
-                        panelDetailFragment = new MNFlickrDetailFragment();
-                        break;
-                    default:
-                        panelDetailFragment = new MNFlickrDetailFragment();
-                        break;
-                }
+                panelDetailFragment = MNPanelDetailFragment.newInstance(panelType, panelIndex);
 
                 // 데이터를 프래그먼트에 넣어주기
                 panelDetailFragment.setPanelDataObject(panelDataObject);
@@ -69,7 +67,7 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
         }
     }
 
-    private void initActionBar(MNPanelType panelType) {
+    private void initActionBarTitle(MNPanelType panelType) {
         String panelTypeName = MNPanelType.toString(panelType.getIndex(), this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if (getActionBar() != null) {
@@ -78,6 +76,10 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
         }else{
             getSupportActionBar().setTitle(panelTypeName); // 추후 구현 다시 하자
         }
+    }
+
+    private void initActionBar(MNPanelType panelType) {
+        initActionBarTitle(panelType);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if (getActionBar() != null) {
@@ -133,16 +135,23 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
      */
     @Override
     public void onPanelSelectPagerItemClick(int position) {
+        // title
+        initActionBarTitle(MNPanelType.valueOf(position));
 
+        // fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        panelDetailFragment = MNPanelDetailFragment.newInstance(MNPanelType.valueOf(position), panelIndex);
+        transaction.replace(R.id.panel_detail_fragment_container, panelDetailFragment);
+        transaction.commit();
     }
 
     @Override
     public void onPanelSelectPagerUnlockItemClick(int position) {
-
+        MNLog.i(TAG, "onPanelSelectPagerUnlockItemClick");
     }
 
     @Override
     public void onPanelSelectPagerStoreItemClick(int position) {
-
+        MNLog.i(TAG, "onPanelSelectPagerStoreItemClick");
     }
 }
