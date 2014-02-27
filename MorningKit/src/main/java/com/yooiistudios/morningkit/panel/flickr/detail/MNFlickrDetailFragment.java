@@ -8,9 +8,11 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,7 +44,7 @@ import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICK
  *
  * MNFlickrDetailFragment
  */
-public class MNFlickrDetailFragment extends MNPanelDetailFragment {
+public class MNFlickrDetailFragment extends MNPanelDetailFragment implements TextView.OnEditorActionListener {
 
     private static final String TAG = "MNFlickrDetailFragment";
 
@@ -52,9 +54,8 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
     @Optional @InjectView(R.id.flickr_detail_grayscale_checkbox) CheckBox grayscaleCheckbox; // < V14
     Switch grayscaleSwitch; // >= V14
 
-    boolean isGrayScale;
-
-    MNFlickrBitmapSaveAsyncTask bitmapSaveAsyncTask;
+    private boolean isGrayScale;
+    private MNFlickrBitmapSaveAsyncTask bitmapSaveAsyncTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -118,8 +119,9 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
             }
             keywordEditText.setText(keywordString);
             keywordEditText.setSelection(keywordString.length());
+            keywordEditText.setOnEditorActionListener(this);
             keywordEditText.setPrivateImeOptions("defaultInputmode=english;");
-            keywordEditText.requestFocus();
+//            keywordEditText.requestFocus();
 
             // 그레이스케일 텍스트뷰
             grayScaleTextView.setText(R.string.flickr_use_gray_scale);
@@ -189,5 +191,29 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
                 getActivity().getApplicationContext());
         bitmapSaveAsyncTask.execute();
 //        new MNFlickrPhotoSavingThread(getActivity().getApplicationContext, imageId, isGrayScale).start();
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
+        if ((actionId == EditorInfo.IME_ACTION_DONE) ||
+                (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+
+			/*
+			// 1. 변경 전 -> 엔터키 입력하면 키보드 내려가게
+			InputMethodManager inputManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+			inputManager.hideSoftInputFromWindow(edit_query.getWindowToken(), 0);   //mPwd는 EditText의 변수 - 내리기
+//			inputManager.showSoftInput(edit_query, 0); //올리기 단, mPwd에 Focus 가야 됨. ( mPwd.requestFocus(); )
+			*/
+
+            // 2. 변경 후 -> confirm 과 동일한 효과
+            onActionBarDoneClicked();
+
+            // Flurry Insertion
+//            Map<String, String> flickrParams = new HashMap<String, String>();
+//            flickrParams.put("Keyword", edit_query.getText().toString());
+//            FlurryAgent.logEvent("Widget - Flickr - Keyword", flickrParams);
+
+        }
+        return true;
     }
 }
