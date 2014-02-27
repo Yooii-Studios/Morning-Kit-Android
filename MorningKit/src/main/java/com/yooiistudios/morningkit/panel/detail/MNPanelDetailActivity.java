@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.MNPanelType;
@@ -22,7 +21,7 @@ import org.json.JSONObject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelSelectPagerInterface {
+public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelSelectPagerInterface, MNPanelDetailFragment.MNPanelDetailFragmentListener {
 
     private static final String TAG = "MNPanelDetailActivity";
 
@@ -50,7 +49,7 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
                 initActionBar(panelType);
 
                 // 패널 타입을 확인해 프래그먼트 생성
-                panelDetailFragment = MNPanelDetailFragment.newInstance(panelType, panelWindowIndex);
+                panelDetailFragment = MNPanelDetailFragment.newInstance(panelType, panelWindowIndex, this);
 
                 // 데이터를 프래그먼트에 넣어주기
                 panelDetailFragment.setPanelDataObject(panelDataObject);
@@ -128,24 +127,7 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.pref_action_ok:
-                // 메인 액티비티에 리프레시 요청
-                Intent intent = new Intent();
-                intent.putExtra(MNPanel.PANEL_DATA_OBJECT,
-                        panelDetailFragment.getPanelDataObject().toString());
-                setResult(RESULT_OK, intent);
-
-                // 패널이 변경되었으면 교체해주기
-                if (isPanelChanged) {
-                    intent.putExtra(MNPanel.PANEL_CHANGED, true);
-                }
-
-                // 변경사항 저장
-                try {
-                    panelDetailFragment.archivePanelData();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                finish();
+                onActionBarDoneButtonClicked();
                 return true;
 
             case R.id.pref_action_cancel:
@@ -155,6 +137,28 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onActionBarDoneButtonClicked() {
+        // 변경사항 저장
+        try {
+            panelDetailFragment.archivePanelData();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // 메인 액티비티에 리프레시 요청
+        Intent intent = new Intent();
+        intent.putExtra(MNPanel.PANEL_DATA_OBJECT,
+                panelDetailFragment.getPanelDataObject().toString());
+        setResult(RESULT_OK, intent);
+
+        // 패널이 변경되었으면 교체 요청하기
+        if (isPanelChanged) {
+            intent.putExtra(MNPanel.PANEL_CHANGED, true);
+        }
+        finish();
     }
 
     /**
@@ -176,7 +180,6 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
             int previousPanelTypeIndex = MNPanelType.valueOfUniqueId(panelUniqueId).getIndex();
 
             if (previousPanelTypeIndex != position) {
-                MNLog.i(TAG, "panel should be changed");
                 isPanelChanged = true;
 
                 // title
@@ -187,11 +190,11 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
 
                 // fragment
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                panelDetailFragment = MNPanelDetailFragment.newInstance(MNPanelType.valueOf(position), panelWindowIndex);
+                panelDetailFragment = MNPanelDetailFragment.newInstance(MNPanelType.valueOf(position),
+                        panelWindowIndex, this);
                 transaction.replace(R.id.panel_detail_fragment_container, panelDetailFragment);
                 transaction.commit();
             } else {
-                MNLog.i(TAG, "panel type is same, not changed");
             }
         }
     }

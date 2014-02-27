@@ -1,12 +1,7 @@
 package com.yooiistudios.morningkit.panel.detail;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.MNPanelType;
 import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
@@ -27,8 +22,14 @@ import lombok.Setter;
 public abstract class MNPanelDetailFragment extends Fragment {
 
     @Getter @Setter JSONObject panelDataObject;
+    @Setter MNPanelDetailFragmentListener fragmentListener;
 
-    public static MNPanelDetailFragment newInstance(MNPanelType panelType, int panelIndex) {
+    interface MNPanelDetailFragmentListener {
+        public void onActionBarDoneButtonClicked();
+    }
+
+    public static MNPanelDetailFragment newInstance(MNPanelType panelType, int panelIndex,
+                                                    MNPanelDetailFragmentListener fragmentListener) {
         MNPanelDetailFragment newPanelDetailFragment;
         switch (panelType) {
             case FLICKR:
@@ -49,15 +50,17 @@ public abstract class MNPanelDetailFragment extends Fragment {
         }
         newPanelDetailFragment.setPanelDataObject(newJSONObject);
 
+        // 리스너 설정
+        newPanelDetailFragment.setFragmentListener(fragmentListener);
         return newPanelDetailFragment;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.panel_detail_fragment, container, false);
-        return rootView;
-    }
-
     protected abstract void archivePanelData() throws JSONException;
+
+    // 프래그먼트 단에서 액티비티에 처리 요청
+    protected void onActionBarDoneClicked() {
+        if (fragmentListener != null) {
+            fragmentListener.onActionBarDoneButtonClicked();
+        }
+    }
 }
