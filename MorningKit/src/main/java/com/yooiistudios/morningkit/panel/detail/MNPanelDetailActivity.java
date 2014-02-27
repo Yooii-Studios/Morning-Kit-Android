@@ -194,7 +194,6 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
                         panelWindowIndex, this);
                 transaction.replace(R.id.panel_detail_fragment_container, panelDetailFragment);
                 transaction.commit();
-            } else {
             }
         }
     }
