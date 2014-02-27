@@ -55,9 +55,8 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
     @Optional @InjectView(R.id.flickr_detail_grayscale_checkbox) CheckBox grayscaleCheckbox; // < V14
     Switch grayscaleSwitch; // >= V14
 
-    boolean isGrayScale;
-
-    MNFlickrBitmapSaveAsyncTask bitmapSaveAsyncTask;
+    private boolean isGrayScale;
+    private MNFlickrBitmapSaveAsyncTask bitmapSaveAsyncTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
