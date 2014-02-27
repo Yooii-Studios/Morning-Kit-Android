@@ -21,10 +21,11 @@ import java.util.List;
 public class MNPanel {
     // JSONObject panelDataObject에 사용될 키워드
     public static final String PANEL_UNIQUE_ID = "PANEL_UNIQUE_ID";
-    public static final String PANEL_INDEX = "PANEL_INDEX";
+    public static final String PANEL_WINDOW_INDEX = "PANEL_WINDOW_INDEX";
     public static final String PANEL_DATA_OBJECT = "PANEL_DATA_OBJECT";
 
     public static final int PANEL_DETAIL_ACTIVITY = 54321;
+    public static final String PANEL_CHANGED = "PANEL_CHANGED"; // 패널 교체를 체크하는 키
 
     private static final String PANEL_SHARED_PREFERENCES = "PANEL_SHARED_PREFERENCES";
     private static final String PANEL_UNIQUE_ID_LIST_KEY = "PANEL_UNIQUE_ID_LIST_KEY";

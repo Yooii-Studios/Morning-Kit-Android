@@ -166,7 +166,7 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
         // 패널 타입을 체크해 액티비티를 생성 - 패널 데이터인 맵을 같이 넘길 수 있어야 한다.
         Intent intent = new Intent(getContext(), MNPanelDetailActivity.class);
         intent.putExtra(MNPanel.PANEL_DATA_OBJECT, panelDataObject.toString());
-        intent.putExtra(MNPanel.PANEL_INDEX, getPanelIndex());
+        intent.putExtra(MNPanel.PANEL_WINDOW_INDEX, getPanelIndex());
 
         ((Activity)getContext()).startActivityForResult(intent, MNPanel.PANEL_DETAIL_ACTIVITY);
     }

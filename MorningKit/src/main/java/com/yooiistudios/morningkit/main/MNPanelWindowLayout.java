@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.MNPanel;
-import com.yooiistudios.morningkit.panel.MNPanelLayoutFactory;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
+import com.yooiistudios.morningkit.panel.MNPanelLayoutFactory;
 import com.yooiistudios.morningkit.panel.MNPanelType;
 
 import org.json.JSONException;
@@ -100,13 +100,41 @@ public class MNPanelWindowLayout extends LinearLayout
         }
     }
 
+    public void replacePanel(Intent data) {
+        JSONObject panelDataObject;
+        try {
+            panelDataObject = new JSONObject(data.getStringExtra(MNPanel.PANEL_DATA_OBJECT));
+            if (panelDataObject != null) {
+                int index = panelDataObject.getInt(MNPanel.PANEL_WINDOW_INDEX);
+                int uniqueId = panelDataObject.getInt(MNPanel.PANEL_UNIQUE_ID);
+                if (index >= 0 && index < 4) {
+                    // 패널 리스트 데이터 교체
+                    MNPanel.changePanel(getContext(), panelDataObject.getInt(MNPanel.PANEL_UNIQUE_ID), index);
+
+                    // 패널 레이아웃 갱신
+                    panelLineLayouts[index / 2].removeViewAt(index % 2);
+                    panelLayouts[index] = MNPanelLayoutFactory.newPanelLayoutInstance(
+                            MNPanelType.valueOfUniqueId(uniqueId), index, getContext());
+                    panelLineLayouts[index / 2].addView(panelLayouts[index], index % 2);
+                    panelLayouts[index].refreshPanel();
+                } else {
+                    throw new AssertionError("index must be > 0 and <= 4");
+                }
+            } else {
+                throw new AssertionError("panelDataObject must not be null");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void refreshPanel(Intent data) {
         // data에서 index 추출
         JSONObject panelDataObject;
         try {
             panelDataObject = new JSONObject(data.getStringExtra(MNPanel.PANEL_DATA_OBJECT));
             if (panelDataObject != null) {
-                int index = panelDataObject.getInt(MNPanel.PANEL_INDEX);
+                int index = panelDataObject.getInt(MNPanel.PANEL_WINDOW_INDEX);
                 if (index >= 0 && index < 4) {
                     // 새 패널데이터 삽입 및 패널 갱신
                     panelLayouts[index].setPanelDataObject(panelDataObject);

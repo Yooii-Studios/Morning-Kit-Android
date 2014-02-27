@@ -69,7 +69,7 @@ public class MNPanelLayoutFactory {
             // 패널 데이터에 unique Id, 인덱스 입력
             newPanalLayout.getPanelDataObject().put(MNPanel.PANEL_UNIQUE_ID,
                     newPanalLayout.getPanelType().getUniqueId());
-            newPanalLayout.getPanelDataObject().put(MNPanel.PANEL_INDEX,
+            newPanalLayout.getPanelDataObject().put(MNPanel.PANEL_WINDOW_INDEX,
                     index);
         } catch (JSONException e) {
             e.printStackTrace();

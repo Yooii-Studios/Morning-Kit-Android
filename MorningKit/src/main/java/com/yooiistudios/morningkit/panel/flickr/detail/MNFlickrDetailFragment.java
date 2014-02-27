@@ -82,7 +82,7 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment {
             // 비트맵 로컬에서 읽어오기
             try {
                 Bitmap bitmap = MNBitmapProcessor.loadBitmapFromDirectory(getActivity(),
-                        "flickr_" + getPanelDataObject().getInt(MNPanel.PANEL_INDEX),
+                        "flickr_" + getPanelDataObject().getInt(MNPanel.PANEL_WINDOW_INDEX),
                         ExternalStorageManager.APP_DIRECTORY_HIDDEN + "/flickr");
                 if (bitmap != null) {
                     imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));

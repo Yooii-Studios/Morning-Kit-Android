@@ -43,7 +43,7 @@ public abstract class MNPanelDetailFragment extends Fragment {
         JSONObject newJSONObject = new JSONObject();
         try {
             newJSONObject.put(MNPanel.PANEL_UNIQUE_ID, panelType.getUniqueId());
-            newJSONObject.put(MNPanel.PANEL_INDEX, panelIndex);
+            newJSONObject.put(MNPanel.PANEL_WINDOW_INDEX, panelIndex);
         } catch (JSONException e) {
             e.printStackTrace();
         }
