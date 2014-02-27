@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -122,12 +121,7 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
             keywordEditText.setSelection(keywordString.length());
             keywordEditText.setOnEditorActionListener(this);
             keywordEditText.setPrivateImeOptions("defaultInputmode=english;");
-            keywordEditText.requestFocus();
-            InputMethodManager inputManager
-                    = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.showSoftInput(keywordEditText, InputMethodManager.SHOW_FORCED); //올리기 단, mPwd에 Focus 가야 됨. ( mPwd.requestFocus(); )
-            inputManager.showSoftInputFromInputMethod(keywordEditText.getApplicationWindowToken(),
-                    InputMethodManager.SHOW_FORCED);
+//            keywordEditText.requestFocus();
 
             // 그레이스케일 텍스트뷰
             grayScaleTextView.setText(R.string.flickr_use_gray_scale);
