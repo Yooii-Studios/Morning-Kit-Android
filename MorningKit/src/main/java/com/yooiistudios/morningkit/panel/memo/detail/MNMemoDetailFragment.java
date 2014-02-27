@@ -6,6 +6,8 @@ import org.json.JSONException;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 26.
+ *
+ * MNMemoDetailFragment
  */
 public class MNMemoDetailFragment extends MNPanelDetailFragment {
     @Override
