@@ -84,13 +84,23 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
 
             // 비트맵 로컬에서 읽어오기
             try {
+                String bitmapName = "flickr_" + getPanelDataObject().getInt(MNPanel.PANEL_WINDOW_INDEX);
+                String directory = ExternalStorageManager.APP_DIRECTORY_HIDDEN + "/flickr";
                 Bitmap bitmap = MNBitmapProcessor.loadBitmapFromDirectory(getActivity(),
                         "flickr_" + getPanelDataObject().getInt(MNPanel.PANEL_WINDOW_INDEX),
                         ExternalStorageManager.APP_DIRECTORY_HIDDEN + "/flickr");
+
                 if (bitmap != null) {
+                    // 읽은 뒤에는 바로 파일 삭제 - 패널 교체를 대비
+                    ExternalStorageManager.deleteFileFromExternalDirectory(getActivity(),
+                            bitmapName + ".jpg", directory);
+
+                    // 비트맵 세팅
                     imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
                     imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                     setImgViewOnClickListener();
+                } else {
+                    imageView.setVisibility(View.GONE); // 사진이 없을 때는 공간을 비움
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
