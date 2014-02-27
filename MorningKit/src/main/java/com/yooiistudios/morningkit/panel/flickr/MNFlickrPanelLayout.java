@@ -18,7 +18,6 @@ import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
-import com.yooiistudios.morningkit.panel.MNPanelType;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrBitmapAsyncTask;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrFetcher;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrPhotoInfo;
@@ -64,8 +63,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     @Override
     protected void init() {
         super.init();
-        initNetworkPanel();
-        setPanelType(MNPanelType.FLICKR);
 
         // image view
         imageView = new RecyclingImageView(getContext());

@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.panel;
 import android.content.Context;
 
 import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
+import com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout;
 
 import org.json.JSONException;
 
@@ -43,6 +44,8 @@ public class MNPanelLayoutFactory {
 
             case FLICKR:
                 newPanalLayout = new MNFlickrPanelLayout(context);
+                newPanalLayout.setPanelType(MNPanelType.FLICKR);
+                newPanalLayout.initNetworkPanel();
                 break;
 
             case EXCHANGE_RATES:
@@ -51,6 +54,7 @@ public class MNPanelLayoutFactory {
                 break;
 
             case MEMO:
+                newPanalLayout = new MNMemoPanelLayout(context);
                 newPanalLayout.setPanelType(MNPanelType.MEMO);
                 break;
 
