@@ -52,6 +52,10 @@
     <dimen name="alarm_pref_list_label_item_dialog_button_size">30dp</dimen>
 
     <!-- Panel -->
+    <dimen name="panel_layout_padding">10dp</dimen>
+    <dimen name="panel_network_status_gap_margin">10dp</dimen>
+    <dimen name="panel_network_animation_size">45dp</dimen>
+
     <!-- Detail Activity -->
     <dimen name="panel_detail_padding">10dp</dimen>
 

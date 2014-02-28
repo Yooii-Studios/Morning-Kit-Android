@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
@@ -31,10 +33,19 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
 
     @Getter @Setter MNPanelType panelType;
     @Getter @Setter int panelIndex;
-    @Getter @Setter RelativeLayout contentLayout;
-    @Getter @Setter RelativeLayout statusLayout;
-    @Getter @Setter ImageView loadingImageView;
-    @Getter @Setter boolean isUsingNetwork;
+    @Getter RelativeLayout contentLayout;
+
+    // network
+    @Getter RelativeLayout loadingLayout;
+    @Getter ImageView loadingImageView;
+    @Getter TextView loadingTextView;
+
+    // cover
+    @Getter RelativeLayout statusLayout;
+    @Getter TextView panelNameTextView;
+    @Getter TextView panelStatusTextView;
+
+    @Getter boolean isUsingNetwork;
     @Getter @Setter JSONObject panelDataObject;
 
     public MNPanelLayout(Context context) {
@@ -54,18 +65,16 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
     protected void init() {
         setClipChildren(false);
 
-        LinearLayout.LayoutParams layoutParams
-                = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                (int) getResources().getDimension(R.dimen.panel_height));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.panel_height));
         layoutParams.weight = 1;
         setLayoutParams(layoutParams);
 
-        // content layout 추가
-        contentLayout = new RelativeLayout(getContext());
-        LayoutParams contentLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-        contentLayout.setLayoutParams(contentLayoutParams);
-        addView(contentLayout);
+        // content layout
+        initContentLayout();
+
+        // status layout
+        initCoverLayout();
 
         // onClickListener
         setOnClickListener(new OnClickListener() {
@@ -78,24 +87,81 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
         panelDataObject = new JSONObject();
     }
 
+    private void initContentLayout() {
+        contentLayout = new RelativeLayout(getContext());
+        LayoutParams contentLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        contentLayout.setLayoutParams(contentLayoutParams);
+        addView(contentLayout);
+    }
+
     // 네트워크 사용 레이아웃을 위함
     protected void initNetworkPanel() {
         isUsingNetwork = true;
 
         // status layout(network, loading) 추가
+        loadingLayout = new RelativeLayout(getContext());
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        loadingLayout.setLayoutParams(layoutParams);
+        int padding = getResources().getDimensionPixelSize(R.dimen.panel_layout_padding);
+        loadingLayout.setPadding(padding, padding, padding, padding);
+        addView(loadingLayout);
+
+        // loadingImageView
+        loadingImageView = new ImageView(getContext());
+        loadingImageView.setId(9128374);
+        int loadingImageSize = getResources().getDimensionPixelSize(R.dimen.panel_network_animation_size);
+        LayoutParams loadingImageViewLayoutParams = new LayoutParams(loadingImageSize, loadingImageSize);
+        loadingImageViewLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        loadingImageView.setLayoutParams(loadingImageViewLayoutParams);
+        loadingImageView.setBackgroundResource(R.drawable.panel_loading_animation);
+        loadingLayout.addView(loadingImageView);
+
+        // loadingTextView
+        loadingTextView = new TextView(getContext());
+        LayoutParams networkStatusTextViewLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        networkStatusTextViewLayoutParams.addRule(RelativeLayout.BELOW, loadingImageView.getId());
+        networkStatusTextViewLayoutParams.topMargin
+                = (int) getResources().getDimension(R.dimen.panel_network_status_gap_margin);
+        loadingTextView.setLayoutParams(networkStatusTextViewLayoutParams);
+        loadingTextView.setGravity(Gravity.CENTER);
+        loadingLayout.addView(loadingTextView);
+    }
+
+    // 패널 이름 디스크립션 텍스트뷰를 포함
+    protected void initCoverLayout() {
         statusLayout = new RelativeLayout(getContext());
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         statusLayout.setLayoutParams(layoutParams);
+        int padding = getResources().getDimensionPixelSize(R.dimen.panel_layout_padding);
+        statusLayout.setPadding(padding, padding, padding, padding);
         addView(statusLayout);
+        statusLayout.setVisibility(INVISIBLE); // 최초 INVISIBLE, 필요에 따라 사용
 
-        loadingImageView = new ImageView(getContext());
-        ViewGroup.LayoutParams loadingImageViewLayoutParams
-                = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        // panel name
+        panelNameTextView = new TextView(getContext());
+        LayoutParams nameLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        loadingImageView.setLayoutParams(loadingImageViewLayoutParams);
-        loadingImageView.setBackgroundResource(R.drawable.panel_loading_animation);
-        statusLayout.addView(loadingImageView);
+        nameLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        panelNameTextView.setLayoutParams(nameLayoutParams);
+        panelNameTextView.setGravity(Gravity.CENTER);
+        statusLayout.addView(panelNameTextView);
+
+        // panel status
+        panelStatusTextView = new TextView(getContext());
+        LayoutParams descriptionLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        descriptionLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//        descriptionLayoutParams.bottomMargin
+//                = (int) getResources().getDimension(R.dimen.margin_outer);
+        panelStatusTextView.setLayoutParams(descriptionLayoutParams);
+        panelStatusTextView.setGravity(Gravity.CENTER);
+        statusLayout.addView(panelStatusTextView);
     }
 
     public void refreshPanel() {
@@ -141,17 +207,28 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
     }
 
     protected void startLoadingAnimation() {
-        statusLayout.setVisibility(VISIBLE);
+        loadingLayout.setVisibility(VISIBLE);
         contentLayout.setVisibility(INVISIBLE);
         AnimationDrawable loadingAnimation = (AnimationDrawable) loadingImageView.getBackground();
         loadingAnimation.start();
+        loadingTextView.setText(R.string.loading);
     }
 
     protected void stopLoadingAnimation() {
         AnimationDrawable loadingAnimation = (AnimationDrawable) loadingImageView.getBackground();
         loadingAnimation.stop();
-        statusLayout.setVisibility(INVISIBLE);
+        loadingLayout.setVisibility(INVISIBLE);
         contentLayout.setVisibility(VISIBLE);
+    }
+
+    protected void showCoverLayout(String description) {
+        statusLayout.setVisibility(VISIBLE);
+        panelNameTextView.setText(MNPanelType.toString(getPanelType().getIndex(), getContext()));
+        panelStatusTextView.setText(description);
+    }
+
+    protected void hideCoverLayout() {
+        statusLayout.setVisibility(INVISIBLE);
     }
 
     protected void showNetworkIsUnavailable() {
