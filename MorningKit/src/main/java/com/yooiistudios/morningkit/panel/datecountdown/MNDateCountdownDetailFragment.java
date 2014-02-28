@@ -1,7 +1,5 @@
-package com.yooiistudios.morningkit.panel.memo.detail;
+package com.yooiistudios.morningkit.panel.datecountdown;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownDatePicker;
 import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
 
 import org.json.JSONException;
@@ -16,29 +15,27 @@ import org.json.JSONException;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-import static com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout.MEMO_DATA_CONTENT;
-import static com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout.MEMO_PREFS;
-import static com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout.MEMO_PREFS_CONTENT;
-
 /**
- * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 26.
+ * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 28.
  *
- * MNMemoDetailFragment
+ * MNDateCountdownDetailFragment
  */
-public class MNMemoDetailFragment extends MNPanelDetailFragment {
+public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
 
-    private static final String TAG = "MNMemoDetailFragment";
+    private static final String TAG = "MNDateCountdownDetailFragment";
 
-    @InjectView(R.id.memo_detail_edittext) EditText memoEditText;
+    @InjectView(R.id.date_countdown_detail_edittext) EditText titleEditText;
+    @InjectView(R.id.date_countdown_detail_date_picker) MNDateCountdownDatePicker datePicker;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.panel_memo_detail_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.panel_date_countdown_detail_fragment, container, false);
         if (rootView != null) {
             ButterKnife.inject(this, rootView);
 
+            /*
             // 메모 가져오기: 메모가 없다면 힌트를 보여주기
             if (getPanelDataObject().has(MEMO_DATA_CONTENT)) {
                 // 기존 메모가 있다면 그것으로 설정
@@ -55,24 +52,13 @@ public class MNMemoDetailFragment extends MNPanelDetailFragment {
                     memoEditText.setText(archivedString);
                 }
             }
+            */
         }
         return rootView;
     }
 
     @Override
     protected void archivePanelData() throws JSONException {
-        String memoString = memoEditText.getText().toString();
 
-        // SharedPreferences에 아카이빙
-        SharedPreferences prefs = getActivity().getSharedPreferences(MEMO_PREFS, Context.MODE_PRIVATE);
-
-        // length가 0이 아니어야 저장함
-        if (memoString.length() != 0) {
-            getPanelDataObject().put(MEMO_DATA_CONTENT, memoString);
-            prefs.edit().putString(MEMO_PREFS_CONTENT, memoString).commit();
-        } else {
-            getPanelDataObject().remove(MEMO_DATA_CONTENT);
-            prefs.edit().remove(MEMO_PREFS_CONTENT).commit();
-        }
     }
 }

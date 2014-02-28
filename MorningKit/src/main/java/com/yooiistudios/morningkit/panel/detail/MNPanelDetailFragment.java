@@ -4,8 +4,9 @@ import android.support.v4.app.Fragment;
 
 import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.MNPanelType;
+import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownDetailFragment;
 import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
-import com.yooiistudios.morningkit.panel.memo.detail.MNMemoDetailFragment;
+import com.yooiistudios.morningkit.panel.memo.MNMemoDetailFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +36,10 @@ public abstract class MNPanelDetailFragment extends Fragment {
             case FLICKR:
                 newPanelDetailFragment = new MNFlickrDetailFragment();
                 break;
+            case DATE_COUNTDOWN:
+                newPanelDetailFragment = new MNDateCountdownDetailFragment();
+                break;
+
             default:
                 newPanelDetailFragment = new MNMemoDetailFragment();
                 break;
