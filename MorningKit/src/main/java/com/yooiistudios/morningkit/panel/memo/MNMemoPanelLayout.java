@@ -70,10 +70,12 @@ public class MNMemoPanelLayout extends MNPanelLayout {
     protected void updateUI() {
         super.updateUI();
         if (memoString != null) {
+            hideCoverLayout();
             memoTextView.setText(memoString);
         } else {
             // 추후 패널쪽으로 올려서 전체적으로 구현할 예정: 패널이름(중앙) + 설명(아래쪽)
-            memoTextView.setText("Memo!!");
+            showCoverLayout(getResources().getString(R.string.memo_write_here));
+            memoTextView.setText(null);
         }
     }
 }
