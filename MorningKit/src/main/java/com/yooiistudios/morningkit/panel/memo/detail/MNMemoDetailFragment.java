@@ -35,8 +35,7 @@ public class MNMemoDetailFragment extends MNPanelDetailFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.panel_memo_detail_fragment
-                , container, false);
+        View rootView = inflater.inflate(R.layout.panel_memo_detail_fragment, container, false);
         if (rootView != null) {
             ButterKnife.inject(this, rootView);
 
