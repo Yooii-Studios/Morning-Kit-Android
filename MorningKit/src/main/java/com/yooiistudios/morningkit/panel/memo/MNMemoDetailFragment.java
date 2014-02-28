@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.memo.detail;
+package com.yooiistudios.morningkit.panel.memo;
 
 import android.content.Context;
 import android.content.SharedPreferences;

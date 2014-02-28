@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/panel_detail_padding"
+    tools:context="com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownDatePicker">
+
+    <EditText
+        android:id="@+id/date_countdown_detail_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/date_countdown_write_a_title"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        android:inputType="text"/>
+
+    <com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownDatePicker
+        android:id="@+id/date_countdown_detail_date_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        android:layout_below="@id/date_countdown_detail_edittext"/>
+
+</RelativeLayout>

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
@@ -99,6 +100,16 @@ public class MNPanel {
         String jsonString = new Gson().toJson(MNPanel.getInstance(context).panelUniqueIdList);
         context.getSharedPreferences(PANEL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
                 .edit().putString(PANEL_UNIQUE_ID_LIST_KEY, jsonString).commit();
+
+        // clear panelDataList
+        JSONObject newJSONObject = new JSONObject();
+        try {
+            newJSONObject.put(MNPanel.PANEL_UNIQUE_ID, newPanalUniqueId);
+            newJSONObject.put(MNPanel.PANEL_WINDOW_INDEX, index);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        archivePanelData(context, newJSONObject, index);
     }
 
     public static List<JSONObject> getPanelDataList(Context context) {
