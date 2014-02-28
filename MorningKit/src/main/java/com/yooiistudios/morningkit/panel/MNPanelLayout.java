@@ -3,13 +3,16 @@ package com.yooiistudios.morningkit.panel;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
@@ -31,10 +34,19 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
 
     @Getter @Setter MNPanelType panelType;
     @Getter @Setter int panelIndex;
-    @Getter @Setter RelativeLayout contentLayout;
-    @Getter @Setter RelativeLayout statusLayout;
-    @Getter @Setter ImageView loadingImageView;
-    @Getter @Setter boolean isUsingNetwork;
+    @Getter RelativeLayout contentLayout;
+
+    // network
+    @Getter RelativeLayout statusLayout;
+    @Getter ImageView loadingImageView;
+    @Getter TextView networkStatusTextView;
+
+    // cover
+    @Getter RelativeLayout coverLayout;
+    @Getter TextView panelNameTextView;
+    @Getter TextView panelDescriptionTextView;
+
+    @Getter boolean isUsingNetwork;
     @Getter @Setter JSONObject panelDataObject;
 
     public MNPanelLayout(Context context) {
@@ -54,9 +66,8 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
     protected void init() {
         setClipChildren(false);
 
-        LinearLayout.LayoutParams layoutParams
-                = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                (int) getResources().getDimension(R.dimen.panel_height));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.panel_height));
         layoutParams.weight = 1;
         setLayoutParams(layoutParams);
 
@@ -84,18 +95,40 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
 
         // status layout(network, loading) 추가
         statusLayout = new RelativeLayout(getContext());
-        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         statusLayout.setLayoutParams(layoutParams);
+        statusLayout.setBackgroundColor(Color.RED);
+        int padding = getResources().getDimensionPixelSize(R.dimen.panel_detail_padding);
+        statusLayout.setPadding(padding, padding, padding, padding);
         addView(statusLayout);
 
+        // loadingImageView
         loadingImageView = new ImageView(getContext());
-        ViewGroup.LayoutParams loadingImageViewLayoutParams
-                = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        loadingImageView.setId(9128374);
+        int loadingImageSize = getResources().getDimensionPixelSize(R.dimen.panel_network_animation_size);
+        LayoutParams loadingImageViewLayoutParams = new LayoutParams(loadingImageSize, loadingImageSize);
+        loadingImageViewLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         loadingImageView.setLayoutParams(loadingImageViewLayoutParams);
         loadingImageView.setBackgroundResource(R.drawable.panel_loading_animation);
         statusLayout.addView(loadingImageView);
+
+        // networkStatusTextView
+        networkStatusTextView = new TextView(getContext());
+        LayoutParams networkStatusTextViewLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        networkStatusTextViewLayoutParams.addRule(RelativeLayout.BELOW, loadingImageView.getId());
+        networkStatusTextViewLayoutParams.topMargin
+                = (int) getResources().getDimension(R.dimen.panel_network_status_gap_margin);
+        networkStatusTextView.setLayoutParams(networkStatusTextViewLayoutParams);
+        networkStatusTextView.setGravity(Gravity.CENTER);
+        statusLayout.addView(networkStatusTextView);
+    }
+
+    // 패널 이름 디스크립션 텍스트뷰를 포함
+    protected void initCoverPanel() {
+
     }
 
     public void refreshPanel() {
@@ -145,6 +178,7 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
         contentLayout.setVisibility(INVISIBLE);
         AnimationDrawable loadingAnimation = (AnimationDrawable) loadingImageView.getBackground();
         loadingAnimation.start();
+        networkStatusTextView.setText(R.string.loading);
     }
 
     protected void stopLoadingAnimation() {
