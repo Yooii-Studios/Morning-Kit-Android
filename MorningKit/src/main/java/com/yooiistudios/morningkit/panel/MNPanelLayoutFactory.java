@@ -5,8 +5,6 @@ import android.content.Context;
 import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 import com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout;
 
-import org.json.JSONException;
-
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 16.
  *
@@ -69,15 +67,15 @@ public class MNPanelLayoutFactory {
         newPanalLayout.setPanelIndex(index);
         newPanalLayout.setPanelDataObject(MNPanel.getPanelDataList(context).get(index));
 
-        try {
-            // 패널 데이터에 unique Id, 인덱스 입력
-            newPanalLayout.getPanelDataObject().put(MNPanel.PANEL_UNIQUE_ID,
-                    newPanalLayout.getPanelType().getUniqueId());
-            newPanalLayout.getPanelDataObject().put(MNPanel.PANEL_WINDOW_INDEX,
-                    index);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            // 패널 데이터에 unique Id, 인덱스 입력
+//            newPanalLayout.getPanelDataObject().put(MNPanel.PANEL_UNIQUE_ID,
+//                    newPanalLayout.getPanelType().getUniqueId());
+//            newPanalLayout.getPanelDataObject().put(MNPanel.PANEL_WINDOW_INDEX,
+//                    index);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         return newPanalLayout;
     }
 }
