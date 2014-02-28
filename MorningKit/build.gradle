@@ -107,8 +107,11 @@ dependencies {
     // Clearable EditText 사용키 위함
     compile 'org.droidparts:droidparts:2.0.1'
 
-    // IOUtils
+    // IOUtils - bitmap 저장시 활용
     compile 'commons-io:commons-io:2.4'
+
+    // JSR-310의 백포트 모듈 - Java 8의 시간 API
+    compile 'org.threeten:threetenbp:0.8.1'
 
     //////////
     // TEST //
