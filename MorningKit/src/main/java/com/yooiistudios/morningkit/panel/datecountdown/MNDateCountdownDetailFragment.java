@@ -37,7 +37,6 @@ public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.panel_date_countdown_detail_fragment, container, false);
         if (rootView != null) {
             ButterKnife.inject(this, rootView);
