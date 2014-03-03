@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel;
 
 import android.content.Context;
 
+import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownLayout;
 import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 import com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout;
 
@@ -16,56 +17,57 @@ public class MNPanelLayoutFactory {
 
     public static MNPanelLayout newPanelLayoutInstance(MNPanelType newPanalType, int index,
                                                        Context context) {
-        MNPanelLayout newPanalLayout = new MNPanelLayout(context);
+        MNPanelLayout newPanelLayout = new MNPanelLayout(context);
 
         switch (newPanalType) {
             case WEATHER:
-                newPanalLayout.setPanelType(MNPanelType.WEATHER);
-                newPanalLayout.initNetworkPanel();
+                newPanelLayout.setPanelType(MNPanelType.WEATHER);
+                newPanelLayout.initNetworkPanel();
                 break;
 
             case DATE:
-                newPanalLayout.setPanelType(MNPanelType.DATE);
+                newPanelLayout.setPanelType(MNPanelType.DATE);
                 break;
 
             case CALENDAR:
-                newPanalLayout.setPanelType(MNPanelType.CALENDAR);
+                newPanelLayout.setPanelType(MNPanelType.CALENDAR);
                 break;
 
             case WORLD_CLOCK:
-                newPanalLayout.setPanelType(MNPanelType.WORLD_CLOCK);
+                newPanelLayout.setPanelType(MNPanelType.WORLD_CLOCK);
                 break;
 
             case QUOTES:
-                newPanalLayout.setPanelType(MNPanelType.QUOTES);
+                newPanelLayout.setPanelType(MNPanelType.QUOTES);
                 break;
 
             case FLICKR:
-                newPanalLayout = new MNFlickrPanelLayout(context);
-                newPanalLayout.setPanelType(MNPanelType.FLICKR);
-                newPanalLayout.initNetworkPanel();
+                newPanelLayout = new MNFlickrPanelLayout(context);
+                newPanelLayout.setPanelType(MNPanelType.FLICKR);
+                newPanelLayout.initNetworkPanel();
                 break;
 
             case EXCHANGE_RATES:
-                newPanalLayout.setPanelType(MNPanelType.EXCHANGE_RATES);
-                newPanalLayout.initNetworkPanel();
+                newPanelLayout.setPanelType(MNPanelType.EXCHANGE_RATES);
+                newPanelLayout.initNetworkPanel();
                 break;
 
             case MEMO:
-                newPanalLayout = new MNMemoPanelLayout(context);
-                newPanalLayout.setPanelType(MNPanelType.MEMO);
+                newPanelLayout = new MNMemoPanelLayout(context);
+                newPanelLayout.setPanelType(MNPanelType.MEMO);
                 break;
 
             case DATE_COUNTDOWN:
-                newPanalLayout.setPanelType(MNPanelType.DATE_COUNTDOWN);
+                newPanelLayout = new MNDateCountdownLayout(context);
+                newPanelLayout.setPanelType(MNPanelType.DATE_COUNTDOWN);
                 break;
 
             default:
-                break;
+                throw new AssertionError("PanelType is not defined!");
         }
         // 인덱스와 패널 데이터 대입
-        newPanalLayout.setPanelIndex(index);
-        newPanalLayout.setPanelDataObject(MNPanel.getPanelDataList(context).get(index));
+        newPanelLayout.setPanelIndex(index);
+        newPanelLayout.setPanelDataObject(MNPanel.getPanelDataList(context).get(index));
 
 //        try {
 //            // 패널 데이터에 unique Id, 인덱스 입력
@@ -76,6 +78,6 @@ public class MNPanelLayoutFactory {
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }
-        return newPanalLayout;
+        return newPanelLayout;
     }
 }

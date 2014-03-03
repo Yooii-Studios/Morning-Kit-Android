@@ -12,6 +12,6 @@ public class MNDefaultDateMaker {
     private MNDefaultDateMaker() { throw new AssertionError("You MUST not create this class!"); }
 
     public static MNDate getDefaultDate() {
-        return new MNDate(Calendar.getInstance().get(Calendar.YEAR) + 1, 0, 1);
+        return new MNDate(Calendar.getInstance().get(Calendar.YEAR) + 1, 1, 1);
     }
 }

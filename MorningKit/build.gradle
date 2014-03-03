@@ -110,8 +110,8 @@ dependencies {
     // IOUtils - bitmap 저장시 활용
     compile 'commons-io:commons-io:2.4'
 
-    // JSR-310의 백포트 모듈 - Java 8의 시간 API
-    compile 'org.threeten:threetenbp:0.8.1'
+    // 시간 관련 많이 쓰이는 오픈소스
+    compile 'joda-time:joda-time:2.3'
 
     //////////
     // TEST //

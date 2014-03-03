@@ -18,6 +18,10 @@ import java.lang.reflect.Type;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+import static com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownLayout.DATE_COUNTDOWN_DATA_DATE;
+import static com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownLayout.DATE_COUNTDOWN_DATA_TITLE;
+import static com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownLayout.DATE_COUNTDOWN_IS_NEW_YEAR;
+
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 28.
  *
@@ -26,10 +30,6 @@ import butterknife.InjectView;
 public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
 
     private static final String TAG = "MNDateCountdownDetailFragment";
-
-    protected static final String DATE_COUNTDOWN_DATA_TITLE = "DATE_COUNTDOWN_DATA_TITLE";
-    protected static final String DATE_COUNTDOWN_IS_NEW_YEAR = "DATE_COUNTDOWN_IS_NEW_YEAR";
-    protected static final String DATE_COUNTDOWN_DATA_DATE = "DATE_COUNTDOWN_DATA_DATE";
 
     @InjectView(R.id.date_countdown_detail_edittext) EditText titleEditText;
     @InjectView(R.id.date_countdown_detail_date_picker) MNDateCountdownDatePicker datePicker;
@@ -54,7 +54,8 @@ public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
                     Type type = new TypeToken<MNDate>(){}.getType();
                     String dateJsonString = getPanelDataObject().getString(DATE_COUNTDOWN_DATA_DATE);
                     MNDate date = new Gson().fromJson(dateJsonString, type);
-                    datePicker.init(date.getYear(), date.getMonth(), date.getDay(), null);
+                    // Calendar의 month는 -1을 해줘야 맞는다
+                    datePicker.init(date.getYear(), date.getMonth() - 1, date.getDay(), null);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -62,7 +63,8 @@ public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
                 // 기존 정보가 없다면 새해 표시
                 titleEditText.setText(R.string.date_countdown_new_year);
                 MNDate date = MNDefaultDateMaker.getDefaultDate();
-                datePicker.init(date.getYear(), date.getMonth(), date.getDay(), null);
+                // Calendar의 month는 -1을 해줘야 맞는다
+                datePicker.init(date.getYear(), date.getMonth() - 1, date.getDay(), null);
             }
         }
         return rootView;
