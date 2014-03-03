@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel.datecountdown;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class MNDateCountdownLayout extends MNPanelLayout {
         int margin = (int) getResources().getDimension(R.dimen.margin_outer);
         titleLayoutParams.setMargins(margin, 0, margin, 0);
         titleTextView.setLayoutParams(titleLayoutParams);
+        titleTextView.setGravity(Gravity.CENTER);
         getContentLayout().addView(titleTextView);
 
         // count
@@ -70,6 +72,7 @@ public class MNDateCountdownLayout extends MNPanelLayout {
         countLayoutParams.setMargins(margin, 0, margin, 0);
         countLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         countTextView.setLayoutParams(countLayoutParams);
+        countTextView.setGravity(Gravity.CENTER);
         getContentLayout().addView(countTextView);
 
         // date
@@ -78,6 +81,7 @@ public class MNDateCountdownLayout extends MNPanelLayout {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         dateLayoutParams.setMargins(margin, 0, margin, 0);
         dateTextView.setLayoutParams(dateLayoutParams);
+        dateTextView.setGravity(Gravity.CENTER);
         getContentLayout().addView(dateTextView);
 
         // align layouts

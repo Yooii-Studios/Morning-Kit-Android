@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.panel;
 import android.content.Context;
 
 import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownLayout;
+import com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayout;
 import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 import com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout;
 
@@ -50,6 +51,7 @@ public class MNPanelLayoutFactory {
                 break;
 
             case EXCHANGE_RATES:
+                newPanelLayout = new MNExchangeRatesPanelLayout(context);
                 newPanelLayout.setPanelType(MNPanelType.EXCHANGE_RATES);
                 newPanelLayout.initNetworkPanel();
                 break;
