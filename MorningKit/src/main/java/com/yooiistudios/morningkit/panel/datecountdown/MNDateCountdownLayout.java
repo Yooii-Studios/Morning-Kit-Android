@@ -131,20 +131,10 @@ public class MNDateCountdownLayout extends MNPanelLayout {
         }
 
         // date
-//        LocalDate targetDay = IsoChronology.INSTANCE.date(targetDate.getYear(), targetDate.getMonth(), targetDate.getDay());
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-//        dateTextView.setText(targetDay.toString(formatter));
-
         Chronology chrono = GregorianChronology.getInstance();
         LocalDate targetLocalDate = new LocalDate(targetDate.getYear(), targetDate.getMonth(), targetDate.getDay(), chrono);
         String pattern = "yyyy.MM.dd";
         dateTextView.setText(targetLocalDate.toString(pattern));
-
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.set(targetDate.getYear(), targetDate.getMonth(), targetDate.getDay(), 0, 0, 0);
-//
-//        SimpleDateFormat calendarFormat = new SimpleDateFormat("yyyy.MM.dd");
-//        dateTextView.setText(calendarFormat.format(calendar.getTime()));
     }
 
     public int caculateCountdown(MNDate date) {
