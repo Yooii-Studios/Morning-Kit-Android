@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/exchangerate_backgroundLinear"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#333333"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <com.yooiistudios.morningkit.panel.exchangerates.MNExchangeInfoButtonView
+                    android:id="@+id/panel_exchange_rates_info_button_view_base"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:onClick="onExchangeInfoButtonClicked" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <com.yooiistudios.morningkit.panel.exchangerates.MNExchangeInfoButtonView
+                    android:id="@+id/panel_exchange_rates_info_button_view_target"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:onClick="onExchangeInfoButtonClicked" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/exchange_layout_editbox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_weight="0.1"
+            android:minHeight="60dip"
+            android:orientation="horizontal"
+            android:padding="15dip" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="20dip" >
+
+                <EditText
+                    android:id="@+id/exchange_edit_baseSymbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:editable="false"
+                    android:gravity="right"
+                    android:padding="0dip"
+                    android:text="123"
+                    android:textSize="17sp" >
+
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="44"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:minHeight="20dip" >
+
+                <EditText
+                    android:id="@+id/exchange_edit_base"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:digits="0123456789.,"
+                    android:inputType="numberDecimal"
+                    android:padding="0dip"
+                    android:textSize="17sp"
+                    android:singleLine="true" >
+
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="45"
+                android:minHeight="20dip" >
+
+                <EditText
+                    android:id="@+id/exchange_edit_target"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:cursorVisible="false"
+                    android:editable="false"
+                    android:gravity="right"
+                    android:inputType="numberDecimal"
+                    android:padding="0dip"
+                    android:text="789"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/exchange_layout_switch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="10dip"
+            android:layout_weight="0.01"
+            android:minHeight="60dip"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip" >
+
+            <RelativeLayout
+                android:id="@+id/exchangerate_relative_switchcountry"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="onSwapButtonClicked" >
+
+                <Button
+                    android:id="@+id/exchangerate_button_switchcountry2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="10"
+                    android:background="#00ffffff"
+                    android:gravity="center"
+                    android:onClick="onSwapButtonClicked"
+                    android:text="@string/exchange_rate_switch_countries"
+                    android:textSize="17sp" />
+
+                <!--
+                <Button
+                    android:id="@+id/exchangerate_button_switchcountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="1"
+                    android:background="#00ffffff"
+                    android:onClick="onButtonClick"
+                    android:text="Switch"
+                    android:textSize="20dip" />
+
+                <View
+                    android:id="@+id/exchangerate_view_switchcountry"
+                    android:layout_width="60dip"
+                    android:layout_height="1dip"
+                    android:layout_alignBottom="@+id/exchangerate_button_switchcountry"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="12dip"
+                    android:layout_marginRight="3dip"
+                    android:background="#ffffffff" />
+                -->
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
