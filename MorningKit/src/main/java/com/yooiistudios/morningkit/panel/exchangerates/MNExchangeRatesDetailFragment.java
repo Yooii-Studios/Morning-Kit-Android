@@ -6,12 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
 
 import org.json.JSONException;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 3. 3.
@@ -20,7 +22,7 @@ import butterknife.InjectView;
  */
 public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
 
-    private static final String TAG = "MNDateCountdownDetailFragment";
+    private static final String TAG = "MNExchangeRatesDetailFragment";
 
     @InjectView(R.id.panel_exchange_rates_info_button_view_base)
     MNExchangeInfoButtonView baseExchangeInfoButtonView;
@@ -53,11 +55,20 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
 
     }
 
+    @OnClick({ R.id.panel_exchange_rates_info_button_view_base, R.id.panel_exchange_rates_info_button_view_target })
     public void onExchangeInfoButtonClicked(View v) {
-
+        switch (v.getId()) {
+            case R.id.panel_exchange_rates_info_button_view_base:
+                MNLog.i(TAG, "baseExchangeInfoButtonClicked");
+                break;
+            case R.id.panel_exchange_rates_info_button_view_target:
+                MNLog.i(TAG, "targetExchangeInfoButtonClicked");
+                break;
+        }
     }
 
+    @OnClick(R.id.panel_exchange_rates_swap_button)
     public void onSwapButtonClicked(View v) {
-
+        MNLog.i(TAG, "onSwapButtonClicked");
     }
 }

@@ -31,8 +31,7 @@
                     android:id="@+id/panel_exchange_rates_info_button_view_base"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:onClick="onExchangeInfoButtonClicked" />
+                    android:layout_gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -47,8 +46,7 @@
                     android:id="@+id/panel_exchange_rates_info_button_view_target"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:onClick="onExchangeInfoButtonClicked" />
+                    android:layout_gravity="center" />
             </LinearLayout>
         </LinearLayout>
 
@@ -140,11 +138,10 @@
             <RelativeLayout
                 android:id="@+id/exchangerate_relative_switchcountry"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:onClick="onSwapButtonClicked" >
+                android:layout_height="match_parent" >
 
                 <Button
-                    android:id="@+id/exchangerate_button_switchcountry2"
+                    android:id="@+id/panel_exchange_rates_swap_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -152,7 +149,6 @@
                     android:layout_weight="10"
                     android:background="#00ffffff"
                     android:gravity="center"
-                    android:onClick="onSwapButtonClicked"
                     android:text="@string/exchange_rate_switch_countries"
                     android:textSize="17sp" />
 
