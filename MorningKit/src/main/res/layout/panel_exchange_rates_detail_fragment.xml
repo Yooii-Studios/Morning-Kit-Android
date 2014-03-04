@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/exchangerate_backgroundLinear"
+    android:id="@+id/panel_exchange_rates_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#333333"
@@ -9,46 +9,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:baselineAligned="false"
+        android:layout_margin="@dimen/panel_detail_padding">
+
+        <com.yooiistudios.morningkit.panel.exchangerates.MNExchangeInfoLayout
+            android:id="@+id/panel_exchange_rates_info_layout_base"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/panel_detail_padding_inner"
+            android:gravity="center">
+        </com.yooiistudios.morningkit.panel.exchangerates.MNExchangeInfoLayout>
+
+        <com.yooiistudios.morningkit.panel.exchangerates.MNExchangeInfoLayout
+            android:id="@+id/panel_exchange_rates_info_layout_target"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/panel_detail_padding_inner"
+            android:layout_gravity="center">
+        </com.yooiistudios.morningkit.panel.exchangerates.MNExchangeInfoLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:weightSum="1" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1" >
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dip"
-                android:layout_marginLeft="10dip"
-                android:layout_marginTop="10dip"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <com.yooiistudios.morningkit.panel.exchangerates.MNExchangeInfoButtonView
-                    android:id="@+id/panel_exchange_rates_info_button_view_base"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="10dip"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <com.yooiistudios.morningkit.panel.exchangerates.MNExchangeInfoButtonView
-                    android:id="@+id/panel_exchange_rates_info_button_view_target"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
-            </LinearLayout>
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/exchange_layout_editbox"
@@ -92,7 +82,7 @@
                 <EditText
                     android:id="@+id/exchange_edit_base"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:digits="0123456789.,"
                     android:inputType="numberDecimal"
                     android:padding="0dip"

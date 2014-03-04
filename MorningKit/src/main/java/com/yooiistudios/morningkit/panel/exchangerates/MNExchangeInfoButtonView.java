@@ -108,14 +108,14 @@ public class MNExchangeInfoButtonView extends Button
 
 		int bitmapW = countryFlag.getWidth();
 		int bitmapH = countryFlag.getHeight();
-		canvas.drawBitmap(countryFlag, 
-				centerX+offset_Flag_x-bitmapW/2,
-				centerY+offset_Flag_y-bitmapH/2, paint);
+		canvas.drawBitmap(countryFlag,
+                centerX + offset_Flag_x - bitmapW / 2,
+				centerY + offset_Flag_y - bitmapH / 2, paint);
 //		paint.setTypeface(CommonTypeface.get());
 		paint.setTextSize(textSize_CurrencyCode);
 		canvas.drawText(currencyCode,
-				centerX+offset_CountryCode_x, 
-				centerY+offset_CountryCode_y, paint);
+				centerX + offset_CountryCode_x,
+				centerY + offset_CountryCode_y, paint);
 	}
 }
 

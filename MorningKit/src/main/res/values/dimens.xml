@@ -58,6 +58,7 @@
 
     <!-- Detail Activity -->
     <dimen name="panel_detail_padding">10dp</dimen>
+    <dimen name="panel_detail_padding_inner">5dp</dimen>
 
     <!-- Select Pager -->
     <dimen name="panel_select_pager_height">166dp</dimen>
@@ -69,6 +70,12 @@
     <!-- Flickr -->
     <dimen name="panel_flickr_round_radius">7dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
     <dimen name="panel_flickr_image_view_height">180dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
+
+    <!-- Exchange Rates -->
+    <dimen name="panel_exchange_rates_detail_info_height">65dp</dimen>
+    <dimen name="panel_exchange_rates_detail_flag_width">50dp</dimen>
+    <dimen name="panel_exchange_rates_detail_flag_height">30dp</dimen>
+    <dimen name="panel_exchange_rates_detail_currency_code_text_size">11dp</dimen>
 
     <!-- Setting -->
     <!-- Panel -->

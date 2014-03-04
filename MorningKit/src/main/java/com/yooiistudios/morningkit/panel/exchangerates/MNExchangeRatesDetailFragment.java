@@ -24,11 +24,11 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
 
     private static final String TAG = "MNExchangeRatesDetailFragment";
 
-    @InjectView(R.id.panel_exchange_rates_info_button_view_base)
-    MNExchangeInfoButtonView baseExchangeInfoButtonView;
+    @InjectView(R.id.panel_exchange_rates_info_layout_base)
+    MNExchangeInfoLayout baseExchangeInfoLayout;
 
-    @InjectView(R.id.panel_exchange_rates_info_button_view_target)
-    MNExchangeInfoButtonView targetExchangeInfoButtonView;
+    @InjectView(R.id.panel_exchange_rates_info_layout_target)
+    MNExchangeInfoLayout targetExchangeInfoLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,8 +44,8 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
             double baseCurrenyMoney = 1.0f;
             double exchangeRate = 1;
 
-            baseExchangeInfoButtonView.loadExchangeCountry(baseCountryCode);
-            targetExchangeInfoButtonView.loadExchangeCountry(targetCountryCode);
+            baseExchangeInfoLayout.loadExchangeCountry(baseCountryCode);
+            targetExchangeInfoLayout.loadExchangeCountry(targetCountryCode);
         }
         return rootView;
     }
@@ -55,13 +55,13 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
 
     }
 
-    @OnClick({ R.id.panel_exchange_rates_info_button_view_base, R.id.panel_exchange_rates_info_button_view_target })
+    @OnClick({ R.id.panel_exchange_rates_info_layout_base, R.id.panel_exchange_rates_info_layout_target})
     public void onExchangeInfoButtonClicked(View v) {
         switch (v.getId()) {
-            case R.id.panel_exchange_rates_info_button_view_base:
+            case R.id.panel_exchange_rates_info_layout_base:
                 MNLog.i(TAG, "baseExchangeInfoButtonClicked");
                 break;
-            case R.id.panel_exchange_rates_info_button_view_target:
+            case R.id.panel_exchange_rates_info_layout_target:
                 MNLog.i(TAG, "targetExchangeInfoButtonClicked");
                 break;
         }
