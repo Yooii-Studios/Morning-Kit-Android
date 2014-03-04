@@ -2,8 +2,8 @@ package com.yooiistudios.morningkit.panel.exchangerates;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -15,6 +15,7 @@ import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 3. 4.
@@ -81,12 +82,17 @@ public class MNExchangeInfoLayout extends LinearLayout{
         currencyCodeTextViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
         currencyCodeTextViewLayoutParams.leftMargin = getResources().getDimensionPixelSize(R.dimen.margin_outer);
         currencyCodeTextView.setLayoutParams(currencyCodeTextViewLayoutParams);
-        int currencyCodeTextSize = getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_detail_currency_code_text_size);
-        currencyCodeTextView.setTextSize(currencyCodeTextSize);
+        float currencyCodeTextSize = getResources().getDimension(R.dimen.panel_exchange_rates_detail_currency_code_text_size);
+        currencyCodeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, currencyCodeTextSize);
         currencyCodeTextView.setGravity(Gravity.CENTER_VERTICAL);
         contentRelativeLayout.addView(currencyCodeTextView);
 
-        setBackgroundColor(MNSettingColors.getForwardBackgroundColor(MNTheme.getCurrentThemeType(getContext())));
+        applyTheme();
+    }
+
+    private void applyTheme() {
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext());
+        setBackgroundColor(MNSettingColors.getExchangeRatesForwardColor(currentThemeType));
     }
 
     public void loadExchangeCountry(String currencyCode) {

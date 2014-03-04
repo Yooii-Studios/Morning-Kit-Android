@@ -4,10 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
@@ -17,7 +21,7 @@ import butterknife.OnClick;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 3. 3.
- *
+ * <p/>
  * MNExchangeRatesDetailFragment
  */
 public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
@@ -29,6 +33,9 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
 
     @InjectView(R.id.panel_exchange_rates_info_layout_target)
     MNExchangeInfoLayout targetExchangeInfoLayout;
+
+    @InjectView(R.id.panel_exchange_rates_swap_textview)
+    TextView swapTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,11 +58,27 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        applyTheme();
+    }
+
+    private void applyTheme() {
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
+        if (getView() != null) {
+            getView().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+        } else {
+            MNLog.e(TAG, "getView() is null!");
+        }
+        swapTextView.setBackgroundColor(MNSettingColors.getExchangeRatesForwardColor(currentThemeType));
+    }
+
+    @Override
     protected void archivePanelData() throws JSONException {
 
     }
 
-    @OnClick({ R.id.panel_exchange_rates_info_layout_base, R.id.panel_exchange_rates_info_layout_target})
+    @OnClick({R.id.panel_exchange_rates_info_layout_base, R.id.panel_exchange_rates_info_layout_target})
     public void onExchangeInfoButtonClicked(View v) {
         switch (v.getId()) {
             case R.id.panel_exchange_rates_info_layout_base:
@@ -67,8 +90,8 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
         }
     }
 
-    @OnClick(R.id.panel_exchange_rates_swap_button)
-    public void onSwapButtonClicked(View v) {
-        MNLog.i(TAG, "onSwapButtonClicked");
+    @OnClick(R.id.panel_exchange_rates_swap_textview)
+    public void onSwapTextViewClicked(View v) {
+        MNLog.i(TAG, "onSwapTextViewClicked");
     }
 }

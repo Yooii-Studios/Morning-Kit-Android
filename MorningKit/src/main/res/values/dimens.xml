@@ -75,7 +75,7 @@
     <dimen name="panel_exchange_rates_detail_info_height">65dp</dimen>
     <dimen name="panel_exchange_rates_detail_flag_width">50dp</dimen>
     <dimen name="panel_exchange_rates_detail_flag_height">30dp</dimen>
-    <dimen name="panel_exchange_rates_detail_currency_code_text_size">11dp</dimen>
+    <dimen name="panel_exchange_rates_detail_currency_code_text_size">16dp</dimen>
 
     <!-- Setting -->
     <!-- Panel -->
