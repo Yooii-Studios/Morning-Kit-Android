@@ -74,7 +74,6 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
                     !SKAlarmSoundManager.validateAlarmSound(alarm.getAlarmSound().getSoundPath(), this)) {
                 alarm.setAlarmSound(SKAlarmSoundFactory.makeDefaultAlarmSound(this));
             }
-
         } else {
             throw new AssertionError("no extras in MNAlarmPreferenceActivity!");
         }
