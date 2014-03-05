@@ -23,28 +23,28 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
  * MNExchangeInfoLayout
  *  환율 디테일 프래그먼트에 사용될 국가 표시
  */
-public class MNExchangeInfoLayout extends LinearLayout{
+public class MNExchangeRatesInfoLayout extends LinearLayout{
 
     private static final int FLAG_IMAGE_VIEW_ID = 213551;
 
     private RecyclingImageView flagImageView;
     private TextView currencyCodeTextView;
 
-    public MNExchangeInfoLayout(Context context) {
+    public MNExchangeRatesInfoLayout(Context context) {
         super(context);
         if (!isInEditMode()) {
             init();
         }
     }
 
-    public MNExchangeInfoLayout(Context context, AttributeSet attrs) {
+    public MNExchangeRatesInfoLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         if (!isInEditMode()) {
             init();
         }
     }
 
-    public MNExchangeInfoLayout(Context context, AttributeSet attrs, int defStyle) {
+    public MNExchangeRatesInfoLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         if (!isInEditMode()) {
             init();

@@ -13,31 +13,38 @@
         android:baselineAligned="false"
         android:layout_margin="@dimen/panel_detail_padding">
 
-        <com.yooiistudios.morningkit.panel.exchangerates.MNExchangeInfoLayout
+        <com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesInfoLayout
             android:id="@+id/panel_exchange_rates_info_layout_base"
             android:layout_width="0dp"
             android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
             android:layout_weight="1"
             android:layout_marginRight="@dimen/panel_detail_padding_inner"
-            android:gravity="center">
-        </com.yooiistudios.morningkit.panel.exchangerates.MNExchangeInfoLayout>
+            android:gravity="center"
+            android:background="#cfcfcf">
+        </com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesInfoLayout>
 
-        <com.yooiistudios.morningkit.panel.exchangerates.MNExchangeInfoLayout
+        <com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesInfoLayout
             android:id="@+id/panel_exchange_rates_info_layout_target"
             android:layout_width="0dp"
             android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/panel_detail_padding_inner"
-            android:layout_gravity="center">
-        </com.yooiistudios.morningkit.panel.exchangerates.MNExchangeInfoLayout>
+            android:layout_gravity="center"
+            android:background="#cfcfcf">
+        </com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesInfoLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:weightSum="1" >
+        android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
+        android:orientation="horizontal"
+        android:background="#cfcfcf"
+        android:layout_marginLeft="@dimen/panel_detail_padding"
+        android:layout_marginRight="@dimen/panel_detail_padding"
+        android:padding="@dimen/panel_detail_padding_inner"
+        android:weightSum="1"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:id="@+id/exchange_layout_editbox"
@@ -46,7 +53,6 @@
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
             android:layout_weight="0.1"
-            android:minHeight="60dip"
             android:orientation="horizontal"
             android:padding="15dip" >
 
@@ -57,14 +63,15 @@
                 android:minHeight="20dip" >
 
                 <EditText
-                    android:id="@+id/exchange_edit_baseSymbol"
+                    android:id="@+id/panel_exchange_rates_edit_base_symbol"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:editable="false"
                     android:gravity="right"
-                    android:padding="0dip"
-                    android:text="123"
-                    android:textSize="17sp" >
+                    android:text="$"
+                    android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                    android:background="#00000000"
+                    android:focusable="false">
 
                     <requestFocus />
                 </EditText>
@@ -79,14 +86,16 @@
                 android:minHeight="20dip" >
 
                 <EditText
-                    android:id="@+id/exchange_edit_base"
+                    android:id="@+id/panel_exchange_rates_edit_base"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:digits="0123456789.,"
                     android:inputType="numberDecimal"
                     android:padding="0dip"
-                    android:textSize="17sp"
-                    android:singleLine="true" >
+                    android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                    android:singleLine="true"
+                    android:background="#00000000"
+                    android:text="100">
 
                     <requestFocus />
                 </EditText>
@@ -99,7 +108,7 @@
                 android:minHeight="20dip" >
 
                 <EditText
-                    android:id="@+id/exchange_edit_target"
+                    android:id="@+id/panel_exchange_rates_edit_target"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:cursorVisible="false"
@@ -107,8 +116,10 @@
                     android:gravity="right"
                     android:inputType="numberDecimal"
                     android:padding="0dip"
-                    android:text="789"
-                    android:textSize="17sp" />
+                    android:text="$1.35"
+                    android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                    android:background="#00000000"
+                    android:focusable="false"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -121,6 +132,7 @@
         android:gravity="center"
         android:text="@string/exchange_rate_switch_countries"
         android:textStyle="bold"
-        android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"/>
+        android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+        android:background="#cfcfcf"/>
 
 </LinearLayout>
