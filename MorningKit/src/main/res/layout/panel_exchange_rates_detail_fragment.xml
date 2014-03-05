@@ -36,22 +36,80 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/panel_exchange_rates_edit_text_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
         android:orientation="horizontal"
         android:background="#cfcfcf"
         android:layout_marginLeft="@dimen/panel_detail_padding"
         android:layout_marginRight="@dimen/panel_detail_padding"
-        android:padding="@dimen/panel_detail_padding_inner"
-        android:weightSum="1"
+        android:weightSum="2"
         android:baselineAligned="false">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/panel_detail_padding">
+
+            <EditText
+                android:id="@+id/panel_exchange_rates_edit_base_symbol"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:editable="false"
+                android:gravity="right|center_vertical"
+                android:text="$"
+                android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                android:background="#00000000"
+                android:focusable="false">
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/panel_exchange_rates_edit_base"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:digits="0123456789.,"
+                android:inputType="numberDecimal"
+                android:padding="0dip"
+                android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                android:singleLine="true"
+                android:background="#00000000"
+                android:gravity="left|center_vertical"
+                android:text="100"
+                android:layout_toRightOf="@+id/panel_exchange_rates_edit_base_symbol">
+                <requestFocus />
+            </EditText>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/panel_detail_padding">
+
+            <EditText
+                android:id="@+id/panel_exchange_rates_edit_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cursorVisible="false"
+                android:editable="false"
+                android:gravity="right|center_vertical"
+                android:inputType="numberDecimal"
+                android:padding="0dip"
+                android:text="$1.35"
+                android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                android:background="#00000000"
+                android:focusable="false"/>
+
+        </RelativeLayout>
+
+        <!--
         <LinearLayout
             android:id="@+id/exchange_layout_editbox"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dip"
-            android:layout_marginRight="10dip"
             android:layout_weight="0.1"
             android:orientation="horizontal"
             android:padding="15dip" >
@@ -62,19 +120,6 @@
                 android:layout_weight="1"
                 android:minHeight="20dip" >
 
-                <EditText
-                    android:id="@+id/panel_exchange_rates_edit_base_symbol"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:editable="false"
-                    android:gravity="right"
-                    android:text="$"
-                    android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
-                    android:background="#00000000"
-                    android:focusable="false">
-
-                    <requestFocus />
-                </EditText>
             </LinearLayout>
 
             <LinearLayout
@@ -85,20 +130,7 @@
                 android:focusableInTouchMode="true"
                 android:minHeight="20dip" >
 
-                <EditText
-                    android:id="@+id/panel_exchange_rates_edit_base"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:digits="0123456789.,"
-                    android:inputType="numberDecimal"
-                    android:padding="0dip"
-                    android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
-                    android:singleLine="true"
-                    android:background="#00000000"
-                    android:text="100">
 
-                    <requestFocus />
-                </EditText>
             </LinearLayout>
 
             <LinearLayout
@@ -107,21 +139,11 @@
                 android:layout_weight="45"
                 android:minHeight="20dip" >
 
-                <EditText
-                    android:id="@+id/panel_exchange_rates_edit_target"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:cursorVisible="false"
-                    android:editable="false"
-                    android:gravity="right"
-                    android:inputType="numberDecimal"
-                    android:padding="0dip"
-                    android:text="$1.35"
-                    android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
-                    android:background="#00000000"
-                    android:focusable="false"/>
+
             </LinearLayout>
         </LinearLayout>
+        -->
+
     </LinearLayout>
 
     <TextView

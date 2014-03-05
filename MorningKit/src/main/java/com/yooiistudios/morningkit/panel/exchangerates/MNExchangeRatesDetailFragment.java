@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
@@ -42,6 +43,7 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
     @InjectView(R.id.panel_exchange_rates_info_layout_target)   MNExchangeRatesInfoLayout targetInfoLayout;
     MNExchangeRatesInfo exchangeRatesInfo;
 
+    @InjectView(R.id.panel_exchange_rates_edit_text_container)  LinearLayout editTextsLayout;
     @InjectView(R.id.panel_exchange_rates_edit_base_symbol)     EditText baseSymbolEditText;
     @InjectView(R.id.panel_exchange_rates_edit_base)            EditText baseEditText;
     @InjectView(R.id.panel_exchange_rates_edit_target)          EditText targetEditText;
@@ -116,9 +118,13 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
         // 숫자가 입력될 때마다
         baseEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) {
+            }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 calculate();
@@ -196,6 +202,7 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
         } else {
             MNLog.e(TAG, "getView() is null!");
         }
+        editTextsLayout.setBackgroundColor(MNSettingColors.getExchangeRatesForwardColor(currentThemeType));
         swapTextView.setBackgroundColor(MNSettingColors.getExchangeRatesForwardColor(currentThemeType));
     }
 
