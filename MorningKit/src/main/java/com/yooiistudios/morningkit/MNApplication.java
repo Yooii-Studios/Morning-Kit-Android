@@ -36,7 +36,7 @@ public class MNApplication extends Application {
         super.onCreate();
 
         //Initialize TestFlight with your app token.
-        TestFlight.takeOff(this, "2d9ad656-0548-41d6-a963-7cab9b0b352e");
+//        TestFlight.takeOff(this, "2d9ad656-0548-41d6-a963-7cab9b0b352e");
 
         Configuration config = getBaseContext().getResources().getConfiguration();
 

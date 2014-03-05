@@ -56,7 +56,6 @@ public class MNBitmapLoadSaver {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                TestFlight.log("onErrorResponse: " + error.toString());
                 MNLog.e(TAG, "onErrorResponse: " + error.toString());
             }
         });

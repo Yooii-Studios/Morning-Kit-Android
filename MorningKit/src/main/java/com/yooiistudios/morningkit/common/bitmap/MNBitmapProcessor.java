@@ -68,13 +68,6 @@ public class MNBitmapProcessor {
                         MNLog.e(TAG, "bitmap.getHeight(): " + bitmap.getHeight());
                         MNLog.e(TAG, "newBitmapSize.x: " + newBitmapSize.x);
                         MNLog.e(TAG, "newBitmapSize.y: " + newBitmapSize.y);
-
-                        TestFlight.log("x <= 0\n"
-                                + "bitmap.getWidth(): " + bitmap.getWidth() + "\n"
-                                + "bitmap.getHeight(): " + bitmap.getHeight() + "\n"
-                                + "newBitmapSize.x: " + newBitmapSize.x + "\n"
-                                + "newBitmapSize.y: " + newBitmapSize.y + "\n"
-                        );
                     }
                     croppedBitmap = Bitmap.createBitmap(bitmap,
                             bitmap.getWidth() / 2 - newBitmapSize.x / 2, 0,

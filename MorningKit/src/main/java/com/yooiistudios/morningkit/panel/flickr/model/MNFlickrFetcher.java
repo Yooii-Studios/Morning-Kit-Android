@@ -108,20 +108,16 @@ public class MNFlickrFetcher {
 
                                         onFetcherListner.onFlickrPhotoInfoLoaded(flickrPhotoInfo);
                                     } else {
-                                        TestFlight.log("flickrPhotoUrlString is null");
                                         onFetcherListner.onErrorResponse();
                                     }
                                 } else {
-                                    TestFlight.log("flickr photoItems.length() is 0");
                                     onFetcherListner.onErrorResponse();
                                 }
                             } else {
-                                TestFlight.log("photos is null");
                                 onFetcherListner.onErrorResponse();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            TestFlight.log(e.toString());
                             onFetcherListner.onErrorResponse();
                         }
                     }
@@ -129,12 +125,10 @@ public class MNFlickrFetcher {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        TestFlight.log("onErrorResponse: " + volleyError.toString());
                         MNLog.e(TAG, "onErrorResponse: " + volleyError.toString());
                         onFetcherListner.onErrorResponse();
                     }
                 });
-
         if (queryRequest != null) {
             mRequsetQueue.add(queryRequest);
         }
