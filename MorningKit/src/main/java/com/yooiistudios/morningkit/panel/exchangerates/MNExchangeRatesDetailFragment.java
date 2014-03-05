@@ -144,6 +144,7 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
 
         baseEditText.setFilters(new InputFilter[] { newBaseEditTextFilterInstance() });
         baseEditText.setText(MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getBaseCurrencyMoney()));
+        baseEditText.setSelection(baseEditText.length());
 
         // target - 누르면 base 에 포커스를 주기
         targetEditText.setOnTouchListener(new View.OnTouchListener() {
@@ -225,6 +226,12 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
 
     @OnClick(R.id.panel_exchange_rates_swap_textview)
     public void onSwapTextViewClicked(View v) {
-        MNLog.i(TAG, "onSwapTextViewClicked");
+        // reverse
+        exchangeRatesInfo = exchangeRatesInfo.getReverseExchangeInfo();
+
+        // update ui
+        baseInfoLayout.loadExchangeCountry(exchangeRatesInfo.getBaseCurrencyCode());
+        targetInfoLayout.loadExchangeCountry(exchangeRatesInfo.getTargetCurrencyCode());
+        calculate();
     }
 }
