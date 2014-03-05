@@ -13,7 +13,7 @@ public class MNCurrencyInfo {
 
 	public String currencyCode;		// 통화 코드
 	public String currencyName;		// 통화 이름
-	public String usingCountryCode;		// 주 사용 나라 
+	public String usingCountryCode;	// 주 사용 나라
 	public String currencySymbol;
 
 	private MNCurrencyInfo(String _currencyCode, String _currencyName,
@@ -25,8 +25,7 @@ public class MNCurrencyInfo {
 		currencySymbol = _currencySymbol;
 	}
 	// 오스트레일리아 달러, 캐나다 달러, 중국 위안, 유로, 영국 파운드, 일본 엔, 한국 원, 미국 달러
-	public static final MNCurrencyInfo frequentCurrency[] =
-		{
+	public static final MNCurrencyInfo frequentCurrency[] = {
 		new MNCurrencyInfo("USD", "US Dollar", "US", "$"),
 		new MNCurrencyInfo("CAD", "Canadian Dollar", "CA", "$"),
 		new MNCurrencyInfo("EUR", "Euro", "EU", "€"),
@@ -35,9 +34,9 @@ public class MNCurrencyInfo {
 		new MNCurrencyInfo("JPY", "Japanese Yen", "JP", "¥"),
 		new MNCurrencyInfo("KRW", "Korean Won", "KR", "₩"),
 		new MNCurrencyInfo("AUD", "Australian Dollar", "AU", "$"),
-		};
-	
-	
+        new MNCurrencyInfo("TWD", "Taiwan Dollar", "TW", "NT$"),
+    };
+
 	public static ArrayList<MNCurrencyInfo> allCurrency;
 	public static void loadAllCurrency(Context _context)
 	{// read from file
@@ -89,8 +88,6 @@ public class MNCurrencyInfo {
 			if( frequentCurrency[i].currencyCode.compareToIgnoreCase(_currencyCode) == 0 )
 				return frequentCurrency[i];
 		}
-		
-		
 
 		for(int i=0; i<allCurrency.size(); ++i)
 		{
