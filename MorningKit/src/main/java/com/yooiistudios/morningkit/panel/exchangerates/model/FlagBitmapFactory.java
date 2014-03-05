@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.exchangerates;
+package com.yooiistudios.morningkit.panel.exchangerates.model;
 
 import android.content.Context;
 import android.content.res.Resources.NotFoundException;
