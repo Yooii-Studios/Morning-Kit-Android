@@ -252,6 +252,7 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
                 MNLog.i(TAG, "targetExchangeInfoButtonClicked");
                 break;
         }
+        new MNExchangeRatesSelectDialog(getActivity()).show();
     }
 
     @OnClick(R.id.panel_exchange_rates_swap_textview)
