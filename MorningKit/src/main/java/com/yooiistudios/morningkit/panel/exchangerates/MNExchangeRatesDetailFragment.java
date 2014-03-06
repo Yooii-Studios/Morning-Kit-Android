@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesAsyncTask;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesInfo;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
@@ -35,7 +36,7 @@ import butterknife.OnClick;
  * <p/>
  * MNExchangeRatesDetailFragment
  */
-public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
+public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment implements MNExchangeRatesAsyncTask.OnExchangeRatesAsyncTaskListener {
 
     private static final String TAG = "MNExchangeRatesDetailFragment";
 
@@ -50,6 +51,8 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
 
     @InjectView(R.id.panel_exchange_rates_swap_textview)        TextView swapTextView;
 
+    MNExchangeRatesAsyncTask exchangeRatesAsyncTask;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.panel_exchange_rates_detail_fragment, container, false);
@@ -58,8 +61,8 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
 
             //// Logic part ////
             // 국가 코드 가져오기 - 임시
-            String baseCurrencyCode = "USD";
-            String targetCurrencyCode = "KRW";
+            String baseCurrencyCode = "KRW";
+            String targetCurrencyCode = "CNY";
 
             // 환율 정보 가져오기 - 임시
             double baseCurrenyMoney = 1.0f;
@@ -69,6 +72,8 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
             exchangeRatesInfo = new MNExchangeRatesInfo(baseCurrencyCode, targetCurrencyCode);
             exchangeRatesInfo.setBaseCurrencyMoney(baseCurrenyMoney);
             exchangeRatesInfo.setExchangeRate(exchangeRate);
+
+            getExchangeRatesFromServer();
 
             //// UI part ////
             // exchange rates info layout
@@ -85,6 +90,16 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
     public void onResume() {
         super.onResume();
         applyTheme();
+    }
+
+    private void getExchangeRatesFromServer() {
+        if (exchangeRatesAsyncTask != null) {
+            exchangeRatesAsyncTask.cancel(true);
+            exchangeRatesAsyncTask = null;
+        }
+        exchangeRatesAsyncTask = new MNExchangeRatesAsyncTask(exchangeRatesInfo.getBaseCurrencyCode(),
+                exchangeRatesInfo.getTargetCurrencyCode(), this);
+        exchangeRatesAsyncTask.execute();
     }
 
     private void initEditTexts() {
@@ -127,7 +142,7 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                calculate();
+                calculate(false);
             }
         });
 
@@ -178,11 +193,26 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
         };
     }
 
-    private void calculate() {
-        String s = baseEditText.getText().toString();
+    // 환율을 계산. base 숫자가 아주 작을 경우 따로 처리를 해 줘야만 한다.
+    private void calculate(boolean shouldRevising) {
+        String baseString = baseEditText.getText().toString();
 
-        if( s.length() > 0 ) {
-            double base = MNExchangeRatesInfo.getDoubleMoney(s);
+        if( baseString.length() > 0 ) {
+
+            double base = MNExchangeRatesInfo.getDoubleMoney(baseString);
+            double target = base * exchangeRatesInfo.getExchangeRate();
+
+            // base currency 단위가 1이라면, target currency 값이 0.1이상이 될 때까지 base와 target의 단위를 10씩 곱해준다.
+            // 그래서 너무 작은 값이 나오지 않을 수 있도록 도와줄 수 있게 한다.
+            if (shouldRevising) {
+                if (base == 1) {
+                    while (target < 0.1) {
+                        base *= 10;
+                        target *= 10;
+                    }
+                    baseEditText.setText(MNExchangeRatesInfo.getMoneyString(base));
+                }
+            }
             exchangeRatesInfo.setBaseCurrencyMoney(base);
             targetEditText.setText(exchangeRatesInfo.getTargetCurrencySymbol() + " "
                     + MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getTargetCurrencyMoney()));
@@ -232,6 +262,12 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment {
         // update ui
         baseInfoLayout.loadExchangeCountry(exchangeRatesInfo.getBaseCurrencyCode());
         targetInfoLayout.loadExchangeCountry(exchangeRatesInfo.getTargetCurrencyCode());
-        calculate();
+        calculate(true);
+    }
+
+    @Override
+    public void onExchangeRatesLoad(double rates) {
+        exchangeRatesInfo.setExchangeRate(rates);
+        calculate(false);
     }
 }
