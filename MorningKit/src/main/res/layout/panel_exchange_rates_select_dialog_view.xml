@@ -20,13 +20,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:duplicateParentState="true" >
-
             </TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
-                android:layout_height="500dip" >
+                android:layout_height="350dp" >
 
                 <LinearLayout
                     android:id="@+id/exchange_tab1"
@@ -37,7 +36,7 @@
                     <ListView
                         android:id="@+id/exchange_list_maincurrency"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dip"
                         android:layout_weight="1" >
                     </ListView>
                 </LinearLayout>
@@ -73,7 +72,7 @@
                     <ListView
                         android:id="@+id/exchange_list_allcurrency"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dip"
                         android:layout_weight="1" >
                     </ListView>
                 </LinearLayout>
@@ -82,11 +81,11 @@
             <Button
                 android:id="@+id/exchange_btn_cancel"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dip"
                 android:layout_gravity="center"
                 android:layout_weight="0.1"
-                android:text="Cancel" />
+                android:text="@string/cancel" />
+
         </LinearLayout>
     </TabHost>
-
 </LinearLayout>

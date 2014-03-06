@@ -1,6 +1,5 @@
 package com.yooiistudios.morningkit.panel.exchangerates;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
@@ -10,11 +9,13 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TabHost;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.panel.exchangerates.model.CurrencyInfoListAdapter;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNCurrencyInfo;
 
@@ -51,6 +52,11 @@ public class MNExchangeRatesSelectDialog extends Dialog {
         TabHost tabHost = (TabHost) tabLinearLayout.findViewById(R.id.exchange_tabhost);
         tabHost.setup();
         TabHost.TabSpec spec;
+
+        // frame layout - 높이를 동적으로 디바이스에 맞추기
+        FrameLayout contentLayout = (FrameLayout) tabLinearLayout.findViewById(android.R.id.tabcontent);
+        int deviceSize = MNDeviceSizeInfo.getDeviceHeight(getContext());
+        contentLayout.getLayoutParams().height = (int) (deviceSize * 0.7);
 
         // tab 1
         Resources resources = getContext().getResources();
@@ -149,7 +155,7 @@ public class MNExchangeRatesSelectDialog extends Dialog {
 //        });
 ////		edit_flag_all.setOnEditorActionListener(MNExchangeRateModalActivity.this);
 //
-//        //
+
         Button cancelBtn = (Button) tabLinearLayout.findViewById(R.id.exchange_btn_cancel);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
