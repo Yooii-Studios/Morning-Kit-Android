@@ -25,6 +25,8 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.exchangerates.currencydialog.MNExchangeRatesSelectDialog;
+import com.yooiistudios.morningkit.panel.exchangerates.model.MNCurrencyInfo;
+import com.yooiistudios.morningkit.panel.exchangerates.model.MNDefaultExchangeRatesInfo;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesAsyncTask;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesInfo;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
@@ -73,6 +75,7 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
             ButterKnife.inject(this, rootView);
 
             //// Logic part ////
+            MNCurrencyInfo.loadAllCurrency(getActivity()); // static이라 가장 먼저 읽어주기 - 나중에 리팩토링 하자
             initExchangeRatesInfo();
             getExchangeRatesFromServer();
 
@@ -105,18 +108,8 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
             if (exchangeInfoJsonString != null) {
                 exchangeRatesInfo = new Gson().fromJson(exchangeInfoJsonString, type);
             } else {
-                // 국가 코드 가져오기 - 임시
-                String baseCurrencyCode = "KRW";
-                String targetCurrencyCode = "CNY";
-
-                // 환율 정보 가져오기 - 임시
-                double baseCurrenyMoney = 1.0f;
-                double exchangeRate = 1;
-
-                // exchangeInfo model
-                exchangeRatesInfo = new MNExchangeRatesInfo(baseCurrencyCode, targetCurrencyCode);
-                exchangeRatesInfo.setBaseCurrencyMoney(baseCurrenyMoney);
-                exchangeRatesInfo.setExchangeRate(exchangeRate);
+                // 현재 언어에 따라 기본 환율조합을 생성
+                exchangeRatesInfo = MNDefaultExchangeRatesInfo.newInstance(getActivity());
             }
         }
     }
@@ -197,6 +190,7 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
         baseEditText.setSelection(baseEditText.length());
 
         // target - 누르면 base 에 포커스를 주기
+        targetEditText.setText(null);
         targetEditText.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {

@@ -102,7 +102,6 @@ public class MNExchangeRatesSelectDialog extends Dialog implements AdapterView.O
         mainAdapter.notifyDataSetInvalidated();
 
         // tab list all
-        MNCurrencyInfo.loadAllCurrency(getContext()); // 스태틱으로 만들어 놔서;; 그냥 여기서 읽어줌
         ArrayList<MNCurrencyInfo> allCurrencies = MNCurrencyInfo.allCurrency;
 
         CurrencyInfoListAdapter allAdapter = new CurrencyInfoListAdapter(getContext(), allCurrencies);
