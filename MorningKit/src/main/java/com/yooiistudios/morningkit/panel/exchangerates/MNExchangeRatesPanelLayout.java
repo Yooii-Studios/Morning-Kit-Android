@@ -11,6 +11,10 @@ import com.yooiistudios.morningkit.panel.MNPanelLayout;
  * MNExchangeRatesPanelLayout
  */
 public class MNExchangeRatesPanelLayout extends MNPanelLayout{
+
+    public static final String EXCHANGE_RATES_PREFS = "EXCHANGE_RATES_PREFS";
+    public static final String EXCHANGE_RATES_DATA_EXCHANGE_INFO = "EXCHANGE_RATES_DATA_EXCHANGE_INFO";
+
     public MNExchangeRatesPanelLayout(Context context) {
         super(context);
     }
