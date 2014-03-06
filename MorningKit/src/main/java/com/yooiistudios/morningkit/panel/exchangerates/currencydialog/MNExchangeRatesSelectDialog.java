@@ -3,7 +3,9 @@ package com.yooiistudios.morningkit.panel.exchangerates.currencydialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -102,7 +104,7 @@ public class MNExchangeRatesSelectDialog extends Dialog implements AdapterView.O
         mainAdapter.notifyDataSetInvalidated();
 
         // tab list all
-        ArrayList<MNCurrencyInfo> allCurrencies = MNCurrencyInfo.allCurrency;
+        final ArrayList<MNCurrencyInfo> allCurrencies = MNCurrencyInfo.allCurrency;
 
         CurrencyInfoListAdapter allAdapter = new CurrencyInfoListAdapter(getContext(), allCurrencies);
         flagAllListView = (ListView) tabHost.findViewById(R.id.exchange_list_allcurrency);
@@ -114,45 +116,34 @@ public class MNExchangeRatesSelectDialog extends Dialog implements AdapterView.O
         searchFlagEditText.setInputType(InputType.TYPE_CLASS_TEXT);
         searchFlagEditText.setSingleLine(true);
 
-//        edit_flag_all.addTextChangedListener(new TextWatcher() {
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//                String searchingString = s.toString().toLowerCase();
-//
-//                allCurrency = MNCurrencyInfo.allCurrency;
-//                ArrayList<MNCurrencyInfo> newAllCurrency = new ArrayList<MNCurrencyInfo>();
-//
-//                MNCurrencyInfo currentCurrency = null;
-//                int lastIndex = 0;
-//                for(int i=0; i < allCurrency.size(); ++i)
-//                {
-//                    currentCurrency = allCurrency.get(i);
-//
-//                    if( currentCurrency.currencyName.toLowerCase().startsWith(searchingString) )
-//                        newAllCurrency.add(lastIndex++, currentCurrency);
-//
-//                    else if( currentCurrency.currencyName.toLowerCase().contains(searchingString) )
-//                        newAllCurrency.add(currentCurrency);
-//
-//                }
-//
-//                CurrencyInfoListAdapter allAdapter = new CurrencyInfoListAdapter(MNExchangeRateModalActivity.this, newAllCurrency);
-//                listView_flag_all.setAdapter(allAdapter);
-//                allAdapter.notifyDataSetChanged();
-//
-//            }
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count,
-//                                          int after) {}
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {}
-//        });
+        searchFlagEditText.addTextChangedListener(new TextWatcher() {
 
-//        edit_flag_all.setOnEditorActionListener(new OnEditorActionListener() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String searchingString = s.toString().toLowerCase();
+                ArrayList<MNCurrencyInfo> newAllCurrency = new ArrayList<MNCurrencyInfo>();
+
+                int lastIndex = 0;
+                for (MNCurrencyInfo currency : allCurrencies) {
+                    if (currency.currencyName.toLowerCase().startsWith(searchingString)) {
+                        newAllCurrency.add(lastIndex++, currency);
+                    } else if (currency.currencyName.toLowerCase().contains(searchingString)) {
+                        newAllCurrency.add(currency);
+                    }
+                }
+                CurrencyInfoListAdapter allAdapter = new CurrencyInfoListAdapter(getContext(), newAllCurrency);
+                flagAllListView.setAdapter(allAdapter);
+                allAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+//        searchFlagEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 //
 //            @Override
 //            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
