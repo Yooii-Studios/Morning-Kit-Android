@@ -154,7 +154,6 @@ public class MNExchangeRatesSelectDialog extends Dialog {
 //            }
 //        });
 ////		edit_flag_all.setOnEditorActionListener(MNExchangeRateModalActivity.this);
-//
 
         Button cancelBtn = (Button) tabLinearLayout.findViewById(R.id.exchange_btn_cancel);
         cancelBtn.setOnClickListener(new View.OnClickListener() {

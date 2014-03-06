@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.panel.exchangerates;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -253,9 +254,16 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
                 MNLog.i(TAG, "targetExchangeInfoButtonClicked");
                 break;
         }
+
         // Holo Dark 테마를 사용하기 위해서 ContextThemeWrapper를 사용
-        Context dialogContext = new ContextThemeWrapper(getActivity(),
-                android.R.style.Theme_Holo_Dialog_NoActionBar);
+        Context dialogContext;
+        if (Build.VERSION.SDK_INT >= 11) {
+            dialogContext = new ContextThemeWrapper(getActivity(),
+                    android.R.style.Theme_Holo_Dialog_NoActionBar);
+        } else {
+            dialogContext = new ContextThemeWrapper(getActivity(),
+                    android.R.style.Theme_NoTitleBar);
+        }
         new MNExchangeRatesSelectDialog(dialogContext).show();
     }
 
