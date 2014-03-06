@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.panel.exchangerates;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +19,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
@@ -30,10 +33,14 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
+import java.lang.reflect.Type;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+import static com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayout.EXCHANGE_RATES_DATA_EXCHANGE_INFO;
+import static com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayout.EXCHANGE_RATES_PREFS;
 import static com.yooiistudios.morningkit.panel.exchangerates.currencydialog.MNExchangeInfoType.BASE;
 import static com.yooiistudios.morningkit.panel.exchangerates.currencydialog.MNExchangeInfoType.TARGET;
 
@@ -66,29 +73,52 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
             ButterKnife.inject(this, rootView);
 
             //// Logic part ////
-            // 국가 코드 가져오기 - 임시
-            String baseCurrencyCode = "KRW";
-            String targetCurrencyCode = "CNY";
-
-            // 환율 정보 가져오기 - 임시
-            double baseCurrenyMoney = 1.0f;
-            double exchangeRate = 1;
-
-            // exchangeInfo model
-            exchangeRatesInfo = new MNExchangeRatesInfo(baseCurrencyCode, targetCurrencyCode);
-            exchangeRatesInfo.setBaseCurrencyMoney(baseCurrenyMoney);
-            exchangeRatesInfo.setExchangeRate(exchangeRate);
-
+            initExchangeRatesInfo();
             getExchangeRatesFromServer();
 
             //// UI part ////
             // exchange rates info layout
-            baseInfoLayout.loadExchangeCountry(baseCurrencyCode);
-            targetInfoLayout.loadExchangeCountry(targetCurrencyCode);
+            baseInfoLayout.loadExchangeCountry(exchangeRatesInfo.getBaseCurrencyCode());
+            targetInfoLayout.loadExchangeCountry(exchangeRatesInfo.getTargetCurrencyCode());
 
             initEditTexts();
         }
         return rootView;
+    }
+
+    private void initExchangeRatesInfo() {
+        // date - JSONString에서 클래스로 캐스팅
+        Type type = new TypeToken<MNExchangeRatesInfo>() {}.getType();
+        if (getPanelDataObject().has(EXCHANGE_RATES_DATA_EXCHANGE_INFO)) {
+            try {
+                String exchangeInfoJsonString = getPanelDataObject().getString(EXCHANGE_RATES_DATA_EXCHANGE_INFO);
+                exchangeRatesInfo = new Gson().fromJson(exchangeInfoJsonString, type);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // 없다면 최근 설정을 검색, 그래도 없으면 언어에 따른 디폴트 환율 설정
+            SharedPreferences prefs = getActivity().getSharedPreferences(EXCHANGE_RATES_PREFS,
+                    Context.MODE_PRIVATE);
+
+            String exchangeInfoJsonString = prefs.getString(EXCHANGE_RATES_DATA_EXCHANGE_INFO, null);
+            if (exchangeInfoJsonString != null) {
+                exchangeRatesInfo = new Gson().fromJson(exchangeInfoJsonString, type);
+            } else {
+                // 국가 코드 가져오기 - 임시
+                String baseCurrencyCode = "KRW";
+                String targetCurrencyCode = "CNY";
+
+                // 환율 정보 가져오기 - 임시
+                double baseCurrenyMoney = 1.0f;
+                double exchangeRate = 1;
+
+                // exchangeInfo model
+                exchangeRatesInfo = new MNExchangeRatesInfo(baseCurrencyCode, targetCurrencyCode);
+                exchangeRatesInfo.setBaseCurrencyMoney(baseCurrenyMoney);
+                exchangeRatesInfo.setExchangeRate(exchangeRate);
+            }
+        }
     }
 
     @Override
@@ -244,7 +274,27 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
 
     @Override
     protected void archivePanelData() throws JSONException {
+        SharedPreferences prefs = getActivity().getSharedPreferences(EXCHANGE_RATES_PREFS,
+                Context.MODE_PRIVATE);
 
+        // 돈이 0이라면 최근 설정값을 확인, 있다면 그것으로 바꾸어주고, 없다면 그냥 0으로 표시
+        if (exchangeRatesInfo.getBaseCurrencyMoney() == 0) {
+            String exchangeInfoJsonString = prefs.getString(EXCHANGE_RATES_DATA_EXCHANGE_INFO, null);
+            if (exchangeInfoJsonString != null) {
+                Type type = new TypeToken<MNExchangeRatesInfo>() {}.getType();
+                MNExchangeRatesInfo latestExchangeRatesInfo = new Gson().fromJson(exchangeInfoJsonString, type);
+                exchangeRatesInfo.setBaseCurrencyMoney(latestExchangeRatesInfo.getBaseCurrencyMoney());
+            }
+        }
+
+        // 직렬화
+        String exchangeInfoJsonString = new Gson().toJson(exchangeRatesInfo);
+
+        // panelDataObject에 저장
+        getPanelDataObject().put(EXCHANGE_RATES_DATA_EXCHANGE_INFO, exchangeInfoJsonString);
+
+        // SharedPreferences에도 아카이빙 저장
+        prefs.edit().putString(EXCHANGE_RATES_DATA_EXCHANGE_INFO, exchangeInfoJsonString).commit();
     }
 
     @OnClick({R.id.panel_exchange_rates_info_layout_base, R.id.panel_exchange_rates_info_layout_target})
