@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -252,7 +253,10 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
                 MNLog.i(TAG, "targetExchangeInfoButtonClicked");
                 break;
         }
-        new MNExchangeRatesSelectDialog(getActivity()).show();
+        // Holo Dark 테마를 사용하기 위해서 ContextThemeWrapper를 사용
+        Context dialogContext = new ContextThemeWrapper(getActivity(),
+                android.R.style.Theme_Holo_Dialog_NoActionBar);
+        new MNExchangeRatesSelectDialog(dialogContext).show();
     }
 
     @OnClick(R.id.panel_exchange_rates_swap_textview)
