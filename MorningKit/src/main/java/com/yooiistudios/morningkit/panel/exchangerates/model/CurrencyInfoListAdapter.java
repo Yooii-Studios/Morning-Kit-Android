@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel.exchangerates.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,8 @@ public class CurrencyInfoListAdapter extends BaseAdapter
 
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
         textView_country.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
-		textView_currencyName.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//		textView_currencyName.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+		textView_currencyName.setTextColor(Color.WHITE);
 		
 		MNCurrencyInfo currencyInfo = info.get(position);
 		Bitmap flagBitmap = FlagBitmapFactory.getGrayscaledFlagBitmap(context, currencyInfo.usingCountryCode);
