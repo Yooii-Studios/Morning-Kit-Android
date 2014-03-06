@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.exchangerates.model;
+package com.yooiistudios.morningkit.panel.exchangerates.currencydialog;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,6 +13,8 @@ import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.dp.DipToPixel;
+import com.yooiistudios.morningkit.panel.exchangerates.model.FlagBitmapFactory;
+import com.yooiistudios.morningkit.panel.exchangerates.model.MNCurrencyInfo;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;

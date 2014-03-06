@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.panel.exchangerates.currencydialog.MNExchangeRatesSelectDialog;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesAsyncTask;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesInfo;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
@@ -33,12 +34,15 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+import static com.yooiistudios.morningkit.panel.exchangerates.currencydialog.MNExchangeInfoType.BASE;
+import static com.yooiistudios.morningkit.panel.exchangerates.currencydialog.MNExchangeInfoType.TARGET;
+
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 3. 3.
  * <p/>
  * MNExchangeRatesDetailFragment
  */
-public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment implements MNExchangeRatesAsyncTask.OnExchangeRatesAsyncTaskListener {
+public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment implements MNExchangeRatesAsyncTask.OnExchangeRatesAsyncTaskListener, MNExchangeRatesSelectDialog.OnExchangeRatesSelectDialogListener {
 
     private static final String TAG = "MNExchangeRatesDetailFragment";
 
@@ -83,7 +87,6 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
             targetInfoLayout.loadExchangeCountry(targetCurrencyCode);
 
             initEditTexts();
-
         }
         return rootView;
     }
@@ -246,14 +249,6 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
 
     @OnClick({R.id.panel_exchange_rates_info_layout_base, R.id.panel_exchange_rates_info_layout_target})
     public void onExchangeInfoButtonClicked(View v) {
-        switch (v.getId()) {
-            case R.id.panel_exchange_rates_info_layout_base:
-                MNLog.i(TAG, "baseExchangeInfoButtonClicked");
-                break;
-            case R.id.panel_exchange_rates_info_layout_target:
-                MNLog.i(TAG, "targetExchangeInfoButtonClicked");
-                break;
-        }
 
         // Holo Dark 테마를 사용하기 위해서 ContextThemeWrapper를 사용
         Context dialogContext;
@@ -264,7 +259,15 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
             dialogContext = new ContextThemeWrapper(getActivity(),
                     android.R.style.Theme_NoTitleBar);
         }
-        new MNExchangeRatesSelectDialog(dialogContext).show();
+
+        switch (v.getId()) {
+            case R.id.panel_exchange_rates_info_layout_base:
+                new MNExchangeRatesSelectDialog(dialogContext).showOnClick(BASE, exchangeRatesInfo, this);
+                break;
+            case R.id.panel_exchange_rates_info_layout_target:
+                new MNExchangeRatesSelectDialog(dialogContext).showOnClick(TARGET, exchangeRatesInfo, this);
+                break;
+        }
     }
 
     @OnClick(R.id.panel_exchange_rates_swap_textview)
@@ -278,9 +281,21 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
         calculate(true);
     }
 
+    // 비동기 파서에서 데이터를 읽은 후의 콜백 메서드
     @Override
     public void onExchangeRatesLoad(double rates) {
         exchangeRatesInfo.setExchangeRate(rates);
         calculate(false);
+    }
+
+    // 나라 선택 다이얼로그의 콜백 메서드
+    @Override
+    public void onSelectCurrency(MNExchangeRatesInfo exchangeRatesInfo) {
+        this.exchangeRatesInfo = exchangeRatesInfo;
+
+        baseInfoLayout.loadExchangeCountry(exchangeRatesInfo.getBaseCurrencyCode());
+        targetInfoLayout.loadExchangeCountry(exchangeRatesInfo.getTargetCurrencyCode());
+
+        getExchangeRatesFromServer();
     }
 }

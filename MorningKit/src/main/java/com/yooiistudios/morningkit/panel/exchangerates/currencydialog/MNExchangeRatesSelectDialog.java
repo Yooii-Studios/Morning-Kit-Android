@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.exchangerates;
+package com.yooiistudios.morningkit.panel.exchangerates.currencydialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -16,8 +17,8 @@ import android.widget.TabHost;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
-import com.yooiistudios.morningkit.panel.exchangerates.model.CurrencyInfoListAdapter;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNCurrencyInfo;
+import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,8 +29,19 @@ import java.util.Collections;
  * MNExchangeRatesSelectDialog
  *  디테일 프래그먼트에서 국가를 선택할 때 사용하는 다이얼로그
  */
-public class MNExchangeRatesSelectDialog extends Dialog {
-    protected MNExchangeRatesSelectDialog(Context context) {
+public class MNExchangeRatesSelectDialog extends Dialog implements AdapterView.OnItemClickListener {
+
+    public interface OnExchangeRatesSelectDialogListener {
+        public void onSelectCurrency(MNExchangeRatesInfo exchangeRatesInfo);
+    }
+
+    ListView flagMainListView;
+    ListView flagAllListView;
+    OnExchangeRatesSelectDialogListener listener;
+    MNExchangeInfoType exchangeInfoType;
+    MNExchangeRatesInfo currentExchangeRatesInfo;
+
+    public MNExchangeRatesSelectDialog(Context context) {
         super(context);
         init();
     }
@@ -84,9 +96,9 @@ public class MNExchangeRatesSelectDialog extends Dialog {
         Collections.addAll(mainCurrencies, frequentCurrencies);
 
         CurrencyInfoListAdapter mainAdapter = new CurrencyInfoListAdapter(getContext(), mainCurrencies);
-        ListView flagMainListView = (ListView) tabHost.findViewById(R.id.exchange_list_maincurrency);
+        flagMainListView = (ListView) tabHost.findViewById(R.id.exchange_list_maincurrency);
         flagMainListView.setAdapter(mainAdapter);
-//        flagMainListView.setOnItemClickListener(this); // 나중에 구현
+        flagMainListView.setOnItemClickListener(this);
         mainAdapter.notifyDataSetInvalidated();
 
         // tab list all
@@ -94,9 +106,9 @@ public class MNExchangeRatesSelectDialog extends Dialog {
         ArrayList<MNCurrencyInfo> allCurrencies = MNCurrencyInfo.allCurrency;
 
         CurrencyInfoListAdapter allAdapter = new CurrencyInfoListAdapter(getContext(), allCurrencies);
-        ListView flagAllListView = (ListView) tabHost.findViewById(R.id.exchange_list_allcurrency);
+        flagAllListView = (ListView) tabHost.findViewById(R.id.exchange_list_allcurrency);
         flagAllListView.setAdapter(allAdapter);
-//        flagAllListView.setOnItemClickListener(this); // 나중에 구현
+        flagAllListView.setOnItemClickListener(this);
         allAdapter.notifyDataSetInvalidated();
 
         EditText searchFlagEditText = (EditText) tabHost.findViewById(R.id.exchange_edit_allcurrency);
@@ -165,5 +177,39 @@ public class MNExchangeRatesSelectDialog extends Dialog {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(tabLinearLayout);
+    }
+
+    // 콜백 설정과 함께 다이얼로그를 표시
+    public void showOnClick(MNExchangeInfoType type, MNExchangeRatesInfo currentInfo,
+                            OnExchangeRatesSelectDialogListener listener) {
+        this.listener = listener;
+        this.exchangeInfoType = type;
+        this.currentExchangeRatesInfo = currentInfo;
+        show();
+    }
+
+    // 아이템 클릭시 새 환율정보를 만들어 반환
+    @Override
+    public void onItemClick(AdapterView<?> parentView, View view, int position, long id) {
+        MNCurrencyInfo currencyInfo;
+        if (parentView == flagMainListView) {
+            currencyInfo = (MNCurrencyInfo) flagMainListView.getAdapter().getItem(position);
+        } else {
+            currencyInfo = (MNCurrencyInfo) flagAllListView.getAdapter().getItem(position);
+        }
+
+        MNExchangeRatesInfo newExchangeRatesInfo;
+        if (exchangeInfoType == MNExchangeInfoType.BASE) {
+            newExchangeRatesInfo = new MNExchangeRatesInfo(currencyInfo.currencyCode,
+                    currentExchangeRatesInfo.getTargetCurrencyCode());
+        } else {
+            newExchangeRatesInfo = new MNExchangeRatesInfo(currentExchangeRatesInfo.getBaseCurrencyCode(),
+                    currencyInfo.currencyCode);
+        }
+
+        if (listener != null) {
+            listener.onSelectCurrency(newExchangeRatesInfo);
+        }
+        dismiss();
     }
 }
