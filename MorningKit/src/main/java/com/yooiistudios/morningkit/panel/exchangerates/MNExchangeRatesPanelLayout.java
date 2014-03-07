@@ -17,7 +17,6 @@ import com.google.gson.reflect.TypeToken;
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.exchangerates.model.FlagBitmapFactory;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNDefaultExchangeRatesInfo;
@@ -194,14 +193,12 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         baseCurrencyImageView.setImageDrawable(null);
         Bitmap baseCurrencyBitmap = FlagBitmapFactory.getGrayscaledFlagBitmap(getContext(),
                 exchangeRatesInfo.getBaseCountryCode());
-        MNLog.now(baseCurrencyBitmap.toString());
         baseCurrencyImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
                 baseCurrencyBitmap));
 
         targetCurrencyImageView.setImageDrawable(null);
         Bitmap targetCurrencyBitmap = FlagBitmapFactory.getGrayscaledFlagBitmap(getContext(),
                 exchangeRatesInfo.getTargetCountryCode());
-        MNLog.now(targetCurrencyBitmap.toString());
         targetCurrencyImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
                 targetCurrencyBitmap));
 
@@ -217,14 +214,6 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         // scaling TextViews's font size
 
     }
-
-//    @Override
-//    public void refreshPanel() {
-//        baseCurrencyImageView.setImageDrawable(null);
-//        targetCurrencyImageView.setImageDrawable(null);
-//
-//        super.refreshPanel();
-//    }
 
     /**
      * Rotate
