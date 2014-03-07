@@ -13,7 +13,7 @@
         android:baselineAligned="false"
         android:layout_margin="@dimen/panel_detail_padding">
 
-        <com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesInfoLayout
+        <com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesInfoLayout
             android:id="@+id/panel_exchange_rates_info_layout_base"
             android:layout_width="0dp"
             android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
@@ -21,9 +21,9 @@
             android:layout_marginRight="@dimen/panel_detail_padding_inner"
             android:gravity="center"
             android:background="#cfcfcf">
-        </com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesInfoLayout>
+        </com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesInfoLayout>
 
-        <com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesInfoLayout
+        <com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesInfoLayout
             android:id="@+id/panel_exchange_rates_info_layout_target"
             android:layout_width="0dp"
             android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
@@ -31,7 +31,7 @@
             android:layout_marginLeft="@dimen/panel_detail_padding_inner"
             android:layout_gravity="center"
             android:background="#cfcfcf">
-        </com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesInfoLayout>
+        </com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesInfoLayout>
 
     </LinearLayout>
 
