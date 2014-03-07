@@ -39,12 +39,13 @@ public class FlagBitmapFactory {
 		}
 		return flagMap.get(_countryCode);
 	}
-	
+
+    // RecyclingImageView를 사용하기 위해서 맵을 사용하지 않게 변경
 	static public Bitmap getGrayscaledFlagBitmap(Context _context, String _countryCode)	{
 		String fileName = "flag_"+_countryCode.toLowerCase()+"_bw";
 		int id = _context.getResources().getIdentifier(fileName,  "raw", _context.getPackageName());
 
-		if( grayscaledFlagMap.get(_countryCode) == null ) {
+//		if( grayscaledFlagMap.get(_countryCode) == null ) {
 			Bitmap bitmap = null;
 
 			try {
@@ -58,10 +59,10 @@ public class FlagBitmapFactory {
 			if( bitmap == null ) {
 				bitmap = BitmapFactory.decodeResource(_context.getResources(), R.drawable.flag_blank);
             }
-			grayscaledFlagMap.put(_countryCode, bitmap);
-		}
-		return grayscaledFlagMap.get(_countryCode);
-	}
-	
 
+        return bitmap;
+//			grayscaledFlagMap.put(_countryCode, bitmap);
+//		}
+//		return grayscaledFlagMap.get(_countryCode);
+	}
 }
