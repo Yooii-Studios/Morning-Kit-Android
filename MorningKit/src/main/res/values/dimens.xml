@@ -72,6 +72,13 @@
     <dimen name="panel_flickr_image_view_height">180dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
 
     <!-- Exchange Rates -->
+    <!-- Main -->
+    <dimen name="panel_exchange_rates_flag_width">60dp</dimen>
+    <dimen name="panel_exchange_rates_flag_height">36dp</dimen>
+    <dimen name="panel_exchange_rates_main_font_size">15dp</dimen>
+    <dimen name="panel_exchange_rates_sub_font_size">12dp</dimen>
+
+    <!-- Detail -->
     <dimen name="panel_exchange_rates_detail_info_height">65dp</dimen>
     <dimen name="panel_exchange_rates_detail_flag_width">50dp</dimen>
     <dimen name="panel_exchange_rates_detail_flag_height">30dp</dimen>
