@@ -75,6 +75,8 @@
     <!-- Main -->
     <dimen name="panel_exchange_rates_flag_width">60dp</dimen>
     <dimen name="panel_exchange_rates_flag_height">36dp</dimen>
+    <dimen name="panel_exchange_rates_main_font_size">15dp</dimen>
+    <dimen name="panel_exchange_rates_sub_font_size">12dp</dimen>
 
     <!-- Detail -->
     <dimen name="panel_exchange_rates_detail_info_height">65dp</dimen>
