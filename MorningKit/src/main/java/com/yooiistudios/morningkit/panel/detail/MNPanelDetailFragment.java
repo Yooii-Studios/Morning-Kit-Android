@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.MNPanelType;
 import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownDetailFragment;
-import com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesDetailFragment;
+import com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesDetailFragment;
 import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
 import com.yooiistudios.morningkit.panel.memo.MNMemoDetailFragment;
 
