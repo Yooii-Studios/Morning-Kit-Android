@@ -8,6 +8,7 @@ import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownDetailFrag
 import com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesDetailFragment;
 import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
 import com.yooiistudios.morningkit.panel.memo.MNMemoDetailFragment;
+import com.yooiistudios.morningkit.panel.quotes.MNQuotesDetailFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,6 +45,10 @@ public abstract class MNPanelDetailFragment extends Fragment {
 
             case EXCHANGE_RATES:
                 newPanelDetailFragment = new MNExchangeRatesDetailFragment();
+                break;
+
+            case QUOTES:
+                newPanelDetailFragment = new MNQuotesDetailFragment();
                 break;
 
             default:
