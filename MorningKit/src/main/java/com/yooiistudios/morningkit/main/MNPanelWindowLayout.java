@@ -80,7 +80,11 @@ public class MNPanelWindowLayout extends LinearLayout
                 MNViewSizeMeasure.setViewSizeObserver(panelLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
                     @Override
                     public void onLayoutLoad() {
-                        panelLayout.refreshPanel();
+                        try {
+                            panelLayout.refreshPanel();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
@@ -96,7 +100,11 @@ public class MNPanelWindowLayout extends LinearLayout
 
     public void refreshAllPanels() {
         for (int i = 0; i < 4; i++) {
-            panelLayouts[i].refreshPanel();
+            try {
+                panelLayouts[i].refreshPanel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
