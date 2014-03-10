@@ -208,6 +208,7 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
         for (CheckBox checkBox: languageCheckBoxes) {
             selectedLanguages.add(checkBox.isChecked());
         }
+        MNLog.i(TAG, "selectedLanguages: " + selectedLanguages.toString());
         // 직렬화 해서 panelDataObject에 저장
         String selectedLanguagesJsonString = new Gson().toJson(selectedLanguages);
         getPanelDataObject().put(QUOTES_LANGUAGES, selectedLanguagesJsonString);

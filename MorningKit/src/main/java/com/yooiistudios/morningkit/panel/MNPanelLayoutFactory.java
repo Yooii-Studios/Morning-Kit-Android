@@ -6,6 +6,7 @@ import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownLayout;
 import com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayout;
 import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 import com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout;
+import com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout;
 
 import org.json.JSONException;
 
@@ -41,6 +42,7 @@ public class MNPanelLayoutFactory {
                 break;
 
             case QUOTES:
+                newPanelLayout = new MNQuotesPanelLayout(context);
                 newPanelLayout.setPanelType(MNPanelType.QUOTES);
                 break;
 

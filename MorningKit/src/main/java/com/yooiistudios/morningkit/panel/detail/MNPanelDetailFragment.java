@@ -5,9 +5,13 @@ import android.support.v4.app.Fragment;
 import com.yooiistudios.morningkit.panel.MNPanel;
 import com.yooiistudios.morningkit.panel.MNPanelType;
 import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownDetailFragment;
+import com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayout;
 import com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesDetailFragment;
+import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
 import com.yooiistudios.morningkit.panel.memo.MNMemoDetailFragment;
+import com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout;
+import com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout;
 import com.yooiistudios.morningkit.panel.quotes.detail.MNQuotesDetailFragment;
 
 import org.json.JSONException;
@@ -35,20 +39,41 @@ public abstract class MNPanelDetailFragment extends Fragment {
                                                     MNPanelDetailFragmentListener fragmentListener) {
         MNPanelDetailFragment newPanelDetailFragment;
         switch (panelType) {
-            case FLICKR:
-                newPanelDetailFragment = new MNFlickrDetailFragment();
+//            case WEATHER:
+//                newPanelLayout.setPanelType(MNPanelType.WEATHER);
+//                newPanelLayout.initNetworkPanel();
+//                break;
+
+//            case DATE:
+//                newPanelLayout.setPanelType(MNPanelType.DATE);
+//                break;
+
+//            case CALENDAR:
+//                newPanelLayout.setPanelType(MNPanelType.CALENDAR);
+//                break;
+
+//            case WORLD_CLOCK:
+//                newPanelLayout.setPanelType(MNPanelType.WORLD_CLOCK);
+//                break;
+
+            case QUOTES:
+                newPanelDetailFragment = new MNQuotesDetailFragment();
                 break;
 
-            case DATE_COUNTDOWN:
-                newPanelDetailFragment = new MNDateCountdownDetailFragment();
+            case FLICKR:
+                newPanelDetailFragment = new MNFlickrDetailFragment();
                 break;
 
             case EXCHANGE_RATES:
                 newPanelDetailFragment = new MNExchangeRatesDetailFragment();
                 break;
 
-            case QUOTES:
-                newPanelDetailFragment = new MNQuotesDetailFragment();
+            case MEMO:
+                newPanelDetailFragment = new MNMemoDetailFragment();
+                break;
+
+            case DATE_COUNTDOWN:
+                newPanelDetailFragment = new MNDateCountdownDetailFragment();
                 break;
 
             default:
