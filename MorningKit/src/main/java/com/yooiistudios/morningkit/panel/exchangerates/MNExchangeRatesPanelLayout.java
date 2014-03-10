@@ -4,23 +4,18 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.dp.DipToPixel;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.exchangerates.model.FlagBitmapFactory;
@@ -213,6 +208,13 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
                 targetCurrencyBitmap));
 
         // string
+        updateTextViews();
+
+        // scaling TextViews's font size
+//        scalingCurrencyTextViews();
+    }
+
+    private void updateTextViews() {
         String baseCurrencyString = exchangeRatesInfo.getBaseCurrencySymbol() +
                 MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getBaseCurrencyMoney());
         String targetCurrencyString = exchangeRatesInfo.getTargetCurrencySymbol() +
@@ -220,9 +222,6 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 
         baseToTargetCurrecyTextView.setText(baseCurrencyString + " = " + targetCurrencyString);
         targetToBaseCurrecyTextView.setText(targetCurrencyString + " = " + baseCurrencyString);
-
-        // scaling TextViews's font size
-        scalingCurrencyTextViews();
     }
 
     private void scalingCurrencyTextViews() {
@@ -237,6 +236,7 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 //            baseToTargetTextExceedsWidgetWidth = true;
     }
 
+    /*
     private boolean isTextExceedingTextView(TextView textView) {
         String text = textView.getText().toString();
 
@@ -263,6 +263,7 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
             return false;
         }
     }
+    */
 
     /**
      * Rotate
@@ -270,9 +271,6 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-
-        MNLog.now("onSizeChanged: " + oldw + "/" + oldh + " : " + w + "/" + h);
-        baseToTargetCurrecyTextView.resetTextSize();
-        targetToBaseCurrecyTextView.resetTextSize();
+        updateTextViews();
     }
 }
