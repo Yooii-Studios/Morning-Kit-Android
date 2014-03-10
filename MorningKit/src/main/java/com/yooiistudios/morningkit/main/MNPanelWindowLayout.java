@@ -118,10 +118,6 @@ public class MNPanelWindowLayout extends LinearLayout
                 int index = panelDataObject.getInt(MNPanel.PANEL_WINDOW_INDEX);
                 int uniqueId = panelDataObject.getInt(MNPanel.PANEL_UNIQUE_ID);
                 if (index >= 0 && index < 4) {
-                    // 패널 리스트 데이터 교체
-//                    MNPanel.changePanel(getContext(), panelDataObject.getInt(MNPanel.PANEL_UNIQUE_ID), index);
-                    MNLog.now(panelDataObject.toString());
-
                     // 패널 레이아웃 갱신
                     panelLineLayouts[index / 2].removeViewAt(index % 2);
                     panelLayouts[index] = MNPanelLayoutFactory.newPanelLayoutInstance(

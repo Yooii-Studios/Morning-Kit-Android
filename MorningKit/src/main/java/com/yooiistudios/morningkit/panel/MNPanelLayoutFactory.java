@@ -71,7 +71,7 @@ public class MNPanelLayoutFactory {
             default:
                 throw new AssertionError("PanelType is not defined!");
         }
-        // 인덱스와 패널 데이터 대입
+        // 기존에 저장된 패널 데이터를 읽고 인덱스, ID를 대입
         newPanelLayout.setPanelIndex(panelWindowIndex);
         newPanelLayout.setPanelDataObject(MNPanel.getPanelDataList(context).get(panelWindowIndex));
 
