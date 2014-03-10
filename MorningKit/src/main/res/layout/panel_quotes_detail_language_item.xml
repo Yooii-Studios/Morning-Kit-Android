@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <CheckBox
+        android:id="@+id/panel_quotes_detail_language_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:id="@+id/panel_quotes_detail_language_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="@dimen/panel_detail_padding"
+        android:layout_toLeftOf="@id/panel_quotes_detail_language_checkbox"
+        android:text="@string/setting_language_traditional_chinese"
+        android:textSize="25dp"/>
+
+</RelativeLayout>
