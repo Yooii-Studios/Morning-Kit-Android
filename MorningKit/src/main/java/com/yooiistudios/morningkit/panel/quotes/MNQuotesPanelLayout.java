@@ -6,4 +6,6 @@ package com.yooiistudios.morningkit.panel.quotes;
  * MNQuotesPanelLayout
  */
 public class MNQuotesPanelLayout {
+    public static final String QUOTES_STRING = "QUOTES_STRING";
+    public static final String QUOTES_LANGUAGES = "QUOTES_LANGUAGES";
 }

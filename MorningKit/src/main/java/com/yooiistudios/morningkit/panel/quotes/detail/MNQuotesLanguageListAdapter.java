@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLanguage;
 
 public class MNQuotesLanguageListAdapter extends BaseAdapter {
 	private Context context;
