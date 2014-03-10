@@ -84,6 +84,11 @@
     <dimen name="panel_exchange_rates_detail_flag_height">30dp</dimen>
     <dimen name="panel_exchange_rates_detail_currency_code_text_size">16dp</dimen>
 
+    <!-- Quotes -->
+    <!-- Detail -->
+    <dimen name="panel_quotes_detail_language_text_size">20dp</dimen>
+
+
     <!-- Setting -->
     <!-- Panel -->
     <dimen name="setting_panel_matrix_layout_height">240dp</dimen>

@@ -3,15 +3,14 @@
     android:id="@+id/panel_quotes_detail_scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#44ff44"
-    android:orientation="vertical"
-    android:padding="@dimen/panel_detail_padding">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:padding="@dimen/panel_detail_padding">
 
         <TextView
             android:id="@+id/panel_quotes_detail_quote_textview"
@@ -44,8 +43,10 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="@dimen/panel_detail_padding"
                 android:layout_toLeftOf="@id/panel_quotes_detail_language_checkbox"
+                android:gravity="center_vertical"
                 android:text="@string/setting_language_english"
-                android:textSize="25dp"/>
+                android:textSize="@dimen/panel_quotes_detail_language_text_size"
+                android:textStyle="bold"/>
 
         </RelativeLayout>
 
@@ -69,8 +70,10 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="@dimen/panel_detail_padding"
                 android:layout_toLeftOf="@id/panel_quotes_detail_language_checkbox"
+                android:gravity="center_vertical"
                 android:text="@string/setting_language_korean"
-                android:textSize="25dp"/>
+                android:textSize="@dimen/panel_quotes_detail_language_text_size"
+                android:textStyle="bold"/>
 
         </RelativeLayout>
 
@@ -94,8 +97,10 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="@dimen/panel_detail_padding"
                 android:layout_toLeftOf="@id/panel_quotes_detail_language_checkbox"
+                android:gravity="center_vertical"
                 android:text="@string/setting_language_japanese"
-                android:textSize="25dp"/>
+                android:textSize="@dimen/panel_quotes_detail_language_text_size"
+                android:textStyle="bold"/>
 
         </RelativeLayout>
 
@@ -119,8 +124,10 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="@dimen/panel_detail_padding"
                 android:layout_toLeftOf="@id/panel_quotes_detail_language_checkbox"
+                android:gravity="center_vertical"
                 android:text="@string/setting_language_simplified_chinese"
-                android:textSize="25dp"/>
+                android:textSize="@dimen/panel_quotes_detail_language_text_size"
+                android:textStyle="bold"/>
 
         </RelativeLayout>
 
@@ -144,8 +151,10 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="@dimen/panel_detail_padding"
                 android:layout_toLeftOf="@id/panel_quotes_detail_language_checkbox"
+                android:gravity="center_vertical"
                 android:text="@string/setting_language_traditional_chinese"
-                android:textSize="25dp"/>
+                android:textSize="@dimen/panel_quotes_detail_language_text_size"
+                android:textStyle="bold"/>
 
         </RelativeLayout>
     </LinearLayout>
