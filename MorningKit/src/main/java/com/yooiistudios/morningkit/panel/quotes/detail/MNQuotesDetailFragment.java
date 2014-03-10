@@ -9,6 +9,8 @@ import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
@@ -24,12 +26,14 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import org.json.JSONException;
 import org.uncommons.maths.random.MersenneTwisterRNG;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+import static com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout.QUOTES_LANGUAGES;
 import static com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout.QUOTES_STRING;
 
 /**
@@ -41,8 +45,6 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
     private static final String TAG = "MNQuotesDetailFragment";
 
     @InjectView(R.id.panel_quotes_detail_quote_textview) TextView quoteTextView;
-
-//    @InjectView(R.id.panel_quotes_detail_language_listview) MNQuotesLanguageListView languageListView;
 
     @InjectView(R.id.panel_quotes_detail_language_english_layout) RelativeLayout languageEnglishLayout;
     @InjectView(R.id.panel_quotes_detail_language_korean_layout) RelativeLayout languageKoreanLayout;
@@ -61,8 +63,26 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
             ButterKnife.inject(this, rootView);
 
             //// Logic part ////
-            if (getPanelDataObject().has(QUOTES_STRING)) {
+            if (getPanelDataObject().has(QUOTES_LANGUAGES)) {
                 // 설정된 언어 불러오기
+                try {
+                    String selectedLanguagesJsonString = getPanelDataObject().getString(QUOTES_LANGUAGES);
+                    Type type = new TypeToken<List<Boolean>>(){}.getType();
+                    selectedLanguages = new Gson().fromJson(selectedLanguagesJsonString, type);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                // quote 정보 불러오기
+                if (getPanelDataObject().has(QUOTES_STRING)) {
+                    try {
+                        String quoteJsonString = getPanelDataObject().getString(QUOTES_STRING);
+                        Type type = new TypeToken<MNQuote>(){}.getType();
+                        quote = new Gson().fromJson(quoteJsonString, type);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             } else {
                 // 명언 첫 로딩, 현재 언어 체크해서 명언 초기화해주기
                 initFirstLoading();
@@ -71,15 +91,6 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
             //// UI part ////
             initLanguageLayouts();
             initQuoteTextView();
-
-            // listView의 높이를 맞추어줌
-
-//            languageListView.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    setListViewHeightBasedOnChildren(languageListView);
-//                }
-//            });
         }
         return rootView;
     }
@@ -139,9 +150,9 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
         languageCheckBoxes.add(getCheckBoxFromLayout(languageTraditionalChineseLayout));
 
         int i = 0;
-        for (Boolean isSelected : selectedLanguages) {
+        for (Boolean isLanguageSelected : selectedLanguages) {
             CheckBox checkBox = languageCheckBoxes.get(i);
-            checkBox.setChecked(isSelected);
+            checkBox.setChecked(isLanguageSelected);
             checkBox.setOnCheckedChangeListener(this);
             i++;
         }
@@ -164,7 +175,6 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
                 lastCheckBoxWhichIsOn = checkBox;
             }
         }
-
         if (counter == 1) {
             if (lastCheckBoxWhichIsOn != null) {
                 lastCheckBoxWhichIsOn.setEnabled(false);
@@ -193,47 +203,18 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
     }
     @Override
     protected void archivePanelData() throws JSONException {
-
+        // 스위치를 가지고 List를 만듬
+        selectedLanguages.clear();
+        for (CheckBox checkBox: languageCheckBoxes) {
+            selectedLanguages.add(checkBox.isChecked());
+        }
+        // 직렬화 해서 panelDataObject에 저장
+        String selectedLanguagesJsonString = new Gson().toJson(selectedLanguages);
+        getPanelDataObject().put(QUOTES_LANGUAGES, selectedLanguagesJsonString);
     }
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        MNLog.i(TAG, "onCheckedChanged");
         checkCheckBoxStates();
     }
-
-    /**** Method for Setting the Height of the ListView dynamically.
-     **** Hack to fix the issue of not showing all the items of the ListView
-     **** when placed inside a ScrollView  ****/
-    /*
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-
-            MNLog.now("view: " + view.toString());
-            MNLog.now("view.getMeasureHeight: " + view.getMeasuredHeight());
-
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-
-        MNLog.now("totalHeight: " + totalHeight);
-
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        params.height = DipToPixel.dpToPixel(listView.getContext(), 300);
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-    }
-    */
 }
