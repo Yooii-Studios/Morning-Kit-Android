@@ -137,7 +137,7 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
             quoteTextView.setVisibility(View.VISIBLE);
             quoteTextView.setText(quote.getQuote() + "\n" + quote.getAuthor());
         } else {
-            quoteTextView.setVisibility(View.INVISIBLE);
+            quoteTextView.setVisibility(View.GONE);
         }
     }
 
