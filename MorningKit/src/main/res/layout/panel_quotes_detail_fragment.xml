@@ -44,7 +44,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="@dimen/panel_detail_padding"
                 android:layout_toLeftOf="@id/panel_quotes_detail_language_checkbox"
-                android:text="@string/setting_language_traditional_chinese"
+                android:text="@string/setting_language_english"
                 android:textSize="25dp"/>
 
         </RelativeLayout>

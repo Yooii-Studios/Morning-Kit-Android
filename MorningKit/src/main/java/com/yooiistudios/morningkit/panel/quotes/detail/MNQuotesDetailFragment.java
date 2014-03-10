@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,7 +37,7 @@ import static com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout.QUOTE
  *
  * MNQuotesDetailFragment
  */
-public class MNQuotesDetailFragment extends MNPanelDetailFragment {
+public class MNQuotesDetailFragment extends MNPanelDetailFragment implements CompoundButton.OnCheckedChangeListener {
     private static final String TAG = "MNQuotesDetailFragment";
 
     @InjectView(R.id.panel_quotes_detail_quote_textview) TextView quoteTextView;
@@ -43,10 +45,11 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment {
 //    @InjectView(R.id.panel_quotes_detail_language_listview) MNQuotesLanguageListView languageListView;
 
     @InjectView(R.id.panel_quotes_detail_language_english_layout) RelativeLayout languageEnglishLayout;
-    @InjectView(R.id.panel_quotes_detail_language_english_layout) RelativeLayout languageKoreanLayout;
-    @InjectView(R.id.panel_quotes_detail_language_english_layout) RelativeLayout languageJapaneseLayout;
-    @InjectView(R.id.panel_quotes_detail_language_english_layout) RelativeLayout languageSimplefiedChineseLayout;
-    @InjectView(R.id.panel_quotes_detail_language_english_layout) RelativeLayout languageTraditionalChineseLayout;
+    @InjectView(R.id.panel_quotes_detail_language_korean_layout) RelativeLayout languageKoreanLayout;
+    @InjectView(R.id.panel_quotes_detail_language_japanese_layout) RelativeLayout languageJapaneseLayout;
+    @InjectView(R.id.panel_quotes_detail_language_simplified_chinese_layout) RelativeLayout languageSimplifiedChineseLayout;
+    @InjectView(R.id.panel_quotes_detail_language_traditional_chinese_layout) RelativeLayout languageTraditionalChineseLayout;
+    List<CheckBox> languageCheckBoxes;
 
     List<Boolean> selectedLanguages;
     MNQuote quote;
@@ -128,7 +131,49 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment {
     }
 
     private void initLanguageLayouts() {
+        languageCheckBoxes = new ArrayList<CheckBox>();
+        languageCheckBoxes.add(getCheckBoxFromLayout(languageEnglishLayout));
+        languageCheckBoxes.add(getCheckBoxFromLayout(languageKoreanLayout));
+        languageCheckBoxes.add(getCheckBoxFromLayout(languageJapaneseLayout));
+        languageCheckBoxes.add(getCheckBoxFromLayout(languageSimplifiedChineseLayout));
+        languageCheckBoxes.add(getCheckBoxFromLayout(languageTraditionalChineseLayout));
+
+        int i = 0;
+        for (Boolean isSelected : selectedLanguages) {
+            CheckBox checkBox = languageCheckBoxes.get(i);
+            checkBox.setChecked(isSelected);
+            checkBox.setOnCheckedChangeListener(this);
+            i++;
+        }
+
+        checkCheckBoxStates();
+    }
+
+    private CheckBox getCheckBoxFromLayout(RelativeLayout layout) {
+        return (CheckBox) layout.findViewById(R.id.panel_quotes_detail_language_checkbox);
+    }
+
+    private void checkCheckBoxStates() {
+        // 1개만 선택이 되어 있다면 해당 체크박스는 disable해서 무조건 하나는 선택되어 있게 만든다
+        // 그렇지 않다면 모두 선택할 수 있게 해주기
         int counter = 0;
+        CheckBox lastCheckBoxWhichIsOn = null;
+        for (CheckBox checkBox : languageCheckBoxes) {
+            if (checkBox.isChecked()) {
+                counter += 1;
+                lastCheckBoxWhichIsOn = checkBox;
+            }
+        }
+
+        if (counter == 1) {
+            if (lastCheckBoxWhichIsOn != null) {
+                lastCheckBoxWhichIsOn.setEnabled(false);
+            }
+        } else {
+            for (CheckBox checkBox : languageCheckBoxes) {
+                checkBox.setEnabled(true);
+            }
+        }
     }
 
     @Override
@@ -149,6 +194,12 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment {
     @Override
     protected void archivePanelData() throws JSONException {
 
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        MNLog.i(TAG, "onCheckedChanged");
+        checkCheckBoxStates();
     }
 
     /**** Method for Setting the Height of the ListView dynamically.
