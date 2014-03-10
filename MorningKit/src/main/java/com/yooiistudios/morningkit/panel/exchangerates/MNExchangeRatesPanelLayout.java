@@ -10,13 +10,13 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.exchangerates.model.FlagBitmapFactory;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNDefaultExchangeRatesInfo;
@@ -42,11 +42,12 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
     public static final String EXCHANGE_RATES_PREFS = "EXCHANGE_RATES_PREFS";
     public static final String EXCHANGE_RATES_DATA_EXCHANGE_INFO = "EXCHANGE_RATES_DATA_EXCHANGE_INFO";
 
+    private RelativeLayout innerContentLayout;
     private LinearLayout imageViewLayout;
     private RecyclingImageView baseCurrencyImageView;
     private RecyclingImageView targetCurrencyImageView;
-    private TextView baseToTargetCurrecyTextView;
-    private TextView targetToBaseCurrecyTextView;
+    private AutoResizeTextView baseToTargetCurrecyTextView;
+    private AutoResizeTextView targetToBaseCurrecyTextView;
 
     MNExchangeRatesInfo exchangeRatesInfo;
     MNExchangeRatesAsyncTask exchangeRatesAsyncTask;
@@ -63,8 +64,8 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
     protected void init() {
         super.init();
 
-        // content layout
-        RelativeLayout innerContentLayout = new RelativeLayout(getContext());
+        // inner content layout - 회전 대응
+        innerContentLayout = new RelativeLayout(getContext());
         LayoutParams innerContentLayoutParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
         innerContentLayoutParams.addRule(CENTER_IN_PARENT);
         innerContentLayout.setLayoutParams(innerContentLayoutParams);
@@ -101,11 +102,13 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         // base-target currency
         int padding = getResources().getDimensionPixelSize(R.dimen.panel_layout_padding);
 
-        baseToTargetCurrecyTextView = new TextView(getContext());
+        baseToTargetCurrecyTextView = new AutoResizeTextView(getContext());
+//        baseToTargetCurrecyTextView.setMinTextSize(DipToPixel.dpToPixel(getContext(), 3));
         baseToTargetCurrecyTextView.setId(8123747);
         baseToTargetCurrecyTextView.setGravity(Gravity.CENTER);
         baseToTargetCurrecyTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_exchange_rates_main_font_size));
+        baseToTargetCurrecyTextView.setSingleLine();
         LayoutParams baseToTargetLayoutParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
         baseToTargetLayoutParams.topMargin = marginOuter;
         baseToTargetLayoutParams.leftMargin = marginOuter;
@@ -116,10 +119,12 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         innerContentLayout.addView(baseToTargetCurrecyTextView);
 
         // target-base currency
-        targetToBaseCurrecyTextView = new TextView(getContext());
+        targetToBaseCurrecyTextView = new AutoResizeTextView(getContext());
+//        targetToBaseCurrecyTextView.setMinTextSize(DipToPixel.dpToPixel(getContext(), 3));
         targetToBaseCurrecyTextView.setGravity(Gravity.CENTER);
         targetToBaseCurrecyTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_exchange_rates_sub_font_size));
+        targetToBaseCurrecyTextView.setSingleLine();
         LayoutParams targetToBaseLayoutParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
         targetToBaseLayoutParams.topMargin = marginOuter;
         targetToBaseLayoutParams.leftMargin = marginOuter;
@@ -203,6 +208,13 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
                 targetCurrencyBitmap));
 
         // string
+        updateTextViews();
+
+        // scaling TextViews's font size
+//        scalingCurrencyTextViews();
+    }
+
+    private void updateTextViews() {
         String baseCurrencyString = exchangeRatesInfo.getBaseCurrencySymbol() +
                 MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getBaseCurrencyMoney());
         String targetCurrencyString = exchangeRatesInfo.getTargetCurrencySymbol() +
@@ -210,10 +222,48 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 
         baseToTargetCurrecyTextView.setText(baseCurrencyString + " = " + targetCurrencyString);
         targetToBaseCurrecyTextView.setText(targetCurrencyString + " = " + baseCurrencyString);
-
-        // scaling TextViews's font size
-
     }
+
+    private void scalingCurrencyTextViews() {
+        int baseToTargetTextSize = getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_main_font_size);
+        int targetToBaseTextSize = getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_main_font_size);
+
+//        isTextExceedingTextView(baseToTargetCurrecyTextView);
+//        isTextExceedingTextView(targetToBaseCurrecyTextView);
+
+//        boolean baseToTargetTextExceedsPanel = false;
+//        if (paint.measureText(baseToTarget) > getWidth() - margin_x_string * 2)
+//            baseToTargetTextExceedsWidgetWidth = true;
+    }
+
+    /*
+    private boolean isTextExceedingTextView(TextView textView) {
+        String text = textView.getText().toString();
+
+        Rect bounds = new Rect();
+        Paint textPaint = textView.getPaint();
+        textPaint.getTextBounds(text, 0, text.length(), bounds);
+
+        int width = bounds.width();
+
+        MNLog.now("text width: " + width);
+        MNLog.now("textView width: " + textView.getWidth());
+
+        if (width > textView.getWidth()) {
+            float ratio = (float) textView.getWidth() / (float) width;
+            MNLog.now("ratio: " + ratio);
+
+            MNLog.now("previous text size: " + textView.getTextSize());
+
+            textView.setTextSize(textView.getTextSize() * ratio);
+
+            MNLog.now("scaled text size: " + textView.getTextSize());
+            return true;
+        } else {
+            return false;
+        }
+    }
+    */
 
     /**
      * Rotate
@@ -221,5 +271,6 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        updateTextViews();
     }
 }
