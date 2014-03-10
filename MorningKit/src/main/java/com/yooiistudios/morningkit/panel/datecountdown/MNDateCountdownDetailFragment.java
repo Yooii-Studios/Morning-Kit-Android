@@ -81,8 +81,8 @@ public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
         }
         getPanelDataObject().put(DATE_COUNTDOWN_DATA_TITLE, titleString);
 
-        // date
-        MNDate date = new MNDate(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
+        // date - 월은 + 1을 해야 제대로 된 값이 된다(1월 ~ 12월)
+        MNDate date = new MNDate(datePicker.getYear(), datePicker.getMonth() + 1, datePicker.getDayOfMonth());
         String dateJsonString = new Gson().toJson(date);
         getPanelDataObject().put(DATE_COUNTDOWN_DATA_DATE, dateJsonString);
     }

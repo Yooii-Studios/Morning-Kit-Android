@@ -164,7 +164,7 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
         statusLayout.addView(panelStatusTextView);
     }
 
-    public void refreshPanel() {
+    public void refreshPanel() throws JSONException {
         if (isUsingNetwork) {
             // 네트워크 체크
             boolean isReachable = true;
@@ -202,7 +202,7 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
         }
     }
 
-    protected void archivePanelData() {
+    protected void archivePanelData() throws JSONException {
         MNPanel.archivePanelData(getContext(), getPanelDataObject(), getPanelIndex());
     }
 

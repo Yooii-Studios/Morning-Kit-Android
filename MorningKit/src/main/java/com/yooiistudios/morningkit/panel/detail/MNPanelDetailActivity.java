@@ -144,6 +144,7 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
         // 변경사항 저장
         try {
             panelDetailFragment.archivePanelData();
+            MNPanel.archivePanelData(this, panelDetailFragment.getPanelDataObject(), panelWindowIndex);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -142,10 +142,10 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         this.flickrPhotoInfo = flickrPhotoInfo;
         try {
             getPanelDataObject().put(FLICKR_DATA_FLICKR_INFO, new Gson().toJson(flickrPhotoInfo));
+            archivePanelData();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        archivePanelData();
         MNBitmapLoadSaver.loadBitmapUsingVolley(flickrPhotoInfo.getPhotoUrlString(), getContext(), this);
     }
 

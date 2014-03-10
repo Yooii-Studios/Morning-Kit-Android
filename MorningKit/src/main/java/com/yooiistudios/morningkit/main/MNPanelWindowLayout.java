@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.MNPanel;
@@ -80,7 +81,11 @@ public class MNPanelWindowLayout extends LinearLayout
                 MNViewSizeMeasure.setViewSizeObserver(panelLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
                     @Override
                     public void onLayoutLoad() {
-                        panelLayout.refreshPanel();
+                        try {
+                            panelLayout.refreshPanel();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
@@ -96,10 +101,15 @@ public class MNPanelWindowLayout extends LinearLayout
 
     public void refreshAllPanels() {
         for (int i = 0; i < 4; i++) {
-            panelLayouts[i].refreshPanel();
+            try {
+                panelLayouts[i].refreshPanel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
+    // 패널 디테일 프래그먼트의 셀렉트 페이저에서 패널을 변경할 때의 콜백 메서드
     public void replacePanel(Intent data) {
         JSONObject panelDataObject;
         try {
@@ -108,9 +118,6 @@ public class MNPanelWindowLayout extends LinearLayout
                 int index = panelDataObject.getInt(MNPanel.PANEL_WINDOW_INDEX);
                 int uniqueId = panelDataObject.getInt(MNPanel.PANEL_UNIQUE_ID);
                 if (index >= 0 && index < 4) {
-                    // 패널 리스트 데이터 교체
-                    MNPanel.changePanel(getContext(), panelDataObject.getInt(MNPanel.PANEL_UNIQUE_ID), index);
-
                     // 패널 레이아웃 갱신
                     panelLineLayouts[index / 2].removeViewAt(index % 2);
                     panelLayouts[index] = MNPanelLayoutFactory.newPanelLayoutInstance(

@@ -6,6 +6,7 @@ import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownLayout;
 import com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayout;
 import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 import com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout;
+import com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout;
 
 import org.json.JSONException;
 
@@ -18,7 +19,7 @@ import org.json.JSONException;
 public class MNPanelLayoutFactory {
     private MNPanelLayoutFactory() { throw new AssertionError("You MUST not create this class!"); }
 
-    public static MNPanelLayout newPanelLayoutInstance(MNPanelType newPanalType, int index,
+    public static MNPanelLayout newPanelLayoutInstance(MNPanelType newPanalType, int panelWindowIndex,
                                                        Context context) {
         MNPanelLayout newPanelLayout = new MNPanelLayout(context);
 
@@ -41,6 +42,7 @@ public class MNPanelLayoutFactory {
                 break;
 
             case QUOTES:
+                newPanelLayout = new MNQuotesPanelLayout(context);
                 newPanelLayout.setPanelType(MNPanelType.QUOTES);
                 break;
 
@@ -69,16 +71,16 @@ public class MNPanelLayoutFactory {
             default:
                 throw new AssertionError("PanelType is not defined!");
         }
-        // 인덱스와 패널 데이터 대입
-        newPanelLayout.setPanelIndex(index);
-        newPanelLayout.setPanelDataObject(MNPanel.getPanelDataList(context).get(index));
+        // 기존에 저장된 패널 데이터를 읽고 인덱스, ID를 대입
+        newPanelLayout.setPanelIndex(panelWindowIndex);
+        newPanelLayout.setPanelDataObject(MNPanel.getPanelDataList(context).get(panelWindowIndex));
 
         try {
             // 패널 데이터에 unique Id, 인덱스 입력
             newPanelLayout.getPanelDataObject().put(MNPanel.PANEL_UNIQUE_ID,
                     newPanelLayout.getPanelType().getUniqueId());
             newPanelLayout.getPanelDataObject().put(MNPanel.PANEL_WINDOW_INDEX,
-                    index);
+                    panelWindowIndex);
         } catch (JSONException e) {
             e.printStackTrace();
         }
