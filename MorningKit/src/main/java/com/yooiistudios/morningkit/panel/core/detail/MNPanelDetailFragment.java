@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
+import com.yooiistudios.morningkit.panel.date.MNDateDetailFragment;
 import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownDetailFragment;
 import com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesDetailFragment;
 import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
@@ -36,20 +37,19 @@ public abstract class MNPanelDetailFragment extends Fragment {
         MNPanelDetailFragment newPanelDetailFragment;
         switch (panelType) {
 //            case WEATHER:
-//                newPanelLayout.setPanelType(MNPanelType.WEATHER);
-//                newPanelLayout.initNetworkPanel();
+//                newPanelDetailFragment = new MNWeatherDetailFragment();
 //                break;
 
-//            case DATE:
-//                newPanelLayout.setPanelType(MNPanelType.DATE);
-//                break;
+            case DATE:
+                newPanelDetailFragment = new MNDateDetailFragment();
+                break;
 
 //            case CALENDAR:
-//                newPanelLayout.setPanelType(MNPanelType.CALENDAR);
+//                newPanelDetailFragment = new MNCalendarDetailFragment();
 //                break;
 
 //            case WORLD_CLOCK:
-//                newPanelLayout.setPanelType(MNPanelType.WORLD_CLOCK);
+//                newPanelDetailFragment = new MNWorldClockDetailFragment();
 //                break;
 
             case QUOTES:
