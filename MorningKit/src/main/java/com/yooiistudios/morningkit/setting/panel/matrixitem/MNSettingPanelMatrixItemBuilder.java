@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.yooiistudios.morningkit.panel.MNPanelType;
+import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;

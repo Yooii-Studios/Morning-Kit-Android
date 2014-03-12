@@ -17,7 +17,7 @@ import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
-import com.yooiistudios.morningkit.panel.MNPanelLayout;
+import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.exchangerates.model.FlagBitmapFactory;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNDefaultExchangeRatesInfo;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesAsyncTask;

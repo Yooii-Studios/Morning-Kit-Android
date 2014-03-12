@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.selectpager;
+package com.yooiistudios.morningkit.panel.core.selectpager;
 
 /**
  * Created by StevenKim in Morning Kit from Yooii Studios Co., LTD. on 2014. 2. 5.

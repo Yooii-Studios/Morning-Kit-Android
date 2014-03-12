@@ -24,7 +24,7 @@ import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
-import com.yooiistudios.morningkit.panel.MNPanel;
+import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 
 import java.io.IOException;

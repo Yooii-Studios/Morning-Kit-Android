@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.detail;
+package com.yooiistudios.morningkit.panel.core.detail;
 
 import android.content.Intent;
 import android.os.Build;
@@ -10,10 +10,10 @@ import android.view.MenuItem;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
-import com.yooiistudios.morningkit.panel.MNPanel;
-import com.yooiistudios.morningkit.panel.MNPanelType;
-import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerInterface;
-import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerLayout;
+import com.yooiistudios.morningkit.panel.core.MNPanel;
+import com.yooiistudios.morningkit.panel.core.MNPanelType;
+import com.yooiistudios.morningkit.panel.core.selectpager.MNPanelSelectPagerInterface;
+import com.yooiistudios.morningkit.panel.core.selectpager.MNPanelSelectPagerLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;

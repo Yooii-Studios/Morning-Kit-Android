@@ -17,7 +17,7 @@ import com.yooiistudios.morningkit.common.bitmap.MNBitmapLoadSaver;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
-import com.yooiistudios.morningkit.panel.MNPanelLayout;
+import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrBitmapAsyncTask;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrFetcher;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrPhotoInfo;

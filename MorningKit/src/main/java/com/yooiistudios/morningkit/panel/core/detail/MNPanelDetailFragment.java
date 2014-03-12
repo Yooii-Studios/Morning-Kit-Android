@@ -1,17 +1,13 @@
-package com.yooiistudios.morningkit.panel.detail;
+package com.yooiistudios.morningkit.panel.core.detail;
 
 import android.support.v4.app.Fragment;
 
-import com.yooiistudios.morningkit.panel.MNPanel;
-import com.yooiistudios.morningkit.panel.MNPanelType;
+import com.yooiistudios.morningkit.panel.core.MNPanel;
+import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownDetailFragment;
-import com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayout;
 import com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesDetailFragment;
-import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
 import com.yooiistudios.morningkit.panel.memo.MNMemoDetailFragment;
-import com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout;
-import com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout;
 import com.yooiistudios.morningkit.panel.quotes.detail.MNQuotesDetailFragment;
 
 import org.json.JSONException;

@@ -24,8 +24,8 @@ import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
-import com.yooiistudios.morningkit.panel.MNPanel;
-import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.panel.core.MNPanel;
+import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 
 import org.json.JSONException;
 

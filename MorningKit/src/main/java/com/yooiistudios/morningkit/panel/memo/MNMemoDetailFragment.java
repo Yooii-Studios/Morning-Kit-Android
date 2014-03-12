@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.panel.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 
 import org.json.JSONException;
 

@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel;
+package com.yooiistudios.morningkit.panel.core;
 
 import android.content.Context;
 

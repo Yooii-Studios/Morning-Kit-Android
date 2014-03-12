@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel;
+package com.yooiistudios.morningkit.panel.core;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.panel.detail.MNPanelDetailActivity;
+import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

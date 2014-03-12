@@ -3,7 +3,7 @@
     android:id="@+id/panel_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yooiistudios.morningkit.panel.detail.MNPanelDetailActivity"
+    tools:context="com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailActivity"
     tools:ignore="MergeRootFrame">
 
     <RelativeLayout
@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/panel_detail_select_pager_layout"/>
 
-    <com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerLayout
+    <com.yooiistudios.morningkit.panel.core.selectpager.MNPanelSelectPagerLayout
         android:id="@+id/panel_detail_select_pager_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/panel_select_pager_height"

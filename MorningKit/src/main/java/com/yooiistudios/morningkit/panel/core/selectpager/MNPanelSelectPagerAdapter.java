@@ -1,12 +1,12 @@
-package com.yooiistudios.morningkit.panel.selectpager;
+package com.yooiistudios.morningkit.panel.core.selectpager;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.yooiistudios.morningkit.panel.selectpager.fragment.MNPanelSelectPagerFirstFragment;
-import com.yooiistudios.morningkit.panel.selectpager.fragment.MNPanelSelectPagerSecondFragment;
+import com.yooiistudios.morningkit.panel.core.selectpager.fragment.MNPanelSelectPagerFirstFragment;
+import com.yooiistudios.morningkit.panel.core.selectpager.fragment.MNPanelSelectPagerSecondFragment;
 
 /**
  * Created by StevenKim in Morning Kit from Yooii Studios Co., LTD. on 2014. 2. 4.

@@ -62,7 +62,7 @@
         </com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem>
     </LinearLayout>
 
-    <com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerLayout
+    <com.yooiistudios.morningkit.panel.core.selectpager.MNPanelSelectPagerLayout
         android:id="@+id/setting_panel_select_pager_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/panel_select_pager_height"

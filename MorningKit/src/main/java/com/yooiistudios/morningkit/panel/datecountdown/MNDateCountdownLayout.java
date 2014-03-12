@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.panel.MNPanelLayout;
+import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 
 import org.joda.time.Chronology;
 import org.joda.time.DateTime;

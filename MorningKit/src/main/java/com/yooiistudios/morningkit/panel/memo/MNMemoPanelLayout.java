@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.panel.MNPanelLayout;
+import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 
 import org.json.JSONException;
 

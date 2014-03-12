@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.selectpager;
+package com.yooiistudios.morningkit.panel.core.selectpager;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
@@ -11,8 +11,8 @@ import android.widget.RelativeLayout;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.panel.selectpager.fragment.MNPanelSelectPagerFirstFragment;
-import com.yooiistudios.morningkit.panel.selectpager.fragment.MNPanelSelectPagerSecondFragment;
+import com.yooiistudios.morningkit.panel.core.selectpager.fragment.MNPanelSelectPagerFirstFragment;
+import com.yooiistudios.morningkit.panel.core.selectpager.fragment.MNPanelSelectPagerSecondFragment;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;

@@ -157,7 +157,7 @@
             android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
-            android:name="com.yooiistudios.morningkit.panel.detail.MNPanelDetailActivity"
+            android:name=".panel.core.detail.MNPanelDetailActivity"
             android:screenOrientation="sensorPortrait" >
         </activity>
     </application>

@@ -8,10 +8,10 @@ import android.widget.LinearLayout;
 
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
-import com.yooiistudios.morningkit.panel.MNPanel;
-import com.yooiistudios.morningkit.panel.MNPanelLayout;
-import com.yooiistudios.morningkit.panel.MNPanelLayoutFactory;
-import com.yooiistudios.morningkit.panel.MNPanelType;
+import com.yooiistudios.morningkit.panel.core.MNPanel;
+import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
+import com.yooiistudios.morningkit.panel.core.MNPanelLayoutFactory;
+import com.yooiistudios.morningkit.panel.core.MNPanelType;
 
 import org.json.JSONException;
 import org.json.JSONObject;

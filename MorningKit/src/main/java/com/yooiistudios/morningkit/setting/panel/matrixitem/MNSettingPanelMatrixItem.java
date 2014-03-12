@@ -2,7 +2,6 @@ package com.yooiistudios.morningkit.setting.panel.matrixitem;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -15,10 +14,7 @@ import android.widget.TextView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
-import com.yooiistudios.morningkit.panel.MNPanelType;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.panel.core.MNPanelType;
 
 import lombok.Getter;
 import lombok.Setter;
