@@ -16,6 +16,7 @@ import com.google.gson.reflect.TypeToken;
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.panel.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.exchangerates.model.FlagBitmapFactory;
@@ -228,6 +229,10 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        updateTextViews();
+
+        // 로딩이 끝나기 전에는 진행하지 않음
+        if (exchangeRatesInfo != null) {
+            updateTextViews();
+        }
     }
 }
