@@ -283,4 +283,7 @@
         <!-- Flickr -->
     <string name="saving">Saving…</string>
 
+        <!-- World Clock -->
+    <string name="no_search_result">No Results Found</string>
+
 </resources>
