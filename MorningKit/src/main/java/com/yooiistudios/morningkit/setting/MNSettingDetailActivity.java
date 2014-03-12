@@ -20,7 +20,7 @@ public class MNSettingDetailActivity extends ActionBarActivity {
         // Theme
         setTheme(R.style.MNSettingActionBarTheme_Light);
 
-        super.onCreate(savedInstanceState);
+super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_detail);
 
         // 반짝임을 없애기 위해 프래그먼트와 같은 배경을 사용해야함
