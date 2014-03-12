@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/panel_detail_padding">
+
+    <CheckBox
+        android:id="@+id/date_detail_lunar_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:id="@+id/date_detail_lunar_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/calendar_lunar_calendar"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/date_detail_lunar_textview"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/panel_quotes_detail_language_text_size"
+        android:textStyle="bold"/>
+
+</RelativeLayout>

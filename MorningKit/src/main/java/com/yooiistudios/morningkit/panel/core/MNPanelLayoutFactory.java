@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel.core;
 
 import android.content.Context;
 
+import com.yooiistudios.morningkit.panel.date.MNDatePanelLayout;
 import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownLayout;
 import com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayout;
 import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
@@ -30,6 +31,7 @@ public class MNPanelLayoutFactory {
                 break;
 
             case DATE:
+                newPanelLayout = new MNDatePanelLayout(context);
                 newPanelLayout.setPanelType(MNPanelType.DATE);
                 break;
 

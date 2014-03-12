@@ -1,9 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/panel_detail_padding"
-    tools:context="com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownDatePicker">
+    android:padding="@dimen/panel_detail_padding">
 
     <EditText
         android:id="@+id/date_countdown_detail_edittext"
