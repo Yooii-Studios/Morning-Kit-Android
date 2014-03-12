@@ -100,10 +100,10 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         imageViewLayout.addView(targetCurrencyImageView);
 
         // base-target currency
-        int padding = getResources().getDimensionPixelSize(R.dimen.panel_layout_padding);
+        float minTextSize = getResources().getDimension(R.dimen.panel_exchange_rates_minimum_font_size);
 
         baseToTargetCurrecyTextView = new AutoResizeTextView(getContext());
-//        baseToTargetCurrecyTextView.setMinTextSize(DipToPixel.dpToPixel(getContext(), 3));
+//        baseToTargetCurrecyTextView.setMinTextSize(minTextSize); // 나중에 구현하자
         baseToTargetCurrecyTextView.setId(8123747);
         baseToTargetCurrecyTextView.setGravity(Gravity.CENTER);
         baseToTargetCurrecyTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
@@ -120,7 +120,8 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 
         // target-base currency
         targetToBaseCurrecyTextView = new AutoResizeTextView(getContext());
-//        targetToBaseCurrecyTextView.setMinTextSize(DipToPixel.dpToPixel(getContext(), 3));
+//        targetToBaseCurrecyTextView.setMinTextSize(minTextSize);
+//        targetToBaseCurrecyTextView.setMaxTextSize(getResources().getDimension(R.dimen.panel_exchange_rates_sub_font_size));
         targetToBaseCurrecyTextView.setGravity(Gravity.CENTER);
         targetToBaseCurrecyTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_exchange_rates_sub_font_size));
@@ -209,9 +210,6 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 
         // string
         updateTextViews();
-
-        // scaling TextViews's font size
-//        scalingCurrencyTextViews();
     }
 
     private void updateTextViews() {
@@ -223,47 +221,6 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         baseToTargetCurrecyTextView.setText(baseCurrencyString + " = " + targetCurrencyString);
         targetToBaseCurrecyTextView.setText(targetCurrencyString + " = " + baseCurrencyString);
     }
-
-    private void scalingCurrencyTextViews() {
-        int baseToTargetTextSize = getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_main_font_size);
-        int targetToBaseTextSize = getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_main_font_size);
-
-//        isTextExceedingTextView(baseToTargetCurrecyTextView);
-//        isTextExceedingTextView(targetToBaseCurrecyTextView);
-
-//        boolean baseToTargetTextExceedsPanel = false;
-//        if (paint.measureText(baseToTarget) > getWidth() - margin_x_string * 2)
-//            baseToTargetTextExceedsWidgetWidth = true;
-    }
-
-    /*
-    private boolean isTextExceedingTextView(TextView textView) {
-        String text = textView.getText().toString();
-
-        Rect bounds = new Rect();
-        Paint textPaint = textView.getPaint();
-        textPaint.getTextBounds(text, 0, text.length(), bounds);
-
-        int width = bounds.width();
-
-        MNLog.now("text width: " + width);
-        MNLog.now("textView width: " + textView.getWidth());
-
-        if (width > textView.getWidth()) {
-            float ratio = (float) textView.getWidth() / (float) width;
-            MNLog.now("ratio: " + ratio);
-
-            MNLog.now("previous text size: " + textView.getTextSize());
-
-            textView.setTextSize(textView.getTextSize() * ratio);
-
-            MNLog.now("scaled text size: " + textView.getTextSize());
-            return true;
-        } else {
-            return false;
-        }
-    }
-    */
 
     /**
      * Rotate
