@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.MNPanel;
@@ -66,9 +67,17 @@ public class MNPanelWindowLayout extends LinearLayout
 
             // 각 패널 레이아웃을 추가
             for (int j = 0; j < 2; j++) {
-                // 저장된 패널 id를 로드
-                List<Integer> uniquePanelIds = MNPanel.getPanelUniqueIdList(getContext());
-                MNPanelType panelType = MNPanelType.valueOfUniqueId(uniquePanelIds.get(i * 2 + j));
+                // 저장된 패널 id를 로드 - 기존 코드에서 panelDataObject를 활용하게 변경
+//                List<Integer> uniquePanelIds = MNPanel.getPanelUniqueIdList(getContext());
+
+                List<JSONObject> panelDataObjects = MNPanel.getPanelDataList(getContext());
+                int uniquePanelId = -1;
+                try {
+                    uniquePanelId = panelDataObjects.get(i * 2 + j).getInt(MNPanel.PANEL_UNIQUE_ID);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                MNPanelType panelType = MNPanelType.valueOfUniqueId(uniquePanelId);
 
                 // 패널 id에 맞게 패널 레이아웃 생성
                 int index = i * 2 + j;
@@ -118,6 +127,7 @@ public class MNPanelWindowLayout extends LinearLayout
                 int uniqueId = panelDataObject.getInt(MNPanel.PANEL_UNIQUE_ID);
                 if (index >= 0 && index < 4) {
                     // 패널 레이아웃 갱신
+                    MNLog.now("replacePanel/PANEL_UNIQUE_ID: " + MNPanelType.valueOfUniqueId(uniqueId).toString());
                     panelLineLayouts[index / 2].removeViewAt(index % 2);
                     panelLayouts[index] = MNPanelLayoutFactory.newPanelLayoutInstance(
                             MNPanelType.valueOfUniqueId(uniqueId), index, getContext());

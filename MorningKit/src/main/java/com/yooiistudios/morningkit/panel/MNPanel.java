@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.yooiistudios.morningkit.common.log.MNLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +34,7 @@ public class MNPanel {
     private static final String PANEL_DATA_LIST_KEY = "PANEL_DATA_LIST_KEY";
 
     private volatile static MNPanel instance;
-    private List<Integer> panelUniqueIdList; // uniqueId를 저장함으로써 유연성을 가질 수 있는 구조 확립
+//    private List<Integer> panelUniqueIdList; // uniqueId를 저장함으로써 유연성을 가질 수 있는 구조 확립
     private List<JSONObject> panelDataList; // 각 인덱스의 패널 데이터를 저장/아카이빙
 
     /**
@@ -44,33 +45,48 @@ public class MNPanel {
         if (context != null) {
             SharedPreferences prefs = context.getSharedPreferences(PANEL_SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
-            String panelListJsonString = prefs.getString(PANEL_UNIQUE_ID_LIST_KEY, null);
-            if (panelListJsonString != null) {
-                Type type = new TypeToken<List<Integer>>(){}.getType();
-                panelUniqueIdList = new Gson().fromJson(panelListJsonString, type);
-            } else {
-                panelUniqueIdList = new ArrayList<Integer>();
-                panelUniqueIdList.add(MNPanelType.WEATHER.getUniqueId());
-                panelUniqueIdList.add(MNPanelType.DATE.getUniqueId());
-                panelUniqueIdList.add(MNPanelType.WORLD_CLOCK.getUniqueId());
-                panelUniqueIdList.add(MNPanelType.QUOTES.getUniqueId());
+            // 기존에 저장한 유니크 리스트가 있는지 확인
+//            String panelListJsonString = prefs.getString(PANEL_UNIQUE_ID_LIST_KEY, null);
+//            if (panelListJsonString != null) {
+//                Type type = new TypeToken<List<Integer>>(){}.getType();
+//                panelUniqueIdList = new Gson().fromJson(panelListJsonString, type);
+//
+//                MNLog.now("panelUniqueIdList: " + panelUniqueIdList.toString());
+//            } else {
+//                panelUniqueIdList = new ArrayList<Integer>();
+//                panelUniqueIdList.add(MNPanelType.WEATHER.getUniqueId());
+//                panelUniqueIdList.add(MNPanelType.DATE.getUniqueId());
+//                panelUniqueIdList.add(MNPanelType.WORLD_CLOCK.getUniqueId());
+//                panelUniqueIdList.add(MNPanelType.QUOTES.getUniqueId());
+//
+//                String jsonString = new Gson().toJson(panelUniqueIdList);
+//                prefs.edit().putString(PANEL_UNIQUE_ID_LIST_KEY, jsonString).commit();
+//            }
 
-                String jsonString = new Gson().toJson(panelUniqueIdList);
-                prefs.edit().putString(PANEL_UNIQUE_ID_LIST_KEY, jsonString).commit();
-            }
-
+            // 기존에 저장한 패널 데이터 리스트가 있는지 확인
             String panelDataJsonString = prefs.getString(PANEL_DATA_LIST_KEY, null);
             if (panelDataJsonString != null) {
                 Type type = new TypeToken<List<JSONObject>>() {}.getType();
                 panelDataList = new Gson().fromJson(panelDataJsonString, type);
             } else {
                 panelDataList = new ArrayList<JSONObject>();
-                panelDataList.add(new JSONObject());
-                panelDataList.add(new JSONObject());
-                panelDataList.add(new JSONObject());
-                panelDataList.add(new JSONObject());
+                try {
+                    panelDataList.add(makeDefaultJSONObject(0, MNPanelType.WEATHER.getUniqueId()));
+                    panelDataList.add(makeDefaultJSONObject(1, MNPanelType.DATE.getUniqueId()));
+                    panelDataList.add(makeDefaultJSONObject(2, MNPanelType.WORLD_CLOCK.getUniqueId()));
+                    panelDataList.add(makeDefaultJSONObject(3, MNPanelType.QUOTES.getUniqueId()));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
+    }
+
+    private static JSONObject makeDefaultJSONObject(int panelWindowIndex, int panelUniqueId) throws JSONException {
+        JSONObject newJSONObject = new JSONObject();
+        newJSONObject.put(MNPanel.PANEL_UNIQUE_ID, panelUniqueId);
+        newJSONObject.put(MNPanel.PANEL_WINDOW_INDEX, panelWindowIndex);
+        return newJSONObject;
     }
 
     public static MNPanel getInstance(Context context) {
@@ -87,25 +103,26 @@ public class MNPanel {
     /**
      * Utility Methods
      */
-    public static List<Integer> getPanelUniqueIdList(Context context) {
-        return MNPanel.getInstance(context).panelUniqueIdList;
-    }
+//    public static List<Integer> getPanelUniqueIdList(Context context) {
+//        return MNPanel.getInstance(context).panelUniqueIdList;
+//    }
 
-    public static void changePanel(Context context, int newPanalUniqueId, int index) {
-        // change
-        MNPanel.getInstance(context).panelUniqueIdList.remove(index);
-        MNPanel.getInstance(context).panelUniqueIdList.add(index, newPanalUniqueId);
+    public static void changeToEmptyDataPanel(Context context, int newPanalUniqueId, int index) {
+        MNLog.now("changePanel/newPanalUniqueId: " + MNPanelType.valueOfUniqueId(newPanalUniqueId));
 
-        // Archive
-        String jsonString = new Gson().toJson(MNPanel.getInstance(context).panelUniqueIdList);
-        context.getSharedPreferences(PANEL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                .edit().putString(PANEL_UNIQUE_ID_LIST_KEY, jsonString).commit();
+//        // change
+//        MNPanel.getInstance(context).panelUniqueIdList.remove(index);
+//        MNPanel.getInstance(context).panelUniqueIdList.add(index, newPanalUniqueId);
+//
+//        // Archive
+//        String jsonString = new Gson().toJson(MNPanel.getInstance(context).panelUniqueIdList);
+//        context.getSharedPreferences(PANEL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+//                .edit().putString(PANEL_UNIQUE_ID_LIST_KEY, jsonString).commit();
 
         // clear panelDataList
-        JSONObject newJSONObject = new JSONObject();
+        JSONObject newJSONObject = null;
         try {
-            newJSONObject.put(MNPanel.PANEL_UNIQUE_ID, newPanalUniqueId);
-            newJSONObject.put(MNPanel.PANEL_WINDOW_INDEX, index);
+            newJSONObject = makeDefaultJSONObject(index, newPanalUniqueId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -117,6 +134,12 @@ public class MNPanel {
     }
 
     public static void archivePanelData(Context context, JSONObject panelData, int index) {
+        try {
+            MNLog.now("archivePanelData/uniqueId: " + MNPanelType.valueOfUniqueId(panelData.getInt(PANEL_UNIQUE_ID)));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         // change
         MNPanel.getInstance(context).panelDataList.remove(index);
         MNPanel.getInstance(context).panelDataList.add(index, panelData);
