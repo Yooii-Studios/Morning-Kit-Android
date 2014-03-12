@@ -5,17 +5,21 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.ViewGroup;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
+import com.yooiistudios.morningkit.panel.date.model.DateUtil;
 
 import org.json.JSONException;
 
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 /**
@@ -27,19 +31,23 @@ public class MNDatePanelLayout extends MNPanelLayout {
     private static final String TAG = "MNDatePanelLayout";
     protected static final String DATE_DATA_DATE_IS_LUNAR_ON = "DATE_DATA_DATE_IS_LUNAR_ON";
 
-    boolean isLunarCalendarOn = false;
+    // UI
+    private RelativeLayout innerContentLayout;
+    private LinearLayout calendarLayout;
+    private LinearLayout lunarCalendarLayout;
 
-    RelativeLayout innerContentLayout;
-    LinearLayout calendarLayout;
-    LinearLayout lunarCalendarLayout;
+    private TextView monthTextView;
+    private TextView dayTextView;
+    private TextView dayOfWeekTextView;
 
-    TextView monthTextView;
-    TextView dayTextView;
-    TextView dayOfWeekTextView;
+    private TextView lunarMonthTextView;
+    private TextView lunarDayTextView;
+    private TextView lunarDayOfWeekTextView;
 
-    TextView lunarMonthTextView;
-    TextView lunarDayTextView;
-    TextView lunarDayOfWeekTextView;
+    // Model
+    private boolean isLunarCalendarOn = false;
+    private Date todayDate;
+    private Date lunarDate;
 
     public MNDatePanelLayout(Context context) {
         super(context);
@@ -140,34 +148,61 @@ public class MNDatePanelLayout extends MNPanelLayout {
         lunarCalendarLayout.setBackgroundColor(Color.BLUE);
 
         monthTextView.setBackgroundColor(Color.CYAN);
-        monthTextView.setText("MARCH");
+        monthTextView.setText("March");
         dayTextView.setBackgroundColor(Color.MAGENTA);
         dayTextView.setText("12");
         dayOfWeekTextView.setBackgroundColor(Color.RED);
-        dayOfWeekTextView.setText("WEDNESDAY");
+        dayOfWeekTextView.setText("WED");
 
         lunarMonthTextView.setBackgroundColor(Color.CYAN);
-        lunarMonthTextView.setText("FEBRUARY");
+        lunarMonthTextView.setText("Feb");
         lunarDayTextView.setBackgroundColor(Color.MAGENTA);
         lunarDayTextView.setText("12");
         lunarDayOfWeekTextView.setBackgroundColor(Color.RED);
-        lunarDayOfWeekTextView.setText("WEDNESDAY");
+        lunarDayOfWeekTextView.setText("WED");
     }
 
     @Override
     protected void processLoading() throws JSONException {
         super.processLoading();
         isLunarCalendarOn = getPanelDataObject().getBoolean(DATE_DATA_DATE_IS_LUNAR_ON);
+
+        todayDate = new Date();
+
+        if (isLunarCalendarOn) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String todayDateString = simpleDateFormat.format(todayDate);
+            try {
+                lunarDate = DateUtil.getLunaDate(todayDateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     protected void updateUI() {
         super.updateUI();
 
-        if (isLunarCalendarOn) {
+        if (isLunarCalendarOn && lunarDate != null) {
             // 음력 달력 사용
+            lunarCalendarLayout.setVisibility(View.VISIBLE);
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM");
+            lunarMonthTextView.setText(simpleDateFormat.format(lunarDate));
+            simpleDateFormat = new SimpleDateFormat("dd");
+            lunarDayTextView.setText(simpleDateFormat.format(lunarDate));
+            simpleDateFormat = new SimpleDateFormat("EEEE");
+            lunarDayOfWeekTextView.setText(simpleDateFormat.format(lunarDate));
         } else {
             // 양력 달력만 사용
+            lunarCalendarLayout.setVisibility(View.GONE);
         }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM");
+        monthTextView.setText(simpleDateFormat.format(todayDate));
+        simpleDateFormat = new SimpleDateFormat("dd");
+        dayTextView.setText(simpleDateFormat.format(todayDate));
+        simpleDateFormat = new SimpleDateFormat("EEEE");
+        dayOfWeekTextView.setText(simpleDateFormat.format(todayDate));
     }
 }
