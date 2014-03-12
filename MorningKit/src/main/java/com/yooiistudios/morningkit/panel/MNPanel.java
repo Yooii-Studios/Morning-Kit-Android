@@ -108,8 +108,6 @@ public class MNPanel {
 //    }
 
     public static void changeToEmptyDataPanel(Context context, int newPanalUniqueId, int index) {
-        MNLog.now("changePanel/newPanalUniqueId: " + MNPanelType.valueOfUniqueId(newPanalUniqueId));
-
 //        // change
 //        MNPanel.getInstance(context).panelUniqueIdList.remove(index);
 //        MNPanel.getInstance(context).panelUniqueIdList.add(index, newPanalUniqueId);
@@ -119,7 +117,7 @@ public class MNPanel {
 //        context.getSharedPreferences(PANEL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
 //                .edit().putString(PANEL_UNIQUE_ID_LIST_KEY, jsonString).commit();
 
-        // clear panelDataList
+        // clear panelDataList and set default option
         JSONObject newJSONObject = null;
         try {
             newJSONObject = makeDefaultJSONObject(index, newPanalUniqueId);
@@ -134,12 +132,6 @@ public class MNPanel {
     }
 
     public static void archivePanelData(Context context, JSONObject panelData, int index) {
-        try {
-            MNLog.now("archivePanelData/uniqueId: " + MNPanelType.valueOfUniqueId(panelData.getInt(PANEL_UNIQUE_ID)));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         // change
         MNPanel.getInstance(context).panelDataList.remove(index);
         MNPanel.getInstance(context).panelDataList.add(index, panelData);
