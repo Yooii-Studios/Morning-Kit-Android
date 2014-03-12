@@ -66,9 +66,16 @@ public class MNPanelWindowLayout extends LinearLayout
 
             // 각 패널 레이아웃을 추가
             for (int j = 0; j < 2; j++) {
-                // 저장된 패널 id를 로드
-                List<Integer> uniquePanelIds = MNPanel.getPanelUniqueIdList(getContext());
-                MNPanelType panelType = MNPanelType.valueOfUniqueId(uniquePanelIds.get(i * 2 + j));
+                // 저장된 패널 id를 로드 - 기존 코드에서 panelDataObject를 활용하게 변경
+//                List<Integer> uniquePanelIds = MNPanel.getPanelUniqueIdList(getContext());
+                List<JSONObject> panelDataObjects = MNPanel.getPanelDataList(getContext());
+                int uniquePanelId = -1;
+                try {
+                    uniquePanelId = panelDataObjects.get(i * 2 + j).getInt(MNPanel.PANEL_UNIQUE_ID);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                MNPanelType panelType = MNPanelType.valueOfUniqueId(uniquePanelId);
 
                 // 패널 id에 맞게 패널 레이아웃 생성
                 int index = i * 2 + j;
