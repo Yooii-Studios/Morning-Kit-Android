@@ -102,7 +102,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
     // 현재의 패널 세팅을 가져 와서 지역화된 패널 이름과 테마가 적용된 패널 이미지를 적용
     private void initPanelMatrixItems() {
-//        List<Integer> panelList = MNPanel.getPanelUniqueIdList(getActivity());
+        // 기존 uniqueIdList에서 panelDataObject에서 id를 얻게 코드 변경
         List<JSONObject> panelDataObjects = MNPanel.getPanelDataList(getActivity());
         try {
             MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem1,
@@ -123,11 +123,6 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-//        MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem1, MNPanelType.valueOfUniqueId(panelList.get(0)), getActivity(), 0, this);
-//        MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem2, MNPanelType.valueOfUniqueId(panelList.get(1)), getActivity(), 1, this);
-//        MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem3, MNPanelType.valueOfUniqueId(panelList.get(2)), getActivity(), 2, this);
-//        MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem4, MNPanelType.valueOfUniqueId(panelList.get(3)), getActivity(), 3, this);
     }
 
     // 위젯 2*1 / 2*2 체크

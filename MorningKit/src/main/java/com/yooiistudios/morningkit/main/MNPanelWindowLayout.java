@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.MNPanel;
@@ -69,7 +68,6 @@ public class MNPanelWindowLayout extends LinearLayout
             for (int j = 0; j < 2; j++) {
                 // 저장된 패널 id를 로드 - 기존 코드에서 panelDataObject를 활용하게 변경
 //                List<Integer> uniquePanelIds = MNPanel.getPanelUniqueIdList(getContext());
-
                 List<JSONObject> panelDataObjects = MNPanel.getPanelDataList(getContext());
                 int uniquePanelId = -1;
                 try {
