@@ -1,6 +1,8 @@
 package com.yooiistudios.morningkit.panel.worldclock;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +17,12 @@ import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZone;
+import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZoneLoader;
 
 import org.json.JSONException;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -29,7 +35,7 @@ import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayo
  *
  * MNWorldClockDetailFragment
  */
-public class MNWorldClockDetailFragment extends MNPanelDetailFragment {
+public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements TextWatcher {
     private static final String TAG = "MNWorldClockDetailFragment";
 
     @InjectView(R.id.panel_detail_world_clock_linear_layout) LinearLayout containerLayout;
@@ -48,6 +54,8 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment {
 
     private boolean isClockAnalog = true;
     private boolean isUsing24Hours = false;
+    private ArrayList<MNTimeZone> timeZones;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,6 +83,10 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment {
                 isUsing24Hours = DateFormat.is24HourFormat(getActivity());
             }
 
+            // 도시 리스트 가져오기
+            timeZones = MNTimeZoneLoader.loadTimeZone(getActivity());
+
+            // UI
             initUI();
         }
         return rootView;
@@ -83,6 +95,7 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment {
     private void initUI() {
         updateClockTypeUI();
 
+        // CheckBox
         analogCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
@@ -98,6 +111,9 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment {
                 MNWorldClockDetailFragment.this.updateClockTypeUI();
             }
         });
+
+        // EditText
+        searchEditText.addTextChangedListener(this);
     }
 
     private void updateClockTypeUI() {
@@ -125,5 +141,21 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment {
     protected void archivePanelData() throws JSONException {
         getPanelDataObject().put(WORLD_CLOCK_DATA_IS_ALALOG, isClockAnalog);
         getPanelDataObject().put(WORLD_CLOCK_DATA_IS_24_HOUR, isUsing24HoursCheckBox.isChecked());
+    }
+
+    // EditText
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        // 검색 결과를 숨겼다 보여줄 수도 있음
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
     }
 }
