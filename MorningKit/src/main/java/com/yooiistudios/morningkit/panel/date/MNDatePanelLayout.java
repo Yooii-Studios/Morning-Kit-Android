@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.date.model.DateUtil;
 
@@ -79,7 +81,7 @@ public class MNDatePanelLayout extends MNPanelLayout {
         lunarCalendarLayout = new LinearLayout(getContext());
         lunarCalendarLayout.setOrientation(LinearLayout.VERTICAL);
         lunarCalendarLayout.setGravity(Gravity.CENTER);
-        LayoutParams lunarCalendarLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        final LayoutParams lunarCalendarLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         lunarCalendarLayoutParams.addRule(CENTER_VERTICAL);
         lunarCalendarLayoutParams.addRule(RIGHT_OF, calendarLayout.getId());
         lunarCalendarLayoutParams.leftMargin = getResources().getDimensionPixelSize(R.dimen.panel_layout_padding);
@@ -209,5 +211,26 @@ public class MNDatePanelLayout extends MNPanelLayout {
         dayTextView.setText(simpleDateFormat.format(todayDate));
         simpleDateFormat = new SimpleDateFormat("EEEE");
         dayOfWeekTextView.setText(simpleDateFormat.format(todayDate));
+    }
+
+    @Override
+    protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        // View.post 방식은 한박자 늦은 느낌이라 이것을 사용
+        MNViewSizeMeasure.setViewSizeObserver(lunarCalendarLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+            @Override
+            public void onLayoutLoad() {
+                final LayoutParams lunarCalendarLayoutParams
+                        = (LayoutParams) lunarCalendarLayout.getLayoutParams();
+
+                // 적당한 너비로 맞추어주자. 나중에 아티스트와 함께 다시 맞출 것.
+                if (lunarCalendarLayoutParams != null) {
+                    lunarCalendarLayoutParams.leftMargin =
+                            (int) ((getWidth() - lunarCalendarLayout.getWidth() - calendarLayout.getWidth()) / 3 * 0.8);
+                    requestLayout();
+                }
+            }
+        });
     }
 }
