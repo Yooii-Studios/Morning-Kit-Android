@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/worldclock_backgroundLinear"
+    android:id="@+id/panel_detail_world_clock_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#333333"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="@dimen/panel_detail_padding">
 
     <!--
     <TextView
@@ -19,121 +20,86 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="5dip"
-        android:paddingBottom="3dp" >
+        android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/worldClock_clockType_textView"
+            android:id="@+id/panel_detail_world_clock_clockType_textView"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="3dp"
-            android:layout_toLeftOf="@+id/worldClock_clockType_toggleButton_analog"
+            android:layout_toLeftOf="@+id/panel_detail_world_clock_clockType_checkbox_analog"
             android:gravity="center_vertical"
+            android:singleLine="true"
             android:text="@string/world_clock_clock_type_text"
             android:textSize="17dp"
             android:textColor="#ffffff"/>
 
-        <ToggleButton
-            android:id="@+id/worldClock_clockType_toggleButton_analog"
+        <CheckBox
+            android:id="@+id/panel_detail_world_clock_clockType_checkbox_analog"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/worldClock_clockType_toggleButton_digital"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/panel_detail_world_clock_clockType_checkbox_digital"
             android:background="#00ffffff"
-            android:textOff="@string/world_clock_analog"
-            android:textOn="@string/world_clock_analog"
+            android:layout_marginRight="8dp"
+            android:layout_centerVertical="true"
+            android:text="@string/world_clock_analog"
             android:textSize="15sp"
-            android:layout_marginRight="8dp" />
-
-        <View
-            android:id="@+id/worldClock_clockType_view_analog"
-            android:layout_width="50dip"
-            android:layout_height="1dip"
-            android:layout_alignBottom="@+id/worldClock_clockType_toggleButton_analog"
-            android:layout_alignLeft="@+id/worldClock_clockType_toggleButton_analog"
-            android:layout_marginBottom="10dip"
-            android:layout_marginLeft="5dip"
-            android:background="#ffffffff" />
+            android:textColor="#ffffff" />
         
-        <ToggleButton
-            android:id="@+id/worldClock_clockType_toggleButton_digital"
+        <CheckBox
+            android:id="@+id/panel_detail_world_clock_clockType_checkbox_digital"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
             android:background="#00ffffff"
-            android:textOff="@string/world_clock_digital"
-            android:textOn="@string/world_clock_digital"
-            android:textSize="15sp" />
+            android:layout_centerVertical="true"
+            android:text="@string/world_clock_digital"
+            android:textSize="15sp"
+            android:textColor="#ffffff"/>
 
-        <View
-            android:id="@+id/worldClock_clockType_view_digital"
-            android:layout_width="50dip"
-            android:layout_height="1dip"
-            android:layout_alignBottom="@+id/worldClock_clockType_toggleButton_digital"
-            android:layout_alignLeft="@+id/worldClock_clockType_toggleButton_digital"
-            android:layout_marginBottom="10dip"
-            android:layout_marginLeft="5dip"
-            android:background="#ffffffff" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/worldClock_use_24_hour_format_RelativeLayout"
+        android:id="@+id/panel_detail_world_clock_use_24_hour_format_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="5dip" 
-        android:paddingBottom="3dp">
+        android:layout_marginTop="@dimen/margin_outer">
 
         <TextView
-            android:id="@+id/worldClock_use_24_hour_format_textView"
+            android:id="@+id/panel_detail_world_clock_use_24_hour_format_textView"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="3dp"
-            android:layout_toLeftOf="@+id/worldClock_use_24_hour_format_toggleButton"
+            android:singleLine="true"
+            android:layout_toLeftOf="@+id/panel_detail_world_clock_use_24_hour_format_checkbox"
             android:gravity="center_vertical"
             android:text="@string/world_clock_use_24_hour_format"
             android:textSize="17dp"
             android:textColor="#ffffff" />
 
-        <ToggleButton
-            android:id="@+id/worldClock_use_24_hour_format_toggleButton"
-            android:layout_width="80dp"
+        <CheckBox
+            android:id="@+id/panel_detail_world_clock_use_24_hour_format_checkbox"
+            android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:background="#00ffffff"
-            android:textOff="@string/no"
-            android:textOn="@string/yes"
-            android:textSize="15sp" />
+            android:layout_centerVertical="true"
+            android:background="#00ffffff" />
 
-        <View
-            android:id="@+id/worldClock_use_24_hour_format_view"
-            android:layout_width="40dip"
-            android:layout_height="1dip"
-            android:layout_alignBottom="@+id/worldClock_use_24_hour_format_toggleButton"
-            android:layout_alignLeft="@+id/worldClock_use_24_hour_format_toggleButton"
-            android:layout_marginBottom="10dip"
-            android:layout_marginLeft="20dip"
-            android:background="#ffffffff" />
     </RelativeLayout>
 
     <FrameLayout
-        android:id="@+id/worldclock_searchFrameLayout"
+        android:id="@+id/panel_detail_world_clock_search_frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center_vertical" >
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/margin_outer" >
 
         <EditText
-            android:id="@+id/worldclock_searchTextView"
+            android:id="@+id/panel_detail_world_clock_search_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
@@ -158,28 +124,28 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_outer" >
 
         <ListView
-            android:id="@+id/worldcolock_searchedListView"
+            android:id="@+id/panel_detail_world_clock_search_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:cacheColorHint="#333333"
             android:paddingLeft="5dp"
             android:paddingRight="5dp" >
         </ListView>
 
         <TextView
-            android:id="@+id/text_no_search_result"
+            android:id="@+id/panel_detail_world_clock_no_search_result_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:alpha="0"
+            android:alpha="1"
             android:gravity="center_horizontal"
             android:text="@string/no_search_result"
-            android:textSize="17dp" />
-    </FrameLayout>
+            android:textSize="17dp"
+            android:textColor="#ffffff"/>
 
+    </FrameLayout>
 </LinearLayout>

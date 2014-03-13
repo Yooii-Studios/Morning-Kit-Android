@@ -12,8 +12,8 @@ import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
  */
 public class MNWorldClockPanelLayout extends MNPanelLayout {
     private static final String TAG = "MNWorldClockPanelLayout";
-    private static final String WORLD_CLOCK_DATA_IS_DIGITAL = "WORLD_CLOCK_DATA_IS_DIGITAL";
-    private static final String WORLD_CLOCK_DATA_IS_24_HOUR = "WORLD_CLOCK_DATA_IS_24_HOUR";
+    protected static final String WORLD_CLOCK_DATA_IS_ALALOG = "WORLD_CLOCK_DATA_IS_ALALOG";
+    protected static final String WORLD_CLOCK_DATA_IS_24_HOUR = "WORLD_CLOCK_DATA_IS_24_HOUR";
 
     public MNWorldClockPanelLayout(Context context) {
         super(context);
