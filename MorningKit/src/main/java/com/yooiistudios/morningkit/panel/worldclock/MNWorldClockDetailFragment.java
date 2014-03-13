@@ -19,6 +19,11 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZone;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZoneLoader;
+import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZoneSearchAsyncTask;
+import com.yooiistudios.morningkit.panel.worldclock.model.MNWorldClockTimeZoneAdapter;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
@@ -35,7 +40,7 @@ import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayo
  *
  * MNWorldClockDetailFragment
  */
-public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements TextWatcher {
+public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements TextWatcher, MNTimeZoneSearchAsyncTask.OnTimeZoneSearchAsyncTaskListener {
     private static final String TAG = "MNWorldClockDetailFragment";
 
     @InjectView(R.id.panel_detail_world_clock_linear_layout) LinearLayout containerLayout;
@@ -54,7 +59,9 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
 
     private boolean isClockAnalog = true;
     private boolean isUsing24Hours = false;
-    private ArrayList<MNTimeZone> timeZones;
+    private ArrayList<MNTimeZone> allTimeZones;
+    private MNTimeZoneSearchAsyncTask timeZoneSearchAsyncTask;
+    private MNWorldClockTimeZoneAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,7 +91,7 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
             }
 
             // 도시 리스트 가져오기
-            timeZones = MNTimeZoneLoader.loadTimeZone(getActivity());
+            allTimeZones = MNTimeZoneLoader.loadTimeZone(getActivity());
 
             // UI
             initUI();
@@ -114,6 +121,20 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
 
         // EditText
         searchEditText.addTextChangedListener(this);
+
+        // list adapter
+        adapter = new MNWorldClockTimeZoneAdapter(getActivity());
+        searchListView.setAdapter(adapter);
+
+        // Theme
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
+//        searchListView.setDivider(new ColorDrawable(MNSettingColors.getMainFontColor(currentThemeType)));
+        containerLayout.setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+        clockTypeTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+        isUsing24HoursTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+        analogCheckBox.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+        digitalCheckBox.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+        noSearchResultsTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
     }
 
     private void updateClockTypeUI() {
@@ -146,16 +167,39 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
     // EditText
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-        // 검색 결과를 숨겼다 보여줄 수도 있음
+        // 기존엔 검색 결과 clear 후 새로 갱신했지만 iOS는 그대로 보여주기에 해당 코드 삭제함
     }
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        if (timeZoneSearchAsyncTask != null) {
+            timeZoneSearchAsyncTask.cancel(true);
+        }
 
+        if (charSequence.length() > 0) {
+            timeZoneSearchAsyncTask = new MNTimeZoneSearchAsyncTask(allTimeZones, this, getActivity());
+            timeZoneSearchAsyncTask.execute(charSequence.toString());
+        } else {
+            onTimeZoneSearchFinished(null);
+        }
     }
 
     @Override
     public void afterTextChanged(Editable editable) {
 
+    }
+
+    // AsyncTask Callback Method
+    @Override
+    public void onTimeZoneSearchFinished(ArrayList<MNTimeZone> filteredTimeZones) {
+        if (filteredTimeZones != null && filteredTimeZones.size() > 0) {
+            noSearchResultsTextView.setVisibility(View.GONE);
+            adapter.setTimeZones(filteredTimeZones);
+            adapter.notifyDataSetChanged();
+        } else {
+            adapter.clear();
+            adapter.notifyDataSetChanged();
+            noSearchResultsTextView.setVisibility(View.VISIBLE);
+        }
     }
 }

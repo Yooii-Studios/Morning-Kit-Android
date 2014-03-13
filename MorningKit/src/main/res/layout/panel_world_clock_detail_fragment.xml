@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_margin="3dp"
             android:layout_toLeftOf="@+id/panel_detail_world_clock_clockType_checkbox_analog"
             android:gravity="center_vertical"
             android:singleLine="true"
@@ -71,7 +70,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_margin="3dp"
             android:singleLine="true"
             android:layout_toLeftOf="@+id/panel_detail_world_clock_use_24_hour_format_checkbox"
             android:gravity="center_vertical"
@@ -128,16 +126,15 @@
             android:id="@+id/panel_detail_world_clock_search_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:cacheColorHint="#333333"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp" >
+            android:cacheColorHint="#00000000"
+            android:dividerHeight="0.5dp"
+            android:divider="#ffffffff" >
         </ListView>
 
         <TextView
             android:id="@+id/panel_detail_world_clock_no_search_result_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:alpha="1"
             android:gravity="center_horizontal"
             android:text="@string/no_search_result"
