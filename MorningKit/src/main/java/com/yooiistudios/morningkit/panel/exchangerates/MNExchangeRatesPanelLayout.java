@@ -16,6 +16,7 @@ import com.google.gson.reflect.TypeToken;
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.exchangerates.model.FlagBitmapFactory;
@@ -103,7 +104,7 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         float minTextSize = getResources().getDimension(R.dimen.panel_exchange_rates_minimum_font_size);
 
         baseToTargetCurrecyTextView = new AutoResizeTextView(getContext());
-//        baseToTargetCurrecyTextView.setMinTextSize(minTextSize); // 나중에 구현하자
+        baseToTargetCurrecyTextView.setMinTextSize(minTextSize); // 나중에 구현하자
         baseToTargetCurrecyTextView.setId(8123747);
         baseToTargetCurrecyTextView.setGravity(Gravity.CENTER);
         baseToTargetCurrecyTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
@@ -120,8 +121,8 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 
         // target-base currency
         targetToBaseCurrecyTextView = new AutoResizeTextView(getContext());
-//        targetToBaseCurrecyTextView.setMinTextSize(minTextSize);
-//        targetToBaseCurrecyTextView.setMaxTextSize(getResources().getDimension(R.dimen.panel_exchange_rates_sub_font_size));
+        targetToBaseCurrecyTextView.setMinTextSize(minTextSize);
+        targetToBaseCurrecyTextView.setMaxTextSize(getResources().getDimension(R.dimen.panel_exchange_rates_sub_font_size));
         targetToBaseCurrecyTextView.setGravity(Gravity.CENTER);
         targetToBaseCurrecyTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_exchange_rates_sub_font_size));
@@ -218,8 +219,22 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         String targetCurrencyString = exchangeRatesInfo.getTargetCurrencySymbol() +
                 MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getTargetCurrencyMoney());
 
+//        baseToTargetCurrecyTextView.setText("");
+//        baseToTargetCurrecyTextView.resizeText();
         baseToTargetCurrecyTextView.setText(baseCurrencyString + " = " + targetCurrencyString);
+//        targetToBaseCurrecyTextView.setText("");
+//        targetToBaseCurrecyTextView.resizeText();
         targetToBaseCurrecyTextView.setText(targetCurrencyString + " = " + baseCurrencyString);
+
+//        MNViewSizeMeasure.setViewSizeObserver(this, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+//            @Override
+//            public void onLayoutLoad() {
+////                    baseToTargetCurrecyTextView.resetTextSize();
+//                baseToTargetCurrecyTextView.resizeText();
+////                    targetToBaseCurrecyTextView.resetTextSize();
+//                targetToBaseCurrecyTextView.resizeText();
+//            }
+//        });
     }
 
     /**
@@ -231,7 +246,19 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 
         // 로딩이 끝나기 전에는 진행하지 않음
         if (exchangeRatesInfo != null) {
-            updateTextViews();
+            MNViewSizeMeasure.setViewSizeObserver(this, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+                @Override
+                public void onLayoutLoad() {
+
+                    updateTextViews();
+
+//                    baseToTargetCurrecyTextView.resetTextSize();
+//                    baseToTargetCurrecyTextView.resizeText();
+//                    targetToBaseCurrecyTextView.resetTextSize();
+//                    targetToBaseCurrecyTextView.resizeText();
+                }
+            });
+
         }
     }
 }
