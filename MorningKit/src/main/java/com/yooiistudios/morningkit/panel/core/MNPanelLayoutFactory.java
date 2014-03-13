@@ -8,6 +8,7 @@ import com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayou
 import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 import com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout;
 import com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout;
+import com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout;
 
 import org.json.JSONException;
 
@@ -40,6 +41,7 @@ public class MNPanelLayoutFactory {
                 break;
 
             case WORLD_CLOCK:
+                newPanelLayout = new MNWorldClockPanelLayout(context);
                 newPanelLayout.setPanelType(MNPanelType.WORLD_CLOCK);
                 break;
 

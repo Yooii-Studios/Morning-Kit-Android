@@ -10,6 +10,7 @@ import com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesDet
 import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
 import com.yooiistudios.morningkit.panel.memo.MNMemoDetailFragment;
 import com.yooiistudios.morningkit.panel.quotes.detail.MNQuotesDetailFragment;
+import com.yooiistudios.morningkit.panel.worldclock.MNWorldClockDetailFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,9 +49,9 @@ public abstract class MNPanelDetailFragment extends Fragment {
 //                newPanelDetailFragment = new MNCalendarDetailFragment();
 //                break;
 
-//            case WORLD_CLOCK:
-//                newPanelDetailFragment = new MNWorldClockDetailFragment();
-//                break;
+            case WORLD_CLOCK:
+                newPanelDetailFragment = new MNWorldClockDetailFragment();
+                break;
 
             case QUOTES:
                 newPanelDetailFragment = new MNQuotesDetailFragment();
