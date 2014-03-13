@@ -41,9 +41,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/panel_detail_world_clock_clockType_checkbox_digital"
-            android:background="#00ffffff"
-            android:layout_marginRight="8dp"
             android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_outer"
             android:text="@string/world_clock_analog"
             android:textSize="15sp"
             android:textColor="#ffffff" />
@@ -53,7 +52,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="#00ffffff"
             android:layout_centerVertical="true"
             android:text="@string/world_clock_digital"
             android:textSize="15sp"
@@ -83,11 +81,10 @@
 
         <CheckBox
             android:id="@+id/panel_detail_world_clock_use_24_hour_format_checkbox"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="#00ffffff" />
+            android:layout_centerVertical="true" />
 
     </RelativeLayout>
 

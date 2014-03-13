@@ -86,7 +86,7 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment {
         analogCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                digitalCheckBox.setChecked(!checked);
+                isClockAnalog = checked;
                 MNWorldClockDetailFragment.this.updateClockTypeUI();
             }
         });
@@ -94,14 +94,14 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment {
         digitalCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                analogCheckBox.setChecked(!checked);
+                isClockAnalog = !checked;
                 MNWorldClockDetailFragment.this.updateClockTypeUI();
             }
         });
     }
 
     private void updateClockTypeUI() {
-        if (analogCheckBox.isChecked()) {
+        if (isClockAnalog) {
             isUsing24HoursLayout.setVisibility(View.GONE);
             analogCheckBox.setChecked(true);
             digitalCheckBox.setChecked(false);
@@ -123,7 +123,7 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment {
 
     @Override
     protected void archivePanelData() throws JSONException {
-        getPanelDataObject().put(WORLD_CLOCK_DATA_IS_ALALOG, analogCheckBox.isChecked());
+        getPanelDataObject().put(WORLD_CLOCK_DATA_IS_ALALOG, isClockAnalog);
         getPanelDataObject().put(WORLD_CLOCK_DATA_IS_24_HOUR, isUsing24HoursCheckBox.isChecked());
     }
 }
