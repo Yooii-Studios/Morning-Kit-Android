@@ -14,6 +14,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
     private static final String TAG = "MNWorldClockPanelLayout";
     protected static final String WORLD_CLOCK_DATA_IS_ALALOG = "WORLD_CLOCK_DATA_IS_ALALOG";
     protected static final String WORLD_CLOCK_DATA_IS_24_HOUR = "WORLD_CLOCK_DATA_IS_24_HOUR";
+    protected static final String WORLD_CLOCK_DATA_TIME_ZONE = "WORLD_CLOCK_DATA_TIME_ZONE";
 
     public MNWorldClockPanelLayout(Context context) {
         super(context);

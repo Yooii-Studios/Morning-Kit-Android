@@ -7,6 +7,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -15,7 +16,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZone;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZoneLoader;
@@ -27,6 +31,7 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
@@ -34,13 +39,14 @@ import butterknife.InjectView;
 
 import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_DATA_IS_24_HOUR;
 import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_DATA_IS_ALALOG;
+import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_DATA_TIME_ZONE;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 3. 12.
  *
  * MNWorldClockDetailFragment
  */
-public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements TextWatcher, MNTimeZoneSearchAsyncTask.OnTimeZoneSearchAsyncTaskListener {
+public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements TextWatcher, MNTimeZoneSearchAsyncTask.OnTimeZoneSearchAsyncTaskListener, AdapterView.OnItemClickListener {
     private static final String TAG = "MNWorldClockDetailFragment";
 
     @InjectView(R.id.panel_detail_world_clock_linear_layout) LinearLayout containerLayout;
@@ -61,7 +67,8 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
     private boolean isUsing24Hours = false;
     private ArrayList<MNTimeZone> allTimeZones;
     private MNTimeZoneSearchAsyncTask timeZoneSearchAsyncTask;
-    private MNWorldClockTimeZoneAdapter adapter;
+    private MNWorldClockTimeZoneAdapter timeZoneListAdapter;
+    private MNTimeZone selectedTimeZone;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,6 +95,16 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
                 }
             } else {
                 isUsing24Hours = DateFormat.is24HourFormat(getActivity());
+            }
+
+            if (getPanelDataObject().has(WORLD_CLOCK_DATA_TIME_ZONE)) {
+                Type type = new TypeToken<MNTimeZone>(){}.getType();
+                try {
+                    String timeZoneJsonString = getPanelDataObject().getString(WORLD_CLOCK_DATA_TIME_ZONE);
+                    selectedTimeZone = new Gson().fromJson(timeZoneJsonString, type);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             // 도시 리스트 가져오기
@@ -123,8 +140,15 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
         searchEditText.addTextChangedListener(this);
 
         // list adapter
-        adapter = new MNWorldClockTimeZoneAdapter(getActivity());
-        searchListView.setAdapter(adapter);
+        timeZoneListAdapter = new MNWorldClockTimeZoneAdapter(getActivity());
+        searchListView.setAdapter(timeZoneListAdapter);
+        if (selectedTimeZone != null) {
+            searchEditText.setText(selectedTimeZone.getName());
+            searchTimeZone(selectedTimeZone.getName());
+        }
+
+        // list view
+        searchListView.setOnItemClickListener(this);
 
         // Theme
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
@@ -162,6 +186,7 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
     protected void archivePanelData() throws JSONException {
         getPanelDataObject().put(WORLD_CLOCK_DATA_IS_ALALOG, isClockAnalog);
         getPanelDataObject().put(WORLD_CLOCK_DATA_IS_24_HOUR, isUsing24HoursCheckBox.isChecked());
+        getPanelDataObject().put(WORLD_CLOCK_DATA_TIME_ZONE, new Gson().toJson(selectedTimeZone));
     }
 
     // EditText
@@ -172,16 +197,7 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-        if (timeZoneSearchAsyncTask != null) {
-            timeZoneSearchAsyncTask.cancel(true);
-        }
-
-        if (charSequence.length() > 0) {
-            timeZoneSearchAsyncTask = new MNTimeZoneSearchAsyncTask(allTimeZones, this, getActivity());
-            timeZoneSearchAsyncTask.execute(charSequence.toString());
-        } else {
-            onTimeZoneSearchFinished(null);
-        }
+        searchTimeZone(charSequence);
     }
 
     @Override
@@ -189,17 +205,41 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
 
     }
 
+    private void searchTimeZone(CharSequence searchString) {
+        if (timeZoneSearchAsyncTask != null) {
+            timeZoneSearchAsyncTask.cancel(true);
+        }
+
+        if (searchString.length() > 0) {
+            timeZoneSearchAsyncTask = new MNTimeZoneSearchAsyncTask(allTimeZones, this, getActivity());
+            timeZoneSearchAsyncTask.execute(searchString.toString());
+        } else {
+            onTimeZoneSearchFinished(null);
+        }
+    }
+
     // AsyncTask Callback Method
     @Override
     public void onTimeZoneSearchFinished(ArrayList<MNTimeZone> filteredTimeZones) {
         if (filteredTimeZones != null && filteredTimeZones.size() > 0) {
             noSearchResultsTextView.setVisibility(View.GONE);
-            adapter.setTimeZones(filteredTimeZones);
-            adapter.notifyDataSetChanged();
+            timeZoneListAdapter.setTimeZones(filteredTimeZones);
+            timeZoneListAdapter.notifyDataSetChanged();
         } else {
-            adapter.clear();
-            adapter.notifyDataSetChanged();
+            timeZoneListAdapter.clear();
+            timeZoneListAdapter.notifyDataSetChanged();
             noSearchResultsTextView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long longPosition) {
+        MNLog.now("onItemClick");
+
+        MNTimeZone selectedTimeZone = timeZoneListAdapter.getItem(position);
+        if (selectedTimeZone != null) {
+            this.selectedTimeZone = selectedTimeZone;
+            onActionBarDoneClicked();
         }
     }
 }
