@@ -45,7 +45,7 @@ public class MNCurrencyInfo {
 			allCurrency = new ArrayList<MNCurrencyInfo>();
 			try {
 
-				InputStream file = _context.getResources().openRawResource(R.raw.exchange_list);
+				InputStream file = _context.getResources().openRawResource(R.raw.exchange_rates_country_list);
 
 				byte[] tB = new byte[file.available()];
 				file.read(tB);
