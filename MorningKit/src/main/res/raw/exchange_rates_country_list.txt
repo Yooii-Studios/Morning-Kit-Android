@@ -1,0 +1,47 @@
+AED/UAE Dirham/AE/AED
+ARS/Argentine Peso/AR/$
+AUD/Australian Dollar/AU/A$
+BHD/Bahraini Dinar/BH/BHD
+BOB/Bolivian Boliviano/BO/Bs.
+BRL/Brazilian Real/BR/R$
+CAD/Canadian Dollar/CA/C$
+CHF/Swiss Franc/CH/S₣
+CLP/Chilean Peso/CL/CLP$
+CNY/Chinese Yuan/CN/¥
+COP/Colombian Peso/CO/COL$
+CZK/Czech Koruna/CZ/Kč
+DKK/Danish Krone/DK/Dkr
+EGP/Egyptian Pound/EG/EGP
+EUR/Euro/EU/€
+GBP/British Pound/GB/£
+HKD/Hong Kong Dollar/HK/HK$
+HRK/Croatian Kuna/HR/kn
+HUF/Hungarian Forint/HU/Ft
+IDR/Indonesian Rupiah/ID/Rp
+ILS/Israeli Shekel/IL/₪
+INR/Indian Rupee/IN/₹
+JOD/Jordanian Dinar/JO/JD
+JPY/Japanese Yen/JP/¥
+KRW/Korean Won/KR/₩
+KWD/Kuwaiti Dinar/KW/KWD
+KZT/Kazakhstan Tenge/KZ/KZT
+LTL/Lithuanian Lita/LT/Lt
+LVL/Latvian Lat/LV/Ls
+MXN/Mexican Peso/MX/Mex$
+MYR/Malaysian Ringgit/MY/RM
+NOK/Norwegian Krone/NO/kr
+NZD/New Zealand Dollar/NZ/NZ$
+PEN/Peruvian Nuevo Sol/PE/S/.
+PHP/Philippine Peso/PH/₱
+PYG/Paraguayan Guarani/PY/₲
+QAR/Qatar Rial/QA/QAR
+RUB/Russian Ruble/RU/руб.
+SAR/Saudi Arabian Riyal/SA/SAR
+SEK/Swedish Krona/SE/kr
+SGD/Singapore Dollar/SG/S$
+THB/Thai Baht/TH/฿
+TRY/Turkey Lira/TR/TRY
+TWD/Taiwan Dollar/TW/NT$
+USD/US Dollar/US/$
+UYU/Uruguayan New Peso/UY/$U
+ZAR/South African Rand/ZW/R
