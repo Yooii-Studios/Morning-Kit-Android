@@ -165,7 +165,12 @@ public class MNDatePanelLayout extends MNPanelLayout {
     @Override
     protected void processLoading() throws JSONException {
         super.processLoading();
-        isLunarCalendarOn = getPanelDataObject().getBoolean(DATE_DATA_DATE_IS_LUNAR_ON);
+
+        if (getPanelDataObject().has(DATE_DATA_DATE_IS_LUNAR_ON)) {
+            isLunarCalendarOn = getPanelDataObject().getBoolean(DATE_DATA_DATE_IS_LUNAR_ON);
+        } else {
+            isLunarCalendarOn = false;
+        }
 
         todayDate = new Date();
 
