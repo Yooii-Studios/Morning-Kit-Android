@@ -158,7 +158,8 @@
         </activity>
         <activity
             android:name=".panel.core.detail.MNPanelDetailActivity"
-            android:screenOrientation="sensorPortrait" >
+            android:screenOrientation="sensorPortrait"
+            android:windowSoftInputMode="adjustPan">
         </activity>
     </application>
 
