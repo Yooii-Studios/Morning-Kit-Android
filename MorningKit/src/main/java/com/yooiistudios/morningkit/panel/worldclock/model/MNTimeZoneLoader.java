@@ -1,14 +1,25 @@
 package com.yooiistudios.morningkit.panel.worldclock.model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_PREFS;
+import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_PREFS_LATEST_TIME_ZONE;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 3. 13.
@@ -18,6 +29,9 @@ import java.util.Collections;
 public class MNTimeZoneLoader {
     private MNTimeZoneLoader() { throw new AssertionError("You MUST not create this class!"); }
 
+    /**
+     * 전체 시간대를 얻어오는 메서드
+     */
     public static ArrayList<MNTimeZone> loadTimeZone(Context context) {
         ArrayList<MNTimeZone> cityList = new ArrayList<MNTimeZone>();
 
@@ -80,5 +94,38 @@ public class MNTimeZoneLoader {
         }
 
         return cityList;
+    }
+
+    /**
+     * 저장된 시간대 값이 없을 때 기본 값을 가져오는 메서드
+     */
+    public static MNTimeZone getDefaultZone(Context context) {
+        // 첫 번째로 SharedPreferences 의 값을 찾는다
+        SharedPreferences prefs = context.getSharedPreferences(WORLD_CLOCK_PREFS, MODE_PRIVATE);
+        String latestTimeZoneJsonString = prefs.getString(WORLD_CLOCK_PREFS_LATEST_TIME_ZONE, null);
+
+        // 있으면 그 값을, 없으면 언어에 기반해서 TimeZone을 만들어 반환
+        if (latestTimeZoneJsonString != null) {
+            Type type = new TypeToken<MNTimeZone>() {}.getType();
+            return new Gson().fromJson(latestTimeZoneJsonString, type);
+        } else {
+            MNTimeZone timeZone = new MNTimeZone();
+            if (MNLanguage.getCurrentLanguageType(context) == MNLanguageType.ENGLISH) {
+                // Paris 1 0 Romance Standard Time/1
+                timeZone.m_Name = "Paris";
+                timeZone.m_Offset_Hour = 1;
+                timeZone.m_Offset_Min = 0;
+                timeZone.m_TimeZoneName = "Romance Standard Time";
+                timeZone.m_priority = 1;
+            } else {
+                // London 0 0 GMT Standard Time/4
+                timeZone.m_Name = "London";
+                timeZone.m_Offset_Hour = 0;
+                timeZone.m_Offset_Min = 0;
+                timeZone.m_TimeZoneName = "GMT Standard Time";
+                timeZone.m_priority = 4;
+            }
+            return timeZone;
+        }
     }
 }

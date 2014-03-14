@@ -1,5 +1,7 @@
 package com.yooiistudios.morningkit.panel.worldclock;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,6 +42,8 @@ import butterknife.InjectView;
 import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_DATA_IS_24_HOUR;
 import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_DATA_IS_ALALOG;
 import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_DATA_TIME_ZONE;
+import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_PREFS;
+import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_PREFS_LATEST_TIME_ZONE;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 3. 12.
@@ -98,13 +102,15 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
             }
 
             if (getPanelDataObject().has(WORLD_CLOCK_DATA_TIME_ZONE)) {
-                Type type = new TypeToken<MNTimeZone>(){}.getType();
+                Type type = new TypeToken<MNTimeZone>() {}.getType();
                 try {
                     String timeZoneJsonString = getPanelDataObject().getString(WORLD_CLOCK_DATA_TIME_ZONE);
                     selectedTimeZone = new Gson().fromJson(timeZoneJsonString, type);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            } else {
+                selectedTimeZone = MNTimeZoneLoader.getDefaultZone(getActivity());
             }
 
             // 도시 리스트 가져오기
@@ -186,7 +192,12 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
     protected void archivePanelData() throws JSONException {
         getPanelDataObject().put(WORLD_CLOCK_DATA_IS_ALALOG, isClockAnalog);
         getPanelDataObject().put(WORLD_CLOCK_DATA_IS_24_HOUR, isUsing24HoursCheckBox.isChecked());
-        getPanelDataObject().put(WORLD_CLOCK_DATA_TIME_ZONE, new Gson().toJson(selectedTimeZone));
+        String selectedTimeZoneJsonString = new Gson().toJson(selectedTimeZone);
+        getPanelDataObject().put(WORLD_CLOCK_DATA_TIME_ZONE, selectedTimeZoneJsonString);
+
+        // shared prefreences에도 저장
+        getActivity().getSharedPreferences(WORLD_CLOCK_PREFS, Context.MODE_PRIVATE)
+                .edit().putString(WORLD_CLOCK_PREFS_LATEST_TIME_ZONE, selectedTimeZoneJsonString).commit();
     }
 
     // EditText
