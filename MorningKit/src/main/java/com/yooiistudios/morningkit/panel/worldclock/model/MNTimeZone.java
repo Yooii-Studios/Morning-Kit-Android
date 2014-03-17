@@ -3,12 +3,8 @@ package com.yooiistudios.morningkit.panel.worldclock.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import android.util.Log;
-
 @SuppressWarnings("serial")
-public class MNTimeZone implements Serializable{
-	
-	
+public class MNTimeZone implements Serializable {
 	String m_Name;
 	String m_SearchedLocalizedName;
 	String m_TimeZoneName;
@@ -23,8 +19,8 @@ public class MNTimeZone implements Serializable{
 	int m_priority;
 	
 	@SuppressWarnings("unchecked")
-	public MNTimeZone(String name, String timeZoneName, int hour, int min, int priority, ArrayList<String> localizedNames)
-	{
+	public MNTimeZone(String name, String timeZoneName, int hour, int min, int priority,
+                      ArrayList<String> localizedNames) {
 		m_Name = name;
 		m_TimeZoneName = timeZoneName;
 		m_Offset_Hour = hour;
@@ -32,10 +28,8 @@ public class MNTimeZone implements Serializable{
 		m_priority = priority;
 		if (localizedNames != null) {
 			m_localizedNames = new ArrayList<String>(0);
-//			m_localizedNames = (ArrayList<String>) localizedNames.clone();
-			
+
 			for (String string : localizedNames) {
-//				Log.i(TAG, string);
 				m_localizedNames.add(string);
 			}
 		}
