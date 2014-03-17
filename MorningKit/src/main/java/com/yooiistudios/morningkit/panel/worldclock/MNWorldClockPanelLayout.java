@@ -2,6 +2,8 @@ package com.yooiistudios.morningkit.panel.worldclock;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -17,6 +19,7 @@ import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZone;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZoneLoader;
+import com.yooiistudios.morningkit.panel.worldclock.model.MNWorldClock;
 
 import org.json.JSONException;
 
@@ -50,9 +53,26 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
     private TextView digitalDayDifferencesTextView;
     private TextView digitalCityNameTextView;
 
+    private boolean isClockRunning = false;
     private boolean isClockAnalog = true;
     private boolean isUsing24Hours = false;
-    private MNTimeZone selectedTimeZone;
+    private MNWorldClock worldClock;
+
+    private Handler clockHandler = new Handler() {
+        @Override
+        public void handleMessage( Message msg ){
+            if (isClockRunning){
+                // UI갱신
+                updateUI();
+
+                // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
+                long endMilli = System.currentTimeMillis();
+                long delay = endMilli % 1000;
+
+                clockHandler.sendEmptyMessageDelayed(0, 1000 - delay);
+            }
+        }
+    };
 
     public MNWorldClockPanelLayout(Context context) {
         super(context);
@@ -66,16 +86,24 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
     protected void init() {
         super.init();
 
-        initClockModel();
-        initAnalogClock();
-        initDigitalClock();
+        MNLog.now("world clock panel init");
+        initAnalogClockUI();
+        initDigitalClockUI();
     }
 
-    private void initClockModel() {
+    private void initClockModel(MNTimeZone timeZone) {
+        // 세계 시계 캘린더 세팅
+        if (worldClock == null) {
+            MNLog.now("new MNWorldClock()");
+            worldClock = new MNWorldClock();
+        }
+        worldClock.setTimeZone(timeZone);
 
+        // 핸들러 실행
+        startClock();
     }
 
-    private void initAnalogClock() {
+    private void initAnalogClockUI() {
         // container
         analogClockLayout = new RelativeLayout(getContext());
         LayoutParams analogLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
@@ -133,7 +161,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         analogCityNameTextView.setText("Milwaukee, WI");
     }
 
-    private void initDigitalClock() {
+    private void initDigitalClockUI() {
         // container
         digitalClockLayout = new RelativeLayout(getContext());
         LayoutParams digitalLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
@@ -209,15 +237,19 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         if (getPanelDataObject().has(WORLD_CLOCK_DATA_IS_24_HOUR)) {
             isUsing24Hours = getPanelDataObject().getBoolean(WORLD_CLOCK_DATA_IS_24_HOUR);
         }
+        MNTimeZone timeZone;
         if (getPanelDataObject().has(WORLD_CLOCK_DATA_TIME_ZONE)) {
             Type type = new TypeToken<MNTimeZone>() {}.getType();
             String timeZoneJsonString = getPanelDataObject().getString(WORLD_CLOCK_DATA_TIME_ZONE);
-            selectedTimeZone = new Gson().fromJson(timeZoneJsonString, type);
-            MNLog.i(TAG, "selectedTimeZone: " + selectedTimeZone.getName());
+            timeZone = new Gson().fromJson(timeZoneJsonString, type);
+            MNLog.i(TAG, "archived timeZone: " + timeZone.getName());
         } else {
-            selectedTimeZone = MNTimeZoneLoader.getDefaultZone(getContext());
-            MNLog.i(TAG, "default time zone: " + selectedTimeZone.getName());
+            timeZone = MNTimeZoneLoader.getDefaultZone(getContext());
+            MNLog.i(TAG, "default time zone: " + timeZone.getName());
         }
+
+        // 세계 시계 정보를 가지고 시간 정보를 다시 계산
+        initClockModel(timeZone);
     }
 
     @Override
@@ -236,7 +268,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         analogAmpmTextView.setVisibility(View.VISIBLE);
         digitalClockLayout.setVisibility(View.GONE);
 
-        analogCityNameTextView.setText(selectedTimeZone.getTimeZoneName());
+        // cityName - 첫 글자는 무조건 대문자로
+        analogCityNameTextView.setText(worldClock.getUpperCasedTimeZoneString());
     }
 
     private void updateDigitalClockUI() {
@@ -244,11 +277,48 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         analogAmpmTextView.setVisibility(View.GONE);
         digitalClockLayout.setVisibility(View.VISIBLE);
 
-        digitalCityNameTextView.setText(selectedTimeZone.getTimeZoneName());
+        // time
+
+        // am pm
+
+        // day differences
+
+        // cityName - 첫 글자는 무조건 대문자로
+        digitalCityNameTextView.setText(worldClock.getUpperCasedTimeZoneString());
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    private void startClock() {
+        if (isClockRunning) {
+            return;
+        }
+        isClockRunning = true;
+
+        int diffInMilli = (int) System.currentTimeMillis() % 1000;
+        clockHandler.sendEmptyMessageDelayed(0, 1000 - diffInMilli);
+    }
+
+    private void stopClock() {
+        if (!isClockRunning) {
+            return;
+        }
+        isClockRunning = false;
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        MNLog.now("onAttachedToWindow");
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        MNLog.now("onDetachedFromWindow");
+        stopClock();
     }
 }
