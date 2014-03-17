@@ -267,7 +267,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         Calendar worldClockCalendar = worldClock.getClockCalendar();
 
         // time
-        
+
 
         // am/pm
         if (worldClockCalendar.get(Calendar.HOUR_OF_DAY) >= 12) {
