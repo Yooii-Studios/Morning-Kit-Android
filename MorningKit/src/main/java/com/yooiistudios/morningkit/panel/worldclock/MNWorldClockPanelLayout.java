@@ -66,8 +66,13 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
     protected void init() {
         super.init();
 
+        initClockModel();
         initAnalogClock();
         initDigitalClock();
+    }
+
+    private void initClockModel() {
+
     }
 
     private void initAnalogClock() {
@@ -220,14 +225,26 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         super.updateUI();
 
         if (isClockAnalog) {
-            analogClockLayout.setVisibility(View.VISIBLE);
-            analogAmpmTextView.setVisibility(View.VISIBLE);
-            digitalClockLayout.setVisibility(View.GONE);
+            updateAnalogClockUI();
         } else {
-            analogClockLayout.setVisibility(View.GONE);
-            analogAmpmTextView.setVisibility(View.GONE);
-            digitalClockLayout.setVisibility(View.VISIBLE);
+            updateDigitalClockUI();
         }
+    }
+
+    private void updateAnalogClockUI() {
+        analogClockLayout.setVisibility(View.VISIBLE);
+        analogAmpmTextView.setVisibility(View.VISIBLE);
+        digitalClockLayout.setVisibility(View.GONE);
+
+        analogCityNameTextView.setText(selectedTimeZone.getTimeZoneName());
+    }
+
+    private void updateDigitalClockUI() {
+        analogClockLayout.setVisibility(View.GONE);
+        analogAmpmTextView.setVisibility(View.GONE);
+        digitalClockLayout.setVisibility(View.VISIBLE);
+
+        digitalCityNameTextView.setText(selectedTimeZone.getTimeZoneName());
     }
 
     @Override
