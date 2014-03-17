@@ -15,7 +15,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.dp.DipToPixel;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZone;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZoneLoader;
@@ -24,6 +23,7 @@ import com.yooiistudios.morningkit.panel.worldclock.model.MNWorldClock;
 import org.json.JSONException;
 
 import java.lang.reflect.Type;
+import java.util.Calendar;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -63,6 +63,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         public void handleMessage( Message msg ){
             if (isClockRunning){
                 // UI갱신
+                worldClock.tick();
                 updateUI();
 
                 // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
@@ -85,8 +86,6 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
     @Override
     protected void init() {
         super.init();
-
-        MNLog.now("world clock panel init");
         initAnalogClockUI();
         initDigitalClockUI();
     }
@@ -94,7 +93,6 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
     private void initClockModel(MNTimeZone timeZone) {
         // 세계 시계 캘린더 세팅
         if (worldClock == null) {
-            MNLog.now("new MNWorldClock()");
             worldClock = new MNWorldClock();
         }
         worldClock.setTimeZone(timeZone);
@@ -242,10 +240,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             Type type = new TypeToken<MNTimeZone>() {}.getType();
             String timeZoneJsonString = getPanelDataObject().getString(WORLD_CLOCK_DATA_TIME_ZONE);
             timeZone = new Gson().fromJson(timeZoneJsonString, type);
-            MNLog.i(TAG, "archived timeZone: " + timeZone.getName());
         } else {
             timeZone = MNTimeZoneLoader.getDefaultZone(getContext());
-            MNLog.i(TAG, "default time zone: " + timeZone.getName());
         }
 
         // 세계 시계 정보를 가지고 시간 정보를 다시 계산
@@ -277,9 +273,41 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         analogAmpmTextView.setVisibility(View.GONE);
         digitalClockLayout.setVisibility(View.VISIBLE);
 
-        // time
+        Calendar worldClockCalendar = worldClock.getCalendar();
 
-        // am pm
+        // time
+        int hour = worldClockCalendar.get(Calendar.HOUR_OF_DAY);
+        int minute = worldClockCalendar.get(Calendar.MINUTE);
+        int second = worldClockCalendar.get(Calendar.SECOND);
+        if (!isUsing24Hours) {
+            if (hour == 0) {
+                hour += 12;
+            }
+            if (hour > 12) {
+                hour -= 12;
+            }
+        }
+
+        String minuteString = String.valueOf(minute);
+        if (minute < 10) {
+            minuteString = "0" + minuteString;
+        }
+
+        String colonString = second % 2 == 0 ? ":" : " ";
+        String timeString = String.valueOf(hour) + colonString + minuteString;
+        digitalTimeTextView.setText(timeString);
+
+        // am/pm
+        if (isUsing24Hours) {
+            digitalAmpmTextView.setVisibility(View.GONE);
+        } else {
+            digitalAmpmTextView.setVisibility(View.VISIBLE);
+            if (Calendar.HOUR_OF_DAY >= 12) {
+                digitalAmpmTextView.setText("PM");
+            } else {
+                digitalAmpmTextView.setText("AM");
+            }
+        }
 
         // day differences
 
@@ -309,16 +337,10 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         isClockRunning = false;
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        MNLog.now("onAttachedToWindow");
-    }
-
+    // 패널이 없어질 때 핸들러 중지
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        MNLog.now("onDetachedFromWindow");
         stopClock();
     }
 }

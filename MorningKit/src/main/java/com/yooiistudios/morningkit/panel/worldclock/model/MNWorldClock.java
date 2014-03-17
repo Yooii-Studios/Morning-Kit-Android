@@ -13,21 +13,17 @@ import lombok.Getter;
  */
 public class MNWorldClock {
     @Getter Calendar calendar;
-    String timeZoneName;
+    private MNTimeZone timeZone;
+    private String cityName;
+    private boolean isDaylightSavingTime = false;
 
     public MNWorldClock() {
         calendar = Calendar.getInstance();
     }
 
-    public void setTimeZone(MNTimeZone timeZone) {
-        if (timeZone.getSearchedLocalizedName()  != null) {
-            timeZoneName = timeZone.getSearchedLocalizedName();
-        } else {
-            timeZoneName = timeZone.getName();
-        }
-
-        // daylight saving time 체크 - 아직 미구현
-        boolean isDaylightSavingTime = false;
+    // 현재 시간을 1초마다 계산
+    public void tick() {
+        calendar = Calendar.getInstance();
 
         int hour = timeZone.getOffsetHour();
         if (isDaylightSavingTime) {
@@ -55,7 +51,31 @@ public class MNWorldClock {
         calendar.setTimeZone(TimeZone.getTimeZone(offset));
     }
 
+    public void setTimeZone(MNTimeZone timeZone) {
+        // cityName
+        if (timeZone.getSearchedLocalizedName()  != null) {
+            cityName = timeZone.getSearchedLocalizedName();
+        } else {
+            cityName = timeZone.getName();
+        }
+
+        // daylight saving time 체크 - 아직 미구현
+        checkDaylightSavingTime();
+
+        int hour = timeZone.getOffsetHour();
+        if (isDaylightSavingTime) {
+            hour += 1;
+        }
+
+        this.timeZone = timeZone;
+        tick();
+    }
+
+    private void checkDaylightSavingTime() {
+        isDaylightSavingTime = false;
+    }
+
     public String getUpperCasedTimeZoneString() {
-        return timeZoneName.substring(0, 1).toUpperCase() + timeZoneName.substring(1);
+        return cityName.substring(0, 1).toUpperCase() + cityName.substring(1);
     }
 }
