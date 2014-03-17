@@ -302,7 +302,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             digitalAmpmTextView.setVisibility(View.GONE);
         } else {
             digitalAmpmTextView.setVisibility(View.VISIBLE);
-            if (Calendar.HOUR_OF_DAY >= 12) {
+            if (worldClockCalendar.get(Calendar.HOUR_OF_DAY) >= 12) {
                 digitalAmpmTextView.setText("PM");
             } else {
                 digitalAmpmTextView.setText("AM");
