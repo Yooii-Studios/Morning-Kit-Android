@@ -264,6 +264,21 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         analogAmpmTextView.setVisibility(View.VISIBLE);
         digitalClockLayout.setVisibility(View.GONE);
 
+        Calendar worldClockCalendar = worldClock.getClockCalendar();
+
+        // time
+        
+
+        // am/pm
+        if (worldClockCalendar.get(Calendar.HOUR_OF_DAY) >= 12) {
+            analogAmpmTextView.setText(R.string.alarm_pm);
+        } else {
+            analogAmpmTextView.setText(R.string.alarm_am);
+        }
+
+        // day differences
+        setDayDifferencesText(analogDayDifferenceTextView, worldClock.getDayDifferences());
+
         // cityName - 첫 글자는 무조건 대문자로
         analogCityNameTextView.setText(worldClock.getUpperCasedTimeZoneString());
     }
