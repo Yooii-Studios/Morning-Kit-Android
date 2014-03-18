@@ -86,7 +86,6 @@ public class MNWorldClock {
         int localMonth = Calendar.getInstance().get(Calendar.MONTH);
         int localDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
-
         int clockYear = clockCalendar.get(Calendar.YEAR);
         int clockMonth = clockCalendar.get(Calendar.MONTH);
         int clockDay = clockCalendar.get(Calendar.DAY_OF_MONTH);
