@@ -65,9 +65,6 @@ public class MNTimeZone implements Serializable {
 	public void setSearchedLocalizedName(String searchedLocalizedName) { this.m_SearchedLocalizedName = searchedLocalizedName; }
 
     public boolean isDaylightSavingTime() {
-
-
-
-        return false;
+        return MNTimeZoneUtils.isDaylightSavingTime(this);
     }
 }
