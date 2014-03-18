@@ -24,9 +24,8 @@ public class MNWorldClock {
     }
 
     // 현재 시간을 1초마다 계산
-    public void tick(MNTimeZone timeZone) {
+    public void tick() {
         clockCalendar = Calendar.getInstance();
-        this.timeZone = timeZone;
 
         // Daylight Saving Time 체크
         int hour = timeZone.getOffsetHour();
@@ -62,7 +61,8 @@ public class MNWorldClock {
         } else {
             cityName = timeZone.getName();
         }
-        tick(timeZone);
+        this.timeZone = timeZone;
+        tick();
     }
 
     public String getUpperCasedTimeZoneString() {
