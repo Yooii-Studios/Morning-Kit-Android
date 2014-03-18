@@ -143,6 +143,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         // city name
         analogCityNameTextView = new TextView(getContext());
         analogCityNameTextView.setGravity(Gravity.CENTER);
+        analogCityNameTextView.setSingleLine();
         LayoutParams cityNameLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         cityNameLayoutParams.addRule(CENTER_HORIZONTAL);
         cityNameLayoutParams.addRule(BELOW, analogDayDifferenceTextView.getId());
@@ -206,6 +207,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         // city name
         digitalCityNameTextView = new TextView(getContext());
         digitalCityNameTextView.setGravity(Gravity.CENTER);
+        digitalCityNameTextView.setSingleLine();
         LayoutParams cityNameLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         cityNameLayoutParams.addRule(CENTER_HORIZONTAL);
         cityNameLayoutParams.addRule(BELOW, digitalDayDifferenceTextView.getId());
@@ -268,7 +270,10 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         Calendar worldClockCalendar = worldClock.getClockCalendar();
 
         // time
-
+        analogClockView.animateClock(
+                worldClockCalendar.get(Calendar.HOUR_OF_DAY),
+                worldClockCalendar.get(Calendar.MINUTE),
+                worldClockCalendar.get(Calendar.SECOND));
 
         // am/pm
         if (worldClockCalendar.get(Calendar.HOUR_OF_DAY) >= 12) {
@@ -342,7 +347,6 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
                 dayDifferenceTextView.setText(R.string.world_clock_today);
                 break;
             case 1:
-
                 dayDifferenceTextView.setText(R.string.world_clock_tomorrow);
                 break;
         }
