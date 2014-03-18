@@ -27,8 +27,9 @@ public class MNWorldClock {
     public void tick() {
         clockCalendar = Calendar.getInstance();
 
+        // Daylight Saving Time 체크
         int hour = timeZone.getOffsetHour();
-        if (isDaylightSavingTime) {
+        if (timeZone.isDaylightSavingTime()) {
             hour += 1;
         }
 
@@ -60,21 +61,8 @@ public class MNWorldClock {
         } else {
             cityName = timeZone.getName();
         }
-
-        // daylight saving time 체크 - 아직 미구현
-        checkDaylightSavingTime();
-
-        int hour = timeZone.getOffsetHour();
-        if (isDaylightSavingTime) {
-            hour += 1;
-        }
-
         this.timeZone = timeZone;
         tick();
-    }
-
-    private void checkDaylightSavingTime() {
-        isDaylightSavingTime = false;
     }
 
     public String getUpperCasedTimeZoneString() {
