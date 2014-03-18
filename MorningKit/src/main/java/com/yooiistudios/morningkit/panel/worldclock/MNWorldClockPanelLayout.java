@@ -267,7 +267,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         analogAmpmTextView.setVisibility(View.VISIBLE);
         digitalClockLayout.setVisibility(View.GONE);
 
-        Calendar worldClockCalendar = worldClock.getClockCalendar();
+        Calendar worldClockCalendar = worldClock.getWorldClockCalendar();
 
         // time
         analogClockView.animateClock(
@@ -294,7 +294,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         analogAmpmTextView.setVisibility(View.GONE);
         digitalClockLayout.setVisibility(View.VISIBLE);
 
-        Calendar worldClockCalendar = worldClock.getClockCalendar();
+        Calendar worldClockCalendar = worldClock.getWorldClockCalendar();
 
         // time
         int hour = worldClockCalendar.get(Calendar.HOUR_OF_DAY);

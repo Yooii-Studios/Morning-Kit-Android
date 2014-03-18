@@ -14,44 +14,44 @@ import lombok.Getter;
  *  세계 세계에 관한 로직을 담고 있는 클래스
  */
 public class MNWorldClock {
-    @Getter Calendar clockCalendar;
-    private MNTimeZone timeZone;
+    @Getter Calendar worldClockCalendar;
+    @Getter MNTimeZone timeZone;
     private String cityName;
     private boolean isDaylightSavingTime = false;
 
     public MNWorldClock() {
-        clockCalendar = Calendar.getInstance();
+        worldClockCalendar = Calendar.getInstance();
     }
 
     // 현재 시간을 1초마다 계산
     public void tick() {
-        clockCalendar = Calendar.getInstance();
+        worldClockCalendar = Calendar.getInstance();
 
         // Daylight Saving Time 체크
-        int hour = timeZone.getOffsetHour();
-        if (timeZone.isDaylightSavingTime()) {
-            hour += 1;
+        int hourOffset = timeZone.getOffsetHour();
+        if (isDaylightSavingTime) {
+            hourOffset += 1;
         }
 
         String hourString;
-        int absoluteHour = Math.abs(hour);
-        if (absoluteHour < 10 && hour >= 0) {
+        int absoluteHour = Math.abs(hourOffset);
+        if (absoluteHour < 10 && hourOffset >= 0) {
             hourString = String.format("+0%d", absoluteHour);
-        } else if (absoluteHour < 10 && hour < 0) {
+        } else if (absoluteHour < 10 && hourOffset < 0) {
             hourString = String.format("-0%d", absoluteHour);
-        } else if(hour >= 0) {
-            hourString = String.format("+%d", hour);
-        } else if(hour < 0) {
-            hourString = String.format("-%d", hour);
+        } else if(hourOffset >= 0) {
+            hourString = String.format("+%d", hourOffset);
+        } else if(hourOffset < 0) {
+            hourString = String.format("-%d", hourOffset);
         } else {
-            hourString = String.format("+%d", hour);
+            hourString = String.format("+%d", hourOffset);
         }
 
         // GMT 시간 설정을 사용해 원하는 시간대의 시간으로 변경
         String offset = String.format("GMT%s:%1d%1d", hourString,
                 timeZone.getOffsetMin() / 10, timeZone.getOffsetMin() % 10);
 
-        clockCalendar.setTimeZone(TimeZone.getTimeZone(offset));
+        worldClockCalendar.setTimeZone(TimeZone.getTimeZone(offset));
     }
 
     public void setTimeZone(MNTimeZone timeZone) {
@@ -63,6 +63,12 @@ public class MNWorldClock {
         }
         this.timeZone = timeZone;
         tick();
+
+        // tick을 진행한 후에 daylight saving time을 다시 확인해야 함. GMT+-X 때문(날짜)
+        if (MNTimeZoneUtils.isDaylightSavingTime(timeZone, worldClockCalendar)) {
+            isDaylightSavingTime = true;
+            tick();
+        }
     }
 
     public String getUpperCasedTimeZoneString() {
@@ -71,12 +77,12 @@ public class MNWorldClock {
 
     public int getDayDifferences() {
         int localYear = Calendar.getInstance().get(Calendar.YEAR);
-        int localMonth = Calendar.getInstance().get(Calendar.MONTH);
+        int localMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int localDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
-        int clockYear = clockCalendar.get(Calendar.YEAR);
-        int clockMonth = clockCalendar.get(Calendar.MONTH);
-        int clockDay = clockCalendar.get(Calendar.DAY_OF_MONTH);
+        int clockYear = worldClockCalendar.get(Calendar.YEAR);
+        int clockMonth = worldClockCalendar.get(Calendar.MONTH) + 1;
+        int clockDay = worldClockCalendar.get(Calendar.DAY_OF_MONTH);
 
         // Joda-Time 이용
         LocalDate localDate = new LocalDate(localYear, localMonth, localDay);
@@ -93,32 +99,5 @@ public class MNWorldClock {
 
         // 문제가 있는 경우 0을 반환
         return 0;
-
-        /*
-        // 기존 코드
-
-        // 년 비교
-        if (clockYear > localYear) {
-            dayDifference = 1;
-        }else if(clockYear < localYear) {
-            dayDifference = -1;
-        }else{
-            // 월 비교
-            if (clockMonth > localMonth) {
-                dayDifference = 1;
-            }else if (clockMonth < localMonth) {
-                dayDifference = -1;
-            }else{
-                // 일 비교
-                if (clockDay > localDay) {
-                    dayDifference = 1;
-                }else if(clockDay < localDay) {
-                    dayDifference = -1;
-                }else{
-                    dayDifference = 0;
-                }
-            }
-        }
-        */
     }
 }
