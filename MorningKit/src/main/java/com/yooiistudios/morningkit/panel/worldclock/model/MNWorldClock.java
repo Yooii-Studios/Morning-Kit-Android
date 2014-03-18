@@ -17,7 +17,6 @@ public class MNWorldClock {
     @Getter Calendar clockCalendar;
     private MNTimeZone timeZone;
     private String cityName;
-    private boolean isDaylightSavingTime = false;
 
     public MNWorldClock() {
         clockCalendar = Calendar.getInstance();
