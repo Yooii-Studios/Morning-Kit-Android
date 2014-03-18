@@ -42,6 +42,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
     protected static final String WORLD_CLOCK_DATA_TIME_ZONE = "WORLD_CLOCK_DATA_TIME_ZONE";
 
     private RelativeLayout analogClockLayout;
+    private MNAnalogClockView analogClockView;
     private TextView analogAmpmTextView;
     private TextView analogDayDifferenceTextView;
     private TextView analogCityNameTextView;
@@ -122,12 +123,12 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
 
         // analog clock
         int analogViewSize = DipToPixel.dpToPixel(getContext(), 60);
-        View analogView = new View(getContext());
-        analogView.setId(9173751);
+        analogClockView = new MNAnalogClockView(getContext());
+        analogClockView.setId(9173751);
         LayoutParams analogViewParams = new LayoutParams(analogViewSize, analogViewSize);
         analogViewParams.addRule(CENTER_HORIZONTAL);
-        analogView.setLayoutParams(analogViewParams);
-        analogClockLayout.addView(analogView);
+        analogClockView.setLayoutParams(analogViewParams);
+        analogClockLayout.addView(analogClockView);
 
         // day differences
         analogDayDifferenceTextView = new TextView(getContext());
@@ -135,7 +136,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         analogDayDifferenceTextView.setGravity(Gravity.CENTER);
         LayoutParams dayDiffLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         dayDiffLayoutParams.addRule(CENTER_HORIZONTAL);
-        dayDiffLayoutParams.addRule(BELOW, analogView.getId());
+        dayDiffLayoutParams.addRule(BELOW, analogClockView.getId());
         analogDayDifferenceTextView.setLayoutParams(dayDiffLayoutParams);
         analogClockLayout.addView(analogDayDifferenceTextView);
 
@@ -152,7 +153,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         analogClockLayout.setBackgroundColor(Color.BLUE);
         analogAmpmTextView.setBackgroundColor(Color.CYAN);
         analogAmpmTextView.setText("AM");
-        analogView.setBackgroundColor(Color.RED);
+        analogClockView.setBackgroundColor(Color.RED);
         analogDayDifferenceTextView.setBackgroundColor(Color.MAGENTA);
         analogDayDifferenceTextView.setText("Today");
         analogCityNameTextView.setBackgroundColor(Color.GREEN);
