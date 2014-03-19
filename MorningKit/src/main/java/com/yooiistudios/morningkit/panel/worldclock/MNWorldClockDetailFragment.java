@@ -127,7 +127,11 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
         analogCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                isClockAnalog = checked;
+                if (checked) {
+                    isClockAnalog = checked;
+                } else {
+                    analogCheckBox.setChecked(true);
+                }
                 MNWorldClockDetailFragment.this.updateClockTypeUI();
             }
         });
@@ -135,7 +139,11 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
         digitalCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                isClockAnalog = !checked;
+                if (checked) {
+                    isClockAnalog = !checked;
+                } else {
+                    digitalCheckBox.setChecked(true);
+                }
                 MNWorldClockDetailFragment.this.updateClockTypeUI();
             }
         });
