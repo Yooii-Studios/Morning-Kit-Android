@@ -53,13 +53,13 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
 
     @InjectView(R.id.panel_detail_world_clock_linear_layout) LinearLayout containerLayout;
 
-    @InjectView(R.id.panel_detail_world_clock_clockType_textView) TextView clockTypeTextView;
+    @InjectView(R.id.panel_detail_world_clock_clockType_textview) TextView clockTypeTextView;
     @InjectView(R.id.panel_detail_world_clock_clockType_checkbox_analog) CheckBox analogCheckBox;
     @InjectView(R.id.panel_detail_world_clock_clockType_checkbox_digital) CheckBox digitalCheckBox;
 
     @InjectView(R.id.panel_detail_world_clock_use_24_hour_format_layout) RelativeLayout isUsing24HoursLayout;
     @InjectView(R.id.panel_detail_world_clock_use_24_hour_format_checkbox) CheckBox isUsing24HoursCheckBox;
-    @InjectView(R.id.panel_detail_world_clock_use_24_hour_format_textView) TextView isUsing24HoursTextView;
+    @InjectView(R.id.panel_detail_world_clock_use_24_hour_format_textview) TextView isUsing24HoursTextView;
 
     @InjectView(R.id.panel_detail_world_clock_search_edit_text) EditText searchEditText;
     @InjectView(R.id.panel_detail_world_clock_search_listview) ListView searchListView;

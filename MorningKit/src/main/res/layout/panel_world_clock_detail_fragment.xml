@@ -7,23 +7,12 @@
     android:orientation="vertical"
     android:padding="@dimen/panel_detail_padding">
 
-    <!--
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center_horizontal"
-        android:text="WorldClock"
-        android:textSize="30sp" />
-    -->
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/panel_detail_world_clock_clockType_textView"
+            android:id="@+id/panel_detail_world_clock_clockType_textview"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -65,7 +54,7 @@
         android:layout_marginTop="@dimen/margin_outer">
 
         <TextView
-            android:id="@+id/panel_detail_world_clock_use_24_hour_format_textView"
+            android:id="@+id/panel_detail_world_clock_use_24_hour_format_textview"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
