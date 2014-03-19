@@ -133,6 +133,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/panel_detail_weather_search_listview_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_outer" >

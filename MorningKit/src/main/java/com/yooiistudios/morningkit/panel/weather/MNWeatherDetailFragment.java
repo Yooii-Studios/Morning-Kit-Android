@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -46,7 +47,10 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment {
     @InjectView(R.id.panel_detail_weather_temperature_celsius_checkbox) CheckBox temperatureCelsiusCheckBox;
     @InjectView(R.id.panel_detail_weather_temperature_fahrenheit_checkbox) CheckBox temperatureFahrenheitCheckBox;
 
+    @InjectView(R.id.panel_detail_weather_search_frame_layout) FrameLayout searchEditLayout;
     @InjectView(R.id.panel_detail_weather_search_edit_text) EditText searchEditText;
+
+    @InjectView(R.id.panel_detail_weather_search_listview_frame_layout) FrameLayout searchListViewLayout;
     @InjectView(R.id.panel_detail_weather_search_listview) ListView searchListView;
     @InjectView(R.id.panel_detail_weather_no_search_result_textview) TextView noSearchResultsTextView;
 
@@ -110,24 +114,27 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment {
             temperatureFahrenheitCheckBox.setChecked(true);
         }
 
+        setUseCurrentLocationState();
+        initCheckedChangeListners();
+        initTheme();
+    }
+
+    private void initCheckedChangeListners() {
         useCurrentLocationCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 isUsingCurrentLocation = b;
+                setUseCurrentLocationState();
             }
         });
+
         displayLocalTimeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 isDisplayingLocaltime = b;
             }
         });
-//        temperatureCelsiusCheckBox.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+
         temperatureCelsiusCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -137,15 +144,6 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment {
                     temperatureCelsiusCheckBox.setChecked(true);
                 }
                 setTemperatureCheckBoxStates();
-//                if (b) {
-//                    temperatureCelsiusCheckBox.setChecked(b);
-//                    temperatureFahrenheitCheckBox.setChecked(!b);
-//                    isUsingCelsius = b;
-//                } else {
-//                    temperatureCelsiusCheckBox.setChecked(true);
-//                    temperatureFahrenheitCheckBox.setChecked(false);
-//                    isUsingCelsius = true;
-//                }
             }
         });
         temperatureFahrenheitCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -157,18 +155,8 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment {
                     temperatureFahrenheitCheckBox.setChecked(true);
                 }
                 setTemperatureCheckBoxStates();
-//                if (b) {
-//                    temperatureCelsiusCheckBox.setChecked(!b);
-//                    temperatureFahrenheitCheckBox.setChecked(b);
-//                    isUsingCelsius = !b;
-//                } else {
-//                    temperatureCelsiusCheckBox.setChecked(false);
-//                    temperatureFahrenheitCheckBox.setChecked(true);
-//                    isUsingCelsius = false;
-//                }
             }
         });
-        initTheme();
     }
 
     private void setTemperatureCheckBoxStates() {
@@ -178,6 +166,16 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment {
         } else {
             temperatureCelsiusCheckBox.setChecked(false);
             temperatureFahrenheitCheckBox.setChecked(true);
+        }
+    }
+
+    private void setUseCurrentLocationState() {
+        if (isUsingCurrentLocation) {
+            searchEditLayout.setVisibility(View.GONE);
+            searchListViewLayout.setVisibility(View.GONE);
+        } else {
+            searchEditLayout.setVisibility(View.VISIBLE);
+            searchListViewLayout.setVisibility(View.VISIBLE);
         }
     }
 
