@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.panel.worldclock;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZone;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZoneLoader;
@@ -245,8 +243,6 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long longPosition) {
-        MNLog.now("onItemClick");
-
         MNTimeZone selectedTimeZone = timeZoneListAdapter.getItem(position);
         if (selectedTimeZone != null) {
             this.selectedTimeZone = selectedTimeZone;
