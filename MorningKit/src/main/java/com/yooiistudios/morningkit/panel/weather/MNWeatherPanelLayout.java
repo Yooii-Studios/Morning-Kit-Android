@@ -11,6 +11,11 @@ import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
  * MNWeatherPanelLayout
  */
 public class MNWeatherPanelLayout extends MNPanelLayout {
+
+    protected static final String WEATHER_IS_USING_CURRENT_LOCATION = "WEATHER_IS_USING_CURRENT_LOCATION";
+    protected static final String WEATHER_IS_DISPLAYING_LOCAL_TIME = "WEATHER_INDICATE_LOCAL_TIME";
+    protected static final String WEATHER_TEMP_CELSIUS = "WEATHER_TEMP_CELSIUS";
+
     public MNWeatherPanelLayout(Context context) {
         super(context);
     }
