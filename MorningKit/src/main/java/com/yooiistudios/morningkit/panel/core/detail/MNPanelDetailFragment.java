@@ -10,6 +10,7 @@ import com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesDet
 import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
 import com.yooiistudios.morningkit.panel.memo.MNMemoDetailFragment;
 import com.yooiistudios.morningkit.panel.quotes.detail.MNQuotesDetailFragment;
+import com.yooiistudios.morningkit.panel.weather.MNWeatherDetailFragment;
 import com.yooiistudios.morningkit.panel.worldclock.MNWorldClockDetailFragment;
 
 import org.json.JSONException;
@@ -37,9 +38,9 @@ public abstract class MNPanelDetailFragment extends Fragment {
                                                     MNPanelDetailFragmentListener fragmentListener) {
         MNPanelDetailFragment newPanelDetailFragment;
         switch (panelType) {
-//            case WEATHER:
-//                newPanelDetailFragment = new MNWeatherDetailFragment();
-//                break;
+            case WEATHER:
+                newPanelDetailFragment = new MNWeatherDetailFragment();
+                break;
 
             case DATE:
                 newPanelDetailFragment = new MNDateDetailFragment();

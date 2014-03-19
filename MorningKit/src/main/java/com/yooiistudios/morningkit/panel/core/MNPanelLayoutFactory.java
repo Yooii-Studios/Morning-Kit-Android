@@ -8,6 +8,7 @@ import com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayou
 import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 import com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout;
 import com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout;
+import com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout;
 import com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout;
 
 import org.json.JSONException;
@@ -23,10 +24,11 @@ public class MNPanelLayoutFactory {
 
     public static MNPanelLayout newPanelLayoutInstance(MNPanelType newPanalType, int panelWindowIndex,
                                                        Context context) {
-        MNPanelLayout newPanelLayout = new MNPanelLayout(context);
+        MNPanelLayout newPanelLayout;
 
         switch (newPanalType) {
             case WEATHER:
+                newPanelLayout = new MNWeatherPanelLayout(context);
                 newPanelLayout.setPanelType(MNPanelType.WEATHER);
                 newPanelLayout.initNetworkPanel();
                 break;
@@ -36,9 +38,9 @@ public class MNPanelLayoutFactory {
                 newPanelLayout.setPanelType(MNPanelType.DATE);
                 break;
 
-            case CALENDAR:
-                newPanelLayout.setPanelType(MNPanelType.CALENDAR);
-                break;
+//            case CALENDAR:
+//                newPanelLayout.setPanelType(MNPanelType.CALENDAR);
+//                break;
 
             case WORLD_CLOCK:
                 newPanelLayout = new MNWorldClockPanelLayout(context);
@@ -73,7 +75,8 @@ public class MNPanelLayoutFactory {
                 break;
 
             default:
-                throw new AssertionError("PanelType is not defined!");
+                newPanelLayout = new MNPanelLayout(context);
+                break;
         }
         // 기존에 저장된 패널 데이터를 읽고 인덱스, ID를 대입
         newPanelLayout.setPanelIndex(panelWindowIndex);
