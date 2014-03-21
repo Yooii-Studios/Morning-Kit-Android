@@ -48,7 +48,7 @@ public class MNWorldClockTimeZoneAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public int getCount() {	return timeZones.size()+1;	}
+	public int getCount() {	return timeZones.size(); }
 
 	@Override
 	public MNTimeZone getItem(int position) {
