@@ -16,12 +16,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.panel.weather.Model.MNWeatherLocationInfo;
+import com.yooiistudios.morningkit.panel.weather.Model.MNWeatherLocationInfoLoader;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
+
+import java.util.Calendar;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -35,7 +41,7 @@ import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEA
  *
  * MNWeatherDetailFragment
  */
-public class MNWeatherDetailFragment extends MNPanelDetailFragment implements AdapterView.OnItemClickListener, TextWatcher {
+public class MNWeatherDetailFragment extends MNPanelDetailFragment implements AdapterView.OnItemClickListener, TextWatcher, MNWeatherLocationInfoLoader.OnWeatherLocatinInfoLoaderListener {
     private static final String TAG = "MNWeatherDetailFragment";
 
     @InjectView(R.id.panel_detail_weather_linear_layout) LinearLayout containerLayout;
@@ -61,12 +67,21 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     boolean isDisplayingLocaltime = true;
     boolean isUsingCelsius = true;
 
+    // search
+    MNWeatherLocationInfoLoader weatherLocationInfoLoader;
+    List<MNWeatherLocationInfo> allWeatherLocationInfoList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.panel_weather_detail_fragment, container, false);
         if (rootView != null) {
             ButterKnife.inject(this, rootView);
+
+            // 모든 위치 정보 로딩
+            MNLog.now("before load: " + Calendar.getInstance().getTimeInMillis());
+            weatherLocationInfoLoader = new MNWeatherLocationInfoLoader(getActivity(), this);
+            weatherLocationInfoLoader.execute();
 
             // 패널 데이터 가져오기
             initPanelDataObject();
@@ -218,16 +233,27 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     // Edit Text
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
+        // 기존엔 검색 결과 clear 후 새로 갱신했지만 iOS는 그대로 보여주기에 해당 코드 삭제함
     }
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
+        searchCity(charSequence);
     }
 
     @Override
     public void afterTextChanged(Editable editable) {
 
+    }
+
+    private void searchCity(CharSequence searchString) {
+
+    }
+
+    // MNWeatherLocationInfoLoader listener
+    @Override
+    public void OnWeatherLocationInfoLoad(List<MNWeatherLocationInfo> weatherLocationInfoList) {
+        MNLog.now("after load: " + Calendar.getInstance().getTimeInMillis());
+        allWeatherLocationInfoList = weatherLocationInfoList;
     }
 }
