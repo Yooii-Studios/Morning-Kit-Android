@@ -62,6 +62,7 @@ public class MNWeatherLocationInfoLoader extends AsyncTask<Void, Void, List<MNWe
         List<MNWeatherLocationInfo> weatherLocationInfoList = new ArrayList<MNWeatherLocationInfo>();
         InputStream file = context.getResources().openRawResource(cityInfoRawId);
         byte[] tB;
+
         try {
             tB = new byte[file.available()];
             file.read(tB);
@@ -92,7 +93,6 @@ public class MNWeatherLocationInfoLoader extends AsyncTask<Void, Void, List<MNWe
                         } else {
                             weatherLocationInfo.otherNames = null;
                         }
-
                     } else if (allCityNames.length == 2) {
                         // 영어, 본토 표기만 있고, 다른 표기가 없는 경우(ex: 서울)
                         weatherLocationInfo.name = allCityNames[0];
@@ -106,14 +106,13 @@ public class MNWeatherLocationInfoLoader extends AsyncTask<Void, Void, List<MNWe
                         weatherLocationInfo.originalName = null;
                         weatherLocationInfo.otherNames = null;
                     }
-
                     // woeid
                     weatherLocationInfo.woeid = Integer.valueOf(cityNamesAndWoeid[1]);
                     weatherLocationInfo.latitude = Float.valueOf(lines[i + 1]);
                     weatherLocationInfo.longitude = Float.valueOf(lines[i + 2]);
                     weatherLocationInfo.countryCode = lines[i + 3];
                     weatherLocationInfo.regionCode = lines[i + 4];
-
+                    
                     weatherLocationInfoList.add(weatherLocationInfo);
                 }
             }
