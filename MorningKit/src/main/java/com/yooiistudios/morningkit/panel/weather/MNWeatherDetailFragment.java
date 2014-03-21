@@ -20,6 +20,7 @@ import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.weather.Model.MNWeatherLocationInfo;
 import com.yooiistudios.morningkit.panel.weather.Model.MNWeatherLocationInfoLoader;
+import com.yooiistudios.morningkit.panel.weather.Model.MNWeatherLocationInfoSearchAsyncTask;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -41,7 +42,7 @@ import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEA
  *
  * MNWeatherDetailFragment
  */
-public class MNWeatherDetailFragment extends MNPanelDetailFragment implements AdapterView.OnItemClickListener, TextWatcher, MNWeatherLocationInfoLoader.OnWeatherLocatinInfoLoaderListener {
+public class MNWeatherDetailFragment extends MNPanelDetailFragment implements AdapterView.OnItemClickListener, TextWatcher, MNWeatherLocationInfoLoader.OnWeatherLocatinInfoLoaderListener, MNWeatherLocationInfoSearchAsyncTask.MNWeatherLocationInfoSearchAsyncTaskListener {
     private static final String TAG = "MNWeatherDetailFragment";
 
     @InjectView(R.id.panel_detail_weather_linear_layout) LinearLayout containerLayout;
@@ -70,6 +71,7 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     // search
     MNWeatherLocationInfoLoader weatherLocationInfoLoader;
     List<MNWeatherLocationInfo> allWeatherLocationInfoList;
+    MNWeatherLocationInfoSearchAsyncTask weatherLocationInfoSearchAsyncTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -246,8 +248,14 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
 
     }
 
-    private void searchCity(CharSequence searchString) {
-
+    private void searchCity(CharSequence searchCharSequence) {
+        if (weatherLocationInfoSearchAsyncTask != null) {
+            weatherLocationInfoSearchAsyncTask.cancel(true);
+        }
+        MNLog.now("search started: " + Calendar.getInstance().getTimeInMillis());
+        weatherLocationInfoSearchAsyncTask = new MNWeatherLocationInfoSearchAsyncTask(getActivity(),
+                allWeatherLocationInfoList, this);
+        weatherLocationInfoSearchAsyncTask.execute(searchCharSequence.toString());
     }
 
     // MNWeatherLocationInfoLoader listener
@@ -255,5 +263,13 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     public void OnWeatherLocationInfoLoad(List<MNWeatherLocationInfo> weatherLocationInfoList) {
         MNLog.now("after load: " + Calendar.getInstance().getTimeInMillis());
         allWeatherLocationInfoList = weatherLocationInfoList;
+        MNLog.now("size: " + allWeatherLocationInfoList.size());
+    }
+
+    // MNWeatherLocationInfoSearchAsyncTask
+    @Override
+    public void OnSearchFinished(List<MNWeatherLocationInfo> filteredWeatherLocationInfoList) {
+        MNLog.now("search finished: " + Calendar.getInstance().getTimeInMillis());
+        MNLog.now("size: " + filteredWeatherLocationInfoList.size());
     }
 }

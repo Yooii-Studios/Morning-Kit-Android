@@ -33,7 +33,6 @@ public class MNWeatherLocationInfoLoader extends AsyncTask<Void, Void, List<MNWe
 
     @Override
     protected List<MNWeatherLocationInfo> doInBackground(Void... params) {
-
         ArrayList<MNWeatherLocationInfo> weatherLocationInfoList = new ArrayList<MNWeatherLocationInfo>();
         weatherLocationInfoList.addAll(loadWeatherLocationInfo(R.raw.cityinfo_us_high_priority_woeid));
         weatherLocationInfoList.addAll(loadWeatherLocationInfo(R.raw.cityinfo_us_woeid));
@@ -67,7 +66,7 @@ public class MNWeatherLocationInfoLoader extends AsyncTask<Void, Void, List<MNWe
             tB = new byte[file.available()];
             file.read(tB);
             String buffer = new String(tB);
-            String[] lines = buffer.split("\r\n");
+            String[] lines = buffer.split("\n");
 
             for (int i = 0; i < lines.length; i += 5) {
                 MNWeatherLocationInfo weatherLocationInfo = new MNWeatherLocationInfo();
@@ -75,7 +74,6 @@ public class MNWeatherLocationInfoLoader extends AsyncTask<Void, Void, List<MNWe
                 // name(english)/originalName/otherName1:otherName2:othername3;woeid
                 String cityNamesAndWoeid[] = lines[i].split(";");
                 if (cityNamesAndWoeid.length == 2) {
-
                     // city names
                     String allCityNames[] = cityNamesAndWoeid[0].split("/");
 
@@ -94,15 +92,23 @@ public class MNWeatherLocationInfoLoader extends AsyncTask<Void, Void, List<MNWe
                         } else {
                             weatherLocationInfo.otherNames = null;
                         }
+
+                    } else if (allCityNames.length == 2) {
+                        // 영어, 본토 표기만 있고, 다른 표기가 없는 경우(ex: 서울)
+                        weatherLocationInfo.name = allCityNames[0];
+                        weatherLocationInfo.englishName = weatherLocationInfo.name;
+                        weatherLocationInfo.originalName = allCityNames[1];
+                        weatherLocationInfo.otherNames = null;
                     } else if (allCityNames.length == 1) {
                         // 영어 표기만 있을 경우
                         weatherLocationInfo.name = allCityNames[0];
                         weatherLocationInfo.englishName = weatherLocationInfo.name;
+                        weatherLocationInfo.originalName = null;
+                        weatherLocationInfo.otherNames = null;
                     }
 
                     // woeid
                     weatherLocationInfo.woeid = Integer.valueOf(cityNamesAndWoeid[1]);
-
                     weatherLocationInfo.latitude = Float.valueOf(lines[i + 1]);
                     weatherLocationInfo.longitude = Float.valueOf(lines[i + 2]);
                     weatherLocationInfo.countryCode = lines[i + 3];
@@ -114,7 +120,6 @@ public class MNWeatherLocationInfoLoader extends AsyncTask<Void, Void, List<MNWe
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return weatherLocationInfoList;
     }
 }

@@ -31,4 +31,22 @@ public class MNWeatherLocationInfo {
 
     // 현지 시간을 위한 time offset (초)
     int timeOffset;
+
+    public MNWeatherLocationInfo() {
+        this.otherNames = new ArrayList<String>();
+    }
+
+    public boolean startsWith(String searchString) {
+        if (name.startsWith(searchString)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean contains(String searchString) {
+        if (name.contains(searchString)) {
+            return true;
+        }
+        return false;
+    }
 }
