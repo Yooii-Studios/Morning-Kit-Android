@@ -1,9 +1,12 @@
 package com.yooiistudios.morningkit.panel.weather;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -32,7 +35,7 @@ import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEA
  *
  * MNWeatherDetailFragment
  */
-public class MNWeatherDetailFragment extends MNPanelDetailFragment {
+public class MNWeatherDetailFragment extends MNPanelDetailFragment implements AdapterView.OnItemClickListener, TextWatcher {
     private static final String TAG = "MNWeatherDetailFragment";
 
     @InjectView(R.id.panel_detail_weather_linear_layout) LinearLayout containerLayout;
@@ -116,6 +119,15 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment {
 
         setUseCurrentLocationState();
         initCheckedChangeListners();
+
+        // edit text
+        searchEditText.addTextChangedListener(this);
+
+        // list adapter(if city exists)
+
+        // list view
+        searchListView.setOnItemClickListener(this);
+
         initTheme();
     }
 
@@ -195,5 +207,27 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment {
         getPanelDataObject().put(WEATHER_DATA_IS_USING_CURRENT_LOCATION, isUsingCurrentLocation);
         getPanelDataObject().put(WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME, isDisplayingLocaltime);
         getPanelDataObject().put(WEATHER_DATA_TEMP_CELSIUS, isUsingCelsius);
+    }
+
+    // ListView
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    // Edit Text
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
     }
 }
