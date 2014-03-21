@@ -15,18 +15,22 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
-import com.yooiistudios.morningkit.panel.weather.Model.MNWeatherLocationInfo;
-import com.yooiistudios.morningkit.panel.weather.Model.MNWeatherLocationInfoLoader;
-import com.yooiistudios.morningkit.panel.weather.Model.MNWeatherLocationInfoSearchAsyncTask;
+import com.yooiistudios.morningkit.panel.weather.model.MNWeatherLocationInfo;
+import com.yooiistudios.morningkit.panel.weather.model.MNWeatherLocationInfoAdapter;
+import com.yooiistudios.morningkit.panel.weather.model.MNWeatherLocationInfoLoader;
+import com.yooiistudios.morningkit.panel.weather.model.MNWeatherLocationInfoSearchAsyncTask;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
+import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.List;
 
@@ -35,6 +39,7 @@ import butterknife.InjectView;
 
 import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME;
 import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEATHER_DATA_IS_USING_CURRENT_LOCATION;
+import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO;
 import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEATHER_DATA_TEMP_CELSIUS;
 
 /**
@@ -64,14 +69,17 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     @InjectView(R.id.panel_detail_weather_search_listview) ListView searchListView;
     @InjectView(R.id.panel_detail_weather_no_search_result_textview) TextView noSearchResultsTextView;
 
+    // basic settings
     boolean isUsingCurrentLocation = true;
     boolean isDisplayingLocaltime = true;
     boolean isUsingCelsius = true;
 
     // search
-    MNWeatherLocationInfoLoader weatherLocationInfoLoader;
-    List<MNWeatherLocationInfo> allWeatherLocationInfoList;
-    MNWeatherLocationInfoSearchAsyncTask weatherLocationInfoSearchAsyncTask;
+    MNWeatherLocationInfo selectedLocationInfo;
+    MNWeatherLocationInfoLoader locationInfoLoader;
+    List<MNWeatherLocationInfo> locationInfoList;
+    MNWeatherLocationInfoSearchAsyncTask searchAsyncTask;
+    MNWeatherLocationInfoAdapter listAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,11 +90,15 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
 
             // 모든 위치 정보 로딩
             MNLog.now("before load: " + Calendar.getInstance().getTimeInMillis());
-            weatherLocationInfoLoader = new MNWeatherLocationInfoLoader(getActivity(), this);
-            weatherLocationInfoLoader.execute();
+            locationInfoLoader = new MNWeatherLocationInfoLoader(getActivity(), this);
+            locationInfoLoader.execute();
 
             // 패널 데이터 가져오기
-            initPanelDataObject();
+            try {
+                initPanelDataObject();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             // UI
             initUI();
@@ -94,38 +106,32 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
         return rootView;
     }
 
-    private void initPanelDataObject() {
+    private void initPanelDataObject() throws JSONException {
         if (getPanelDataObject().has(WEATHER_DATA_IS_USING_CURRENT_LOCATION)) {
-            try {
-                // 기본은 현재위치 사용
-                isUsingCurrentLocation = getPanelDataObject().getBoolean(WEATHER_DATA_IS_USING_CURRENT_LOCATION);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            // 기본은 현재위치 사용
+            isUsingCurrentLocation = getPanelDataObject().getBoolean(WEATHER_DATA_IS_USING_CURRENT_LOCATION);
         }
         if (getPanelDataObject().has(WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME)) {
-            try {
-                // 기본은 로컬 시간 사용
-                isDisplayingLocaltime = getPanelDataObject().getBoolean(WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            // 기본은 로컬 시간 사용
+            isDisplayingLocaltime = getPanelDataObject().getBoolean(WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME);
         }
         if (getPanelDataObject().has(WEATHER_DATA_TEMP_CELSIUS)) {
-            try {
-                isUsingCelsius = getPanelDataObject().getBoolean(WEATHER_DATA_TEMP_CELSIUS);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            isUsingCelsius = getPanelDataObject().getBoolean(WEATHER_DATA_TEMP_CELSIUS);
         } else {
             // 미국만 fahrenheit 사용
             isUsingCelsius = !getResources().getConfiguration().locale.getCountry().equals("US");
         }
+        if (getPanelDataObject().has(WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO)) {
+            Type type = new TypeToken<MNWeatherLocationInfo>(){}.getType();
+            selectedLocationInfo = new Gson().fromJson(getPanelDataObject().getString(WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO), type);
+        }
     }
 
     private void initUI() {
-        useCurrentLocationCheckBox.setChecked(isUsingCurrentLocation);
+        // local time
         displayLocalTimeCheckBox.setChecked(isDisplayingLocaltime);
+
+        // temperature
         if (isUsingCelsius) {
             temperatureCelsiusCheckBox.setChecked(true);
             temperatureFahrenheitCheckBox.setChecked(false);
@@ -141,10 +147,17 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
         searchEditText.addTextChangedListener(this);
 
         // list adapter(if city exists)
+        listAdapter = new MNWeatherLocationInfoAdapter(getActivity());
+        searchListView.setAdapter(listAdapter);
+        if (selectedLocationInfo != null) {
+            searchEditText.setText(selectedLocationInfo.getName());
+            searchEditText.setSelection(selectedLocationInfo.getName().length());
+        }
 
         // list view
         searchListView.setOnItemClickListener(this);
 
+        // theme
         initTheme();
     }
 
@@ -199,6 +212,7 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     }
 
     private void setUseCurrentLocationState() {
+        useCurrentLocationCheckBox.setChecked(isUsingCurrentLocation);
         if (isUsingCurrentLocation) {
             searchEditLayout.setVisibility(View.GONE);
             searchListViewLayout.setVisibility(View.GONE);
@@ -224,12 +238,18 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
         getPanelDataObject().put(WEATHER_DATA_IS_USING_CURRENT_LOCATION, isUsingCurrentLocation);
         getPanelDataObject().put(WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME, isDisplayingLocaltime);
         getPanelDataObject().put(WEATHER_DATA_TEMP_CELSIUS, isUsingCelsius);
+        getPanelDataObject().put(WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO,
+                new Gson().toJson(selectedLocationInfo));
     }
 
     // ListView
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long longPosition) {
+        MNWeatherLocationInfo selectedWeatherLocationInfo = listAdapter.getItem(position);
+        if (selectedWeatherLocationInfo != null) {
+            this.selectedLocationInfo = selectedWeatherLocationInfo;
+            onActionBarDoneClicked();
+        }
     }
 
     // Edit Text
@@ -249,27 +269,45 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     }
 
     private void searchCity(CharSequence searchCharSequence) {
-        if (weatherLocationInfoSearchAsyncTask != null) {
-            weatherLocationInfoSearchAsyncTask.cancel(true);
+        if (searchAsyncTask != null) {
+            searchAsyncTask.cancel(true);
         }
         MNLog.now("search started: " + Calendar.getInstance().getTimeInMillis());
-        weatherLocationInfoSearchAsyncTask = new MNWeatherLocationInfoSearchAsyncTask(getActivity(),
-                allWeatherLocationInfoList, this);
-        weatherLocationInfoSearchAsyncTask.execute(searchCharSequence.toString());
+        // 최초 키워드 입력시만 "검색 중..." 표시
+        if (listAdapter.getCount() == 0) {
+            noSearchResultsTextView.setText(R.string.searching);
+        }
+        searchAsyncTask = new MNWeatherLocationInfoSearchAsyncTask(getActivity(),
+                locationInfoList, this);
+        searchAsyncTask.execute(searchCharSequence.toString());
     }
 
     // MNWeatherLocationInfoLoader listener
     @Override
     public void OnWeatherLocationInfoLoad(List<MNWeatherLocationInfo> weatherLocationInfoList) {
         MNLog.now("after load: " + Calendar.getInstance().getTimeInMillis());
-        allWeatherLocationInfoList = weatherLocationInfoList;
-        MNLog.now("size: " + allWeatherLocationInfoList.size());
+        locationInfoList = weatherLocationInfoList;
+        if (selectedLocationInfo != null) {
+            searchEditText.setText(selectedLocationInfo.getName());
+            searchEditText.setSelection(selectedLocationInfo.getName().length());
+            searchCity(selectedLocationInfo.getName());
+        }
     }
 
     // MNWeatherLocationInfoSearchAsyncTask
     @Override
     public void OnSearchFinished(List<MNWeatherLocationInfo> filteredWeatherLocationInfoList) {
         MNLog.now("search finished: " + Calendar.getInstance().getTimeInMillis());
-        MNLog.now("size: " + filteredWeatherLocationInfoList.size());
+
+        if (filteredWeatherLocationInfoList != null && filteredWeatherLocationInfoList.size() > 0) {
+            noSearchResultsTextView.setVisibility(View.GONE);
+            listAdapter.setLocationInfoList(filteredWeatherLocationInfoList);
+            listAdapter.notifyDataSetChanged();
+        } else {
+            listAdapter.clear();
+            listAdapter.notifyDataSetChanged();
+            noSearchResultsTextView.setText(R.string.no_search_result);
+            noSearchResultsTextView.setVisibility(View.VISIBLE);
+        }
     }
 }

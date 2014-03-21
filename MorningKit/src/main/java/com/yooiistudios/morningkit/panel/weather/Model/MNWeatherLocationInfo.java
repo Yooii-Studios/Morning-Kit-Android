@@ -1,7 +1,9 @@
-package com.yooiistudios.morningkit.panel.weather.Model;
+package com.yooiistudios.morningkit.panel.weather.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import lombok.Getter;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 3. 21.
@@ -10,7 +12,7 @@ import java.util.Calendar;
  *  도시 검색 & 현재 위치 사용시 얻는 도시 정보
  */
 public class MNWeatherLocationInfo {
-    String name;
+    @Getter String name;
     String regionCode;
     String countryCode;
     String timezoneCode;
@@ -37,14 +39,14 @@ public class MNWeatherLocationInfo {
     }
 
     public boolean startsWith(String searchString) {
-        if (name.startsWith(searchString)) {
+        if (name.toLowerCase().replace(" ", "").startsWith(searchString)) {
             return true;
         }
         return false;
     }
 
     public boolean contains(String searchString) {
-        if (name.contains(searchString)) {
+        if (name.toLowerCase().replace(" ", "").contains(searchString)) {
             return true;
         }
         return false;

@@ -12,24 +12,38 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/panel_detail_weather_use_current_location_textview"
+            android:id="@+id/panel_detail_weather_temperature_unit_textView"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/panel_detail_weather_use_current_location_checkbox"
+            android:layout_toLeftOf="@+id/panel_detail_weather_temperature_celsius_checkbox"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:text="@string/weather_use_current_location"
+            android:text="@string/weather_temperature_unit"
             android:textSize="17dp"
             android:textColor="#ffffff"/>
 
         <CheckBox
-            android:id="@+id/panel_detail_weather_use_current_location_checkbox"
+            android:id="@+id/panel_detail_weather_temperature_celsius_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/panel_detail_weather_temperature_fahrenheit_checkbox"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_outer"
+            android:text="℃"
+            android:textSize="17dp"
+            android:textColor="#ffffff" />
+
+        <CheckBox
+            android:id="@+id/panel_detail_weather_temperature_fahrenheit_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:text="℉"
+            android:textSize="17dp"
+            android:textColor="#ffffff"/>
 
     </RelativeLayout>
 
@@ -66,38 +80,24 @@
         android:layout_marginTop="@dimen/margin_outer" >
 
         <TextView
-            android:id="@+id/panel_detail_weather_temperature_unit_textView"
+            android:id="@+id/panel_detail_weather_use_current_location_textview"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/panel_detail_weather_temperature_celsius_checkbox"
+            android:layout_toLeftOf="@+id/panel_detail_weather_use_current_location_checkbox"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:text="@string/weather_temperature_unit"
+            android:text="@string/weather_use_current_location"
             android:textSize="17dp"
             android:textColor="#ffffff"/>
 
         <CheckBox
-            android:id="@+id/panel_detail_weather_temperature_celsius_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/panel_detail_weather_temperature_fahrenheit_checkbox"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/margin_outer"
-            android:text="℃"
-            android:textSize="17dp"
-            android:textColor="#ffffff" />
-
-        <CheckBox
-            android:id="@+id/panel_detail_weather_temperature_fahrenheit_checkbox"
+            android:id="@+id/panel_detail_weather_use_current_location_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="℉"
-            android:textSize="17dp"
-            android:textColor="#ffffff"/>
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 

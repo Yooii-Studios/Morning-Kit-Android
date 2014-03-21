@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.weather.Model;
+package com.yooiistudios.morningkit.panel.weather.model;
 
 import android.content.Context;
 
@@ -112,7 +112,7 @@ public class MNWeatherLocationInfoLoader extends AsyncTask<Void, Void, List<MNWe
                     weatherLocationInfo.longitude = Float.valueOf(lines[i + 2]);
                     weatherLocationInfo.countryCode = lines[i + 3];
                     weatherLocationInfo.regionCode = lines[i + 4];
-                    
+
                     weatherLocationInfoList.add(weatherLocationInfo);
                 }
             }

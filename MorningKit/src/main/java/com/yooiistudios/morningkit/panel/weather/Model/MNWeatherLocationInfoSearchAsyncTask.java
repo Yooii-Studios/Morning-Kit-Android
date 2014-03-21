@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.weather.Model;
+package com.yooiistudios.morningkit.panel.weather.model;
 
 import android.content.Context;
 
@@ -52,7 +52,6 @@ public class MNWeatherLocationInfoSearchAsyncTask extends AsyncTask<String, Void
                         }
                     }
                 }
-
                 startWithLocationInfoList.addAll(containsWithLocationInfoList);
                 return startWithLocationInfoList;
             }
