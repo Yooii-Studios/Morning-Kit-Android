@@ -3,8 +3,6 @@ package com.yooiistudios.morningkit.panel.worldclock.model;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.yooiistudios.morningkit.common.log.MNLog;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -50,122 +48,112 @@ public class MNTimeZoneSearchAsyncTask extends AsyncTask<String, Object, ArrayLi
 
 			// search city
 			if (!searchingString.isEmpty()) {
-				// first, find strings start with the searchingString
-				String compareString = null;
-				String compareStringWitNoBlank = null;
-                MNTimeZone currentTimeZone = null;
 
 				ArrayList<MNTimeZone> sameTimeZoneStartWith = new ArrayList<MNTimeZone>();
 				ArrayList<MNTimeZone> sameTimeZoneContains = new ArrayList<MNTimeZone>();
 //				String previousCountry = ""; 
 
-				for (int i = 0; i < allTimeZones.size(); ++i) {
-					if (isCancelled())
-						break;
+                for (MNTimeZone currentTimeZone : allTimeZones) {
+                    if (isCancelled())
+                        break;
 
-					synchronized (allTimeZones) {
-
-						currentTimeZone = allTimeZones.get(i);
-
-						// 이 부분은 뭐하는 곳인지 모르겠어서 일단 주석 처리. 기존에
-						// 여기서 계속 프로세스가 종료되고 있었음.
-						/*
-						// country changed
-						if (previousCountry.compareToIgnoreCase(currentTimeZone
-								.getName()) != 0) {
-							ArrayList<TimeZoneCity> tempBuffer = (ArrayList<TimeZoneCity>) sameTimeZoneStartWith
-									.clone();
+                    // 이 부분은 뭐하는 곳인지 모르겠어서 일단 주석 처리. 기존에
+                    // 여기서 계속 프로세스가 종료되고 있었음.
+                    /*
+                    // country changed
+                    if (previousCountry.compareToIgnoreCase(currentTimeZone
+                            .getName()) != 0) {
+                        ArrayList<TimeZoneCity> tempBuffer = (ArrayList<TimeZoneCity>) sameTimeZoneStartWith
+                                .clone();
 //							tempBuffer.addAll(sameTimeZoneContains);
-							publishProgress(tempBuffer);
+                        publishProgress(tempBuffer);
 
-							sameTimeZoneStartWith.clear();
-							sameTimeZoneContains.clear();
+                        sameTimeZoneStartWith.clear();
+                        sameTimeZoneContains.clear();
 
-							previousCountry = new String(
-									currentTimeZone.getName());
-						}
-						*/
+                        previousCountry = new String(
+                                currentTimeZone.getName());
+                    }
+                    */
 
-						// 다국어 검색 알고리즘을 실행하기 전 기존 검색 먼저 실시
-						// 소문자를 기본으로. 띄어쓰기 없는 경우도 포함
-						boolean isEnglishNameFound = false;
-						
-						compareString = currentTimeZone.getName().toLowerCase();
-						compareStringWitNoBlank = currentTimeZone.getName()
-								.toLowerCase().replaceAll(" ", "");
+                    // 다국어 검색 알고리즘을 실행하기 전 기존 검색 먼저 실시
+                    // 소문자를 기본으로. 띄어쓰기 없는 경우도 포함
+                    boolean isEnglishNameFound = false;
 
-						if (!isEnglishNameFound) {
+                    // first, find strings start with the searchingString
+                    String compareString = currentTimeZone.getName().toLowerCase();
+                    String compareStringWitNoBlank = currentTimeZone.getName()
+                            .toLowerCase().replaceAll(" ", "");
+
+                    if (!isEnglishNameFound) {
 //							Log.i(TAG, "English Search");
-							if (compareString.startsWith(searchingString)
-									|| compareStringWitNoBlank
-											.startsWith(searchingString))
-							{
+                        if (compareString.startsWith(searchingString)
+                                || compareStringWitNoBlank
+                                .startsWith(searchingString)) {
 //								if (searchingString.equals("shan")) {
 //									Log.i(TAG, "English search startsWith / name: " + currentTimeZone.getName() + "/priority: " + currentTimeZone.getPriority());
 //								} 
-								sameTimeZoneStartWith.add(currentTimeZone);
+                            sameTimeZoneStartWith.add(currentTimeZone);
 //								currentTimeZone.setPriority(-1000 + i);
 //								Log.i(TAG, "English search startsWith / name: " + currentTimeZone.getName() + "/priority: " + currentTimeZone.getPriority());
-								isEnglishNameFound = true;
-							}
-							else if (compareString.contains(searchingString))
-							{
-								sameTimeZoneContains.add(currentTimeZone);
+                            isEnglishNameFound = true;
+                        } else if (compareString.contains(searchingString)) {
+                            sameTimeZoneContains.add(currentTimeZone);
 //								currentTimeZone.setPriority(currentTimeZone.getPriority() + 1000);
 //								Log.i(TAG, "English search contains / name: " + currentTimeZone.getName() + "/priority: " + currentTimeZone.getPriority());
-								isEnglishNameFound = true;
-							}
-						}
-						
-						// 다국어 검색 알고리즘 - for 문을 돌리는데 하나만 검색이 되어야 한다.
-						currentTimeZone.setSearchedLocalizedName(null);
-						if (!isEnglishNameFound) {
-							ArrayList<String> localizedNames = currentTimeZone.getLocalizedNames();
-							if (localizedNames != null) {
+                            isEnglishNameFound = true;
+                        }
+                    }
+
+                    // 다국어 검색 알고리즘 - for 문을 돌리는데 하나만 검색이 되어야 한다.
+                    currentTimeZone.setSearchedLocalizedName(null);
+                    if (!isEnglishNameFound) {
+                        ArrayList<String> localizedNames = currentTimeZone.getLocalizedNames();
+                        if (localizedNames != null) {
 //								Log.i(TAG, "Localize String Search");
-								
-								// 다국어는 시작하는 것 먼저 검색하고, 포함하는 것 다시 검색하기
-								for (String localizedCampareString : localizedNames) {
-									if (currentTimeZone.getSearchedLocalizedName() == null) {
-										if (localizedCampareString.startsWith(searchingString)) {
-											sameTimeZoneStartWith.add(currentTimeZone);
+
+                            // 다국어는 시작하는 것 먼저 검색하고, 포함하는 것 다시 검색하기
+                            for (String localizedCampareString : localizedNames) {
+                                if (currentTimeZone.getSearchedLocalizedName() == null) {
+                                    if (localizedCampareString.startsWith(searchingString)) {
+                                        sameTimeZoneStartWith.add(currentTimeZone);
 //											currentTimeZone.setPriority(-1000 + i);
 //											currentTimeZone.setName(localizedCampareString);
-											currentTimeZone.setSearchedLocalizedName(localizedCampareString);
-											break;
-										}
-									}else{
-										break;
-									}
-								}
-								
-								for (String localizedCampareString : localizedNames) {
-									if (currentTimeZone.getSearchedLocalizedName() == null) {
-										if(localizedCampareString.contains(searchingString)){
-											sameTimeZoneContains.add(currentTimeZone);
+                                        currentTimeZone.setSearchedLocalizedName(localizedCampareString);
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            }
+
+                            for (String localizedCampareString : localizedNames) {
+                                if (currentTimeZone.getSearchedLocalizedName() == null) {
+                                    if (localizedCampareString.contains(searchingString)) {
+                                        sameTimeZoneContains.add(currentTimeZone);
 //											currentTimeZone.setPriority(currentTimeZone.getPriority() + 1000);
 //											currentTimeZone.setPriority(i);
 //											currentTimeZone.setName(localizedCampareString);
-											currentTimeZone.setSearchedLocalizedName(localizedCampareString);
-											break;
-										}
-									}else{
-										break;
-									}
-								}
-							}
-						}
-					}
-				}
+                                        currentTimeZone.setSearchedLocalizedName(localizedCampareString);
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
 
 				// last publishing
 				// 두 컨테이너를 합치기 전에 priorty 로 서로 정렬
 				Collections.sort(sameTimeZoneStartWith, comparator);
 				Collections.sort(sameTimeZoneContains, comparator);
-				ArrayList<MNTimeZone> filteredTimeZones = (ArrayList<MNTimeZone>) sameTimeZoneStartWith.clone();
-				filteredTimeZones.addAll(sameTimeZoneStartWith.size(), sameTimeZoneContains);
+//				ArrayList<MNTimeZone> filteredTimeZones = (ArrayList<MNTimeZone>) sameTimeZoneStartWith.clone();
+//				filteredTimeZones.addAll(sameTimeZoneStartWith.size(), sameTimeZoneContains);
+                sameTimeZoneStartWith.addAll(sameTimeZoneContains);
 
-                return filteredTimeZones;
+                return sameTimeZoneStartWith;
 //				publishProgress(filteredTimeZones);
 			}
 		}
