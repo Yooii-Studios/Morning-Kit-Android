@@ -156,6 +156,7 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
         searchListView.setAdapter(timeZoneListAdapter);
         if (selectedTimeZone != null) {
             searchEditText.setText(selectedTimeZone.getName());
+            searchEditText.setSelection(selectedTimeZone.getName().length());
             searchTimeZone(selectedTimeZone.getName());
         }
 
