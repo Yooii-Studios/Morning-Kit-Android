@@ -16,7 +16,6 @@ import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.squareup.otto.Subscribe;
-import com.urqa.clientinterface.URQAController;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
@@ -77,8 +76,8 @@ public class MNMainActivity extends Activity implements AdListener
 
         setContentView(R.layout.activity_main);
 
-        // UrQA 라이브러리 추가
-        URQAController.InitializeAndStartSession(getApplicationContext(), String.valueOf(72369777));
+//        UrQA 라이브러리 추가 - 취소, TestFairy 쓸 예정
+//        URQAController.InitializeAndStartSession(getApplicationContext(), String.valueOf(72369777));
         initMainActivity();
         scrollView.smoothScrollTo(0, 0);
     }
