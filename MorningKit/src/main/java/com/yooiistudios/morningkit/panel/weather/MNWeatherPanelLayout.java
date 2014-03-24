@@ -5,6 +5,8 @@ import android.util.AttributeSet;
 
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 
+import org.json.JSONException;
+
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 3. 19.
  *
@@ -23,5 +25,25 @@ public class MNWeatherPanelLayout extends MNPanelLayout {
 
     public MNWeatherPanelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    @Override
+    protected void init() {
+
+    }
+
+    @Override
+    protected void processLoading() {
+
+    }
+
+    @Override
+    protected void updateUI() {
+
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
     }
 }

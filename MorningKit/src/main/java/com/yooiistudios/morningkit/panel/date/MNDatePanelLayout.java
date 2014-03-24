@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.date.model.DateUtil;
@@ -61,8 +60,6 @@ public class MNDatePanelLayout extends MNPanelLayout {
 
     @Override
     protected void init() {
-        super.init();
-
         // containers
         innerContentLayout = new RelativeLayout(getContext());
         RelativeLayout.LayoutParams innerLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
@@ -166,8 +163,6 @@ public class MNDatePanelLayout extends MNPanelLayout {
 
     @Override
     protected void processLoading() throws JSONException {
-        super.processLoading();
-
         if (getPanelDataObject().has(DATE_DATA_DATE_IS_LUNAR_ON)) {
             isLunarCalendarOn = getPanelDataObject().getBoolean(DATE_DATA_DATE_IS_LUNAR_ON);
         } else {
@@ -189,8 +184,6 @@ public class MNDatePanelLayout extends MNPanelLayout {
 
     @Override
     protected void updateUI() {
-        super.updateUI();
-
         if (isLunarCalendarOn && lunarDate != null) {
             // 음력 달력 사용
             lunarCalendarLayout.setVisibility(View.VISIBLE);

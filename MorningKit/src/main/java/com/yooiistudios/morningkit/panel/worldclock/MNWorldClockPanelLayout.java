@@ -86,7 +86,6 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
 
     @Override
     protected void init() {
-        super.init();
         initAnalogClockUI();
         initDigitalClockUI();
     }
@@ -230,8 +229,6 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
 
     @Override
     protected void processLoading() throws JSONException {
-        super.processLoading();
-
         if (getPanelDataObject().has(WORLD_CLOCK_DATA_IS_ALALOG)) {
             isClockAnalog = getPanelDataObject().getBoolean(WORLD_CLOCK_DATA_IS_ALALOG);
         }
@@ -253,8 +250,6 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
 
     @Override
     protected void updateUI() {
-        super.updateUI();
-
         if (isClockAnalog) {
             updateAnalogClockUI();
         } else {

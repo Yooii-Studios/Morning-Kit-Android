@@ -29,7 +29,7 @@ import lombok.Setter;
  * PanelLayout
  *  패널의 근간이 되는 레이아웃
  */
-public class MNPanelLayout extends RoundShadowRelativeLayout {
+public abstract class MNPanelLayout extends RoundShadowRelativeLayout {
 
     @Getter @Setter MNPanelType panelType;
     @Getter @Setter int panelIndex;
@@ -51,18 +51,19 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
     public MNPanelLayout(Context context) {
         super(context);
         if (!isInEditMode()) {
-            init();
+            initInternal();
         }
     }
 
     public MNPanelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         if (!isInEditMode()) {
-            init();
+            initInternal();
         }
     }
 
-    protected void init() {
+    protected abstract void init();
+    private void initInternal() {
         setClipChildren(false);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -85,6 +86,8 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
         });
 
         panelDataObject = new JSONObject();
+
+        init();
     }
 
     private void initContentLayout() {
@@ -170,7 +173,7 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
             boolean isReachable = true;
             if (isReachable) {
                 try {
-                    processLoading();
+                    processLoadingInternal();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -181,25 +184,29 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
             }
         } else {
             try {
-                processLoading();
+                processLoadingInternal();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            updateUI();
+            updateUIInternal();
             archivePanelData();
         }
     }
 
-    protected void processLoading() throws JSONException {
+    protected abstract void processLoading() throws JSONException;
+    private void processLoadingInternal() throws JSONException {
         if (isUsingNetwork) {
             startLoadingAnimation();
         }
+        processLoading();
     }
 
-    protected void updateUI() {
+    protected abstract void updateUI();
+    private void updateUIInternal() {
         if (isUsingNetwork) {
             stopLoadingAnimation();
         }
+        updateUI();
     }
 
     protected void archivePanelData() throws JSONException {

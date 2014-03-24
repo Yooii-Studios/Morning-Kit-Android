@@ -63,8 +63,6 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 
     @Override
     protected void init() {
-        super.init();
-
         // inner content layout - 회전 대응
         innerContentLayout = new RelativeLayout(getContext());
         LayoutParams innerContentLayoutParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
@@ -146,8 +144,6 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 
     @Override
     protected void processLoading() throws JSONException {
-        super.processLoading();
-
         // get info from panelDataObject
         initExchangeRatesInfo();
 
@@ -194,8 +190,6 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 
     @Override
     protected void updateUI() {
-        super.updateUI();
-
         // image
         baseCurrencyImageView.setImageDrawable(null);
         Bitmap baseCurrencyBitmap = FlagBitmapFactory.getGrayscaledFlagBitmap(getContext(),

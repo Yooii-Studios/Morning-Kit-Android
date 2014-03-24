@@ -75,7 +75,8 @@ public class MNPanelLayoutFactory {
                 break;
 
             default:
-                newPanelLayout = new MNPanelLayout(context);
+                // 추상화 클래스를 사용할 수 없으므로 임시로 대체
+                newPanelLayout = new MNDatePanelLayout(context);
                 break;
         }
         // 기존에 저장된 패널 데이터를 읽고 인덱스, ID를 대입
