@@ -37,6 +37,8 @@ public class MNMemoPanelLayout extends MNPanelLayout {
 
     @Override
     protected void init() {
+        super.init();
+
         // TextView
         memoTextView = new TextView(getContext());
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -49,6 +51,8 @@ public class MNMemoPanelLayout extends MNPanelLayout {
 
     @Override
     protected void processLoading() throws JSONException {
+        super.processLoading();
+
         if (getPanelDataObject().has(MEMO_DATA_CONTENT)) {
             memoString = getPanelDataObject().getString(MEMO_DATA_CONTENT);
         } else {
@@ -64,6 +68,7 @@ public class MNMemoPanelLayout extends MNPanelLayout {
 
     @Override
     protected void updateUI() {
+        super.updateUI();
         if (memoString != null) {
             hideCoverLayout();
             memoTextView.setText(memoString);

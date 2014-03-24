@@ -52,6 +52,8 @@ public class MNDateCountdownLayout extends MNPanelLayout {
 
     @Override
     protected void init() {
+        super.init();
+
         // title
         titleTextView = new TextView(getContext());
         RelativeLayout.LayoutParams titleLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -89,6 +91,8 @@ public class MNDateCountdownLayout extends MNPanelLayout {
 
     @Override
     protected void processLoading() throws JSONException {
+        super.processLoading();
+
         // 패널 데이터 가져오기
         if (getPanelDataObject().has(DATE_COUNTDOWN_DATA_TITLE) &&
                 getPanelDataObject().has(DATE_COUNTDOWN_DATA_DATE)) {
@@ -116,6 +120,8 @@ public class MNDateCountdownLayout extends MNPanelLayout {
 
     @Override
     protected void updateUI() {
+        super.updateUI();
+
         // title
         titleTextView.setText(titleString);
 

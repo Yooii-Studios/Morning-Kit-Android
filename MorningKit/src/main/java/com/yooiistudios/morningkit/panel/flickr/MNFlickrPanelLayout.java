@@ -62,6 +62,8 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
 
     @Override
     protected void init() {
+        super.init();
+
         // image view
         imageView = new RecyclingImageView(getContext());
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -72,6 +74,8 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
 
     @Override
     protected void processLoading() throws JSONException {
+        super.processLoading();
+
         // 그레이 스케일 설정 가져옴
         isGrayScale = false;
         if (getPanelDataObject().has(FLICKR_DATA_GRAYSCALE)) {
@@ -123,6 +127,8 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
 
     @Override
     protected void updateUI() {
+        super.updateUI();
+
         // 마무리 가공된 Bitmap을 RecycleImageView에 대입
         imageView.setImageDrawable(null);
         imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), polishedBitmap));
