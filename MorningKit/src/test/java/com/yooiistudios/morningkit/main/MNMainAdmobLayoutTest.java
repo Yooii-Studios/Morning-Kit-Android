@@ -30,7 +30,7 @@ import static org.junit.Assert.assertThat;
  * MNMainAdmobLayoutTest
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config (shadows = { AdWebViewShadow.class }, reportSdk = 14)
+@Config (shadows = { AdWebViewShadow.class }, emulateSdk = 18) // , reportSdk = 14)
 public class MNMainAdmobLayoutTest {
 
     private static final String TAG = "MNMainAdmobLayoutTest";

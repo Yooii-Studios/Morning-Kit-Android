@@ -28,7 +28,7 @@ import static org.junit.Assert.assertThat;
 // guide for using Robolectric and JUnit
 // Class name must be ended with xxxTest in test class
 @RunWith(RobolectricGradleTestRunner.class)
-@Config (shadows = { AdWebViewShadow.class })
+@Config (shadows = { AdWebViewShadow.class }, emulateSdk = 18)
 public class MNMainActivityTest {
 
     MNMainActivity mainActivity;

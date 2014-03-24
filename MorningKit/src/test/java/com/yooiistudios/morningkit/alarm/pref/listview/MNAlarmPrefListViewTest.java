@@ -32,7 +32,7 @@ import static org.junit.Assert.*;
  */
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(shadows = { AdWebViewShadow.class }) //reportSdk = 10) // Gingerbread
+@Config(shadows = { AdWebViewShadow.class }, emulateSdk = 18) //reportSdk = 10) // Gingerbread // , emulateSdk = 18
 public class MNAlarmPrefListViewTest {
 
     private static final String TAG = "MNAlarmPrefListViewTest";

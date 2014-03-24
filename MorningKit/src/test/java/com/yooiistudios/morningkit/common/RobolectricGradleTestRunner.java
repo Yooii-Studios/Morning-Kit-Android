@@ -16,7 +16,7 @@ import org.robolectric.shadows.ShadowContextWrapper;
  * RobolectricGradleTestRunner
  *  Robolectric을 커스터마이징해 플러그인에 대응, 가장 큰 이유는 현재 구글애드몹 AdView 때문
  */
-@Config(shadows = {ShadowAudioManager.class, ShadowContextWrapper.class})
+@Config(shadows = {ShadowAudioManager.class, ShadowContextWrapper.class}, emulateSdk = 18)
 public class RobolectricGradleTestRunner extends RobolectricTestRunner {
     public RobolectricGradleTestRunner(final Class<?> testClass) throws InitializationError {
         super(testClass);

@@ -31,7 +31,7 @@ import static org.junit.Assert.assertTrue;
  *  회전시 레이아웃이 원하는 대로 설정되는지 여부를 테스트
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(shadows = { AdWebViewShadow.class }, reportSdk = 14)
+@Config(shadows = { AdWebViewShadow.class }, emulateSdk = 18) //, reportSdk = 14)
 public class MNMainAlarmListViewTest {
     private static final String TAG = "MNMainAlarmListViewTest";
     MNMainActivity mainActivity;
