@@ -23,6 +23,7 @@ import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.validate.AppValidationChecker;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
@@ -60,6 +61,11 @@ public class MNMainActivity extends Activity implements AdListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 미리 정한 날짜가 지나면 앱이 죽게 변경, 출시시에 풀어야함, MNLog것을 써도 무방할듯
+        if (MNLog.isDebug) {
+            AppValidationChecker.validationCheck(this);
+        }
 
         // 알람이 있을 경우는 화면을 켜주게 구현
         if (MNAlarmWake.isAlarmReserved(getIntent())) {
