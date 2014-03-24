@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.weather.model;
+package com.yooiistudios.morningkit.panel.weather.model.locationinfo;
 
 import java.util.ArrayList;
 import java.util.Calendar;

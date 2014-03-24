@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.weather.model;
+package com.yooiistudios.morningkit.panel.weather.model.locationinfo;
 
 import android.content.Context;
 import android.graphics.Bitmap;

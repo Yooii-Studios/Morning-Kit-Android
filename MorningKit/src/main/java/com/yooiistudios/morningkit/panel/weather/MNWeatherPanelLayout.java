@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.panel.weather;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -16,7 +15,8 @@ import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
-import com.yooiistudios.morningkit.panel.weather.model.MNWeatherLocationInfo;
+import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfo;
+import com.yooiistudios.morningkit.panel.weather.model.parser.MNWeatherWWOAsyncTask;
 
 import org.json.JSONException;
 
@@ -53,6 +53,9 @@ public class MNWeatherPanelLayout extends MNPanelLayout {
     private boolean isDisplayingLocaltime = true;
     private boolean isUsingCelsius = true;
     private MNWeatherLocationInfo selectedLocationInfo;
+
+    // AsyncTask
+    private MNWeatherWWOAsyncTask weatherWWOAsyncTask;
 
     public MNWeatherPanelLayout(Context context) {
         super(context);
@@ -178,6 +181,26 @@ public class MNWeatherPanelLayout extends MNPanelLayout {
     @Override
     protected void processLoading() throws JSONException {
         super.processLoading();
+
+        // get data from panelDataObject
+        loadPanelDataObject();
+
+        // get weather data from server
+        if (isUsingCurrentLocation) {
+            // WWO using current location
+            if (weatherWWOAsyncTask != null) {
+                weatherWWOAsyncTask.cancel(true);
+            }
+//            weatherWWOAsyncTask =
+        } else {
+            // Yahoo using woeid
+        }
+
+        // 나중에 비동기 처리 필요
+        updateUI();
+    }
+
+    private void loadPanelDataObject() throws JSONException {
         if (getPanelDataObject().has(WEATHER_DATA_IS_USING_CURRENT_LOCATION)) {
             // 기본은 현재위치 사용
             isUsingCurrentLocation = getPanelDataObject().getBoolean(WEATHER_DATA_IS_USING_CURRENT_LOCATION);
@@ -196,9 +219,6 @@ public class MNWeatherPanelLayout extends MNPanelLayout {
             Type type = new TypeToken<MNWeatherLocationInfo>(){}.getType();
             selectedLocationInfo = new Gson().fromJson(getPanelDataObject().getString(WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO), type);
         }
-
-        // 나중에 비동기 처리 필요
-        updateUI();
     }
 
     @Override
