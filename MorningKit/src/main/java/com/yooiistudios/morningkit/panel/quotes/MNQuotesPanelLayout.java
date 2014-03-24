@@ -52,6 +52,8 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
 
     @Override
     protected void init() {
+        super.init();
+
         quoteTextView = new TextView(getContext());
         LayoutParams quoteTextViewLayoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -67,6 +69,8 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
 
     @Override
     protected void processLoading() throws JSONException {
+        super.processLoading();
+
         //// Logic part ////
         if (getPanelDataObject().has(QUOTES_LANGUAGES)) {
             // 설정된 언어 불러오기
@@ -129,9 +133,10 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
         quote = MNQuotesLoader.getRandomQuote(getContext(), quotesLanguage);
     }
 
-
     @Override
     protected void updateUI() {
+        super.updateUI();
+
         if (quote != null) {
             quoteTextView.setVisibility(View.VISIBLE);
             quoteTextView.setText(quote.getQuote() + "\n" + quote.getAuthor());
