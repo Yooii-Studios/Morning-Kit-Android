@@ -112,7 +112,6 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
     @Override
     protected void onPostExecute(MNWeatherData weatherData) {
         super.onPostExecute(weatherData);
-
         if (listener != null) {
             if (weatherData != null) {
                 listener.onSucceedLoadingWeatherInfo(weatherData);
