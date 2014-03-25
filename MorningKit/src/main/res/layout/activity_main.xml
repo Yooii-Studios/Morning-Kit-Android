@@ -75,20 +75,19 @@
     </RelativeLayout>
 
     <RelativeLayout
-        xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="50dip"
         android:layout_alignParentBottom="true"
         android:id="@+id/main_admob_layout"
         android:background="#77ff77">
 
-        <com.google.ads.AdView
+        <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             ads:adSize="BANNER"
             ads:adUnitId="a15278abca8d8ec"
-            ads:loadAdOnCreate="true"
             android:gravity="center_horizontal" />
 
     </RelativeLayout>

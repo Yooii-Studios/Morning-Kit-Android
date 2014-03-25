@@ -4,15 +4,15 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import com.google.ads.AdSize;
+import com.google.android.gms.ads.AdSize;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
+import com.yooiistudios.morningkit.common.dp.DipToPixel;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.MNMainActivity;
@@ -100,7 +100,8 @@ public class MNMainLayoutSetter {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 Context context = admobLayout.getContext();
-                AdSize adSize = AdSize.createAdSize(AdSize.BANNER, context);
+//                AdSize adSize = AdSize.createAdSize(AdSize.BANNER, context);
+                AdSize adSize = AdSize.BANNER;
                 int calcaulatedButtonLayoutWidth;
                 calcaulatedButtonLayoutWidth = MNDeviceSizeInfo.getDeviceWidth(context) - (int)(context.getResources().getDimension(R.dimen.margin_main_button_layout) * 2);
 
