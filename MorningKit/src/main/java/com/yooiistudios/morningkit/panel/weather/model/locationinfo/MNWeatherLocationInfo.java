@@ -16,8 +16,8 @@ public class MNWeatherLocationInfo {
     String regionCode;
     String countryCode;
     String timezoneCode;
-    float latitude;
-    float longitude;
+    @Getter float latitude;
+    @Getter float longitude;
 
     // 추가: woeid
     // originalName(현재에서 사용되는 언어의 도시이름 ex:서울), otherNames 추가: originalName이 검색되면 이것을 보여 주고,
