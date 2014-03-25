@@ -20,7 +20,7 @@ import java.io.InputStreamReader;
 public class MNExchangeRatesParser {
     private MNExchangeRatesParser() { throw new AssertionError("You MUST not create this class!"); }
     public static JSONObject getJSONObjectFromUrl(String url) {
-        DefaultHttpClient   httpclient = new DefaultHttpClient(new BasicHttpParams());
+        DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
         HttpPost httppost = new HttpPost(url);
         // Depends on your web service
 //        httppost.setHeader("Content-type", "application/json");
