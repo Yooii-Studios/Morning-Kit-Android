@@ -11,10 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.google.ads.Ad;
-import com.google.ads.AdListener;
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
@@ -40,7 +39,7 @@ import lombok.Getter;
  * MNMainActivity
  *  앱에서 가장 중요한 메인 액티비티
  */
-public class MNMainActivity extends Activity implements AdListener
+public class MNMainActivity extends Activity
 {
     private static final String TAG = "MNMainActivity";
 
@@ -96,6 +95,11 @@ public class MNMainActivity extends Activity implements AdListener
         alarmListView.initWithListAdapter();
 
         // 애드몹
+        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+//                .addTestDevice("TEST_DEVICE_ID")
+                .build();
+        adView.loadAd(adRequest);
 //        adView = new AdView(this, AdSize.BANNER, MN.ads.ADMOB_ID);
 //        admobLayout.addView(adView);
 //        adView.loadAd(new AdRequest());
@@ -155,6 +159,7 @@ public class MNMainActivity extends Activity implements AdListener
         // 애드몹 레이아웃
         admobLayout.setBackgroundColor(Color.parseColor("#BB000000"));
         super.onResume();
+        adView.resume();
     }
 
     @Override
@@ -167,7 +172,7 @@ public class MNMainActivity extends Activity implements AdListener
     protected void onPause()
     {
         // Partially visible
-
+        adView.pause();
         super.onPause();
     }
 
@@ -244,6 +249,7 @@ public class MNMainActivity extends Activity implements AdListener
     /**
      * Admob
      */
+    /*
     @Override
     public void onDismissScreen(Ad arg0) {
     }
@@ -264,7 +270,7 @@ public class MNMainActivity extends Activity implements AdListener
     @Override
     public void onReceiveAd(Ad arg0) {
     }
-
+    */
     /**
      * Panel
      */
