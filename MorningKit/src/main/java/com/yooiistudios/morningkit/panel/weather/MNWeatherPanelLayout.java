@@ -3,7 +3,6 @@ package com.yooiistudios.morningkit.panel.weather;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.location.Location;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.ImageView;
@@ -55,6 +54,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOA
     private boolean isDisplayingLocaltime = true;
     private boolean isUsingCelsius = true;
     private MNWeatherLocationInfo selectedLocationInfo;
+    private MNWeatherData weatherData;
 
     // AsyncTask
     private MNWeatherWWOAsyncTask weatherWWOAsyncTask;
@@ -187,32 +187,22 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOA
         // get data from panelDataObject
         loadPanelDataObject();
 
-        // get weather data from server
-        Location location;
-        if (isUsingCurrentLocation) {
-            // WWO using current location
-            // find previous data from cache
-
-        } else {
-            // Yahoo using woeid -> iOS 소스를 보니까 전부 WWO를 사용하게 변경이 되었네
-            // find previous data from cache
-        }
-
-        // get weather data from WWO
+        // cancel the previous task first
         if (weatherWWOAsyncTask != null) {
             weatherWWOAsyncTask.cancel(true);
         }
 
-        location = new Location("Passive");
-        if (selectedLocationInfo != null) {
-            location.setLatitude(selectedLocationInfo.getLatitude());
-            location.setLongitude(selectedLocationInfo.getLongitude());
+        // get weather data from server
+        if (isUsingCurrentLocation) {
+            // WWO using current location
+            // find previous data from cache
+            weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), false, this);
+        } else {
+            // Yahoo using woeid -> iOS 소스를 보니까 전부 WWO를 사용하게 변경이 되었네
+            // find previous data from cache
+            weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), true, this);
         }
-        weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(location, getContext(), this);
         weatherWWOAsyncTask.execute();
-
-        // 나중에 비동기 처리 필요
-        updateUI();
     }
 
     private void loadPanelDataObject() throws JSONException {
@@ -239,6 +229,28 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOA
     @Override
     protected void updateUI() {
         super.updateUI();
+
+        // weather condition
+
+        // temp
+        if (isUsingCelsius) {
+            currentTempTextView.setText(weatherData.currentCelsiusTemp);
+            lowHighTempTextView.setText(weatherData.lowHighCelsiusTemp);
+        } else {
+            currentTempTextView.setText(weatherData.currentFahrenheitTemp);
+            lowHighTempTextView.setText(weatherData.lowHighFahrenheitTemp);
+        }
+
+        // city name
+        if (weatherData.weatherLocationInfo.getName() != null) {
+            cityNameTextView.setText(capitalize(weatherData.weatherLocationInfo.getName()));
+        }
+
+        // local time
+    }
+
+    private String capitalize(String line) {
+        return Character.toUpperCase(line.charAt(0)) + line.substring(1);
     }
 
     @Override
@@ -248,11 +260,12 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOA
 
     @Override
     public void onSucceedLoadingWeatherInfo(MNWeatherData weatherData) {
-
+        this.weatherData = weatherData;
+        updateUI();
     }
 
     @Override
     public void onFailedLoadingWeatherInfo() {
-
+        showNetworkIsUnavailable();
     }
 }

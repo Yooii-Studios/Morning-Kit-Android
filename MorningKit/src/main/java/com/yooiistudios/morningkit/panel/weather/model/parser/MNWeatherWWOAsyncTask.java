@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.panel.weather.model.parser;
 
 import android.content.Context;
-import android.location.Location;
 import android.os.AsyncTask;
 
 import com.yooiistudios.morningkit.common.log.MNLog;
@@ -10,6 +9,8 @@ import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherDat
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfo;
 
 import org.json.JSONObject;
+
+import java.util.Calendar;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 3. 5.
@@ -23,31 +24,36 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
     private static final String WWO_KEY = "k2zbbj8yamvc2rjfpfs6yxhn"; // WWO Premium LIVE Key
 //    private static final String WWO_FREE_KEY = "5nz2zqymjhewyhusjsfqw6nu"; // WWO Free Key
 
-    Location location;
+    MNWeatherLocationInfo locationInfo;
     Context context;
     OnWeatherWWOAsyncTaskListener listener;
+    boolean isTaskForWeatherOnly = false;
 
     public interface OnWeatherWWOAsyncTaskListener {
         public void onSucceedLoadingWeatherInfo(MNWeatherData weatherData);
         public void onFailedLoadingWeatherInfo();
     }
 
-    public MNWeatherWWOAsyncTask(Location location, Context context, OnWeatherWWOAsyncTaskListener listener) {
-        this.location = location;
+    public MNWeatherWWOAsyncTask(MNWeatherLocationInfo locationInfo, Context context, boolean isTaskForWeatherOnly,
+                                 OnWeatherWWOAsyncTaskListener listener) {
+        this.locationInfo = locationInfo;
         this.context = context;
+        this.isTaskForWeatherOnly = isTaskForWeatherOnly;
         this.listener = listener;
     }
 
     @Override
     protected MNWeatherData doInBackground(Void... params) {
 
-        MNWeatherData weatherLocationInfo = null;
+        MNWeatherData weatherData = null;
 
         String queryUrlString = String.format(
                 "http://api.worldweatheronline.com/premium/v1/weather.ashx?q=+"
-                + location.getLatitude() + "," + location.getLongitude()
+                + locationInfo.getLatitude() + "," + locationInfo.getLongitude()
                 + "&format=json&extra=localObsTime&num_of_days=1&date=today"
                 + "&includelocation=yes&show_comments=no&key=" + WWO_KEY);
+
+        MNLog.now("queryUrlString: " + queryUrlString);
 
         // 1번 블락: 날씨 가져오기
         // 2번 블락: 구글에서 도시 이름 가져오기
@@ -55,17 +61,68 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
         // 4번 블락: 세 블락 작업이 끝나고 리턴하기 위해 sync를 사용
 
         // 아래 두 가지 변경을 하지 않으면 제대로 된 URL로 인식을 하지 못함
-        queryUrlString = queryUrlString.replace(",", "%C");
+        queryUrlString = queryUrlString.replace(",", "%2C");
 
         JSONObject resultJsonObject = MNExchangeRatesParser.getJSONObjectFromUrl(queryUrlString);
+        MNLog.now("resultJsonObject: " + resultJsonObject);
 
         if (resultJsonObject != null) {
             try {
                 if (resultJsonObject.has("data")) {
-                    JSONObject data = resultJsonObject.getJSONObject("data");
-                    if (data != null && data.has("current_condition")) {
-                        JSONObject current_condition = data.getJSONObject("current_condition");
-                        MNLog.now("current_condition: " + current_condition);
+                    JSONObject allWeatherData = resultJsonObject.getJSONObject("data");
+//                    MNLog.now("allWeatherData: " + allWeatherData);
+                    if (allWeatherData != null && allWeatherData.has("current_condition")) {
+
+                        // 정보가 제대로 있다고 판단하고 인스턴스 할당
+                        weatherData = new MNWeatherData();
+                        if (locationInfo != null) {
+                            weatherData.weatherLocationInfo.setLatitude(locationInfo.getLatitude());
+                            weatherData.weatherLocationInfo.setLongitude(locationInfo.getLongitude());
+                        }
+
+                        // time stamp - 로딩 당시의 초를 기록(캐시 비교용)
+                        weatherData.timeStampInMillis = Calendar.getInstance().getTimeInMillis();
+
+                        // 현재 날씨 파악
+                        JSONObject currentConditionData = allWeatherData.getJSONArray("current_condition").getJSONObject(0);
+                        MNLog.now("current_condition: " + currentConditionData);
+
+                        if (currentConditionData != null) {
+                            MNLog.now("current_condition ins't null");
+
+                            if (currentConditionData.has("temp_C")) {
+                                weatherData.currentCelsiusTemp = currentConditionData.getString("temp_C") + "°";
+                            }
+                            if (currentConditionData.has("temp_F")) {
+                                weatherData.currentFahrenheitTemp = currentConditionData.getString("temp_F") + "°";
+                            }
+
+                            MNLog.now("currentCelsiusTemp: " + weatherData.currentCelsiusTemp);
+                            MNLog.now("currentFahrenheitTemp: " + weatherData.currentFahrenheitTemp);
+
+                            // timeOffset
+                            String dateString = currentConditionData.getString("localObsDateTime");
+                            if (dateString != null) {
+                                // yyyy-MM-dd hh:mm a
+                                // en_US_POSIX
+                                // UTC 기준이라고 가정하고 offset만을 구함
+                            }
+                        }
+
+                        // 오늘 평균 날씨 파악
+                        JSONObject todayConditionData = allWeatherData.getJSONArray("weather").getJSONObject(0);
+                        if (todayConditionData != null) {
+                            if (todayConditionData.has("mintempC") && todayConditionData.has("maxtempC")) {
+                                weatherData.lowHighCelsiusTemp = todayConditionData.getString("mintempC")
+                                        + "°/" + todayConditionData.getString("maxtempC") + "°";
+                            }
+                            if (todayConditionData.has("mintempF") && todayConditionData.has("maxtempF")) {
+                                weatherData.lowHighFahrenheitTemp = todayConditionData.getString("mintempF")
+                                        + "°/" + todayConditionData.getString("maxtempF") + "°";
+                            }
+                            MNLog.now("todayCelsiusTemp: " + weatherData.lowHighCelsiusTemp);
+                            MNLog.now("todayFahrenheitTemp: " + weatherData.lowHighFahrenheitTemp);
+                        }
 
 //                        String weatherCondition = current_condition.getString("weatherCode");
 //                        String todayTemp = current_condition.getString("todayTemp");
@@ -78,6 +135,15 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
 //                                rates = rate.getDouble("Rate");
 //                            }
 //                        }
+
+                        if (isTaskForWeatherOnly) {
+                            // 기존 위치 정보가 제대로 있다고 판단, 기존 정보 대입
+                            weatherData.weatherLocationInfo.setName(locationInfo.getName());
+                            weatherData.weatherLocationInfo.setEnglishName(locationInfo.getEnglishName());
+                            weatherData.weatherLocationInfo.setWoeid(locationInfo.getWoeid());
+                        } else {
+                            // 지오코딩을 통해 현재 위치의 정보를 로딩
+                        }
                     }
                 }
                 /*
@@ -106,7 +172,7 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                 e.printStackTrace();
             }
         }
-        return weatherLocationInfo;
+        return weatherData;
     }
 
     @Override

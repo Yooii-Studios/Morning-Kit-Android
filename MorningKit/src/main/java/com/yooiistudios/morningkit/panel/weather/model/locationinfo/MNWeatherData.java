@@ -7,14 +7,20 @@ package com.yooiistudios.morningkit.panel.weather.model.locationinfo;
  *  날씨 정보와 위치를 포함하는 자료 구조
  */
 public class MNWeatherData {
-    MNWeatherLocationInfo weatherLocationInfo;
+    public MNWeatherData() {
+        weatherLocationInfo = new MNWeatherLocationInfo();
+    }
+
+    public MNWeatherLocationInfo weatherLocationInfo;
 //    String currentTemp;
 //    String todayTemp;
-    String currentCelsiusTemp;
-    String todayCelsiusTemp;
+    public String currentCelsiusTemp;
+    public String lowHighCelsiusTemp;
 
-    String currentFahrenheitTemp;
-    String todayFahrenheitTemp;
+    public String currentFahrenheitTemp;
+    public String lowHighFahrenheitTemp;
 
-    String timeString;
+    public String timeString;
+
+    public long timeStampInMillis; // 날씨가 로딩되었을 당시의 시간 timeInMillis
 }
