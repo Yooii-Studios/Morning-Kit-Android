@@ -231,6 +231,10 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOA
         super.updateUI();
 
         // weather condition
+        if (weatherData.weatherCondition != null) {
+            weatherConditionImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
+                    BitmapFactory.decodeResource(getResources(), weatherData.weatherCondition.getConditionResourceId())));
+        }
 
         // temp
         if (isUsingCelsius) {

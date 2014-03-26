@@ -5,12 +5,18 @@ import android.os.AsyncTask;
 
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesParser;
+import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWWOWeatherCondition;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherData;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfo;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 3. 5.
@@ -53,7 +59,7 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                 + "&format=json&extra=localObsTime&num_of_days=1&date=today"
                 + "&includelocation=yes&show_comments=no&key=" + WWO_KEY);
 
-        MNLog.now("queryUrlString: " + queryUrlString);
+//        MNLog.now("queryUrlString: " + queryUrlString);
 
         // 1번 블락: 날씨 가져오기
         // 2번 블락: 구글에서 도시 이름 가져오기
@@ -64,7 +70,7 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
         queryUrlString = queryUrlString.replace(",", "%2C");
 
         JSONObject resultJsonObject = MNExchangeRatesParser.getJSONObjectFromUrl(queryUrlString);
-        MNLog.now("resultJsonObject: " + resultJsonObject);
+//        MNLog.now("resultJsonObject: " + resultJsonObject);
 
         if (resultJsonObject != null) {
             try {
@@ -84,12 +90,18 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                         weatherData.timeStampInMillis = Calendar.getInstance().getTimeInMillis();
 
                         // 현재 날씨 파악
-                        JSONObject currentConditionData = allWeatherData.getJSONArray("current_condition").getJSONObject(0);
-                        MNLog.now("current_condition: " + currentConditionData);
+                        if (allWeatherData.has("current_condition")) {
+                            JSONObject currentConditionData = allWeatherData.getJSONArray("current_condition").getJSONObject(0);
+//                            MNLog.now("current_condition: " + currentConditionData);
 
-                        if (currentConditionData != null) {
-                            MNLog.now("current_condition ins't null");
+                            // weather code
+                            if (currentConditionData.has("weatherCode")) {
+                                int weatherCode = currentConditionData.getInt("weatherCode");
+                                weatherData.weatherCondition = MNWWOWeatherCondition.valueOfWeatherCode(weatherCode);
+                                MNLog.now("weatherCondition: " + weatherData.weatherCondition);
+                            }
 
+                            // temperature
                             if (currentConditionData.has("temp_C")) {
                                 weatherData.currentCelsiusTemp = currentConditionData.getString("temp_C") + "°";
                             }
@@ -97,21 +109,46 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                                 weatherData.currentFahrenheitTemp = currentConditionData.getString("temp_F") + "°";
                             }
 
-                            MNLog.now("currentCelsiusTemp: " + weatherData.currentCelsiusTemp);
-                            MNLog.now("currentFahrenheitTemp: " + weatherData.currentFahrenheitTemp);
+//                            MNLog.now("currentCelsiusTemp: " + weatherData.currentCelsiusTemp);
+//                            MNLog.now("currentFahrenheitTemp: " + weatherData.currentFahrenheitTemp);
 
                             // timeOffset
-                            String dateString = currentConditionData.getString("localObsDateTime");
-                            if (dateString != null) {
+                            if (currentConditionData.has("localObsDateTime")) {
+
                                 // yyyy-MM-dd hh:mm a
-                                // en_US_POSIX
-                                // UTC 기준이라고 가정하고 offset만을 구함
+                                DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd hh:mm a");
+                                DateTimeFormatter printFormatter = DateTimeFormat.forPattern("yyyy-MM-dd hh:mm:ss a");
+
+                                // utc(0초로)
+                                DateTime utcNowTime = DateTime.now(DateTimeZone.UTC);
+                                utcNowTime = new DateTime(utcNowTime.getYear(), utcNowTime.getMonthOfYear(),
+                                        utcNowTime.getDayOfMonth(), utcNowTime.getHourOfDay(), utcNowTime.getMinuteOfHour());
+                                MNLog.now("utcNowTime: " + printFormatter.withLocale(Locale.US).print(utcNowTime));
+
+                                // local time - 원래 0초로 옴
+                                String dateString = currentConditionData.getString("localObsDateTime");
+                                DateTime localNowTime = formatter.withLocale(Locale.US).parseDateTime(dateString);
+                                MNLog.now("localNowTime: " + printFormatter.withLocale(Locale.US).print(localNowTime));
+
+                                // 만약 몇 초 차이로 1분 차이가 나면 local time에 1분을 더해주기
+                                if (Math.abs(utcNowTime.getMinuteOfHour() - localNowTime.getMinuteOfHour()) == 1 ||
+                                        Math.abs(utcNowTime.getMinuteOfHour() - localNowTime.getMinuteOfHour()) == 59) {
+                                    localNowTime.plusMinutes(1);
+
+                                    MNLog.now("adjusted localNowTime: " + printFormatter.withLocale(Locale.US).print(localNowTime));
+                                }
+
+                                // calculate offset
+                                weatherData.timeOffsetInMillis = localNowTime.getMillis() - utcNowTime.getMillis();
+
+                                MNLog.now("timeOffsetInMillis: " + weatherData.timeOffsetInMillis);
+                                MNLog.now("hour offset: " + (float)weatherData.timeOffsetInMillis / 1000 / (float)3600);
                             }
                         }
 
                         // 오늘 평균 날씨 파악
-                        JSONObject todayConditionData = allWeatherData.getJSONArray("weather").getJSONObject(0);
-                        if (todayConditionData != null) {
+                        if (allWeatherData.has("weather")) {
+                            JSONObject todayConditionData = allWeatherData.getJSONArray("weather").getJSONObject(0);
                             if (todayConditionData.has("mintempC") && todayConditionData.has("maxtempC")) {
                                 weatherData.lowHighCelsiusTemp = todayConditionData.getString("mintempC")
                                         + "°/" + todayConditionData.getString("maxtempC") + "°";
@@ -120,8 +157,8 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                                 weatherData.lowHighFahrenheitTemp = todayConditionData.getString("mintempF")
                                         + "°/" + todayConditionData.getString("maxtempF") + "°";
                             }
-                            MNLog.now("todayCelsiusTemp: " + weatherData.lowHighCelsiusTemp);
-                            MNLog.now("todayFahrenheitTemp: " + weatherData.lowHighFahrenheitTemp);
+//                            MNLog.now("todayCelsiusTemp: " + weatherData.lowHighCelsiusTemp);
+//                            MNLog.now("todayFahrenheitTemp: " + weatherData.lowHighFahrenheitTemp);
                         }
 
 //                        String weatherCondition = current_condition.getString("weatherCode");

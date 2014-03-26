@@ -9,9 +9,13 @@ package com.yooiistudios.morningkit.panel.weather.model.locationinfo;
 public class MNWeatherData {
     public MNWeatherData() {
         weatherLocationInfo = new MNWeatherLocationInfo();
+        weatherCondition = MNWWOWeatherCondition.no_data;
     }
 
     public MNWeatherLocationInfo weatherLocationInfo;
+
+    public MNWWOWeatherCondition weatherCondition;
+
 //    String currentTemp;
 //    String todayTemp;
     public String currentCelsiusTemp;
@@ -23,4 +27,6 @@ public class MNWeatherData {
     public String timeString;
 
     public long timeStampInMillis; // 날씨가 로딩되었을 당시의 시간 timeInMillis
+
+    public long timeOffsetInMillis; // 현지 시간을 위한 time offset (초)
 }
