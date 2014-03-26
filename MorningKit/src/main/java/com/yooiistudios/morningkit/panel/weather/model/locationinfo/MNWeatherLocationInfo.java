@@ -34,14 +34,14 @@ public class MNWeatherLocationInfo {
     }
 
     public boolean startsWith(String searchString) {
-        if (name.toLowerCase().replace(" ", "").startsWith(searchString)) {
+        if (name.toLowerCase().replace(" ", "").startsWith(searchString.toLowerCase().replace(" ", ""))) {
             return true;
         }
         return false;
     }
 
     public boolean contains(String searchString) {
-        if (name.toLowerCase().replace(" ", "").contains(searchString)) {
+        if (name.toLowerCase().replace(" ", "").contains(searchString.toLowerCase().replace(" ", ""))) {
             return true;
         }
         return false;
