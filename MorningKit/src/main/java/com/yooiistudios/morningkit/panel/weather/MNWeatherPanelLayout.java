@@ -1,9 +1,10 @@
 package com.yooiistudios.morningkit.panel.weather;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.ImageView;
@@ -16,8 +17,12 @@ import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
-import com.yooiistudios.morningkit.panel.weather.model.MNWeatherLocationInfo;
+import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherData;
+import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfo;
+import com.yooiistudios.morningkit.panel.weather.model.parser.MNWeatherWWOAsyncTask;
 
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDateTime;
 import org.json.JSONException;
 
 import java.lang.reflect.Type;
@@ -30,7 +35,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  *
  * MNWeatherPanelLayout
  */
-public class MNWeatherPanelLayout extends MNPanelLayout {
+public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOAsyncTask.OnWeatherWWOAsyncTaskListener {
 
     protected static final String WEATHER_DATA_IS_USING_CURRENT_LOCATION = "WEATHER_IS_USING_CURRENT_LOCATION";
     protected static final String WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME = "WEATHER_INDICATE_LOCAL_TIME";
@@ -53,6 +58,13 @@ public class MNWeatherPanelLayout extends MNPanelLayout {
     private boolean isDisplayingLocaltime = true;
     private boolean isUsingCelsius = true;
     private MNWeatherLocationInfo selectedLocationInfo;
+    private MNWeatherData weatherData;
+
+    // AsyncTask
+    private MNWeatherWWOAsyncTask weatherWWOAsyncTask;
+
+    // Local time clock
+    private boolean isClockRunning = false;
 
     public MNWeatherPanelLayout(Context context) {
         super(context);
@@ -178,6 +190,29 @@ public class MNWeatherPanelLayout extends MNPanelLayout {
     @Override
     protected void processLoading() throws JSONException {
         super.processLoading();
+
+        // get data from panelDataObject
+        loadPanelDataObject();
+
+        // cancel the previous task first
+        if (weatherWWOAsyncTask != null) {
+            weatherWWOAsyncTask.cancel(true);
+        }
+
+        // get weather data from server
+        if (isUsingCurrentLocation) {
+            // WWO using current location
+            // find previous data from cache
+            weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), false, this);
+        } else {
+            // Yahoo using woeid -> iOS 소스를 보니까 전부 WWO를 사용하게 변경이 되었네
+            // find previous data from cache
+            weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), true, this);
+        }
+        weatherWWOAsyncTask.execute();
+    }
+
+    private void loadPanelDataObject() throws JSONException {
         if (getPanelDataObject().has(WEATHER_DATA_IS_USING_CURRENT_LOCATION)) {
             // 기본은 현재위치 사용
             isUsingCurrentLocation = getPanelDataObject().getBoolean(WEATHER_DATA_IS_USING_CURRENT_LOCATION);
@@ -196,18 +231,103 @@ public class MNWeatherPanelLayout extends MNPanelLayout {
             Type type = new TypeToken<MNWeatherLocationInfo>(){}.getType();
             selectedLocationInfo = new Gson().fromJson(getPanelDataObject().getString(WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO), type);
         }
-
-        // 나중에 비동기 처리 필요
-        updateUI();
     }
 
     @Override
     protected void updateUI() {
         super.updateUI();
+
+        // weather condition
+        if (weatherData.weatherCondition != null) {
+            weatherConditionImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
+                    BitmapFactory.decodeResource(getResources(), weatherData.weatherCondition.getConditionResourceId())));
+        }
+
+        // temp
+        if (isUsingCelsius) {
+            currentTempTextView.setText(weatherData.currentCelsiusTemp);
+            lowHighTempTextView.setText(weatherData.lowHighCelsiusTemp);
+        } else {
+            currentTempTextView.setText(weatherData.currentFahrenheitTemp);
+            lowHighTempTextView.setText(weatherData.lowHighFahrenheitTemp);
+        }
+
+        // city name
+        if (weatherData.weatherLocationInfo.getName() != null) {
+            cityNameTextView.setText(capitalize(weatherData.weatherLocationInfo.getName()));
+        }
+
+        // local time
+    }
+
+    private String capitalize(String line) {
+        return Character.toUpperCase(line.charAt(0)) + line.substring(1);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    // AsyncTask
+    @Override
+    public void onSucceedLoadingWeatherInfo(MNWeatherData weatherData) {
+        this.weatherData = weatherData;
+        startClock();
+        updateUI();
+    }
+
+    @Override
+    public void onFailedLoadingWeatherInfo() {
+        showNetworkIsUnavailable();
+    }
+
+    // Clock
+    private Handler clockHandler = new Handler() {
+        @Override
+        public void handleMessage( Message msg ){
+            if (isClockRunning) {
+
+                // tick(계산)
+                String timeString = "";
+                if (weatherData != null) {
+                    LocalDateTime localDateTime = LocalDateTime.now(DateTimeZone.forOffsetMillis((int)weatherData.timeOffsetInMillis));
+                    timeString = localDateTime.toString("HH:mm:ss");
+                }
+
+                // UI갱신
+                localTimeTextView.setText(timeString);
+
+                // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
+                long endMilli = System.currentTimeMillis();
+                long delay = endMilli % 1000;
+
+                clockHandler.sendEmptyMessageDelayed(0, 1000 - delay);
+            }
+        }
+    };
+
+    private void startClock() {
+        if (isClockRunning) {
+            return;
+        }
+        isClockRunning = true;
+
+        int diffInMilli = (int) System.currentTimeMillis() % 1000;
+        clockHandler.sendEmptyMessageDelayed(0, 1000 - diffInMilli);
+    }
+
+    private void stopClock() {
+        if (!isClockRunning) {
+            return;
+        }
+        isClockRunning = false;
+    }
+
+    // 패널이 없어질 때 핸들러 중지
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        stopClock();
     }
 }
