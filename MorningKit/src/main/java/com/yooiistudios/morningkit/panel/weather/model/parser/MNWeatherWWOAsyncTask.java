@@ -3,7 +3,6 @@ package com.yooiistudios.morningkit.panel.weather.model.parser;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesParser;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWWOWeatherCondition;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherData;
@@ -76,7 +75,6 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
             try {
                 if (resultJsonObject.has("data")) {
                     JSONObject allWeatherData = resultJsonObject.getJSONObject("data");
-//                    MNLog.now("allWeatherData: " + allWeatherData);
                     if (allWeatherData != null && allWeatherData.has("current_condition")) {
 
                         // 정보가 제대로 있다고 판단하고 인스턴스 할당
@@ -92,13 +90,11 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                         // 현재 날씨 파악
                         if (allWeatherData.has("current_condition")) {
                             JSONObject currentConditionData = allWeatherData.getJSONArray("current_condition").getJSONObject(0);
-//                            MNLog.now("current_condition: " + currentConditionData);
 
                             // weather code
                             if (currentConditionData.has("weatherCode")) {
                                 int weatherCode = currentConditionData.getInt("weatherCode");
                                 weatherData.weatherCondition = MNWWOWeatherCondition.valueOfWeatherCode(weatherCode);
-                                MNLog.now("weatherCondition: " + weatherData.weatherCondition);
                             }
 
                             // temperature
@@ -109,26 +105,23 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                                 weatherData.currentFahrenheitTemp = currentConditionData.getString("temp_F") + "°";
                             }
 
-//                            MNLog.now("currentCelsiusTemp: " + weatherData.currentCelsiusTemp);
-//                            MNLog.now("currentFahrenheitTemp: " + weatherData.currentFahrenheitTemp);
-
                             // timeOffset
                             if (currentConditionData.has("localObsDateTime")) {
-
                                 // yyyy-MM-dd hh:mm a
                                 DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd hh:mm a");
-                                DateTimeFormatter printFormatter = DateTimeFormat.forPattern("yyyy-MM-dd hh:mm:ss a");
+//                                DateTimeFormatter printFormatter = DateTimeFormat.forPattern("yyyy-MM-dd hh:mm:ss a");
 
                                 // utc(0초로)
                                 DateTime utcNowTime = DateTime.now(DateTimeZone.UTC);
                                 utcNowTime = new DateTime(utcNowTime.getYear(), utcNowTime.getMonthOfYear(),
                                         utcNowTime.getDayOfMonth(), utcNowTime.getHourOfDay(), utcNowTime.getMinuteOfHour());
-                                MNLog.now("utcNowTime: " + printFormatter.withLocale(Locale.US).print(utcNowTime));
+//                                MNLog.now("utcNowTime: " + printFormatter.withLocale(Locale.US).print(utcNowTime));
+
 
                                 // local time - 원래 0초로 옴
                                 String dateString = currentConditionData.getString("localObsDateTime");
                                 DateTime localNowTime = formatter.withLocale(Locale.US).parseDateTime(dateString);
-                                MNLog.now("localNowTime: " + printFormatter.withLocale(Locale.US).print(localNowTime));
+//                                MNLog.now("localNowTime: " + printFormatter.withLocale(Locale.US).print(localNowTime));
 
                                 // calculate offset
                                 weatherData.timeOffsetInMillis = localNowTime.getMillis() - utcNowTime.getMillis();
@@ -137,12 +130,8 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                                 // 시간대는 30분, 45분이 차이가 날 경우도 있기 때문에 15분으로 나누어서 확인할 필요가 있음
                                 if ((weatherData.timeOffsetInMillis / 1000) % 900 != 0) {
                                     localNowTime = localNowTime.plusMinutes(1);
-                                    MNLog.now("adjusted localNowTime: " + printFormatter.withLocale(Locale.US).print(localNowTime));
                                     weatherData.timeOffsetInMillis = localNowTime.getMillis() - utcNowTime.getMillis();
                                 }
-
-                                MNLog.now("timeOffsetInMillis: " + weatherData.timeOffsetInMillis);
-                                MNLog.now("hour offset: " + (float)weatherData.timeOffsetInMillis / 1000 / (float)3600);
                             }
                         }
 
@@ -157,22 +146,7 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                                 weatherData.lowHighFahrenheitTemp = todayConditionData.getString("mintempF")
                                         + "°/" + todayConditionData.getString("maxtempF") + "°";
                             }
-//                            MNLog.now("todayCelsiusTemp: " + weatherData.lowHighCelsiusTemp);
-//                            MNLog.now("todayFahrenheitTemp: " + weatherData.lowHighFahrenheitTemp);
                         }
-
-//                        String weatherCondition = current_condition.getString("weatherCode");
-//                        String todayTemp = current_condition.getString("todayTemp");
-
-//                        String dateString = current_condition.getString("localObsDateTime");
-
-//                        if (results != null && results.has("rate")) {
-//                            JSONObject rate = results.getJSONObject("rate");
-//                            if (rate != null && rate.has("Rate")) {
-//                                rates = rate.getDouble("Rate");
-//                            }
-//                        }
-
                         if (isTaskForWeatherOnly) {
                             // 기존 위치 정보가 제대로 있다고 판단, 기존 정보 대입
                             weatherData.weatherLocationInfo.setName(locationInfo.getName());
@@ -183,6 +157,7 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                         }
                     }
                 }
+
                 /*
                 "data": {
 		            "current_condition": [
