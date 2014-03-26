@@ -2,6 +2,8 @@ package com.yooiistudios.morningkit.panel.exchangerates.model;
 
 import android.os.AsyncTask;
 
+import com.yooiistudios.morningkit.common.json.MNJsonUtils;
+
 import org.json.JSONObject;
 
 /**
@@ -42,7 +44,7 @@ public class MNExchangeRatesAsyncTask extends AsyncTask<Void, Void, Double> {
         queryUrlString = queryUrlString.replace(" ", "%20");
         queryUrlString = queryUrlString.replace("\"", "%22");
 
-        JSONObject resultJsonObject = MNExchangeRatesParser.getJSONObjectFromUrl(queryUrlString);
+        JSONObject resultJsonObject = MNJsonUtils.getJsonObjectFromUrl(queryUrlString);
 
         if (resultJsonObject != null) {
             try {

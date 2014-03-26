@@ -3,7 +3,7 @@ package com.yooiistudios.morningkit.panel.weather.model.parser;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesParser;
+import com.yooiistudios.morningkit.common.json.MNJsonUtils;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWWOWeatherCondition;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherData;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfo;
@@ -68,7 +68,7 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
         // 아래 두 가지 변경을 하지 않으면 제대로 된 URL로 인식을 하지 못함
         queryUrlString = queryUrlString.replace(",", "%2C");
 
-        JSONObject resultJsonObject = MNExchangeRatesParser.getJSONObjectFromUrl(queryUrlString);
+        JSONObject resultJsonObject = MNJsonUtils.getJsonObjectFromUrl(queryUrlString);
 //        MNLog.now("resultJsonObject: " + resultJsonObject);
 
         if (resultJsonObject != null) {
