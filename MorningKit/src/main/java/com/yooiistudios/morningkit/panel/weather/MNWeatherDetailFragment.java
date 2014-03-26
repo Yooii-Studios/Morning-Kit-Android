@@ -238,8 +238,13 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
         getPanelDataObject().put(WEATHER_DATA_IS_USING_CURRENT_LOCATION, isUsingCurrentLocation);
         getPanelDataObject().put(WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME, isDisplayingLocaltime);
         getPanelDataObject().put(WEATHER_DATA_TEMP_CELSIUS, isUsingCelsius);
-        getPanelDataObject().put(WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO,
-                new Gson().toJson(selectedLocationInfo));
+        // 선택 위치 정보가 없다면 명시적으로 삭제
+        if (selectedLocationInfo != null) {
+            getPanelDataObject().put(WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO,
+                    new Gson().toJson(selectedLocationInfo));
+        } else {
+            getPanelDataObject().remove(WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO);
+        }
     }
 
     // ListView

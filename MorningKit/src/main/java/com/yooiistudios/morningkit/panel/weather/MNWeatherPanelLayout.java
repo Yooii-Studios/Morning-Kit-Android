@@ -3,6 +3,8 @@ package com.yooiistudios.morningkit.panel.weather;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Location;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -11,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.location.LocationClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
@@ -35,7 +40,12 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  *
  * MNWeatherPanelLayout
  */
-public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOAsyncTask.OnWeatherWWOAsyncTaskListener {
+public class MNWeatherPanelLayout extends MNPanelLayout implements
+        MNWeatherWWOAsyncTask.OnWeatherWWOAsyncTaskListener,
+        GooglePlayServicesClient.ConnectionCallbacks,
+        GooglePlayServicesClient.OnConnectionFailedListener {
+
+    private static final String TAG = "MNWeatherPanelLayout";
 
     protected static final String WEATHER_DATA_IS_USING_CURRENT_LOCATION = "WEATHER_IS_USING_CURRENT_LOCATION";
     protected static final String WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME = "WEATHER_INDICATE_LOCAL_TIME";
@@ -63,8 +73,11 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOA
     // AsyncTask
     private MNWeatherWWOAsyncTask weatherWWOAsyncTask;
 
-    // Local time clock
+    // LocalTime
     private boolean isClockRunning = false;
+
+    // Current Location
+    private LocationClient locationClient;
 
     public MNWeatherPanelLayout(Context context) {
         super(context);
@@ -76,7 +89,10 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOA
     @Override
     protected void init() {
         super.init();
+        initUI();
+    }
 
+    private void initUI() {
         // containers
         innerContentLayout = new RelativeLayout(getContext());
         RelativeLayout.LayoutParams innerLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
@@ -171,10 +187,10 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOA
         // test
         weatherConditionImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
                 BitmapFactory.decodeResource(getResources(), R.drawable.m_icon_weather_07_tornado)));
-        currentTempTextView.setText("14°");
-        lowHighTempTextView.setText("7°/19°");
-        cityNameTextView.setText("Daegu");
-        localTimeTextView.setText("14:11:56");
+        currentTempTextView.setText("14°T");
+        lowHighTempTextView.setText("7°/19°T");
+        cityNameTextView.setText("Daegu Test");
+        localTimeTextView.setText("14:11:56 Test");
 
         innerContentLayout.setBackgroundColor(Color.BLUE);
         upperContentLayout.setBackgroundColor(Color.LTGRAY);
@@ -201,15 +217,19 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOA
 
         // get weather data from server
         if (isUsingCurrentLocation) {
-            // WWO using current location
-            // find previous data from cache
-            weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), false, this);
+            // 현재 위치는 locationClient에서 위치를 받아와 콜백 메서드에서 로직을 진행
+            if (locationClient == null) {
+                locationClient = new LocationClient(getContext(), this, this);
+            } else {
+                locationClient.disconnect();
+            }
+            locationClient.connect();
         } else {
             // Yahoo using woeid -> iOS 소스를 보니까 전부 WWO를 사용하게 변경이 되었네
             // find previous data from cache
             weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), true, this);
+            weatherWWOAsyncTask.execute();
         }
-        weatherWWOAsyncTask.execute();
     }
 
     private void loadPanelDataObject() throws JSONException {
@@ -256,8 +276,6 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOA
         if (weatherData.weatherLocationInfo.getName() != null) {
             cityNameTextView.setText(capitalize(weatherData.weatherLocationInfo.getName()));
         }
-
-        // local time
     }
 
     private String capitalize(String line) {
@@ -326,8 +344,90 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOA
 
     // 패널이 없어질 때 핸들러 중지
     @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (locationClient != null) {
+            locationClient.connect();
+        }
+    }
+
+    @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         stopClock();
+        if (locationClient != null && locationClient.isConnected()) {
+            locationClient.disconnect();
+        }
     }
+
+    // Location Client handler
+    /**
+     * Called by Location Services when the request to connect the
+     * client finishes successfully. At this point, you can
+     * request the current location or start periodic updates
+     */
+    @Override
+    public void onConnected(Bundle bundle) {
+//        MNLog.i(TAG, "lastLocation: " + LocationUtils.getLatLng(getContext(),
+//                locationClient.getLastLocation()));
+
+        // find previous data from cache
+
+        // WWO using current location
+        MNWeatherLocationInfo currentLocationInfo = new MNWeatherLocationInfo();
+        Location lastLocation = locationClient.getLastLocation();
+        currentLocationInfo.setLatitude(lastLocation.getLatitude());
+        currentLocationInfo.setLongitude(lastLocation.getLongitude());
+        weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(currentLocationInfo, getContext(), false, this);
+        weatherWWOAsyncTask.execute();
+    }
+
+    /**
+     * Called by Location Services if the attempt to
+     * Location Services fails.
+     */
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        // Location Fail 메시지 보여주기
+
+    }
+
+    /**
+     * Called by Location Services if the connection to the
+     * location client drops because of an error.
+     */
+    @Override
+    public void onDisconnected() {
+
+    }
+
+    /**
+     * Verify that Google Play services is available before making a request.
+     *
+     * @return true if Google Play services is available, otherwise false
+     */
+//    private boolean servicesConnected() {
+//
+//        // Check that Google Play services is available
+//        int resultCode =
+//                GooglePlayServicesUtil.isGooglePlayServicesAvailable(getContext());
+//
+//        // If Google Play services is available
+//        if (ConnectionResult.SUCCESS == resultCode) {
+//            // In debug mode, log the status
+//            MNLog.i(TAG, "play services available");
+//
+//            // Continue
+//            return true;
+//
+//        // Google Play services was not available for some reason
+//        } else {
+//            // Display an error dialog
+//            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, (Activity)getContext(), 0);
+//            if (dialog != null) {
+//                Toast.makeText(getContext(), dialog.toString(), Toast.LENGTH_SHORT).show();
+//            }
+//            return false;
+//        }
+//    }
 }
