@@ -3,6 +3,8 @@ package com.yooiistudios.morningkit.panel.weather;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.ImageView;
@@ -19,6 +21,8 @@ import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherDat
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfo;
 import com.yooiistudios.morningkit.panel.weather.model.parser.MNWeatherWWOAsyncTask;
 
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDateTime;
 import org.json.JSONException;
 
 import java.lang.reflect.Type;
@@ -58,6 +62,9 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOA
 
     // AsyncTask
     private MNWeatherWWOAsyncTask weatherWWOAsyncTask;
+
+    // Local time clock
+    private boolean isClockRunning = false;
 
     public MNWeatherPanelLayout(Context context) {
         super(context);
@@ -262,14 +269,65 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements MNWeatherWWOA
         super.onSizeChanged(w, h, oldw, oldh);
     }
 
+    // AsyncTask
     @Override
     public void onSucceedLoadingWeatherInfo(MNWeatherData weatherData) {
         this.weatherData = weatherData;
+        startClock();
         updateUI();
     }
 
     @Override
     public void onFailedLoadingWeatherInfo() {
         showNetworkIsUnavailable();
+    }
+
+    // Clock
+    private Handler clockHandler = new Handler() {
+        @Override
+        public void handleMessage( Message msg ){
+            if (isClockRunning) {
+
+                // tick(계산)
+                String timeString = "";
+                if (weatherData != null) {
+                    LocalDateTime localDateTime = LocalDateTime.now(DateTimeZone.forOffsetMillis((int)weatherData.timeOffsetInMillis));
+                    timeString = localDateTime.toString("HH:mm:ss");
+                }
+
+                // UI갱신
+                localTimeTextView.setText(timeString);
+
+                // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
+                long endMilli = System.currentTimeMillis();
+                long delay = endMilli % 1000;
+
+                clockHandler.sendEmptyMessageDelayed(0, 1000 - delay);
+            }
+        }
+    };
+
+    private void startClock() {
+        if (isClockRunning) {
+            return;
+        }
+        isClockRunning = true;
+
+        int diffInMilli = (int) System.currentTimeMillis() % 1000;
+        clockHandler.sendEmptyMessageDelayed(0, 1000 - diffInMilli);
+    }
+
+    private void stopClock() {
+        if (!isClockRunning) {
+            return;
+        }
+        isClockRunning = false;
+    }
+
+    // 패널이 없어질 때 핸들러 중지
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        stopClock();
     }
 }

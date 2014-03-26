@@ -130,16 +130,16 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                                 DateTime localNowTime = formatter.withLocale(Locale.US).parseDateTime(dateString);
                                 MNLog.now("localNowTime: " + printFormatter.withLocale(Locale.US).print(localNowTime));
 
-                                // 만약 몇 초 차이로 1분 차이가 나면 local time에 1분을 더해주기
-                                if (Math.abs(utcNowTime.getMinuteOfHour() - localNowTime.getMinuteOfHour()) == 1 ||
-                                        Math.abs(utcNowTime.getMinuteOfHour() - localNowTime.getMinuteOfHour()) == 59) {
-                                    localNowTime.plusMinutes(1);
-
-                                    MNLog.now("adjusted localNowTime: " + printFormatter.withLocale(Locale.US).print(localNowTime));
-                                }
-
                                 // calculate offset
                                 weatherData.timeOffsetInMillis = localNowTime.getMillis() - utcNowTime.getMillis();
+
+                                // offset이 몇 초 차이로 900(15분)으로 나누어 떨어지지 않는다면 1분을 더해 다시 timeOffset을 계산
+                                // 시간대는 30분, 45분이 차이가 날 경우도 있기 때문에 15분으로 나누어서 확인할 필요가 있음
+                                if ((weatherData.timeOffsetInMillis / 1000) % 900 != 0) {
+                                    localNowTime = localNowTime.plusMinutes(1);
+                                    MNLog.now("adjusted localNowTime: " + printFormatter.withLocale(Locale.US).print(localNowTime));
+                                    weatherData.timeOffsetInMillis = localNowTime.getMillis() - utcNowTime.getMillis();
+                                }
 
                                 MNLog.now("timeOffsetInMillis: " + weatherData.timeOffsetInMillis);
                                 MNLog.now("hour offset: " + (float)weatherData.timeOffsetInMillis / 1000 / (float)3600);
