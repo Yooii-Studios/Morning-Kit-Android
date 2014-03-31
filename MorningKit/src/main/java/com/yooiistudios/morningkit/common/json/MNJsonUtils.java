@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.exchangerates.model;
+package com.yooiistudios.morningkit.common.json;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,9 +17,9 @@ import java.io.InputStreamReader;
  * MNExchangeRatesParser
  *  JSON을 이용해서 환율 정보를 가지고 옴
  */
-public class MNExchangeRatesParser {
-    private MNExchangeRatesParser() { throw new AssertionError("You MUST not create this class!"); }
-    public static JSONObject getJSONObjectFromUrl(String url) {
+public class MNJsonUtils {
+    private MNJsonUtils() { throw new AssertionError("You MUST not create this class!"); }
+    public static JSONObject getJsonObjectFromUrl(String url) {
         DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
         HttpPost httppost = new HttpPost(url);
         // Depends on your web service
