@@ -7,6 +7,8 @@ import com.yooiistudios.morningkit.common.json.MNJsonUtils;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWWOWeatherCondition;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherData;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfo;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -153,7 +155,20 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                             weatherData.weatherLocationInfo.setEnglishName(locationInfo.getEnglishName());
                             weatherData.weatherLocationInfo.setWoeid(locationInfo.getWoeid());
                         } else {
+                            // 현재 언어 코드를 가져오기 - 중국일 경우 region 도 제대로 입력 필요
+                            MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(context);
+                            String languageCode;
+                            if (currentLanguageType == MNLanguageType.SIMPLIFIED_CHINESE ||
+                                    currentLanguageType == MNLanguageType.TRADITIONAL_CHINESE) {
+                                languageCode = currentLanguageType.getCode() + "-" +
+                                        currentLanguageType.getRegion();
+                            } else {
+                                languageCode = currentLanguageType.getCode();
+                            }
                             // 지오코딩을 통해 현재 위치의 정보를 로딩
+                            String geoCodedCityName = MNReverseGeoCodeParser.getCityNameFromLocation(
+                                    locationInfo.getLatitude(), locationInfo.getLongitude(), languageCode);
+                            weatherData.weatherLocationInfo.setName(geoCodedCityName);
                         }
                     }
                 }
