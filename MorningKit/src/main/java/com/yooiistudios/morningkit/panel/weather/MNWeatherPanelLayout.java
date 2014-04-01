@@ -22,6 +22,8 @@ import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
+import com.yooiistudios.morningkit.panel.weather.model.cache.MNWeatherDataCurrentLocationCache;
+import com.yooiistudios.morningkit.panel.weather.model.cache.MNWeatherDataSearchCityCache;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherData;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfo;
 import com.yooiistudios.morningkit.panel.weather.model.parser.MNWeatherWWOAsyncTask;
@@ -79,6 +81,10 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     // Current Location
     private LocationClient locationClient;
 
+    // Cache
+    private MNWeatherDataSearchCityCache searchCityWeatherDataCache;
+    private MNWeatherDataCurrentLocationCache currentLocationWeatherDataCache;
+
     public MNWeatherPanelLayout(Context context) {
         super(context);
     }
@@ -90,6 +96,10 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     protected void init() {
         super.init();
         initUI();
+
+        searchCityWeatherDataCache = new MNWeatherDataSearchCityCache(getContext());
+        currentLocationWeatherDataCache = new MNWeatherDataCurrentLocationCache(getContext());
+
     }
 
     private void initUI() {
@@ -226,9 +236,20 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             locationClient.connect();
         } else {
             // Yahoo using woeid -> iOS 소스를 보니까 전부 WWO를 사용하게 변경이 되었네
+
             // find previous data from cache
-            weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), true, this);
-            weatherWWOAsyncTask.execute();
+            MNWeatherData cachedWeatherData = searchCityWeatherDataCache.findWeatherCache(
+                    selectedLocationInfo.getLatitude(), selectedLocationInfo.getLongitude());
+
+            if (cachedWeatherData != null) {
+                // use cache if exist
+                weatherData = cachedWeatherData;
+                updateUI();
+            } else {
+                // get weather data from server if cache doesn't exist
+                weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), true, this);
+                weatherWWOAsyncTask.execute();
+            }
         }
     }
 
@@ -290,6 +311,12 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     // AsyncTask
     @Override
     public void onSucceedLoadingWeatherInfo(MNWeatherData weatherData) {
+        // add weather data to cache
+        if (isUsingCurrentLocation) {
+            currentLocationWeatherDataCache.addWeatherDataToCache(weatherData, getContext());
+        } else {
+            searchCityWeatherDataCache.addWeatherDataToCache(weatherData, getContext());
+        }
         this.weatherData = weatherData;
         startClock();
         updateUI();
