@@ -44,6 +44,9 @@ public class MNWeatherDataCurrentLocationCache extends MNWeatherDataCache {
 
     @Override
     public MNWeatherData findWeatherCache(double latitude, double longitude) {
+        MNWeatherData cachedWeatherData = null;
+        boolean isCachedButInvalidate = false;
+
         for (MNWeatherData weatherData : weatherDataCacheList) {
 
             // calculate distance between two locations
@@ -55,20 +58,33 @@ public class MNWeatherDataCurrentLocationCache extends MNWeatherDataCache {
             if (distance[0] < WEATHER_REFRESH_LIMIT_DISTANCE) {
                 // check time stamp is valid
                 if (DateTime.now().getMillis() - weatherData.timeStampInMillis < WEATHER_REFRESH_LIMIT_TIME_IN_MILLIS) {
-                    if (DEBUG_MODE) {
-                        Toast.makeText(context, "Target city is in cache and show previous " +
-                                "weather data because data is got within 4 hours", Toast.LENGTH_SHORT).show();
-                    }
-                    return weatherData;
+                    cachedWeatherData = weatherData;
                 } else {
-                    if (DEBUG_MODE) {
-                        Toast.makeText(context, "Target city in in cache but invalid, " +
-                                "get a new weather data from WWO", Toast.LENGTH_SHORT).show();
-                    }
+                    isCachedButInvalidate = true;
                 }
             }
         }
-        return null;
+
+        if (cachedWeatherData != null) {
+            if (DEBUG_MODE) {
+                Toast.makeText(context, "Current location is in cache and show previous " +
+                        "weather data because data is got within 4 hours", Toast.LENGTH_SHORT).show();
+            }
+            // remove previous cache, because new one will be added
+            weatherDataCacheList.remove(cachedWeatherData);
+            return cachedWeatherData;
+        } else {
+            if (DEBUG_MODE) {
+                if (isCachedButInvalidate) {
+                    Toast.makeText(context, "Current location in in cache but invalid, " +
+                            "get a new weather data from WWO", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Current location doesn't exciest in cache, so" +
+                            "get a new weather data from WWO", Toast.LENGTH_SHORT).show();
+                }
+            }
+            return null;
+        }
     }
 
     @Override
