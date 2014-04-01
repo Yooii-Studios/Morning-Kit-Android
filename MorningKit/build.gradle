@@ -96,9 +96,6 @@ dependencies {
     compile 'com.squareup:otto:1.3.4'
     compile 'com.jakewharton:butterknife:4.0.1'
 
-    // Random Generator
-    compile 'org.uncommons.maths:uncommons-maths:1.2.2a'
-
     // Getter & Setter를 annotation으로 해결
     // (Android Studio용 플러그인용 jar 파일을 웹에서 받아서 <설정 -> plugin -> disk에서 설치> 필요)
     compile 'org.projectlombok:lombok:1.12.2'

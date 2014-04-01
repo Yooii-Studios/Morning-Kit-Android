@@ -24,11 +24,11 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
-import org.uncommons.maths.random.MersenneTwisterRNG;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -118,7 +118,8 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
 
         // 해당 언어에 따라 명언 골라주기
         // while이 이상적이지만 혹시나 모를 무한루프 방지를 위해 100번만 돌림
-        MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
+//        MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
+        Random randomGenerator = new Random();
         int randomLanguageIndex = 0;
         for (int i = 0; i < 100; i++) {
             randomLanguageIndex = randomGenerator.nextInt(selectedLanguages.size());

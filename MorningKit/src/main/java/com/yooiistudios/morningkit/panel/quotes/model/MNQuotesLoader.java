@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.yooiistudios.morningkit.common.log.MNLog;
 
-import org.uncommons.maths.random.MersenneTwisterRNG;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,11 +33,10 @@ public class MNQuotesLoader {
             String buffer = new String(tC);
             String[] lines = buffer.split("\n");
 
-            // 오픈소스 랜덤 제너레이터를 사용
-            MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
+            // 오픈소스 랜덤 제너레이터를 사용 - 속도가 느려지는 원인, 기본 RNG 사용하게 변경
+//            MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
+            Random randomGenerator = new Random();
             int randomIndex = randomGenerator.nextInt(lines.length);
-
-            MNLog.i(TAG, "quote index: " + String.valueOf(randomIndex));
 
             String searchResult[] = lines[randomIndex].split("\t", 3);
 

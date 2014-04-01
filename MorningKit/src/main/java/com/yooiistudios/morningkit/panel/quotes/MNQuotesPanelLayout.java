@@ -20,11 +20,11 @@ import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
 import org.json.JSONException;
-import org.uncommons.maths.random.MersenneTwisterRNG;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 3. 9.
@@ -119,7 +119,8 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     private void getRandomQuote() {
         // 해당 언어에 따라 명언 골라주기
         // while이 이상적이지만 혹시나 모를 무한루프 방지를 위해 100번만 돌림
-        MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
+//        MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
+        Random randomGenerator = new Random();
         int randomLanguageIndex = 0;
         for (int i = 0; i < 100; i++) {
             randomLanguageIndex = randomGenerator.nextInt(selectedLanguages.size());

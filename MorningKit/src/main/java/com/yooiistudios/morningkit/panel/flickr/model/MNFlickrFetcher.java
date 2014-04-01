@@ -8,14 +8,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.testflightapp.lib.TestFlight;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.utf.MNUtf;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.uncommons.maths.random.MersenneTwisterRNG;
+
+import java.util.Random;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 18.
@@ -51,7 +51,10 @@ public class MNFlickrFetcher {
         if (totalPhotos >= 4000) {
             totalPhotos = 4000; // 숫자가 너무 클 경우 문제가 생기기에 적절하게 조정
         }
-        MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
+
+        // 오픈소스 사용 X - 퍼포먼스 굉장히 좋지 않음
+//        MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
+        Random randomGenerator = new Random();
         randomPage = randomGenerator.nextInt(totalPhotos) + 1;
 
         // 플리커 키워드를 가지고 사진 url을 추출
@@ -86,7 +89,9 @@ public class MNFlickrFetcher {
 
                                 // 난수 생성
                                 JSONArray photoItems = photos.getJSONArray("photo");
-                                MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
+                                // 오픈소스 사용 X - 퍼포먼스 굉장히 좋지 않음
+//                                MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
+                                Random randomGenerator = new Random();
                                 if (photoItems.length() != 0) {
                                     int randomIndex = randomGenerator.nextInt(photoItems.length());
 
