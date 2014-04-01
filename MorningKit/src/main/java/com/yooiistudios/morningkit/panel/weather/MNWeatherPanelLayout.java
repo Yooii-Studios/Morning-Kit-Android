@@ -21,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.weather.model.cache.MNWeatherDataCurrentLocationCache;
 import com.yooiistudios.morningkit.panel.weather.model.cache.MNWeatherDataSearchCityCache;
@@ -398,15 +399,33 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 //        MNLog.i(TAG, "lastLocation: " + LocationUtils.getLatLng(getContext(),
 //                locationClient.getLastLocation()));
 
-        // find previous data from cache
+        MNLog.i(TAG, "onConnected");
+        MNLog.i(TAG, locationClient.toString());
 
-        // WWO using current location
-        MNWeatherLocationInfo currentLocationInfo = new MNWeatherLocationInfo();
         Location lastLocation = locationClient.getLastLocation();
-        currentLocationInfo.setLatitude(lastLocation.getLatitude());
-        currentLocationInfo.setLongitude(lastLocation.getLongitude());
-        weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(currentLocationInfo, getContext(), false, this);
-        weatherWWOAsyncTask.execute();
+
+        if (lastLocation != null) {
+            // find previous data from cache
+            MNWeatherData cachedWeatherData = currentLocationWeatherDataCache.findWeatherCache(
+                    lastLocation.getLatitude(), lastLocation.getLongitude());
+
+            if (cachedWeatherData != null) {
+                // update UI using cache weather data
+                weatherData = cachedWeatherData;
+                updateUI();
+            } else {
+                // WWO using current location
+                MNWeatherLocationInfo currentLocationInfo = new MNWeatherLocationInfo();
+
+                currentLocationInfo.setLatitude(lastLocation.getLatitude());
+                currentLocationInfo.setLongitude(lastLocation.getLongitude());
+                weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(currentLocationInfo, getContext(), false, this);
+                weatherWWOAsyncTask.execute();
+            }
+        } else {
+            // show no location error
+            MNLog.now("weatherPanel/onConnected: no last location");
+        }
     }
 
     /**
