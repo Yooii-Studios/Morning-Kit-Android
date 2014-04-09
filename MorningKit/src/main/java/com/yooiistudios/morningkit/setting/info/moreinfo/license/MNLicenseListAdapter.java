@@ -58,7 +58,7 @@ public class MNLicenseListAdapter extends BaseAdapter {
         switch (position) {
             case 0:
                 viewHolder.getTitleTextView().setText("Morning Kit");
-                viewHolder.getLinkTextView().setText("http://yooiistudios.com/termservice.html");
+                viewHolder.getLinkTextView().setText("http://yooiistudios.com/termsofservice.html");
                 viewHolder.getDetailTextView().setText("Yooii Studios Co., LTD.");
                 break;
             case 1:
