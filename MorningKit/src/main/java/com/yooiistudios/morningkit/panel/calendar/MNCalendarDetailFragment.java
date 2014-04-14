@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.panel.calendar;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,10 +9,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarSelectDialog;
+import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarUtils;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 
 import org.json.JSONException;
+
+import java.lang.reflect.Type;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -23,12 +30,14 @@ import static com.yooiistudios.morningkit.panel.calendar.MNCalendarPanelLayout.C
  *
  * MNCalendarDetailFragment
  */
-public class MNCalendarDetailFragment extends MNPanelDetailFragment {
+public class MNCalendarDetailFragment extends MNPanelDetailFragment implements MNCalendarSelectDialog.MNCalendarSelectDialogListner {
 
     private static final String TAG = "MNCalendarDetailFragment";
 
     @InjectView(R.id.calendar_detail_events_listview) ListView eventsListView;
     @InjectView(R.id.calendar_detail_select_calendars_button) Button selectCalendarsButton;
+
+    boolean[] selectedArr;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +50,17 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment {
 
             // 패널 데이터 가져오기
             if (getPanelDataObject().has(CALENDAR_DATA_SELECTED_CALEDNDARS)) {
+                String calendarModelsJsonString = null;
+                try {
+                    calendarModelsJsonString = getPanelDataObject().getString(CALENDAR_DATA_SELECTED_CALEDNDARS);
+                    if (calendarModelsJsonString != null) {
+                        Type type = new TypeToken<boolean[]>(){}.getType();
+                        selectedArr = new Gson().fromJson(calendarModelsJsonString, type);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
 //                try {
 //                    // 기존 정보가 있다면 가져와서 표시
 //                    // title
@@ -68,6 +88,18 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment {
 
     @Override
     protected void archivePanelData() throws JSONException {
+        AlertDialog calendarSelectDialog = MNCalendarSelectDialog.makeDialog(getActivity(), this,
+                MNCalendarUtils.loadCalendarModels(getActivity()));
+        calendarSelectDialog.show();
+    }
 
+    @Override
+    public void onSelectCalendars(boolean[] selectedArr) {
+        try {
+            getPanelDataObject().put(MNCalendarPanelLayout.CALENDAR_DATA_SELECTED_CALEDNDARS,
+                    new Gson().toJson(selectedArr));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
