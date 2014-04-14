@@ -16,6 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/calendar_detail_events_listview"
         android:layout_marginTop="@dimen/margin_outer"
-        android:hint="@string/calendar_select_calendars"/>
+        android:text="@string/calendar_select_calendars"/>
 
 </RelativeLayout>
