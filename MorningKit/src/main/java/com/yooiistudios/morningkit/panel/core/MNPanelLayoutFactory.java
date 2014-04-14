@@ -3,7 +3,7 @@ package com.yooiistudios.morningkit.panel.core;
 import android.content.Context;
 
 import com.yooiistudios.morningkit.panel.date.MNDatePanelLayout;
-import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownLayout;
+import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownPanelLayout;
 import com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayout;
 import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 import com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout;
@@ -70,7 +70,7 @@ public class MNPanelLayoutFactory {
                 break;
 
             case DATE_COUNTDOWN:
-                newPanelLayout = new MNDateCountdownLayout(context);
+                newPanelLayout = new MNDateCountdownPanelLayout(context);
                 newPanelLayout.setPanelType(MNPanelType.DATE_COUNTDOWN);
                 break;
 

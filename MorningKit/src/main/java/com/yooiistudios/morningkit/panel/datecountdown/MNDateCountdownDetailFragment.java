@@ -18,9 +18,9 @@ import java.lang.reflect.Type;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-import static com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownLayout.DATE_COUNTDOWN_DATA_DATE;
-import static com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownLayout.DATE_COUNTDOWN_DATA_TITLE;
-import static com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownLayout.DATE_COUNTDOWN_IS_NEW_YEAR;
+import static com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownPanelLayout.DATE_COUNTDOWN_DATA_DATE;
+import static com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownPanelLayout.DATE_COUNTDOWN_DATA_TITLE;
+import static com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownPanelLayout.DATE_COUNTDOWN_IS_NEW_YEAR;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 2. 28.
