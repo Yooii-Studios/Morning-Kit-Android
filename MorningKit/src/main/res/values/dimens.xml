@@ -75,6 +75,10 @@
     <dimen name="panel_flickr_round_radius">7dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
     <dimen name="panel_flickr_image_view_height">180dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
 
+    <!-- Calendar -->
+        <!-- Detail -->
+    <dimen name="panel_calendar_list_view_height">250dp</dimen>
+
     <!-- Exchange Rates -->
     <!-- Main -->
     <dimen name="panel_exchange_rates_flag_width">60dp</dimen>

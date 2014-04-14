@@ -1,0 +1,21 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/panel_detail_padding"
+    tools:context="com.yooiistudios.morningkit.panel.calendar.MNCalendarDetailFragment">
+
+    <ListView
+        android:id="@+id/calendar_detail_events_listview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/panel_calendar_list_view_height"/>
+
+    <Button
+        android:id="@+id/calendar_detail_select_calendars_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/calendar_detail_events_listview"
+        android:layout_marginTop="@dimen/margin_outer"
+        android:hint="@string/calendar_select_calendars"/>
+
+</RelativeLayout>
