@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarListAdapter;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarSelectDialog;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarUtils;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
@@ -22,6 +23,7 @@ import java.lang.reflect.Type;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 import static com.yooiistudios.morningkit.panel.calendar.MNCalendarPanelLayout.CALENDAR_DATA_SELECTED_CALEDNDARS;
 
@@ -56,31 +58,13 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
                     if (calendarModelsJsonString != null) {
                         Type type = new TypeToken<boolean[]>(){}.getType();
                         selectedArr = new Gson().fromJson(calendarModelsJsonString, type);
+                        eventsListView.setAdapter(new MNCalendarListAdapter(getActivity(), selectedArr));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-//                try {
-//                    // 기존 정보가 있다면 가져와서 표시
-//                    // title
-//                    titleEditText.setText(getPanelDataObject().getString(DATE_COUNTDOWN_DATA_TITLE));
-//
-//                    // date - JSONString에서 클래스로 캐스팅
-//                    Type type = new TypeToken<MNDate>(){}.getType();
-//                    String dateJsonString = getPanelDataObject().getString(DATE_COUNTDOWN_DATA_DATE);
-//                    MNDate date = new Gson().fromJson(dateJsonString, type);
-//                    // Calendar의 month는 -1을 해줘야 맞는다
-//                    datePicker.init(date.getYear(), date.getMonth() - 1, date.getDay(), null);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
             } else {
-//                // 기존 정보가 없다면 새해 표시
-//                titleEditText.setText(R.string.date_countdown_new_year);
-//                MNDate date = MNDefaultDateMaker.getDefaultDate();
-//                // Calendar의 month는 -1을 해줘야 맞는다
-//                datePicker.init(date.getYear(), date.getMonth() - 1, date.getDay(), null);
+                eventsListView.setAdapter(new MNCalendarListAdapter(getActivity(), null));
             }
         }
         return rootView;
@@ -88,6 +72,16 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
 
     @Override
     protected void archivePanelData() throws JSONException {
+        try {
+            getPanelDataObject().put(MNCalendarPanelLayout.CALENDAR_DATA_SELECTED_CALEDNDARS,
+                    new Gson().toJson(selectedArr));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.calendar_detail_select_calendars_button)
+    void selectCalendarButtonClicked() {
         AlertDialog calendarSelectDialog = MNCalendarSelectDialog.makeDialog(getActivity(), this,
                 MNCalendarUtils.loadCalendarModels(getActivity()));
         calendarSelectDialog.show();
@@ -96,8 +90,7 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
     @Override
     public void onSelectCalendars(boolean[] selectedArr) {
         try {
-            getPanelDataObject().put(MNCalendarPanelLayout.CALENDAR_DATA_SELECTED_CALEDNDARS,
-                    new Gson().toJson(selectedArr));
+            archivePanelData();
         } catch (JSONException e) {
             e.printStackTrace();
         }
