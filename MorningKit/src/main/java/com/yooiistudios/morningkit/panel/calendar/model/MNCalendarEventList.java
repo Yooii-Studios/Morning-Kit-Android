@@ -9,6 +9,12 @@ import java.util.ArrayList;
  *  앱에 맞게 캘린더의 이벤트가 정렬된 리스트
  */
 public class MNCalendarEventList {
+    public ArrayList<MNCalendarEvent> todayAlldayEvents;
+    public ArrayList<MNCalendarEvent> todayScheduledEvents;
+
+    public ArrayList<MNCalendarEvent> tomorrowAlldayEvents;
+    public ArrayList<MNCalendarEvent> tomorrowScheduledEvents;
+
     public MNCalendarEventList() {
         todayAlldayEvents = new ArrayList<MNCalendarEvent>();
         todayScheduledEvents = new ArrayList<MNCalendarEvent>();
@@ -17,9 +23,14 @@ public class MNCalendarEventList {
         tomorrowScheduledEvents = new ArrayList<MNCalendarEvent>();
     }
 
-    public ArrayList<MNCalendarEvent> todayAlldayEvents;
-    public ArrayList<MNCalendarEvent> todayScheduledEvents;
+    public int getSize() {
+        int size = todayAlldayEvents.size() + todayScheduledEvents.size() +
+                tomorrowAlldayEvents.size() + tomorrowScheduledEvents.size();
 
-    public ArrayList<MNCalendarEvent> tomorrowAlldayEvents;
-    public ArrayList<MNCalendarEvent> tomorrowScheduledEvents;
+        if (tomorrowAlldayEvents.size() > 0 || tomorrowScheduledEvents.size() > 0) {
+            return size + 1; // 내일 아이템 표시용
+        } else {
+            return size;
+        }
+    }
 }

@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 /**
  * Created by StevenKim in GoogleCalendarTestApp from Yooii Studios Co., LTD. on 2014. 4. 3.
@@ -20,83 +19,23 @@ import java.util.ArrayList;
 public class MNCalendarListAdapter extends BaseAdapter {
     private static final String TAG = "MNCalendarAdapter";
     private Context context;
-    private ArrayList<MNCalendar> calendarModels;
-    private ArrayList<MNCalendarEvent> calendarEvents;
     private MNCalendarEventList calendarEventList;
-
-    public MNCalendarListAdapter(Context context) {
-        this.context = context;
-
-        initCalendarModels();
-        initEventsCursor();
-    }
 
     public MNCalendarListAdapter(Context context, boolean[] selectedArr) {
         this.context = context;
 
-        initCalendarModels();
-        for (int i = 0; i < calendarModels.size(); i++) {
-            MNCalendar calendarModel = calendarModels.get(i);
-            // 저장된 정보와 캘린더 숫자가 변할 가능성을 염두에 두고 방어적 코드 삽입
-            if (selectedArr != null && i < selectedArr.length) {
-                calendarModel.selected = selectedArr[i];
-            }
-        }
-        initEventsCursor();
-    }
-
-    private void initCalendarModels() {
-        // Calendar Ids
-        if (android.os.Build.VERSION.SDK_INT >= 14) {
-            calendarModels = MNCalendarFetcher.getCalendarModel14(context);
-        } else {
-            calendarModels = MNCalendarFetcher.getCalendarModels(context);
-        }
-    }
-
-    private void initEventsCursor() {
         // Init cursor
-        calendarEventList = new MNCalendarEventList();
-        for (MNCalendar calendarModel : calendarModels) {
-            // 선택된 캘린더일 경우에만 로딩해 전체 캘린더에 더하기
-            if (calendarModel.selected) {
-                MNCalendarEventList selectedCalendarEventList;
-                if (android.os.Build.VERSION.SDK_INT >= 14) {
-                    selectedCalendarEventList = MNCalendarFetcher.getCalendarEvents14(context, calendarModel.calendarId);
-                } else {
-                    selectedCalendarEventList = MNCalendarFetcher.getCalendarEvents(context, calendarModel.calendarId);
-                }
-                if (selectedCalendarEventList != null) {
-                    calendarEventList.todayAlldayEvents.addAll(
-                            selectedCalendarEventList.todayAlldayEvents);
-                    calendarEventList.todayScheduledEvents.addAll(
-                            selectedCalendarEventList.todayScheduledEvents);
-                    calendarEventList.tomorrowAlldayEvents.addAll(
-                            selectedCalendarEventList.tomorrowAlldayEvents);
-                    calendarEventList.tomorrowScheduledEvents.addAll(
-                            selectedCalendarEventList.tomorrowScheduledEvents);
-                }
-            }
-        }
-        // 마지막으로 소팅(비종일 일정만)
-        MNCalendarUtils.sort(calendarEventList.todayScheduledEvents);
-        MNCalendarUtils.sort(calendarEventList.tomorrowScheduledEvents);
+        calendarEventList = MNCalendarEventUtils.getCalendarEventList(context, selectedArr);
+    }
+
+    public MNCalendarListAdapter(MNCalendarEventList calendarEventList) {
+        this.calendarEventList = calendarEventList;
     }
 
     @Override
     public int getCount() {
         if (calendarEventList != null) {
-            int size = calendarEventList.todayAlldayEvents.size() +
-                    calendarEventList.todayScheduledEvents.size() +
-                    calendarEventList.tomorrowAlldayEvents.size() +
-                    calendarEventList.tomorrowScheduledEvents.size();
-
-            if (calendarEventList.tomorrowAlldayEvents.size() > 0 ||
-                    calendarEventList.tomorrowScheduledEvents.size() > 0) {
-                return size + 1; // 내일 아이템 표시용
-            } else {
-                return size;
-            }
+            return calendarEventList.getSize();
         }
         return 0;
 //        return calendarEvents.size();
