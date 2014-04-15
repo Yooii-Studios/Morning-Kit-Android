@@ -17,22 +17,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import static android.provider.BaseColumns._ID;
-import static android.provider.CalendarContract.Events;
-import static android.provider.CalendarContract.Events.ALL_DAY;
 import static android.provider.CalendarContract.Events.CALENDAR_ID;
-import static android.provider.CalendarContract.Events.CONTENT_URI;
-import static android.provider.CalendarContract.Events.DESCRIPTION;
-import static android.provider.CalendarContract.Events.DTEND;
-import static android.provider.CalendarContract.Events.DTSTART;
-import static android.provider.CalendarContract.Events.RRULE;
-import static android.provider.CalendarContract.Events.TITLE;
 
 /**
  * Created by StevenKim in GoogleCalendarTestApp from Yooii Studios Co., LTD. on 2014. 4. 3.
- * <p/>
+ *
  * MNCalendarUtils
- * 디바이스 내의 캘린더 ID들과, 해당 ID의 캘린더 이벤트들을 얻을 수 있는 유틸리티 클래스
+ *  디바이스 내의 캘린더 ID들과, 해당 ID의 캘린더 이벤트들을 얻을 수 있는 유틸리티 클래스
+ *  -> 리팩토링 후
  */
 public class MNCalendarFetcher {
     private static final String TAG = "MNCalendarUtils";
@@ -61,7 +53,7 @@ public class MNCalendarFetcher {
 
                 final String _id = cursor.getString(0);
                 final String displayName = cursor.getString(1);
-                final Boolean selected = !cursor.getString(2).equals("0");
+//                final Boolean selected = !cursor.getString(2).equals("0");
 
 //                System.out.println("Id: " + _id + " Display Name: " + displayName + " Selected: " + selected);
 
@@ -113,11 +105,8 @@ public class MNCalendarFetcher {
     }
 
     //for os version android below version 4(ICS)
-    public static MNCalendarEventList getCalendarEvents(Context context, String calID) {
-        ContentResolver cr = context.getContentResolver();
-
-        Uri.Builder builder = getInstancesURI().buildUpon();
-
+    public static MNCalendarEventList getCalendarEvents(Context context,
+                                                        ArrayList<MNCalendar> calendarModels) {
         // 오늘부터 1년 간의 이벤트를 얻기 - 나중에 현 시간부터 내일까지로 변경 필요
         // 오늘-종일, 오늘-일정 / 내일-종일, 내일-일정 총 4개의 ArrayList가 필요
         MNCalendarEventList calendarEventList = new MNCalendarEventList();
@@ -137,78 +126,26 @@ public class MNCalendarFetcher {
         // 지금부터 내일 0시 0분 0초 미만의 시간(그 중에서도 all-day와 scheduled를 분리)
         Log.i(TAG, "today events");
         Log.i(TAG, "all-day events");
-        calendarEventList.todayAlldayEvents = getEventsBetweenDates(context, calID, true,
+        calendarEventList.todayAlldayEvents = getEventsBetweenDates(context, calendarModels, true,
                 todayStartDateTime, todayEndDateTime);
         Log.i(TAG, "scheduled events");
-        calendarEventList.todayScheduledEvents = getEventsBetweenDates(context, calID, false,
+        calendarEventList.todayScheduledEvents = getEventsBetweenDates(context, calendarModels, false,
                 todayNowDateTime, todayEndDateTime);
 
         // 내일 0시 0분 0초 이상 모레 0시 0분 0초 미만의 일정(그 중에서도 all-day와 scheduled를 분리)
         Log.i(TAG, "tomorrow events");
         Log.i(TAG, "all-day events");
-        calendarEventList.tomorrowAlldayEvents = getEventsBetweenDates(context, calID, true,
+        calendarEventList.tomorrowAlldayEvents = getEventsBetweenDates(context, calendarModels, true,
                 tomorrowStartDateTime, tomorrowEndDateTime);
         Log.i(TAG, "scheduled events");
-        calendarEventList.tomorrowScheduledEvents = getEventsBetweenDates(context, calID, false,
+        calendarEventList.tomorrowScheduledEvents = getEventsBetweenDates(context, calendarModels, false,
                 tomorrowStartDateTime, tomorrowEndDateTime);
 
         return calendarEventList;
-
-        // 기존 코드
-        /*
-        long now = new Date().getTime();
-        ContentUris.appendId(builder, now);
-        ContentUris.appendId(builder, now + DateUtils.YEAR_IN_MILLIS);
-
-        Cursor eventCursor = cr.query(builder.build(),
-                new String[]{"title", "begin", "description", "allDay"}, "Calendars._id=" + calID,
-                null, "startDay ASC, startMinute ASC");
-
-        if (eventCursor != null) {
-
-            ArrayList<MNCalendarEvent> calendarModelList = new ArrayList<MNCalendarEvent>();
-
-            while (eventCursor.moveToNext()) {
-                MNCalendarEvent calendarEvent = new MNCalendarEvent();
-
-                // title
-                String title = "";
-                if (eventCursor.getString(0) != null) {
-                    title = eventCursor.getString(0).trim();
-                    calendarEvent.title = title;
-                }
-
-                // beginDate
-                Date begin = new Date(eventCursor.getLong(1));
-                calendarEvent.beginDate = begin;
-
-                // all day
-                if (eventCursor.getInt(3) == 1) {
-                    calendarEvent.isAllDayEvent = true;
-                } else {
-                    calendarEvent.isAllDayEvent = false;
-                }
-
-                SimpleDateFormat sdfrr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-                String stimesr = sdfrr.format(begin);
-
-                System.out.println("title:" + title + "/stimes:" + stimesr +
-                        (calendarEvent.isAllDayEvent ? "/all-day" : ""));
-
-                calendarModelList.add(calendarEvent);
-            }
-            eventCursor.close();
-            return calendarModelList;
-        } else {
-            Log.e(TAG, "eventCursor is null");
-
-            return null;
-        }
-        */
     }
 
-    private static ArrayList<MNCalendarEvent> getEventsBetweenDates(Context context, String calID,
+    private static ArrayList<MNCalendarEvent> getEventsBetweenDates(Context context,
+                                                                    ArrayList<MNCalendar> calendarModels,
                                                                     boolean isAllDayEvents,
                                                                     DateTime startDateTime,
                                                                     DateTime endDateTime) {
@@ -218,9 +155,24 @@ public class MNCalendarFetcher {
         ContentUris.appendId(builder, startDateTime.getMillis());
         ContentUris.appendId(builder, endDateTime.getMillis());
 
-        String selection = "Calendars._id = " + calID + " AND (" +
+        String selection = null;
+        // 선택된 캘린더 id를 모두 쿼리문에 삽입
+        for (MNCalendar calendarModel : calendarModels) {
+            // 선택된 캘린더일 경우에만 로딩해 전체 캘린더에 더하기
+            if (calendarModel.selected) {
+                if (selection == null) {
+                    selection = ("Calendars._id = " + calendarModel.calendarId);
+                } else {
+                    selection += (" OR Calendars._id = " + calendarModel.calendarId);
+                }
+            }
+        }
+
+        // 해당 시간 안에 있는 events 만 검색할 수 있게 쿼리문에 삽입
+        selection = "(" + selection + ") AND ( " +
                 startDateTime.getMillis() + " <= " + "begin" + " AND " +
                 "begin" + " < " + endDateTime.getMillis() + ")";
+
         if (isAllDayEvents) {
             selection += " AND " + "allDay = 1";
         } else {
@@ -271,7 +223,8 @@ public class MNCalendarFetcher {
 
     //for os version android version 4(ICS) AND ABOVE
     @TargetApi(14)
-    public static MNCalendarEventList getCalendarEvents14(Context context, String calID) {
+    public static MNCalendarEventList getCalendarEvents14(Context context,
+                                                          ArrayList<MNCalendar> calendarModels) {
         // 오늘부터 1년 간의 이벤트를 얻기 - 나중에 현 시간부터 내일까지로 변경 필요
         // 오늘-종일, 오늘-일정 / 내일-종일, 내일-일정 총 4개의 ArrayList가 필요
         MNCalendarEventList calendarEventList = new MNCalendarEventList();
@@ -291,249 +244,27 @@ public class MNCalendarFetcher {
         // 지금부터 내일 0시 0분 0초 미만의 시간(그 중에서도 all-day와 scheduled를 분리)
         Log.i(TAG, "today events");
         Log.i(TAG, "all-day events");
-        calendarEventList.todayAlldayEvents = getEventsBetweenDates14(context, calID, true,
+        calendarEventList.todayAlldayEvents = getEventsBetweenDates14(context, calendarModels, true,
                 todayStartDateTime, todayEndDateTime);
         Log.i(TAG, "scheduled events");
-        calendarEventList.todayScheduledEvents = getEventsBetweenDates14(context, calID, false,
+        calendarEventList.todayScheduledEvents = getEventsBetweenDates14(context, calendarModels, false,
                 todayNowDateTime, todayEndDateTime);
-//        sortCalendarEventListByBeginTime(calendarEventList.todayScheduledEvents);
 
         // 내일 0시 0분 0초 이상 모레 0시 0분 0초 미만의 일정(그 중에서도 all-day와 scheduled를 분리)
         Log.i(TAG, "tomorrow events");
-//        new DateTime(tomorrowDateTime.getYear(),
-//                tomorrowDateTime.getMonthOfYear(), tomorrowDateTime.getDayOfMonth(), 23, 59, 59);
         Log.i(TAG, "all-day events");
-        calendarEventList.tomorrowAlldayEvents = getEventsBetweenDates14(context, calID, true,
+        calendarEventList.tomorrowAlldayEvents = getEventsBetweenDates14(context, calendarModels, true,
                 tomorrowStartDateTime, tomorrowEndDateTime);
         Log.i(TAG, "scheduled events");
-        calendarEventList.tomorrowScheduledEvents = getEventsBetweenDates14(context, calID, false,
+        calendarEventList.tomorrowScheduledEvents = getEventsBetweenDates14(context, calendarModels, false,
                 tomorrowStartDateTime, tomorrowEndDateTime);
-//        sortCalendarEventListByBeginTime(calendarEventList.tomorrowScheduledEvents);
 
         return calendarEventList;
-
-        /*
-        // 원래 코드
-        String[] COLS = new String[]{TITLE, DTSTART, DESCRIPTION, ALL_DAY, DTEND, RRULE, RDATE, _ID};
-
-        String selection = CALENDAR_ID + " = " + calID + " AND " + Events.DELETED + " = 0";
-        Cursor eventCursor = contentResolver.query(builder,
-                COLS,
-                selection, null, DTSTART + " ASC");
-
-        if (eventCursor != null) {
-            int n = eventCursor.getCount();
-
-            System.out.println("Calendar id: " + calID + " / No. of rows is = " + n);
-            ArrayList<MNCalendarEvent> calendarModelList = new ArrayList<MNCalendarEvent>();
-
-            while (eventCursor.moveToNext()) {
-                MNCalendarEvent calendarEvent = new MNCalendarEvent();
-
-                // title
-                String title = null;
-                if (eventCursor.getString(0) != null) {
-                    title = eventCursor.getString(0).trim();
-                    calendarEvent.title = title;
-                }
-
-                // beginDate
-                Date begin = new Date(eventCursor.getLong(1));
-                calendarEvent.beginDate = begin;
-
-                // endDate
-                Date end = new Date(eventCursor.getLong(4));
-                calendarEvent.beginDate = begin;
-
-                // all day
-                if (eventCursor.getInt(3) == 1) {
-                    calendarEvent.isAllDayEvent = true;
-                } else {
-                    calendarEvent.isAllDayEvent = false;
-                }
-
-                SimpleDateFormat sdfrr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String stimesr = sdfrr.format(begin);
-
-//                System.out.println("title:" + title + "/stimesr:" + stimesr +
-//                        (calendarEvent.isAllDayEvent ? "/all-day" : "" + "/endtime:" +
-//                                sdfrr.format(end) + "/rrule: " + eventCursor.getString(5) +
-//                        "/rdate: " + eventCursor.getString(6) + "/event_id: " + eventCursor.getInt(7)));
-
-                calendarModelList.add(calendarEvent);
-            }
-            eventCursor.close();
-//            return calendarModelList;
-        } else {
-            Log.e(TAG, "eventCursor is null");
-//            return null;
-        }
-        */
     }
 
     @TargetApi(14)
-    private static ArrayList<MNCalendarEvent> getSortedEventsBetweenDates14(Context context, String calID,
-                                                                            boolean isAllDay,
-                                                                            DateTime startDateTime,
-                                                                            DateTime endDateTime) {
-        ContentResolver contentResolver = context.getContentResolver();
-
-        Uri builder = CONTENT_URI;
-
-        String[] COLS = new String[]{TITLE, DESCRIPTION, ALL_DAY, DTSTART, DTEND, RRULE, _ID};
-
-        String selection = CALENDAR_ID + " = " + calID + " AND " + Events.DELETED + " = 0";
-
-        if (!isAllDay) {
-//            selection = "(" + selection + " AND " +
-//                    startDateTime.getMillis() + " < " + DTSTART + " AND " +
-//                    DTEND + " < " + endDateTime.getMillis() + ")";
-            selection = "(" + selection + " AND " + ALL_DAY + " = 0)";
-        } else {
-            selection = "(" + selection + " AND " + ALL_DAY + " = 1)";
-        }
-
-        Cursor eventCursor = contentResolver.query(builder,
-                COLS,
-                selection, null, DTSTART + " ASC");
-
-        if (eventCursor != null) {
-            int n = eventCursor.getCount();
-
-            System.out.println("Calendar id: " + calID + " / No. of rows is = " + n);
-            ArrayList<MNCalendarEvent> calendarModelList = new ArrayList<MNCalendarEvent>();
-
-            while (eventCursor.moveToNext()) {
-                MNCalendarEvent calendarEvent = new MNCalendarEvent();
-
-                // beginDate
-                Date beginDate = new Date(eventCursor.getLong(3));
-                calendarEvent.beginDate = beginDate;
-
-                // endDate
-                Date endDate = new Date(eventCursor.getLong(4));
-
-                // 해당 시간 안에 존재 해야만 컨테이너에 추가
-                // all-day 옵션이라면 같은 날짜,
-                // scheduled 옵션이라면 해당 DateTime 안에 들어가는지가 중요
-                boolean isEventShouldBeAdded = false;
-                if (isAllDay) {
-                    DateTime beginDateTime = new DateTime(beginDate);
-                    if (startDateTime.getYear() == beginDateTime.getYear() &&
-                            startDateTime.getMonthOfYear() == beginDateTime.getMonthOfYear() &&
-                            startDateTime.getDayOfMonth() == beginDateTime.getDayOfMonth()) {
-                        isEventShouldBeAdded = true;
-                    }
-                } else {
-                    if (eventCursor.getString(5) == null) {
-                        if (startDateTime.getMillis() <= beginDate.getTime() &&
-                                endDate.getTime() <= endDateTime.getMillis()) {
-                            isEventShouldBeAdded = true;
-                        }
-                    } else {
-                        // 반복 일정일 경우에는 RRULE -> DateTime 리스트를 만들어
-                        // 타겟 시간 안에 드는지 확인이 필요
-                        int eventId = eventCursor.getInt(6);
-
-                        final String[] INSTANCE_PROJECTION = new String[]{
-                                CalendarContract.Instances.EVENT_ID,      // 0
-                                CalendarContract.Instances.BEGIN,         // 1
-                                CalendarContract.Instances.END,           // 2
-                                CalendarContract.Instances.TITLE          // 3
-                        };
-
-                        Cursor cur = null;
-                        ContentResolver cr = context.getContentResolver();
-
-                        // The ID of the recurring event whose instances you are searching
-                        // for in the Instances table
-//                        String repeatSelection = "(" + CalendarContract.Instances.EVENT_ID + " = ?" + " AND " +
-//                                startDateTime.getMillis() + " < " + CalendarContract.Instances.BEGIN + " AND " +
-//                                CalendarContract.Instances.END + " < " + endDateTime.getMillis() + ")";
-
-                        String repeatSelection = "(" + CalendarContract.Instances.EVENT_ID + " = ?" + ")";
-
-                        String[] repeatSelectionArgs = new String[]{String.valueOf(eventId)};
-
-                        // Construct the query with the desired date range.
-                        Uri.Builder repeatBuilder = CalendarContract.Instances.CONTENT_URI.buildUpon();
-                        ContentUris.appendId(repeatBuilder, startDateTime.getMillis());
-                        ContentUris.appendId(repeatBuilder, endDateTime.getMillis());
-
-                        // Submit the query
-                        cur = cr.query(repeatBuilder.build(),
-                                INSTANCE_PROJECTION,
-                                repeatSelection,
-                                repeatSelectionArgs,
-                                null);
-
-                        if (cur != null) {
-                            while (cur.moveToNext()) {
-
-                                String title = null;
-                                long eventID = 0;
-                                long beginVal = 0;
-
-                                // Get the field values
-                                eventID = cur.getLong(0);
-                                beginVal = cur.getLong(1);
-                                title = cur.getString(3);
-
-                                // Do something with the values.
-                                Calendar calendar = Calendar.getInstance();
-                                calendar.setTimeInMillis(beginVal);
-                                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                                Log.i(TAG, "Event:" + title + "/Date:" + formatter.format(calendar.getTime()) +
-                                        "/event_id: " + eventID);
-
-                                MNCalendarEvent repeatCalendarEvent = new MNCalendarEvent();
-                                repeatCalendarEvent.title = title;
-                                repeatCalendarEvent.isAllDayEvent = false;
-                                repeatCalendarEvent.beginDate = new Date(beginVal);
-                                calendarModelList.add(repeatCalendarEvent);
-                            }
-                            cur.close();
-                        }
-                    }
-                }
-
-                // 추가해야 할 이벤트라면
-                if (isEventShouldBeAdded) {
-                    // all day
-                    if (eventCursor.getInt(2) == 1) {
-                        calendarEvent.isAllDayEvent = true;
-                    } else {
-                        calendarEvent.isAllDayEvent = false;
-                    }
-
-                    // title
-                    String title = "";
-                    if (eventCursor.getString(0) != null) {
-                        title = eventCursor.getString(0).trim();
-                        calendarEvent.title = title;
-                    }
-
-                    SimpleDateFormat sdfrr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String stimesr = sdfrr.format(beginDate);
-
-                    System.out.println("title:" + title + "/stimesr:" + stimesr +
-                            (calendarEvent.isAllDayEvent ? "/all-day" : "" + "/event_id: " + eventCursor.getInt(6)));
-
-                    calendarModelList.add(calendarEvent);
-                }
-            }
-            eventCursor.close();
-
-            return calendarModelList;
-        } else {
-            Log.e(TAG, "eventCursor is null");
-
-            return null;
-        }
-    }
-
-    @TargetApi(14)
-    private static ArrayList<MNCalendarEvent> getEventsBetweenDates14(Context context, String calID,
+    private static ArrayList<MNCalendarEvent> getEventsBetweenDates14(Context context,
+                                                                      ArrayList<MNCalendar> calendarModels,
                                                                       boolean isAllDayEvents,
                                                                       DateTime startDateTime,
                                                                       DateTime endDateTime) {
@@ -551,7 +282,19 @@ public class MNCalendarFetcher {
         // 괄호가 중요, 괄호에 따라 제대로 된 값이 안나올 가능성이 있음
         // 아주 새로운 개념. 오늘의 일정을 표시하기 위해서, begin과 end가 필요한 것이 아니라,
         // begin만을 가지고 오늘 예정된 일정이라는 것을 표시 가능! iOS도 수정 필요!
-        String selection = CALENDAR_ID + " = ? AND (" +
+        String selection = null;
+        for (MNCalendar calendarModel : calendarModels) {
+            // 선택된 캘린더일 경우에만 로딩해 전체 캘린더에 더하기
+            if (calendarModel.selected) {
+                if (selection == null) {
+                    selection = (CALENDAR_ID + " = " + calendarModel.calendarId);
+                } else {
+                    selection += (" OR " + CALENDAR_ID + " = " + calendarModel.calendarId);
+                }
+            }
+        }
+
+        selection = "(" + selection + ") AND (" +
                 startDateTime.getMillis() + " <= " + CalendarContract.Instances.BEGIN + " AND " +
                 CalendarContract.Instances.BEGIN + " < " + endDateTime.getMillis() + ")";
 
@@ -571,7 +314,7 @@ public class MNCalendarFetcher {
         eventCursor = contentResolver.query(builder.build(),
                 INSTANCE_PROJECTION,
                 selection,
-                new String[]{ calID },
+                null,
                 CalendarContract.Instances.BEGIN + " ASC");
 
         if (eventCursor != null) {
