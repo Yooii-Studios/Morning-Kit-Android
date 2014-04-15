@@ -4,7 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
-import android.util.Log;
+
+import com.yooiistudios.morningkit.R;
 
 import java.util.ArrayList;
 
@@ -42,7 +43,6 @@ public class MNCalendarSelectDialog {
 
         // Arraylist to String[]
         final String[] calendarNames = calendarNameList.toArray(new String[calendarNameList.size()]);
-        Log.i(TAG, "size: " + calendarNames.length);
 
         final boolean[] selectedArr = new boolean[calendarNames.length];
 
@@ -65,28 +65,18 @@ public class MNCalendarSelectDialog {
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 selectedArr[which] = isChecked;
             }
-        }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        }).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.i(TAG, "positiveButton");
-                for (int i = 0; i < selectedArr.length; i++) {
-                    Log.i(TAG, calendarNames[i] + "/selected: " + selectedArr[i]);
-                }
                 calendarSelectListner.onSelectCalendars(selectedArr);
             }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.i(TAG, "negativeButton");
-            }
-        }).setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                Log.i(TAG, "cancelButton");
             }
         }).create();
 
-        alertDialog.setTitle("Select Calendars");
+        alertDialog.setTitle(R.string.calendar_select_calendars);
         alertDialog.setCanceledOnTouchOutside(false);
 
         return alertDialog;
