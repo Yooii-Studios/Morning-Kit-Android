@@ -58,7 +58,7 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
                     if (calendarModelsJsonString != null) {
                         Type type = new TypeToken<boolean[]>(){}.getType();
                         selectedArr = new Gson().fromJson(calendarModelsJsonString, type);
-                        eventsListView.setAdapter(new MNCalendarListAdapter(getActivity(), selectedArr));
+                        refreshUI();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -66,10 +66,14 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
             } else {
                 // 데이터가 없으면 최근 저장했던 사항들을 읽어오기
                 selectedArr = MNCalendarUtils.loadCalendarModels(getActivity());
-                eventsListView.setAdapter(new MNCalendarListAdapter(getActivity(), selectedArr));
+                refreshUI();
             }
         }
         return rootView;
+    }
+
+    private void refreshUI() {
+        eventsListView.setAdapter(new MNCalendarListAdapter(getActivity(), selectedArr));
     }
 
     @Override
@@ -92,8 +96,10 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
     @Override
     public void onSelectCalendars(boolean[] selectedArr) {
         try {
+            this.selectedArr = selectedArr;
             archivePanelData();
             MNCalendarUtils.saveCaeldnarModels(selectedArr, getActivity());
+            refreshUI();
         } catch (JSONException e) {
             e.printStackTrace();
         }
