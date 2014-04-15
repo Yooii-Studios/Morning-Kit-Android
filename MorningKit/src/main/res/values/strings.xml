@@ -286,4 +286,7 @@
         <!-- World Clock -->
     <string name="no_search_result">No Results Found</string>
 
+        <!-- Calendar -->
+    <string name="calendar_select_calendars">Select Calendars</string>
+
 </resources>

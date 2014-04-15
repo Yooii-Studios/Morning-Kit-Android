@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel.core;
 
 import android.content.Context;
 
+import com.yooiistudios.morningkit.panel.calendar.MNCalendarPanelLayout;
 import com.yooiistudios.morningkit.panel.date.MNDatePanelLayout;
 import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownPanelLayout;
 import com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayout;
@@ -38,9 +39,10 @@ public class MNPanelLayoutFactory {
                 newPanelLayout.setPanelType(MNPanelType.DATE);
                 break;
 
-//            case CALENDAR:
-//                newPanelLayout.setPanelType(MNPanelType.CALENDAR);
-//                break;
+            case CALENDAR:
+                newPanelLayout = new MNCalendarPanelLayout(context);
+                newPanelLayout.setPanelType(MNPanelType.CALENDAR);
+                break;
 
             case WORLD_CLOCK:
                 newPanelLayout = new MNWorldClockPanelLayout(context);
