@@ -32,33 +32,12 @@ public class MNCalendarEventUtils {
             }
         }
 
+        // 미리 정렬된 결과를 얻을 수 있음
         MNCalendarEventList calendarEventList;
         if (android.os.Build.VERSION.SDK_INT >= 14) {
-            calendarEventList = MNCalendarFetcher.getCalendarEvents14(context, calendarModels);
+            return MNCalendarFetcher.getCalendarEvents14(context, calendarModels);
         } else {
-            calendarEventList = new MNCalendarEventList();
-            for (MNCalendar calendarModel : calendarModels) {
-                // 선택된 캘린더일 경우에만 로딩해 전체 캘린더에 더하기
-                if (calendarModel.selected) {
-                    MNCalendarEventList selectedCalendarEventList;
-                    selectedCalendarEventList = MNCalendarFetcher.getCalendarEvents(context,
-                            calendarModel.calendarId);
-                    if (selectedCalendarEventList != null) {
-                        calendarEventList.todayAlldayEvents.addAll(
-                                selectedCalendarEventList.todayAlldayEvents);
-                        calendarEventList.todayScheduledEvents.addAll(
-                                selectedCalendarEventList.todayScheduledEvents);
-                        calendarEventList.tomorrowAlldayEvents.addAll(
-                                selectedCalendarEventList.tomorrowAlldayEvents);
-                        calendarEventList.tomorrowScheduledEvents.addAll(
-                                selectedCalendarEventList.tomorrowScheduledEvents);
-                    }
-                }
-            }
-            // 마지막으로 소팅(비종일 일정만)
-            MNCalendarUtils.sort(calendarEventList.todayScheduledEvents);
-            MNCalendarUtils.sort(calendarEventList.tomorrowScheduledEvents);
+            return MNCalendarFetcher.getCalendarEvents(context, calendarModels);
         }
-        return calendarEventList;
     }
 }
