@@ -1,0 +1,65 @@
+package com.yooiistudios.morningkit.panel.calendar.model;
+
+import android.content.Context;
+
+import java.util.ArrayList;
+
+/**
+ * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 4. 15.
+ *
+ * MNCalendarEventUtils
+ *  캘린더 ID를 통해 Event 를 가져오는 유틸리티 클래스.
+ *  캘린더 갯수가 많아질 경우 퍼포먼스가 떨어지기에 AsyncTask 에서 활용하기 위해 리팩토링을 시도함
+ */
+public class MNCalendarEventUtils {
+    private MNCalendarEventUtils() { throw new AssertionError("You MUST not create this class!"); }
+    public static MNCalendarEventList getCalendarEventList(Context context, boolean[] selectedArr) {
+
+        // Calendar Ids
+        ArrayList<MNCalendar> calendarModels;
+        if (android.os.Build.VERSION.SDK_INT >= 14) {
+            calendarModels = MNCalendarFetcher.getCalendarModel14(context);
+        } else {
+            calendarModels = MNCalendarFetcher.getCalendarModels(context);
+        }
+
+        // apply calendar selection
+        for (int i = 0; i < calendarModels.size(); i++) {
+            MNCalendar calendarModel = calendarModels.get(i);
+            // 저장된 정보와 캘린더 숫자가 변할 가능성을 염두에 두고 방어적 코드 삽입
+            if (selectedArr != null && i < selectedArr.length) {
+                calendarModel.selected = selectedArr[i];
+            }
+        }
+
+        MNCalendarEventList calendarEventList = new MNCalendarEventList();
+        for (MNCalendar calendarModel : calendarModels) {
+            // 선택된 캘린더일 경우에만 로딩해 전체 캘린더에 더하기
+            if (calendarModel.selected) {
+                MNCalendarEventList selectedCalendarEventList;
+                if (android.os.Build.VERSION.SDK_INT >= 14) {
+                    selectedCalendarEventList = MNCalendarFetcher.getCalendarEvents14(context,
+                            calendarModel.calendarId);
+                } else {
+                    selectedCalendarEventList = MNCalendarFetcher.getCalendarEvents(context,
+                            calendarModel.calendarId);
+                }
+                if (selectedCalendarEventList != null) {
+                    calendarEventList.todayAlldayEvents.addAll(
+                            selectedCalendarEventList.todayAlldayEvents);
+                    calendarEventList.todayScheduledEvents.addAll(
+                            selectedCalendarEventList.todayScheduledEvents);
+                    calendarEventList.tomorrowAlldayEvents.addAll(
+                            selectedCalendarEventList.tomorrowAlldayEvents);
+                    calendarEventList.tomorrowScheduledEvents.addAll(
+                            selectedCalendarEventList.tomorrowScheduledEvents);
+                }
+            }
+        }
+        // 마지막으로 소팅(비종일 일정만)
+        MNCalendarUtils.sort(calendarEventList.todayScheduledEvents);
+        MNCalendarUtils.sort(calendarEventList.tomorrowScheduledEvents);
+
+        return calendarEventList;
+    }
+}
