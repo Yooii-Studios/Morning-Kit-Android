@@ -153,59 +153,6 @@ public class MNCalendarFetcher {
                 tomorrowStartDateTime, tomorrowEndDateTime);
 
         return calendarEventList;
-
-        // 기존 코드
-        /*
-        long now = new Date().getTime();
-        ContentUris.appendId(builder, now);
-        ContentUris.appendId(builder, now + DateUtils.YEAR_IN_MILLIS);
-
-        Cursor eventCursor = cr.query(builder.build(),
-                new String[]{"title", "begin", "description", "allDay"}, "Calendars._id=" + calID,
-                null, "startDay ASC, startMinute ASC");
-
-        if (eventCursor != null) {
-
-            ArrayList<MNCalendarEvent> calendarModelList = new ArrayList<MNCalendarEvent>();
-
-            while (eventCursor.moveToNext()) {
-                MNCalendarEvent calendarEvent = new MNCalendarEvent();
-
-                // title
-                String title = "";
-                if (eventCursor.getString(0) != null) {
-                    title = eventCursor.getString(0).trim();
-                    calendarEvent.title = title;
-                }
-
-                // beginDate
-                Date begin = new Date(eventCursor.getLong(1));
-                calendarEvent.beginDate = begin;
-
-                // all day
-                if (eventCursor.getInt(3) == 1) {
-                    calendarEvent.isAllDayEvent = true;
-                } else {
-                    calendarEvent.isAllDayEvent = false;
-                }
-
-                SimpleDateFormat sdfrr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-                String stimesr = sdfrr.format(begin);
-
-                System.out.println("title:" + title + "/stimes:" + stimesr +
-                        (calendarEvent.isAllDayEvent ? "/all-day" : ""));
-
-                calendarModelList.add(calendarEvent);
-            }
-            eventCursor.close();
-            return calendarModelList;
-        } else {
-            Log.e(TAG, "eventCursor is null");
-
-            return null;
-        }
-        */
     }
 
     private static ArrayList<MNCalendarEvent> getEventsBetweenDates(Context context, String calID,
@@ -312,64 +259,6 @@ public class MNCalendarFetcher {
 //        sortCalendarEventListByBeginTime(calendarEventList.tomorrowScheduledEvents);
 
         return calendarEventList;
-
-        /*
-        // 원래 코드
-        String[] COLS = new String[]{TITLE, DTSTART, DESCRIPTION, ALL_DAY, DTEND, RRULE, RDATE, _ID};
-
-        String selection = CALENDAR_ID + " = " + calID + " AND " + Events.DELETED + " = 0";
-        Cursor eventCursor = contentResolver.query(builder,
-                COLS,
-                selection, null, DTSTART + " ASC");
-
-        if (eventCursor != null) {
-            int n = eventCursor.getCount();
-
-            System.out.println("Calendar id: " + calID + " / No. of rows is = " + n);
-            ArrayList<MNCalendarEvent> calendarModelList = new ArrayList<MNCalendarEvent>();
-
-            while (eventCursor.moveToNext()) {
-                MNCalendarEvent calendarEvent = new MNCalendarEvent();
-
-                // title
-                String title = null;
-                if (eventCursor.getString(0) != null) {
-                    title = eventCursor.getString(0).trim();
-                    calendarEvent.title = title;
-                }
-
-                // beginDate
-                Date begin = new Date(eventCursor.getLong(1));
-                calendarEvent.beginDate = begin;
-
-                // endDate
-                Date end = new Date(eventCursor.getLong(4));
-                calendarEvent.beginDate = begin;
-
-                // all day
-                if (eventCursor.getInt(3) == 1) {
-                    calendarEvent.isAllDayEvent = true;
-                } else {
-                    calendarEvent.isAllDayEvent = false;
-                }
-
-                SimpleDateFormat sdfrr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String stimesr = sdfrr.format(begin);
-
-//                System.out.println("title:" + title + "/stimesr:" + stimesr +
-//                        (calendarEvent.isAllDayEvent ? "/all-day" : "" + "/endtime:" +
-//                                sdfrr.format(end) + "/rrule: " + eventCursor.getString(5) +
-//                        "/rdate: " + eventCursor.getString(6) + "/event_id: " + eventCursor.getInt(7)));
-
-                calendarModelList.add(calendarEvent);
-            }
-            eventCursor.close();
-//            return calendarModelList;
-        } else {
-            Log.e(TAG, "eventCursor is null");
-//            return null;
-        }
-        */
     }
 
     //for os version android version 4(ICS) AND ABOVE
