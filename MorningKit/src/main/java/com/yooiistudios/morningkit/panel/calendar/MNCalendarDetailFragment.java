@@ -64,7 +64,9 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
                     e.printStackTrace();
                 }
             } else {
-                eventsListView.setAdapter(new MNCalendarListAdapter(getActivity(), null));
+                // 데이터가 없으면 최근 저장했던 사항들을 읽어오기
+                selectedArr = MNCalendarUtils.loadCalendarModels(getActivity());
+                eventsListView.setAdapter(new MNCalendarListAdapter(getActivity(), selectedArr));
             }
         }
         return rootView;
@@ -91,6 +93,7 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
     public void onSelectCalendars(boolean[] selectedArr) {
         try {
             archivePanelData();
+            MNCalendarUtils.saveCaeldnarModels(selectedArr, getActivity());
         } catch (JSONException e) {
             e.printStackTrace();
         }
