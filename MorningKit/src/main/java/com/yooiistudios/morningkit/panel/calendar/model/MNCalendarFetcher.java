@@ -271,7 +271,8 @@ public class MNCalendarFetcher {
 
     //for os version android version 4(ICS) AND ABOVE
     @TargetApi(14)
-    public static MNCalendarEventList getCalendarEvents14(Context context, String calID) {
+    public static MNCalendarEventList getCalendarEvents14(Context context,
+                                                          ArrayList<MNCalendar> calendarModels) {
         // 오늘부터 1년 간의 이벤트를 얻기 - 나중에 현 시간부터 내일까지로 변경 필요
         // 오늘-종일, 오늘-일정 / 내일-종일, 내일-일정 총 4개의 ArrayList가 필요
         MNCalendarEventList calendarEventList = new MNCalendarEventList();
@@ -291,10 +292,10 @@ public class MNCalendarFetcher {
         // 지금부터 내일 0시 0분 0초 미만의 시간(그 중에서도 all-day와 scheduled를 분리)
         Log.i(TAG, "today events");
         Log.i(TAG, "all-day events");
-        calendarEventList.todayAlldayEvents = getEventsBetweenDates14(context, calID, true,
+        calendarEventList.todayAlldayEvents = getEventsBetweenDates14(context, calendarModels, true,
                 todayStartDateTime, todayEndDateTime);
         Log.i(TAG, "scheduled events");
-        calendarEventList.todayScheduledEvents = getEventsBetweenDates14(context, calID, false,
+        calendarEventList.todayScheduledEvents = getEventsBetweenDates14(context, calendarModels, false,
                 todayNowDateTime, todayEndDateTime);
 //        sortCalendarEventListByBeginTime(calendarEventList.todayScheduledEvents);
 
@@ -303,10 +304,10 @@ public class MNCalendarFetcher {
 //        new DateTime(tomorrowDateTime.getYear(),
 //                tomorrowDateTime.getMonthOfYear(), tomorrowDateTime.getDayOfMonth(), 23, 59, 59);
         Log.i(TAG, "all-day events");
-        calendarEventList.tomorrowAlldayEvents = getEventsBetweenDates14(context, calID, true,
+        calendarEventList.tomorrowAlldayEvents = getEventsBetweenDates14(context, calendarModels, true,
                 tomorrowStartDateTime, tomorrowEndDateTime);
         Log.i(TAG, "scheduled events");
-        calendarEventList.tomorrowScheduledEvents = getEventsBetweenDates14(context, calID, false,
+        calendarEventList.tomorrowScheduledEvents = getEventsBetweenDates14(context, calendarModels, false,
                 tomorrowStartDateTime, tomorrowEndDateTime);
 //        sortCalendarEventListByBeginTime(calendarEventList.tomorrowScheduledEvents);
 
@@ -369,6 +370,50 @@ public class MNCalendarFetcher {
 //            return null;
         }
         */
+    }
+
+    //for os version android version 4(ICS) AND ABOVE
+    @TargetApi(14)
+    public static MNCalendarEventList getCalendarEvents14(Context context, String calID) {
+        // 오늘부터 1년 간의 이벤트를 얻기 - 나중에 현 시간부터 내일까지로 변경 필요
+        // 오늘-종일, 오늘-일정 / 내일-종일, 내일-일정 총 4개의 ArrayList가 필요
+        MNCalendarEventList calendarEventList = new MNCalendarEventList();
+
+        // 필요한 시간 기준들을 미리 준비
+        DateTime todayNowDateTime = DateTime.now();
+        DateTime tomorrowDateTime = DateTime.now().plusDays(1);
+        DateTime todayStartDateTime = new DateTime(todayNowDateTime.getYear(), todayNowDateTime.getMonthOfYear(),
+                todayNowDateTime.getDayOfMonth(), 0, 0, 0);
+        DateTime todayEndDateTime = new DateTime(tomorrowDateTime.getYear(), tomorrowDateTime.getMonthOfYear(),
+                tomorrowDateTime.getDayOfMonth(), 0, 0, 0);
+
+        DateTime tomorrowStartDateTime = new DateTime(tomorrowDateTime.getYear(),
+                tomorrowDateTime.getMonthOfYear(), tomorrowDateTime.getDayOfMonth(), 0, 0, 0);
+        DateTime tomorrowEndDateTime = tomorrowStartDateTime.plusDays(1);
+
+        // 지금부터 내일 0시 0분 0초 미만의 시간(그 중에서도 all-day와 scheduled를 분리)
+        Log.i(TAG, "today events");
+        Log.i(TAG, "all-day events");
+        calendarEventList.todayAlldayEvents = getEventsBetweenDates14(context, calID, true,
+                todayStartDateTime, todayEndDateTime);
+        Log.i(TAG, "scheduled events");
+        calendarEventList.todayScheduledEvents = getEventsBetweenDates14(context, calID, false,
+                todayNowDateTime, todayEndDateTime);
+//        sortCalendarEventListByBeginTime(calendarEventList.todayScheduledEvents);
+
+        // 내일 0시 0분 0초 이상 모레 0시 0분 0초 미만의 일정(그 중에서도 all-day와 scheduled를 분리)
+        Log.i(TAG, "tomorrow events");
+//        new DateTime(tomorrowDateTime.getYear(),
+//                tomorrowDateTime.getMonthOfYear(), tomorrowDateTime.getDayOfMonth(), 23, 59, 59);
+        Log.i(TAG, "all-day events");
+        calendarEventList.tomorrowAlldayEvents = getEventsBetweenDates14(context, calID, true,
+                tomorrowStartDateTime, tomorrowEndDateTime);
+        Log.i(TAG, "scheduled events");
+        calendarEventList.tomorrowScheduledEvents = getEventsBetweenDates14(context, calID, false,
+                tomorrowStartDateTime, tomorrowEndDateTime);
+//        sortCalendarEventListByBeginTime(calendarEventList.tomorrowScheduledEvents);
+
+        return calendarEventList;
     }
 
     @TargetApi(14)
@@ -528,6 +573,91 @@ public class MNCalendarFetcher {
         } else {
             Log.e(TAG, "eventCursor is null");
 
+            return null;
+        }
+    }
+
+    @TargetApi(14)
+    private static ArrayList<MNCalendarEvent> getEventsBetweenDates14(Context context,
+                                                                      ArrayList<MNCalendar> calendarModels,
+                                                                      boolean isAllDayEvents,
+                                                                      DateTime startDateTime,
+                                                                      DateTime endDateTime) {
+        // Instnaces 를 이용해서 받아보자(동기화된 이벤트 정보를 얻기 위해서)
+        final String[] INSTANCE_PROJECTION = new String[]{
+                CalendarContract.Instances.BEGIN,         // 0
+                CalendarContract.Instances.TITLE,         // 1
+        };
+
+        Cursor eventCursor;
+        ContentResolver contentResolver = context.getContentResolver();
+
+        // The ID of the recurring event whose instances you are searching
+        // for in the Instances table
+        // 괄호가 중요, 괄호에 따라 제대로 된 값이 안나올 가능성이 있음
+        // 아주 새로운 개념. 오늘의 일정을 표시하기 위해서, begin과 end가 필요한 것이 아니라,
+        // begin만을 가지고 오늘 예정된 일정이라는 것을 표시 가능! iOS도 수정 필요!
+        String selection = null;
+        for (MNCalendar calendarModel : calendarModels) {
+            // 선택된 캘린더일 경우에만 로딩해 전체 캘린더에 더하기
+            if (calendarModel.selected) {
+                if (selection == null) {
+                    selection = (CALENDAR_ID + " = " + calendarModel.calendarId);
+                } else {
+                    selection += (" OR " + CALENDAR_ID + " = " + calendarModel.calendarId);
+                }
+            }
+        }
+
+        selection = "(" + selection + ") AND (" +
+                startDateTime.getMillis() + " <= " + CalendarContract.Instances.BEGIN + " AND " +
+                CalendarContract.Instances.BEGIN + " < " + endDateTime.getMillis() + ")";
+
+        // 종일 이벤트일 경우 쿼리문을 더 추가
+        if (isAllDayEvents) {
+            selection += " AND " + CalendarContract.Instances.ALL_DAY + " = 1";
+        } else {
+            selection += " AND " + CalendarContract.Instances.ALL_DAY + " = 0";
+        }
+
+        // Construct the query with the desired date range.
+        Uri.Builder builder = getInstancesURI().buildUpon();
+        ContentUris.appendId(builder, startDateTime.getMillis());
+        ContentUris.appendId(builder, endDateTime.getMillis());
+
+        // Submit the query
+        eventCursor = contentResolver.query(builder.build(),
+                INSTANCE_PROJECTION,
+                selection,
+                null,
+                CalendarContract.Instances.BEGIN + " ASC");
+
+        if (eventCursor != null) {
+            ArrayList<MNCalendarEvent> calendarModelList = new ArrayList<MNCalendarEvent>();
+
+            while (eventCursor.moveToNext()) {
+
+                MNCalendarEvent calendarEvent = new MNCalendarEvent();
+
+                // Get the field values
+                long beginTimeInMillis = eventCursor.getLong(0);
+                String title = eventCursor.getString(1);
+
+                // Do something with the values.
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(beginTimeInMillis);
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Log.i(TAG, "Event:" + title + "/Date:" + formatter.format(calendar.getTime()));
+
+                calendarEvent.title = title;
+                calendarEvent.isAllDayEvent = isAllDayEvents;
+                calendarEvent.beginDate = new Date(beginTimeInMillis);
+                calendarModelList.add(calendarEvent);
+            }
+            eventCursor.close();
+            return calendarModelList;
+        } else {
+            Log.e(TAG, "eventCursor is null");
             return null;
         }
     }
