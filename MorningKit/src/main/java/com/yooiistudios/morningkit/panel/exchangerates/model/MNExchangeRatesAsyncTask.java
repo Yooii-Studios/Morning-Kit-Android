@@ -30,6 +30,7 @@ public class MNExchangeRatesAsyncTask extends AsyncTask<Void, Void, Double> {
         this.target = target;
         this.listener = listener;
     }
+
     @Override
     protected Double doInBackground(Void... params) {
 
