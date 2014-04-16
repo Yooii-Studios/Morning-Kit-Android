@@ -3,7 +3,6 @@
     android:id="@+id/panel_calendar_detail_event_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
     android:background="#38aa38"
     android:layout_marginTop="@dimen/margin_inner"
     android:orientation="vertical" >
@@ -27,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
         android:text="테스트 오후 일정"
         android:background="#ff11ff"
         android:textColor="#ffffff"

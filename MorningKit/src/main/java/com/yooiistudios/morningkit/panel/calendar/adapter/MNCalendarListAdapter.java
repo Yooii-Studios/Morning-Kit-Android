@@ -82,7 +82,33 @@ public class MNCalendarListAdapter extends BaseAdapter {
             case TOMORROW_INDICATOR:
                 break;
         }
-        return initEventItem(calendarModel, calendarEventItemInfo, viewGroup);
+        View convertView = initEventItem(calendarModel, calendarEventItemInfo, viewGroup);
+
+        // divider를 index 위치에 따라 INVISIBLE 처리
+        View dividerView = convertView.findViewById(R.id.panel_calendar_detail_event_item_divider);
+        switch (calendarEventItemInfo.calendarEventType) {
+            case TODAY_ALL_DAY:
+                if (calendarEventItemInfo.convertedIndex + 1 !=
+                        calendarEventList.todayAlldayEvents.size()) {
+                    dividerView.setVisibility(View.INVISIBLE);
+                }
+                break;
+
+            case TOMORROW_ALL_DAY:
+                if (calendarEventItemInfo.convertedIndex + 1 !=
+                        calendarEventList.tomorrowAlldayEvents.size()) {
+                    dividerView.setVisibility(View.INVISIBLE);
+                }
+                break;
+
+            case TOMORROW_SCHEDULED:
+                if (calendarEventItemInfo.convertedIndex + 1 ==
+                        calendarEventList.tomorrowScheduledEvents.size()) {
+                    dividerView.setVisibility(View.INVISIBLE);
+                }
+                break;
+        }
+        return convertView;
     }
 
     protected View initEventItem(MNCalendarEvent calendarModel,
@@ -96,8 +122,13 @@ public class MNCalendarListAdapter extends BaseAdapter {
 
                 TextView timeTextView = (TextView) convertView.findViewById(R.id.panel_calendar_detail_event_item_time_textview);
 
+                // Time
                 if (calendarModel.isAllDayEvent) {
-                    timeTextView.setText(R.string.reminder_all_day);
+                    if (calendarEventItemInfo.convertedIndex == 0) {
+                        timeTextView.setText(R.string.reminder_all_day);
+                    } else {
+                        timeTextView.setText("");
+                    }
                 } else {
                     SimpleDateFormat simpleDateFormat;
                     if (DateFormat.is24HourFormat(context)) {
@@ -108,9 +139,9 @@ public class MNCalendarListAdapter extends BaseAdapter {
                     timeTextView.setText(simpleDateFormat.format(calendarModel.beginDate));
                 }
 
+                // Title
                 TextView titleTextView = (TextView) convertView.findViewById(R.id.panel_calendar_detail_event_item_title_textview);
                 titleTextView.setText(calendarModel.title);
-
                 return convertView;
             }
         } else {
