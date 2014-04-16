@@ -43,10 +43,10 @@ public class MNWeatherLocationInfoLoader extends AsyncTask<Void, Void, List<MNWe
         weatherLocationInfoList.addAll(loadWeatherLocationInfo(R.raw.cityinfo_kr_woeid));
         weatherLocationInfoList.addAll(loadWeatherLocationInfo(R.raw.cityinfo_ca_woeid));
         // 퍼포먼스 문제를 생각해서 빼 버리자. 나중에 필요하면 다시 사용해도 좋을듯
-        weatherLocationInfoList.addAll(loadWeatherLocationInfo(R.raw.cityinfo_etc_woeid));
-        weatherLocationInfoList.addAll(loadWeatherLocationInfo(R.raw.cityinfo_etc_2_woeid));
-        weatherLocationInfoList.addAll(loadWeatherLocationInfo(R.raw.cityinfo_etc_3_woeid));
-        weatherLocationInfoList.addAll(loadWeatherLocationInfo(R.raw.cityinfo_etc_4_woeid));
+//        weatherLocationInfoList.addAll(loadWeatherLocationInfo(R.raw.cityinfo_etc_woeid));
+//        weatherLocationInfoList.addAll(loadWeatherLocationInfo(R.raw.cityinfo_etc_2_woeid));
+//        weatherLocationInfoList.addAll(loadWeatherLocationInfo(R.raw.cityinfo_etc_3_woeid));
+//        weatherLocationInfoList.addAll(loadWeatherLocationInfo(R.raw.cityinfo_etc_4_woeid));
 
         return weatherLocationInfoList;
     }
