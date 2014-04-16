@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
  * Created by StevenKim in GoogleCalendarTestApp from Yooii Studios Co., LTD. on 2014. 4. 3.
  *
  * MNCalendarAdapter
- *  디테일에서 사용될 어댑터. 기본 로직을 포함.
+ *  디테일에서 사용될 어댑터. 기본 로직을 포함. 이것을 상속해서 메인에서 사용할 예정
  */
 public class MNCalendarListAdapter extends BaseAdapter {
     protected static final String TAG = "MNCalendarAdapter";

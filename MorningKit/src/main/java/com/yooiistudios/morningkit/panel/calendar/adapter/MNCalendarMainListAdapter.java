@@ -6,7 +6,6 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
@@ -14,7 +13,6 @@ import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEvent;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventItemInfo;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventList;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventType;
-import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventUtils;
 
 import java.text.SimpleDateFormat;
 
