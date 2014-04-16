@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.calendar.model;
+package com.yooiistudios.morningkit.panel.calendar.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,6 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEvent;
+import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventItemInfo;
+import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventList;
+import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventType;
+import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventUtils;
 
 import java.text.SimpleDateFormat;
 
@@ -53,8 +60,6 @@ public class MNCalendarListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-
         MNCalendarEvent calendarModel = null;
         MNCalendarEventItemInfo calendarEventItemInfo = calendarEventList.getCalendarEventItemInfo(i);
         switch (calendarEventItemInfo.calendarEventType) {
@@ -85,20 +90,26 @@ public class MNCalendarListAdapter extends BaseAdapter {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
         if (calendarModel != null) {
-            View convertView = inflater.inflate(android.R.layout.simple_list_item_1, viewGroup, false);
+            View convertView = inflater.inflate(R.layout.panel_calendar_detail_event_item,
+                    viewGroup, false);
             if (convertView != null) {
 
-                SimpleDateFormat sdfrr;
-                if (DateFormat.is24HourFormat(context)) {
-                    sdfrr = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                TextView timeTextView = (TextView) convertView.findViewById(R.id.panel_calendar_detail_event_item_time_textview);
+
+                if (calendarModel.isAllDayEvent) {
+                    timeTextView.setText(R.string.reminder_all_day);
                 } else {
-                    sdfrr = new SimpleDateFormat("yyyy/MM/dd a hh:mm");
+                    SimpleDateFormat simpleDateFormat;
+                    if (DateFormat.is24HourFormat(context)) {
+                        simpleDateFormat = new SimpleDateFormat("HH:mm");
+                    } else {
+                        simpleDateFormat = new SimpleDateFormat("a hh:mm");
+                    }
+                    timeTextView.setText(simpleDateFormat.format(calendarModel.beginDate));
                 }
 
-                String stimesr = sdfrr.format(calendarModel.beginDate);
-
-                TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
-                textView.setText(stimesr + "   " + calendarModel.title);
+                TextView titleTextView = (TextView) convertView.findViewById(R.id.panel_calendar_detail_event_item_title_textview);
+                titleTextView.setText(calendarModel.title);
 
                 return convertView;
             }
@@ -106,12 +117,12 @@ public class MNCalendarListAdapter extends BaseAdapter {
             if (calendarEventItemInfo.calendarEventType == MNCalendarEventType.TOMORROW_INDICATOR) {
 
                 // 내일 표시 아이템
-                View tomorrowGuideView = inflater.inflate(android.R.layout.simple_list_item_1, viewGroup, false);
+                View tomorrowGuideView = inflater.inflate(R.layout.panel_calendar_detail_event_indicator_item,
+                        viewGroup, false);
                 if (tomorrowGuideView != null) {
-                    TextView textView = (TextView) tomorrowGuideView.findViewById(android.R.id.text1);
-                    textView.setText("내일");
+                    return tomorrowGuideView;
                 }
-                return tomorrowGuideView;
+                return null;
             }
         }
         return null;
