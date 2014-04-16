@@ -38,7 +38,7 @@
         android:layout_marginRight="@dimen/margin_outer"/>
 
     <View
-        android:id="@+id/panel_calendar_detail_event_item_divider"
+        android:id="@+id/panel_calendar_event_item_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#000000"
