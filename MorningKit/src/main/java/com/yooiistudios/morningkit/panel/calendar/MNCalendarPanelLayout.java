@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarListAdapter;
+import com.yooiistudios.morningkit.panel.calendar.adapter.MNCalendarListAdapter;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarUtils;
 import com.yooiistudios.morningkit.panel.calendar.ui.MNUnClickableListView;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
