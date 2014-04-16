@@ -55,42 +55,26 @@ public class MNCalendarListAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
-        MNCalendarEvent calendarModel;
+        MNCalendarEvent calendarModel = null;
+        MNCalendarEventItemInfo calendarEventItemInfo = calendarEventList.getCalendarEventItemInfo(i);
+        switch (calendarEventItemInfo.calendarEventType) {
+            case TODAY_ALL_DAY:
+                calendarModel = calendarEventList.todayAlldayEvents.get(calendarEventItemInfo.convertedIndex);
+                break;
 
-        // 인덱스에 맞게 해당 캘린더 이벤트를 가져옴
-        if (calendarEventList.tomorrowAlldayEvents.size() == 0 &&
-                calendarEventList.tomorrowScheduledEvents.size() == 0) {
-            if (i < calendarEventList.todayAlldayEvents.size()) {
-                // 오늘 종일 이벤트
-                calendarModel = calendarEventList.todayAlldayEvents.get(i);
-            } else {
-                // 오늘 스케쥴 이벤트
-                calendarModel = calendarEventList.todayScheduledEvents.get(i);
-            }
-        } else {
-            if (calendarEventList.todayAlldayEvents.size() +
-                    calendarEventList.todayScheduledEvents.size() > i) {
-                // 오늘 이벤트
-                if (i < calendarEventList.todayAlldayEvents.size()) {
-                    // 오늘 종일 이벤트
-                    calendarModel = calendarEventList.todayAlldayEvents.get(i);
-                } else {
-                    // 오늘 스케쥴 이벤트
-                    calendarModel = calendarEventList.todayScheduledEvents.get(i - calendarEventList.todayAlldayEvents.size());
-                }
-            } else if (calendarEventList.todayAlldayEvents.size() +
-                    calendarEventList.todayScheduledEvents.size() < i) {
-                // 내일 이벤트
-                int todayEventsSize = calendarEventList.todayAlldayEvents.size() +
-                        calendarEventList.todayScheduledEvents.size() + 1; // 1은 내일 표시 아이템 갯수
-                if (i - todayEventsSize < calendarEventList.tomorrowAlldayEvents.size()) {
-                    // 내일 종일 이벤트
-                    calendarModel = calendarEventList.tomorrowAlldayEvents.get(i - todayEventsSize);
-                } else {
-                    // 내일 스케쥴 이벤트
-                    calendarModel = calendarEventList.tomorrowScheduledEvents.get(i - todayEventsSize - calendarEventList.tomorrowAlldayEvents.size());
-                }
-            } else {
+            case TODAY_SCHEDULED:
+                calendarModel = calendarEventList.todayScheduledEvents.get(calendarEventItemInfo.convertedIndex);
+                break;
+
+            case TOMORROW_ALL_DAY:
+                calendarModel = calendarEventList.tomorrowAlldayEvents.get(calendarEventItemInfo.convertedIndex);
+                break;
+
+            case TOMORROW_SCHEDULED:
+                calendarModel = calendarEventList.tomorrowScheduledEvents.get(calendarEventItemInfo.convertedIndex);
+                break;
+
+            case TOMORROW_INDICATOR:
                 // 내일 표시 아이템
                 View tomorrowGuideView = inflater.inflate(android.R.layout.simple_list_item_1, viewGroup, false);
                 if (tomorrowGuideView != null) {
@@ -98,7 +82,6 @@ public class MNCalendarListAdapter extends BaseAdapter {
                     textView.setText("내일");
                 }
                 return tomorrowGuideView;
-            }
         }
 
         if (calendarModel != null) {
