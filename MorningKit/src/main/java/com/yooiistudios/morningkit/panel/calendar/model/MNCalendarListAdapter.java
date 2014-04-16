@@ -75,14 +75,14 @@ public class MNCalendarListAdapter extends BaseAdapter {
                 break;
 
             case TOMORROW_INDICATOR:
-                // 내일 표시 아이템
-                View tomorrowGuideView = inflater.inflate(android.R.layout.simple_list_item_1, viewGroup, false);
-                if (tomorrowGuideView != null) {
-                    TextView textView = (TextView) tomorrowGuideView.findViewById(android.R.id.text1);
-                    textView.setText("내일");
-                }
-                return tomorrowGuideView;
+                break;
         }
+        return initEventItem(calendarModel, calendarEventItemInfo, viewGroup);
+    }
+
+    protected View initEventItem(MNCalendarEvent calendarModel,
+                                 MNCalendarEventItemInfo calendarEventItemInfo, ViewGroup viewGroup) {
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
         if (calendarModel != null) {
             View convertView = inflater.inflate(android.R.layout.simple_list_item_1, viewGroup, false);
@@ -101,6 +101,17 @@ public class MNCalendarListAdapter extends BaseAdapter {
                 textView.setText(stimesr + "   " + calendarModel.title);
 
                 return convertView;
+            }
+        } else {
+            if (calendarEventItemInfo.calendarEventType == MNCalendarEventType.TOMORROW_INDICATOR) {
+
+                // 내일 표시 아이템
+                View tomorrowGuideView = inflater.inflate(android.R.layout.simple_list_item_1, viewGroup, false);
+                if (tomorrowGuideView != null) {
+                    TextView textView = (TextView) tomorrowGuideView.findViewById(android.R.id.text1);
+                    textView.setText("내일");
+                }
+                return tomorrowGuideView;
             }
         }
         return null;
