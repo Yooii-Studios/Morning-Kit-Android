@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.panel.calendar.adapter.MNCalendarListAdapter;
+import com.yooiistudios.morningkit.common.dp.DipToPixel;
+import com.yooiistudios.morningkit.panel.calendar.adapter.MNCalendarMainListAdapter;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarUtils;
 import com.yooiistudios.morningkit.panel.calendar.ui.MNUnClickableListView;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -41,11 +42,14 @@ public class MNCalendarPanelLayout extends MNPanelLayout {
         super.init();
 
         eventsListView = new MNUnClickableListView(getContext());
+        eventsListView.setDividerHeight(0);
+        int topPadding = DipToPixel.dpToPixel(getContext(), 1);
+        eventsListView.setPadding(0, topPadding, 0, 0);
         LayoutParams eventsListViewLayoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
-        int margin = getResources().getDimensionPixelSize(R.dimen.margin_outer);
-        eventsListViewLayoutParams.setMargins(margin, margin, margin, margin);
+        int marginInner = getResources().getDimensionPixelSize(R.dimen.margin_inner);
+        eventsListViewLayoutParams.setMargins(marginInner, marginInner, marginInner, marginInner);
         eventsListView.setLayoutParams(eventsListViewLayoutParams);
         eventsListView.setFocusable(false);
         eventsListView.setClickable(false);
@@ -78,7 +82,7 @@ public class MNCalendarPanelLayout extends MNPanelLayout {
     protected void updateUI() {
         super.updateUI();
 
-        eventsListView.setAdapter(new MNCalendarListAdapter(getContext(), selectedArr));
+        eventsListView.setAdapter(new MNCalendarMainListAdapter(getContext(), selectedArr));
 
         // test
         eventsListView.setBackgroundColor(Color.MAGENTA);

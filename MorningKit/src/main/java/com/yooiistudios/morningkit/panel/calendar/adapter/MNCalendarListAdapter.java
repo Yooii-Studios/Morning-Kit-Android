@@ -22,11 +22,12 @@ import java.text.SimpleDateFormat;
  * Created by StevenKim in GoogleCalendarTestApp from Yooii Studios Co., LTD. on 2014. 4. 3.
  *
  * MNCalendarAdapter
+ *  디테일에서 사용될 어댑터. 기본 로직을 포함. 이것을 상속해서 메인에서 사용할 예정
  */
 public class MNCalendarListAdapter extends BaseAdapter {
-    private static final String TAG = "MNCalendarAdapter";
-    private Context context;
-    private MNCalendarEventList calendarEventList;
+    protected static final String TAG = "MNCalendarAdapter";
+    protected Context context;
+    protected MNCalendarEventList calendarEventList;
 
     public MNCalendarListAdapter(Context context, boolean[] selectedArr) {
         this.context = context;
@@ -85,7 +86,7 @@ public class MNCalendarListAdapter extends BaseAdapter {
         View convertView = initEventItem(calendarModel, calendarEventItemInfo, viewGroup);
 
         // divider를 index 위치에 따라 INVISIBLE 처리
-        View dividerView = convertView.findViewById(R.id.panel_calendar_detail_event_item_divider);
+        View dividerView = convertView.findViewById(R.id.panel_calendar_event_item_divider);
         switch (calendarEventItemInfo.calendarEventType) {
             case TODAY_ALL_DAY:
                 if (calendarEventItemInfo.convertedIndex + 1 !=
