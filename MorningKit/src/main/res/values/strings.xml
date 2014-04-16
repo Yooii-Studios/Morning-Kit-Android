@@ -1,277 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<!-- General -->
-	<string name="app_name">Morning Kit</string>
-	<string name="ok">OK</string>
-	<string name="cancel">Cancel</string>
-	<string name="loading">Loading&#8230;</string>
-	<string name="default_string">Default</string>
-	<string name="yes">Yes</string>
-	<string name="no">No</string>
-	<string name="no_network_connection">No Network Connection</string>
-	<string name="no_location_detected">Location Not Available</string>
-	<string name="searching">Searching&#8230;</string>
-	<string name="done">Done</string>
-	<string name="open">open</string>
+    <!-- General -->
+    <string name="app_name">Morning Kit</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="loading">Loading…</string>
+    <string name="default_string">Default</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="no_network_connection">No Network Connection</string>
+    <string name="no_location_detected">Location Not Available</string>
+    <string name="searching">Searching…</string>
+    <string name="done">Done</string>
+    <string name="open">open</string>
 
-	<!-- Alarm -->
-	<string name="add_an_alarm">Add Alarm</string>
-	<string name="edit_alarm">Edit Alarm</string>
-	<string name="alarm_default_label">Alarm</string>
-	<string name="alarm_am">AM</string>
-	<string name="alarm_pm">PM</string>
-	<string name="alarm_snooze_stirng">Your alarm will start again in 9 minutes</string>
+    <!-- Alarm -->
+    <string name="add_an_alarm">Add Alarm</string>
+    <string name="edit_alarm">Edit Alarm</string>
+    <string name="alarm_default_label">Alarm</string>
+    <string name="alarm_am">AM</string>
+    <string name="alarm_pm">PM</string>
+    <string name="alarm_snooze_stirng">Your alarm will start again in 9 minutes</string>
 
-	<!-- Alarm Toaster -->
-	<string name="alarm_set_toast_part1">Alarm set for&#160;</string>
-	<string name="alarm_set_toast_part2">from now</string>
-	<string name="alarm_day">&#160;day&#160;</string>
-	<string name="alarm_days">&#160;days&#160;</string>
-	<string name="alarm_hour">&#160;hour&#160;</string>
-	<string name="alarm_hours">&#160;hours&#160;</string>
-	<string name="alarm_minute">&#160;minute&#160;</string>
-	<string name="alarm_minutes">&#160;minutes&#160;</string>
+    <!-- Alarm Toaster -->
+    <string name="alarm_set_toast_part1">Alarm set for </string>
+    <string name="alarm_set_toast_part2">from now</string>
+    <string name="alarm_day"> day </string>
+    <string name="alarm_days"> days </string>
+    <string name="alarm_hour"> hour </string>
+    <string name="alarm_hours"> hours </string>
+    <string name="alarm_minute"> minute </string>
+    <string name="alarm_minutes"> minutes </string>
 
-	<!-- Alarm Preference -->
-	<string name="alarm_pref_repeat">Repeat</string>
-	<string name="alarm_pref_sound_type">Sound</string>
-	<string name="alarm_pref_label">Label</string>
-	<string name="alarm_pref_repeat_never">Never</string>
-	<string name="alarm_pref_repeat_weekdays">Weekdays</string>
-	<string name="alarm_pref_repeat_weekends">Weekends</string>
-	<string name="alarm_pref_repeat_everyday">Everyday</string>
-	<string name="alarm_pref_pick_your_favorite_sond">Pick a song</string>
+    <!-- Alarm Preference -->
+    <string name="alarm_pref_repeat">Repeat</string>
+    <string name="alarm_pref_sound_type">Sound</string>
+    <string name="alarm_pref_label">Label</string>
+    <string name="alarm_pref_repeat_never">Never</string>
+    <string name="alarm_pref_repeat_weekdays">Weekdays</string>
+    <string name="alarm_pref_repeat_weekends">Weekends</string>
+    <string name="alarm_pref_repeat_everyday">Everyday</string>
+    <string name="alarm_pref_pick_your_favorite_sond">Pick a song</string>
 
-	<!-- Repeat -->
-	<string name="every_monday">Every Monday</string>
-	<string name="every_tuesday">Every Tuesday</string>
-	<string name="every_wednesday">Every Wednesday</string>
-	<string name="every_thursday">Every Thursday</string>
-	<string name="every_friday">Every Friday</string>
-	<string name="every_saturday">Every Saturday</string>
-	<string name="every_sunday">Every Sunday</string>
-	<string name="monday">Mon</string>
-	<string name="tuesday">Tue</string>
-	<string name="wednesday">Wed</string>
-	<string name="thursday">Thu</string>
-	<string name="friday">Fri</string>
-	<string name="saturday">Sat</string>
-	<string name="sunday">Sun</string>
-	<string name="monday_short">M</string>
-	<string name="tuesday_short">T</string>
-	<string name="wednesday_short">W</string>
-	<string name="thursday_short">T</string>
-	<string name="friday_short">F</string>
-	<string name="saturday_short">S</string>
-	<string name="sunday_short">S</string>
+    <!-- Repeat -->
+    <string name="every_monday">Every Monday</string>
+    <string name="every_tuesday">Every Tuesday</string>
+    <string name="every_wednesday">Every Wednesday</string>
+    <string name="every_thursday">Every Thursday</string>
+    <string name="every_friday">Every Friday</string>
+    <string name="every_saturday">Every Saturday</string>
+    <string name="every_sunday">Every Sunday</string>
+    <string name="monday">Mon</string>
+    <string name="tuesday">Tue</string>
+    <string name="wednesday">Wed</string>
+    <string name="thursday">Thu</string>
+    <string name="friday">Fri</string>
+    <string name="saturday">Sat</string>
+    <string name="sunday">Sun</string>
+    <string name="monday_short">M</string>
+    <string name="tuesday_short">T</string>
+    <string name="wednesday_short">W</string>
+    <string name="thursday_short">T</string>
+    <string name="friday_short">F</string>
+    <string name="saturday_short">S</string>
+    <string name="sunday_short">S</string>
 
-	<!-- Alarm Wake -->
-	<string name="alarm_wake_snooze">Snooze</string>
-	<string name="alarm_wake_dismiss">Dismiss</string>
+    <!-- Alarm Wake -->
+    <string name="alarm_wake_snooze">Snooze</string>
+    <string name="alarm_wake_dismiss">Dismiss</string>
 
-	<!-- Alarm Sound -->
-	<string name="alarm_sound_string_none">Mute</string>
-	<string name="alarm_sound_string_vibrate">Vibrate</string>
-	<string name="alarm_sound_string_ringtones">Ringtone</string>
-	<string name="alarm_sound_string_music">Music</string>
-	<string name="alarm_ocean_short">Ocean</string>
-	<string name="alarm_ride">Ride</string>
+    <!-- Alarm Sound -->
+    <string name="alarm_sound_string_none">Mute</string>
+    <string name="alarm_sound_string_vibrate">Vibrate</string>
+    <string name="alarm_sound_string_ringtones">Ringtone</string>
+    <string name="alarm_sound_string_music">Music</string>
+    <string name="alarm_ocean_short">Ocean</string>
+    <string name="alarm_ride">Ride</string>
 
-	<!-- Widget -->
-	<string name="world_clock">World Clock</string>
-	<string name="flickr">Flickr</string>
-	<string name="memo">Memo</string>
-	<string name="date_calculator">Date\nCountdown</string>
-	<string name="weather">Weather</string>
-	<string name="calendar">Date</string>
-	<string name="exchange_rate">Exchange\nRates</string>
-	<string name="saying">Quotes</string>
-	<string name="reminder">Calendar</string>
+    <!-- Widget -->
+    <string name="world_clock">World Clock</string>
+    <string name="flickr">Flickr</string>
+    <string name="memo">Memo</string>
+    <string name="date_calculator">Date\nCountdown</string>
+    <string name="weather">Weather</string>
+    <string name="calendar">Date</string>
+    <string name="exchange_rate">Exchange\nRates</string>
+    <string name="saying">Quotes</string>
+    <string name="reminder">Calendar</string>
 
-	<!-- Calendar -->
-	<string name="calendar_lunar_calendar">Lunar Calendar</string>
-	<string name="calendar_monday">MONDAY</string>
-	<string name="calendar_tuesday">TUESDAY</string>
-	<string name="calendar_wednesday">WEDNESDAY</string>
-	<string name="calendar_thursday">THURSDAY</string>
-	<string name="calendar_friday">FRIDAY</string>
-	<string name="calendar_saturday">SATURDAY</string>
-	<string name="calendar_sunday">SUNDAY</string>
+    <!-- Calendar -->
+    <string name="calendar_lunar_calendar">Lunar Calendar</string>
+    <string name="calendar_monday">MONDAY</string>
+    <string name="calendar_tuesday">TUESDAY</string>
+    <string name="calendar_wednesday">WEDNESDAY</string>
+    <string name="calendar_thursday">THURSDAY</string>
+    <string name="calendar_friday">FRIDAY</string>
+    <string name="calendar_saturday">SATURDAY</string>
+    <string name="calendar_sunday">SUNDAY</string>
 
-	<!-- Flickr -->
-	<string name="flickr_not_available_flickr_url">No Results Found</string>
-	<string name="flickr_search_images">Search for Image</string>
-	<string name="flickr_use_gray_scale">Use Grayscale</string>
-	<string name="flickr_save_to_library_guide">This photo will be saved in your library</string>
-	<string name="flickr_photo_saved">The Photo Saved</string>
-	<string name="flickr_normal_quality">Standard</string>
-	<string name="flickr_high_quality">High Resolution</string>
-	<string name="flickr_error_access_server">Error in access to flickr server</string>
+    <!-- Flickr -->
+    <string name="flickr_not_available_flickr_url">No Results Found</string>
+    <string name="flickr_search_images">Search for Image</string>
+    <string name="flickr_use_gray_scale">Use Grayscale</string>
+    <string name="flickr_save_to_library_guide">This photo will be saved in your library</string>
+    <string name="flickr_photo_saved">The Photo Saved</string>
+    <string name="flickr_normal_quality">Standard</string>
+    <string name="flickr_high_quality">High Resolution</string>
+    <string name="flickr_error_access_server">Error in access to flickr server</string>
 
-	<!-- Date Countdown -->
-	<string name="date_countdown_date">Date</string>
-	<string name="date_countdown_countdown">Countdown</string>
-	<string name="date_countdown_new_year">New Year</string>
-	<string name="date_countdown_write_a_title">Label</string>
-	<string name="date_countdown_create_countdown">Create a Countdown</string>
+    <!-- Date Countdown -->
+    <string name="date_countdown_date">Date</string>
+    <string name="date_countdown_countdown">Countdown</string>
+    <string name="date_countdown_new_year">New Year</string>
+    <string name="date_countdown_write_a_title">Label</string>
+    <string name="date_countdown_create_countdown">Create a Countdown</string>
 
-	<!-- Weather -->
-	<string name="weather_temperature_unit">Temperature Unit</string>
-	<string name="weather_use_current_location">Use Your Current Location</string>
-	<string name="weather_current_location">Current Location</string>
-	<string name="weather_search_city">Search for City (in English)</string>
-	<string name="display_local_time">Display Local Time</string>
-	<string name="weather_choose_your_city">Choose Your City</string>
+    <!-- Weather -->
+    <string name="weather_temperature_unit">Temperature Unit</string>
+    <string name="weather_use_current_location">Use Your Current Location</string>
+    <string name="weather_current_location">Current Location</string>
+    <string name="weather_search_city">Search for City (in English)</string>
+    <string name="display_local_time">Display Local Time</string>
+    <string name="weather_choose_your_city">Choose Your City</string>
 
-	<!-- World Clock -->
-	<string name="world_clock_clock_type_text">Clock Type</string>
-	<string name="world_clock_digital">Digital</string>
-	<string name="world_clock_analog">Analog</string>
-	<string name="world_clock_use_24_hour_format">Use 24-hour format</string>
-	<string name="world_clock_today">Today</string>
-	<string name="world_clock_tomorrow">Tomorrow</string>
-	<string name="world_clock_yesterday">Yesterday</string>
+    <!-- World Clock -->
+    <string name="world_clock_clock_type_text">Clock Type</string>
+    <string name="world_clock_digital">Digital</string>
+    <string name="world_clock_analog">Analog</string>
+    <string name="world_clock_use_24_hour_format">Use 24-hour format</string>
+    <string name="world_clock_today">Today</string>
+    <string name="world_clock_tomorrow">Tomorrow</string>
+    <string name="world_clock_yesterday">Yesterday</string>
 
-	<!-- Exchange Rate -->
-	<string name="exchange_rate_switch_countries">Swap currencies</string>
-	<string name="exchange_rate_main_currencies">Top currencies</string>
-	<string name="exchange_rate_all_currencies">All currencies</string>
+    <!-- Exchange Rate -->
+    <string name="exchange_rate_switch_countries">Swap currencies</string>
+    <string name="exchange_rate_main_currencies">Top currencies</string>
+    <string name="exchange_rate_all_currencies">All currencies</string>
 
-	<!-- Memo -->
-	<string name="memo_write_here">Write a memo</string>
-	<string name="memo_write_here_modal">Write here</string>
-	<string name="memo_end_of_page_halt">End-of-Page</string>
+    <!-- Memo -->
+    <string name="memo_write_here">Write a memo</string>
+    <string name="memo_write_here_modal">Write here</string>
+    <string name="memo_end_of_page_halt">End-of-Page</string>
 
-	<!-- Quotes -->
-	<string name="quotes_copy">Copy</string>
+    <!-- Quotes -->
+    <string name="quotes_copy">Copy</string>
 
-	<!-- Reminder -->
-	<string name="reminder_no_schedule">No events today</string>
-	<string name="reminder_birthday">Birthday</string>
-	<string name="reminder_event">Event</string>
-	<string name="reminder_all_day">All-Day</string>
+    <!-- Reminder -->
+    <string name="reminder_no_schedule">No events today</string>
+    <string name="reminder_birthday">Birthday</string>
+    <string name="reminder_event">Event</string>
+    <string name="reminder_all_day">All-Day</string>
 
-	<!-- Configure_Info -->
-	<string name="info_store">Store</string>
-	<string name="info_help">Help</string>
-	<string name="info_credit">Credits</string>
-	<string name="info_yooii_connector">Yooii Connector</string>
+    <!-- Configure_Info -->
+    <string name="info_store">Store</string>
+    <string name="info_help">Help</string>
+    <string name="info_credit">Credits</string>
+    <string name="info_yooii_connector">Yooii Connector</string>
 
-	<!-- Tab -->
-	<string name="tab_widget">PANEL</string>
-	<string name="tab_alarm">ALARM</string>
-	<string name="tab_setting">SETTING</string>
-	<string name="tab_theme">THEME</string>
-	<string name="tab_info">INFO</string>
+    <!-- Tab -->
+    <string name="tab_widget">PANEL</string>
+    <string name="tab_alarm">ALARM</string>
+    <string name="tab_setting">SETTING</string>
+    <string name="tab_theme">THEME</string>
+    <string name="tab_info">INFO</string>
 
-	<!-- Setting (General) -->
-	<string name="setting_language">Language</string>
-	<string name="setting_widgettable">Panel Matrix</string>
-	<string name="setting_theme_color">Theme</string>
-	<string name="setting_theme_color_skyblue">Celestial (Sky blue)</string>
-	<string name="setting_theme_color_classic_gray">Slate (Gray)</string>
-	<string name="setting_theme_color_classic_white">Modernity (Chic white)</string>
-	<string name="setting_theme_mirror">Reflection (Mirror)</string>
-	<string name="setting_theme_scenery">Tranquility (Transparent)</string>
-	<string name="setting_theme_photo">Photo</string>
-	<string name="setting_theme_photo_portrait">Photo (Portrait)</string>
-	<string name="setting_theme_photo_landscape">Photo (Landscape)</string>
+    <!-- Setting (General) -->
+    <string name="setting_language">Language</string>
+    <string name="setting_widgettable">Panel Matrix</string>
+    <string name="setting_theme_color">Theme</string>
+    <string name="setting_theme_color_skyblue">Celestial (Sky blue)</string>
+    <string name="setting_theme_color_classic_gray">Slate (Gray)</string>
+    <string name="setting_theme_color_classic_white">Modernity (Chic white)</string>
+    <string name="setting_theme_mirror">Reflection (Mirror)</string>
+    <string name="setting_theme_scenery">Tranquility (Transparent)</string>
+    <string name="setting_theme_photo">Photo</string>
+    <string name="setting_theme_photo_portrait">Photo (Portrait)</string>
+    <string name="setting_theme_photo_landscape">Photo (Landscape)</string>
 
-	<!-- Setting (Language) -->
-	<string name="setting_language_korean">한국어</string>
-	<string name="setting_language_english">English</string>
-	<string name="setting_language_japanese">日本語</string>
-	<string name="setting_language_simplified_chinese">简体中文</string>
-	<string name="setting_language_traditional_chinese">繁體中文</string>
-	<string name="setting_language_russian">Русский</string>
+    <!-- Setting (Language) -->
+    <string name="setting_language_korean">한국어</string>
+    <string name="setting_language_english">English</string>
+    <string name="setting_language_japanese">日本語</string>
+    <string name="setting_language_simplified_chinese">简体中文</string>
+    <string name="setting_language_traditional_chinese">繁體中文</string>
+    <string name="setting_language_russian">Русский</string>
 
-	<!-- Setting (Effect sound) -->
-	<string name="setting_effect_sound">Sound Effects</string>
-	<string name="setting_effect_sound_on">On</string>
-	<string name="setting_effect_sound_off">Off</string>
+    <!-- Setting (Effect sound) -->
+    <string name="setting_effect_sound">Sound Effects</string>
+    <string name="setting_effect_sound_on">On</string>
+    <string name="setting_effect_sound_off">Off</string>
 
-	<!-- Tutorial -->
-	<string name="tutorial_select_theme">Select your Morning Theme</string>
+    <!-- Tutorial -->
+    <string name="tutorial_select_theme">Select your Morning Theme</string>
 
-	<!-- Tutorial1 - Description -->
-	<string name="tutorial1_label1">You can customize Panels</string>
-	<string name="tutorial1_label2">You can add or edit Alarms</string>
-	<string name="tutorial1_label3">Swipe to delete Alarms</string>
-	<string name="tutorial1_label4">Refresh</string>
-	<string name="tutorial1_label5">Settings</string>
-	<string name="tutorial1_tap_screen">Tap the screen</string>
-	<string name="tutorial1_skip_tutorial">Skip Tutorial</string>
+    <!-- Tutorial1 - Description -->
+    <string name="tutorial1_label1">You can customize Panels</string>
+    <string name="tutorial1_label2">You can add or edit Alarms</string>
+    <string name="tutorial1_label3">Swipe to delete Alarms</string>
+    <string name="tutorial1_label4">Refresh</string>
+    <string name="tutorial1_label5">Settings</string>
+    <string name="tutorial1_tap_screen">Tap the screen</string>
+    <string name="tutorial1_skip_tutorial">Skip Tutorial</string>
 
-	<!-- Unlock -->
-	<string name="unlock_notice">NOTICE</string>
-	<string name="unlock_unlocked">Unlocked</string>
-	<string name="unlock_description">There are many ways to unlock this feature. Find a way to enjoy it for free!</string>
-	<string name="unlock_description_highlight">unlock</string>
-	<string name="unlock_everything">Unlock everything for only $1.99</string>
-	<string name="unlock_everything_highlight">everything</string>
-	<string name="unlock_only_this">Unlock for $0.99</string>
-	<string name="unlock_review">Write a Review and unlock it for free!</string>
-	<string name="unlock_review_highlight">Review</string>
-	<string name="unlock_connector">Enable Yooii Connector and unlock it for free!</string>
-	<string name="unlock_connector_highlight">Yooii Connector</string>
-	<string name="unlock_use_morning">Use Morning Kit 10 times and unlock it for free!</string>
-	<string name="unlock_use_morning_highlight">10 times</string>
-	<string name="unlock_facebook">Like us on Facebook and unlock it for free!</string>
-	<string name="unlock_facebook_highlight">Like</string>
-	<string name="unlock_twitter">Follow us on Twitter and unlock it for free!</string>
-	<string name="unlock_twitter_highlight">Follow</string>
+    <!-- Unlock -->
+    <string name="unlock_notice">NOTICE</string>
+    <string name="unlock_unlocked">Unlocked</string>
+    <string name="unlock_description">There are many ways to unlock this feature. Find a way to enjoy it for free!</string>
+    <string name="unlock_description_highlight">unlock</string>
+    <string name="unlock_everything">Unlock everything for only $1.99</string>
+    <string name="unlock_everything_highlight">everything</string>
+    <string name="unlock_only_this">Unlock for $0.99</string>
+    <string name="unlock_review">Write a Review and unlock it for free!</string>
+    <string name="unlock_review_highlight">Review</string>
+    <string name="unlock_connector">Enable Yooii Connector and unlock it for free!</string>
+    <string name="unlock_connector_highlight">Yooii Connector</string>
+    <string name="unlock_use_morning">Use Morning Kit 10 times and unlock it for free!</string>
+    <string name="unlock_use_morning_highlight">10 times</string>
+    <string name="unlock_facebook">Like us on Facebook and unlock it for free!</string>
+    <string name="unlock_facebook_highlight">Like</string>
+    <string name="unlock_twitter">Follow us on Twitter and unlock it for free!</string>
+    <string name="unlock_twitter_highlight">Follow</string>
 
-	<!-- Store -->
-	<string name="store_no_purchase_records">No purchase records</string>
-	<string name="store_restore_purchases">Restore purchases</string>
-	<string name="store_restore">Restore</string>
-	<string name="store_purchased">Purchased</string>
-	<string name="store_restore_success_message">All purchases was restored</string>
-	<string name="store_buy_full_version">Buy the full version!</string>
-	<string name="store_buy_full_version_description">Upgrade to unlock all Functions, Panels, and Themes</string>
-	<string name="store_tab_functions">Functions</string>
-	<string name="store_tab_widgets">Panels</string>
-	<string name="store_tab_themes">Themes</string>
-	<string name="store_item_more_alarm_slots">More alarm slots</string>
-	<string name="store_item_no_ads">No Ads</string>
-	<string name="store_item_matrix">2 X 1 Matrix</string>
-	<string name="store_item_widget_date_countdown">Date\nCountdown</string>
-	<string name="store_item_widget_memo">Memo</string>
-	<string name="store_item_photo_portrait">Photo\nPortrait</string>
-	<string name="store_item_photo_landscape">Photo\nLandscape</string>
-	<string name="store_item_skyblue">Celestial\n(Sky blue)</string>
-	<string name="store_item_classic_white">Modernity\n(Chic white)</string>
-	<string name="store_item_water_lily">Water lily</string>
-	<string name="store_item_popsicle">Popsicle</string>
+    <!-- Store -->
+    <string name="store_no_purchase_records">No purchase records</string>
+    <string name="store_restore_purchases">Restore purchases</string>
+    <string name="store_restore">Restore</string>
+    <string name="store_purchased">Purchased</string>
+    <string name="store_restore_success_message">All purchases was restored</string>
+    <string name="store_buy_full_version">Buy the full version!</string>
+    <string name="store_buy_full_version_description">Upgrade to unlock all Functions, Panels, and Themes</string>
+    <string name="store_tab_functions">Functions</string>
+    <string name="store_tab_widgets">Panels</string>
+    <string name="store_tab_themes">Themes</string>
+    <string name="store_item_more_alarm_slots">More alarm slots</string>
+    <string name="store_item_no_ads">No Ads</string>
+    <string name="store_item_matrix">2 X 1 Matrix</string>
+    <string name="store_item_widget_date_countdown">Date\nCountdown</string>
+    <string name="store_item_widget_memo">Memo</string>
+    <string name="store_item_photo_portrait">Photo\nPortrait</string>
+    <string name="store_item_photo_landscape">Photo\nLandscape</string>
+    <string name="store_item_skyblue">Celestial\n(Sky blue)</string>
+    <string name="store_item_classic_white">Modernity\n(Chic white)</string>
+    <string name="store_item_water_lily">Water lily</string>
+    <string name="store_item_popsicle">Popsicle</string>
 
-	<!-- Rate it -->
-	<string name="rate_it_contents">Rate Morning Kit and make it better! Thank you!</string>
-	<string name="rate_it_rate">Rate</string>
-	<string name="rate_it_no_thanks">Rate later</string>
-	<string name="rate_morning_kit">Rate Morning Kit</string>
+    <!-- Rate it -->
+    <string name="rate_it_contents">Rate Morning Kit and make it better! Thank you!</string>
+    <string name="rate_it_rate">Rate</string>
+    <string name="rate_it_no_thanks">Rate later</string>
+    <string name="rate_morning_kit">Rate Morning Kit</string>
 
-	<!-- More Information -->
-	<string name="more_information">Morning Kit Info</string>
-	<string name="more_information_yooii_studios">Yooii Studios</string>
-	<string name="more_information_morning_kit_help">Morning Kit Help</string>
-	<string name="more_information_version_info">Version</string>
-	<string name="more_information_morning_kit_license">Morning Kit License</string>
-	<string name="more_information_license">License</string>
+    <!-- More Information -->
+    <string name="more_information">Morning Kit Info</string>
+    <string name="more_information_yooii_studios">Yooii Studios</string>
+    <string name="more_information_morning_kit_help">Morning Kit Help</string>
+    <string name="more_information_version_info">Version</string>
+    <string name="more_information_morning_kit_license">Morning Kit License</string>
+    <string name="more_information_license">License</string>
 
     <!-- Alarm First On Notice -->
     <string name="alarm_first_on_notice">[Settings -> Notifications -> Morning Kit]\n\nPlease set Alert Style to \"Alerts\", and turn on \"Sounds\".\n\nAlarm does not sound in vibration mode. Please turn off vibration.</string>
 
-	<!-- Photo Theme -->
-	<string name="photo_theme_move_and_scale">Move and Scale</string>
-	<string name="photo_theme_choose">Choose</string>
-	<string name="photo_theme_first_open_notice">Please resize the picture to fit the frame so that it fills the screen</string>
+    <!-- Photo Theme -->
+    <string name="photo_theme_move_and_scale">Move and Scale</string>
+    <string name="photo_theme_choose">Choose</string>
+    <string name="photo_theme_first_open_notice">Please resize the picture to fit the frame so that it fills the screen</string>
 
     <!-- Android Only -->
-    <!-- Alarm Pref -->
-    <string name="alarm_sound_string_app_music">Morning Kit Music</string>
+    <!-- General -->
+    <string name="action_bar_up_button_main">Main</string>
+
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
     <string name="store_item_full_version">Full Version</string>
+
+        <!-- Alarm Pref -->
+    <string name="alarm_sound_string_app_music">Morning Kit Music</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Panel -->
+        <!-- Flickr -->
+    <string name="saving">Saving…</string>
+
+        <!-- World Clock -->
+    <string name="no_search_result">No Results Found</string>
+
+        <!-- Calendar -->
+    <string name="calendar_select_calendars">Select Calendars</string>
 
 </resources>

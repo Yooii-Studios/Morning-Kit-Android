@@ -4,15 +4,16 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import com.google.ads.AdSize;
+import com.google.android.gms.ads.AdSize;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
+import com.yooiistudios.morningkit.common.dp.DipToPixel;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 
@@ -50,9 +51,9 @@ public class MNMainLayoutSetter {
         }
     }
 
-    public static void adjustWidgetLayoutParamsAtOrientation(MNMainActivity mainActivity, int orientation) {
-        LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mainActivity.getWidgetWindowLayout().getLayoutParams();
-        widgetWindowLayoutParams.height = (int) getWidgetWindowLayoutHeight(mainActivity, orientation);
+    public static void adjustPanelLayoutParamsAtOrientation(MNMainActivity mainActivity, int orientation) {
+        LinearLayout.LayoutParams panelWindowLayoutParams = (LinearLayout.LayoutParams) mainActivity.getPanelWindowLayout().getLayoutParams();
+        panelWindowLayoutParams.height = (int) getPanelWindowLayoutHeight(mainActivity, orientation);
     }
 
     public static void adjustButtonLayoutParamsAtOrientation(RelativeLayout buttonLayout, int orientation) {
@@ -99,7 +100,8 @@ public class MNMainLayoutSetter {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 Context context = admobLayout.getContext();
-                AdSize adSize = AdSize.createAdSize(AdSize.BANNER, context);
+//                AdSize adSize = AdSize.createAdSize(AdSize.BANNER, context);
+                AdSize adSize = AdSize.BANNER;
                 int calcaulatedButtonLayoutWidth;
                 calcaulatedButtonLayoutWidth = MNDeviceSizeInfo.getDeviceWidth(context) - (int)(context.getResources().getDimension(R.dimen.margin_main_button_layout) * 2);
 
@@ -195,15 +197,19 @@ public class MNMainLayoutSetter {
     /**
      * Getting height of main layouts & views
      */
-    public static float getWidgetWindowLayoutHeight(MNMainActivity mainActivity, int orientation) {
+    public static float getPanelWindowLayoutHeight(MNMainActivity mainActivity, int orientation) {
         Resources resources = mainActivity.getResources();
 
         switch (orientation) {
+            // 높이 조절을 panel shadow 영역을 포함하게 구현
             case Configuration.ORIENTATION_PORTRAIT:
-                return resources.getDimension(R.dimen.widget_height) * 2
-                        + resources.getDimension(R.dimen.margin_outer)
-                        + resources.getDimension(R.dimen.margin_outer)
-                        + resources.getDimension(R.dimen.margin_inner);
+                // * 2 를 하면 dp 환산 과정에서 제대로 된 결과가 나오지 않기에 일부러
+                // int로 환산해서 더해줌
+                return (int) resources.getDimension(R.dimen.panel_height) +
+                        (int) resources.getDimension(R.dimen.panel_height);
+//                        + resources.getDimension(R.dimen.margin_outer)
+//                        + resources.getDimension(R.dimen.margin_outer)
+//                        + resources.getDimension(R.dimen.margin_inner);
 
             case Configuration.ORIENTATION_LANDSCAPE:
                 int deviceHeight = MNDeviceSizeInfo.getDeviceHeight(mainActivity);
@@ -233,7 +239,7 @@ public class MNMainLayoutSetter {
                         + getButtonLayoutHeight(mainActivity, Configuration.ORIENTATION_LANDSCAPE);
 
             default:
-                Log.e(TAG, "not expected orientation: " + orientation);
+                MNLog.e(TAG, "not expected orientation: " + orientation);
                 return -1;
         }
     }
@@ -252,13 +258,13 @@ public class MNMainLayoutSetter {
                                 + context.getResources().getDimension(R.dimen.margin_outer) * 2);
 
             default: // Test에서 Undefined 사용
-                Log.e(TAG, "not expected orientation: " + orientation);
+                MNLog.e(TAG, "not expected orientation: " + orientation);
                 return -1;
         }
     }
 
     public static float getScrollContentHeightExceptAlarmsOnPortrait(MNMainActivity mainActivity) {
-        return getWidgetWindowLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT)
+        return getPanelWindowLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT)
                 + getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT);
     }
 }

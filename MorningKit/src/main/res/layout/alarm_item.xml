@@ -93,7 +93,7 @@
             android:layout_height="@dimen/alarm_item_switch_size"
             android:layout_alignParentRight="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/selector_alarm_imagebutton"
+            android:src="@drawable/alarm_imagebutton_selector"
             android:background="#ffaa00aa"
             android:contentDescription="@string/loading"
             android:layout_centerInParent="true"/>

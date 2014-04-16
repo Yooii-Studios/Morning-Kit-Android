@@ -22,7 +22,7 @@
         android:maxLines="2"
         android:ellipsize="end"/>
 
-    <com.yooiistudios.morningkit.common.shadow.SlateThemeShadowLayout
+    <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
         android:id="@+id/unlock_shadow_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,7 +40,7 @@
             android:layout_below="@id/unlock_description_textview"
             android:dividerHeight="4dp"
             android:divider="#434343"/>
-    </com.yooiistudios.morningkit.common.shadow.SlateThemeShadowLayout>
+    </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
 
     <Button
         android:layout_width="wrap_content"

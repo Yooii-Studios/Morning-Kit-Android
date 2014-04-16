@@ -4,7 +4,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+' // 0.7.+ 로 해서 0.7.2 버전에 버그가 있음
+        classpath 'com.android.tools.build:gradle:0.9.+' // 0.7.+ 로 해서 0.7.2 버전에 버그가 있음
         // JaKe Wharton 것을 쓰다가 jcandksolutions가 문제를 해결해서 여기의 것을 사용
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
         classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.0.1'
@@ -26,7 +26,9 @@ android {
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 18
+        targetSdkVersion 19
+        versionCode 14
+        versionName "0.6.0"
         packageName "com.yooiistudios.morningkit"
     }
 
@@ -48,11 +50,19 @@ android {
     }
 
     sourceSets {
-        instrumentTest.setRoot('src/test')
+//        instrumentTest.setRoot('src/test')
+        androidTest.setRoot('src/test')
     }
+
     packagingOptions { // gralde 0.7.1 + Studio 0.4.0 에서 생긴 duplicate 버그를 해결하기 위함
-//        exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LGPL2.1'
     }
 }
 
@@ -66,7 +76,6 @@ apply plugin: 'android-unit-test'
 //}
 
 dependencies {
-
     // 내가 만든 모듈
     compile project(':libraries:SKAlarmManager')
     compile project(':libraries:SKAlarmSound')
@@ -74,7 +83,10 @@ dependencies {
 
     // 안드로이드 기본
     compile 'com.android.support:support-v4:+'
-	compile 'com.android.support:appcompat-v7:+'
+    compile 'com.android.support:appcompat-v7:+'
+
+    // 위치 서비스 관련
+    compile 'com.google.android.gms:play-services:4.2.+' // 4.0.+ 에서 버전업
 
     // 모든 jar 파일 로딩
     compile fileTree(dir: 'libs', include: '*.jar')
@@ -91,6 +103,20 @@ dependencies {
     // 설정앱에서 사용된 라이브러리
     compile 'com.nineoldandroids:library:2.4.0'
 
+    // 토스트를 다양하게 사용 가능
+    compile 'com.github.johnpersano:supertoasts:1.3.4@aar'
+
+    // a carefully crafted Android framework that includes:
+    // Clearable EditText 사용키 위함
+    compile 'org.droidparts:droidparts:2.0.1'
+
+    // IOUtils - bitmap 저장시 활용
+    compile 'commons-io:commons-io:2.4'
+
+    // 시간 관련 많이 쓰이는 오픈소스
+    compile 'joda-time:joda-time:2.3'
+
+
     //////////
     // TEST //
     //////////
@@ -98,21 +124,22 @@ dependencies {
     testCompile 'org.robolectric:robolectric:2.3-SNAPSHOT' // ActionBarActivity의 문제를 해결하고자 2.2에서 변경
     testCompile 'com.squareup:fest-android:1.0.+'
 
-    instrumentTestCompile 'junit:junit:4.10'
-    instrumentTestCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
-    instrumentTestCompile 'com.squareup:fest-android:1.0.+'
+//    instrumentTestCompile 'junit:junit:4.10'
+//    instrumentTestCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
+//    instrumentTestCompile 'com.squareup:fest-android:1.0.+'
+
+    androidTestCompile 'junit:junit:4.10'
+    androidTestCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
+    androidTestCompile 'com.squareup:fest-android:1.0.+'
 
     // 이미지 로딩 관련 유명
-//    compile 'com.squareup.picasso:picasso:2.1.1'
-
+    //    compile 'com.squareup.picasso:picasso:2.1.1'
     // http 관련
-//    compile 'com.squareup.okhttp:okhttp:1.2.1'
-
+    //    compile 'com.squareup.okhttp:okhttp:1.2.1'
     // HttpURLConnection을 깔끔하게 정리 / https://github.com/kevinsawicki/http-request
-//    compile 'com.github.kevinsawicki:http-request:5.4.1'
-
+    //    compile 'com.github.kevinsawicki:http-request:5.4.1'
     // xml 시리얼, 디시리얼라이즈 관련 / http://simple.sourceforge.net/home.php
-//    compile 'org.simpleframework:simple-xml:2.7.1'
+    //    compile 'org.simpleframework:simple-xml:2.7.1'
 }
 
 // 소스를 UTF-8로 컴파일, ../gradlew clean check 로 테스트할 경우 한글주석관련 warning을 없애기 위함
@@ -127,35 +154,3 @@ tasks.withType(Test) {
         events 'started', 'passed'
     }
 }
-
-/*
-def getSourceSetName(variant) {
-    return new File((String)variant.dirName).getName();
-}
-
-android.applicationVariants.all { variant ->
-    def aptOutputDir = project.file("build/source/apt")
-    def aptOutput = new File(aptOutputDir, variant.dirName)
-    println "****************************"
-    println "variant: ${variant.name}"
-    println "manifest:  ${variant.processResources.manifestFile}"
-    println "aptOutput:  ${aptOutput}"
-    println "****************************"
-
-    android.sourceSets[getSourceSetName(variant)].java.srcDirs+= aptOutput.getPath()
-
-    variant.javaCompile.options.compilerArgs += [
-            '-processorpath', configurations.apt.getAsPath(),
-            '-AandroidManifestFile=' + variant.processResources.manifestFile,
-            '-s', aptOutput
-    ]
-
-    variant.javaCompile.source = variant.javaCompile.source.filter { p ->
-        return !p.getPath().startsWith(aptOutputDir.getPath())
-    }
-
-    variant.javaCompile.doFirst {
-        aptOutput.mkdirs()
-    }
-}
-*/

@@ -234,4 +234,18 @@ public class MNSettingColors {
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
+
+    public static int getExchangeRatesForwardColor(MNThemeType themeType) {
+        switch (themeType) {
+            case WATER_LILY:
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case MODERNITY_WHITE:
+                return Color.parseColor("#99cfcfcf");
+
+            default:
+                return getForwardBackgroundColor(themeType);
+        }
+    }
 }

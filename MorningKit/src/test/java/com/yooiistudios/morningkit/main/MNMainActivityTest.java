@@ -28,7 +28,7 @@ import static org.junit.Assert.assertThat;
 // guide for using Robolectric and JUnit
 // Class name must be ended with xxxTest in test class
 @RunWith(RobolectricGradleTestRunner.class)
-@Config (shadows = { AdWebViewShadow.class })
+@Config (shadows = { AdWebViewShadow.class }, emulateSdk = 18)
 public class MNMainActivityTest {
 
     MNMainActivity mainActivity;
@@ -51,8 +51,8 @@ public class MNMainActivityTest {
         assertThat(mainActivity.getAlarmListView(), notNullValue());
         assertThat(mainActivity.getAlarmListView(), instanceOf(MNMainAlarmListView.class));
 
-        assertThat(mainActivity.getWidgetWindowLayout(), notNullValue());
-        assertThat(mainActivity.getWidgetWindowLayout(), instanceOf(MNWidgetWindowLayout.class));
+        assertThat(mainActivity.getPanelWindowLayout(), notNullValue());
+        assertThat(mainActivity.getPanelWindowLayout(), instanceOf(MNPanelWindowLayout.class));
 
         assertThat(mainActivity.getButtonLayout(), notNullValue());
         assertThat(mainActivity.getButtonLayout(), instanceOf(RelativeLayout.class));

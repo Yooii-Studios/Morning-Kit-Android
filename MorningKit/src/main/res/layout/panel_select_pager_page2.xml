@@ -2,23 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_selector_page2_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:weightSum="2"
     android:padding="@dimen/margin_inner" >
 
     <LinearLayout
         android:id="@+id/widget_selector_page2_line1_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:weightSum="3"
         android:orientation="horizontal"
         android:baselineAligned="false">
+
         <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
             android:id="@+id/widget_selector_page2_1_shadow_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dip"
+            android:layout_height="@dimen/panel_select_pager_item_height"
             android:layout_weight="1">
             <TextView
                 android:id="@+id/widget_selector_page2_1_textview"
@@ -29,10 +28,11 @@
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
         </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+
         <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
             android:id="@+id/widget_selector_page2_2_shadow_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dip"
+            android:layout_height="@dimen/panel_select_pager_item_height"
             android:layout_weight="1">
             <TextView
                 android:id="@+id/widget_selector_page2_2_textview"
@@ -52,10 +52,11 @@
                 android:layout_marginRight="@dimen/margin_inner"
                 android:background="@drawable/panel_lock_icon_classic_white"/>
         </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+
         <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
             android:id="@+id/widget_selector_page2_3_shadow_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dip"
+            android:layout_height="@dimen/panel_select_pager_item_height"
             android:layout_weight="1">
             <TextView
                 android:id="@+id/widget_selector_page2_3_textview"
@@ -80,14 +81,14 @@
     <LinearLayout
         android:id="@+id/widget_selector_page2_line2_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:weightSum="3"
         android:baselineAligned="false">
+
         <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
             android:id="@+id/widget_selector_page2_4_shadow_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dip"
+            android:layout_height="@dimen/panel_select_pager_item_height"
             android:layout_weight="1">
             <TextView
                 android:id="@+id/widget_selector_page2_4_textview"
@@ -98,10 +99,11 @@
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
         </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+
         <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
             android:id="@+id/widget_selector_page2_5_shadow_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dip"
+            android:layout_height="@dimen/panel_select_pager_item_height"
             android:layout_weight="1">
             <TextView
                 android:id="@+id/widget_selector_page2_5_textview"
@@ -112,10 +114,11 @@
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
         </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+
         <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
             android:id="@+id/widget_selector_page2_6_shadow_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dip"
+            android:layout_height="@dimen/panel_select_pager_item_height"
             android:layout_weight="1">
             <TextView
                 android:id="@+id/widget_selector_page2_6_textview"

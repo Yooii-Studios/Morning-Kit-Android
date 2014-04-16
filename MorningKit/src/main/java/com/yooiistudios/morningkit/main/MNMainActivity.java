@@ -6,23 +6,24 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.google.ads.Ad;
-import com.google.ads.AdListener;
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.otto.Subscribe;
-import com.urqa.clientinterface.URQAController;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
+import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.validate.AppValidationChecker;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
+import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 
 import java.io.IOException;
@@ -38,16 +39,18 @@ import lombok.Getter;
  * MNMainActivity
  *  앱에서 가장 중요한 메인 액티비티
  */
-public class MNMainActivity extends Activity implements AdListener
+public class MNMainActivity extends Activity
 {
     private static final String TAG = "MNMainActivity";
 
     @Getter @InjectView(R.id.main_container_layout) RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view) MNMainScrollView scrollView;
     @Getter @InjectView(R.id.main_scroll_content_layout) LinearLayout scrollContentLayout;
-    @Getter @InjectView(R.id.main_widget_window_layout) MNWidgetWindowLayout widgetWindowLayout;
+    @Getter @InjectView(R.id.main_widget_window_layout) MNPanelWindowLayout panelWindowLayout;
     @Getter @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView alarmListView;
     @Getter @InjectView(R.id.main_button_layout) RelativeLayout buttonLayout;
+    @Getter @InjectView(R.id.main_refresh_imageview) ImageView refreshImageView;
+    @Getter @InjectView(R.id.main_refresh_imageview) ImageView settingImageView;
     @Getter @InjectView(R.id.main_admob_layout) RelativeLayout admobLayout;
     @Getter @InjectView(R.id.adView) AdView adView;
 
@@ -56,6 +59,11 @@ public class MNMainActivity extends Activity implements AdListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 미리 정한 날짜가 지나면 앱이 죽게 변경, 출시시에 풀어야함, MNLog것을 써도 무방할듯
+        if (MNLog.isDebug) {
+            AppValidationChecker.validationCheck(this);
+        }
 
         // 알람이 있을 경우는 화면을 켜주게 구현
         if (MNAlarmWake.isAlarmReserved(getIntent())) {
@@ -67,8 +75,8 @@ public class MNMainActivity extends Activity implements AdListener
 
         setContentView(R.layout.activity_main);
 
-        // UrQA 라이브러리 추가
-        URQAController.InitializeAndStartSession(getApplicationContext(), String.valueOf(72369777));
+//        UrQA 라이브러리 추가 - 취소, TestFairy 쓸 예정
+//        URQAController.InitializeAndStartSession(getApplicationContext(), String.valueOf(72369777));
         initMainActivity();
         scrollView.smoothScrollTo(0, 0);
     }
@@ -81,12 +89,17 @@ public class MNMainActivity extends Activity implements AdListener
 //        AppValidationChecker.validationCheck(this);
 
         // 위젯 윈도우
-        widgetWindowLayout.initWithWidgetMatrix();
+        panelWindowLayout.initWithWidgetMatrix();
 
         // 알람
         alarmListView.initWithListAdapter();
 
         // 애드몹
+        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+//                .addTestDevice("TEST_DEVICE_ID")
+                .build();
+        adView.loadAd(adRequest);
 //        adView = new AdView(this, AdSize.BANNER, MN.ads.ADMOB_ID);
 //        admobLayout.addView(adView);
 //        adView.loadAd(new AdRequest());
@@ -126,8 +139,6 @@ public class MNMainActivity extends Activity implements AdListener
     @Override
     protected void onResume() {
         // Activity visible to user
-        Log.i(TAG, "onResume");
-
         MNAlarmScrollViewBusProvider.getInstance().register(this);
 
         // Alarm
@@ -138,6 +149,7 @@ public class MNMainActivity extends Activity implements AdListener
 
         // 테마와 관련된 작업 실행
 //        containerLayout.setBackgroundColor(Color.WHITE);
+        panelWindowLayout.applyTheme();
 
         // 버튼 레이아웃
         GradientDrawable buttonShape = (GradientDrawable) buttonLayout.getBackground();
@@ -147,6 +159,7 @@ public class MNMainActivity extends Activity implements AdListener
         // 애드몹 레이아웃
         admobLayout.setBackgroundColor(Color.parseColor("#BB000000"));
         super.onResume();
+        adView.resume();
     }
 
     @Override
@@ -159,7 +172,7 @@ public class MNMainActivity extends Activity implements AdListener
     protected void onPause()
     {
         // Partially visible
-
+        adView.pause();
         super.onPause();
     }
 
@@ -188,7 +201,7 @@ public class MNMainActivity extends Activity implements AdListener
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        Log.i(TAG, "onConfigurationChanged");
+        MNLog.i(TAG, "onConfigurationChanged");
         final Configuration config = newConfig;
         containerLayout.post(new Runnable() {
             @Override
@@ -196,7 +209,7 @@ public class MNMainActivity extends Activity implements AdListener
                 // 스크롤뷰
                 MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(scrollView, config.orientation);
                 // 위젯윈도우 레이아웃
-                MNMainLayoutSetter.adjustWidgetLayoutParamsAtOrientation(MNMainActivity.this, config.orientation);
+                MNMainLayoutSetter.adjustPanelLayoutParamsAtOrientation(MNMainActivity.this, config.orientation);
                 // 버튼 레이아웃
                 MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(buttonLayout, config.orientation);
                 // 애드몹 레이아웃
@@ -222,17 +235,21 @@ public class MNMainActivity extends Activity implements AdListener
     /**
      * OnClick
      */
-    @OnClick(R.id.main_refresh_image) void refreshButtonClicked() {
-        Log.i(TAG, "refreshButtonClicked");
+    @OnClick(R.id.main_refresh_imageview) void refreshButtonClicked() {
+        MNLog.i(TAG, "refreshButtonClicked");
+
+        // 기획 변경 -> 리프레시 버튼 누르면 2초 동안은 동작하지 않음
+        panelWindowLayout.refreshAllPanels();
     }
 
-    @OnClick(R.id.main_configure_image) void settingButtonClicked() {
+    @OnClick(R.id.main_setting_imageview) void settingButtonClicked() {
         startActivity(new Intent(MNMainActivity.this, MNSettingActivity.class));
     }
 
     /**
      * Admob
      */
+    /*
     @Override
     public void onDismissScreen(Ad arg0) {
     }
@@ -252,6 +269,21 @@ public class MNMainActivity extends Activity implements AdListener
 
     @Override
     public void onReceiveAd(Ad arg0) {
+    }
+    */
+    /**
+     * Panel
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MNPanel.PANEL_DETAIL_ACTIVITY && resultCode == RESULT_OK) {
+            if (data.getBooleanExtra(MNPanel.PANEL_CHANGED, false)) {
+                panelWindowLayout.replacePanel(data);
+            } else {
+                panelWindowLayout.refreshPanel(data);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**

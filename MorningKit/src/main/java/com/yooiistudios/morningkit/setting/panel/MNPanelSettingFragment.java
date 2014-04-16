@@ -14,13 +14,13 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.panel.MNPanel;
-import com.yooiistudios.morningkit.panel.MNPanelType;
-import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerAdapter;
-import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerInterface;
-import com.yooiistudios.morningkit.panel.selectpager.MNPanelSelectPagerLayout;
-import com.yooiistudios.morningkit.panel.selectpager.fragment.MNPanelSelectPagerFirstFragment;
-import com.yooiistudios.morningkit.panel.selectpager.fragment.MNPanelSelectPagerSecondFragment;
+import com.yooiistudios.morningkit.panel.core.MNPanel;
+import com.yooiistudios.morningkit.panel.core.MNPanelType;
+import com.yooiistudios.morningkit.panel.core.selectpager.MNPanelSelectPagerAdapter;
+import com.yooiistudios.morningkit.panel.core.selectpager.MNPanelSelectPagerInterface;
+import com.yooiistudios.morningkit.panel.core.selectpager.MNPanelSelectPagerLayout;
+import com.yooiistudios.morningkit.panel.core.selectpager.fragment.MNPanelSelectPagerFirstFragment;
+import com.yooiistudios.morningkit.panel.core.selectpager.fragment.MNPanelSelectPagerSecondFragment;
 import com.yooiistudios.morningkit.setting.panel.animate.MNTwinkleAnimator;
 import com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem;
 import com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItemBuilder;
@@ -30,6 +30,9 @@ import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,17 +54,12 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
     @InjectView(R.id.setting_panel_matrix_layout_line_2) LinearLayout panelMatrixItemLayoutLine2;
 
     ArrayList<MNSettingPanelMatrixItem> panelMatrixItems;
-    @InjectView(R.id.setting_panel_matrix_item_1)
-    MNSettingPanelMatrixItem panelMatrixItem1;
-    @InjectView(R.id.setting_panel_matrix_item_2)
-    MNSettingPanelMatrixItem panelMatrixItem2;
-    @InjectView(R.id.setting_panel_matrix_item_3)
-    MNSettingPanelMatrixItem panelMatrixItem3;
-    @InjectView(R.id.setting_panel_matrix_item_4)
-    MNSettingPanelMatrixItem panelMatrixItem4;
+    @InjectView(R.id.setting_panel_matrix_item_1) MNSettingPanelMatrixItem panelMatrixItem1;
+    @InjectView(R.id.setting_panel_matrix_item_2) MNSettingPanelMatrixItem panelMatrixItem2;
+    @InjectView(R.id.setting_panel_matrix_item_3) MNSettingPanelMatrixItem panelMatrixItem3;
+    @InjectView(R.id.setting_panel_matrix_item_4) MNSettingPanelMatrixItem panelMatrixItem4;
 
-    @InjectView(R.id.setting_panel_select_pager_layout)
-    MNPanelSelectPagerLayout panelSelectPagerLayout;
+    @InjectView(R.id.setting_panel_select_pager_layout) MNPanelSelectPagerLayout panelSelectPagerLayout;
 
     // for blur/clear animation
     boolean isPanelMatrixItemPressed = false;
@@ -97,19 +95,34 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
             panelMatrixItems.add(panelMatrixItem4);
 
             // pager
-            panelSelectPagerLayout.loadPanelSelectPager(this, this);
+            panelSelectPagerLayout.loadPanelSelectPager(getChildFragmentManager(), this);
         }
         return rootView;
     }
 
     // 현재의 패널 세팅을 가져 와서 지역화된 패널 이름과 테마가 적용된 패널 이미지를 적용
     private void initPanelMatrixItems() {
-        List<Integer> panelList = MNPanel.getPanelUniqueIdList(getActivity());
+        // 기존 uniqueIdList에서 panelDataObject에서 id를 얻게 코드 변경
+        List<JSONObject> panelDataObjects = MNPanel.getPanelDataList(getActivity());
+        try {
+            MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem1,
+                    MNPanelType.valueOfUniqueId(panelDataObjects.get(0).getInt(MNPanel.PANEL_UNIQUE_ID)),
+                    getActivity(), 0, this);
 
-        MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem1, MNPanelType.valueOfUniqueId(panelList.get(0)), getActivity(), 0, this);
-        MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem2, MNPanelType.valueOfUniqueId(panelList.get(1)), getActivity(), 1, this);
-        MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem3, MNPanelType.valueOfUniqueId(panelList.get(2)), getActivity(), 2, this);
-        MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem4, MNPanelType.valueOfUniqueId(panelList.get(3)), getActivity(), 3, this);
+            MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem2,
+                    MNPanelType.valueOfUniqueId(panelDataObjects.get(1).getInt(MNPanel.PANEL_UNIQUE_ID)),
+                    getActivity(), 1, this);
+
+            MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem3,
+                    MNPanelType.valueOfUniqueId(panelDataObjects.get(2).getInt(MNPanel.PANEL_UNIQUE_ID)),
+                    getActivity(), 2, this);
+
+            MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem4,
+                    MNPanelType.valueOfUniqueId(panelDataObjects.get(3).getInt(MNPanel.PANEL_UNIQUE_ID)),
+                    getActivity(), 3, this);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     // 위젯 2*1 / 2*2 체크
@@ -124,6 +137,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
     @Override
     public void onResume() {
         super.onResume();
+
         getView().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(MNTheme.getCurrentThemeType(getActivity())));
         checkPanelMatrix();
         initPanelMatrixItems();
@@ -143,6 +157,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         if (isPanelSelectPagerItemPressed) {
             clearPanelSelectPagerAnimation(pressedSelectPagerItemIndex);
         }
+        cancelGuideAnimation();
     }
 
     @Override
@@ -539,7 +554,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         }
 
         // 변경된 위젯 타입 아카이빙
-        MNPanel.changePanel(getActivity(), panelTypeToBeChanged.getUniqueId(), panelMatrixItemIndex);
+        MNPanel.changeToEmptyDataPanel(getActivity(), panelTypeToBeChanged.getUniqueId(), panelMatrixItemIndex);
     }
 
     @Override

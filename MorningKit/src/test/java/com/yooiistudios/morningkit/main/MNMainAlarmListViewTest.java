@@ -31,7 +31,7 @@ import static org.junit.Assert.assertTrue;
  *  회전시 레이아웃이 원하는 대로 설정되는지 여부를 테스트
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(shadows = { AdWebViewShadow.class }, reportSdk = 14)
+@Config(shadows = { AdWebViewShadow.class }, emulateSdk = 18) //, reportSdk = 14)
 public class MNMainAlarmListViewTest {
     private static final String TAG = "MNMainAlarmListViewTest";
     MNMainActivity mainActivity;
@@ -92,10 +92,10 @@ public class MNMainAlarmListViewTest {
         // 알람 추가 및 갱신
         int sizeOfAlarmList = MNAlarmListManager.getAlarmList(context).size();
         assertThat(sizeOfAlarmList, is(not(0)));
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             MNAlarmListManager.addAlarmToAlarmList(MNAlarmMaker.makeAlarm(context), context);
         }
-        assertThat(MNAlarmListManager.getAlarmList(context).size(), is(sizeOfAlarmList + 2));
+        assertThat(MNAlarmListManager.getAlarmList(context).size(), is(sizeOfAlarmList + 3));
         MNAlarmListManager.saveAlarmList(mainActivity);
 
         // 방향 지정(리프레시)
@@ -125,6 +125,10 @@ public class MNMainAlarmListViewTest {
         float bottomLayoutHeight = MNMainLayoutSetter.getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT);
 
         // 디바이스 높이만큼은 아니지만 버튼 레이아웃을 가릴 정도인지 확인
+        Log.i(TAG, "scrollContentHeightExceptAlarms: " + scrollContentHeightExceptAlarms);
+        Log.i(TAG, "alarmListViewContentHeight: " + alarmListViewContentHeight);
+        Log.i(TAG, "MNDeviceSizeInfo.getDeviceHeight(context): " + MNDeviceSizeInfo.getDeviceHeight(context));
+        Log.i(TAG, "bottomLayoutHeight: " + bottomLayoutHeight);
         assertTrue(scrollContentHeightExceptAlarms + alarmListViewContentHeight > MNDeviceSizeInfo.getDeviceHeight(context) - bottomLayoutHeight);
 
         // 스크롤뷰컨테이너 레이아웃의 높이가 scrollContentHeight 인지 확인

@@ -91,11 +91,14 @@ public class MNThemePhotoListAdapter extends BaseAdapter {
 
             // theme - shadow
             RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
+
+            // 기존 동적 생성에서 색상 값만 바꾸어 주게 변경
+//            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
+            MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, activity);
 
             // onClick
-            if (newShadowRelativeLayout != null) {
-                newShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            if (roundShadowRelativeLayout != null) {
+                roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (MNSound.isSoundOn(activity)) {

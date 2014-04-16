@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.android.tools.build:gradle:0.9.+'
     }
 }
 apply plugin: 'android-library'
@@ -18,12 +18,16 @@ android {
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 18
+        targetSdkVersion 19
         versionCode Integer.parseInt(project.VERSION_CODE) // in gradle.properties
         versionName project.VERSION_NAME
     }
-    release {
-        runProguard false
-        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-    }
+
+//    buildTypes {
+//        release {
+//            runProguard false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+//            signingConfig signingConfigs.release
+//        }
+//    }
 }

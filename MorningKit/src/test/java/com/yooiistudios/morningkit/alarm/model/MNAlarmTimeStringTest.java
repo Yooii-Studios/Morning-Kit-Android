@@ -26,7 +26,7 @@ import static org.junit.Assert.assertThat;
  *  시, 분 -> String 으로 변환해주는 유틸리티 클래스 테스트
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(shadows = { AdWebViewShadow.class })
+@Config(shadows = { AdWebViewShadow.class }, emulateSdk = 18)
 public class MNAlarmTimeStringTest {
     MNMainActivity mainActivity;
     Context context;

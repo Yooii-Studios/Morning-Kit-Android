@@ -26,7 +26,7 @@ import static org.junit.Assert.assertThat;
  *  메인 스크롤뷰의 높이와 컨텐츠 높이를 테스트
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(shadows = { AdWebViewShadow.class })
+@Config(shadows = { AdWebViewShadow.class }, emulateSdk = 18)
 public class MNMainScrollViewTest {
     private static final String TAG = "MNMainScrollViewTest";
     MNMainActivity mainActivity;

@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.setting.store.iab;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.store.util.IabResult;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
@@ -49,7 +50,7 @@ public class SKIabManager {
             public void onIabSetupFinished(IabResult result) {
                 if (!result.isSuccess()) {
                     // Oh noes, there was a problem.
-                    Log.d(TAG, "Problem setting up In-app Billing: " + result);
+                    MNLog.e(TAG, "Problem setting up In-app Billing: " + result);
                     iapManagerListener.onIabSetupFailed(result);
                     return;
                 }

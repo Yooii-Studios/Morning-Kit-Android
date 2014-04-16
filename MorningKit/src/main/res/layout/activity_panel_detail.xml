@@ -1,0 +1,21 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/panel_detail_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailActivity"
+    tools:ignore="MergeRootFrame">
+
+    <RelativeLayout
+        android:id="@+id/panel_detail_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/panel_detail_select_pager_layout"/>
+
+    <com.yooiistudios.morningkit.panel.core.selectpager.MNPanelSelectPagerLayout
+        android:id="@+id/panel_detail_select_pager_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/panel_select_pager_height"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

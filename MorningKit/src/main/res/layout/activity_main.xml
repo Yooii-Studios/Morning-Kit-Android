@@ -5,13 +5,12 @@
     android:layout_height="match_parent"
     android:background="#ffdda2"
     tools:context=".MainActivity"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame">
 
     <com.yooiistudios.morningkit.main.MNMainScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/main_scroll_view"
-        android:layout_gravity="left|top"
         android:fillViewport="true"
         android:background="#ddff50">
 
@@ -19,17 +18,16 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/main_scroll_content_layout"
-            android:background="#ca22ac">
+            android:id="@+id/main_scroll_content_layout">
 
-            <com.yooiistudios.morningkit.main.MNWidgetWindowLayout
+            <com.yooiistudios.morningkit.main.MNPanelWindowLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/main_widget_window_layout_height"
-                android:background="#ffaaaa"
+                android:layout_height="@dimen/main_panel_window_layout_height"
                 android:id="@+id/main_widget_window_layout"
                 android:layout_marginTop="@dimen/margin_inner"
                 android:layout_marginLeft="@dimen/margin_inner"
-                android:layout_marginRight="@dimen/margin_inner"/>
+                android:layout_marginRight="@dimen/margin_inner"
+                android:background="#3f003f"/>
 
             <com.yooiistudios.morningkit.main.MNMainAlarmListView
                 android:layout_width="match_parent"
@@ -57,10 +55,10 @@
         <ImageView
             android:layout_width="38dp"
             android:layout_height="38dp"
-            android:id="@+id/main_refresh_image"
+            android:id="@+id/main_refresh_imageview"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_refresh_off_s3"
+            android:src="@drawable/main_refresh_button_selector_classic_gray"
             android:scaleType="fitCenter"
             android:layout_alignParentStart="false"
             android:contentDescription="@string/loading"/>
@@ -68,29 +66,28 @@
         <ImageView
             android:layout_width="38dp"
             android:layout_height="38dp"
-            android:id="@+id/main_configure_image"
+            android:id="@+id/main_setting_imageview"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_setting_off_s3"
+            android:src="@drawable/main_setting_button_selector_classic_gray"
             android:scaleType="fitCenter"
             android:contentDescription="@string/loading"/>
     </RelativeLayout>
 
     <RelativeLayout
-        xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="50dip"
         android:layout_alignParentBottom="true"
         android:id="@+id/main_admob_layout"
         android:background="#77ff77">
 
-        <com.google.ads.AdView
+        <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             ads:adSize="BANNER"
             ads:adUnitId="a15278abca8d8ec"
-            ads:loadAdOnCreate="true"
             android:gravity="center_horizontal" />
 
     </RelativeLayout>

@@ -53,21 +53,16 @@ public class SKCameraThemeView extends SurfaceView implements
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
 
-		Log.i(TAG, "surfaceChanged");
-		
 		// 후면 카메라가 없다면 null 값이 뜸
 		if (mCamera != null) {
 			// 방향에 따라 카메라 회전
 			int rotation = ((Activity)m_context).getWindowManager().getDefaultDisplay().getRotation();
 			if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) {
-				Log.i(TAG, "0");
-				mCamera.setDisplayOrientation(90);		
+				mCamera.setDisplayOrientation(90);
 			}else if(rotation == Surface.ROTATION_90){
-				Log.i(TAG, "90");
-				mCamera.setDisplayOrientation(0);	
+				mCamera.setDisplayOrientation(0);
 			}else if (rotation == Surface.ROTATION_270) {
-				Log.i(TAG, "270");
-				mCamera.setDisplayOrientation(180);	
+				mCamera.setDisplayOrientation(180);
 			}
 			
 			// 표시할 영역의 크기를 알았으므로 해당 크기로 Preview를 시작합니다.
@@ -168,7 +163,6 @@ public class SKCameraThemeView extends SurfaceView implements
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		// 다른 화면으로 돌아가면, Surface가 소멸됩니다. 따라서 카메라의 Preview도 중지해야 합니다. 카메라는 공유할 수 있는 자원이 아니기에, 사용하지 않을
 		// 경우 -액티비티가 일시정지 상태가 된 경우 등 - 자원을 반환해야합니다.
-		Log.i(TAG, "surfaceDestroyed");
 		if (mCamera != null) {
 			mCamera.stopPreview();
 			mCamera.release(); 

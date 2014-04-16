@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/panel_calendar_event_item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#38aa38"
+    android:orientation="vertical"
+    android:layout_marginTop="1dp">
+
+    <TextView
+        android:id="@+id/panel_calendar_event_item_time_textview"
+        android:layout_width="@dimen/panel_calendar_item_time_textview_width"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="오후 06:00"
+        android:background="#3311ff"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/panel_calendar_item_textview_font_size"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_marginLeft="@dimen/margin_inner"/>
+
+    <TextView
+        android:id="@+id/panel_calendar_event_item_title_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:text="테스트 오후 일정"
+        android:background="#ff11ff"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/panel_calendar_item_textview_font_size"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_toRightOf="@+id/panel_calendar_event_item_time_textview"
+        android:layout_marginLeft="@dimen/margin_inner"
+        android:layout_marginRight="@dimen/margin_inner"/>
+
+    <View
+        android:id="@+id/panel_calendar_event_item_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#000000"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_below="@id/panel_calendar_event_item_time_textview"/>
+
+</RelativeLayout>

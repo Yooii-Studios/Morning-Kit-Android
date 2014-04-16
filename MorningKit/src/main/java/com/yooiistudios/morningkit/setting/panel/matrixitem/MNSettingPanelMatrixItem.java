@@ -14,8 +14,7 @@ import android.widget.TextView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
-import com.yooiistudios.morningkit.panel.MNPanelType;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.panel.core.MNPanelType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,11 +28,9 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
 
     @Getter @Setter TextView panelNameTextView;
     @Getter @Setter ImageView panelImageView;
-    @Getter @Setter
-    RoundShadowRelativeLayout shadowLayout;
+    @Getter @Setter RoundShadowRelativeLayout shadowLayout;
     @Getter @Setter RelativeLayout containerLayout;
-    @Getter @Setter
-    MNPanelType panelType;
+    @Getter @Setter MNPanelType panelType;
 
     private Context context;
     private AttributeSet attrs;
@@ -69,7 +66,14 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
                     ViewGroup.LayoutParams.MATCH_PARENT);
             shadowLayout.setLayoutParams(shadowLayoutParams);
             addView(shadowLayout);
-            shadowLayout = MNShadowLayoutFactory.changeShadowLayout(MNTheme.getCurrentThemeType(getContext()), shadowLayout, this);
+
+            // 기존의 테마별 동적 생성이 아닌, 색만 교체하는 방식으로 로직 개선
+//            shadowLayout = MNShadowLayoutFactory.changeShadowLayout(MNTheme.getCurrentThemeType(getContext()), shadowLayout, this);
+            // 동적이 아닌 방식으로 처리
+            MNShadowLayoutFactory.changeThemeOfShadowLayout(shadowLayout, context);
+            //
+
+            // 터치 색은 forward색과 같게 처리
             shadowLayout.setPressedColor(shadowLayout.getSolidAreaColor());
 
             // container layout

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/panel_exchange_rates_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:baselineAligned="false"
+        android:layout_margin="@dimen/panel_detail_padding">
+
+        <com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesInfoLayout
+            android:id="@+id/panel_exchange_rates_info_layout_base"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/panel_detail_padding_inner"
+            android:gravity="center"
+            android:background="#cfcfcf">
+        </com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesInfoLayout>
+
+        <com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesInfoLayout
+            android:id="@+id/panel_exchange_rates_info_layout_target"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/panel_detail_padding_inner"
+            android:layout_gravity="center"
+            android:background="#cfcfcf">
+        </com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesInfoLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/panel_exchange_rates_edit_text_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
+        android:orientation="horizontal"
+        android:background="#cfcfcf"
+        android:layout_marginLeft="@dimen/panel_detail_padding"
+        android:layout_marginRight="@dimen/panel_detail_padding"
+        android:weightSum="2"
+        android:baselineAligned="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/panel_detail_padding">
+
+            <EditText
+                android:id="@+id/panel_exchange_rates_edit_base_symbol"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:editable="false"
+                android:gravity="right|center_vertical"
+                android:text="$"
+                android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                android:background="#00000000"
+                android:focusable="false">
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/panel_exchange_rates_edit_base"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:digits="0123456789.,"
+                android:inputType="numberDecimal"
+                android:padding="0dip"
+                android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                android:singleLine="true"
+                android:background="#00000000"
+                android:gravity="left|center_vertical"
+                android:text="100"
+                android:layout_toRightOf="@+id/panel_exchange_rates_edit_base_symbol">
+                <requestFocus />
+            </EditText>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/panel_detail_padding">
+
+            <EditText
+                android:id="@+id/panel_exchange_rates_edit_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cursorVisible="false"
+                android:editable="false"
+                android:gravity="right|center_vertical"
+                android:inputType="numberDecimal"
+                android:padding="0dip"
+                android:text="$1.35"
+                android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                android:background="#00000000"
+                android:focusable="false"/>
+
+        </RelativeLayout>
+
+        <!--
+        <LinearLayout
+            android:id="@+id/exchange_layout_editbox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:orientation="horizontal"
+            android:padding="15dip" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="20dip" >
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="44"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:minHeight="20dip" >
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="45"
+                android:minHeight="20dip" >
+
+
+            </LinearLayout>
+        </LinearLayout>
+        -->
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/panel_exchange_rates_swap_textview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
+        android:layout_margin="@dimen/panel_detail_padding"
+        android:gravity="center"
+        android:text="@string/exchange_rate_switch_countries"
+        android:textStyle="bold"
+        android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+        android:background="#cfcfcf"/>
+
+</LinearLayout>

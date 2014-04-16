@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/panel_detail_world_clock_linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#333333"
+    android:orientation="vertical"
+    android:padding="@dimen/panel_detail_padding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/panel_detail_world_clock_clockType_textview"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/panel_detail_world_clock_clockType_checkbox_analog"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/world_clock_clock_type_text"
+            android:textSize="17dp"
+            android:textColor="#ffffff"/>
+
+        <CheckBox
+            android:id="@+id/panel_detail_world_clock_clockType_checkbox_analog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/panel_detail_world_clock_clockType_checkbox_digital"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_outer"
+            android:text="@string/world_clock_analog"
+            android:textSize="15sp"
+            android:textColor="#ffffff" />
+        
+        <CheckBox
+            android:id="@+id/panel_detail_world_clock_clockType_checkbox_digital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/world_clock_digital"
+            android:textSize="15sp"
+            android:textColor="#ffffff"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/panel_detail_world_clock_use_24_hour_format_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_outer">
+
+        <TextView
+            android:id="@+id/panel_detail_world_clock_use_24_hour_format_textview"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:layout_toLeftOf="@+id/panel_detail_world_clock_use_24_hour_format_checkbox"
+            android:gravity="center_vertical"
+            android:text="@string/world_clock_use_24_hour_format"
+            android:textSize="17dp"
+            android:textColor="#ffffff" />
+
+        <CheckBox
+            android:id="@+id/panel_detail_world_clock_use_24_hour_format_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/panel_detail_world_clock_search_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/margin_outer" >
+
+        <EditText
+            android:id="@+id/panel_detail_world_clock_search_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:ems="5"
+            android:hint="@string/weather_search_city"
+            android:singleLine="true"
+            android:textSize="17sp" />
+
+        <!--
+        <Button
+            android:id="@+id/worldclock_removeAllButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical|right"
+                android:layout_marginBottom="8dip"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dip"
+            android:background="@drawable/navigation_cancel"
+            android:onClick="onRemoveAllButtonClikced" />
+            -->
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_outer" >
+
+        <ListView
+            android:id="@+id/panel_detail_world_clock_search_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="#00000000"
+            android:dividerHeight="0.5dp"
+            android:divider="#ffffffff" >
+        </ListView>
+
+        <TextView
+            android:id="@+id/panel_detail_world_clock_no_search_result_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            android:gravity="center_horizontal"
+            android:text="@string/no_search_result"
+            android:textSize="17dp"
+            android:textColor="#ffffff"/>
+
+    </FrameLayout>
+</LinearLayout>

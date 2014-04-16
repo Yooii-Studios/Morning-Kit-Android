@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView
+        android:id="@+id/exchangerate_item_currency_image_countryflag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginBottom="3dip" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/exchangerate_item_currency_text_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dip"
+            android:layout_marginTop="3dip" />
+
+        <TextView
+            android:id="@+id/exchangerate_item_currency_text_currencyname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dip" />
+    </LinearLayout>
+
+</LinearLayout>

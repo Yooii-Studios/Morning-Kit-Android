@@ -25,7 +25,7 @@ import static org.junit.Assert.assertThat;
  * MNMainButtonLayoutTest
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config (shadows = { AdWebViewShadow.class })
+@Config (shadows = { AdWebViewShadow.class }, emulateSdk = 18)
 public class MNMainButtonLayoutTest {
 
     MNMainActivity mainActivity;

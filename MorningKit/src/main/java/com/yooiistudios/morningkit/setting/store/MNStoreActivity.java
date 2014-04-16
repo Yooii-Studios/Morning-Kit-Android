@@ -38,7 +38,7 @@ public class MNStoreActivity extends MNSettingDetailActivity {
 
             // Replace whatever is in the fragment_container view with this fragment,
             // and add the transaction to the back stack
-            storeFragment = new MNStoreFragment(null);
+            storeFragment = new MNStoreFragment();
             transaction.replace(R.id.store_container, storeFragment);
 
             // Commit the transaction

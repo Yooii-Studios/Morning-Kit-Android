@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_outer">
+
+    <TextView
+        android:id="@+id/panel_detail_world_clock_list_item_city_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seoul"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/panel_detail_world_clock_list_item_timezone_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Korea Standard Time"/>
+
+</LinearLayout>

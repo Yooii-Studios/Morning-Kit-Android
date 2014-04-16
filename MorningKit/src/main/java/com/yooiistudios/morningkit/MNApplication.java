@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit;
 import android.app.Application;
 import android.content.res.Configuration;
 
+import com.testflightapp.lib.TestFlight;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
@@ -34,6 +35,9 @@ public class MNApplication extends Application {
     {
         super.onCreate();
 
+        //Initialize TestFlight with your app token.
+//        TestFlight.takeOff(this, "2d9ad656-0548-41d6-a963-7cab9b0b352e");
+
         Configuration config = getBaseContext().getResources().getConfiguration();
 
         // load language from MNLanguage
@@ -44,5 +48,14 @@ public class MNApplication extends Application {
         Locale.setDefault(locale);
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+        // https://gist.github.com/benelog/5954649
+        // Activity나 Application 등 UI스레드 아래와 같이 AsyncTask를 한번 호출합니다.
+        // 메인스레드에서 단순히 클래스 로딩을 한번만 해도 AsyncTask내의 static 멤버 변수가 정상적으로 초기화됩니다.
+        try {
+            Class.forName("android.os.AsyncTask");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

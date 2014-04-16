@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -15,7 +14,6 @@ import android.view.MenuItem;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
-import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
@@ -60,7 +58,6 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setTitle("Main");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(R.drawable.status_bar_icon);
 
@@ -71,6 +68,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         } else {
             latestTabIndex = 0;
         }
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new MNSettingSectionsPagerAdapter(getSupportFragmentManager(), this);
@@ -105,7 +103,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
 
     private void applyLocaledTabName() {
         final ActionBar actionBar = getSupportActionBar();
-
+        actionBar.setTitle(R.string.action_bar_up_button_main);
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
             actionBar.getTabAt(i).setText(mSectionsPagerAdapter.getPageTitle(i));
         }
@@ -115,6 +113,8 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
     protected void onResume() {
         super.onResume();
         applyLocaledTabName();
+
+        // Sound
         AudioManager mgr = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         mgr.setStreamMute(AudioManager.STREAM_SYSTEM, true);
     }
@@ -137,25 +137,8 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
             // perform any handling of activity results not related to in-app
             // billing...
             super.onActivityResult(requestCode, resultCode, data);
-//        } else {
-//            Log.d("MNSettingActivity", "onActivityResult handled by IABUtil.");
-//        }
         }
     }
-
-    /*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -166,12 +149,6 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         if (id == android.R.id.home) {
             if (MNSound.isSoundOn(this)) {
                 MNSoundEffectsPlayer.play(R.raw.effect_view_close, this);
-
-                // test
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-//                    startActivity(new Intent(this, MNMainActivity.class));
-//                    return false;
-//                }
             }
         }
         return super.onOptionsItemSelected(item);
