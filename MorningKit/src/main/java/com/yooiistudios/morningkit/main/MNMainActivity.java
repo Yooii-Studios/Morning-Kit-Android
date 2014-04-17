@@ -23,6 +23,7 @@ import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.validate.AppValidationChecker;
+import com.yooiistudios.morningkit.main.layout.MNMainButtonLayout;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
@@ -49,7 +50,7 @@ public class MNMainActivity extends Activity
     @Getter @InjectView(R.id.main_scroll_content_layout) LinearLayout scrollContentLayout;
     @Getter @InjectView(R.id.main_widget_window_layout) MNPanelWindowLayout panelWindowLayout;
     @Getter @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView alarmListView;
-    @Getter @InjectView(R.id.main_button_layout) RelativeLayout buttonLayout;
+    @Getter @InjectView(R.id.main_button_layout) MNMainButtonLayout buttonLayout;
     @Getter @InjectView(R.id.main_refresh_imageview) ImageView refreshImageView;
     @Getter @InjectView(R.id.main_refresh_imageview) ImageView settingImageView;
     @Getter @InjectView(R.id.main_admob_layout) RelativeLayout admobLayout;

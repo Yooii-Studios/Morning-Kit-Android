@@ -40,7 +40,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <RelativeLayout
+    <com.yooiistudios.morningkit.main.layout.MNMainButtonLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_button_layout_height"
         android:id="@+id/main_button_layout"
@@ -72,7 +72,7 @@
             android:src="@drawable/main_setting_button_selector_classic_gray"
             android:scaleType="fitCenter"
             android:contentDescription="@string/loading"/>
-    </RelativeLayout>
+    </com.yooiistudios.morningkit.main.layout.MNMainButtonLayout>
 
     <RelativeLayout
         xmlns:ads="http://schemas.android.com/apk/res-auto"
