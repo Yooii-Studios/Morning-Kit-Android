@@ -113,16 +113,20 @@ public class MNFlickrFetcher {
 
                                         onFetcherListner.onFlickrPhotoInfoLoaded(flickrPhotoInfo);
                                     } else {
+                                        MNLog.e(TAG, "error 1");
                                         onFetcherListner.onErrorResponse();
                                     }
                                 } else {
+                                    MNLog.e(TAG, "keyword unavailable");
                                     onFetcherListner.onErrorResponse();
                                 }
                             } else {
+                                MNLog.e(TAG, "error 3");
                                 onFetcherListner.onErrorResponse();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            MNLog.e(TAG, "error 4");
                             onFetcherListner.onErrorResponse();
                         }
                     }

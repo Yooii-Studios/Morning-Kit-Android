@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
@@ -19,8 +18,8 @@ import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrBitmapAsyncTask;
-import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrFetcher;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrPhotoInfo;
+import com.yooiistudios.morningkit.panel.flickr.model.MNPhotoInfoFetcher;
 
 import org.json.JSONException;
 
@@ -32,8 +31,8 @@ import java.lang.reflect.Type;
  *
  * MNFlickrPanelLayout
  */
-public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetcher.OnFetcherListner,
-        MNBitmapLoadSaver.OnLoadListener, MNFlickrBitmapAsyncTask.OnFlickrBitmapAsyncTaskListener {
+public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSaver.OnLoadListener,
+        MNFlickrBitmapAsyncTask.OnFlickrBitmapAsyncTaskListener, MNPhotoInfoFetcher.OnPhotoInfoFetchListener {
     private static final String TAG = "MNFlickrPanelLayout";
 
     public static final String FLICKR_PREFS = "FLICKR_PREFS";
@@ -48,7 +47,8 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     private String keywordString;
     private Bitmap originalBitmap;
     private Bitmap polishedBitmap;
-    private JsonObjectRequest queryRequest;
+//    private JsonObjectRequest queryRequest; // Volley -> AsyncTask로 변경
+    private MNPhotoInfoFetcher photoInfoFetchAsyncTask;
     private MNFlickrBitmapAsyncTask flickrBitmapAsyncTask;
     private boolean isGrayScale;
 
@@ -89,8 +89,8 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         }
 
         // 기존 쿼리는 취소
-        if (queryRequest != null) {
-            queryRequest.cancel();
+        if (photoInfoFetchAsyncTask != null) {
+            photoInfoFetchAsyncTask.cancel(true);
         }
 
         // 기존에 읽었던 플리커 정보 로딩 - Gson으로 캐스팅
@@ -106,19 +106,27 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
         if (getPanelDataObject().has(FLICKR_DATA_KEYWORD)) {
             // 이전 스트링과 비교해서, 같지 않으면 첫 로딩, 같으면 기존에 가지고 있던 총 사진 갯수를 가지고 로딩
             keywordString = getPanelDataObject().getString(FLICKR_DATA_KEYWORD);
-            if (keywordString.equals(previousKeyword) && flickrPhotoInfo.getTotalPhotos() != 0) {
+            if (keywordString.equals(previousKeyword) && flickrPhotoInfo != null &&
+                    flickrPhotoInfo.getTotalPhotos() != 0) {
                 // 기존 로딩
-                queryRequest = MNFlickrFetcher.requestQuery(keywordString, flickrPhotoInfo.getTotalPhotos(), this, getContext());
+//                MNFlickrFetcher.requestQuery(keywordString, flickrPhotoInfo.getTotalPhotos(), this, getContext());
+                photoInfoFetchAsyncTask = MNPhotoInfoFetcher.newQueryInstance(keywordString,
+                        flickrPhotoInfo.getTotalPhotos(), this);
+                photoInfoFetchAsyncTask.execute();
             } else {
                 // 새 키워드의 첫 로딩
-                queryRequest = MNFlickrFetcher.requestFirstQuery(keywordString, this, getContext());
+//                queryRequest = MNFlickrFetcher.requestFirstQuery(keywordString, this, getContext());
+                photoInfoFetchAsyncTask = MNPhotoInfoFetcher.newFirstQueryInstance(keywordString, this);
+                photoInfoFetchAsyncTask.execute();
             }
         } else {
             SharedPreferences prefs = getContext().getSharedPreferences(FLICKR_PREFS, Context.MODE_PRIVATE);
             keywordString = prefs.getString(FLICKR_PREFS_KEYWORD, "Morning");
 
             // 새 키워드의 첫 로딩
-            queryRequest = MNFlickrFetcher.requestFirstQuery(keywordString, this, getContext());
+//            queryRequest = MNFlickrFetcher.requestFirstQuery(keywordString, this, getContext());
+            photoInfoFetchAsyncTask = MNPhotoInfoFetcher.newFirstQueryInstance(keywordString, this);
+            photoInfoFetchAsyncTask.execute();
         }
 
         // 키워드 저장
@@ -135,10 +143,10 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     }
 
     /**
-     * Flickr Fetcher Listener
+     * FlickrPhotoInfoFetchAsyncTask Listener
      */
     @Override
-    public void onFlickrPhotoInfoLoaded(MNFlickrPhotoInfo flickrPhotoInfo) {
+    public void onPhotoInfoLoaded(MNFlickrPhotoInfo flickrPhotoInfo) {
         this.flickrPhotoInfo = flickrPhotoInfo;
         try {
             getPanelDataObject().put(FLICKR_DATA_FLICKR_INFO, new Gson().toJson(flickrPhotoInfo));
@@ -150,8 +158,17 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNFlickrFetche
     }
 
     @Override
-    public void onErrorResponse() {
-        Toast.makeText(getContext(), getResources().getString(R.string.flickr_error_access_server), Toast.LENGTH_SHORT).show();
+    public void onErrorOnLoad() {
+        Toast.makeText(getContext(), getResources().getString(R.string.flickr_error_access_server),
+                Toast.LENGTH_SHORT).show();
+        showNetworkIsUnavailable();
+        updateUI();
+    }
+
+    @Override
+    public void onNotFoundPhotoInfoOnKeyword() {
+        Toast.makeText(getContext(), getResources().getString(R.string.flickr_not_available_flickr_url),
+                Toast.LENGTH_SHORT).show();
         showNetworkIsUnavailable();
         updateUI();
     }
