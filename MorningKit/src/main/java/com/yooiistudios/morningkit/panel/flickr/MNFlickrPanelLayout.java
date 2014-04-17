@@ -162,6 +162,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
 
     @Override
     public void onNotFoundPhotoInfoOnKeyword() {
+        // 해당 키워드에 대한 결과가 없을 경우 처리
         Toast.makeText(getContext(), getResources().getString(R.string.flickr_not_available_flickr_url),
                 Toast.LENGTH_SHORT).show();
         showNetworkIsUnavailable();
