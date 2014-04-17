@@ -47,7 +47,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
     private String keywordString;
     private Bitmap originalBitmap;
     private Bitmap polishedBitmap;
-//    private JsonObjectRequest queryRequest; // Volley -> AsyncTask로 변경
     private MNPhotoInfoFetcher photoInfoFetchAsyncTask;
     private MNFlickrBitmapAsyncTask flickrBitmapAsyncTask;
     private boolean isGrayScale;
@@ -55,7 +54,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
     public MNFlickrPanelLayout(Context context) {
         super(context);
     }
-
     public MNFlickrPanelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -109,13 +107,11 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
             if (keywordString.equals(previousKeyword) && flickrPhotoInfo != null &&
                     flickrPhotoInfo.getTotalPhotos() != 0) {
                 // 기존 로딩
-//                MNFlickrFetcher.requestQuery(keywordString, flickrPhotoInfo.getTotalPhotos(), this, getContext());
                 photoInfoFetchAsyncTask = MNPhotoInfoFetcher.newQueryInstance(keywordString,
                         flickrPhotoInfo.getTotalPhotos(), this);
                 photoInfoFetchAsyncTask.execute();
             } else {
                 // 새 키워드의 첫 로딩
-//                queryRequest = MNFlickrFetcher.requestFirstQuery(keywordString, this, getContext());
                 photoInfoFetchAsyncTask = MNPhotoInfoFetcher.newFirstQueryInstance(keywordString, this);
                 photoInfoFetchAsyncTask.execute();
             }
@@ -124,7 +120,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
             keywordString = prefs.getString(FLICKR_PREFS_KEYWORD, "Morning");
 
             // 새 키워드의 첫 로딩
-//            queryRequest = MNFlickrFetcher.requestFirstQuery(keywordString, this, getContext());
             photoInfoFetchAsyncTask = MNPhotoInfoFetcher.newFirstQueryInstance(keywordString, this);
             photoInfoFetchAsyncTask.execute();
         }

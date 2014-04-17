@@ -18,7 +18,7 @@ import java.util.Random;
  */
 public class MNPhotoInfoFetcher extends AsyncTask<Void, Void, MNFlickrPhotoInfo> {
 
-    private static final String TAG = "MNFlickrPhotoInfoFetchAsyncTask";
+    private static final String TAG = "MNPhotoInfoFetcher";
     public static final String FLICKR_API_KEY = "ccc5c75e5380273b78d246a71353fab9";
     private static final Integer FLICKR_FIRST_LOADING_PER_PAGE = 20;
 
