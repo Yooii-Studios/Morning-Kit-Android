@@ -8,7 +8,7 @@ import lombok.Getter;
  * MNInfoItemType
  */
 public enum MNInfoItemType {
-    MORNING_KIT_INFO(0), RATE_MORNING_KIT(1), LIKE_US_ON_FACEBOOK(2), CREDITS(3);
+    STORE(0), MORNING_KIT_INFO(1), RATE_MORNING_KIT(2), LIKE_US_ON_FACEBOOK(3), CREDITS(4);
 
     @Getter
     private final int index;
@@ -17,10 +17,11 @@ public enum MNInfoItemType {
     public static MNInfoItemType valueOf(int index) {
 
         switch (index) {
-            case 0: return MORNING_KIT_INFO;
+            case 0: return STORE;
             case 1: return RATE_MORNING_KIT;
             case 2: return LIKE_US_ON_FACEBOOK;
             case 3: return CREDITS;
+            case 4: return CREDITS;
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }

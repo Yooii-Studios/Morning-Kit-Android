@@ -15,6 +15,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
 import com.yooiistudios.morningkit.setting.info.credit.MNCreditActivity;
 import com.yooiistudios.morningkit.setting.info.moreinfo.MNMoreInfoActivity;
+import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 
@@ -64,11 +65,19 @@ public class MNInfoFragment extends Fragment implements MNInfoItemClickListener 
     public void onItemClick(int position) {
         MNInfoItemType type = MNInfoItemType.valueOf(position);
         switch (type) {
+            case STORE: {
+                Intent intent = new Intent(getActivity(), MNStoreActivity.class);
+                getActivity().startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
+                break;
+            }
+
             case MORNING_KIT_INFO: {
                 Intent i = new Intent(getActivity(), MNMoreInfoActivity.class);
                 startActivity(i);
                 break;
             }
+
             case RATE_MORNING_KIT:
                 MNReviewApp.showReviewActivity(getActivity());
                 /*
