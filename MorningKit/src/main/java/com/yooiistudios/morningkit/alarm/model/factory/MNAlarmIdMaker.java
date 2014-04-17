@@ -3,7 +3,6 @@ package com.yooiistudios.morningkit.alarm.model.factory;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.common.sharedpreferences.MNSharedPreferences;
 
 /**

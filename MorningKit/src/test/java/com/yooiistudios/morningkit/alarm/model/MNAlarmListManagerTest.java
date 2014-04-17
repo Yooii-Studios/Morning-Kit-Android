@@ -8,6 +8,7 @@ import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmComparator;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
+import com.yooiistudios.morningkit.common.sharedpreferences.MNSharedPreferences;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
@@ -56,9 +57,9 @@ public class MNAlarmListManagerTest {
     public void saveAndLoadAlarmListTest() throws IOException {
         
         // SharedPreference를 비운다
-        SharedPreferences prefs = mainActivity.getSharedPreferences(MN.alarm.SHARED_PREFS_FILE, Context.MODE_PRIVATE);
+        SharedPreferences prefs = mainActivity.getSharedPreferences(MNSharedPreferences.SHARED_PREFS_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.remove(MN.alarm.ALARM_LIST);
+        editor.remove(MNAlarmListManager.ALARM_LIST);
         editor.commit();
 
         // 무조건 alarmList를 읽으면 null은 되면 안된다(초기화 로직도 존재함)

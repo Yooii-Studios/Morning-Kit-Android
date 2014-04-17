@@ -10,14 +10,12 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.squareup.otto.Subscribe;
-import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
+import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPreferenceListAdapter;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
-import com.yooiistudios.stevenkim.alarmsound.SKAlarmSound;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundFactory;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundManager;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundType;
@@ -37,6 +35,7 @@ import lombok.Setter;
  */
 public class MNAlarmPreferenceActivity extends ActionBarActivity {
 
+    public static final String ALARM_PREFERENCE_ALARM_ID = "ALARM_PREFERENCE_ALARM_ID";
     private static final String TAG = "MNAlarmPreferenceActivity";
 
     @Getter private int alarmId;
@@ -61,7 +60,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         MNAlarmPrefBusProvider.getInstance().register(this);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            alarmId = extras.getInt(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
+            alarmId = extras.getInt(ALARM_PREFERENCE_ALARM_ID, -1);
             if (alarmId != -1) {
                 alarmPreferenceType = MNAlarmPreferenceType.EDIT;
                 alarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());

@@ -1,10 +1,8 @@
 package com.yooiistudios.morningkit.alarm.model.list;
 
-import android.app.AlarmManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.common.serialize.ObjectSerializer;
@@ -24,6 +22,7 @@ import java.util.Comparator;
  */
 public class MNAlarmListManager {
     private static final String TAG = "MNAlarmListManager";
+    public static final String ALARM_LIST = "alarm_list2";
 
     /**
      * Singleton
@@ -67,7 +66,7 @@ public class MNAlarmListManager {
     @SuppressWarnings("unchecked")
     public static ArrayList<MNAlarm> loadAlarmList(Context context) {
         try {
-            String alarmListDataString = MNSharedPreferences.getAlarmSharedPrefs(context).getString(MN.alarm.ALARM_LIST, null);
+            String alarmListDataString = MNSharedPreferences.getAlarmSharedPrefs(context).getString(ALARM_LIST, null);
             if (alarmListDataString != null) {
                 MNAlarmListManager.getInstance().alarmList = (ArrayList<MNAlarm>) ObjectSerializer.deserialize(alarmListDataString);
                 if (MNAlarmListManager.getInstance().alarmList == null) {
@@ -121,9 +120,9 @@ public class MNAlarmListManager {
         SharedPreferences.Editor editor = MNSharedPreferences.getAlarmSharedPrefs(context).edit();
         if (editor != null) {
             if (MNAlarmListManager.getInstance().alarmList != null) {
-                editor.putString(MN.alarm.ALARM_LIST, ObjectSerializer.serialize(MNAlarmListManager.getInstance().alarmList));
+                editor.putString(ALARM_LIST, ObjectSerializer.serialize(MNAlarmListManager.getInstance().alarmList));
             } else {
-                editor.remove(MN.alarm.ALARM_LIST);
+                editor.remove(ALARM_LIST);
             }
             editor.commit();
         }

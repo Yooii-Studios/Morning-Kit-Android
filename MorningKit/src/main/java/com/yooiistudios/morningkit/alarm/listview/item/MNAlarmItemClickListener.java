@@ -3,7 +3,6 @@ package com.yooiistudios.morningkit.alarm.listview.item;
 import android.content.Intent;
 import android.view.View;
 
-import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
 import com.yooiistudios.morningkit.main.MNMainAlarmListView;
@@ -46,9 +45,9 @@ public class MNAlarmItemClickListener implements View.OnClickListener {
         if (alarmListView.getContext() != null) {
             // Start activity with extra(alarmId)
             if (alarm != null) {
-                i.putExtra(MN.alarm.ALARM_PREFERENCE_ALARM_ID, alarm.getAlarmId());
+                i.putExtra(MNAlarmPreferenceActivity.ALARM_PREFERENCE_ALARM_ID, alarm.getAlarmId());
             }else{
-                i.putExtra(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
+                i.putExtra(MNAlarmPreferenceActivity.ALARM_PREFERENCE_ALARM_ID, -1);
             }
             alarmListView.getContext().startActivity(i);
         }

@@ -58,13 +58,13 @@ public class MNAlarmPreferenceActivityTest {
 
         // 'Add alarm' Activity
         Intent intent_add_alarm = new Intent(mainActivity.getBaseContext(), MNAlarmPreferenceActivity.class);
-        intent_add_alarm.putExtra(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
+        intent_add_alarm.putExtra(MNAlarmPreferenceActivity.ALARM_PREFERENCE_ALARM_ID, -1);
         alarmPreferenceActivity_add_alarm = Robolectric.buildActivity(MNAlarmPreferenceActivity.class)
                 .withIntent(intent_add_alarm).create().visible().get();
 
         // 'Edit alarm' Activity
         Intent intent_edit_alarm = new Intent(mainActivity.getBaseContext(), MNAlarmPreferenceActivity.class);
-        intent_edit_alarm.putExtra(MN.alarm.ALARM_PREFERENCE_ALARM_ID, alarm.getAlarmId());
+        intent_edit_alarm.putExtra(MNAlarmPreferenceActivity.ALARM_PREFERENCE_ALARM_ID, alarm.getAlarmId());
         alarmPreferenceActivity_edit_alarm = Robolectric.buildActivity(MNAlarmPreferenceActivity.class)
                 .withIntent(intent_edit_alarm).create().visible().get();
     }
