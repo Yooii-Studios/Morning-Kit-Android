@@ -8,18 +8,25 @@ import com.stevenkim.waterlily.bitmapfun.util.AsyncTask;
  * MNFlickrFetchAsyncTask
  *  Volley에서 AsyncTask로 변경(Volley에 여러 문제가 있다고 판단)
  */
-public class MNFlickrFetchAsyncTask extends AsyncTask<Void, Void, MNFlickrPhotoInfo> {
+public class MNFlickrPhotoInfoFetchAsyncTask extends AsyncTask<Void, Void, MNFlickrPhotoInfo> {
 
     private static final String TAG = "MNFlickrFetchAsyncTask";
 
-    String base;
-    String target;
+    String keyword;
+    int totalPhotos = -1;
     OnFlickrFetchAsyncTaskListener listener;
 
     public interface OnFlickrFetchAsyncTaskListener {
         public void onErrorOnLoad();
         public void onNotFoundPhotoInfoOnKeyword();
         public void onFlickrPhotoInfoLoaded(MNFlickrPhotoInfo flickrPhotoInfo);
+    }
+
+    public MNFlickrPhotoInfoFetchAsyncTask(String keyword, int totalPhotos,
+                                           OnFlickrFetchAsyncTaskListener listener) {
+        this.keyword = keyword;
+        this.totalPhotos = totalPhotos;
+        this.listener = listener;
     }
 
     @Override
