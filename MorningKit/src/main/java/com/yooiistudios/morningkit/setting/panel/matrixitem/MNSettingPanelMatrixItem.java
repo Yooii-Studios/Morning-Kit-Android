@@ -109,7 +109,7 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
             } else {
                 panelNameTextView = new TextView(context);
             }
-            // text stype
+            // text type
             panelNameTextView.setGravity(Gravity.CENTER);
             panelNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                     resources.getDimension(R.dimen.setting_panel_item_text_font_size));
