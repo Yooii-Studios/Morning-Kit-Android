@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -44,7 +45,7 @@ public class MNMainActivity extends Activity
     private static final String TAG = "MNMainActivity";
 
     @Getter @InjectView(R.id.main_container_layout) RelativeLayout containerLayout;
-    @Getter @InjectView(R.id.main_scroll_view) MNMainScrollView scrollView;
+    @Getter @InjectView(R.id.main_scroll_view) ScrollView scrollView;
     @Getter @InjectView(R.id.main_scroll_content_layout) LinearLayout scrollContentLayout;
     @Getter @InjectView(R.id.main_widget_window_layout) MNPanelWindowLayout panelWindowLayout;
     @Getter @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView alarmListView;

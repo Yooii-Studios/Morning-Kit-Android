@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     tools:ignore="MergeRootFrame">
 
-    <com.yooiistudios.morningkit.main.MNMainScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/main_scroll_view"
@@ -38,7 +38,7 @@
                 android:id="@+id/main_alarm_list_view" />
 
         </LinearLayout>
-    </com.yooiistudios.morningkit.main.MNMainScrollView>
+    </ScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -91,5 +91,4 @@
             android:gravity="center_horizontal" />
 
     </RelativeLayout>
-
 </RelativeLayout>
