@@ -68,7 +68,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @InjectView(R.id.setting_store_theme_gridview) GridView themeGridView;
 
     // For Test
-    boolean isDebug = false;
+    boolean isDebug = true;
     @InjectView(R.id.setting_store_reset_button) Button resetButton;
     @InjectView(R.id.setting_store_debug_button) Button debugButton;
 
@@ -311,7 +311,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
      * Test
      */
     @OnClick(R.id.setting_store_debug_button)
-    private void debugButtonClicked() {
+    void debugButtonClicked() {
         if (isDebug) {
             debugButton.setText("Store");
         } else {
@@ -321,7 +321,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     }
 
     @OnClick(R.id.setting_store_reset_button)
-    private void resetButtonClicked() {
+    void resetButtonClicked() {
         // 디버그 상태에서 구매했던 아이템들을 리셋
         if (isDebug) {
 
