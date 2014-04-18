@@ -51,8 +51,6 @@ public class MNWeatherDataSearchCityCache extends MNWeatherDataCache {
                 Toast.makeText(context, "Target city is in cache and show previous " +
                         "weather data because data is got within 4 hours", Toast.LENGTH_SHORT).show();
             }
-            // remove previous cache, because new one will be added
-            weatherDataCacheList.remove(cachedWeatherData);
             return cachedWeatherData;
         } else {
             if (DEBUG_MODE) {
@@ -60,7 +58,7 @@ public class MNWeatherDataSearchCityCache extends MNWeatherDataCache {
                     Toast.makeText(context, "Target city in in cache but invalid, " +
                             "get a new weather data from WWO", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Target city doesn't exciest in cache, so" +
+                    Toast.makeText(context, "Target city doesn't exciest in cache, so " +
                             "get a new weather data from WWO", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -82,7 +80,7 @@ public class MNWeatherDataSearchCityCache extends MNWeatherDataCache {
     }
 
     @Override
-    protected void archiveWeatherData(MNWeatherData weatherData, Context context) {
+    protected void archiveWeatherData(Context context) {
         // archive
         SharedPreferences prefs = context.getSharedPreferences(WEATHER_DATA_SEARCH_CITY_CACHE_PREFS,
                 Context.MODE_PRIVATE);

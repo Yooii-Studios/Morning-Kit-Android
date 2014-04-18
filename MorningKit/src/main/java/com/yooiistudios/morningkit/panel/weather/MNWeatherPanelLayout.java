@@ -222,12 +222,12 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         innerContentLayout.addView(localTimeTextView);
 
         // test
-        weatherConditionImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-                BitmapFactory.decodeResource(getResources(), R.drawable.m_icon_weather_07_tornado)));
-        currentTempTextView.setText("14°T");
-        lowHighTempTextView.setText("7°/19°T");
-        cityNameTextView.setText("Daegu Test");
-        localTimeTextView.setText("14:11:56 Test");
+//        weatherConditionImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
+//                BitmapFactory.decodeResource(getResources(), R.drawable.m_icon_weather_07_tornado)));
+//        currentTempTextView.setText("14°T");
+//        lowHighTempTextView.setText("7°/19°T");
+//        cityNameTextView.setText("Daegu Test");
+//        localTimeTextView.setText("14:11:56 Test");
 
         innerContentLayout.setBackgroundColor(Color.BLUE);
         upperContentLayout.setBackgroundColor(Color.LTGRAY);
@@ -311,7 +311,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
                     BitmapFactory.decodeResource(getResources(), weatherData.weatherCondition.getConditionResourceId())));
         }
 
-        // temp
+        // temperature
         if (isUsingCelsius) {
             currentTempTextView.setText(weatherData.currentCelsiusTemp);
             lowHighTempTextView.setText(weatherData.lowHighCelsiusTemp);
@@ -324,6 +324,9 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         if (weatherData.weatherLocationInfo.getName() != null) {
             cityNameTextView.setText(capitalize(weatherData.weatherLocationInfo.getName()));
         }
+
+        // 시계가 시작하지 않았다면 시작하기
+        startClock();
     }
 
     private String capitalize(String line) {
@@ -338,15 +341,16 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     // AsyncTask
     @Override
     public void onSucceedLoadingWeatherInfo(MNWeatherData weatherData) {
+        this.weatherData = weatherData;
+        startClock();
+        updateUI();
+
         // add weather data to cache
         if (isUsingCurrentLocation) {
             currentLocationWeatherDataCache.addWeatherDataToCache(weatherData, getContext());
         } else {
             searchCityWeatherDataCache.addWeatherDataToCache(weatherData, getContext());
         }
-        this.weatherData = weatherData;
-        startClock();
-        updateUI();
     }
 
     @Override
