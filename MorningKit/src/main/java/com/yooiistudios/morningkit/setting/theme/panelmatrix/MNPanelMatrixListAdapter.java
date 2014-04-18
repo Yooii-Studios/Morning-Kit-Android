@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.setting.theme.panelmatrix;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,16 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
+import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
+import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.MNSettingThemeDetailItemViewHolder;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+
+import java.util.List;
 
 /**
  * Created by StevenKim in MNSettingActivityProject from Yooii Studios Co., LTD. on 2014. 1. 15.
@@ -51,7 +56,6 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
 
         if (convertView != null) {
             MNSettingThemeDetailItemViewHolder viewHolder = new MNSettingThemeDetailItemViewHolder(convertView);
-            viewHolder.getLockImageView().setVisibility(View.GONE);
 
             MNPanelMatrixType panelMatrixType = MNPanelMatrixType.valueOf(position);
             switch (panelMatrixType) {
@@ -76,7 +80,8 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
             viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
 
             // theme - shadow
-            RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
+            RoundShadowRelativeLayout roundShadowRelativeLayout
+                    = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
 
             // 동적 생성 -> 색 변경 로직 변경
 //            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
@@ -96,6 +101,35 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
                 });
             } else {
                 throw new AssertionError("shadowRelativeLayout must not be null!");
+            }
+
+            // lock
+            if (panelMatrixType == MNPanelMatrixType.PANEL_MATRIX_2X2) {
+                viewHolder.getLockImageView().setVisibility(View.GONE);
+            } else {
+                List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(activity);
+                if (ownedSkus.contains(SKIabProducts.SKU_PANEL_MATRIX_2X3)) {
+                    // 아이템 구매완료
+                    viewHolder.getLockImageView().setVisibility(View.GONE);
+                } else {
+                    // 아이템 잠김
+                    roundShadowRelativeLayout.setSolidAreaColor(
+                            MNSettingColors.getLockedBackgroundColor(currentThemeType));
+                    roundShadowRelativeLayout.setPressedColor(
+                            MNSettingColors.getLockedBackgroundColor(currentThemeType));
+
+                    // lock onClickListener
+                    roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(activity, MNUnlockActivity.class);
+                            intent.putExtra(MNUnlockActivity.PRODUCT_SKU_KEY,
+                                    SKIabProducts.SKU_PANEL_MATRIX_2X3);
+                            activity.startActivity(intent);
+                            activity.overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
+                        }
+                    });
+                }
             }
         }
         return convertView;

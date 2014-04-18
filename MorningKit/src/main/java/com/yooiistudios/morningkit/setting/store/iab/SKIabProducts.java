@@ -18,6 +18,7 @@ public class SKIabProducts {
     public static final String SKU_FULL_VERSION = "full_version_test"; // full_version
     public static final String SKU_MORE_ALARM_SLOTS = "more_alarm_slots_test"; // "functions.more_alarm_slots";
     public static final String SKU_NO_ADS = "no_ads_test"; // functions.no_ads
+    public static final String SKU_PANEL_MATRIX_2X3 = "panel_matrix_2_3_test"; // panel_matrix_2_3
     public static final String SKU_DATE_COUNTDOWN = "date_countdown_test"; // "panels.date_countdown";
     public static final String SKU_MEMO = "memo_test"; // "panels.memo";
     public static final String SKU_MODERNITY = "modernity_test"; // "themes.modernity";
@@ -30,6 +31,7 @@ public class SKIabProducts {
         iabKeyList.add(SKU_FULL_VERSION);
         iabKeyList.add(SKU_MORE_ALARM_SLOTS);
         iabKeyList.add(SKU_NO_ADS);
+        iabKeyList.add(SKU_PANEL_MATRIX_2X3);
         iabKeyList.add(SKU_DATE_COUNTDOWN);
         iabKeyList.add(SKU_MEMO);
         iabKeyList.add(SKU_MODERNITY);
@@ -65,6 +67,7 @@ public class SKIabProducts {
             ownedSkus.add(SKU_FULL_VERSION);
             ownedSkus.add(SKU_MORE_ALARM_SLOTS);
             ownedSkus.add(SKU_NO_ADS);
+            ownedSkus.add(SKU_PANEL_MATRIX_2X3);
             ownedSkus.add(SKU_DATE_COUNTDOWN);
             ownedSkus.add(SKU_MEMO);
             ownedSkus.add(SKU_MODERNITY);
@@ -75,6 +78,9 @@ public class SKIabProducts {
             }
             if (prefs.getBoolean(SKU_NO_ADS, false)) {
                 ownedSkus.add(SKU_NO_ADS);
+            }
+            if (prefs.getBoolean(SKU_PANEL_MATRIX_2X3, false)) {
+                ownedSkus.add(SKU_PANEL_MATRIX_2X3);
             }
             if (prefs.getBoolean(SKU_DATE_COUNTDOWN, false)) {
                 ownedSkus.add(SKU_DATE_COUNTDOWN);

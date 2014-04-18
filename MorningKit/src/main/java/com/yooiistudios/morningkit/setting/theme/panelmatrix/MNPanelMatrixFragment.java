@@ -6,11 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.yooiistudios.morningkit.R;
 
 public class MNPanelMatrixFragment extends Fragment {
+
+    ListView listView;
 
     /**
      * Use this factory method to create a new instance of
@@ -31,10 +34,16 @@ public class MNPanelMatrixFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.setting_theme_sound_effect_fragment, container, false);
         if (rootView != null) {
-            ListView listView = (ListView) rootView.findViewById(R.id.setting_theme_soundeffect_listview);
+            listView = (ListView) rootView.findViewById(R.id.setting_theme_soundeffect_listview);
             listView.setAdapter(new MNPanelMatrixListAdapter(getActivity()));
         }
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
     }
 
     @Override
