@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
@@ -50,14 +52,21 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
     private static final String TAG = "MNPanelSettingFragment";
 
+    @InjectView(R.id.setting_panel_container) RelativeLayout containerLayout;
+
     // @InjectView(R.id.setting_panel_matrix_layout_line_1) LinearLayout panelMatrixItemLayoutLine1;
-    @InjectView(R.id.setting_panel_matrix_layout_line_2) LinearLayout panelMatrixItemLayoutLine2;
+//    @InjectView(R.id.setting_panel_matrix_layout_line_2) LinearLayout panelMatrixItemLayoutLine2;
+    @InjectView(R.id.setting_panel_matrix_layout_line_3) LinearLayout panelMatrixItemLayoutLine3;
+
+    @InjectView(R.id.setting_panel_matrix_scrollview) ScrollView panelMatrixScrollView;
 
     ArrayList<MNSettingPanelMatrixItem> panelMatrixItems;
     @InjectView(R.id.setting_panel_matrix_item_1) MNSettingPanelMatrixItem panelMatrixItem1;
     @InjectView(R.id.setting_panel_matrix_item_2) MNSettingPanelMatrixItem panelMatrixItem2;
     @InjectView(R.id.setting_panel_matrix_item_3) MNSettingPanelMatrixItem panelMatrixItem3;
     @InjectView(R.id.setting_panel_matrix_item_4) MNSettingPanelMatrixItem panelMatrixItem4;
+    @InjectView(R.id.setting_panel_matrix_item_5) MNSettingPanelMatrixItem panelMatrixItem5;
+    @InjectView(R.id.setting_panel_matrix_item_6) MNSettingPanelMatrixItem panelMatrixItem6;
 
     @InjectView(R.id.setting_panel_select_pager_layout) MNPanelSelectPagerLayout panelSelectPagerLayout;
 
@@ -93,6 +102,8 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
             panelMatrixItems.add(panelMatrixItem2);
             panelMatrixItems.add(panelMatrixItem3);
             panelMatrixItems.add(panelMatrixItem4);
+            panelMatrixItems.add(panelMatrixItem5);
+            panelMatrixItems.add(panelMatrixItem6);
 
             // pager
             panelSelectPagerLayout.loadPanelSelectPager(getChildFragmentManager(), this);
@@ -120,17 +131,25 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
             MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem4,
                     MNPanelType.valueOfUniqueId(panelDataObjects.get(3).getInt(MNPanel.PANEL_UNIQUE_ID)),
                     getActivity(), 3, this);
+
+            MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem5,
+                    MNPanelType.valueOfUniqueId(panelDataObjects.get(4).getInt(MNPanel.PANEL_UNIQUE_ID)),
+                    getActivity(), 4, this);
+
+            MNSettingPanelMatrixItemBuilder.buildItem(panelMatrixItem6,
+                    MNPanelType.valueOfUniqueId(panelDataObjects.get(5).getInt(MNPanel.PANEL_UNIQUE_ID)),
+                    getActivity(), 5, this);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    // 위젯 2*1 / 2*2 체크
+    // 위젯 2X2 / 2X3 체크
     private void checkPanelMatrix() {
         if (MNPanelMatrix.getCurrentPanelMatrixType(getActivity()) == MNPanelMatrixType.PANEL_MATRIX_2X2) {
-            panelMatrixItemLayoutLine2.setVisibility(View.VISIBLE);
+            panelMatrixItemLayoutLine3.setVisibility(View.GONE);
         } else {
-            panelMatrixItemLayoutLine2.setVisibility(View.INVISIBLE);
+            panelMatrixItemLayoutLine3.setVisibility(View.VISIBLE);
         }
     }
 

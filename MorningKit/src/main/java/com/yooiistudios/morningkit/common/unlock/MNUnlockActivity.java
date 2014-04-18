@@ -196,19 +196,21 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     private String getProductString() {
         if (productSku.equals(SKIabProducts.SKU_FULL_VERSION)) {
             return this.getString(R.string.store_item_full_version);
-        }else if (productSku.equals(SKIabProducts.SKU_MORE_ALARM_SLOTS)) {
+        } else if (productSku.equals(SKIabProducts.SKU_MORE_ALARM_SLOTS)) {
             return this.getString(R.string.store_item_more_alarm_slots);
-        }else if (productSku.equals(SKIabProducts.SKU_NO_ADS)) {
+        } else if (productSku.equals(SKIabProducts.SKU_NO_ADS)) {
             return this.getString(R.string.store_item_no_ads);
-        }else if (productSku.equals(SKIabProducts.SKU_DATE_COUNTDOWN)) {
+        } else if (productSku.equals(SKIabProducts.SKU_PANEL_MATRIX_2X3)) {
+            return this.getString(R.string.store_item_matrix);
+        } else if (productSku.equals(SKIabProducts.SKU_DATE_COUNTDOWN)) {
             String productString = this.getString(R.string.store_item_widget_date_countdown);
             productString = productString.replace("\n", " ");
             return productString;
-        }else if (productSku.equals(SKIabProducts.SKU_MEMO)) {
+        } else if (productSku.equals(SKIabProducts.SKU_MEMO)) {
             return this.getString(R.string.memo);
-        }else if (productSku.equals(SKIabProducts.SKU_MODERNITY)) {
+        } else if (productSku.equals(SKIabProducts.SKU_MODERNITY)) {
             return this.getString(R.string.setting_theme_color_classic_white);
-        }else if (productSku.equals(SKIabProducts.SKU_CELESTIAL)) {
+        } else if (productSku.equals(SKIabProducts.SKU_CELESTIAL)) {
             return this.getString(R.string.setting_theme_color_skyblue);
         }
         return null;
