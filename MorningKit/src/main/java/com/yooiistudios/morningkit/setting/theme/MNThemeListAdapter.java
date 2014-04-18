@@ -69,7 +69,7 @@ public class MNThemeListAdapter extends BaseAdapter {
                             viewHolder.getDetailTextView().setText("2 X 2");
                             break;
                         case PANEL_MATRIX_2X3:
-                            viewHolder.getDetailTextView().setText("2 X 1");
+                            viewHolder.getDetailTextView().setText("2 X 3");
                             break;
                     }
                     break;
