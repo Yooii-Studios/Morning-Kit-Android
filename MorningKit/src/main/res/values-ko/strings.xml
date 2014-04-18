@@ -236,7 +236,7 @@
 	<string name="store_tab_themes">테마</string>
 	<string name="store_item_more_alarm_slots">알람 개수 추가</string>
 	<string name="store_item_no_ads">광고 제거</string>
-	<string name="store_item_matrix">2 X 1 배열</string>
+	<string name="store_item_matrix">2 X 3 배열</string>
 	<string name="store_item_widget_date_countdown">날짜 계산</string>
 	<string name="store_item_widget_memo">메모</string>
 	<string name="store_item_photo_portrait">사진\n세로모드</string>

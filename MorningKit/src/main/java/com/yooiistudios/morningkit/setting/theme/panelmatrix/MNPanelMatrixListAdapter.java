@@ -60,7 +60,7 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
                     break;
 
                 case PANEL_MATRIX_2X3:
-                    viewHolder.getTitleTextView().setText("2 X 1");
+                    viewHolder.getTitleTextView().setText("2 X 3");
                     break;
             }
             if (panelMatrixType != MNPanelMatrix.getCurrentPanelMatrixType(activity)) {
