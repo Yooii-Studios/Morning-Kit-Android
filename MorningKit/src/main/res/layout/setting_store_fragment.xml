@@ -228,4 +228,24 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:indeterminate="false" />
+
+    <Button
+        android:id="@+id/setting_store_reset_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/margin_outer"
+        android:layout_marginBottom="@dimen/margin_outer"/>
+
+    <Button
+        android:id="@+id/setting_store_debug_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Debug"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/margin_outer"
+        android:layout_marginBottom="@dimen/margin_outer"/>
 </RelativeLayout>

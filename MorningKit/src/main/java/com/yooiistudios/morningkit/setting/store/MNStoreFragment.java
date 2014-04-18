@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -65,6 +66,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @InjectView(R.id.setting_store_function_gridview) GridView functionGridView;
     @InjectView(R.id.setting_store_panel_gridview) GridView panelGridView;
     @InjectView(R.id.setting_store_theme_gridview) GridView themeGridView;
+
+    // For Test
+    boolean isDebug = false;
+    @InjectView(R.id.setting_store_reset_button) Button resetButton;
+    @InjectView(R.id.setting_store_debug_button) Button debugButton;
 
     // setActivity 반드시 해줘야함
     public MNStoreFragment(){}
@@ -299,5 +305,26 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         */
 
         Toast.makeText(getActivity(), string, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Test
+     */
+    @OnClick(R.id.setting_store_debug_button)
+    private void debugButtonClicked() {
+        if (isDebug) {
+            debugButton.setText("Store");
+        } else {
+            debugButton.setText("Debug");
+        }
+        isDebug = !isDebug;
+    }
+
+    @OnClick(R.id.setting_store_reset_button)
+    private void resetButtonClicked() {
+        // 디버그 상태에서 구매했던 아이템들을 리셋
+        if (isDebug) {
+
+        }
     }
 }
