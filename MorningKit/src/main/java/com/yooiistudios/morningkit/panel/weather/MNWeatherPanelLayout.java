@@ -341,15 +341,16 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     // AsyncTask
     @Override
     public void onSucceedLoadingWeatherInfo(MNWeatherData weatherData) {
+        this.weatherData = weatherData;
+        startClock();
+        updateUI();
+
         // add weather data to cache
         if (isUsingCurrentLocation) {
             currentLocationWeatherDataCache.addWeatherDataToCache(weatherData, getContext());
         } else {
             searchCityWeatherDataCache.addWeatherDataToCache(weatherData, getContext());
         }
-        this.weatherData = weatherData;
-        startClock();
-        updateUI();
     }
 
     @Override
