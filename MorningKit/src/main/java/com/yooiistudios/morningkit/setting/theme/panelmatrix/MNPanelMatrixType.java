@@ -11,7 +11,7 @@ import lombok.Getter;
  *  uniqueId = 이 테마의 고유 id를 표시
  */
 public enum MNPanelMatrixType {
-    PANEL_MATRIX_2X2(0, 0), PANEL_MATRIX_2X1(1, 1);
+    PANEL_MATRIX_2X2(0, 0), PANEL_MATRIX_2X3(1, 1);
 
     @Getter private final int index; // 리스트뷰에 표시할 용도의 index
     @Getter private final int uniqueId; // SharedPreferences에 저장될 용도의 unique id
@@ -25,7 +25,7 @@ public enum MNPanelMatrixType {
 
         switch (index) {
             case 0: return PANEL_MATRIX_2X2;
-            case 1: return PANEL_MATRIX_2X1;
+            case 1: return PANEL_MATRIX_2X3;
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -34,7 +34,7 @@ public enum MNPanelMatrixType {
 
         switch (uniqueId) {
             case 0: return PANEL_MATRIX_2X2;
-            case 1: return PANEL_MATRIX_2X1;
+            case 1: return PANEL_MATRIX_2X3;
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
