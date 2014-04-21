@@ -36,20 +36,32 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
     private MNStoreTabType type;
     private SKIabManager iabManager;
     private IabHelper.OnIabPurchaseFinishedListener onIabPurchaseFinishedListener;
-    @Setter
-    Inventory inventory;
+    @Setter Inventory inventory;
     @Setter List<String> ownedSkus;
+
+    private MNStoreGridViewOnClickListener storeGridViewOnClickListener;
+
+    public interface MNStoreGridViewOnClickListener {
+        public void onItemClickedDebug(String sku);
+    }
 
     private MNStoreGridViewAdapter(){}
     public MNStoreGridViewAdapter(Context context, MNStoreTabType type, Inventory inventory,
                                   SKIabManager iabManager,
-                                  IabHelper.OnIabPurchaseFinishedListener onIabPurchaseFinishedListener) {
+                                  IabHelper.OnIabPurchaseFinishedListener onIabPurchaseFinishedListener,
+                                  MNStoreGridViewOnClickListener storeGridViewOnClickListener) {
         this.context = context;
         this.type = type;
         this.inventory = inventory;
         this.iabManager = iabManager;
         this.onIabPurchaseFinishedListener = onIabPurchaseFinishedListener;
         ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
+
+        // debug
+        this.storeGridViewOnClickListener = storeGridViewOnClickListener;
+        if (!MNStoreDebugChecker.isUsingStore(context)) {
+            ownedSkus = SKIabProducts.loadOwnedIabProductsDebug(context);
+        }
     }
 
     @Override
@@ -147,7 +159,12 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                 if (MNSound.isSoundOn(context)) {
                     MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
                 }
-                iabManager.processPurchase((String) viewHolder.getPriceTextView().getTag(), onIabPurchaseFinishedListener);
+                if (MNStoreDebugChecker.isUsingStore(context)) {
+                    iabManager.processPurchase((String) viewHolder.getPriceTextView().getTag(),
+                            onIabPurchaseFinishedListener);
+                } else {
+                    storeGridViewOnClickListener.onItemClickedDebug((String) viewHolder.getPriceTextView().getTag());
+                }
             }
         });
     }
@@ -174,10 +191,13 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
         // price - purchase check from ownedSkus
         if (ownedSkus != null && ownedSkus.contains(sku)) {
             viewHolder.getPriceTextView().setText(R.string.store_purchased);
+        } else {
+            if (!MNStoreDebugChecker.isUsingStore(context)) {
+                viewHolder.getPriceTextView().setText("$0.99");
+            }
         }
 
         if (viewHolder.getPriceTextView().getText() != null) {
-
             String priceText = viewHolder.getPriceTextView().getText().toString();
         }
 
@@ -188,7 +208,11 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                 if (MNSound.isSoundOn(context)) {
                     MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
                 }
-                iabManager.processPurchase((String) v.getTag(), onIabPurchaseFinishedListener);
+                if (MNStoreDebugChecker.isUsingStore(context)) {
+                    iabManager.processPurchase((String) v.getTag(), onIabPurchaseFinishedListener);
+                } else {
+                    storeGridViewOnClickListener.onItemClickedDebug((String) v.getTag());
+                }
             }
         });
 

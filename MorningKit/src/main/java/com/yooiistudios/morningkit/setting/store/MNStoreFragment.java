@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -39,8 +40,8 @@ import lombok.Setter;
  * <p/>
  * MNStoreFragment
  */
-public class MNStoreFragment extends Fragment implements SKIabManagerListener, IabHelper.OnIabPurchaseFinishedListener {
-    private static final String TAG = "MNStoreFragment";
+public class MNStoreFragment extends Fragment implements SKIabManagerListener, IabHelper.OnIabPurchaseFinishedListener, MNStoreGridViewAdapter.MNStoreGridViewOnClickListener {
+//    private static final String TAG = "MNStoreFragment";
     @Setter @Getter private SKIabManager iabManager;
     @Setter MNSettingActivity activity;
 
@@ -66,6 +67,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @InjectView(R.id.setting_store_panel_gridview) GridView panelGridView;
     @InjectView(R.id.setting_store_theme_gridview) GridView themeGridView;
 
+    // For Test
+    private static final boolean IS_DEBUG = true; // 출시 시 false로 변경할 것
+    @InjectView(R.id.setting_store_reset_button) Button resetButton;
+    @InjectView(R.id.setting_store_debug_button) Button debugButton;
+
     // setActivity 반드시 해줘야함
     public MNStoreFragment(){}
 
@@ -89,6 +95,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
 
             initIab();
             initUI();
+            checkDebug();
         }
         return rootView;
     }
@@ -103,9 +110,12 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     }
 
     private void initUI() {
-        functionGridView.setAdapter(new MNStoreGridViewAdapter(getActivity(), MNStoreTabType.FUNCTIONS, null, iabManager, this));
-        panelGridView.setAdapter(new MNStoreGridViewAdapter(getActivity(), MNStoreTabType.PANELS, null, iabManager, this));
-        themeGridView.setAdapter(new MNStoreGridViewAdapter(getActivity(), MNStoreTabType.THEMES, null, iabManager, this));
+        functionGridView.setAdapter(new MNStoreGridViewAdapter(getActivity(), MNStoreTabType.FUNCTIONS,
+                null, iabManager, this, this));
+        panelGridView.setAdapter(new MNStoreGridViewAdapter(getActivity(), MNStoreTabType.PANELS,
+                null, iabManager, this, this));
+        themeGridView.setAdapter(new MNStoreGridViewAdapter(getActivity(), MNStoreTabType.THEMES,
+                null, iabManager, this, this));
     }
 
     private void initUIAfterLoading(Inventory inventory) {
@@ -116,32 +126,38 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 fullVersionImageView.setClickable(false);
                 fullVersionButtonImageView.setClickable(false);
             } else {
-                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.store_view_scale_up_and_down);
-                if (animation != null) {
-                    animation.setAnimationListener(new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation animation) {
+                if (!MNStoreDebugChecker.isUsingStore(getActivity())) {
+                    initFullVersionUIDebug();
+                } else {
+                    Animation animation = AnimationUtils.loadAnimation(getActivity(),
+                            R.anim.store_view_scale_up_and_down);
+                    if (animation != null) {
+                        animation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
 
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            Animation textAniamtion = AnimationUtils.loadAnimation(getActivity(), R.anim.store_view_scale_up_and_down);
-                            if (textAniamtion != null) {
-                                fullVersionButtonTextView.startAnimation(textAniamtion);
                             }
-                        }
 
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                Animation textAniamtion = AnimationUtils.loadAnimation(getActivity(),
+                                        R.anim.store_view_scale_up_and_down);
+                                if (textAniamtion != null) {
+                                    fullVersionButtonTextView.startAnimation(textAniamtion);
+                                }
+                            }
 
-                        }
-                    });
-                    fullVersionButtonImageView.startAnimation(animation);
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+                        fullVersionButtonImageView.startAnimation(animation);
+                    }
+                    fullVersionButtonTextView.setText(inventory.getSkuDetails(SKIabProducts.SKU_FULL_VERSION).getPrice());
+                    fullVersionImageView.setClickable(true);
+                    fullVersionButtonImageView.setClickable(true);
                 }
-                fullVersionButtonTextView.setText(inventory.getSkuDetails(SKIabProducts.SKU_FULL_VERSION).getPrice());
-                fullVersionImageView.setClickable(true);
-                fullVersionButtonImageView.setClickable(true);
             }
             // Other
             ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setInventory(inventory);
@@ -151,6 +167,22 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
+        }
+    }
+
+    private void checkDebug() {
+        if (IS_DEBUG) {
+            resetButton.setVisibility(View.VISIBLE);
+            debugButton.setVisibility(View.VISIBLE);
+            if (MNStoreDebugChecker.isUsingStore(getActivity())) {
+                debugButton.setText("Store");
+            } else {
+                debugButton.setText("Debug");
+            }
+        } else {
+            resetButton.setVisibility(View.GONE);
+            debugButton.setVisibility(View.GONE);
+            MNStoreDebugChecker.setUsingStore(true, getActivity());
         }
     }
 
@@ -196,7 +228,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     /**
      * Tab onclick
      */
-    @OnClick({ R.id.setting_store_tab_function_layout, R.id.setting_store_tab_panel_layout, R.id.setting_store_tab_theme_layout})
+    @OnClick({ R.id.setting_store_tab_function_layout, R.id.setting_store_tab_panel_layout,
+            R.id.setting_store_tab_theme_layout})
     public void onTabClicked(RelativeLayout tabLayout) {
         functionTabLayout.setBackgroundColor(getResources().getColor(R.color.setting_store_tab_unselected_color));
         panelTabLayout.setBackgroundColor(getResources().getColor(R.color.setting_store_tab_unselected_color));
@@ -238,7 +271,13 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         if (MNSound.isSoundOn(getActivity())) {
             MNSoundEffectsPlayer.play(R.raw.effect_view_open, getActivity());
         }
-        iabManager.processPurchase(SKIabProducts.SKU_FULL_VERSION, this);
+        if (MNStoreDebugChecker.isUsingStore(getActivity())) {
+            iabManager.processPurchase(SKIabProducts.SKU_FULL_VERSION, this);
+        } else {
+            SKIabProducts.saveIabProductDebug(SKIabProducts.SKU_FULL_VERSION, getActivity());
+            initUI();
+            initFullVersionUIDebug();
+        }
     }
 
     /**
@@ -299,5 +338,80 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         */
 
         Toast.makeText(getActivity(), string, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Debug Test
+     */
+    @OnClick(R.id.setting_store_debug_button)
+    void debugButtonClicked() {
+        if (MNStoreDebugChecker.isUsingStore(getActivity())) {
+            debugButton.setText("Debug");
+            MNStoreDebugChecker.setUsingStore(false, getActivity());
+        } else {
+            debugButton.setText("Store");
+            MNStoreDebugChecker.setUsingStore(true, getActivity());
+        }
+    }
+
+    @OnClick(R.id.setting_store_reset_button)
+    void resetButtonClicked() {
+        // 디버그 상태에서 구매했던 아이템들을 리셋
+        if (MNStoreDebugChecker.isUsingStore(getActivity())) {
+            if (iabManager != null) {
+                iabManager.loadWithAllItems();
+            }
+            initUI();
+        } else {
+            SKIabProducts.resetIabProductsDebug(getActivity());
+            initUI();
+            initFullVersionUIDebug();
+
+        }
+    }
+
+    // 풀 버전을 제외한 아이템을 클릭하면 구매 처리하기
+    @Override
+    public void onItemClickedDebug(String sku) {
+        SKIabProducts.saveIabProductDebug(sku, getActivity());
+        initUI();
+    }
+
+    private void initFullVersionUIDebug() {
+        List<String> ownedSkus = SKIabProducts.loadOwnedIabProductsDebug(getActivity());
+        if (ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
+            fullVersionButtonTextView.setText(R.string.store_purchased);
+            fullVersionImageView.setClickable(false);
+            fullVersionButtonImageView.setClickable(false);
+        } else {
+            Animation animation = AnimationUtils.loadAnimation(getActivity(),
+                    R.anim.store_view_scale_up_and_down);
+            if (animation != null) {
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        Animation textAniamtion = AnimationUtils.loadAnimation(getActivity(),
+                                R.anim.store_view_scale_up_and_down);
+                        if (textAniamtion != null) {
+                            fullVersionButtonTextView.startAnimation(textAniamtion);
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                fullVersionButtonImageView.startAnimation(animation);
+            }
+            fullVersionButtonTextView.setText("$1.99");
+            fullVersionImageView.setClickable(true);
+            fullVersionButtonImageView.setClickable(true);
+        }
     }
 }
