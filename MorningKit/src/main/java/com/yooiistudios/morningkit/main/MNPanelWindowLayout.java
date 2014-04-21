@@ -156,7 +156,7 @@ public class MNPanelWindowLayout extends LinearLayout
     }
 
     public void refreshPanel(Intent data) {
-        // data에서 index 추출
+        // data에서 index 추출, 회전과 무관
         JSONObject panelDataObject;
         try {
             panelDataObject = new JSONObject(data.getStringExtra(MNPanel.PANEL_DATA_OBJECT));
