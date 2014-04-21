@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
@@ -172,11 +171,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     }
 
     private void checkDebug() {
-        if (!IS_DEBUG) {
-            resetButton.setVisibility(View.GONE);
-            debugButton.setVisibility(View.GONE);
-            MNStoreDebugChecker.setUsingStore(true, getActivity());
-        } else {
+        if (IS_DEBUG) {
             resetButton.setVisibility(View.VISIBLE);
             debugButton.setVisibility(View.VISIBLE);
             if (MNStoreDebugChecker.isUsingStore(getActivity())) {
@@ -184,6 +179,10 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             } else {
                 debugButton.setText("Debug");
             }
+        } else {
+            resetButton.setVisibility(View.GONE);
+            debugButton.setVisibility(View.GONE);
+            MNStoreDebugChecker.setUsingStore(true, getActivity());
         }
     }
 
@@ -347,11 +346,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @OnClick(R.id.setting_store_debug_button)
     void debugButtonClicked() {
         if (MNStoreDebugChecker.isUsingStore(getActivity())) {
-            MNLog.now("store to debug");
             debugButton.setText("Debug");
             MNStoreDebugChecker.setUsingStore(false, getActivity());
         } else {
-            MNLog.now("debug to store");
             debugButton.setText("Store");
             MNStoreDebugChecker.setUsingStore(true, getActivity());
         }
@@ -361,13 +358,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     void resetButtonClicked() {
         // 디버그 상태에서 구매했던 아이템들을 리셋
         if (MNStoreDebugChecker.isUsingStore(getActivity())) {
-            MNLog.now("reset items: store");
             if (iabManager != null) {
                 iabManager.loadWithAllItems();
             }
             initUI();
         } else {
-            MNLog.now("reset items: debug");
             SKIabProducts.resetIabProductsDebug(getActivity());
             initUI();
             initFullVersionUIDebug();

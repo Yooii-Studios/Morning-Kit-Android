@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
+import com.yooiistudios.morningkit.setting.store.MNStoreDebugChecker;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
 
 import java.util.ArrayList;
@@ -62,8 +63,12 @@ public class SKIabProducts {
     public static List<String> loadOwnedIabProducts(Context context) {
         List<String> ownedSkus = new ArrayList<String>();
 
-        SharedPreferences prefs = context.getSharedPreferences(SHARED_PREFERENCES_IAB, Context.MODE_PRIVATE);
-
+        SharedPreferences prefs;
+        if (MNStoreDebugChecker.isUsingStore(context)) {
+            prefs = context.getSharedPreferences(SHARED_PREFERENCES_IAB, Context.MODE_PRIVATE);
+        } else {
+            prefs = context.getSharedPreferences(SHARED_PREFERENCES_IAB_DEBUG, Context.MODE_PRIVATE);
+        }
         if (prefs.getBoolean(SKU_FULL_VERSION, false)) {
             ownedSkus.add(SKU_FULL_VERSION);
             ownedSkus.add(SKU_MORE_ALARM_SLOTS);
