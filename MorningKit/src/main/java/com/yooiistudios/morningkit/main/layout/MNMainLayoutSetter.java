@@ -12,10 +12,11 @@ import android.widget.ScrollView;
 import com.google.android.gms.ads.AdSize;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
-import com.yooiistudios.morningkit.common.dp.DipToPixel;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.MNMainActivity;
+import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
+import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixType;
 
 /**
  * Created by StevenKim on 2013. 11. 10..
@@ -205,8 +206,15 @@ public class MNMainLayoutSetter {
             case Configuration.ORIENTATION_PORTRAIT:
                 // * 2 를 하면 dp 환산 과정에서 제대로 된 결과가 나오지 않기에 일부러
                 // int로 환산해서 더해줌
-                return (int) resources.getDimension(R.dimen.panel_height) +
-                        (int) resources.getDimension(R.dimen.panel_height);
+                if (MNPanelMatrix.getCurrentPanelMatrixType(mainActivity.getBaseContext()) ==
+                        MNPanelMatrixType.PANEL_MATRIX_2X2) {
+                    return (int) resources.getDimension(R.dimen.panel_height) +
+                            (int) resources.getDimension(R.dimen.panel_height);
+                } else {
+                    return (int) resources.getDimension(R.dimen.panel_height) +
+                            (int) resources.getDimension(R.dimen.panel_height) +
+                            (int) resources.getDimension(R.dimen.panel_height);
+                }
 //                        + resources.getDimension(R.dimen.margin_outer)
 //                        + resources.getDimension(R.dimen.margin_outer)
 //                        + resources.getDimension(R.dimen.margin_inner);

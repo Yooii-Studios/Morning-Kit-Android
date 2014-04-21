@@ -12,6 +12,8 @@ import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayoutFactory;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
+import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
+import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,32 +30,44 @@ public class MNPanelWindowLayout extends LinearLayout
 {
     private static final String TAG = "MNWidgetWindowLayout";
 
+    private Context context;
     @Getter private LinearLayout panelLineLayouts[];
     @Getter private MNPanelLayout panelLayouts[];
 //    @Getter private FrameLayout[][] widgetSlots;
 
-    public MNPanelWindowLayout(Context context)
-    {
+    public MNPanelWindowLayout(Context context) {
         super(context);
+        this.context = context;
     }
 
-    public MNPanelWindowLayout(Context context, AttributeSet attrs)
-    {
+    public MNPanelWindowLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
     }
 
     public MNPanelWindowLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        this.context = context;
     }
 
     public void initWithWidgetMatrix() {
         this.setOrientation(VERTICAL);
 
-        panelLineLayouts = new LinearLayout[2];
-        panelLayouts = new MNPanelLayout[4];
+        int panelRows;
+        int numberOfPanels;
+
+        if (MNPanelMatrix.getCurrentPanelMatrixType(context) == MNPanelMatrixType.PANEL_MATRIX_2X2) {
+            panelRows = 2;
+            numberOfPanels = 4;
+        } else {
+            panelRows = 3;
+            numberOfPanels = 6;
+        }
+        panelLineLayouts = new LinearLayout[panelRows];
+        panelLayouts = new MNPanelLayout[numberOfPanels];
 
         // 패널들이 있는 레이아웃을 추가
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < panelRows; i++) {
             panelLineLayouts[i] = new LinearLayout(getContext());
             panelLineLayouts[i].setOrientation(HORIZONTAL);
             panelLineLayouts[i].setWeightSum(2);
@@ -99,16 +113,16 @@ public class MNPanelWindowLayout extends LinearLayout
     }
 
     public void applyTheme() {
-        for (int i = 0; i < 4; i++) {
-                MNShadowLayoutFactory.changeThemeOfShadowLayout(panelLayouts[i], getContext());
-                panelLayouts[i].applyTheme();
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            MNShadowLayoutFactory.changeThemeOfShadowLayout(panelLayout, getContext());
+            panelLayout.applyTheme();
         }
     }
 
     public void refreshAllPanels() {
-        for (int i = 0; i < 4; i++) {
+        for (MNPanelLayout panelLayout : panelLayouts) {
             try {
-                panelLayouts[i].refreshPanel();
+                panelLayout.refreshPanel();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -123,7 +137,7 @@ public class MNPanelWindowLayout extends LinearLayout
             if (panelDataObject != null) {
                 int index = panelDataObject.getInt(MNPanel.PANEL_WINDOW_INDEX);
                 int uniqueId = panelDataObject.getInt(MNPanel.PANEL_UNIQUE_ID);
-                if (index >= 0 && index < 4) {
+                if (index >= 0 && index < panelLayouts.length) {
                     // 패널 레이아웃 갱신
                     panelLineLayouts[index / 2].removeViewAt(index % 2);
                     panelLayouts[index] = MNPanelLayoutFactory.newPanelLayoutInstance(
@@ -131,7 +145,7 @@ public class MNPanelWindowLayout extends LinearLayout
                     panelLineLayouts[index / 2].addView(panelLayouts[index], index % 2);
                     panelLayouts[index].refreshPanel();
                 } else {
-                    throw new AssertionError("index must be > 0 and <= 4");
+                    throw new AssertionError("index must be > 0 and <= panelLayouts.length");
                 }
             } else {
                 throw new AssertionError("panelDataObject must not be null");
@@ -148,12 +162,12 @@ public class MNPanelWindowLayout extends LinearLayout
             panelDataObject = new JSONObject(data.getStringExtra(MNPanel.PANEL_DATA_OBJECT));
             if (panelDataObject != null) {
                 int index = panelDataObject.getInt(MNPanel.PANEL_WINDOW_INDEX);
-                if (index >= 0 && index < 4) {
+                if (index >= 0 && index < panelLayouts.length) {
                     // 새 패널데이터 삽입 및 패널 갱신
                     panelLayouts[index].setPanelDataObject(panelDataObject);
                     panelLayouts[index].refreshPanel();
                 } else {
-                    throw new AssertionError("index must be > 0 and <= 4");
+                    throw new AssertionError("index must be > 0 and <= panelLayouts.length");
                 }
             } else {
                 throw new AssertionError("panelDataObject must not be null");
