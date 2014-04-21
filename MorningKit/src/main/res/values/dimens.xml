@@ -104,13 +104,13 @@
     <dimen name="panel_quotes_detail_language_text_size">20dp</dimen>
 
     <!-- Date -->
-    <dimen name="panel_date_month_text_size">12dp</dimen>
-    <dimen name="panel_date_day_text_size">35dp</dimen>
-    <dimen name="panel_date_day_of_week_text_size">12dp</dimen>
+    <dimen name="panel_date_month_text_size">14dp</dimen>
+    <dimen name="panel_date_day_text_size">37dp</dimen>
+    <dimen name="panel_date_day_of_week_text_size">14dp</dimen>
 
-    <dimen name="panel_date_lunar_month_text_size">8dp</dimen>
-    <dimen name="panel_date_lunar_day_text_size">28dp</dimen>
-    <dimen name="panel_date_lunar_day_of_week_text_size">8dp</dimen>
+    <dimen name="panel_date_lunar_month_text_size">10dp</dimen>
+    <dimen name="panel_date_lunar_day_text_size">30dp</dimen>
+    <dimen name="panel_date_lunar_day_of_week_text_size">10dp</dimen>
 
     <!-- Setting -->
     <!-- Panel -->
