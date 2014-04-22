@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -148,9 +149,22 @@ public class MNPanelWindowLayout extends LinearLayout
                         panelLineLayouts[index / 2].removeViewAt(index % 2);
                         panelLineLayouts[index / 2].addView(panelLayouts[index], index % 2);
                     } else {
-                        // 방향을 캐치할 수 있으면, 방향에 따라 배열을 변경 - 나중에 구현하자
-                        panelLineLayouts[index / 2].removeViewAt(index % 2);
-                        panelLineLayouts[index / 2].addView(panelLayouts[index], index % 2);
+                        // 방향을 캐치할 수 있으면, 방향에 따라 배열을 변경
+                        switch (getResources().getConfiguration().orientation) {
+                            // 2X3
+                            case Configuration.ORIENTATION_PORTRAIT:
+                                MNLog.now("Configuration.ORIENTATION_PORTRAIT");
+                                panelLineLayouts[index / 2].removeViewAt(index % 2);
+                                panelLineLayouts[index / 2].addView(panelLayouts[index], index % 2);
+                                break;
+
+                            // 3X2
+                            case Configuration.ORIENTATION_LANDSCAPE:
+                                MNLog.now("Configuration.ORIENTATION_LANDSCAPE");
+                                panelLineLayouts[index / 3].removeViewAt(index % 3);
+                                panelLineLayouts[index / 3].addView(panelLayouts[index], index % 3);
+                                break;
+                        }
                     }
                 } else {
                     throw new AssertionError("index must be > 0 and <= panelLayouts.length");
@@ -196,9 +210,49 @@ public class MNPanelWindowLayout extends LinearLayout
 
             switch (orientation) {
                 case Configuration.ORIENTATION_PORTRAIT:
+                    MNLog.now("ORIENTATION_PORTRAIT");
+                    // 2X3이 되게 새로 정렬
+                    if (panelLineLayouts.length == 3) {
+                        MNLog.now("panelLineLayouts.length == 3");
+                        // 가로모드에서 세로모드로 전환할 때에는 3X2 -> 2X3
+                        if (panelLineLayouts[0].getChildCount() == 3) {
+                            MNLog.now("panelLineLayouts[0].getChildCount() == 3");
+                            for (LinearLayout panelLineLayout : panelLineLayouts) {
+                                panelLineLayout.removeAllViews();
+                            }
+                            panelLineLayouts[0].setWeightSum(2);
+                            panelLineLayouts[1].setWeightSum(2);
+                            panelLineLayouts[2].setVisibility(View.VISIBLE);
+                            for (int i = 0; i < panelLayouts.length; i++) {
+                                panelLineLayouts[i / 2].addView(panelLayouts[i], i % 2);
+                            }
+                        }
+                    }
                     break;
 
                 case Configuration.ORIENTATION_LANDSCAPE:
+                    MNLog.now("ORIENTATION_LANDSCAPE");
+                    // 3X2가 되게 표시
+                    if (panelLineLayouts.length == 3) {
+                        MNLog.now("panelLineLayouts.length == 3");
+//                        panelLineLayouts[2].setVisibility(View.GONE);
+//                        panelLineLayouts[2].removeAllViews();
+//                        panelLineLayouts[0].setWeightSum(3);
+//                        panelLineLayouts[0].addView(panelLayouts[4]);
+//                        panelLineLayouts[1].setWeightSum(3);
+//                        panelLineLayouts[1].addView(panelLayouts[5]);
+
+                        for (LinearLayout panelLineLayout : panelLineLayouts) {
+                            panelLineLayout.removeAllViews();
+                        }
+                        panelLineLayouts[0].setWeightSum(3);
+                        panelLineLayouts[1].setWeightSum(3);
+                        panelLineLayouts[2].setVisibility(View.GONE);
+                        for (int i = 0; i < panelLayouts.length; i++) {
+                            panelLineLayouts[i / 3].addView(panelLayouts[i], i % 3);
+                        }
+
+                    }
                     break;
             }
         }
