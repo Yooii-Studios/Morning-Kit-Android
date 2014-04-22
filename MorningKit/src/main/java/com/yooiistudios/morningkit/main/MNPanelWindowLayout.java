@@ -130,7 +130,7 @@ public class MNPanelWindowLayout extends LinearLayout
         }
     }
 
-    // 패널 디테일 프래그먼트의 셀렉트 페이저에서 패널을 변경할 때의 콜백 메서드
+    // 패널 디테일 프래그먼트의 셀렉트 페이저에서 패널을 변경해서 메인으로 나올 때의 콜백 메서드
     public void replacePanel(Intent data) {
         JSONObject panelDataObject;
         try {
