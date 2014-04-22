@@ -21,7 +21,8 @@ import org.json.JSONObject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelSelectPagerInterface, MNPanelDetailFragment.MNPanelDetailFragmentListener {
+public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelSelectPagerInterface,
+        MNPanelDetailFragment.MNPanelDetailFragmentListener {
 
     private static final String TAG = "MNPanelDetailActivity";
 

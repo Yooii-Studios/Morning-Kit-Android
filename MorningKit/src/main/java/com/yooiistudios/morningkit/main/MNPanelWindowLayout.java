@@ -2,7 +2,9 @@ package com.yooiistudios.morningkit.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -12,6 +14,8 @@ import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayoutFactory;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
+import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
+import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,28 +30,41 @@ import lombok.Getter;
  */
 public class MNPanelWindowLayout extends LinearLayout
 {
-    private static final String TAG = "MNWidgetWindowLayout";
+//    private static final String TAG = "MNWidgetWindowLayout";
 
+    private Context context;
     @Getter private LinearLayout panelLineLayouts[];
     @Getter private MNPanelLayout panelLayouts[];
 //    @Getter private FrameLayout[][] widgetSlots;
 
     public MNPanelWindowLayout(Context context) {
         super(context);
+        this.context = context;
     }
 
     public MNPanelWindowLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
     }
 
-    public void initWithWidgetMatrix() {
+    public void initWithPanelMatrix() {
         this.setOrientation(VERTICAL);
 
-        panelLineLayouts = new LinearLayout[2];
-        panelLayouts = new MNPanelLayout[4];
+        int panelRows;
+        int numberOfPanels;
+
+        if (MNPanelMatrix.getCurrentPanelMatrixType(context) == MNPanelMatrixType.PANEL_MATRIX_2X2) {
+            panelRows = 2;
+            numberOfPanels = 4;
+        } else {
+            panelRows = 3;
+            numberOfPanels = 6;
+        }
+        panelLineLayouts = new LinearLayout[panelRows];
+        panelLayouts = new MNPanelLayout[numberOfPanels];
 
         // 패널들이 있는 레이아웃을 추가
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < panelRows; i++) {
             panelLineLayouts[i] = new LinearLayout(getContext());
             panelLineLayouts[i].setOrientation(HORIZONTAL);
             panelLineLayouts[i].setWeightSum(2);
@@ -93,23 +110,24 @@ public class MNPanelWindowLayout extends LinearLayout
     }
 
     public void applyTheme() {
-        for (int i = 0; i < 4; i++) {
-                MNShadowLayoutFactory.changeThemeOfShadowLayout(panelLayouts[i], getContext());
-                panelLayouts[i].applyTheme();
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            MNShadowLayoutFactory.changeThemeOfShadowLayout(panelLayout, getContext());
+            panelLayout.applyTheme();
         }
     }
 
+    // 방향과 무관
     public void refreshAllPanels() {
-        for (int i = 0; i < 4; i++) {
+        for (MNPanelLayout panelLayout : panelLayouts) {
             try {
-                panelLayouts[i].refreshPanel();
+                panelLayout.refreshPanel();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    // 패널 디테일 프래그먼트의 셀렉트 페이저에서 패널을 변경할 때의 콜백 메서드
+    // 패널 디테일 프래그먼트의 셀렉트 페이저에서 패널을 변경해서 메인으로 나올 때의 콜백 메서드
     public void replacePanel(Intent data) {
         JSONObject panelDataObject;
         try {
@@ -117,15 +135,36 @@ public class MNPanelWindowLayout extends LinearLayout
             if (panelDataObject != null) {
                 int index = panelDataObject.getInt(MNPanel.PANEL_WINDOW_INDEX);
                 int uniqueId = panelDataObject.getInt(MNPanel.PANEL_UNIQUE_ID);
-                if (index >= 0 && index < 4) {
-                    // 패널 레이아웃 갱신
-                    panelLineLayouts[index / 2].removeViewAt(index % 2);
+                if (index >= 0 && index < panelLayouts.length) {
+                    // 기존의 위치에 새 패널을 대입
                     panelLayouts[index] = MNPanelLayoutFactory.newPanelLayoutInstance(
                             MNPanelType.valueOfUniqueId(uniqueId), index, getContext());
-                    panelLineLayouts[index / 2].addView(panelLayouts[index], index % 2);
                     panelLayouts[index].refreshPanel();
+
+                    // 기존 위치에 새 패널을 대입
+                    if (MNPanelMatrix.getCurrentPanelMatrixType(getContext()) ==
+                            MNPanelMatrixType.PANEL_MATRIX_2X2) {
+                        // 2X2는 크게 영향이 없으므로 기존 코드 사용(배열 변경 X)
+                        panelLineLayouts[index / 2].removeViewAt(index % 2);
+                        panelLineLayouts[index / 2].addView(panelLayouts[index], index % 2);
+                    } else {
+                        // 방향을 알아내어 그에 따라 배열을 변경
+                        switch (getResources().getConfiguration().orientation) {
+                            // 2X3
+                            case Configuration.ORIENTATION_PORTRAIT:
+                                panelLineLayouts[index / 2].removeViewAt(index % 2);
+                                panelLineLayouts[index / 2].addView(panelLayouts[index], index % 2);
+                                break;
+
+                            // 3X2
+                            case Configuration.ORIENTATION_LANDSCAPE:
+                                panelLineLayouts[index / 3].removeViewAt(index % 3);
+                                panelLineLayouts[index / 3].addView(panelLayouts[index], index % 3);
+                                break;
+                        }
+                    }
                 } else {
-                    throw new AssertionError("index must be > 0 and <= 4");
+                    throw new AssertionError("index must be > 0 and <= panelLayouts.length");
                 }
             } else {
                 throw new AssertionError("panelDataObject must not be null");
@@ -136,24 +175,73 @@ public class MNPanelWindowLayout extends LinearLayout
     }
 
     public void refreshPanel(Intent data) {
-        // data에서 index 추출
+        // data에서 index 추출, 회전과 무관
         JSONObject panelDataObject;
         try {
             panelDataObject = new JSONObject(data.getStringExtra(MNPanel.PANEL_DATA_OBJECT));
             if (panelDataObject != null) {
                 int index = panelDataObject.getInt(MNPanel.PANEL_WINDOW_INDEX);
-                if (index >= 0 && index < 4) {
+                if (index >= 0 && index < panelLayouts.length) {
                     // 새 패널데이터 삽입 및 패널 갱신
                     panelLayouts[index].setPanelDataObject(panelDataObject);
                     panelLayouts[index].refreshPanel();
                 } else {
-                    throw new AssertionError("index must be > 0 and <= 4");
+                    throw new AssertionError("index must be > 0 and <= panelLayouts.length");
                 }
             } else {
                 throw new AssertionError("panelDataObject must not be null");
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 2X3 대응, 방향에 따라 배열 변경
+     */
+    public void adjustPanelLayoutMatrixAtOrientation(int orientation) {
+        // 2X2는 영향이 없음
+        if (MNPanelMatrix.getCurrentPanelMatrixType(getContext()) ==
+                MNPanelMatrixType.PANEL_MATRIX_2X3) {
+            switch (orientation) {
+                case Configuration.ORIENTATION_PORTRAIT:
+                    // 2X3이 되게 새로 정렬
+                    // 1 2
+                    // 3 4
+                    // 5 6
+                    if (panelLineLayouts.length == 3) {
+                        // 가로모드에서 세로모드로 전환할 때에는 3X2 -> 2X3
+                        if (panelLineLayouts[0].getChildCount() == 3) {
+                            for (LinearLayout panelLineLayout : panelLineLayouts) {
+                                panelLineLayout.removeAllViews();   // 모든 뷰를 먼저 삭제
+                            }
+                            panelLineLayouts[0].setWeightSum(2);    // 웨이트 정렬
+                            panelLineLayouts[1].setWeightSum(2);
+                            panelLineLayouts[2].setVisibility(View.VISIBLE);
+                            for (int i = 0; i < panelLayouts.length; i++) {
+                                panelLineLayouts[i / 2].addView(panelLayouts[i], i % 2);
+                            }
+                        }
+                    }
+                    break;
+
+                case Configuration.ORIENTATION_LANDSCAPE:
+                    // 3X2가 되게 새로 정렬
+                    // 1 2 3
+                    // 4 5 6
+                    if (panelLineLayouts.length == 3) {
+                        for (LinearLayout panelLineLayout : panelLineLayouts) {
+                            panelLineLayout.removeAllViews();   // 모든 뷰를 먼저 삭제
+                        }
+                        panelLineLayouts[0].setWeightSum(3);    // 웨이트 정렬
+                        panelLineLayouts[1].setWeightSum(3);
+                        panelLineLayouts[2].setVisibility(View.GONE);
+                        for (int i = 0; i < panelLayouts.length; i++) {
+                            panelLineLayouts[i / 3].addView(panelLayouts[i], i % 3);
+                        }
+                    }
+                    break;
+            }
         }
     }
 }
