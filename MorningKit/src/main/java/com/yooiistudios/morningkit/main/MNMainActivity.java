@@ -224,6 +224,13 @@ public class MNMainActivity extends Activity
                 // 스크롤컨텐트 레이아웃 높이 조절 - 위젯 윈도우만 조절해주어도 됨
 //                MNMainLayoutSetter.adjustScrollContentLayoutHeight(MNMainActivity.this, config.orientation);
 
+                // 마지막으로 스크롤뷰 최상단으로 올려주기
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.scrollTo(0, 0);
+                    }
+                });
 //                Log.i(TAG, "status bar height: " + MNDeviceSizeInfo.getStatusBarHeight(MNMainActivity.this));
 //                Log.i(TAG, "Device height: " + MNDeviceSizeInfo.getDeviceHeight(MNMainActivity.this));
 //                Log.i(TAG, "scrollView height: " + scrollView.getHeight());
