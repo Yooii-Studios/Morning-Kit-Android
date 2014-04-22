@@ -8,7 +8,7 @@ import lombok.Getter;
  * MNInfoItemType
  */
 public enum MNThemeItemType {
-    THEME(0), LANGUAGE(1), PANEL_MATRIX(2), SOUND_EFFECTS(3);
+    THEME(0), LANGUAGE(1), PANEL_MATRIX(2); //, SOUND_EFFECTS(3);
 
     @Getter
     private final int index;
@@ -20,7 +20,7 @@ public enum MNThemeItemType {
             case 0: return THEME;
             case 1: return LANGUAGE;
             case 2: return PANEL_MATRIX;
-            case 3: return SOUND_EFFECTS;
+//            case 3: return SOUND_EFFECTS;
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
