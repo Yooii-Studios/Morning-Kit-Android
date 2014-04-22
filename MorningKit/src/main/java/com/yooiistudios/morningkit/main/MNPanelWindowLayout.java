@@ -119,6 +119,7 @@ public class MNPanelWindowLayout extends LinearLayout
         }
     }
 
+    // 방향과 무관
     public void refreshAllPanels() {
         for (MNPanelLayout panelLayout : panelLayouts) {
             try {
