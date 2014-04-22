@@ -47,11 +47,6 @@ public class MNPanelWindowLayout extends LinearLayout
         this.context = context;
     }
 
-    public MNPanelWindowLayout(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        this.context = context;
-    }
-
     public void initWithPanelMatrix() {
         this.setOrientation(VERTICAL);
 
