@@ -2,10 +2,12 @@ package com.yooiistudios.morningkit.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
@@ -50,7 +52,7 @@ public class MNPanelWindowLayout extends LinearLayout
         this.context = context;
     }
 
-    public void initWithWidgetMatrix() {
+    public void initWithPanelMatrix() {
         this.setOrientation(VERTICAL);
 
         int panelRows;
@@ -139,12 +141,22 @@ public class MNPanelWindowLayout extends LinearLayout
                 int index = panelDataObject.getInt(MNPanel.PANEL_WINDOW_INDEX);
                 int uniqueId = panelDataObject.getInt(MNPanel.PANEL_UNIQUE_ID);
                 if (index >= 0 && index < panelLayouts.length) {
-                    // 패널 레이아웃 갱신
-                    panelLineLayouts[index / 2].removeViewAt(index % 2);
+                    // 기존의 위치에 새 패널을 대입
                     panelLayouts[index] = MNPanelLayoutFactory.newPanelLayoutInstance(
                             MNPanelType.valueOfUniqueId(uniqueId), index, getContext());
-                    panelLineLayouts[index / 2].addView(panelLayouts[index], index % 2);
                     panelLayouts[index].refreshPanel();
+
+                    // 기존 위치에 새 패널을 대입
+                    if (MNPanelMatrix.getCurrentPanelMatrixType(getContext()) ==
+                            MNPanelMatrixType.PANEL_MATRIX_2X2) {
+                        // 2X2는 크게 영향이 없으므로 기존 코드 사용(배열 변경 X)
+                        panelLineLayouts[index / 2].removeViewAt(index % 2);
+                        panelLineLayouts[index / 2].addView(panelLayouts[index], index % 2);
+                    } else {
+                        // 방향을 캐치할 수 있으면, 방향에 따라 배열을 변경 - 나중에 구현하자
+                        panelLineLayouts[index / 2].removeViewAt(index % 2);
+                        panelLineLayouts[index / 2].addView(panelLayouts[index], index % 2);
+                    }
                 } else {
                     throw new AssertionError("index must be > 0 and <= panelLayouts.length");
                 }
@@ -175,6 +187,25 @@ public class MNPanelWindowLayout extends LinearLayout
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 2X3 대응, 방향에 따라 배열 변경
+     */
+    public void adjustPanelLayoutMatrixAtOrientation(int orientation) {
+        // 2X2는 영향이 없음
+        if (MNPanelMatrix.getCurrentPanelMatrixType(getContext()) ==
+                MNPanelMatrixType.PANEL_MATRIX_2X3) {
+            MNLog.now("adjustPanelLayoutMatrixAtOrientation/orientation: " + orientation);
+
+            switch (orientation) {
+                case Configuration.ORIENTATION_PORTRAIT:
+                    break;
+
+                case Configuration.ORIENTATION_LANDSCAPE:
+                    break;
+            }
         }
     }
 }

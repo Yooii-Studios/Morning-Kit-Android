@@ -201,6 +201,10 @@ public class MNMainLayoutSetter {
     public static float getPanelWindowLayoutHeight(MNMainActivity mainActivity, int orientation) {
         Resources resources = mainActivity.getResources();
 
+        // 방향에 따른 패널 매트릭스 배열 변경
+        mainActivity.getPanelWindowLayout().adjustPanelLayoutMatrixAtOrientation(orientation);
+
+        // 높이 조절
         switch (orientation) {
             // 높이 조절을 panel shadow 영역을 포함하게 구현
             case Configuration.ORIENTATION_PORTRAIT:

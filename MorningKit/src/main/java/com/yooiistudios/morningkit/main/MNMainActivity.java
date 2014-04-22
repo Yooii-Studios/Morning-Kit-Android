@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.squareup.otto.Subscribe;
@@ -91,7 +90,7 @@ public class MNMainActivity extends Activity
 //        AppValidationChecker.validationCheck(this);
 
         // 위젯 윈도우
-        panelWindowLayout.initWithWidgetMatrix();
+        panelWindowLayout.initWithPanelMatrix();
 
         // 알람
         alarmListView.initWithListAdapter();
