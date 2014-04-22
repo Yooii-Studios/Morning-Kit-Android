@@ -32,18 +32,12 @@ public class MNPanelWindowLayout extends LinearLayout
     @Getter private MNPanelLayout panelLayouts[];
 //    @Getter private FrameLayout[][] widgetSlots;
 
-    public MNPanelWindowLayout(Context context)
-    {
+    public MNPanelWindowLayout(Context context) {
         super(context);
     }
 
-    public MNPanelWindowLayout(Context context, AttributeSet attrs)
-    {
+    public MNPanelWindowLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public MNPanelWindowLayout(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
     }
 
     public void initWithWidgetMatrix() {
