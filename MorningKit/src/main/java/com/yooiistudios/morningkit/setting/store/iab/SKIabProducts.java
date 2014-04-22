@@ -43,7 +43,12 @@ public class SKIabProducts {
 
     // 구매완료시 적용
     public static void saveIabProduct(String sku, Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(SHARED_PREFERENCES_IAB, Context.MODE_PRIVATE);
+        SharedPreferences prefs;
+        if (MNStoreDebugChecker.isUsingStore(context)) {
+            prefs = context.getSharedPreferences(SHARED_PREFERENCES_IAB, Context.MODE_PRIVATE);
+        } else {
+            prefs = context.getSharedPreferences(SHARED_PREFERENCES_IAB_DEBUG, Context.MODE_PRIVATE);
+        }
         prefs.edit().putBoolean(sku, true).commit();
     }
 

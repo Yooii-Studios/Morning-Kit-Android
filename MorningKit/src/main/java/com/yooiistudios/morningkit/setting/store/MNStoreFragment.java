@@ -274,7 +274,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         if (MNStoreDebugChecker.isUsingStore(getActivity())) {
             iabManager.processPurchase(SKIabProducts.SKU_FULL_VERSION, this);
         } else {
-            SKIabProducts.saveIabProductDebug(SKIabProducts.SKU_FULL_VERSION, getActivity());
+            SKIabProducts.saveIabProduct(SKIabProducts.SKU_FULL_VERSION, getActivity());
             initUI();
             initFullVersionUIDebug();
         }
@@ -373,12 +373,12 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     // 풀 버전을 제외한 아이템을 클릭하면 구매 처리하기
     @Override
     public void onItemClickedDebug(String sku) {
-        SKIabProducts.saveIabProductDebug(sku, getActivity());
+        SKIabProducts.saveIabProduct(sku, getActivity());
         initUI();
     }
 
     private void initFullVersionUIDebug() {
-        List<String> ownedSkus = SKIabProducts.loadOwnedIabProductsDebug(getActivity());
+        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
         if (ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
             fullVersionButtonTextView.setText(R.string.store_purchased);
             fullVersionImageView.setClickable(false);

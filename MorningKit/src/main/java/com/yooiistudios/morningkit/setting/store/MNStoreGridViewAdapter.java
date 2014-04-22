@@ -59,9 +59,6 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
 
         // debug
         this.storeGridViewOnClickListener = storeGridViewOnClickListener;
-        if (!MNStoreDebugChecker.isUsingStore(context)) {
-            ownedSkus = SKIabProducts.loadOwnedIabProductsDebug(context);
-        }
     }
 
     @Override
