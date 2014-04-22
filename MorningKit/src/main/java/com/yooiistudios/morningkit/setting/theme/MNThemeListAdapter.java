@@ -19,7 +19,6 @@ import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixActivity;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
-import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSoundEffectActivity;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeDetailActivity;
@@ -74,17 +73,17 @@ public class MNThemeListAdapter extends BaseAdapter {
                     }
                     break;
 
-                case SOUND_EFFECTS:
-                    viewHolder.getTitleTextView().setText(R.string.setting_effect_sound);
-                    switch (MNSound.getCurrentSoundType(context)) {
-                        case ON:
-                            viewHolder.getDetailTextView().setText(R.string.setting_effect_sound_on);
-                            break;
-                        case OFF:
-                            viewHolder.getDetailTextView().setText(R.string.setting_effect_sound_off);
-                            break;
-                    }
-                    break;
+//                case SOUND_EFFECTS:
+//                    viewHolder.getTitleTextView().setText(R.string.setting_effect_sound);
+//                    switch (MNSound.getCurrentSoundType(context)) {
+//                        case ON:
+//                            viewHolder.getDetailTextView().setText(R.string.setting_effect_sound_on);
+//                            break;
+//                        case OFF:
+//                            viewHolder.getDetailTextView().setText(R.string.setting_effect_sound_off);
+//                            break;
+//                    }
+//                    break;
             }
 
             // theme
@@ -122,9 +121,9 @@ public class MNThemeListAdapter extends BaseAdapter {
                                 context.startActivity(new Intent(context, MNPanelMatrixActivity.class));
                                 break;
 
-                            case SOUND_EFFECTS:
-                                context.startActivity(new Intent(context, MNSoundEffectActivity.class));
-                                break;
+//                            case SOUND_EFFECTS:
+//                                context.startActivity(new Intent(context, MNSoundEffectActivity.class));
+//                                break;
                         }
                     }
                 });
