@@ -15,8 +15,11 @@ import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.MNMainActivity;
+import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixType;
+
+import java.util.List;
 
 /**
  * Created by StevenKim on 2013. 11. 10..
@@ -69,7 +72,12 @@ public class MNMainLayoutSetter {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
-                admobLayoutParams.height = (int) getAdmobLayoutHeightOnPortrait(admobLayout.getContext());
+                List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(admobLayout.getContext());
+                if (ownedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
+                    admobLayoutParams.height = 0;
+                } else {
+                    admobLayoutParams.height = (int) getAdmobLayoutHeightOnPortrait(admobLayout.getContext());
+                }
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
@@ -261,7 +269,12 @@ public class MNMainLayoutSetter {
     }
 
     public static float getAdmobLayoutHeightOnPortrait(Context context) {
-        return (int)context.getResources().getDimension(R.dimen.main_admob_layout_height);
+        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
+        if (ownedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
+            return 0;
+        } else {
+            return (int)context.getResources().getDimension(R.dimen.main_admob_layout_height);
+        }
     }
 
     public static float getButtonLayoutHeight(Context context, int orientation) {
