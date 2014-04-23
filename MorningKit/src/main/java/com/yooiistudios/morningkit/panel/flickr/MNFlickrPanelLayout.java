@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -43,7 +44,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
     public static final String FLICKR_DATA_GRAYSCALE = "FLICKR_DATA_GRAYSCALE";
 
     private MNFlickrPhotoInfo flickrPhotoInfo;
-    private RecyclingImageView imageView;
+    private ImageView imageView;
     private String keywordString;
     private Bitmap originalBitmap;
     private Bitmap polishedBitmap;
@@ -63,7 +64,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
         super.init();
 
         // image view
-        imageView = new RecyclingImageView(getContext());
+        imageView = new ImageView(getContext());
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(layoutParams);
@@ -82,7 +83,8 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
 
         // 이미지뷰 초기화
         if (imageView != null) {
-            imageView.setImageDrawable(null);
+//            imageView.setImageDrawable(null);
+            imageView.setImageBitmap(null);
             polishedBitmap = null;
         }
 
@@ -133,8 +135,10 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
         super.updateUI();
 
         // 마무리 가공된 Bitmap을 RecycleImageView에 대입
-        imageView.setImageDrawable(null);
-        imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), polishedBitmap));
+//        imageView.setImageDrawable(null);
+        imageView.setImageBitmap(null);
+        imageView.setImageBitmap(polishedBitmap);
+//        imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), polishedBitmap));
     }
 
     /**
@@ -193,7 +197,8 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
     @Override
     public void onBitmapProcessingLoad(Bitmap polishedBitmap) {
         if (this.polishedBitmap != null) {
-            imageView.setImageDrawable(null);
+//            imageView.setImageDrawable(null);
+            imageView.setImageBitmap(null);
             this.polishedBitmap = null;
         }
         this.polishedBitmap = polishedBitmap;
@@ -229,7 +234,8 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
             flickrBitmapAsyncTask = null;
         }
         if (polishedBitmap != null) {
-            imageView.setImageDrawable(null);
+//            imageView.setImageDrawable(null);
+            imageView.setImageBitmap(null);
             polishedBitmap = null;
         }
 
