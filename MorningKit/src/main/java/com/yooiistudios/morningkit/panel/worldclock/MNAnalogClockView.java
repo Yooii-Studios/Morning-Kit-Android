@@ -1,15 +1,13 @@
 package com.yooiistudios.morningkit.panel.worldclock;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
-import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -32,10 +30,10 @@ public class MNAnalogClockView extends RelativeLayout {
     private static final int MINUTE_TO_HOUR_DEGREE = 12;
     private static final int HOUR_TO_HOUR_DEGREE = 30;
 
-    private RecyclingImageView clockBaseImageView;
-    private RecyclingImageView hourHandImageView;
-    private RecyclingImageView minuteHandImageView;
-    private RecyclingImageView secondHandImageView;
+    private ImageView clockBaseImageView;
+    private ImageView hourHandImageView;
+    private ImageView minuteHandImageView;
+    private ImageView secondHandImageView;
 
     private boolean isFirstTick = true;
     private float overshoot;
@@ -66,33 +64,29 @@ public class MNAnalogClockView extends RelativeLayout {
     }
 
     private void initUI() {
-        clockBaseImageView = new RecyclingImageView(getContext());
-        clockBaseImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-                BitmapFactory.decodeResource(getResources(), R.drawable.clock_base_pm_classic_grey)));
+        clockBaseImageView = new ImageView(getContext());
+        clockBaseImageView.setImageResource(R.drawable.clock_base_pm_classic_grey);
         LayoutParams clockBaseLayoutParams = new LayoutParams(MATCH_PARENT, MATCH_PARENT);
         clockBaseLayoutParams.addRule(CENTER_IN_PARENT);
         clockBaseImageView.setLayoutParams(clockBaseLayoutParams);
         addView(clockBaseImageView);
 
-        secondHandImageView = new RecyclingImageView(getContext());
-        secondHandImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-                BitmapFactory.decodeResource(getResources(), R.drawable.clock_hand_second)));
+        secondHandImageView = new ImageView(getContext());
+        secondHandImageView.setImageResource(R.drawable.clock_hand_second);
         LayoutParams secondHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);
         secondHandLayoutParams.addRule(CENTER_IN_PARENT);
         secondHandImageView.setLayoutParams(secondHandLayoutParams);
         addView(secondHandImageView);
 
-        minuteHandImageView = new RecyclingImageView(getContext());
-        minuteHandImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-                BitmapFactory.decodeResource(getResources(), R.drawable.clock_hand_minute)));
+        minuteHandImageView = new ImageView(getContext());
+        minuteHandImageView.setImageResource(R.drawable.clock_hand_minute);
         LayoutParams minuteHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);
         minuteHandLayoutParams.addRule(CENTER_IN_PARENT);
         minuteHandImageView.setLayoutParams(minuteHandLayoutParams);
         addView(minuteHandImageView);
 
-        hourHandImageView = new RecyclingImageView(getContext());
-        hourHandImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-                BitmapFactory.decodeResource(getResources(), R.drawable.clock_hand_hour)));
+        hourHandImageView = new ImageView(getContext());
+        hourHandImageView.setImageResource(R.drawable.clock_hand_hour);
         LayoutParams hourHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);
         hourHandLayoutParams.addRule(CENTER_IN_PARENT);
         hourHandImageView.setLayoutParams(hourHandLayoutParams);
@@ -130,7 +124,7 @@ public class MNAnalogClockView extends RelativeLayout {
         }
     }
 
-    private void rotate(RecyclingImageView imageView, int fromAngle, int toAngle){
+    private void rotate(ImageView imageView, int fromAngle, int toAngle){
         Animation anim;
         anim = new RotateAnimation(fromAngle, toAngle,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);

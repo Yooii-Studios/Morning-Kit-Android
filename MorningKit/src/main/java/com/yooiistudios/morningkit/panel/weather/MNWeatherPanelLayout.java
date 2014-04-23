@@ -68,7 +68,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     private RelativeLayout upperContentLayout;
     private RelativeLayout upperTempContentLayout;
     private RelativeLayout upperTempInnerContentLayout;
-    private RecyclingImageView weatherConditionImageView;
+    private ImageView weatherConditionImageView;
     private TextView currentTempTextView;
     private TextView lowHighTempTextView;
     private TextView cityNameTextView;
@@ -146,7 +146,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         innerContentLayout.addView(upperContentLayout);
 
         // image
-        weatherConditionImageView = new RecyclingImageView(getContext());
+        weatherConditionImageView = new ImageView(getContext());
         weatherConditionImageView.setId(8213774);
         int imageSize = getResources().getDimensionPixelSize(R.dimen.panel_weather_condition_image_size);
         RelativeLayout.LayoutParams imageViewParams = new LayoutParams(imageSize, imageSize);
@@ -307,8 +307,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 
         // weather condition
         if (weatherData.weatherCondition != null) {
-            weatherConditionImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-                    BitmapFactory.decodeResource(getResources(), weatherData.weatherCondition.getConditionResourceId())));
+            weatherConditionImageView.setImageResource(weatherData.weatherCondition.getConditionResourceId());
         }
 
         // temperature
