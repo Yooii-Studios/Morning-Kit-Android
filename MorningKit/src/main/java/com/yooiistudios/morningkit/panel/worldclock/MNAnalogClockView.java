@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.panel.worldclock;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
@@ -9,8 +8,6 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
-import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -67,9 +64,6 @@ public class MNAnalogClockView extends RelativeLayout {
     }
 
     private void initUI() {
-//        clockBaseImageView = new RecyclingImageView(getContext());
-//        clockBaseImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-//                BitmapFactory.decodeResource(getResources(), R.drawable.clock_base_pm_classic_grey)));
         clockBaseImageView = new ImageView(getContext());
         clockBaseImageView.setImageResource(R.drawable.clock_base_pm_classic_grey);
         LayoutParams clockBaseLayoutParams = new LayoutParams(MATCH_PARENT, MATCH_PARENT);
@@ -77,9 +71,6 @@ public class MNAnalogClockView extends RelativeLayout {
         clockBaseImageView.setLayoutParams(clockBaseLayoutParams);
         addView(clockBaseImageView);
 
-//        secondHandImageView = new RecyclingImageView(getContext());
-//        secondHandImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-//                BitmapFactory.decodeResource(getResources(), R.drawable.clock_hand_second)));
         secondHandImageView = new ImageView(getContext());
         secondHandImageView.setImageResource(R.drawable.clock_hand_second);
         LayoutParams secondHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);
@@ -87,9 +78,6 @@ public class MNAnalogClockView extends RelativeLayout {
         secondHandImageView.setLayoutParams(secondHandLayoutParams);
         addView(secondHandImageView);
 
-//        minuteHandImageView = new RecyclingImageView(getContext());
-//        minuteHandImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-//                BitmapFactory.decodeResource(getResources(), R.drawable.clock_hand_minute)));
         minuteHandImageView = new ImageView(getContext());
         minuteHandImageView.setImageResource(R.drawable.clock_hand_minute);
         LayoutParams minuteHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);
@@ -97,9 +85,6 @@ public class MNAnalogClockView extends RelativeLayout {
         minuteHandImageView.setLayoutParams(minuteHandLayoutParams);
         addView(minuteHandImageView);
 
-//        hourHandImageView = new RecyclingImageView(getContext());
-//        hourHandImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-//                BitmapFactory.decodeResource(getResources(), R.drawable.clock_hand_hour)));
         hourHandImageView = new ImageView(getContext());
         hourHandImageView.setImageResource(R.drawable.clock_hand_hour);
         LayoutParams hourHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);

@@ -146,7 +146,6 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         innerContentLayout.addView(upperContentLayout);
 
         // image
-//        weatherConditionImageView = new RecyclingImageView(getContext());
         weatherConditionImageView = new ImageView(getContext());
         weatherConditionImageView.setId(8213774);
         int imageSize = getResources().getDimensionPixelSize(R.dimen.panel_weather_condition_image_size);
@@ -308,8 +307,6 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 
         // weather condition
         if (weatherData.weatherCondition != null) {
-//            weatherConditionImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-//                    BitmapFactory.decodeResource(getResources(), weatherData.weatherCondition.getConditionResourceId())));
             weatherConditionImageView.setImageResource(weatherData.weatherCondition.getConditionResourceId());
         }
 
