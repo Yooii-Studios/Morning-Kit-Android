@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
-import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapLoadSaver;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
@@ -83,7 +81,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
 
         // 이미지뷰 초기화
         if (imageView != null) {
-//            imageView.setImageDrawable(null);
             imageView.setImageBitmap(null);
             polishedBitmap = null;
         }
@@ -136,9 +133,9 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
 
         // 마무리 가공된 Bitmap을 RecycleImageView에 대입
 //        imageView.setImageDrawable(null);
+//        imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), polishedBitmap));
         imageView.setImageBitmap(null);
         imageView.setImageBitmap(polishedBitmap);
-//        imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), polishedBitmap));
     }
 
     /**
