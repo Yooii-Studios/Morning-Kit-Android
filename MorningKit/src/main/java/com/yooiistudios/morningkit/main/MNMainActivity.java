@@ -131,8 +131,7 @@ public class MNMainActivity extends Activity
     }
 
     @Override
-    protected void onStart()
-    {
+    protected void onStart() {
         // Activity visible to user
 
         super.onStart();
@@ -140,6 +139,7 @@ public class MNMainActivity extends Activity
 
     @Override
     protected void onResume() {
+        super.onResume();
         MNLog.i(TAG, "onResume");
 
         // Activity visible to user
@@ -152,7 +152,6 @@ public class MNMainActivity extends Activity
 //        onConfigurationChanged(getResources().getConfiguration());
 
         // 테마와 관련된 작업 실행
-//        containerLayout.setBackgroundColor(Color.WHITE);
         panelWindowLayout.applyTheme();
 
         // 버튼 레이아웃
@@ -162,7 +161,7 @@ public class MNMainActivity extends Activity
         }
         // 애드몹 레이아웃
         admobLayout.setBackgroundColor(Color.parseColor("#BB000000"));
-        super.onResume();
+
         adView.resume();
     }
 
@@ -173,24 +172,21 @@ public class MNMainActivity extends Activity
     }
 
     @Override
-    protected void onPause()
-    {
+    protected void onPause() {
         // Partially visible
         adView.pause();
         super.onPause();
     }
 
     @Override
-    protected void onStop()
-    {
+    protected void onStop() {
         // Activity no longer visible
         MNAlarmScrollViewBusProvider.getInstance().unregister(this);
         super.onStop();
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         // Acitivity is destroyed
         if (adView != null) {
             adView.destroy();
