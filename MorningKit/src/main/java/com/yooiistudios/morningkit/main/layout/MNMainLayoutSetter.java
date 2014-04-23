@@ -15,6 +15,7 @@ import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.main.MNMainActivity;
+import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixType;
 
@@ -69,7 +70,11 @@ public class MNMainLayoutSetter {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
-                admobLayoutParams.height = (int) getAdmobLayoutHeightOnPortrait(admobLayout.getContext());
+                if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_NO_ADS, admobLayout.getContext())) {
+                    admobLayoutParams.height = 0;
+                } else {
+                    admobLayoutParams.height = (int) getAdmobLayoutHeightOnPortrait(admobLayout.getContext());
+                }
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
@@ -81,21 +86,27 @@ public class MNMainLayoutSetter {
     }
 
     public static void adjustAdmobViewAtOrientation(MNMainActivity mainActivity, int orientation) {
-        switch (orientation) {
-            // 버튼 레이아웃에 광고가 있을 경우 애드몹 레이아웃으로 옮기기
-            case Configuration.ORIENTATION_PORTRAIT:
-                if (mainActivity.getButtonLayout().findViewById(R.id.adView) != null) {
-                    mainActivity.getButtonLayout().removeView(mainActivity.getAdView());
-                    mainActivity.getAdmobLayout().addView(mainActivity.getAdView());
-                }
-                break;
-            // Landscape 모드에서 버튼 레이아웃으로 광고 옮기기
-            case Configuration.ORIENTATION_LANDSCAPE:
-                if (mainActivity.getAdmobLayout().findViewById(R.id.adView) != null) {
-                    mainActivity.getAdmobLayout().removeView(mainActivity.getAdView());
-                    mainActivity.getButtonLayout().addView(mainActivity.getAdView());
-                }
-                break;
+        // 구매 여부에 따라 뷰의 표시 여부 결정
+        if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_NO_ADS, mainActivity.getApplicationContext())) {
+            mainActivity.getAdView().setVisibility(View.GONE);
+        } else {
+            mainActivity.getAdView().setVisibility(View.VISIBLE);
+            switch (orientation) {
+                // 버튼 레이아웃에 광고가 있을 경우 애드몹 레이아웃으로 옮기기
+                case Configuration.ORIENTATION_PORTRAIT:
+                    if (mainActivity.getButtonLayout().findViewById(R.id.adView) != null) {
+                        mainActivity.getButtonLayout().removeView(mainActivity.getAdView());
+                        mainActivity.getAdmobLayout().addView(mainActivity.getAdView());
+                    }
+                    break;
+                // Landscape 모드에서 버튼 레이아웃으로 광고 옮기기
+                case Configuration.ORIENTATION_LANDSCAPE:
+                    if (mainActivity.getAdmobLayout().findViewById(R.id.adView) != null) {
+                        mainActivity.getAdmobLayout().removeView(mainActivity.getAdView());
+                        mainActivity.getButtonLayout().addView(mainActivity.getAdView());
+                    }
+                    break;
+            }
         }
     }
 
@@ -261,7 +272,11 @@ public class MNMainLayoutSetter {
     }
 
     public static float getAdmobLayoutHeightOnPortrait(Context context) {
-        return (int)context.getResources().getDimension(R.dimen.main_admob_layout_height);
+        if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_NO_ADS, context)) {
+            return 0;
+        } else {
+            return (int)context.getResources().getDimension(R.dimen.main_admob_layout_height);
+        }
     }
 
     public static float getButtonLayoutHeight(Context context, int orientation) {
@@ -270,8 +285,12 @@ public class MNMainLayoutSetter {
                 return (int) context.getResources().getDimension(R.dimen.main_button_layout_height);
 
             case Configuration.ORIENTATION_LANDSCAPE:
-                return (int) (context.getResources().getDimension(R.dimen.main_button_layout_height)
-                                + context.getResources().getDimension(R.dimen.margin_outer) * 2);
+                if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_NO_ADS, context)) {
+                    return (int) context.getResources().getDimension(R.dimen.main_button_layout_height);
+                } else {
+                    return (int) (context.getResources().getDimension(R.dimen.main_button_layout_height)
+                            + context.getResources().getDimension(R.dimen.margin_outer) * 2);
+                }
 
             default: // Test에서 Undefined 사용
                 MNLog.e(TAG, "not expected orientation: " + orientation);
