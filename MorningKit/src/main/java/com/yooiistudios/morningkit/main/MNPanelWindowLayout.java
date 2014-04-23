@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
@@ -197,10 +198,10 @@ public class MNPanelWindowLayout extends LinearLayout
     }
 
     /**
-     * 2X3 대응, 방향에 따라 배열 변경
+     * 방향에 따라 배열, 높이 변경
      */
-    public void adjustPanelLayoutMatrixAtOrientation(int orientation) {
-        // 2X2는 영향이 없음
+    public void adjustPanelLayoutMatrixAtOrientation(final int orientation) {
+        // 2X2는 배열 정렬에 영향이 없음
         if (MNPanelMatrix.getCurrentPanelMatrixType(getContext()) ==
                 MNPanelMatrixType.PANEL_MATRIX_2X3) {
             switch (orientation) {
@@ -242,6 +243,30 @@ public class MNPanelWindowLayout extends LinearLayout
                     }
                     break;
             }
+        }
+    }
+
+    /**
+     * 방향에 따라 각 패널의 높이를 조절
+     */
+    @Override
+    protected void onSizeChanged(final int w, final int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        switch (getResources().getConfiguration().orientation) {
+            case Configuration.ORIENTATION_PORTRAIT:
+                for (MNPanelLayout panelLayout : panelLayouts) {
+                    LinearLayout.LayoutParams layoutParams = (LayoutParams) panelLayout.getLayoutParams();
+                    layoutParams.height = getResources().getDimensionPixelSize(R.dimen.panel_height);
+                }
+                break;
+
+            case Configuration.ORIENTATION_LANDSCAPE:
+                for (MNPanelLayout panelLayout : panelLayouts) {
+                    LinearLayout.LayoutParams layoutParams = (LayoutParams) panelLayout.getLayoutParams();
+                    layoutParams.height = getHeight() / 2;  // 패널윈도우 높이의 절반씩 사용
+                }
+                break;
         }
     }
 }
