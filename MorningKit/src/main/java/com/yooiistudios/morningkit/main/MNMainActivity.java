@@ -209,7 +209,7 @@ public class MNMainActivity extends Activity
             public void run() {
                 // 스크롤뷰
                 MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(scrollView, config.orientation);
-                // 위젯윈도우 레이아웃
+                // 패널윈도우 레이아웃
                 MNMainLayoutSetter.adjustPanelLayoutParamsAtOrientation(MNMainActivity.this, config.orientation);
                 // 버튼 레이아웃
                 MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(buttonLayout, config.orientation);
@@ -221,21 +221,14 @@ public class MNMainActivity extends Activity
                 MNMainLayoutSetter.checkAdmobLayoutWidthAndAdjust(admobLayout, buttonLayout, config.orientation);
                 // 알람 리스트뷰
                 MNMainLayoutSetter.adjustAlarmListView(MNMainActivity.this, config.orientation);
-                // 스크롤컨텐트 레이아웃 높이 조절 - 위젯 윈도우만 조절해주어도 됨
-//                MNMainLayoutSetter.adjustScrollContentLayoutHeight(MNMainActivity.this, config.orientation);
-
-                // 마지막으로 스크롤뷰 최상단으로 올려주기
+                // 스크롤컨텐트 레이아웃 높이 조절 - 패널윈도우 높이만 조절하면 자동으로 변경되기에 따로 구현 X
+                // 스크롤뷰 최상단으로 올려주기
                 scrollView.post(new Runnable() {
                     @Override
                     public void run() {
                         scrollView.scrollTo(0, 0);
                     }
                 });
-//                Log.i(TAG, "status bar height: " + MNDeviceSizeInfo.getStatusBarHeight(MNMainActivity.this));
-//                Log.i(TAG, "Device height: " + MNDeviceSizeInfo.getDeviceHeight(MNMainActivity.this));
-//                Log.i(TAG, "scrollView height: " + scrollView.getHeight());
-//                Log.i(TAG, "scrollViewContent height: " + scrollContentLayout.getHeight());
-//                Log.i(TAG, "buttonLayout height: " + buttonLayout.getHeight());
             }
         });
     }

@@ -124,7 +124,6 @@ public class MNMainLayoutSetter {
 
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
-
                 // 알람 리스트뷰
                 mainActivity.getAlarmListView().setVisibility(View.VISIBLE);
 
@@ -148,7 +147,6 @@ public class MNMainLayoutSetter {
                 break;
             }
             case Configuration.ORIENTATION_LANDSCAPE: {
-
                 // 알람 리스트뷰
                 // Gone: 안보이고 차지한 공간도 사라짐
                 // INVISIBLE: 안보이지만 공간은 차지함
@@ -165,34 +163,40 @@ public class MNMainLayoutSetter {
      */
     public static void adjustScrollContentLayoutHeight(MNMainActivity mainActivity, int orientation) {
         LinearLayout scrollContentLayout = mainActivity.getScrollContentLayout();
-        /*
         Context context = mainActivity.getBaseContext();
 
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT:
                 break;
+
             case Configuration.ORIENTATION_LANDSCAPE: {
                 int deviceHeight = MNDeviceSizeInfo.getDeviceHeight(context);
+                int statusBarHeight = MNDeviceSizeInfo.getStatusBarHeight(mainActivity);
+                int buttonLayoutHeight = (int)getButtonLayoutHeight(context,
+                        Configuration.ORIENTATION_LANDSCAPE);
 
                 Resources resources = mainActivity.getResources();
-                int bottomPadding = (int)(resources.getDimension(R.dimen.margin_outer) - resources.getDimension(R.dimen.margin_inner));
+                int bottomPadding = (int)(resources.getDimension(R.dimen.margin_outer_minus_inner));
+                int scrollViewContentHeight = deviceHeight - statusBarHeight - buttonLayoutHeight - bottomPadding;
 
 //                Log.i(TAG, "buttonLayout height: " + mainActivity.getScrollView().getLayoutParams().height);
-                Log.i(TAG, "bottomPadding: " + bottomPadding);
-                Log.i(TAG, "deviceHeight: " + deviceHeight);
-                Log.i(TAG, "scrollView height: " + mainActivity.getScrollView().getLayoutParams().height);
-                Log.i(TAG, "buttonLayout height: " + (int)adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), Configuration.ORIENTATION_LANDSCAPE));
-                int scrollViewHeight = deviceHeight - (int)adjustButtonLayoutParamsAtOrientation(mainActivity.getButtonLayout(), Configuration.ORIENTATION_LANDSCAPE) - bottomPadding;
-                Log.i(TAG, "scrollViewHeight: " + scrollViewHeight);
+//                MNLog.i(TAG, "bottomPadding: " + bottomPadding);
+//                MNLog.i(TAG, "deviceHeight: " + deviceHeight);
+//                MNLog.i(TAG, "buttonLayout height: " + buttonLayoutHeight);
+//                MNLog.i(TAG, "scrollViewContentHeight: " + scrollViewContentHeight);
 
-                LinearLayout.LayoutParams widgetWindowLayoutParams = (LinearLayout.LayoutParams) mainActivity.getWidgetWindowLayout().getLayoutParams();
-                FrameLayout.LayoutParams scrollContentLayoutParams = (FrameLayout.LayoutParams) mainActivity.getScrollContentLayout().getLayoutParams();
-                widgetWindowLayoutParams.height = scrollViewHeight;
-                scrollContentLayoutParams.height = scrollViewHeight;
+                LinearLayout.LayoutParams panelWindowLayoutParams =
+                        (LinearLayout.LayoutParams) mainActivity.getPanelWindowLayout().getLayoutParams();
+//                MNLog.i(TAG, "panelWindowLayoutParams.height: " + panelWindowLayoutParams.height);
+//                panelWindowLayoutParams.height = scrollViewContentHeight - 20;
+
+//                FrameLayout.LayoutParams scrollContentLayoutParams =
+//                        (FrameLayout.LayoutParams) mainActivity.getScrollContentLayout().getLayoutParams();
+//                scrollContentLayoutParams.height = scrollViewContentHeight;
+//                scrollContentLayoutParams.height = 50;
                 break;
             }
         }
-        */
     }
 
     /**
@@ -219,15 +223,13 @@ public class MNMainLayoutSetter {
                             (int) resources.getDimension(R.dimen.panel_height) +
                             (int) resources.getDimension(R.dimen.panel_height);
                 }
-//                        + resources.getDimension(R.dimen.margin_outer)
-//                        + resources.getDimension(R.dimen.margin_outer)
-//                        + resources.getDimension(R.dimen.margin_inner);
 
             case Configuration.ORIENTATION_LANDSCAPE:
                 int deviceHeight = MNDeviceSizeInfo.getDeviceHeight(mainActivity);
                 int statusBarHeight = MNDeviceSizeInfo.getStatusBarHeight(mainActivity);
                 int bottomLayoutHeight = (int)getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_LANDSCAPE);
-                return deviceHeight - statusBarHeight - bottomLayoutHeight;
+                int marginTop = resources.getDimensionPixelSize(R.dimen.margin_inner);
+                return deviceHeight - statusBarHeight - bottomLayoutHeight - marginTop;
 
             default:
                 return -1;
