@@ -138,6 +138,9 @@ public class MNMainActivity extends Activity
         // Alarm
         alarmListView.refreshListView();
 
+        // 패널 교체 확인
+        panelWindowLayout.checkPanelHadReplcaedAtSetting();
+
         // 테마와 관련된 작업 실행
         panelWindowLayout.applyTheme();
 

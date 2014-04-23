@@ -70,11 +70,11 @@ public class MNPanelWindowLayout extends LinearLayout
             panelLineLayouts[i].setLayoutParams(layoutParams);
             this.addView(panelLineLayouts[i]);
 
+            // 패널 데이터 로드
+            List<JSONObject> panelDataObjects = MNPanel.getPanelDataList(getContext());
+
             // 각 패널 레이아웃을 추가
             for (int j = 0; j < 2; j++) {
-                // 저장된 패널 id를 로드 - 기존 코드에서 panelDataObject를 활용하게 변경
-//                List<Integer> uniquePanelIds = MNPanel.getPanelUniqueIdList(getContext());
-                List<JSONObject> panelDataObjects = MNPanel.getPanelDataList(getContext());
                 int uniquePanelId = -1;
                 try {
                     uniquePanelId = panelDataObjects.get(i * 2 + j).getInt(MNPanel.PANEL_UNIQUE_ID);
@@ -267,6 +267,35 @@ public class MNPanelWindowLayout extends LinearLayout
                     layoutParams.height = getHeight() / 2;  // 패널윈도우 높이의 절반씩 사용
                 }
                 break;
+        }
+    }
+
+    /**
+     * 세팅에서 메인으로 나올 때 새 패널 데이터 리스트와 기존 리스트의 uniqueId를 비교해 교체되었으면 UI를 갱신
+     */
+    public void checkPanelHadReplcaedAtSetting() {
+        // 새 uniqueId 리스트를 구하기
+        List<JSONObject> panelDataObjects = MNPanel.getPanelDataList(getContext());
+
+        // 기존 uniqueId 리스트를 구하기
+        for (int i = 0; i < panelLayouts.length; i++) {
+            MNPanelLayout panelLayout = panelLayouts[i];
+            MNPanelType previousPanelType = panelLayout.getPanelType();
+            try {
+                JSONObject newPanelDataObject = panelDataObjects.get(i);
+                int uniqueId = newPanelDataObject.getInt(MNPanel.PANEL_UNIQUE_ID);
+                MNPanelType newPanelType = MNPanelType.valueOfUniqueId(uniqueId);
+
+                // 일치하지 않다면 교체
+                if (previousPanelType != newPanelType) {
+                    // 기존 replacePanel 메서드를 활용해 해결
+                    Intent panelDataIntent = new Intent();
+                    panelDataIntent.putExtra(MNPanel.PANEL_DATA_OBJECT, newPanelDataObject.toString());
+                    replacePanel(panelDataIntent);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
