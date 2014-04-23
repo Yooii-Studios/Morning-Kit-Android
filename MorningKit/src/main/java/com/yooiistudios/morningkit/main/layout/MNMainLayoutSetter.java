@@ -55,6 +55,9 @@ public class MNMainLayoutSetter {
     public static void adjustPanelLayoutParamsAtOrientation(MNMainActivity mainActivity, int orientation) {
         LinearLayout.LayoutParams panelWindowLayoutParams = (LinearLayout.LayoutParams) mainActivity.getPanelWindowLayout().getLayoutParams();
         panelWindowLayoutParams.height = (int) getPanelWindowLayoutHeight(mainActivity, orientation);
+
+        // 방향에 따른 패널 매트릭스 배열, 높이 변경
+        mainActivity.getPanelWindowLayout().adjustPanelLayoutMatrixAtOrientation(orientation);
     }
 
     public static void adjustButtonLayoutParamsAtOrientation(RelativeLayout buttonLayout, int orientation) {
@@ -161,6 +164,7 @@ public class MNMainLayoutSetter {
      * ScrollContentLayout
      * MNAlarmListView의 height만 조절하면 제대로 height 가 자동으로 조절 되어 따로 작업을 하지 않음
      */
+    /*
     public static void adjustScrollContentLayoutHeight(MNMainActivity mainActivity, int orientation) {
         LinearLayout scrollContentLayout = mainActivity.getScrollContentLayout();
         Context context = mainActivity.getBaseContext();
@@ -198,15 +202,13 @@ public class MNMainLayoutSetter {
             }
         }
     }
+    */
 
     /**
      * Getting height of main layouts & views
      */
     public static float getPanelWindowLayoutHeight(MNMainActivity mainActivity, int orientation) {
         Resources resources = mainActivity.getResources();
-
-        // 방향에 따른 패널 매트릭스 배열 변경
-        mainActivity.getPanelWindowLayout().adjustPanelLayoutMatrixAtOrientation(orientation);
 
         // 높이 조절
         switch (orientation) {
