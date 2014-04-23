@@ -64,6 +64,10 @@ public class SKIabProducts {
         edit.commit();
     }
 
+    public static boolean isIabProductBought(String sku, Context context) {
+        return loadOwnedIabProducts(context).contains(sku);
+    }
+
     // 구매된 아이템들을 로드
     public static List<String> loadOwnedIabProducts(Context context) {
         List<String> ownedSkus = new ArrayList<String>();
