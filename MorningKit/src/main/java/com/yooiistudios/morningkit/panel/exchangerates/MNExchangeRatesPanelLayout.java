@@ -13,8 +13,6 @@ import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
-import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
@@ -45,8 +43,8 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 
     private RelativeLayout innerContentLayout;
     private LinearLayout imageViewLayout;
-    private RecyclingImageView baseCurrencyImageView;
-    private RecyclingImageView targetCurrencyImageView;
+    private ImageView baseCurrencyImageView;
+    private ImageView targetCurrencyImageView;
     private AutoResizeTextView baseToTargetCurrecyTextView;
     private AutoResizeTextView targetToBaseCurrecyTextView;
 
@@ -84,7 +82,7 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         int imageWidth = getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_flag_width);
         int imageHeight = getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_flag_height);
 
-        baseCurrencyImageView = new RecyclingImageView(getContext());
+        baseCurrencyImageView = new ImageView(getContext());
         baseCurrencyImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         LinearLayout.LayoutParams baseImageViewLayoutParams = new LinearLayout.LayoutParams(imageWidth, imageHeight);
         baseCurrencyImageView.setLayoutParams(baseImageViewLayoutParams);
@@ -93,7 +91,7 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         // target image
         int marginOuter = getResources().getDimensionPixelSize(R.dimen.margin_outer);
 
-        targetCurrencyImageView = new RecyclingImageView(getContext());
+        targetCurrencyImageView = new ImageView(getContext());
         targetCurrencyImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         LinearLayout.LayoutParams targetImageViewLayoutParams = new LinearLayout.LayoutParams(imageWidth, imageHeight);
         targetImageViewLayoutParams.leftMargin = marginOuter;
@@ -197,17 +195,21 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         super.updateUI();
 
         // image
-        baseCurrencyImageView.setImageDrawable(null);
+//        baseCurrencyImageView.setImageDrawable(null);
+//        baseCurrencyImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
+//                baseCurrencyBitmap));
+        baseCurrencyImageView.setImageBitmap(null);
         Bitmap baseCurrencyBitmap = FlagBitmapFactory.getGrayscaledFlagBitmap(getContext(),
                 exchangeRatesInfo.getBaseCountryCode());
-        baseCurrencyImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-                baseCurrencyBitmap));
+        baseCurrencyImageView.setImageBitmap(baseCurrencyBitmap);
 
-        targetCurrencyImageView.setImageDrawable(null);
+//        targetCurrencyImageView.setImageDrawable(null);
+//        targetCurrencyImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
+//                targetCurrencyBitmap));
+        targetCurrencyImageView.setImageBitmap(null);
         Bitmap targetCurrencyBitmap = FlagBitmapFactory.getGrayscaledFlagBitmap(getContext(),
                 exchangeRatesInfo.getTargetCountryCode());
-        targetCurrencyImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-                targetCurrencyBitmap));
+        targetCurrencyImageView.setImageBitmap(targetCurrencyBitmap);
 
         // string
         updateTextViews();
