@@ -57,7 +57,7 @@ public class MNMainLayoutSetter {
         LinearLayout.LayoutParams panelWindowLayoutParams = (LinearLayout.LayoutParams) mainActivity.getPanelWindowLayout().getLayoutParams();
         panelWindowLayoutParams.height = (int) getPanelWindowLayoutHeight(mainActivity, orientation);
 
-        // 방향에 따른 패널 매트릭스 배열, 높이 변경
+        // 방향에 따른 패널 매트릭스 배열 재정렬
         mainActivity.getPanelWindowLayout().adjustPanelLayoutMatrixAtOrientation(orientation);
     }
 

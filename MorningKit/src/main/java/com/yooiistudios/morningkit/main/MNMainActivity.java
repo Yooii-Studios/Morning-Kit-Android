@@ -106,21 +106,9 @@ public class MNMainActivity extends Activity
 //        admobLayout.addView(adView);
 //        adView.loadAd(new AdRequest());
 
-
-        // 이전 버전
-        // 먼저 세로 모드에서 로딩하고 가로로 돌린다.
-        /*
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        Handler pauser = new Handler();
-        pauser.postDelayed(new Runnable() {
-            public void run() {
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-            }
-        }, 100);
-        */
-
-        // 최초 실행시는 회전 감지를 안하기에, 명시적으로 최초 한번은 해줌
-        onConfigurationChanged(getResources().getConfiguration());
+        // 최초 실행시는 회전 감지를 안하기에, 명시적으로 onConfigurationChanged를 최초 한번은 호출
+        // -> onResume에서 호출하는 것으로 수정
+//        onConfigurationChanged(getResources().getConfiguration());
 
         // 알람 체크
         try {
@@ -142,14 +130,16 @@ public class MNMainActivity extends Activity
         super.onResume();
         MNLog.i(TAG, "onResume");
 
+        int orientation = getResources().getConfiguration().orientation;
+
         // Activity visible to user
         MNAlarmScrollViewBusProvider.getInstance().register(this);
 
         // Alarm
         alarmListView.refreshListView();
-        MNMainLayoutSetter.adjustAlarmListView(this, getResources().getConfiguration().orientation);
 
-//        onConfigurationChanged(getResources().getConfiguration());
+        // 패널 교체 확인
+        panelWindowLayout.checkPanelHadReplcaedAtSetting();
 
         // 테마와 관련된 작업 실행
         panelWindowLayout.applyTheme();
@@ -159,10 +149,13 @@ public class MNMainActivity extends Activity
         if (buttonShape != null) {
             buttonShape.setColor(Color.parseColor("#BB000000"));
         }
+
         // 애드몹 레이아웃
         admobLayout.setBackgroundColor(Color.parseColor("#BB000000"));
-
         adView.resume();
+
+        // 세팅 탭에서 돌아올 경우를 대비해 전체적인 레이아웃 최신화 적용
+        onConfigurationChanged(getResources().getConfiguration());
     }
 
     @Override
@@ -200,34 +193,26 @@ public class MNMainActivity extends Activity
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
         MNLog.i(TAG, "onConfigurationChanged");
-        final Configuration config = newConfig;
-        containerLayout.post(new Runnable() {
+        // 스크롤뷰
+        MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(scrollView, newConfig.orientation);
+        // 패널윈도우 레이아웃
+        MNMainLayoutSetter.adjustPanelLayoutParamsAtOrientation(MNMainActivity.this, newConfig.orientation);
+        // 버튼 레이아웃
+        MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(buttonLayout, newConfig.orientation);
+        // 애드몹 레이아웃
+        MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(admobLayout, newConfig.orientation);
+        // 애드뷰 방향에 따라 위치 옮기기
+        MNMainLayoutSetter.adjustAdmobViewAtOrientation(MNMainActivity.this, newConfig.orientation);
+        // 애드몹 레이아웃 width 체크
+        MNMainLayoutSetter.checkAdmobLayoutWidthAndAdjust(admobLayout, buttonLayout, newConfig.orientation);
+        // 알람 리스트뷰
+        MNMainLayoutSetter.adjustAlarmListView(MNMainActivity.this, newConfig.orientation);
+        // 스크롤뷰 최상단으로 올려주기
+        scrollView.post(new Runnable() {
             @Override
             public void run() {
-                // 스크롤뷰
-                MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(scrollView, config.orientation);
-                // 패널윈도우 레이아웃
-                MNMainLayoutSetter.adjustPanelLayoutParamsAtOrientation(MNMainActivity.this, config.orientation);
-                // 버튼 레이아웃
-                MNMainLayoutSetter.adjustButtonLayoutParamsAtOrientation(buttonLayout, config.orientation);
-                // 애드몹 레이아웃
-                MNMainLayoutSetter.adjustAdmobLayoutParamsAtOrientation(admobLayout, config.orientation);
-                // 애드뷰 방향에 따라 위치 옮기기
-                MNMainLayoutSetter.adjustAdmobViewAtOrientation(MNMainActivity.this, config.orientation);
-                // 애드몹 레이아웃 width 체크
-                MNMainLayoutSetter.checkAdmobLayoutWidthAndAdjust(admobLayout, buttonLayout, config.orientation);
-                // 알람 리스트뷰
-                MNMainLayoutSetter.adjustAlarmListView(MNMainActivity.this, config.orientation);
-                // 스크롤컨텐트 레이아웃 높이 조절 - 패널윈도우 높이만 조절하면 자동으로 변경되기에 따로 구현 X
-                // 스크롤뷰 최상단으로 올려주기
-                scrollView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        scrollView.fullScroll(View.FOCUS_UP);
-                    }
-                });
+                scrollView.fullScroll(View.FOCUS_UP);
             }
         });
     }
