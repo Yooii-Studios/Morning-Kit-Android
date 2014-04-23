@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -139,6 +140,8 @@ public class MNMainActivity extends Activity
 
     @Override
     protected void onResume() {
+        MNLog.i(TAG, "onResume");
+
         // Activity visible to user
         MNAlarmScrollViewBusProvider.getInstance().register(this);
 
@@ -226,7 +229,7 @@ public class MNMainActivity extends Activity
                 scrollView.post(new Runnable() {
                     @Override
                     public void run() {
-                        scrollView.scrollTo(0, 0);
+                        scrollView.fullScroll(View.FOCUS_UP);
                     }
                 });
             }
