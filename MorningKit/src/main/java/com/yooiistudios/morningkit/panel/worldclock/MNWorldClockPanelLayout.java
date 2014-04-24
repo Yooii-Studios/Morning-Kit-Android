@@ -374,7 +374,24 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         isClockRunning = false;
     }
 
-    // 패널이 없어질 때 핸들러 중지
+    // 뷰가 붙을 때 아날로그 시계뷰 재가동
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (analogClockView != null && isClockAnalog) {
+            analogClockView.setFirstTick(true);     // 다시 붙을 때는 first tick rotate 를 실행
+            try {
+                // startClock으로도 시계가 맞추어지지만 가능하지만 tick을 기다려야 해서
+                // 회전이 끝난 후에 UI갱신이 되는 경우가 있어 refreshPanel을 호출
+                refreshPanel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            startClock();
+        }
+    }
+
+    // 뷰가 사라질 때 아날로그 시계뷰 핸들러 중지
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();

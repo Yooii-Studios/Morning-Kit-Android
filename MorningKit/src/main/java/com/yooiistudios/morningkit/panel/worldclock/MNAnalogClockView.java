@@ -10,6 +10,8 @@ import android.widget.RelativeLayout;
 
 import com.yooiistudios.morningkit.R;
 
+import lombok.Setter;
+
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -35,7 +37,7 @@ public class MNAnalogClockView extends RelativeLayout {
     private ImageView minuteHandImageView;
     private ImageView secondHandImageView;
 
-    private boolean isFirstTick = true;
+    @Setter boolean isFirstTick = true;
     private float overshoot;
 
     public MNAnalogClockView(Context context) {
@@ -128,6 +130,10 @@ public class MNAnalogClockView extends RelativeLayout {
         Animation anim;
         anim = new RotateAnimation(fromAngle, toAngle,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+
+        // animation persist after it has been done
+//        anim.setFillEnabled(true);
+//        anim.setFillAfter(true);
 
         int gap = Math.abs(toAngle - fromAngle);
 
