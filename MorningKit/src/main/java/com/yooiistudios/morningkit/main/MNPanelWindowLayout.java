@@ -253,6 +253,11 @@ public class MNPanelWindowLayout extends LinearLayout
     protected void onSizeChanged(final int w, final int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
+        // 테스트 모드에서 실행하지 않음
+        if (isInEditMode()) {
+            return;
+        }
+
         switch (getResources().getConfiguration().orientation) {
             case Configuration.ORIENTATION_PORTRAIT:
                 for (MNPanelLayout panelLayout : panelLayouts) {
