@@ -6,6 +6,8 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import java.util.ArrayList;
@@ -92,17 +94,25 @@ public class MNAlarmRepeatString {
         String repeatChecker = makeRepeatCheckerString(alarmRepeatList);
         SpannableString shortRepeatSpannableString;
 
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
+
         if (repeatChecker.equals("")) {
             shortRepeatSpannableString = new SpannableString("");
         } else if (repeatChecker.equals("0123456")) {
             shortRepeatSpannableString = new SpannableString("/ " + context.getString(R.string.alarm_pref_repeat_everyday));
-            shortRepeatSpannableString.setSpan(new ForegroundColorSpan(MNMainColors.getAlarmMainFontColor()), 0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            shortRepeatSpannableString.setSpan(
+                    new ForegroundColorSpan(MNMainColors.getAlarmMainFontColor(currentThemeType)),
+                    0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else if (repeatChecker.equals("01234")) {
             shortRepeatSpannableString = new SpannableString("/ " + context.getString(R.string.alarm_pref_repeat_weekdays));
-            shortRepeatSpannableString.setSpan(new ForegroundColorSpan(MNMainColors.getAlarmMainFontColor()), 0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            shortRepeatSpannableString.setSpan(
+                    new ForegroundColorSpan(MNMainColors.getAlarmMainFontColor(currentThemeType)),
+                    0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else if (repeatChecker.equals("56")) {
             shortRepeatSpannableString = new SpannableString("/ " + context.getString(R.string.alarm_pref_repeat_weekends));
-            shortRepeatSpannableString.setSpan(new ForegroundColorSpan(MNMainColors.getAlarmMainFontColor()), 0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            shortRepeatSpannableString.setSpan(
+                    new ForegroundColorSpan(MNMainColors.getAlarmMainFontColor(currentThemeType)),
+                    0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
             shortRepeatSpannableString =
                     new SpannableString("/ "
@@ -114,13 +124,22 @@ public class MNAlarmRepeatString {
                             + context.getString(R.string.saturday_short) + " "
                             + context.getString(R.string.sunday_short));
 
+            // 제일 앞의 '/' 부분 색 입히기
+            shortRepeatSpannableString.setSpan(new ForegroundColorSpan(
+                            MNMainColors.getAlarmMainFontColor(currentThemeType)), 0, 1,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
             for (int i = 0; i < alarmRepeatList.size(); i++) {
                 // 맨 앞의 "/ "가 2만큼 차지 -> 2, 4, 6, 8 ...
                 int index = (i + 1) * 2;
                 if (alarmRepeatList.get(i)) {
-                    shortRepeatSpannableString.setSpan(new ForegroundColorSpan(MNMainColors.getAlarmMainFontColor()), index, index + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    shortRepeatSpannableString.setSpan(new ForegroundColorSpan(
+                            MNMainColors.getAlarmMainFontColor(currentThemeType)), index, index + 1,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 } else {
-                    shortRepeatSpannableString.setSpan(new ForegroundColorSpan(MNMainColors.getAlarmSubFontColor()), index, index + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    shortRepeatSpannableString.setSpan(new ForegroundColorSpan(
+                            MNMainColors.getAlarmSubFontColor(currentThemeType)), index, index + 1,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             }
         }

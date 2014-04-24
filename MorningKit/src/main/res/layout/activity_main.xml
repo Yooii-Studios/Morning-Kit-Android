@@ -3,16 +3,18 @@
     android:id="@+id/main_container_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffdda2"
     tools:context=".MainActivity"
+    android:background="#ffdda2"
     tools:ignore="MergeRootFrame">
 
     <ScrollView
         android:id="@+id/main_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:background="#ddff50">
+        android:fillViewport="true">
+
+        <!--
+        android:background="#ddff50" -->
 
         <LinearLayout
             android:orientation="vertical"
@@ -26,16 +28,19 @@
                 android:id="@+id/main_widget_window_layout"
                 android:layout_marginTop="@dimen/margin_inner"
                 android:layout_marginLeft="@dimen/margin_inner"
-                android:layout_marginRight="@dimen/margin_inner"
-                android:background="#3f003f"/>
+                android:layout_marginRight="@dimen/margin_inner"/>
+            <!--
+                android:background="#3f003f" -->
 
             <com.yooiistudios.morningkit.main.MNMainAlarmListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#5fd0f3"
                 android:dividerHeight="0dp"
                 android:divider="#ffffff"
                 android:id="@+id/main_alarm_list_view" />
+
+            <!--
+                android:background="#5fd0f3" -->
 
         </LinearLayout>
     </ScrollView>

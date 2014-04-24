@@ -27,6 +27,9 @@ import com.yooiistudios.morningkit.main.layout.MNMainButtonLayout;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import java.io.IOException;
 
@@ -156,6 +159,10 @@ public class MNMainActivity extends Activity
 
         // 세팅 탭에서 돌아올 경우를 대비해 전체적인 레이아웃 최신화 적용
         onConfigurationChanged(getResources().getConfiguration());
+
+        // 테마 적용
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
+        containerLayout.setBackgroundColor(MNMainColors.getBackwardBackgroundColor(currentThemeType));
     }
 
     @Override

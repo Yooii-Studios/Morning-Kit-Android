@@ -3,7 +3,6 @@
     android:id="@+id/alarm_create_outer_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/alarm_item_outer_height"
-    android:background="#38aa38"
     android:clickable="false"
     android:focusable="false"
     android:layout_marginLeft="@dimen/margin_inner"
@@ -11,6 +10,8 @@
     android:paddingLeft="@dimen/margin_inner"
     android:paddingRight="@dimen/margin_inner"
     android:orientation="vertical" >
+
+    <!--  android:background="#38aa38" -->
 
     <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
         android:id="@+id/alarm_create_shadow_layout"
@@ -63,8 +64,11 @@
             android:scaleType="fitCenter"
             android:src="@drawable/alarm_plus_icon_s3"
             android:contentDescription="@string/loading"
-            android:background="#aa00aa"
             android:layout_centerInParent="true"/>
+
+        <!--
+            android:background="#aa00aa"
+        -->
 
         <!--
         <ImageView

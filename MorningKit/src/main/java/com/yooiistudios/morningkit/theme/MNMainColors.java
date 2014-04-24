@@ -2,6 +2,8 @@ package com.yooiistudios.morningkit.theme;
 
 import android.graphics.Color;
 
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 19.
  *
@@ -9,6 +11,8 @@ import android.graphics.Color;
  *  각종 컬러값을 얻을 수 있는 클래스
  */
 public class MNMainColors {
+    private MNMainColors() { throw new AssertionError("You MUST not create this class!"); }
+
     /**
      * Background Color
      */
@@ -77,28 +81,14 @@ public class MNMainColors {
         }
     }
 
-    public static int getLockedBackgroundColor(MNThemeType themeType) {
-        switch (themeType) {
-            case WATER_LILY:
-            case TRANQUILITY_BACK_CAMERA:
-            case REFLECTION_FRONT_CAMERA:
-            case PHOTO:
-            case MODERNITY_WHITE:
-                return Color.parseColor("#cfcfcf");
-
-            case SLATE_GRAY:
-                return Color.parseColor("#343434");
-
-            case CELESTIAL_SKY_BLUE:
-                return Color.parseColor("#0091ae");
-
-            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
-        }
-    }
-
     /**
      * Font Color
      */
+    // 나중에 알람만 다른 색을 쓰게 될 경우를 대비
+    public static int getAlarmMainFontColor(MNThemeType themeType) {
+        return getMainFontColor(themeType);
+    }
+
     public static int getMainFontColor(MNThemeType themeType) {
         switch (themeType) {
             case WATER_LILY:
@@ -118,6 +108,11 @@ public class MNMainColors {
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
+    }
+
+    // 나중에 알람만 다른 색을 쓰게 될 경우를 대비
+    public static int getAlarmSubFontColor(MNThemeType themeType) {
+        return getSubFontColor(themeType);
     }
 
     public static int getSubFontColor(MNThemeType themeType) {
