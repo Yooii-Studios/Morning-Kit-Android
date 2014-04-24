@@ -7,6 +7,8 @@
     android:background="#38aa38"
     android:clickable="false"
     android:focusable="false"
+    android:paddingLeft="@dimen/margin_inner"
+    android:paddingRight="@dimen/margin_inner"
     android:orientation="vertical" >
 
     <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
@@ -25,8 +27,8 @@
         android:focusable="false"
         android:paddingTop="@dimen/margin_inner"
         android:paddingBottom="@dimen/margin_inner"
-        android:paddingLeft="@dimen/margin_outer"
-        android:paddingRight="@dimen/margin_outer"
+        android:paddingLeft="@dimen/margin_inner"
+        android:paddingRight="@dimen/margin_inner"
         android:orientation="vertical">
 
         <TextView

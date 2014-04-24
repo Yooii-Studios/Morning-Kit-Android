@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.alarm.listview;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,8 +64,8 @@ public class MNAlarmListAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.alarm_item, parent, false);
             if (convertView != null && alarm != null) {
                 convertView.setTag(alarm);
-                convertView.setOnClickListener(alarmItemClickListener);
-                convertView.setLongClickable(false);
+//                convertView.setOnClickListener(alarmItemClickListener);
+//                convertView.setLongClickable(false);
 
                 // MNAlarmItemViewHolder
                 MNAlarmItemViewHolder alarmItemViewHolder = new MNAlarmItemViewHolder(convertView);
@@ -90,6 +91,9 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
                 // Theme
                 initThemeOfAlarmViewHolder(alarm, alarmItemViewHolder);
+
+                // Shadow
+                initShadowLayout(alarm, alarmItemViewHolder);
             }
             return MNAlarmItemScrollView.newInstance(context, position, convertView);
 
@@ -191,6 +195,13 @@ public class MNAlarmListAdapter extends BaseAdapter {
         }
     }
 
+    private void initShadowLayout(final MNAlarm alarm, MNAlarmItemViewHolder alarmItemViewHolder) {
+        MNShadowLayoutFactory.changeThemeOfShadowLayout(alarmItemViewHolder.shadowLayout, context);
+        alarmItemViewHolder.shadowLayout.setTag(alarm);
+        alarmItemViewHolder.shadowLayout.setOnClickListener(alarmItemClickListener);
+        alarmItemViewHolder.shadowLayout.setLongClickable(false);
+    }
+
     @Override
     public int getCount() {
         return MNAlarmListManager.getAlarmList(context).size() + 1;
@@ -230,10 +241,11 @@ public class MNAlarmListAdapter extends BaseAdapter {
     static class MNAlarmItemViewHolder {
         @InjectView(R.id.alarm_item_outer_layout)           RelativeLayout  outerLayout;
         @InjectView(R.id.alarm_item_inner_layout)           RelativeLayout  innerLayout;
+        @InjectView(R.id.alarm_item_shadow_layout)          RoundShadowRelativeLayout shadowLayout;
         @InjectView(R.id.alarm_item_time_textview)          TextView        timeTextView;
         @InjectView(R.id.alarm_item_ampm_textview)          TextView        ampmTextView;
         @InjectView(R.id.alarm_item_repeat_textview)        TextView        repeatTextView;
-        @InjectView(R.id.alarm_item_label_textview)   TextView        labelTextView;
+        @InjectView(R.id.alarm_item_label_textview)         TextView        labelTextView;
         @InjectView(R.id.alarm_item_dividing_bar_imageview) ImageView       dividingBarImageView;
         @InjectView(R.id.alarm_item_switch_imagebutton)     ImageButton     switchImageButton;
 
