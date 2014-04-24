@@ -47,7 +47,8 @@ public class MNMainLayoutSetter {
                 RelativeLayout.LayoutParams scrollViewLayoutParams = (RelativeLayout.LayoutParams) scrollView.getLayoutParams();
                 scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, R.id.main_button_layout);
                 // 아래쪽으로 margin_outer - margin_inner 만큼 주어야 윗 마진(margin_outer)과 같아짐
-                scrollViewLayoutParams.bottomMargin = (int)(scrollView.getResources().getDimension(R.dimen.margin_outer_minus_inner));
+                // -> margin_inner로 panelWindowLayout의 topMargin을 변경
+                scrollViewLayoutParams.bottomMargin = (int)(scrollView.getResources().getDimension(R.dimen.margin_inner));
                 break;
             }
         }
@@ -119,7 +120,7 @@ public class MNMainLayoutSetter {
 //                AdSize adSize = AdSize.createAdSize(AdSize.BANNER, context);
                 AdSize adSize = AdSize.BANNER;
 
-                // 기존 코드에서 마진을 계산해서 두배만큼 버튼 레이아웃의 마진을 주게 변경
+                // 고정값을 쓰는 기존 코드에서 마진을 계산해서 두배만큼 버튼 레이아웃의 마진을 주는 새 코드로 변경
                 int buttonLayoutMargin = (resources.getDimensionPixelSize(R.dimen.margin_inner) +
                         resources.getDimensionPixelSize(R.dimen.margin_shadow_inner)) * 2;
 
@@ -157,11 +158,12 @@ public class MNMainLayoutSetter {
                 float bottomLayoutHeight = getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT);
 
                 // 컨텐츠가 디바이스 높이보다 크거나, 작지만 버튼 레이아웃을 침범할 정도로 높을 때
-                if (contentHeight > deviceHeight
-                        || (contentHeight <= deviceHeight
-                            && contentHeight > deviceHeight - bottomLayoutHeight)) {
-                    alarmListViewLayoutParams.height = (getAlarmListViewHeightOnPortrait(mainActivity)
-                                    + (int) getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT));
+                if (contentHeight > deviceHeight ||
+                        (contentHeight <= deviceHeight && contentHeight > deviceHeight - bottomLayoutHeight)) {
+                    // margin_inner를 빼는 이유는 panelWindowLayout에서 topMargin을 주었기에 그만큼 빼주어야 하는 것으로 추정
+                    alarmListViewLayoutParams.height = getAlarmListViewHeightOnPortrait(mainActivity) +
+                            (int) getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT) -
+                            mainActivity.getResources().getDimensionPixelSize(R.dimen.margin_inner);
                 } else {
                     alarmListViewLayoutParams.height = getAlarmListViewHeightOnPortrait(mainActivity);
                 }
@@ -265,9 +267,9 @@ public class MNMainLayoutSetter {
         Resources resources = mainActivity.getResources();
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT:
-                return resources.getDimension(R.dimen.margin_outer_minus_inner)
-                        + getButtonLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT)
-                        + getAdmobLayoutHeightOnPortrait(mainActivity);
+                return getButtonLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT) +
+                        getAdmobLayoutHeightOnPortrait(mainActivity) +
+                        resources.getDimension(R.dimen.margin_inner);
 
             case Configuration.ORIENTATION_LANDSCAPE:
                 return resources.getDimension(R.dimen.margin_outer_minus_inner)
@@ -307,7 +309,7 @@ public class MNMainLayoutSetter {
     }
 
     public static float getScrollContentHeightExceptAlarmsOnPortrait(MNMainActivity mainActivity) {
-        return getPanelWindowLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT)
-                + getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT);
+        return getPanelWindowLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT) +
+                getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT);
     }
 }
