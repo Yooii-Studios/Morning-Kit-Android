@@ -19,7 +19,7 @@ public enum MNThemeType {
     PHOTO(3, MNThemeId.PHOTO_ID, "PHOTO"),
     MODERNITY_WHITE(4, MNThemeId.MODERNITY_WHITE_ID, "MODERNITY_WHITE"),
     SLATE_GRAY(5, MNThemeId.SLATE_GRAY_ID, "SLATE_GRAY"),
-    CELESTIAL_SKY_BLE(6, MNThemeId.CELESTIAL_SKY_BLUE_ID, "CELESTIAL_SKY_BLE");
+    CELESTIAL_SKY_BLUE(6, MNThemeId.CELESTIAL_SKY_BLUE_ID, "CELESTIAL_SKY_BLUE");
 
     @Getter private final int index;
     @Getter private final int uniqueId;
