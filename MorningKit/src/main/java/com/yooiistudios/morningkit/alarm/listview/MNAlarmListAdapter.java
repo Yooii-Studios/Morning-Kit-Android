@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.alarm.listview;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -201,10 +200,17 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
     private void initThemeOfAlarmViewHolder(final MNAlarm alarm, MNAlarmItemViewHolder alarmItemViewHolder) {
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
+
+        // 알람 스위치 셀렉터
+        alarmItemViewHolder.switchImageButton.setImageResource(
+                MNMainResources.getAlarmSwitchButtonSelectorResourcesId(currentThemeType));
+
+        // 그외 나머지
         if (alarm.isAlarmOn()) {
             alarmItemViewHolder.timeTextView.setTextColor(MNMainColors.getAlarmMainFontColor(currentThemeType));
             alarmItemViewHolder.ampmTextView.setTextColor(MNMainColors.getAlarmMainFontColor(currentThemeType));
-            alarmItemViewHolder.repeatTextView.setText(MNAlarmRepeatString.makeShortRepeatString(alarm.getAlarmRepeatList(), context));
+            alarmItemViewHolder.repeatTextView.setText(
+                    MNAlarmRepeatString.makeShortRepeatString(alarm.getAlarmRepeatList(), context));
             alarmItemViewHolder.dividingBarImageView.setImageResource(
                     MNMainResources.getAlarmDividingBarOnResourceId(currentThemeType));
         } else {

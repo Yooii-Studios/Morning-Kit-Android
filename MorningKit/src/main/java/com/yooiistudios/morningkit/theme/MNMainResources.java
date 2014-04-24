@@ -103,4 +103,27 @@ public class MNMainResources {
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
+
+    public static int getAlarmSwitchButtonSelectorResourcesId(MNThemeType themeType) {
+        switch (themeType) {
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+                return R.drawable.alarm_switch_button_selector_translucent_black;
+
+            case WATER_LILY:
+                return R.drawable.alarm_switch_button_selector_translucent_black;
+
+            case MODERNITY_WHITE:
+                return R.drawable.alarm_switch_button_selector_classic_white;
+
+            case SLATE_GRAY:
+                return R.drawable.alarm_switch_button_selector_classic_gray;
+
+            case CELESTIAL_SKY_BLUE:
+                return R.drawable.alarm_switch_button_selector_skyblue;
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
 }
