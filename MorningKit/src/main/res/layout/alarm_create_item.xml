@@ -3,7 +3,6 @@
     android:id="@+id/alarm_create_outer_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/alarm_item_outer_height"
-    android:layout_alignParentLeft="true"
     android:background="#38aa38"
     android:clickable="false"
     android:focusable="false"
@@ -16,7 +15,7 @@
     <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
         android:id="@+id/alarm_create_shadow_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/alarm_item_outer_height" />
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:id="@+id/alarm_create_inner_layout"

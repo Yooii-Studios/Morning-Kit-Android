@@ -22,7 +22,7 @@
     <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
         android:id="@+id/alarm_item_shadow_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/alarm_item_outer_height" />
+        android:layout_height="match_parent" />
 
     <RelativeLayout 
         android:id="@+id/alarm_item_inner_layout"
