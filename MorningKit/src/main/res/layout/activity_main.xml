@@ -11,8 +11,6 @@
         android:id="@+id/main_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/margin_inner"
-        android:layout_marginRight="@dimen/margin_inner"
         android:fillViewport="true"
         android:background="#ddff50">
 
@@ -27,12 +25,14 @@
                 android:layout_height="@dimen/main_panel_window_layout_height"
                 android:id="@+id/main_widget_window_layout"
                 android:layout_marginTop="@dimen/margin_inner"
+                android:layout_marginLeft="@dimen/margin_inner"
+                android:layout_marginRight="@dimen/margin_inner"
                 android:background="#3f003f"/>
 
             <com.yooiistudios.morningkit.main.MNMainAlarmListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#4444dd"
+                android:background="#5fd0f3"
                 android:dividerHeight="0dp"
                 android:divider="#ffffff"
                 android:id="@+id/main_alarm_list_view" />
