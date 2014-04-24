@@ -3,6 +3,7 @@
     android:id="@+id/alarm_item_blank_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/alarm_item_outer_height"
-    android:background="#ff5511"
     android:orientation="horizontal" >
+    <!--
+        android:background="#ff5511" -->
 </LinearLayout>

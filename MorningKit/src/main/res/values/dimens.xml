@@ -26,7 +26,7 @@
     <dimen name="panel_height">121dp</dimen> <!-- 115dp + 6dp(inner_margin)는 스샷에서 위젯 크기 직접 잼 -->
 
     <!-- Alarm -->
-    <dimen name="alarm_item_outer_height">71dp</dimen> <!-- inner + margin_inner * 2  -->
+    <dimen name="alarm_item_outer_height">71dp</dimen> <!-- inner + shadow_inner * 2  -->
     <dimen name="alarm_item_inner_height">65dp</dimen>
     <dimen name="alarm_item_divider_with">2dp</dimen>
     <dimen name="alarm_create_item_plus_size">60dp</dimen>

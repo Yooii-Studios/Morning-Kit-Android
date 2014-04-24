@@ -3,15 +3,20 @@
     android:id="@+id/alarm_create_outer_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/alarm_item_outer_height"
-    android:layout_alignParentLeft="true"
-    android:background="#38aa38"
     android:clickable="false"
     android:focusable="false"
-    android:paddingTop="@dimen/margin_inner"
-    android:paddingBottom="@dimen/margin_inner"
-    android:paddingLeft="@dimen/margin_outer"
-    android:paddingRight="@dimen/margin_outer"
+    android:layout_marginLeft="@dimen/margin_inner"
+    android:layout_marginRight="@dimen/margin_inner"
+    android:paddingLeft="@dimen/margin_inner"
+    android:paddingRight="@dimen/margin_inner"
     android:orientation="vertical" >
+
+    <!--  android:background="#38aa38" -->
+
+    <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
+        android:id="@+id/alarm_create_shadow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:id="@+id/alarm_create_inner_layout"
@@ -22,7 +27,10 @@
         android:layout_centerVertical="true"
         android:clickable="false"
         android:focusable="false"
-        android:background="@drawable/shape_rounded_view_classic_gray"
+        android:paddingTop="@dimen/margin_inner"
+        android:paddingBottom="@dimen/margin_inner"
+        android:paddingLeft="@dimen/margin_inner"
+        android:paddingRight="@dimen/margin_inner"
         android:orientation="vertical">
 
         <TextView
@@ -56,8 +64,11 @@
             android:scaleType="fitCenter"
             android:src="@drawable/alarm_plus_icon_s3"
             android:contentDescription="@string/loading"
-            android:background="#aa00aa"
             android:layout_centerInParent="true"/>
+
+        <!--
+            android:background="#aa00aa"
+        -->
 
         <!--
         <ImageView
