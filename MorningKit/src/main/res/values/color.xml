@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Classic Gray -->
+    <color name="classic_gray_backward_color">#333333</color>
+    <color name="classic_gray_forward_normal_color">#434343</color>
+    <color name="classic_gray_forward_pressed_color">#a1a1a1</color>
+
     <!-- Store -->
     <color name="setting_store_full_version_text_color">#000000</color>
     <color name="setting_store_full_version_button_text_color">#00ccff</color>
