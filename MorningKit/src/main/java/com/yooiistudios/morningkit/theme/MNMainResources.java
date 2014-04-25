@@ -132,19 +132,17 @@ public class MNMainResources {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.shape_rounded_view_classic_gray;
-
             case WATER_LILY:
-                return R.drawable.shape_rounded_view_classic_gray;
+                return R.drawable.shape_rounded_view_translucent;
 
             case MODERNITY_WHITE:
-                return R.drawable.shape_rounded_view_classic_gray;
+                return R.drawable.shape_rounded_view_classic_white;
 
             case SLATE_GRAY:
                 return R.drawable.shape_rounded_view_classic_gray;
 
             case CELESTIAL_SKY_BLUE:
-                return R.drawable.shape_rounded_view_classic_gray;
+                return R.drawable.shape_rounded_view_skyblue;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }

@@ -103,6 +103,10 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
                 MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
 
+                // inner layout selector
+                alarmCreateItemViewHolder.innerLayout.setBackgroundResource(
+                        MNMainResources.getAlarmItemSelectorResourcesId(currentThemeType));
+
                 // title
                 alarmCreateItemViewHolder.createAlarmTextView.setTextColor(
                         MNMainColors.getMainFontColor(currentThemeType));
