@@ -126,4 +126,27 @@ public class MNMainResources {
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
+
+    public static int getAlarmItemSelectorResourcesId(MNThemeType themeType) {
+        switch (themeType) {
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+                return R.drawable.shape_rounded_view_classic_gray;
+
+            case WATER_LILY:
+                return R.drawable.shape_rounded_view_classic_gray;
+
+            case MODERNITY_WHITE:
+                return R.drawable.shape_rounded_view_classic_gray;
+
+            case SLATE_GRAY:
+                return R.drawable.shape_rounded_view_classic_gray;
+
+            case CELESTIAL_SKY_BLUE:
+                return R.drawable.shape_rounded_view_classic_gray;
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
 }
