@@ -22,7 +22,7 @@ public class MNMainColors {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return Color.parseColor("#e8e8e8");
+                return Color.parseColor("#00ffffff");
 
             case MODERNITY_WHITE:
                 return Color.parseColor("#e8e8e8");
@@ -44,7 +44,7 @@ public class MNMainColors {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
 //                return 0x20ffffff;
-                return Color.parseColor("#e8e8e8");
+                return Color.parseColor("#1afffff");
 
             case MODERNITY_WHITE:
                 return Color.parseColor("#e8e8e8");
@@ -65,7 +65,7 @@ public class MNMainColors {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return Color.parseColor("#dcdcdc");
+                return Color.parseColor("#7fffffff");
 //                return Color.parseColor("#7fffffff");
 
             case MODERNITY_WHITE:

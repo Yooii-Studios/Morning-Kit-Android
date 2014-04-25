@@ -23,7 +23,7 @@
         android:padding="@dimen/alarm_pref_list_item_padding"
         android:clickable="false"
         android:focusable="false"
-        android:background="@drawable/shape_rounded_view_classic_gray"
+        android:background="@drawable/shape_rounded_view_classic_gray_normal"
         android:orientation="vertical">
 
         <TextView
