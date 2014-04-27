@@ -89,6 +89,14 @@ public class MNMainColors {
         return getMainFontColor(themeType);
     }
 
+    public static int getAlarmAddTextFontColor(MNThemeType themeType) {
+        if (themeType == MNThemeType.CELESTIAL_SKY_BLUE) {
+            return Color.parseColor("#0x043f4b");
+        } else {
+            return getAlarmMainFontColor(themeType);
+        }
+    }
+
     public static int getMainFontColor(MNThemeType themeType) {
         switch (themeType) {
             case WATER_LILY:

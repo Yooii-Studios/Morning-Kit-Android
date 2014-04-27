@@ -109,7 +109,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
                 // title
                 alarmCreateItemViewHolder.createAlarmTextView.setTextColor(
-                        MNMainColors.getMainFontColor(currentThemeType));
+                        MNMainColors.getAlarmAddTextFontColor(currentThemeType));
 
                 // divider
                 alarmCreateItemViewHolder.dividingBarImageView.setImageResource(
