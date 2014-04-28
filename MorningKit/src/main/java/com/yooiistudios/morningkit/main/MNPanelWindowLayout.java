@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -106,7 +105,6 @@ public class MNPanelWindowLayout extends LinearLayout
 
     public void applyTheme() {
         for (MNPanelLayout panelLayout : panelLayouts) {
-            MNShadowLayoutFactory.changeThemeOfShadowLayout(panelLayout, getContext());
             panelLayout.applyTheme();
         }
     }
@@ -269,7 +267,9 @@ public class MNPanelWindowLayout extends LinearLayout
             case Configuration.ORIENTATION_LANDSCAPE:
                 for (MNPanelLayout panelLayout : panelLayouts) {
                     LinearLayout.LayoutParams layoutParams = (LayoutParams) panelLayout.getLayoutParams();
-                    layoutParams.height = getHeight() / 2;  // 패널윈도우 높이의 절반씩 사용
+                    // 패널윈도우 높이의 절반 - inner 마진
+                    layoutParams.height = getHeight() / 2
+                            - getResources().getDimensionPixelSize(R.dimen.margin_inner) * 2;
                 }
                 break;
         }

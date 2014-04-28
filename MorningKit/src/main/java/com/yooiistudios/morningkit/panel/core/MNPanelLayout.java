@@ -14,8 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailActivity;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.theme.MNMainResources;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +30,10 @@ import lombok.Setter;
  * PanelLayout
  *  패널의 근간이 되는 레이아웃
  */
-public class MNPanelLayout extends RoundShadowRelativeLayout {
+public class MNPanelLayout extends RelativeLayout {
+
+    // UI의 레이아웃 구성을 볼 때 사용
+    boolean DEBUG_UI = false;
 
     @Getter @Setter MNPanelType panelType;
     @Getter @Setter int panelIndex;
@@ -63,12 +67,16 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
     }
 
     protected void init() {
-        setClipChildren(false);
+
+        int padding = getResources().getDimensionPixelSize(R.dimen.margin_inner);
+//        setPadding(padding, padding, padding, padding);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.panel_height));
         layoutParams.weight = 1;
+        layoutParams.setMargins(padding, padding,padding, padding);
         setLayoutParams(layoutParams);
+
 
         // content layout
         initContentLayout();
@@ -236,7 +244,8 @@ public class MNPanelLayout extends RoundShadowRelativeLayout {
     }
 
     public void applyTheme() {
-
+        setBackgroundResource(MNMainResources.getPanelLayoutSelectorResourcesId(
+                MNTheme.getCurrentThemeType(getContext())));
     }
 
     protected void onPanelClick() {

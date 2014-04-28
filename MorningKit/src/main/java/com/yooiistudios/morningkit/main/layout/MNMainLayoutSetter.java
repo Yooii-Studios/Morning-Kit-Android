@@ -239,11 +239,14 @@ public class MNMainLayoutSetter {
                 if (MNPanelMatrix.getCurrentPanelMatrixType(mainActivity.getBaseContext()) ==
                         MNPanelMatrixType.PANEL_MATRIX_2X2) {
                     return (int) resources.getDimension(R.dimen.panel_height) +
-                            (int) resources.getDimension(R.dimen.panel_height);
+                            (int) resources.getDimension(R.dimen.panel_height) +
+                            resources.getDimensionPixelSize(R.dimen.margin_inner) * 4;
+
                 } else {
                     return (int) resources.getDimension(R.dimen.panel_height) +
                             (int) resources.getDimension(R.dimen.panel_height) +
-                            (int) resources.getDimension(R.dimen.panel_height);
+                            (int) resources.getDimension(R.dimen.panel_height) +
+                            resources.getDimensionPixelSize(R.dimen.margin_inner) * 6;
                 }
 
             case Configuration.ORIENTATION_LANDSCAPE:

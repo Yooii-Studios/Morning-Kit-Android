@@ -12,6 +12,16 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 public class MNMainResources {
     private MNMainResources() { throw new AssertionError("You MUST not create this class!"); }
 
+    /**
+     * Panel
+     */
+    public static int getPanelLayoutSelectorResourcesId(MNThemeType themeType) {
+        return getAlarmItemSelectorResourcesId(themeType);
+    }
+
+    /**
+     * Alarm
+     */
     public static int getAlarmDividingBarResourceId(MNThemeType themeType) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
