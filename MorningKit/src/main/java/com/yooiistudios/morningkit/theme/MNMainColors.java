@@ -91,7 +91,7 @@ public class MNMainColors {
 
     public static int getAlarmAddTextFontColor(MNThemeType themeType) {
         if (themeType == MNThemeType.CELESTIAL_SKY_BLUE) {
-            return Color.parseColor("#0x043f4b");
+            return Color.parseColor("#043f4b");
         } else {
             return getAlarmMainFontColor(themeType);
         }
