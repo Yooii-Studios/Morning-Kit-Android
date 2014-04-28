@@ -532,10 +532,9 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     @Override
     public void applyTheme() {
         super.applyTheme();
-
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext());
 
-        // weather condition iamge view
+        // weather condition image view
         int highlightColor = MNMainColors.getWeatherConditionColor(currentThemeType);
         PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(highlightColor,
                 PorterDuff.Mode.SRC_ATOP);
