@@ -10,7 +10,7 @@ public class AppValidationChecker
 {
     private static final int VALIDATE_YEAR = 2014;
     private static final int VALIDATE_MONTH = Calendar.MAY;
-    private static final int VALIDATE_DAY = 15;
+    private static final int VALIDATE_DAY = 20;
 
     private AppValidationChecker() { throw new AssertionError(); } // You must not create instance
 
