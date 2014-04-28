@@ -104,7 +104,7 @@ public class MNSettingColors {
                 return Color.parseColor("#0091ae");
 
             case PASTEL_GREEN:
-                return Color.parseColor("#f0f0f0f");
+                return Color.parseColor("#f0f0f0");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
