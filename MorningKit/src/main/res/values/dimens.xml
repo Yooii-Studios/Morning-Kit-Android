@@ -11,6 +11,7 @@
     <dimen name="margin_inner">3dp</dimen>
     <dimen name="margin_shadow_inner">4dp</dimen>
     <dimen name="margin_outer_minus_inner">3dp</dimen>
+    <dimen name="theme_shape_width_stroke">1dp</dimen>
 
     <!-- 버튼레이아웃은 outer 패딩의 2배 -->
     <dimen name="margin_main_button_layout">12dp</dimen>
