@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -63,8 +64,10 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
 
         // image view
         imageView = new ImageView(getContext());
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
+        int strokeMargin = getResources().getDimensionPixelSize(R.dimen.theme_shape_width_stroke);
+        layoutParams.setMargins(strokeMargin, strokeMargin, strokeMargin, strokeMargin);
         imageView.setLayoutParams(layoutParams);
         getContentLayout().addView(imageView);
     }
