@@ -185,6 +185,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         digitalTimeTextView.setGravity(Gravity.BOTTOM);
         LayoutParams timeLayoutParms = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         digitalTimeTextView.setLayoutParams(timeLayoutParms);
+        digitalTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, DipToPixel.dpToPixel(getContext(), 40));
         digitalTimeLayout.addView(digitalTimeTextView);
 
         // ampm
@@ -221,7 +222,6 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             digitalClockLayout.setBackgroundColor(Color.BLUE);
             digitalTimeLayout.setBackgroundColor(Color.RED);
             digitalTimeTextView.setBackgroundColor(Color.YELLOW);
-            digitalTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, DipToPixel.dpToPixel(getContext(), 40));
             digitalTimeTextView.setText("3:41");
             digitalAmpmTextView.setBackgroundColor(Color.CYAN);
             digitalAmpmTextView.setText("AM");
@@ -391,8 +391,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            startClock();
         }
+        startClock();
     }
 
     // 뷰가 사라질 때 아날로그 시계뷰 핸들러 중지
