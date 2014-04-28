@@ -6,11 +6,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -181,6 +183,9 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         currentTempTextView.setId(1384174);
         currentTempTextView.setGravity(Gravity.CENTER);
         currentTempTextView.setSingleLine();
+        currentTempTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_weather_current_temp_text_size));
+        currentTempTextView.setTypeface(currentTempTextView.getTypeface(), Typeface.BOLD);
         RelativeLayout.LayoutParams currentTempParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         currentTempParams.addRule(CENTER_HORIZONTAL);
         currentTempTextView.setLayoutParams(currentTempParams);
@@ -191,10 +196,12 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         lowHighTempTextView.setId(38417324);
         lowHighTempTextView.setGravity(Gravity.CENTER);
         lowHighTempTextView.setSingleLine();
+        lowHighTempTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_weather_low_high_temp_text_size));
+        lowHighTempTextView.setTypeface(lowHighTempTextView.getTypeface(), Typeface.BOLD);
         RelativeLayout.LayoutParams lowHighParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         lowHighParams.addRule(BELOW, currentTempTextView.getId());
         lowHighParams.addRule(CENTER_HORIZONTAL);
-        lowHighParams.topMargin = marginOuter;
         lowHighTempTextView.setLayoutParams(lowHighParams);
         upperTempInnerContentLayout.addView(lowHighTempTextView);
 
@@ -203,6 +210,9 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         cityNameTextView.setId(4311474);
         cityNameTextView.setGravity(Gravity.CENTER);
         cityNameTextView.setSingleLine();
+        cityNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_weather_city_name_local_time_text_size));
+        cityNameTextView.setTypeface(cityNameTextView.getTypeface(), Typeface.BOLD);
         RelativeLayout.LayoutParams cityNameParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
         cityNameParams.addRule(CENTER_HORIZONTAL);
         cityNameParams.addRule(BELOW, upperContentLayout.getId());
@@ -215,6 +225,9 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         localTimeTextView = new TextView(getContext());
         localTimeTextView.setGravity(Gravity.CENTER);
         localTimeTextView.setSingleLine();
+        localTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_weather_city_name_local_time_text_size));
+        localTimeTextView.setTypeface(localTimeTextView.getTypeface(), Typeface.BOLD);
         RelativeLayout.LayoutParams localTimeParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
         localTimeParams.addRule(CENTER_HORIZONTAL);
         localTimeParams.addRule(BELOW, cityNameTextView.getId());
@@ -519,11 +532,18 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     @Override
     public void applyTheme() {
         super.applyTheme();
-
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext());
+
+        // weather condition image view
         int highlightColor = MNMainColors.getWeatherConditionColor(currentThemeType);
         PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(highlightColor,
                 PorterDuff.Mode.SRC_ATOP);
         weatherConditionImageView.setColorFilter(colorFilter);
+
+        // text views
+        currentTempTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType));
+        lowHighTempTextView.setTextColor(MNMainColors.getWeatherLowHighTextColor(currentThemeType));
+        cityNameTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType));
+        localTimeTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType));
     }
 }

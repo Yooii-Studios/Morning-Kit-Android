@@ -143,11 +143,11 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                                 JSONObject todayConditionData = allWeatherData.getJSONArray("weather").getJSONObject(0);
                                 if (todayConditionData.has("mintempC") && todayConditionData.has("maxtempC")) {
                                     weatherData.lowHighCelsiusTemp = todayConditionData.getString("mintempC")
-                                            + "°/" + todayConditionData.getString("maxtempC") + "°";
+                                            + "° / " + todayConditionData.getString("maxtempC") + "°";
                                 }
                                 if (todayConditionData.has("mintempF") && todayConditionData.has("maxtempF")) {
                                     weatherData.lowHighFahrenheitTemp = todayConditionData.getString("mintempF")
-                                            + "°/" + todayConditionData.getString("maxtempF") + "°";
+                                            + "° / " + todayConditionData.getString("maxtempF") + "°";
                                 }
                             }
                             if (isTaskForWeatherOnly) {

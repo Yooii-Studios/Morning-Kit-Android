@@ -135,7 +135,7 @@ public class MNMainColors {
                 return Color.parseColor("#e4e4e4");
 
             case PASTEL_GREEN:
-                return Color.parseColor("#c1c1c1");
+                return Color.parseColor("#797979");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -191,6 +191,24 @@ public class MNMainColors {
     /**
      * Panel
      */
+    public static int getWeatherLowHighTextColor(MNThemeType themeType) {
+        switch (themeType) {
+            case WATER_LILY:
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case CELESTIAL_SKY_BLUE:
+                return getMainFontColor(themeType);
+
+            case PASTEL_GREEN:
+                return getSubFontColor(themeType);
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+
     public static int getWeatherConditionColor(MNThemeType themeType) {
         switch (themeType) {
             case WATER_LILY:
