@@ -135,11 +135,13 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         innerContentLayout.addView(targetToBaseCurrecyTextView);
 
         // test - color
-        imageViewLayout.setBackgroundColor(Color.MAGENTA);
-        innerContentLayout.setBackgroundColor(Color.CYAN);
-        getContentLayout().setBackgroundColor(Color.YELLOW);
-        baseToTargetCurrecyTextView.setBackgroundColor(Color.GREEN);
-        targetToBaseCurrecyTextView.setBackgroundColor(Color.BLUE);
+        if (DEBUG_UI) {
+            imageViewLayout.setBackgroundColor(Color.MAGENTA);
+            innerContentLayout.setBackgroundColor(Color.CYAN);
+            getContentLayout().setBackgroundColor(Color.YELLOW);
+            baseToTargetCurrecyTextView.setBackgroundColor(Color.GREEN);
+            targetToBaseCurrecyTextView.setBackgroundColor(Color.BLUE);
+        }
     }
 
     @Override

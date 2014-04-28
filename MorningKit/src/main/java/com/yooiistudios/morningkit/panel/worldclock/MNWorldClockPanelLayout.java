@@ -151,14 +151,16 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         analogClockLayout.addView(analogCityNameTextView);
 
         // test
-        analogClockLayout.setBackgroundColor(Color.BLUE);
-        analogAmpmTextView.setBackgroundColor(Color.CYAN);
-        analogAmpmTextView.setText("AM");
-        analogClockView.setBackgroundColor(Color.RED);
-        analogDayDifferenceTextView.setBackgroundColor(Color.MAGENTA);
-        analogDayDifferenceTextView.setText("Today");
-        analogCityNameTextView.setBackgroundColor(Color.GREEN);
-        analogCityNameTextView.setText("Milwaukee, WI");
+        if (DEBUG_UI) {
+            analogClockLayout.setBackgroundColor(Color.BLUE);
+            analogAmpmTextView.setBackgroundColor(Color.CYAN);
+            analogAmpmTextView.setText("AM");
+            analogClockView.setBackgroundColor(Color.RED);
+            analogDayDifferenceTextView.setBackgroundColor(Color.MAGENTA);
+            analogDayDifferenceTextView.setText("Today");
+            analogCityNameTextView.setBackgroundColor(Color.GREEN);
+            analogCityNameTextView.setText("Milwaukee, WI");
+        }
     }
 
     private void initDigitalClockUI() {
@@ -215,17 +217,19 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         digitalClockLayout.addView(digitalCityNameTextView);
 
         // test
-        digitalClockLayout.setBackgroundColor(Color.BLUE);
-        digitalTimeLayout.setBackgroundColor(Color.RED);
-        digitalTimeTextView.setBackgroundColor(Color.YELLOW);
-        digitalTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, DipToPixel.dpToPixel(getContext(), 40));
-        digitalTimeTextView.setText("3:41");
-        digitalAmpmTextView.setBackgroundColor(Color.CYAN);
-        digitalAmpmTextView.setText("AM");
-        digitalDayDifferenceTextView.setBackgroundColor(Color.MAGENTA);
-        digitalDayDifferenceTextView.setText("Today");
-        digitalCityNameTextView.setBackgroundColor(Color.GREEN);
-        digitalCityNameTextView.setText("Milwaukee, WI");
+        if (DEBUG_UI) {
+            digitalClockLayout.setBackgroundColor(Color.BLUE);
+            digitalTimeLayout.setBackgroundColor(Color.RED);
+            digitalTimeTextView.setBackgroundColor(Color.YELLOW);
+            digitalTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, DipToPixel.dpToPixel(getContext(), 40));
+            digitalTimeTextView.setText("3:41");
+            digitalAmpmTextView.setBackgroundColor(Color.CYAN);
+            digitalAmpmTextView.setText("AM");
+            digitalDayDifferenceTextView.setBackgroundColor(Color.MAGENTA);
+            digitalDayDifferenceTextView.setText("Today");
+            digitalCityNameTextView.setBackgroundColor(Color.GREEN);
+            digitalCityNameTextView.setText("Milwaukee, WI");
+        }
     }
 
     @Override

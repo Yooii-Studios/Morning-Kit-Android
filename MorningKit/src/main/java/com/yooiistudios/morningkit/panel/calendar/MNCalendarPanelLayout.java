@@ -91,6 +91,8 @@ public class MNCalendarPanelLayout extends MNPanelLayout {
         }
 
         // test
-        eventsListView.setBackgroundColor(Color.MAGENTA);
+        if (DEBUG_UI) {
+            eventsListView.setBackgroundColor(Color.MAGENTA);
+        }
     }
 }

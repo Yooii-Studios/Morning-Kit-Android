@@ -28,6 +28,8 @@ import lombok.Setter;
  */
 public abstract class MNPanelDetailFragment extends Fragment {
 
+    protected boolean DEBUG_UI = false;
+
     @Getter @Setter JSONObject panelDataObject;
     @Setter MNPanelDetailFragmentListener fragmentListener;
 

@@ -229,15 +229,17 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 //        cityNameTextView.setText("Daegu Test");
 //        localTimeTextView.setText("14:11:56 Test");
 
-        innerContentLayout.setBackgroundColor(Color.BLUE);
-        upperContentLayout.setBackgroundColor(Color.LTGRAY);
-        weatherConditionImageView.setBackgroundColor(Color.CYAN);
-        upperTempContentLayout.setBackgroundColor(Color.YELLOW);
-        upperTempInnerContentLayout.setBackgroundColor(Color.RED);
-        currentTempTextView.setBackgroundColor(Color.GREEN);
-        lowHighTempTextView.setBackgroundColor(Color.MAGENTA);
-        cityNameTextView.setBackgroundColor(Color.RED);
-        localTimeTextView.setBackgroundColor(Color.YELLOW);
+        if (DEBUG_UI) {
+            innerContentLayout.setBackgroundColor(Color.BLUE);
+            upperContentLayout.setBackgroundColor(Color.LTGRAY);
+            weatherConditionImageView.setBackgroundColor(Color.CYAN);
+            upperTempContentLayout.setBackgroundColor(Color.YELLOW);
+            upperTempInnerContentLayout.setBackgroundColor(Color.RED);
+            currentTempTextView.setBackgroundColor(Color.GREEN);
+            lowHighTempTextView.setBackgroundColor(Color.MAGENTA);
+            cityNameTextView.setBackgroundColor(Color.RED);
+            localTimeTextView.setBackgroundColor(Color.YELLOW);
+        }
     }
 
     @Override

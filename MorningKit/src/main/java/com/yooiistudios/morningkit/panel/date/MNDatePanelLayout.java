@@ -145,23 +145,25 @@ public class MNDatePanelLayout extends MNPanelLayout {
         lunarCalendarLayout.addView(lunarDayOfWeekTextView);
 
         // test
-        innerContentLayout.setBackgroundColor(Color.YELLOW);
-        calendarLayout.setBackgroundColor(Color.GREEN);
-        lunarCalendarLayout.setBackgroundColor(Color.BLUE);
+        if (DEBUG_UI) {
+            innerContentLayout.setBackgroundColor(Color.YELLOW);
+            calendarLayout.setBackgroundColor(Color.GREEN);
+            lunarCalendarLayout.setBackgroundColor(Color.BLUE);
 
-        monthTextView.setBackgroundColor(Color.CYAN);
-        monthTextView.setText("March");
-        dayTextView.setBackgroundColor(Color.MAGENTA);
-        dayTextView.setText("12");
-        dayOfWeekTextView.setBackgroundColor(Color.RED);
-        dayOfWeekTextView.setText("WED");
+            monthTextView.setBackgroundColor(Color.CYAN);
+            monthTextView.setText("March");
+            dayTextView.setBackgroundColor(Color.MAGENTA);
+            dayTextView.setText("12");
+            dayOfWeekTextView.setBackgroundColor(Color.RED);
+            dayOfWeekTextView.setText("WED");
 
-        lunarMonthTextView.setBackgroundColor(Color.CYAN);
-        lunarMonthTextView.setText("Feb");
-        lunarDayTextView.setBackgroundColor(Color.MAGENTA);
-        lunarDayTextView.setText("12");
-        lunarDayOfWeekTextView.setBackgroundColor(Color.RED);
-        lunarDayOfWeekTextView.setText("WED");
+            lunarMonthTextView.setBackgroundColor(Color.CYAN);
+            lunarMonthTextView.setText("Feb");
+            lunarDayTextView.setBackgroundColor(Color.MAGENTA);
+            lunarDayTextView.setText("12");
+            lunarDayOfWeekTextView.setBackgroundColor(Color.RED);
+            lunarDayOfWeekTextView.setText("WED");
+        }
     }
 
     @Override

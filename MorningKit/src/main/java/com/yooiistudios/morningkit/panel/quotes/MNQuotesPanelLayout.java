@@ -64,7 +64,9 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
         quoteTextView.setGravity(Gravity.CENTER);
         getContentLayout().addView(quoteTextView);
 
-        quoteTextView.setBackgroundColor(Color.parseColor("#cfffcf"));
+        if (DEBUG_UI) {
+            quoteTextView.setBackgroundColor(Color.parseColor("#cfffcf"));
+        }
     }
 
     @Override

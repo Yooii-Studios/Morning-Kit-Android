@@ -50,7 +50,9 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
         if (rootView != null) {
             ButterKnife.inject(this, rootView);
 
-            eventsListView.setBackgroundColor(Color.MAGENTA);
+            if (DEBUG_UI) {
+                eventsListView.setBackgroundColor(Color.MAGENTA);
+            }
 
             // 패널 데이터 가져오기
             if (getPanelDataObject().has(CALENDAR_DATA_SELECTED_CALEDNDARS)) {
