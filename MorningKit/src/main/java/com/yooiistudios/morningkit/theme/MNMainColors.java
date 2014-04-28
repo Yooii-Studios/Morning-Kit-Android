@@ -93,21 +93,6 @@ public class MNMainColors {
     /**
      * Font Color
      */
-    // 나중에 알람만 다른 색을 쓰게 될 경우를 대비
-    public static int getAlarmMainFontColor(MNThemeType themeType) {
-        return getMainFontColor(themeType);
-    }
-
-    public static int getAlarmAddTextFontColor(MNThemeType themeType) {
-        if (themeType == MNThemeType.CELESTIAL_SKY_BLUE) {
-            return Color.parseColor("#043f4b");
-        } else if (themeType == MNThemeType.PASTEL_GREEN) {
-            return Color.parseColor("#797979");
-        } else {
-            return getAlarmMainFontColor(themeType);
-        }
-    }
-
     public static int getMainFontColor(MNThemeType themeType) {
         switch (themeType) {
             case WATER_LILY:
@@ -130,11 +115,6 @@ public class MNMainColors {
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
-    }
-
-    // 나중에 알람만 다른 색을 쓰게 될 경우를 대비
-    public static int getAlarmSubFontColor(MNThemeType themeType) {
-        return getSubFontColor(themeType);
     }
 
     public static int getSubFontColor(MNThemeType themeType) {
@@ -186,6 +166,46 @@ public class MNMainColors {
     }
 
     /**
+     * Alarm
+     */
+
+    // 나중에 알람만 다른 색을 쓰게 될 경우를 대비
+    public static int getAlarmMainFontColor(MNThemeType themeType) {
+        return getMainFontColor(themeType);
+    }
+
+    public static int getAlarmAddTextFontColor(MNThemeType themeType) {
+        if (themeType == MNThemeType.CELESTIAL_SKY_BLUE) {
+            return Color.parseColor("#043f4b");
+        } else if (themeType == MNThemeType.PASTEL_GREEN) {
+            return Color.parseColor("#797979");
+        } else {
+            return getAlarmMainFontColor(themeType);
+        }
+    }
+
+    public static int getAlarmSubFontColor(MNThemeType themeType) {
+        return getSubFontColor(themeType);
+    }
+
+    /**
      * Panel
      */
+    public static int getWeatherConditionColor(MNThemeType themeType) {
+        switch (themeType) {
+            case WATER_LILY:
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case CELESTIAL_SKY_BLUE:
+                return getMainFontColor(themeType);
+
+            case PASTEL_GREEN:
+                return getSubFontColor(themeType);
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
 }

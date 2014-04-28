@@ -3,8 +3,9 @@ package com.yooiistudios.morningkit.panel.weather;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,8 +25,6 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
-import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -35,6 +34,9 @@ import com.yooiistudios.morningkit.panel.weather.model.cache.MNWeatherDataSearch
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherData;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfo;
 import com.yooiistudios.morningkit.panel.weather.model.parser.MNWeatherWWOAsyncTask;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
@@ -309,7 +311,11 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 
         // weather condition
         if (weatherData.weatherCondition != null) {
+            // set image resource
             weatherConditionImageView.setImageResource(weatherData.weatherCondition.getConditionResourceId());
+
+            // convert to bitmap with color
+            applyTheme();
         }
 
         // temperature
@@ -508,5 +514,16 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             }
             return false;
         }
+    }
+
+    @Override
+    public void applyTheme() {
+        super.applyTheme();
+
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext());
+        int highlightColor = MNMainColors.getWeatherConditionColor(currentThemeType);
+        PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(highlightColor,
+                PorterDuff.Mode.SRC_ATOP);
+        weatherConditionImageView.setColorFilter(colorFilter);
     }
 }
