@@ -70,6 +70,10 @@
 
     <!-- Weather -->
         <!-- Main -->
+    <dimen name="panel_weather_current_temp_text_size">26sp</dimen>
+    <dimen name="panel_weather_low_high_temp_text_size">14sp</dimen>
+    <dimen name="panel_weather_city_name_local_time_text_size">12sp</dimen>
+    <dimen name="panel_weather_local_time_text_size">12sp</dimen>
     <dimen name="panel_weather_condition_image_size">57dp</dimen>
 
     <!-- Flickr -->
