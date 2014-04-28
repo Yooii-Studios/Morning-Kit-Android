@@ -44,8 +44,9 @@ public class MNCalendarListAdapter extends BaseAdapter {
     public int getCount() {
         if (calendarEventList != null) {
             return calendarEventList.getSize();
+        } else {
+            return 0;
         }
-        return 0;
 //        return calendarEvents.size();
     }
 

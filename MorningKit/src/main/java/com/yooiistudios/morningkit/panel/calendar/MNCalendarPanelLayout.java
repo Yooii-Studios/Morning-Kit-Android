@@ -84,6 +84,12 @@ public class MNCalendarPanelLayout extends MNPanelLayout {
 
         eventsListView.setAdapter(new MNCalendarMainListAdapter(getContext(), selectedArr));
 
+        if (eventsListView.getCount() != 0) {
+            hideCoverLayout();
+        } else {
+            showCoverLayout(getResources().getString(R.string.reminder_no_schedule));
+        }
+
         // test
         eventsListView.setBackgroundColor(Color.MAGENTA);
     }

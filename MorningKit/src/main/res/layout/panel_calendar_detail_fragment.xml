@@ -23,4 +23,12 @@
         android:layout_marginTop="@dimen/margin_outer"
         android:text="@string/calendar_select_calendars"/>
 
+    <TextView
+        android:id="@+id/calendar_detail_no_schedule_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reminder_no_schedule"
+        android:textSize="@dimen/panel_calendar_detail_item_textview_font_size"
+        android:textColor="#000000"/>
+
 </RelativeLayout>

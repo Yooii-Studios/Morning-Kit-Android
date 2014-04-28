@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -38,6 +39,7 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
 
     @InjectView(R.id.calendar_detail_events_listview) ListView eventsListView;
     @InjectView(R.id.calendar_detail_select_calendars_button) Button selectCalendarsButton;
+    @InjectView(R.id.calendar_detail_no_schedule_textview) TextView noScheduleTextView;
 
     boolean[] selectedArr;
 
@@ -74,6 +76,12 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
 
     private void refreshUI() {
         eventsListView.setAdapter(new MNCalendarListAdapter(getActivity(), selectedArr));
+
+        if (eventsListView.getCount() != 0) {
+            noScheduleTextView.setVisibility(View.GONE);
+        } else {
+            noScheduleTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
