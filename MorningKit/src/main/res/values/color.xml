@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Classic Gray -->
-    <color name="stroke_color">#000000</color>
+    <color name="stroke_color">#50000000</color>
 
     <color name="classic_gray_forward_normal_color">#434343</color>
     <color name="classic_gray_forward_pressed_color">#a1a1a1</color>
