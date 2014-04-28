@@ -13,7 +13,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
-import com.testflightapp.lib.TestFlight;
 import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
 import com.yooiistudios.morningkit.common.log.MNLog;
 
@@ -62,23 +61,45 @@ public class MNBitmapProcessor {
                     Point newBitmapSize = new Point((int) (bitmap.getHeight() * frameRatio), bitmap.getHeight());
 
                     // 자를 위치는 bitmap.width/2 - frame.width/2 에서 frame.width 만큼 자름
-                    if (bitmap.getWidth() / 2 - newBitmapSize.x / 2 <= 0) {
-                        MNLog.e(TAG, "x <= 0");
-                        MNLog.e(TAG, "bitmap.getWidth(): " + bitmap.getWidth());
-                        MNLog.e(TAG, "bitmap.getHeight(): " + bitmap.getHeight());
-                        MNLog.e(TAG, "newBitmapSize.x: " + newBitmapSize.x);
-                        MNLog.e(TAG, "newBitmapSize.y: " + newBitmapSize.y);
+
+                    // 수정:
+                    // bitmap.getWidth() / 2 - newBitmapSize.x / 2 를 사용해도 되지만,
+                    // 혹시 모를 음수값을 대비해 절대값을 사용해 계산한다
+                    // 수정 후에도 거의 없는 일이지만 bitmap의 크기가 더 작은 경우는 아래 조건이 성립해 버리는 문제가 생긴다
+                    // 자를 수 있는 영역보다 더 넓은 영역을 자르기 때문이. 이것을 어떻게 해결할 수 있을지 고민해보자
+                    // 앱이 크래쉬되기에, 기록해 두었다가 나중에 해결하도록 하자
+                    if (Math.abs(bitmap.getWidth() - newBitmapSize.x) / 2 + newBitmapSize.x > bitmap.getWidth()) {
+                        MNLog.now("bitmap.getWidth() - newBitmapSize.x: " + (bitmap.getWidth() - newBitmapSize.x));
+                        MNLog.now("newBitmapSize.x: " + newBitmapSize.x);
+                        MNLog.now("bitmap.getWidth(): " + bitmap.getWidth());
+
+                        return null;
                     }
                     croppedBitmap = Bitmap.createBitmap(bitmap,
-                            bitmap.getWidth() / 2 - newBitmapSize.x / 2, 0,
+                            Math.abs(bitmap.getWidth() - newBitmapSize.x) / 2, 0,
                             newBitmapSize.x, newBitmapSize.y);
                 } else {
                     // (b)가 작다면 bitmap의 width는 frame.width, height는 frame.width / ratio
                     Point newBitmapSize = new Point(bitmap.getWidth(), (int) (bitmap.getWidth() / frameRatio));
 
                     // 자를 위치는 Image.height/2 - frame.height/2 에서 frame.height 만큼 자름
+
+                    // 수정:
+                    // bitmap.getHeight() / 2 - newBitmapSize.y / 2 를 사용해도 되지만,
+                    // 이 값이 음수가 나올 경우가 있다. (getHeight()더 작다거나)
+                    // 따라서 음수가 나오지 않는 아래 방법을 사용한다
+                    // 수정 후에도 거의 없는 일이지만 bitmap의 크기가 더 작은 경우는 아래 조건이 성립해 버리는 문제가 생긴다
+                    // 자를 수 있는 영역보다 더 넓은 영역을 자르기 때문이. 이것을 어떻게 해결할 수 있을지 고민해보자
+                    // 앱이 크래쉬되기에, 기록해 두었다가 나중에 해결하도록 하자
+                    if (Math.abs(bitmap.getHeight() - newBitmapSize.y) / 2 + newBitmapSize.y > bitmap.getHeight()) {
+                        MNLog.now("bitmap.getHeight() - newBitmapSize.y: " + (bitmap.getHeight() - newBitmapSize.y));
+                        MNLog.now("newBitmapSize.y: " + newBitmapSize.y);
+                        MNLog.now("bitmap.getHeight(): " + bitmap.getHeight());
+
+                        return null;
+                    }
                     croppedBitmap = Bitmap.createBitmap(bitmap,
-                            0, bitmap.getHeight() / 2 - newBitmapSize.y / 2,
+                            0, Math.abs(bitmap.getHeight() - newBitmapSize.y) / 2,
                             newBitmapSize.x, newBitmapSize.y);
                 }
             } else {
@@ -90,8 +111,16 @@ public class MNBitmapProcessor {
 
                 // 위에서 15% 아래에서부터 자름(인물 사진이라 가정)
                 double offset15PercentFromTop = bitmap.getHeight() * 0.15;
-                croppedBitmap = Bitmap.createBitmap(bitmap, 0, (int) offset15PercentFromTop,
-                        newBitmapSize.x, newBitmapSize.y);
+
+                if (offset15PercentFromTop + newBitmapSize.y <= bitmap.getHeight()) {
+                    croppedBitmap = Bitmap.createBitmap(bitmap, 0, (int) offset15PercentFromTop,
+                            newBitmapSize.x, newBitmapSize.y);
+                } else {
+                    // 15%해서 넘어가버리는 경우는 중앙을 잘라서 보여주게 구현
+                    croppedBitmap = Bitmap.createBitmap(bitmap,
+                            0, Math.abs(bitmap.getHeight() - newBitmapSize.y) / 2,
+                            newBitmapSize.x, newBitmapSize.y);
+                }
             }
             return croppedBitmap;
         }
