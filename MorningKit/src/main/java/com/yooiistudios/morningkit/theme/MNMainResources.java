@@ -41,6 +41,9 @@ public class MNMainResources {
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.dividing_bar_off_skyblue;
 
+            case PASTEL_GREEN:
+                return R.drawable.dividing_bar_on_classic_white;
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -63,6 +66,9 @@ public class MNMainResources {
 
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.dividing_bar_on_skyblue;
+
+            case PASTEL_GREEN:
+                return R.drawable.dividing_bar_on_classic_white;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -87,6 +93,9 @@ public class MNMainResources {
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.dividing_bar_off_skyblue;
 
+            case PASTEL_GREEN:
+                return R.drawable.dividing_bar_off_classic_white;
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -109,6 +118,9 @@ public class MNMainResources {
 
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.plus_skyblue;
+
+            case PASTEL_GREEN:
+                return R.drawable.plus_classic_white;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -133,6 +145,9 @@ public class MNMainResources {
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.alarm_switch_button_selector_skyblue;
 
+            case PASTEL_GREEN:
+                return R.drawable.alarm_switch_button_selector_classic_white;
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -153,6 +168,9 @@ public class MNMainResources {
 
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.shape_rounded_view_skyblue;
+
+            case PASTEL_GREEN:
+                return R.drawable.shape_rounded_view_pastel_green;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }

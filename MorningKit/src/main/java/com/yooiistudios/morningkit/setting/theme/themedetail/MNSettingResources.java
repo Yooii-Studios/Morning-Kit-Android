@@ -18,6 +18,7 @@ public class MNSettingResources {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
             case MODERNITY_WHITE:
+            case PASTEL_GREEN:
                 return R.drawable.setting_theme_check_classic_white;
 
             case SLATE_GRAY:
@@ -35,6 +36,7 @@ public class MNSettingResources {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
             case MODERNITY_WHITE:
+            case PASTEL_GREEN:
                 return R.drawable.setting_theme_lock_classic_white;
 
             case SLATE_GRAY:
@@ -52,6 +54,7 @@ public class MNSettingResources {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
             case MODERNITY_WHITE:
+            case PASTEL_GREEN:
                 return R.drawable.panel_lock_icon_classic_white;
 
             case SLATE_GRAY:
@@ -75,6 +78,7 @@ public class MNSettingResources {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
             case MODERNITY_WHITE:
+            case PASTEL_GREEN:
                 return R.drawable.widget_cover_weather_black_ipad;
 
             case SLATE_GRAY:
@@ -92,6 +96,7 @@ public class MNSettingResources {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
             case MODERNITY_WHITE:
+            case PASTEL_GREEN:
                 return R.drawable.widget_cover_calendar_black_ipad;
 
             case SLATE_GRAY:
@@ -109,6 +114,7 @@ public class MNSettingResources {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
             case MODERNITY_WHITE:
+            case PASTEL_GREEN:
                 return R.drawable.widget_cover_reminder_black_ipad;
 
             case SLATE_GRAY:
@@ -126,6 +132,7 @@ public class MNSettingResources {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
             case MODERNITY_WHITE:
+            case PASTEL_GREEN:
                 return R.drawable.widget_cover_worldclock_black_ipad;
 
             case SLATE_GRAY:
@@ -145,6 +152,7 @@ public class MNSettingResources {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
             case MODERNITY_WHITE:
+            case PASTEL_GREEN:
                 return R.drawable.widget_cover_quotes_black_ipad;
 
             case SLATE_GRAY:
@@ -162,6 +170,7 @@ public class MNSettingResources {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
             case MODERNITY_WHITE:
+            case PASTEL_GREEN:
                 return R.drawable.widget_cover_flickr_black_ipad;
 
             case SLATE_GRAY:
@@ -179,6 +188,7 @@ public class MNSettingResources {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
             case MODERNITY_WHITE:
+            case PASTEL_GREEN:
                 return R.drawable.widget_cover_exchangerates_black_ipad;
 
             case SLATE_GRAY:
@@ -198,6 +208,7 @@ public class MNSettingResources {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
             case MODERNITY_WHITE:
+            case PASTEL_GREEN:
                 return R.drawable.widget_cover_memo_black_ipad;
 
             case SLATE_GRAY:
@@ -215,6 +226,7 @@ public class MNSettingResources {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
             case MODERNITY_WHITE:
+            case PASTEL_GREEN:
                 return R.drawable.widget_cover_datecountdown_black_ipad;
 
             case SLATE_GRAY:

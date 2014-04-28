@@ -173,11 +173,12 @@
 	<string name="setting_theme_color_skyblue">하늘 (하늘색)</string>
 	<string name="setting_theme_color_classic_gray">슬레이트 (회색)</string>
 	<string name="setting_theme_color_classic_white">모던 (흰색)</string>
-	<string name="setting_theme_mirror">투영 (미러모드)</string>
-	<string name="setting_theme_scenery">고요함 (투명모드)</string>
-	<string name="setting_theme_photo">사진</string>
-	<string name="setting_theme_photo_portrait">사진 (세로모드)</string>
-	<string name="setting_theme_photo_landscape">사진 (가로모드)</string>
+    <string name="setting_theme_color_pastel_green">파스텔 그린</string>
+    <string name="setting_theme_mirror">투영 (미러모드)</string>
+    <string name="setting_theme_scenery">고요함 (투명모드)</string>
+    <string name="setting_theme_photo">사진</string>
+    <string name="setting_theme_photo_portrait">사진 (세로모드)</string>
+    <string name="setting_theme_photo_landscape">사진 (가로모드)</string>
 
 	<!-- Setting (Language) -->
 	<string name="setting_language_korean">한국어</string>

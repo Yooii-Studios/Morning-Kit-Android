@@ -31,6 +31,9 @@ public class MNSettingColors {
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#049ebd");
 
+            case PASTEL_GREEN:
+                return Color.parseColor("#ffffff");
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -52,6 +55,9 @@ public class MNSettingColors {
 
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#01afd2");
+
+            case PASTEL_GREEN:
+                return Color.parseColor("#ffffff");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -75,6 +81,9 @@ public class MNSettingColors {
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#03a3c3");
 
+            case PASTEL_GREEN:
+                return Color.parseColor("#f0f0f0f");
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -93,6 +102,9 @@ public class MNSettingColors {
 
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#0091ae");
+
+            case PASTEL_GREEN:
+                return Color.parseColor("#f0f0f0f");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -118,6 +130,9 @@ public class MNSettingColors {
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#ffffff");
 
+            case PASTEL_GREEN:
+                return Color.parseColor("#5ab38c");
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -139,6 +154,9 @@ public class MNSettingColors {
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#e4e4e4");
 
+            case PASTEL_GREEN:
+                return Color.parseColor("#797979");
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -158,6 +176,9 @@ public class MNSettingColors {
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#043f4b");
 
+            case PASTEL_GREEN:
+                return Color.parseColor("#797979");
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -174,6 +195,9 @@ public class MNSettingColors {
 
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#25f1c3");
+
+            case PASTEL_GREEN:
+                return Color.parseColor("#00cfff");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -195,6 +219,9 @@ public class MNSettingColors {
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#4cffffff");
 
+            case PASTEL_GREEN:
+                return Color.parseColor("#c3c3c3");
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -211,6 +238,9 @@ public class MNSettingColors {
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#ffffff");
+
+            case PASTEL_GREEN:
+                return Color.parseColor("#989898");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -231,6 +261,9 @@ public class MNSettingColors {
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#21c8ea");
 
+            case PASTEL_GREEN:
+                return Color.parseColor("#f0f0f0");
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -243,6 +276,9 @@ public class MNSettingColors {
             case PHOTO:
             case MODERNITY_WHITE:
                 return Color.parseColor("#99cfcfcf");
+
+            case PASTEL_GREEN:
+                return Color.parseColor("#f0f0f0");
 
             default:
                 return getForwardBackgroundColor(themeType);

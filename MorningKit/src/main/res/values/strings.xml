@@ -172,11 +172,14 @@
     <string name="setting_theme_color_skyblue">Celestial (Sky blue)</string>
     <string name="setting_theme_color_classic_gray">Slate (Gray)</string>
     <string name="setting_theme_color_classic_white">Modernity (Chic white)</string>
+    <string name="setting_theme_color_pastel_green">Pastel Green</string>
     <string name="setting_theme_mirror">Reflection (Mirror)</string>
     <string name="setting_theme_scenery">Tranquility (Transparent)</string>
     <string name="setting_theme_photo">Photo</string>
     <string name="setting_theme_photo_portrait">Photo (Portrait)</string>
     <string name="setting_theme_photo_landscape">Photo (Landscape)</string>
+
+
 
     <!-- Setting (Language) -->
     <string name="setting_language_korean">한국어</string>

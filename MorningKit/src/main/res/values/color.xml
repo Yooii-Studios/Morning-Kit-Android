@@ -12,6 +12,10 @@
     <color name="skyblue_forward_normal_color">#01afd2</color>
     <color name="skyblue_forward_pressed_color">#03a3c3</color>
 
+    <color name="pastel_green_forward_normal_color">#ffffff</color>
+    <color name="pastel_green_forward_pressed_color">#f0f0f0</color>
+    <color name="pastel_green_stroke_color">#c1c1c1</color>
+
     <color name="translucent_forward_normal_color">#1affffff</color>
     <color name="translucent_forward_pressed_color">#7fffffff</color>
 

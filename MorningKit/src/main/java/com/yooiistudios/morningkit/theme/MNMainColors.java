@@ -33,6 +33,9 @@ public class MNMainColors {
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#049ebd");
 
+            case PASTEL_GREEN:
+                return Color.parseColor("#ffffff");
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -54,6 +57,9 @@ public class MNMainColors {
 
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#01afd2");
+
+            case PASTEL_GREEN:
+                return Color.parseColor("#ffffff");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -77,6 +83,9 @@ public class MNMainColors {
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#03a3c3");
 
+            case PASTEL_GREEN:
+                return Color.parseColor("#f0f0f0");
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -92,6 +101,8 @@ public class MNMainColors {
     public static int getAlarmAddTextFontColor(MNThemeType themeType) {
         if (themeType == MNThemeType.CELESTIAL_SKY_BLUE) {
             return Color.parseColor("#043f4b");
+        } else if (themeType == MNThemeType.PASTEL_GREEN) {
+            return Color.parseColor("#797979");
         } else {
             return getAlarmMainFontColor(themeType);
         }
@@ -113,6 +124,9 @@ public class MNMainColors {
 
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#ffffff");
+
+            case PASTEL_GREEN:
+                return Color.parseColor("#5ab38c");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -140,6 +154,9 @@ public class MNMainColors {
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#e4e4e4");
 
+            case PASTEL_GREEN:
+                return Color.parseColor("#c1c1c1");
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -160,6 +177,9 @@ public class MNMainColors {
 
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#ffffff");
+
+            case PASTEL_GREEN:
+                return Color.parseColor("#5ab38c");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
