@@ -49,6 +49,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
     private MNPhotoInfoFetcher photoInfoFetchAsyncTask;
     private MNFlickrBitmapAsyncTask flickrBitmapAsyncTask;
     private boolean isGrayScale;
+    private boolean isRefreshing = false;
 
     public MNFlickrPanelLayout(Context context) {
         super(context);
@@ -133,6 +134,9 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
     protected void updateUI() {
         super.updateUI();
 
+        // 리프레시 플래그 처리(로딩하는 동안엔 회전에 대응하지 않게 구현)
+        isRefreshing = false;
+
         // 마무리 가공된 Bitmap을 RecycleImageView에 대입
 //        imageView.setImageDrawable(null);
 //        imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), polishedBitmap));
@@ -215,7 +219,9 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
             @Override
             public void onLayoutLoad() {
                 try {
-                    getPolishedFlickrBitmap();
+                    if (!isRefreshing) {
+                        getPolishedFlickrBitmap();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -268,5 +274,12 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
 
         // 모달 액티비티 띄우기
         super.onPanelClick();
+    }
+
+    @Override
+    public void refreshPanel() throws JSONException {
+        super.refreshPanel();
+
+        isRefreshing = true;
     }
 }
