@@ -181,7 +181,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         // current temp
         currentTempTextView = new TextView(getContext());
         currentTempTextView.setId(1384174);
-        currentTempTextView.setGravity(Gravity.CENTER);
+        currentTempTextView.setGravity(Gravity.BOTTOM);
         currentTempTextView.setSingleLine();
         currentTempTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_weather_current_temp_text_size));
@@ -194,7 +194,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         // lowHigh temp
         lowHighTempTextView = new TextView(getContext());
         lowHighTempTextView.setId(38417324);
-        lowHighTempTextView.setGravity(Gravity.CENTER);
+        lowHighTempTextView.setGravity(Gravity.TOP);
         lowHighTempTextView.setSingleLine();
         lowHighTempTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_weather_low_high_temp_text_size));
@@ -269,18 +269,17 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             weatherWWOAsyncTask.cancel(true);
         }
 
+        if (locationClient == null) {
+            locationClient = new LocationClient(getContext(), this, this);
+        } else {
+            locationClient.disconnect();
+        }
+
         // get weather data from server
         if (isUsingCurrentLocation) {
             // 현재 위치는 locationClient에서 위치를 받아와 콜백 메서드에서 로직을 진행
-            if (locationClient == null) {
-                locationClient = new LocationClient(getContext(), this, this);
-            } else {
-                locationClient.disconnect();
-            }
             locationClient.connect();
         } else {
-            // Yahoo using woeid -> iOS 소스를 보니까 전부 WWO를 사용하게 변경이 되었네
-
             // find previous data from cache
             MNWeatherData cachedWeatherData = searchCityWeatherDataCache.findWeatherCache(
                     selectedLocationInfo.getLatitude(), selectedLocationInfo.getLongitude());
@@ -420,25 +419,10 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         isClockRunning = false;
     }
 
-    // 패널이 없어질 때 핸들러 중지
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        if (locationClient != null) {
-            locationClient.connect();
-        }
-    }
+    /**
+     * Location Client handler
+     */
 
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        stopClock();
-        if (locationClient != null && locationClient.isConnected()) {
-            locationClient.disconnect();
-        }
-    }
-
-    // Location Client handler
     /**
      * Called by Location Services when the request to connect the
      * client finishes successfully. At this point, you can
@@ -475,7 +459,8 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     public void onLocationChanged(Location location) {
         locationClient.disconnect();
 
-        if (location != null) {
+        // 현재위치를 사용할 때만 진행
+        if (location != null && isUsingCurrentLocation) {
             // find previous data from cache
             MNWeatherData cachedWeatherData = currentLocationWeatherDataCache.findWeatherCache(
                     location.getLatitude(), location.getLongitude());
