@@ -111,12 +111,19 @@ public class MNPanelWindowLayout extends LinearLayout
 
     // 방향과 무관
     public void refreshAllPanels() {
+        int i = 0;
+        MNPanelMatrixType panelMatrixType = MNPanelMatrix.getCurrentPanelMatrixType(getContext());
         for (MNPanelLayout panelLayout : panelLayouts) {
-            try {
-                panelLayout.refreshPanel();
-            } catch (JSONException e) {
-                e.printStackTrace();
+            // 2X3일때는 모든 패널 리프레시, 2X2일 때는 0123 패널만 리프레시
+            if (panelMatrixType == MNPanelMatrixType.PANEL_MATRIX_2X3 ||
+                    (panelMatrixType == MNPanelMatrixType.PANEL_MATRIX_2X2 && i < 4)) {
+                try {
+                    panelLayout.refreshPanel();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+            i++;
         }
     }
 
