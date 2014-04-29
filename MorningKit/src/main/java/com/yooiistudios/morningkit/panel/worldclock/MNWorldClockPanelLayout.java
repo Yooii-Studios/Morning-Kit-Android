@@ -194,6 +194,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         LayoutParams ampmLayoutParms = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         ampmLayoutParms.addRule(ALIGN_BASELINE, digitalTimeTextView.getId());
         ampmLayoutParms.addRule(RIGHT_OF, digitalTimeTextView.getId());
+        ampmLayoutParms.leftMargin = getResources().getDimensionPixelOffset(R.dimen.margin_inner);
         digitalAmpmTextView.setLayoutParams(ampmLayoutParms);
         digitalTimeLayout.addView(digitalAmpmTextView);
 
