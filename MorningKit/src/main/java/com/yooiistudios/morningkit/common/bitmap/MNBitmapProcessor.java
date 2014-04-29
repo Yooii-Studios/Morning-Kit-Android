@@ -41,19 +41,24 @@ public class MNBitmapProcessor {
                 // 이미지의 가로가 세로보다 같거나 김
 
                 // frame.width : bitmap.width (a)와 frame.height : bitmap.height (b)를 비교
+                
+                // 로직 수정: 비율이 1 밑으로 내려갈 것 까지 감안해서 로직을 구성하는 것으로 변경
+                // 이전 로직인 무조건 1 이상의 비율만 구해서 구현하면 bitmap이 640/224 처럼 가로로 아주 길 경우
+                // 가로 비율은 1이상인데, 세로 비율은 반대로 계산해 1이상이 나오게 만들어서 제대로 된 값이 나오지 않았음
+                // 한쪽 비율만 계산해서 1미만이면 그쪽으로 줄일 수 있게 변경
                 double widthRatio;
-                if (targetWidth > bitmap.getWidth()) {
-                    widthRatio = (double) bitmap.getWidth() / (double) targetWidth;
-                } else {
+//                if (targetWidth > bitmap.getWidth()) {
+//                    widthRatio = (double) bitmap.getWidth() / (double) targetWidth;
+//                } else {
                     widthRatio = (double) targetWidth / (double) bitmap.getWidth();
-                }
-
+//                }
+//
                 double heightRatio;
-                if (targetHeight > bitmap.getHeight()) {
-                    heightRatio = (double) bitmap.getHeight() / (double) targetHeight;
-                } else {
+//                if (targetHeight > bitmap.getHeight()) {
+//                    heightRatio = (double) bitmap.getHeight() / (double) targetHeight;
+//                } else {
                     heightRatio = (double) targetHeight / (double) bitmap.getHeight();
-                }
+//                }
 
                 // (a)와 (b) 중 작은 쪽으로 이미지를 줄인다
                 if (widthRatio < heightRatio) {
@@ -71,6 +76,8 @@ public class MNBitmapProcessor {
                     if (Math.abs(bitmap.getWidth() - newBitmapSize.x) / 2 + newBitmapSize.x > bitmap.getWidth()) {
                         MNLog.now("(a)가 작다면 bitmap의 height는 frame.height, width는 frame.height * ratio");
                         MNLog.now("bitmap.getWidth() - newBitmapSize.x: " + (bitmap.getWidth() - newBitmapSize.x));
+                        MNLog.now("targetWidth: " + targetWidth);
+                        MNLog.now("targetHeight: " + targetHeight);
                         MNLog.now("newBitmapSize.x: " + newBitmapSize.x);
                         MNLog.now("newBitmapSize.y: " + newBitmapSize.y);
                         MNLog.now("bitmap.getWidth(): " + bitmap.getWidth());
@@ -97,6 +104,8 @@ public class MNBitmapProcessor {
                     if (Math.abs(bitmap.getHeight() - newBitmapSize.y) / 2 + newBitmapSize.y > bitmap.getHeight()) {
                         MNLog.now("(b)가 작다면 bitmap의 width는 frame.width, height는 frame.width / ratio");
                         MNLog.now("bitmap.getHeight() - newBitmapSize.y: " + (bitmap.getHeight() - newBitmapSize.y));
+                        MNLog.now("targetWidth: " + targetWidth);
+                        MNLog.now("targetHeight: " + targetHeight);
                         MNLog.now("newBitmapSize.x: " + newBitmapSize.x);
                         MNLog.now("newBitmapSize.y: " + newBitmapSize.y);
                         MNLog.now("bitmap.getWidth(): " + bitmap.getWidth());
