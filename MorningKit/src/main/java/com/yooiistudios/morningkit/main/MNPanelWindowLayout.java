@@ -41,6 +41,8 @@ public class MNPanelWindowLayout extends LinearLayout
     @Getter private MNPanelLayout panelLayouts[];
 //    @Getter private FrameLayout[][] widgetSlots;
 
+    private MNPanelMatrixType previousPanelMatrixType;
+
     public MNPanelWindowLayout(Context context) {
         super(context);
         this.context = context;
@@ -56,6 +58,7 @@ public class MNPanelWindowLayout extends LinearLayout
 
         panelLineLayouts = new LinearLayout[PANEL_ROWS];
         panelLayouts = new MNPanelLayout[NUMBER_OF_PANELS];
+        MNPanelMatrixType panelMatrixType = MNPanelMatrix.getCurrentPanelMatrixType(getContext());
 
         // 패널들이 있는 레이아웃을 추가
         for (int i = 0; i < PANEL_ROWS; i++) {
@@ -89,21 +92,39 @@ public class MNPanelWindowLayout extends LinearLayout
 
                 // 로딩 애니메이션이 onCreate시에는 제대로 생성이 안되기 때문에 뷰 로딩 이후에 리프레시
                 final MNPanelLayout panelLayout = panelLayouts[index];
-                MNViewSizeMeasure.setViewSizeObserver(panelLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
-                    @Override
-                    public void onLayoutLoad() {
-                        try {
-                            panelLayout.refreshPanel();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+
+                // 눈에 보이는 패널들만 리프레시를 하게 구현
+                if (panelMatrixType == MNPanelMatrixType.PANEL_MATRIX_2X3 ||
+                        panelMatrixType == MNPanelMatrixType.PANEL_MATRIX_2X2 && i < 2) {
+                    MNViewSizeMeasure.setViewSizeObserver(panelLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+                        @Override
+                        public void onLayoutLoad() {
+                            try {
+                                panelLayout.refreshPanel();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         }
     }
 
     public void applyTheme() {
+        // 2X2 사용 중 2X3로 변경하였을 때 리프레시를 한번씩 해주자
+        MNPanelMatrixType currentPanelMatrixType = MNPanelMatrix.getCurrentPanelMatrixType(getContext());
+        if (previousPanelMatrixType != currentPanelMatrixType &&
+                previousPanelMatrixType == MNPanelMatrixType.PANEL_MATRIX_2X2) {
+            try {
+                panelLayouts[4].refreshPanel();
+                panelLayouts[5].refreshPanel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        previousPanelMatrixType = currentPanelMatrixType;
+        
         for (MNPanelLayout panelLayout : panelLayouts) {
             panelLayout.applyTheme();
         }
@@ -111,12 +132,19 @@ public class MNPanelWindowLayout extends LinearLayout
 
     // 방향과 무관
     public void refreshAllPanels() {
+        int i = 0;
+        MNPanelMatrixType panelMatrixType = MNPanelMatrix.getCurrentPanelMatrixType(getContext());
         for (MNPanelLayout panelLayout : panelLayouts) {
-            try {
-                panelLayout.refreshPanel();
-            } catch (JSONException e) {
-                e.printStackTrace();
+            // 2X3일때는 모든 패널 리프레시, 2X2일 때는 0123 패널만 리프레시
+            if (panelMatrixType == MNPanelMatrixType.PANEL_MATRIX_2X3 ||
+                    (panelMatrixType == MNPanelMatrixType.PANEL_MATRIX_2X2 && i < 4)) {
+                try {
+                    panelLayout.refreshPanel();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+            i++;
         }
     }
 
