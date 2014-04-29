@@ -37,11 +37,10 @@ public class MNBitmapProcessor {
             Bitmap croppedBitmap;
             double frameRatio = (double) targetWidth / (double) targetHeight;
 
+            // 이미지의 가로가 세로보다 같거나 김
             if (bitmap.getWidth() >= bitmap.getHeight()) {
-                // 이미지의 가로가 세로보다 같거나 김
-
                 // frame.width : bitmap.width (a)와 frame.height : bitmap.height (b)를 비교
-                
+
                 // 로직 수정: 비율이 1 밑으로 내려갈 것 까지 감안해서 로직을 구성하는 것으로 변경
                 // 이전 로직인 무조건 1 이상의 비율만 구해서 구현하면 bitmap이 640/224 처럼 가로로 아주 길 경우
                 // 가로 비율은 1이상인데, 세로 비율은 반대로 계산해 1이상이 나오게 만들어서 제대로 된 값이 나오지 않았음
@@ -82,13 +81,14 @@ public class MNBitmapProcessor {
                         MNLog.now("newBitmapSize.y: " + newBitmapSize.y);
                         MNLog.now("bitmap.getWidth(): " + bitmap.getWidth());
                         MNLog.now("bitmap.getHeight(): " + bitmap.getHeight());
-
                         return null;
                     }
                     croppedBitmap = Bitmap.createBitmap(bitmap,
                             Math.abs(bitmap.getWidth() - newBitmapSize.x) / 2, 0,
                             newBitmapSize.x, newBitmapSize.y);
                 } else {
+                    // 이미지의 세로가 가로보다 같거나 김
+
                     // (b)가 작다면 bitmap의 width는 frame.width, height는 frame.width / ratio
                     Point newBitmapSize = new Point(bitmap.getWidth(), (int) (bitmap.getWidth() / frameRatio));
 
@@ -110,7 +110,6 @@ public class MNBitmapProcessor {
                         MNLog.now("newBitmapSize.y: " + newBitmapSize.y);
                         MNLog.now("bitmap.getWidth(): " + bitmap.getWidth());
                         MNLog.now("bitmap.getHeight(): " + bitmap.getHeight());
-
                         return null;
                     }
                     croppedBitmap = Bitmap.createBitmap(bitmap,
