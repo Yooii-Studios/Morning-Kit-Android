@@ -69,9 +69,12 @@ public class MNBitmapProcessor {
                     // 자를 수 있는 영역보다 더 넓은 영역을 자르기 때문이. 이것을 어떻게 해결할 수 있을지 고민해보자
                     // 앱이 크래쉬되기에, 기록해 두었다가 나중에 해결하도록 하자
                     if (Math.abs(bitmap.getWidth() - newBitmapSize.x) / 2 + newBitmapSize.x > bitmap.getWidth()) {
+                        MNLog.now("(a)가 작다면 bitmap의 height는 frame.height, width는 frame.height * ratio");
                         MNLog.now("bitmap.getWidth() - newBitmapSize.x: " + (bitmap.getWidth() - newBitmapSize.x));
                         MNLog.now("newBitmapSize.x: " + newBitmapSize.x);
+                        MNLog.now("newBitmapSize.y: " + newBitmapSize.y);
                         MNLog.now("bitmap.getWidth(): " + bitmap.getWidth());
+                        MNLog.now("bitmap.getHeight(): " + bitmap.getHeight());
 
                         return null;
                     }
@@ -92,8 +95,11 @@ public class MNBitmapProcessor {
                     // 자를 수 있는 영역보다 더 넓은 영역을 자르기 때문이. 이것을 어떻게 해결할 수 있을지 고민해보자
                     // 앱이 크래쉬되기에, 기록해 두었다가 나중에 해결하도록 하자
                     if (Math.abs(bitmap.getHeight() - newBitmapSize.y) / 2 + newBitmapSize.y > bitmap.getHeight()) {
+                        MNLog.now("(b)가 작다면 bitmap의 width는 frame.width, height는 frame.width / ratio");
                         MNLog.now("bitmap.getHeight() - newBitmapSize.y: " + (bitmap.getHeight() - newBitmapSize.y));
+                        MNLog.now("newBitmapSize.x: " + newBitmapSize.x);
                         MNLog.now("newBitmapSize.y: " + newBitmapSize.y);
+                        MNLog.now("bitmap.getWidth(): " + bitmap.getWidth());
                         MNLog.now("bitmap.getHeight(): " + bitmap.getHeight());
 
                         return null;
