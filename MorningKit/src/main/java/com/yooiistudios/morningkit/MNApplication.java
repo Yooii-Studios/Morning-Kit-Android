@@ -3,7 +3,6 @@ package com.yooiistudios.morningkit;
 import android.app.Application;
 import android.content.res.Configuration;
 
-import com.testflightapp.lib.TestFlight;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
