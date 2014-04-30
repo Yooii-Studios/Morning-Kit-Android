@@ -72,7 +72,7 @@ public class MNPanelWindowLayout extends LinearLayout
             panelLineLayouts[i].setLayoutParams(layoutParams);
             this.addView(panelLineLayouts[i]);
 
-            // 패널 데이터 로드
+            // 패널 데이터 리스트 로드
             List<JSONObject> panelDataObjects = MNPanel.getPanelDataList(getContext());
 
             // 각 패널 레이아웃을 추가
