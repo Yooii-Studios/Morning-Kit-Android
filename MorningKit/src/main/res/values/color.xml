@@ -8,6 +8,7 @@
 
     <color name="classic_white_forward_normal_color">#e8e8e8</color>
     <color name="classic_white_forward_pressed_color">#dcdcdc</color>
+    <color name="classic_white_forward_unlocked_color">#cfcfcf</color>
 
     <color name="skyblue_forward_normal_color">#01afd2</color>
     <color name="skyblue_forward_pressed_color">#03a3c3</color>

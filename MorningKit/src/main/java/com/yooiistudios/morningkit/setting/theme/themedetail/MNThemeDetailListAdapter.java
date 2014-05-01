@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
@@ -145,34 +143,24 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
             viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
             viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
             viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
-
-            // theme - shadow
-            RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-
-            // 동적 생성 -> 색 변경 로직 변경
-//            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
-            MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, activity);
+            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
             // onClick
-            if (roundShadowRelativeLayout != null) {
-                roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (MNSound.isSoundOn(activity)) {
-                            MNSoundEffectsPlayer.play(R.raw.effect_view_close, activity);
-                        }
-                        MNTheme.setThemeType(MNThemeType.valueOf(convertedPosition), activity);
-
-                        if (MNTheme.getCurrentThemeType(activity) == MNThemeType.PHOTO) {
-                            activity.startActivity(new Intent(activity, MNThemePhotoActivity.class));
-                        } else {
-                            activity.finish();
-                        }
+            viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (MNSound.isSoundOn(activity)) {
+                        MNSoundEffectsPlayer.play(R.raw.effect_view_close, activity);
                     }
-                });
-            } else {
-                throw new AssertionError("shadowRelativeLayout must not be null!");
-            }
+                    MNTheme.setThemeType(MNThemeType.valueOf(convertedPosition), activity);
+
+                    if (MNTheme.getCurrentThemeType(activity) == MNThemeType.PHOTO) {
+                        activity.startActivity(new Intent(activity, MNThemePhotoActivity.class));
+                    } else {
+                        activity.finish();
+                    }
+                }
+            });
 
             // lock
             if (selectedThemeType != MNThemeType.CELESTIAL_SKY_BLUE && selectedThemeType != MNThemeType.MODERNITY_WHITE) {
@@ -185,11 +173,11 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
                     viewHolder.getLockImageView().setVisibility(View.GONE);
                 } else {
                     // 아이템 잠김
-                    roundShadowRelativeLayout.setSolidAreaColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
-                    roundShadowRelativeLayout.setPressedColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
+                    viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getUnlockItemSelectorResourcesId(currentThemeType));
+//                    roundShadowRelativeLayout.setPressedColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
 
                     // lock onClickListener
-                    roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
+                    viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(activity, MNUnlockActivity.class);

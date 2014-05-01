@@ -3,13 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixFragment"
-    android:padding="@dimen/margin_inner"
+      android:paddingTop="@dimen/margin_inner"
+      android:paddingBottom="@dimen/margin_inner"
     android:background="@android:color/transparent" >
 
     <ListView
         android:id="@+id/setting_theme_panel_matrix_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="0dp" />
+        android:dividerHeight="0dp"
+        android:divider="#00ffffff" />
 
 </RelativeLayout>
