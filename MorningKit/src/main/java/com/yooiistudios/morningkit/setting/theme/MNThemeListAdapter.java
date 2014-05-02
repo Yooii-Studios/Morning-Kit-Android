@@ -10,8 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageActivity;
@@ -20,6 +18,7 @@ import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixActivity;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeDetailActivity;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -46,6 +45,7 @@ public class MNThemeListAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.setting_theme_item, parent, false);
+
         if (convertView != null) {
             MNSettingThemeItemViewHolder viewHolder = new MNSettingThemeItemViewHolder(convertView);
             MNThemeItemType type = MNThemeItemType.valueOf(position);
@@ -91,45 +91,35 @@ public class MNThemeListAdapter extends BaseAdapter {
             viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
             viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
             viewHolder.getDetailTextView().setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
-
-            // theme - shadow
-            RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-
-            // 동적 생성 -> 색 변경 로직 변경
-//            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
-            MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, context);
+            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
             // onClick
-            if (roundShadowRelativeLayout != null) {
-                roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (MNSound.isSoundOn(context)) {
-                            MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
-                        }
-                        MNThemeItemType themeItemType = MNThemeItemType.valueOf(position);
-                        switch (themeItemType) {
-                            case THEME:
-                                context.startActivity(new Intent(context, MNThemeDetailActivity.class));
-                                break;
+            viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (MNSound.isSoundOn(context)) {
+                        MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
+                    }
+                    MNThemeItemType themeItemType = MNThemeItemType.valueOf(position);
+                    switch (themeItemType) {
+                        case THEME:
+                            context.startActivity(new Intent(context, MNThemeDetailActivity.class));
+                            break;
 
-                            case LANGUAGE:
-                                context.startActivity(new Intent(context, MNLanguageActivity.class));
-                                break;
+                        case LANGUAGE:
+                            context.startActivity(new Intent(context, MNLanguageActivity.class));
+                            break;
 
-                            case PANEL_MATRIX:
-                                context.startActivity(new Intent(context, MNPanelMatrixActivity.class));
-                                break;
+                        case PANEL_MATRIX:
+                            context.startActivity(new Intent(context, MNPanelMatrixActivity.class));
+                            break;
 
 //                            case SOUND_EFFECTS:
 //                                context.startActivity(new Intent(context, MNSoundEffectActivity.class));
 //                                break;
-                        }
                     }
-                });
-            } else {
-                throw new AssertionError("shadowLayout must not be null!");
-            }
+                }
+            });
         }
         return convertView;
     }
@@ -154,8 +144,6 @@ public class MNThemeListAdapter extends BaseAdapter {
      */
     static class MNSettingThemeItemViewHolder {
         @Getter @InjectView(R.id.setting_theme_item_outer_layout)       RelativeLayout outerLayout;
-        @Getter @InjectView(R.id.setting_theme_item_shadow_layout)
-        RoundShadowRelativeLayout shadowLayout;
         @Getter @InjectView(R.id.setting_theme_item_inner_layout)       RelativeLayout innerLayout;
         @Getter @InjectView(R.id.setting_theme_item_title_textview)     TextView       titleTextView;
         @Getter @InjectView(R.id.setting_theme_item_detail_textview)    TextView       detailTextView;

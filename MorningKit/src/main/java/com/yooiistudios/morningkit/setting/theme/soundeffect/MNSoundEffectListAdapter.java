@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.theme.MNSettingThemeDetailItemViewHolder;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
@@ -73,29 +71,19 @@ public class MNSoundEffectListAdapter extends BaseAdapter {
             viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
             viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
             viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
-
-            // theme - shadow
-            RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-
-            // 동적 생성 -> 색 변경 로직 변경
-//            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
-            MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, activity);
+            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
             // onClick
-            if (roundShadowRelativeLayout != null) {
-                roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (MNSound.isSoundOn(activity)) {
-                            MNSoundEffectsPlayer.play(R.raw.effect_view_close, activity);
-                        }
-                        MNSound.setSoundType(MNSoundType.valueOf(position), activity);
-                        activity.finish();
+            viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (MNSound.isSoundOn(activity)) {
+                        MNSoundEffectsPlayer.play(R.raw.effect_view_close, activity);
                     }
-                });
-            } else {
-                throw new AssertionError("shadowRelativeLayout must not be null!");
-            }
+                    MNSound.setSoundType(MNSoundType.valueOf(position), activity);
+                    activity.finish();
+                }
+            });
         }
         return convertView;
     }

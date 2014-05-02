@@ -11,6 +11,41 @@ import com.yooiistudios.morningkit.R;
 public class MNSettingResources {
     private MNSettingResources() { throw new AssertionError("You MUST not create this class!"); }
 
+    // 설정 화면은 모든 테마에 통일되게 제공하자. 하지만 나중에 예외가 생길 가능성도 있음
+    public static int getNormalItemResourcesId(MNThemeType themeType) {
+        return R.drawable.shape_rounded_view_classic_white_normal;
+    }
+
+    public static int getItemSelectorResourcesId(MNThemeType themeType) {
+        return R.drawable.shape_rounded_view_classic_white;
+
+//        switch (themeType) {
+//            case TRANQUILITY_BACK_CAMERA:
+//            case REFLECTION_FRONT_CAMERA:
+//            case PHOTO:
+//            case WATER_LILY:
+//                return R.drawable.shape_rounded_view_translucent;
+//
+//            case MODERNITY_WHITE:
+//                return R.drawable.shape_rounded_view_classic_white;
+//
+//            case SLATE_GRAY:
+//                return R.drawable.shape_rounded_view_classic_gray;
+//
+//            case CELESTIAL_SKY_BLUE:
+//                return R.drawable.shape_rounded_view_skyblue;
+//
+//            case PASTEL_GREEN:
+//                return R.drawable.shape_rounded_view_pastel_green;
+//
+//            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+//        }
+    }
+
+    public static int getLockItemResourcesId(MNThemeType themeType) {
+        return R.drawable.shape_rounded_view_classic_white_unlocked;
+    }
+
     public static int getCheckResourceId(MNThemeType themeType) {
         switch (themeType) {
             case WATER_LILY:

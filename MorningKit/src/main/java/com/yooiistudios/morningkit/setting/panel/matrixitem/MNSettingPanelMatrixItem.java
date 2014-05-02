@@ -12,9 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +29,6 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
 
     @Getter @Setter TextView panelNameTextView;
     @Getter @Setter ImageView panelImageView;
-    @Getter @Setter RoundShadowRelativeLayout shadowLayout;
     @Getter @Setter RelativeLayout containerLayout;
     @Getter @Setter MNPanelType panelType;
 
@@ -56,25 +56,11 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
         Resources resources = getResources();
 
         if (resources != null) {
-            // shadow layout
-            if (attrs != null) {
-                shadowLayout = new RoundShadowRelativeLayout(context, attrs);
-            } else {
-                shadowLayout = new RoundShadowRelativeLayout(context);
-            }
-            LayoutParams shadowLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
-            shadowLayout.setLayoutParams(shadowLayoutParams);
-            addView(shadowLayout);
-
-            // 기존의 테마별 동적 생성이 아닌, 색만 교체하는 방식으로 로직 개선
-//            shadowLayout = MNShadowLayoutFactory.changeShadowLayout(MNTheme.getCurrentThemeType(getContext()), shadowLayout, this);
-            // 동적이 아닌 방식으로 처리
-            MNShadowLayoutFactory.changeThemeOfShadowLayout(shadowLayout, context);
-            //
-
-            // 터치 색은 forward색과 같게 처리
-            shadowLayout.setPressedColor(shadowLayout.getSolidAreaColor());
+            setLayoutParams(layoutParams);
+            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext());
+            setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
 
             // container layout
             if (attrs != null) {
@@ -82,11 +68,11 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
             } else {
                 containerLayout = new RelativeLayout(context);
             }
-            containerLayout.setLayoutParams(shadowLayoutParams);
-            containerLayout.setPadding((int) resources.getDimension(R.dimen.setting_panel_item_margin),
-                    (int) resources.getDimension(R.dimen.setting_panel_item_margin),
-                    (int) resources.getDimension(R.dimen.setting_panel_item_margin),
-                    (int) resources.getDimension(R.dimen.setting_panel_item_margin));
+            LayoutParams containerLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            containerLayout.setLayoutParams(containerLayoutParams);
+            int panelItemPadding = resources.getDimensionPixelSize(R.dimen.setting_panel_item_margin);
+            containerLayout.setPadding(panelItemPadding, panelItemPadding, panelItemPadding, panelItemPadding);
             addView(containerLayout);
 
             // image

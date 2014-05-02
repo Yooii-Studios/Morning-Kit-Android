@@ -9,9 +9,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
@@ -129,41 +128,10 @@ public class MNCreditListAdapter extends BaseAdapter {
             viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
             viewHolder.getTitleTextView().setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
             viewHolder.getNameTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-
-            // theme - shadow / 일반적으로는 MNShadowLayoutFactory에서 사용하지만 여기는 커스터마이징이 필요해서 직접 코딩함
-            RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-            MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, context);
-//            RelativeLayout innerLayout = (RelativeLayout) roundShadowRelativeLayout.findViewById(viewHolder.getInnerLayout().getId());
-//            RoundShadowRelativeLayout newShadowRelativeLayout;
-
-//            switch (currentThemeType) {
-//                case SLATE_GRAY:
-//                    newShadowRelativeLayout = new SlateThemeShadowLayout(context);
-//                    break;
-//
-//                case MODERNITY_WHITE:
-//                    newShadowRelativeLayout = new ModernityThemeShadowLayout(context);
-//                    break;
-//
-//                case CELESTIAL_SKY_BLUE:
-//                    newShadowRelativeLayout = new CelestialThemeShadowLayout(context);
-//                    break;
-//
-//                default:
-//                    newShadowRelativeLayout = new ModernityThemeShadowLayout(context);
-//                    break;
-//            }
-//            newShadowRelativeLayout.setId(viewHolder.getShadowLayout().getId());
-//            newShadowRelativeLayout.setLayoutParams(viewHolder.getShadowLayout().getLayoutParams());
-
-//            roundShadowRelativeLayout.removeView(innerLayout);
-//            newShadowRelativeLayout.addView(innerLayout);
-
-//            viewHolder.getOuterLayout().removeView(roundShadowRelativeLayout);
-//            viewHolder.getOuterLayout().addView(newShadowRelativeLayout, 0);
+            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
             // onClick
-            roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -179,8 +147,6 @@ public class MNCreditListAdapter extends BaseAdapter {
     static class MNSettingInfoCreditItemViewHolder {
         @Getter @InjectView(R.id.setting_info_credit_item_outer_layout)     RelativeLayout  outerLayout;
         @Getter @InjectView(R.id.setting_info_credit_item_inner_layout)     RelativeLayout  innerLayout;
-        @Getter @InjectView(R.id.setting_info_credit_item_shadow_layout)
-        RoundShadowRelativeLayout shadowLayout;
         @Getter @InjectView(R.id.setting_info_credit_item_title_textview)   TextView        titleTextView;
         @Getter @InjectView(R.id.setting_info_credit_item_name_textview)    TextView        nameTextView;
 

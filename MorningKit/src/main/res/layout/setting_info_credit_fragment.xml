@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.yooiistudios.morningkit.setting.info.credit.MNCreditActivity$PlaceholderFragment"
-    android:padding="@dimen/margin_inner"
+    android:paddingTop="@dimen/margin_inner"
+    android:paddingBottom="@dimen/margin_inner"
     android:background="@android:color/transparent" >
 
     <ListView

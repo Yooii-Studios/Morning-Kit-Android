@@ -23,8 +23,6 @@ import lombok.Getter;
  */
 public class MNSettingThemeDetailItemViewHolder {
     @Getter @InjectView(R.id.setting_theme_detail_item_outer_layout)            RelativeLayout outerLayout;
-    @Getter @InjectView(R.id.setting_theme_detail_item_shadow_layout)
-    RoundShadowRelativeLayout shadowLayout;
     @Getter @InjectView(R.id.setting_theme_detail_item_inner_layout)            RelativeLayout innerLayout;
     @Getter @InjectView(R.id.setting_theme_detail_item_textview)                TextView titleTextView;
     @Getter @InjectView(R.id.setting_theme_detail_item_check_imageview)         ImageView checkImageView;

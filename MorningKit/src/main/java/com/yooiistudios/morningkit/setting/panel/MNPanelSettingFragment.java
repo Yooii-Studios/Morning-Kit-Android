@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.setting.panel;
 
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -224,21 +225,20 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         // 트리거 체크 - 음수로 플래그 설정하면 애니메이션 취소
         if (viewIndexToBeAnimatied >= 0) {
             animatingViewIndex = viewIndexToBeAnimatied;
+
             ValueAnimator twinkleAnimation = MNTwinkleAnimator.makeTwinkleAnimation(getActivity());
             twinkleAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
-                    panelMatrixItems.get(animatingViewIndex).getShadowLayout().setSolidAreaColor((Integer) animator.getAnimatedValue());
+                    ((GradientDrawable) panelMatrixItems.get(animatingViewIndex).getBackground())
+                            .setColor((Integer) animator.getAnimatedValue());
                 }
             });
+
             twinkleAnimation.addListener(new Animator.AnimatorListener() {
-
-                @Override
-                public void onAnimationStart(Animator animator) {
-
-                }
-
+                @Override public void onAnimationStart(Animator animator) {}
+                @Override public void onAnimationCancel(Animator animator) {}
+                @Override public void onAnimationRepeat(Animator animator) {}
                 @Override
                 public void onAnimationEnd(Animator animator) {
                     animatingViewIndex = -1;
@@ -256,16 +256,6 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                             isGuideAnimationOn = false;
                         }
                     }
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-
                 }
             });
             twinkleAnimation.start();
@@ -291,28 +281,30 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
     private void startRecursivePanelSelectFirstPagerGuideAnimation(final MNPanelSelectPagerFirstFragment firstFragment) {
         if (viewIndexToBeAnimatied >= 0) {
             animatingViewIndex = viewIndexToBeAnimatied;
+            final RelativeLayout selectItemLayout = firstFragment.getSelectItemLayouts().get(animatingViewIndex);
+
             ValueAnimator twinkleAnimation = MNTwinkleAnimator.makeTwinkleAnimation(getActivity());
             twinkleAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
-                    RoundShadowRelativeLayout roundShadowRelativeLayout
-                            = firstFragment.getRoundShadowRelativeLayouts().get(animatingViewIndex);
-                    roundShadowRelativeLayout.setSolidAreaColor((Integer) animator.getAnimatedValue());
+//                    RoundShadowRelativeLayout roundShadowRelativeLayout
+//                            = firstFragment.getSelectItemLayouts().get(animatingViewIndex);
+//                    roundShadowRelativeLayout.setSolidAreaColor((Integer) animator.getAnimatedValue());
+                    ((GradientDrawable) selectItemLayout.getBackground()).setColor(
+                            (Integer) animator.getAnimatedValue());
                 }
             });
             twinkleAnimation.addListener(new Animator.AnimatorListener() {
 
-                @Override
-                public void onAnimationStart(Animator animator) {
-
-                }
-
+                @Override public void onAnimationStart(Animator animator) {}
+                @Override public void onAnimationCancel(Animator animator) {}
+                @Override public void onAnimationRepeat(Animator animator) {}
                 @Override
                 public void onAnimationEnd(Animator animator) {
                     viewIndexToBeAnimatied++;
 
-                    if (viewIndexToBeAnimatied < firstFragment.getRoundShadowRelativeLayouts().size()) {
+                    if (viewIndexToBeAnimatied < firstFragment.getSelectItemLayouts().size()) {
                         startRecursivePanelSelectFirstPagerGuideAnimation(firstFragment);
                     } else {
                         if (animationRemainingCount > 0) {
@@ -333,16 +325,6 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                         }
                     }
                 }
-
-                @Override
-                public void onAnimationCancel(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-
-                }
             });
             twinkleAnimation.start();
         } else {
@@ -354,19 +336,19 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
     private void startRecursivePanelSelectSecondPagerGuideAnimation(final MNPanelSelectPagerSecondFragment secondFragment) {
         if (viewIndexToBeAnimatied >= 0) {
             animatingViewIndex = viewIndexToBeAnimatied;
-            final RoundShadowRelativeLayout roundShadowRelativeLayout
-                    = secondFragment.getRoundShadowRelativeLayouts().get(animatingViewIndex);
+            final RelativeLayout selectItemLayout
+                    = secondFragment.getSelectItemLayouts().get(animatingViewIndex);
 
             // 언락 체크해 색을 따로 적용함
             ValueAnimator twinkleAnimation;
-            if ((Integer) roundShadowRelativeLayout.getTag() == MNPanelType.MEMO.getIndex() ||
-                    (Integer) roundShadowRelativeLayout.getTag() == MNPanelType.DATE_COUNTDOWN.getIndex()) {
+            if ((Integer) selectItemLayout.getTag() == MNPanelType.MEMO.getIndex() ||
+                    (Integer) selectItemLayout.getTag() == MNPanelType.DATE_COUNTDOWN.getIndex()) {
 
                 List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
                 if ((ownedSkus.indexOf(SKIabProducts.SKU_MEMO) == -1 &&
-                        (Integer) roundShadowRelativeLayout.getTag() == MNPanelType.MEMO.getIndex()) ||
+                        (Integer) selectItemLayout.getTag() == MNPanelType.MEMO.getIndex()) ||
                         (ownedSkus.indexOf(SKIabProducts.SKU_DATE_COUNTDOWN) == -1 &&
-                                (Integer) roundShadowRelativeLayout.getTag() == MNPanelType.DATE_COUNTDOWN.getIndex())) {
+                                (Integer) selectItemLayout.getTag() == MNPanelType.DATE_COUNTDOWN.getIndex())) {
                     twinkleAnimation = MNTwinkleAnimator.makeLockPanelTwinkleAnimation(getActivity());
                 } else {
                     twinkleAnimation = MNTwinkleAnimator.makeTwinkleAnimation(getActivity());
@@ -380,23 +362,23 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
-                    roundShadowRelativeLayout.setSolidAreaColor((Integer) animator.getAnimatedValue());
+//                    selectItemLayout.setSolidAreaColor((Integer) animator.getAnimatedValue());
+                    ((GradientDrawable) selectItemLayout.getBackground()).setColor(
+                            (Integer) animator.getAnimatedValue());
                 }
             });
             twinkleAnimation.addListener(new Animator.AnimatorListener() {
 
-                @Override
-                public void onAnimationStart(Animator animator) {
-
-                }
-
+                @Override public void onAnimationStart(Animator animator) {}
+                @Override public void onAnimationCancel(Animator animator) {}
+                @Override public void onAnimationRepeat(Animator animator) {}
                 @Override
                 public void onAnimationEnd(Animator animator) {
                     animatingViewIndex = -1;
                     viewIndexToBeAnimatied++;
 
                     // 상점, 빈 두칸은 애니메이션을 넣지 않음
-                    if (viewIndexToBeAnimatied < secondFragment.getRoundShadowRelativeLayouts().size() - 3) {
+                    if (viewIndexToBeAnimatied < secondFragment.getSelectItemLayouts().size() - 3) {
                         startRecursivePanelSelectSecondPagerGuideAnimation(secondFragment);
                     } else {
                         if (animationRemainingCount > 0) {
@@ -408,16 +390,6 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                             isGuideAnimationOn = false;
                         }
                     }
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-
                 }
             });
             twinkleAnimation.start();
@@ -466,36 +438,36 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                 = (MNPanelSelectPagerSecondFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 1);
 
         // 방금 선택한 인덱스를 clear처리, 이전 인덱스는 blur 처리(처음이라면 -1이므로 상관없음)
-        for (RoundShadowRelativeLayout roundShadowRelativeLayout : firstFragment.getRoundShadowRelativeLayouts()) {
-            if ((Integer) roundShadowRelativeLayout.getTag() != position) {
-                if (!isPanelSelectPagerItemPressed || (Integer) roundShadowRelativeLayout.getTag() == pressedSelectPagerItemIndex) {
+        for (RelativeLayout selectItemLayout : firstFragment.getSelectItemLayouts()) {
+            if ((Integer) selectItemLayout.getTag() != position) {
+                if (!isPanelSelectPagerItemPressed || (Integer) selectItemLayout.getTag() == pressedSelectPagerItemIndex) {
                     Animation blurAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_blur);
                     if (blurAnimation != null) {
-                        roundShadowRelativeLayout.startAnimation(blurAnimation);
+                        selectItemLayout.startAnimation(blurAnimation);
                     }
                 }
             } else {
                 if (isPanelSelectPagerItemPressed) {
                     Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                     if (clearAnimation != null) {
-                        roundShadowRelativeLayout.startAnimation(clearAnimation);
+                        selectItemLayout.startAnimation(clearAnimation);
                     }
                 }
             }
         }
-        for (RoundShadowRelativeLayout roundShadowRelativeLayout : secondFragment.getRoundShadowRelativeLayouts()) {
-            if ((Integer) roundShadowRelativeLayout.getTag() != position) {
-                if (!isPanelSelectPagerItemPressed || (Integer) roundShadowRelativeLayout.getTag() == pressedSelectPagerItemIndex) {
+        for (RelativeLayout selectItemLayout : secondFragment.getSelectItemLayouts()) {
+            if ((Integer) selectItemLayout.getTag() != position) {
+                if (!isPanelSelectPagerItemPressed || (Integer) selectItemLayout.getTag() == pressedSelectPagerItemIndex) {
                     Animation blurAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_blur);
                     if (blurAnimation != null) {
-                        roundShadowRelativeLayout.startAnimation(blurAnimation);
+                        selectItemLayout.startAnimation(blurAnimation);
                     }
                 }
             } else {
                 if (isPanelSelectPagerItemPressed) {
                     Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                     if (clearAnimation != null) {
-                        roundShadowRelativeLayout.startAnimation(clearAnimation);
+                        selectItemLayout.startAnimation(clearAnimation);
                     }
                 }
             }
@@ -528,19 +500,19 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         MNPanelSelectPagerSecondFragment secondFragment
                 = (MNPanelSelectPagerSecondFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 1);
 
-        for (RoundShadowRelativeLayout roundShadowRelativeLayout : firstFragment.getRoundShadowRelativeLayouts()) {
-            if ((Integer) roundShadowRelativeLayout.getTag() != position) {
+        for (RelativeLayout selectItemLayout : firstFragment.getSelectItemLayouts()) {
+            if ((Integer) selectItemLayout.getTag() != position) {
                 Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                 if (clearAnimation != null) {
-                    roundShadowRelativeLayout.startAnimation(clearAnimation);
+                    selectItemLayout.startAnimation(clearAnimation);
                 }
             }
         }
-        for (RoundShadowRelativeLayout roundShadowRelativeLayout : secondFragment.getRoundShadowRelativeLayouts()) {
-            if ((Integer) roundShadowRelativeLayout.getTag() != position) {
+        for (RelativeLayout selectItemLayout : secondFragment.getSelectItemLayouts()) {
+            if ((Integer) selectItemLayout.getTag() != position) {
                 Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                 if (clearAnimation != null) {
-                    roundShadowRelativeLayout.startAnimation(clearAnimation);
+                    selectItemLayout.startAnimation(clearAnimation);
                 }
             }
         }

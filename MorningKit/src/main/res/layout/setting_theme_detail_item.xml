@@ -6,12 +6,10 @@
     android:layout_alignParentLeft="true"
     android:clickable="false"
     android:focusable="false"
-    android:orientation="vertical" >
-
-    <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
-        android:id="@+id/setting_theme_detail_item_shadow_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/alarm_item_outer_height" />
+    android:paddingTop="@dimen/margin_inner"
+    android:paddingBottom="@dimen/margin_inner"
+    android:paddingLeft="@dimen/margin_outer"
+    android:paddingRight="@dimen/margin_outer" >
 
     <RelativeLayout
         android:id="@+id/setting_theme_detail_item_inner_layout"
@@ -20,10 +18,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
-        android:layout_margin="@dimen/margin_inner"
         android:padding="@dimen/alarm_pref_list_item_padding"
-        android:clickable="false"
-        android:focusable="false"
+        android:background="@drawable/shape_rounded_view_classic_gray"
         android:orientation="vertical">
 
         <TextView
@@ -33,7 +29,7 @@
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
             android:text="Water Lily"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
             android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
             android:textStyle="bold"
             android:layout_toLeftOf="@+id/setting_theme_detail_item_check_imageview"
