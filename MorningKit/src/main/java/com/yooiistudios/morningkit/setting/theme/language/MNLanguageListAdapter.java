@@ -11,8 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
@@ -77,38 +75,35 @@ public class MNLanguageListAdapter extends BaseAdapter {
             viewHolder.getDetailTextView().setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
             viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
             viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
+            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
             // theme - shadow
-            RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
+//            RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
 
             // 동적 생성 -> 색 변경 로직 변경
 //            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
-            MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, activity);
+//            MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, activity);
 
             // onClick
-            if (roundShadowRelativeLayout != null) {
-                roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (MNSound.isSoundOn(activity)) {
-                            MNSoundEffectsPlayer.play(R.raw.effect_view_close, activity);
-                        }
-                        // archive selection
-                        MNLanguage.setLanguageType(MNLanguageType.valueOf(position), activity);
-
-                        // update locale
-                        MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(activity);
-                        Locale locale = new Locale(currentLanguageType.getCode(), currentLanguageType.getRegion());
-                        Locale.setDefault(locale);
-                        Configuration config = new Configuration();
-                        config.locale = locale;
-                        activity.getResources().updateConfiguration(config, activity.getResources().getDisplayMetrics());
-                        activity.finish();
+            viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (MNSound.isSoundOn(activity)) {
+                        MNSoundEffectsPlayer.play(R.raw.effect_view_close, activity);
                     }
-                });
-            } else {
-                throw new AssertionError("shadowLayout must not be null!");
-            }
+                    // archive selection
+                    MNLanguage.setLanguageType(MNLanguageType.valueOf(position), activity);
+
+                    // update locale
+                    MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(activity);
+                    Locale locale = new Locale(currentLanguageType.getCode(), currentLanguageType.getRegion());
+                    Locale.setDefault(locale);
+                    Configuration config = new Configuration();
+                    config.locale = locale;
+                    activity.getResources().updateConfiguration(config, activity.getResources().getDisplayMetrics());
+                    activity.finish();
+                }
+            });
         }
         return convertView;
     }
@@ -119,8 +114,6 @@ public class MNLanguageListAdapter extends BaseAdapter {
     static class MNSettingThemeLanguageItemViewHolder {
         @Getter @InjectView(R.id.setting_theme_language_item_outer_layout)      RelativeLayout outerLayout;
         @Getter @InjectView(R.id.setting_theme_language_item_inner_layout)      RelativeLayout innerLayout;
-        @Getter @InjectView(R.id.setting_theme_language_item_shadow_layout)
-        RoundShadowRelativeLayout shadowLayout;
         @Getter @InjectView(R.id.setting_theme_language_item_title_textview)    TextView titleTextView;
         @Getter @InjectView(R.id.setting_theme_language_item_detail_textview)   TextView detailTextView;
         @Getter @InjectView(R.id.setting_theme_language_item_check_imageview)   ImageView checkImageView;
