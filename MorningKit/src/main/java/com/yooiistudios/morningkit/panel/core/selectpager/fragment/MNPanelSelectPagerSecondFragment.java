@@ -8,15 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
+import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.panel.core.selectpager.MNPanelSelectPagerInterface;
 import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
@@ -100,6 +98,14 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
         } else {
             selectItemLayouts.clear();
         }
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
+        selectItemLayout_2_1.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+        selectItemLayout_2_2.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+        selectItemLayout_2_3.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+        selectItemLayout_2_4.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+        selectItemLayout_2_5.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+        selectItemLayout_2_6.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+
         selectItemLayouts.add(selectItemLayout_2_1);
         selectItemLayouts.add(selectItemLayout_2_2);
         selectItemLayouts.add(selectItemLayout_2_3);
@@ -107,12 +113,18 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
         selectItemLayouts.add(selectItemLayout_2_5);
         selectItemLayouts.add(selectItemLayout_2_6);
 
-        int index = 0;
+        int index = 6;
         for (RelativeLayout selectItemLayout : selectItemLayouts) {
-            selectItemLayout.setTag(index);
-            index++;
+            // 스토어 뒤의 아이템은 -1처리, 스토어는 -2처리, 나머지는 index + 6
+            int convertedIndex = index;
+            if (index > MNPanelType.STORE.getIndex()) {
+                convertedIndex = -1;
+            } else if (index == MNPanelType.STORE.getIndex()) {
+                convertedIndex = -2;
+            }
+            selectItemLayout.setTag(convertedIndex);
 
-            if (index != -1 && index != -2) {
+            if (convertedIndex > 0) {
                 // 보통 패널 아이템
                 selectItemLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -122,7 +134,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
                         }
                     }
                 });
-            } else if (index == -2) {
+            } else if (convertedIndex == -2) {
                 // 스토어
                 selectItemLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -139,6 +151,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
                 selectItemLayout.setClickable(false);
                 selectItemLayout.setFocusable(false);
             }
+            index++;
         }
     }
 
@@ -182,41 +195,6 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
         } else {
             lockImageView2_3.setVisibility(View.INVISIBLE);
         }
-    }
-
-    private RoundShadowRelativeLayout setShadowLayout(RoundShadowRelativeLayout roundShadowRelativeLayout, LinearLayout layout, int index) {
-        // 기존 동적 생성 방식에서 색값만 변경하게 처리
-//        roundShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayoutWithChildren(roundShadowRelativeLayout, layout);
-        MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, getActivity());
-        roundShadowRelativeLayout.setTag(index);
-        roundShadowRelativeLayout.setPressedColor(MNSettingColors.getForwardBackgroundColor(MNTheme.getCurrentThemeType(getActivity())));
-        if (index != -1 && index != -2) {
-            // 보통 패널 아이템
-            setShadowOnClickListener(roundShadowRelativeLayout);
-        } else if (index == -2) {
-            // 스토어
-            roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    panelSelectPagerInterface.onPanelSelectPagerStoreItemClick((Integer) v.getTag());
-                    startStoreActivity(v.getContext());
-                }
-            });
-        } else {
-            // 빈칸
-            roundShadowRelativeLayout.setOnClickListener(null);
-            roundShadowRelativeLayout.setTouchEnabled(false);
-        }
-        return roundShadowRelativeLayout;
-    }
-
-    private void setShadowOnClickListener(RoundShadowRelativeLayout roundShadowRelativeLayout) {
-        roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                panelSelectPagerInterface.onPanelSelectPagerItemClick((Integer)v.getTag());
-            }
-        });
     }
 
     private void startUnlockActivity(String sku, Context context) {

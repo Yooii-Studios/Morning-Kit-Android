@@ -12,6 +12,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
 import com.yooiistudios.morningkit.panel.core.selectpager.MNPanelSelectPagerInterface;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
@@ -78,6 +79,14 @@ public class MNPanelSelectPagerFirstFragment extends Fragment {
         } else {
             selectItemLayouts.clear();
         }
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
+        selectItemLayout_1_1.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+        selectItemLayout_1_2.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+        selectItemLayout_1_3.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+        selectItemLayout_1_4.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+        selectItemLayout_1_5.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+        selectItemLayout_1_6.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+
         selectItemLayouts.add(selectItemLayout_1_1);
         selectItemLayouts.add(selectItemLayout_1_2);
         selectItemLayouts.add(selectItemLayout_1_3);
