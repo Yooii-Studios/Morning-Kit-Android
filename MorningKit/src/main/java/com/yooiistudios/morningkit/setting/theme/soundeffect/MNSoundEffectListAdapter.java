@@ -73,13 +73,6 @@ public class MNSoundEffectListAdapter extends BaseAdapter {
             viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
             viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
-            // theme - shadow
-//            RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-
-            // 동적 생성 -> 색 변경 로직 변경
-//            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
-//            MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, activity);
-
             // onClick
             viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
                 @Override

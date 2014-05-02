@@ -174,7 +174,6 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
                 } else {
                     // 아이템 잠김
                     viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getUnlockItemSelectorResourcesId(currentThemeType));
-//                    roundShadowRelativeLayout.setPressedColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
 
                     // lock onClickListener
                     viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
