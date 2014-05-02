@@ -229,7 +229,8 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
-                    panelMatrixItems.get(animatingViewIndex).getShadowLayout().setSolidAreaColor((Integer) animator.getAnimatedValue());
+                    panelMatrixItems.get(animatingViewIndex).setBackgroundColor((Integer) animator.getAnimatedValue());
+//                    panelMatrixItems.get(animatingViewIndex).getShadowLayout().setSolidAreaColor((Integer) animator.getAnimatedValue());
                 }
             });
             twinkleAnimation.addListener(new Animator.AnimatorListener() {

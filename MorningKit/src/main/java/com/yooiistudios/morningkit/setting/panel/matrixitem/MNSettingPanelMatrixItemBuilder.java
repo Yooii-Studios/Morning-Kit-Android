@@ -79,7 +79,7 @@ public class MNSettingPanelMatrixItemBuilder {
             panelMatrixItem.getPanelNameTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
 
             // shadowLayout onclick
-            panelMatrixItem.getShadowLayout().setOnClickListener(new View.OnClickListener() {
+            panelMatrixItem.getContainerLayout().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onClickListener.onPanelItemClick(position);

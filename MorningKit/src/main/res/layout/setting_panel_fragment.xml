@@ -30,14 +30,16 @@
                     android:id="@+id/setting_panel_matrix_item_1"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/setting_panel_item_height"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/margin_inner">
                 </com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem>
 
                 <com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem
                     android:id="@+id/setting_panel_matrix_item_2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/setting_panel_item_height"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/margin_inner">
                 </com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem>
             </LinearLayout>
 
@@ -54,14 +56,16 @@
                     android:id="@+id/setting_panel_matrix_item_3"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/setting_panel_item_height"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/margin_inner">
                 </com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem>
 
                 <com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem
                     android:id="@+id/setting_panel_matrix_item_4"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/setting_panel_item_height"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/margin_inner">
                 </com.yooiistudios.morningkit.setting.panel.matrixitem.MNSettingPanelMatrixItem>
             </LinearLayout>
 
