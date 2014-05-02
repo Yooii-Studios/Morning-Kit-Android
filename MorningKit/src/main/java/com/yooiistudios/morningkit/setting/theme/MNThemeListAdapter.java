@@ -45,6 +45,7 @@ public class MNThemeListAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.setting_theme_item, parent, false);
+        
         if (convertView != null) {
             MNSettingThemeItemViewHolder viewHolder = new MNSettingThemeItemViewHolder(convertView);
             MNThemeItemType type = MNThemeItemType.valueOf(position);
