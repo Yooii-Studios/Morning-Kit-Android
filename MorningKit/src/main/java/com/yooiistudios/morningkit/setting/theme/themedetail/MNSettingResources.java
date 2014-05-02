@@ -42,7 +42,7 @@ public class MNSettingResources {
 //        }
     }
 
-    public static int getUnlockItemSelectorResourcesId(MNThemeType themeType) {
+    public static int getLockItemResourcesId(MNThemeType themeType) {
         return R.drawable.shape_rounded_view_classic_white_unlocked;
     }
 

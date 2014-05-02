@@ -173,7 +173,7 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
                     viewHolder.getLockImageView().setVisibility(View.GONE);
                 } else {
                     // 아이템 잠김
-                    viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getUnlockItemSelectorResourcesId(currentThemeType));
+                    viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getLockItemResourcesId(currentThemeType));
 
                     // lock onClickListener
                     viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {

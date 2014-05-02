@@ -101,7 +101,7 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
                 } else {
                     // 아이템 잠김
                     viewHolder.getInnerLayout().setBackgroundResource(
-                            MNSettingResources.getUnlockItemSelectorResourcesId(currentThemeType));
+                            MNSettingResources.getLockItemResourcesId(currentThemeType));
 
                     // lock onClickListener
                     viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {

@@ -119,11 +119,11 @@ public class MNPanelSelectPagerLayout extends RelativeLayout {
                                                            MNPanelSelectPagerSecondFragment secondFragment) {
         if (position >= 0 && position < 6) {
             // 페이지 1
-            return firstFragment.getRoundShadowRelativeLayouts().get(position);
+            return null; // firstFragment.getRoundShadowRelativeLayouts().get(position);
         } else {
             // 페이지 2
-            int offset = firstFragment.getRoundShadowRelativeLayouts().size();
-            return secondFragment.getRoundShadowRelativeLayouts().get(position - offset);
+            int offset = firstFragment.getSelectItemLayouts().size();
+            return null; // secondFragment.getSelectItemLayouts().get(position - offset);
         }
     }
 }
