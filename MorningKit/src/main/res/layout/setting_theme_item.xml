@@ -6,12 +6,18 @@
     android:layout_alignParentLeft="true"
     android:clickable="false"
     android:focusable="false"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingTop="@dimen/margin_inner"
+    android:paddingBottom="@dimen/margin_inner"
+    android:paddingLeft="@dimen/margin_outer"
+    android:paddingRight="@dimen/margin_outer" >
 
+    <!--
     <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
         android:id="@+id/setting_theme_item_shadow_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/alarm_item_outer_height" />
+    -->
 
     <RelativeLayout
         android:id="@+id/setting_theme_item_inner_layout"
@@ -20,8 +26,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
+        android:background="@drawable/shape_rounded_view_classic_white"
         android:padding="@dimen/setting_item_padding"
-        android:layout_margin="@dimen/margin_inner"
         android:clickable="false"
         android:focusable="false"
         android:orientation="vertical">
