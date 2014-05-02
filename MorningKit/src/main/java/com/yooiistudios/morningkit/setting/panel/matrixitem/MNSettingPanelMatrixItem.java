@@ -60,7 +60,7 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
                     ViewGroup.LayoutParams.MATCH_PARENT);
             setLayoutParams(layoutParams);
             MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext());
-            setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
+            setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
 
             // container layout
             if (attrs != null) {

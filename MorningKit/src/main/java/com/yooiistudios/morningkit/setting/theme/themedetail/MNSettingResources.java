@@ -12,6 +12,10 @@ public class MNSettingResources {
     private MNSettingResources() { throw new AssertionError("You MUST not create this class!"); }
 
     // 설정 화면은 모든 테마에 통일되게 제공하자. 하지만 나중에 예외가 생길 가능성도 있음
+    public static int getNormalItemResourcesId(MNThemeType themeType) {
+        return R.drawable.shape_rounded_view_classic_white_normal;
+    }
+
     public static int getItemSelectorResourcesId(MNThemeType themeType) {
         return R.drawable.shape_rounded_view_classic_white;
 

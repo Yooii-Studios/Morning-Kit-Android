@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.setting.panel;
 
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -224,22 +225,20 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         // 트리거 체크 - 음수로 플래그 설정하면 애니메이션 취소
         if (viewIndexToBeAnimatied >= 0) {
             animatingViewIndex = viewIndexToBeAnimatied;
+
             ValueAnimator twinkleAnimation = MNTwinkleAnimator.makeTwinkleAnimation(getActivity());
             twinkleAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
-                    panelMatrixItems.get(animatingViewIndex).setBackgroundColor((Integer) animator.getAnimatedValue());
-//                    panelMatrixItems.get(animatingViewIndex).getShadowLayout().setSolidAreaColor((Integer) animator.getAnimatedValue());
+                    ((GradientDrawable) panelMatrixItems.get(animatingViewIndex).getBackground())
+                            .setColor((Integer) animator.getAnimatedValue());
                 }
             });
+
             twinkleAnimation.addListener(new Animator.AnimatorListener() {
-
-                @Override
-                public void onAnimationStart(Animator animator) {
-
-                }
-
+                @Override public void onAnimationStart(Animator animator) {}
+                @Override public void onAnimationCancel(Animator animator) {}
+                @Override public void onAnimationRepeat(Animator animator) {}
                 @Override
                 public void onAnimationEnd(Animator animator) {
                     animatingViewIndex = -1;
@@ -257,16 +256,6 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                             isGuideAnimationOn = false;
                         }
                     }
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-
                 }
             });
             twinkleAnimation.start();
