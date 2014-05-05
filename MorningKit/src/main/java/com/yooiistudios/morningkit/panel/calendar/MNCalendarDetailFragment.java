@@ -17,6 +17,8 @@ import com.yooiistudios.morningkit.panel.calendar.adapter.MNCalendarListAdapter;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarSelectDialog;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarUtils;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 
 import org.json.JSONException;
 
@@ -74,6 +76,13 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
             }
         }
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        eventsListView.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(
+                MNTheme.getCurrentThemeType(getActivity())));
     }
 
     private void refreshUI() {

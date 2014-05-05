@@ -19,7 +19,7 @@
         android:textSize="@dimen/panel_calendar_detail_item_textview_font_size"
         android:singleLine="true"
         android:ellipsize="end"
-        android:layout_marginLeft="@dimen/margin_outer"/>
+        android:layout_marginLeft="@dimen/panel_calendar_detail_item_textview_padding"/>
 
     <TextView
         android:id="@+id/panel_calendar_detail_event_item_title_textview"
@@ -35,7 +35,7 @@
         android:ellipsize="end"
         android:layout_toRightOf="@+id/panel_calendar_detail_event_item_time_textview"
         android:layout_marginLeft="@dimen/panel_detail_padding"
-        android:layout_marginRight="@dimen/margin_outer"/>
+        android:layout_marginRight="@dimen/panel_calendar_detail_item_textview_padding"/>
 
     <View
         android:id="@+id/panel_calendar_event_item_divider"

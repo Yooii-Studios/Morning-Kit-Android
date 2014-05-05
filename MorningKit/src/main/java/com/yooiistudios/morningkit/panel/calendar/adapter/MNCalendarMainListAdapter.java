@@ -118,7 +118,6 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
                 }
             }
         }
-
         // Divider
         View dividerView = (View) convertView.
                 findViewById(R.id.panel_calendar_event_item_divider);
