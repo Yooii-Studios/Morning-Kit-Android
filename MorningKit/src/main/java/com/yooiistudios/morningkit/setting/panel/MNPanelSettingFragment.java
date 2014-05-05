@@ -244,7 +244,18 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                     animatingViewIndex = -1;
                     viewIndexToBeAnimatied++;
 
-                    if (viewIndexToBeAnimatied < panelMatrixItems.size()) {
+                    int numberOfPanelMatrixItems;
+                    if (MNPanelMatrix.getCurrentPanelMatrixType(getActivity().getApplicationContext())
+                            == MNPanelMatrixType.PANEL_MATRIX_2X2) {
+                        numberOfPanelMatrixItems = 4;
+                    } else if (MNPanelMatrix.getCurrentPanelMatrixType(getActivity().getApplicationContext())
+                            == MNPanelMatrixType.PANEL_MATRIX_2X2) {
+                        numberOfPanelMatrixItems = 6;
+                    } else {
+                        numberOfPanelMatrixItems = panelMatrixItems.size();
+                    }
+
+                    if (viewIndexToBeAnimatied < numberOfPanelMatrixItems) {
                         startRecursivePanelMatrixGuideAnimation();
                     } else {
                         if (animationRemainingCount > 0) {
