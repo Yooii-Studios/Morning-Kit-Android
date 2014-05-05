@@ -55,8 +55,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     private String productSku;
 
     @InjectView(R.id.unlock_container)              RelativeLayout          containerLayout;
-    @InjectView(R.id.unlock_shadow_layout)
-    RoundShadowRelativeLayout shadowLayout;
+    @InjectView(R.id.unlock_shadow_layout)          RoundShadowRelativeLayout shadowLayout;
     @InjectView(R.id.unlock_description_textview)   TextView                descriptionTextView;
     @InjectView(R.id.unlock_listview)               ListView                listView;
 
