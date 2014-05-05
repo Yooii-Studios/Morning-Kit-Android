@@ -22,7 +22,7 @@ public class MNMainColors {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return Color.parseColor("#00ffffff");
+                return Color.TRANSPARENT;
 
             case MODERNITY_WHITE:
                 return Color.parseColor("#e8e8e8");

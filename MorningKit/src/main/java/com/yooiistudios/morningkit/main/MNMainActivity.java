@@ -3,10 +3,13 @@ package com.yooiistudios.morningkit.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,12 +19,16 @@ import android.widget.ScrollView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.squareup.otto.Subscribe;
+import com.stevenkim.camera.SKCameraThemeView;
+import com.stevenkim.waterlily.SKWaterLily;
+import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.validate.AppValidationChecker;
 import com.yooiistudios.morningkit.main.layout.MNMainButtonLayout;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
@@ -48,16 +55,20 @@ public class MNMainActivity extends Activity
 {
     private static final String TAG = "MNMainActivity";
 
-    @Getter @InjectView(R.id.main_container_layout) RelativeLayout containerLayout;
-    @Getter @InjectView(R.id.main_scroll_view) ScrollView scrollView;
-    @Getter @InjectView(R.id.main_scroll_content_layout) LinearLayout scrollContentLayout;
-    @Getter @InjectView(R.id.main_widget_window_layout) MNPanelWindowLayout panelWindowLayout;
-    @Getter @InjectView(R.id.main_alarm_list_view) MNMainAlarmListView alarmListView;
-    @Getter @InjectView(R.id.main_button_layout) MNMainButtonLayout buttonLayout;
-    @Getter @InjectView(R.id.main_refresh_imageview) ImageView refreshImageView;
-    @Getter @InjectView(R.id.main_refresh_imageview) ImageView settingImageView;
-    @Getter @InjectView(R.id.main_admob_layout) RelativeLayout admobLayout;
+    @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
+    @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
+    @Getter @InjectView(R.id.main_scroll_content_layout)    LinearLayout scrollContentLayout;
+    @Getter @InjectView(R.id.main_widget_window_layout)     MNPanelWindowLayout panelWindowLayout;
+    @Getter @InjectView(R.id.main_alarm_list_view)          MNMainAlarmListView alarmListView;
+    @Getter @InjectView(R.id.main_button_layout)            MNMainButtonLayout buttonLayout;
+    @Getter @InjectView(R.id.main_refresh_imageview)        ImageView refreshImageView;
+    @Getter @InjectView(R.id.main_refresh_imageview)        ImageView settingImageView;
+    @Getter @InjectView(R.id.main_admob_layout)             RelativeLayout admobLayout;
     @Getter @InjectView(R.id.adView) AdView adView;
+
+    @Getter @InjectView(R.id.main_camera_layout)            RelativeLayout cameraLayout;
+    SKCameraThemeView cameraThemeView;
+    ImageView waterLilyImageView;
 
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
@@ -161,8 +172,7 @@ public class MNMainActivity extends Activity
         onConfigurationChanged(getResources().getConfiguration());
 
         // 테마 적용
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
-        containerLayout.setBackgroundColor(MNMainColors.getBackwardBackgroundColor(currentThemeType));
+        processTheme();
     }
 
     @Override
@@ -198,7 +208,7 @@ public class MNMainActivity extends Activity
      * Rotation
      */
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(final Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         MNLog.i(TAG, "onConfigurationChanged");
         // 스크롤뷰
@@ -222,6 +232,30 @@ public class MNMainActivity extends Activity
                 scrollView.fullScroll(View.FOCUS_UP);
             }
         });
+
+        /*
+        switch (MNTheme.getCurrentThemeType(this)) {
+            case WATER_LILY:
+                if (waterLilyImageView != null) {
+                    MNViewSizeMeasure.setViewSizeObserver(waterLilyImageView, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+                        @Override
+                        public void onLayoutLoad() {
+                            waterLilyImageView.setImageDrawable(null);
+                            Bitmap bitmap;
+                            if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                                bitmap = SKWaterLily.getPortraitBitmap(getApplicationContext(),
+                                        waterLilyImageView.getWidth(), waterLilyImageView.getHeight());
+                            } else {
+                                bitmap = SKWaterLily.getLandscapeBitmap(getApplicationContext(),
+                                        waterLilyImageView.getHeight(), waterLilyImageView.getWidth());
+                            }
+//                            waterLilyImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
+                            waterLilyImageView.setImageBitmap(bitmap);
+                        }
+                    });
+                }
+        }
+        */
     }
 
     /**
@@ -307,5 +341,86 @@ public class MNMainActivity extends Activity
                 }
             }
         }).start();
+    }
+
+    /**
+     * Theme
+     */
+    private void processTheme() {
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
+        containerLayout.setBackgroundColor(MNMainColors.getBackwardBackgroundColor(currentThemeType));
+
+        switch (currentThemeType) {
+            case WATER_LILY:
+                if (cameraThemeView != null) {
+                    cameraLayout.removeAllViews();
+                    cameraThemeView = null;
+                }
+                waterLilyImageView = new ImageView(this);
+                RelativeLayout.LayoutParams layoutParams
+                        = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+                waterLilyImageView.setLayoutParams(layoutParams);
+                waterLilyImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                containerLayout.addView(waterLilyImageView, 0);
+                containerLayout.setBackgroundColor(Color.TRANSPARENT);
+                break;
+
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+                containerLayout.removeView(waterLilyImageView);
+                if (waterLilyImageView != null) {
+                    waterLilyImageView.setImageDrawable(null);
+                    waterLilyImageView = null;
+                }
+
+                // 기존에 생성이 되었다면 방향만 변경
+                synchronized (this) {
+                    if (cameraThemeView != null) {
+                        cameraThemeView.setVisibility(View.GONE);
+                        if (currentThemeType == MNThemeType.TRANQUILITY_BACK_CAMERA) {
+                            cameraThemeView.setCameraFacingInfo(Camera.CameraInfo.CAMERA_FACING_BACK);
+                        } else {
+                            cameraThemeView.setCameraFacingInfo(Camera.CameraInfo.CAMERA_FACING_FRONT);
+                        }
+                        cameraThemeView.setVisibility(View.VISIBLE);
+                    }else{
+                        if (currentThemeType == MNThemeType.TRANQUILITY_BACK_CAMERA) {
+                            cameraThemeView = new SKCameraThemeView(this, Camera.CameraInfo.CAMERA_FACING_BACK);
+                        } else {
+                            cameraThemeView = new SKCameraThemeView(this, Camera.CameraInfo.CAMERA_FACING_FRONT);
+                        }
+                        containerLayout.setBackgroundColor(Color.TRANSPARENT);
+                        cameraLayout.addView(cameraThemeView);
+                    }
+                }
+                break;
+
+            case PHOTO:
+                containerLayout.removeView(waterLilyImageView);
+                waterLilyImageView.setImageDrawable(null);
+                waterLilyImageView = null;
+
+                if (cameraThemeView != null) {
+                    cameraLayout.removeAllViews();
+                    cameraThemeView = null;
+                }
+                break;
+
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case CELESTIAL_SKY_BLUE:
+                containerLayout.removeView(waterLilyImageView);
+                waterLilyImageView.setImageDrawable(null);
+                waterLilyImageView = null;
+
+                if (cameraThemeView != null) {
+                    cameraLayout.removeAllViews();
+                    cameraThemeView = null;
+                }
+                containerLayout.setBackgroundColor(MNMainColors.getBackwardBackgroundColor(
+                        MNTheme.getCurrentThemeType(this)));
+                break;
+        }
     }
 }

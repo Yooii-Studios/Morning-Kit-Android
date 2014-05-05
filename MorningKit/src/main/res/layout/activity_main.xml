@@ -7,6 +7,15 @@
     android:background="#ffdda2"
     tools:ignore="MergeRootFrame">
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_camera_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.yooiistudios.morningkit.MainActivity"
+        tools:ignore="MergeRootFrame"
+        android:background="@android:color/transparent" />
+
     <ScrollView
         android:id="@+id/main_scroll_view"
         android:layout_width="match_parent"
