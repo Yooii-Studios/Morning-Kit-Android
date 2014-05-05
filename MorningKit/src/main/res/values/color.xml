@@ -5,6 +5,8 @@
 
     <color name="classic_gray_forward_normal_color">#434343</color>
     <color name="classic_gray_forward_pressed_color">#a1a1a1</color>
+    <color name="classic_gray_forward_unlock_default_color">#5b5b5b</color>
+    <color name="classic_gray_forward_unlock_used_color">#454545</color>
 
     <color name="classic_white_forward_normal_color">#e8e8e8</color>
     <color name="classic_white_forward_pressed_color">#dcdcdc</color>

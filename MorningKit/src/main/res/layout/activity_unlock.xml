@@ -22,12 +22,13 @@
         android:maxLines="2"
         android:ellipsize="end"/>
 
-    <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
-        android:id="@+id/unlock_shadow_layout"
+    <RelativeLayout
+        android:id="@+id/unlock_listview_layout"
+        android:background="@drawable/shape_rounded_view_classic_gray_unlock_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/unlock_description_textview"
-        android:padding="@dimen/unlock_listview_padding">
+        android:layout_margin="@dimen/unlock_listview_padding">
 
         <ListView
             android:id="@+id/unlock_listview"
@@ -37,10 +38,10 @@
             android:layout_marginLeft="@dimen/unlock_listview_inner_margin"
             android:layout_marginRight="@dimen/unlock_listview_inner_margin"
             android:layout_marginBottom="@dimen/unlock_listview_inner_margin"
-            android:layout_below="@id/unlock_description_textview"
             android:dividerHeight="4dp"
             android:divider="#434343"/>
-    </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+
+    </RelativeLayout>
 
     <Button
         android:layout_width="wrap_content"

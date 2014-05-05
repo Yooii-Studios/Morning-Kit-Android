@@ -14,9 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.dp.DipToPixel;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -117,18 +114,22 @@ public class MNUnlockListAdapter extends BaseAdapter {
             viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getForwardBackgroundColor(MNThemeType.SLATE_GRAY));
 
             // Shadow - Slate Gray
-            MNShadowLayoutFactory.changeThemeOfShadowLayout(viewHolder.getShadowLayout(), context, MNThemeType.SLATE_GRAY);
-            viewHolder.getShadowLayout().setRoundRectRadius(DipToPixel.dpToPixel(context, 5));
+//            MNShadowLayoutFactory.changeThemeOfShadowLayout(viewHolder.getShadowLayout(), context, MNThemeType.SLATE_GRAY);
+//            viewHolder.getShadowLayout().setRoundRectRadius(DipToPixel.dpToPixel(context, 5));
 
             if (isCellUsed) {
                 viewHolder.getDescriptionTextView().setTextColor(Color.parseColor("#a8a8a8"));
-                viewHolder.getShadowLayout().setSolidAreaColor(Color.parseColor("#454545"));
-                viewHolder.getShadowLayout().setTouchEnabled(false);
-                viewHolder.getShadowLayout().setOnClickListener(null);
+                viewHolder.getInnerLayout().setBackgroundResource(
+                        R.drawable.shape_rounded_view_classic_gray_unlock_used);
+                viewHolder.getInnerLayout().setClickable(false);
+                viewHolder.getInnerLayout().setFocusable(false);
+                viewHolder.getInnerLayout().setOnClickListener(null);
             } else {
-                viewHolder.getShadowLayout().setSolidAreaColor(Color.parseColor("#5b5b5b"));
-                viewHolder.getShadowLayout().setTouchEnabled(true);
-                viewHolder.getShadowLayout().setOnClickListener(new View.OnClickListener() {
+                viewHolder.getInnerLayout().setBackgroundResource(
+                        R.drawable.shape_rounded_view_classic_gray_unlock_default);
+                viewHolder.getInnerLayout().setClickable(true);
+                viewHolder.getInnerLayout().setFocusable(true);
+                viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         onClickListener.onItemClick(position);
@@ -162,8 +163,6 @@ public class MNUnlockListAdapter extends BaseAdapter {
     static class MNUnlockListViewItemViewHolder {
         @Getter @InjectView(R.id.unlock_listview_item_outer_layout)         RelativeLayout outerLayout;
         @Getter @InjectView(R.id.unlock_listview_item_inner_layout)         RelativeLayout innerLayout;
-        @Getter @InjectView(R.id.unlock_listview_item_shadow_layout)
-        RoundShadowRelativeLayout shadowLayout;
         @Getter @InjectView(R.id.unlock_listview_item_imageview)            ImageView iconImageView;
         @Getter @InjectView(R.id.unlock_listview_item_description_textview) TextView descriptionTextView;
 

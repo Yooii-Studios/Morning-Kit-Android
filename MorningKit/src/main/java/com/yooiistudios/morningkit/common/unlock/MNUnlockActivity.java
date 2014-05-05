@@ -26,7 +26,6 @@ import android.widget.Toast;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.dp.DipToPixel;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
 import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
@@ -55,8 +54,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     private String productSku;
 
     @InjectView(R.id.unlock_container)              RelativeLayout          containerLayout;
-    @InjectView(R.id.unlock_shadow_layout)
-    RoundShadowRelativeLayout shadowLayout;
+    @InjectView(R.id.unlock_listview_layout)        RelativeLayout          listViewLayout;
     @InjectView(R.id.unlock_description_textview)   TextView                descriptionTextView;
     @InjectView(R.id.unlock_listview)               ListView                listView;
 
@@ -75,18 +73,16 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         initProductSku();
         initActionBar();
         initDescriptionTextView();
-        initShadow();
+        initListViewLayout();
 
         // listView
         listView.setAdapter(new MNUnlockListAdapter(this, this, productSku));
     }
 
-    private void initShadow() {
+    private void initListViewLayout() {
         // shadow
-        MNShadowLayoutFactory.changeThemeOfShadowLayout(shadowLayout, this, MNThemeType.SLATE_GRAY);
-        shadowLayout.setBlurRadius((int) getResources().getDimension(R.dimen.unlock_listview_shadow_blur_radius));
-        shadowLayout.setRoundRectRadius(DipToPixel.dpToPixel(this, 14));
-        shadowLayout.setTouchEnabled(false);
+        listViewLayout.setClickable(false);
+        listViewLayout.setFocusable(false);
     }
 
     private void initDescriptionTextView() {

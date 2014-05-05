@@ -5,6 +5,8 @@
 
     <!-- 전체 -->
     <dimen name="rounded_corner_radius">8dp</dimen>
+    <dimen name="rounded_corner_radius_unlock">5dp</dimen>
+    <dimen name="rounded_corner_radius_unlock_listview">14dp</dimen>
 
     <!-- 앱 전체적으로 쓰이는 패딩 -->
     <dimen name="margin_outer">6dp</dimen>
@@ -184,7 +186,7 @@
 
     <!-- Unlock -->
     <dimen name="unlock_listview_shadow_blur_radius">8dp</dimen>
-    <dimen name="unlock_listview_padding">17dp</dimen>
+    <dimen name="unlock_listview_padding">12dp</dimen>
     <dimen name="unlock_listview_inner_margin">8dp</dimen>
     <dimen name="unlock_listview_inner_margin_top">13dp</dimen>
     <dimen name="unlock_listview_item_outer_height">75dp</dimen> <!-- inner + margin_inner * 2  -->
