@@ -33,7 +33,7 @@ import lombok.Setter;
 public class MNPanelLayout extends RelativeLayout {
 
     // UI의 레이아웃 구성을 볼 때 사용
-    protected boolean DEBUG_UI = false;
+    public static boolean DEBUG_UI = false;
 
     @Getter @Setter MNPanelType panelType;
     @Getter @Setter int panelIndex;

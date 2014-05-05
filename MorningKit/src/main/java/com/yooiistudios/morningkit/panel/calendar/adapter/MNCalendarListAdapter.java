@@ -84,7 +84,7 @@ public class MNCalendarListAdapter extends BaseAdapter {
             case TOMORROW_INDICATOR:
                 break;
         }
-        View convertView = initEventItem(calendarModel, calendarEventItemInfo, viewGroup);
+        View convertView = initEventItem(i, calendarModel, calendarEventItemInfo, viewGroup);
 
         // divider를 index 위치에 따라 INVISIBLE 처리
         View dividerView = convertView.findViewById(R.id.panel_calendar_event_item_divider);
@@ -113,7 +113,7 @@ public class MNCalendarListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    protected View initEventItem(MNCalendarEvent calendarModel,
+    protected View initEventItem(int position, MNCalendarEvent calendarModel,
                                  MNCalendarEventItemInfo calendarEventItemInfo, ViewGroup viewGroup) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
