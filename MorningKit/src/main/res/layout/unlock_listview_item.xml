@@ -19,6 +19,7 @@
         android:background="@drawable/shape_rounded_view_classic_gray"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_inner"
         android:padding="@dimen/setting_store_gridview_padding">
 
         <ImageView
