@@ -10,13 +10,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.StoreShadowLayout;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import java.util.List;
 
@@ -91,7 +93,7 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
         if (convertView != null) {
             MNStoreGridViewItemViewHolder viewHolder = new MNStoreGridViewItemViewHolder(convertView);
 
-            initShadowLayout(viewHolder);
+            initInnerLayout(viewHolder);
 
             switch (type) {
                 case FUNCTIONS:
@@ -149,8 +151,8 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void initShadowLayout(final MNStoreGridViewItemViewHolder viewHolder) {
-        viewHolder.getShadowLayout().setOnClickListener(new View.OnClickListener() {
+    private void initInnerLayout(final MNStoreGridViewItemViewHolder viewHolder) {
+        viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MNSound.isSoundOn(context)) {
@@ -216,12 +218,20 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
         // set clickable
         if (viewHolder.getPriceTextView().getText().toString().equals(context.getResources().getText(R.string.store_purchased))) {
             viewHolder.getPriceTextView().setClickable(false);
-            viewHolder.getShadowLayout().setClickable(false);
-            viewHolder.getShadowLayout().setTouchEnabled(false);
+            viewHolder.getInnerLayout().setFocusable(false);
+            viewHolder.getInnerLayout().setClickable(false);
+            viewHolder.getInnerLayout().setBackgroundResource(
+                    R.drawable.shape_rounded_view_classic_gray_normal);
+//            viewHolder.getShadowLayout().setClickable(false);
+//            viewHolder.getShadowLayout().setTouchEnabled(false);
         } else {
             viewHolder.getPriceTextView().setClickable(true);
-            viewHolder.getShadowLayout().setClickable(true);
-            viewHolder.getShadowLayout().setTouchEnabled(true);
+            viewHolder.getInnerLayout().setFocusable(true);
+            viewHolder.getInnerLayout().setClickable(true);
+            viewHolder.getInnerLayout().setBackgroundResource(
+                    R.drawable.shape_rounded_view_classic_gray);
+//            viewHolder.getShadowLayout().setClickable(true);
+//            viewHolder.getShadowLayout().setTouchEnabled(true);
         }
     }
 
@@ -231,8 +241,6 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
     static class MNStoreGridViewItemViewHolder {
         @Getter @InjectView(R.id.setting_store_grid_item_outer_layout)      RelativeLayout outerLayout;
         @Getter @InjectView(R.id.setting_store_grid_item_inner_layout)      RelativeLayout innerLayout;
-        @Getter @InjectView(R.id.setting_store_grid_item_shadow_layout)
-        StoreShadowLayout shadowLayout;
         @Getter @InjectView(R.id.setting_store_grid_item_name_textview)     TextView itemNameTextView;
         @Getter @InjectView(R.id.setting_store_grid_item_price_textview)    TextView priceTextView;
         @Getter @InjectView(R.id.setting_store_grid_item_imageview)         ImageView iconImageView;

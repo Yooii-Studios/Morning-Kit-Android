@@ -5,10 +5,13 @@
     android:layout_height="@dimen/setting_store_gridview_item_outer_height"
     android:background="#00ffffff" >
 
+    <!--
     <com.yooiistudios.morningkit.common.shadow.StoreShadowLayout
         android:id="@+id/setting_store_grid_item_shadow_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_store_gridview_item_outer_height" />
+
+    -->
 
     <RelativeLayout
         android:id="@+id/setting_store_grid_item_inner_layout"
@@ -17,7 +20,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:padding="@dimen/setting_store_gridview_padding"
-        android:background="#00ffffff"
+        android:background="@drawable/shape_rounded_view_classic_gray"
         android:layout_margin="@dimen/setting_store_gridview_spacing_inner">
 
         <ImageView
