@@ -16,9 +16,6 @@ import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import java.util.List;
 
@@ -222,16 +219,12 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
             viewHolder.getInnerLayout().setClickable(false);
             viewHolder.getInnerLayout().setBackgroundResource(
                     R.drawable.shape_rounded_view_classic_gray_normal);
-//            viewHolder.getShadowLayout().setClickable(false);
-//            viewHolder.getShadowLayout().setTouchEnabled(false);
         } else {
             viewHolder.getPriceTextView().setClickable(true);
             viewHolder.getInnerLayout().setFocusable(true);
             viewHolder.getInnerLayout().setClickable(true);
             viewHolder.getInnerLayout().setBackgroundResource(
                     R.drawable.shape_rounded_view_classic_gray);
-//            viewHolder.getShadowLayout().setClickable(true);
-//            viewHolder.getShadowLayout().setTouchEnabled(true);
         }
     }
 
@@ -239,7 +232,6 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
      * ViewHolder
      */
     static class MNStoreGridViewItemViewHolder {
-        @Getter @InjectView(R.id.setting_store_grid_item_outer_layout)      RelativeLayout outerLayout;
         @Getter @InjectView(R.id.setting_store_grid_item_inner_layout)      RelativeLayout innerLayout;
         @Getter @InjectView(R.id.setting_store_grid_item_name_textview)     TextView itemNameTextView;
         @Getter @InjectView(R.id.setting_store_grid_item_price_textview)    TextView priceTextView;
