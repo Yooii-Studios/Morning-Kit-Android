@@ -5,6 +5,7 @@
 
     <!-- 전체 -->
     <dimen name="rounded_corner_radius">8dp</dimen>
+    <dimen name="rounded_corner_radius_unlock">5dp</dimen>
 
     <!-- 앱 전체적으로 쓰이는 패딩 -->
     <dimen name="margin_outer">6dp</dimen>
