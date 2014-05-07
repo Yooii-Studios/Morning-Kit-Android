@@ -24,9 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.dp.DipToPixel;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManagerListener;
@@ -36,7 +34,6 @@ import com.yooiistudios.morningkit.setting.store.util.IabResult;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.store.util.Purchase;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

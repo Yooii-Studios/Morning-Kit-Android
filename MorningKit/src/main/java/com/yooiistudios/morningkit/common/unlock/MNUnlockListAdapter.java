@@ -111,7 +111,7 @@ public class MNUnlockListAdapter extends BaseAdapter {
                     }
                     break;
             }
-            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getForwardBackgroundColor(MNThemeType.SLATE_GRAY));
+            viewHolder.getOuterLayout().setBackgroundResource(R.color.classic_gray_forward_normal_color);
 
             // Shadow - Slate Gray
 //            MNShadowLayoutFactory.changeThemeOfShadowLayout(viewHolder.getShadowLayout(), context, MNThemeType.SLATE_GRAY);
