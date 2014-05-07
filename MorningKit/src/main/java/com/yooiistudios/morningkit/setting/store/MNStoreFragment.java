@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
@@ -413,5 +415,35 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             fullVersionImageView.setClickable(true);
             fullVersionButtonImageView.setClickable(true);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MNLog.i("MNStoreFragment", "onDestroy");
+        ViewUnbindHelper.unbindReferences(progressBar);
+        ViewUnbindHelper.unbindReferences(loadingView);
+
+        ViewUnbindHelper.unbindReferences(fullVersionImageView);
+        ViewUnbindHelper.unbindReferences(fullVersionButtonImageView);
+        ViewUnbindHelper.unbindReferences(fullVersionButtonTextView);
+
+        ViewUnbindHelper.unbindReferences(leftTabDivider);
+        ViewUnbindHelper.unbindReferences(rightTabDivider);
+
+        ViewUnbindHelper.unbindReferences(functionTabLayout);
+        ViewUnbindHelper.unbindReferences(panelTabLayout);
+        ViewUnbindHelper.unbindReferences(themeTabLayout);
+
+        ViewUnbindHelper.unbindReferences(functionTextView);
+        ViewUnbindHelper.unbindReferences(panelTextView);
+        ViewUnbindHelper.unbindReferences(themeTextView);
+
+        ViewUnbindHelper.unbindReferences(functionGridView);
+        ViewUnbindHelper.unbindReferences(panelGridView);
+        ViewUnbindHelper.unbindReferences(themeGridView);
+
+        ViewUnbindHelper.unbindReferences(resetButton);
+        ViewUnbindHelper.unbindReferences(debugButton);
     }
 }

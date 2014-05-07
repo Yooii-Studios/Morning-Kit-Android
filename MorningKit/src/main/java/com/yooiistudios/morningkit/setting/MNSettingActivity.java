@@ -1,9 +1,7 @@
 package com.yooiistudios.morningkit.setting;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -13,6 +11,8 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
@@ -113,17 +113,11 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
     protected void onResume() {
         super.onResume();
         applyLocaledTabName();
-
-        // Sound
-        AudioManager mgr = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        mgr.setStreamMute(AudioManager.STREAM_SYSTEM, true);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        AudioManager mgr = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        mgr.setStreamMute(AudioManager.STREAM_SYSTEM, false);
     }
 
     @Override
@@ -185,5 +179,12 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MNLog.i(TAG, "onDestroy");
+        ViewUnbindHelper.unbindReferences(this, mViewPager.getId());
     }
 }

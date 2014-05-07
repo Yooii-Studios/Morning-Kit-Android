@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.widget.RelativeLayout;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
@@ -81,5 +82,11 @@ public class MNStoreActivity extends MNSettingDetailActivity {
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0, R.anim.activity_modal_down);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ViewUnbindHelper.unbindReferences(this, storeFragment.getId());
     }
 }

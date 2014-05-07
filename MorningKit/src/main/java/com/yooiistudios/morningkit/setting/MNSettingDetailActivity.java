@@ -1,7 +1,5 @@
 package com.yooiistudios.morningkit.setting;
 
-import android.content.Context;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -10,11 +8,13 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
 // 반복작업을 피하기 위한 액티비티
 public class MNSettingDetailActivity extends ActionBarActivity {
+    private static final String TAG = "MNSettingDetailActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Theme
@@ -70,18 +70,8 @@ public class MNSettingDetailActivity extends ActionBarActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    // 시스템 사운드 오프 처리
     @Override
-    protected void onResume() {
-        super.onResume();
-        AudioManager mgr = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        mgr.setStreamMute(AudioManager.STREAM_SYSTEM, true);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        AudioManager mgr = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        mgr.setStreamMute(AudioManager.STREAM_SYSTEM, false);
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

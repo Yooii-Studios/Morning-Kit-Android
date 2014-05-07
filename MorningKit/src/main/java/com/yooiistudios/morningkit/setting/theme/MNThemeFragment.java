@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 
@@ -50,5 +52,12 @@ public class MNThemeFragment extends Fragment {
         ((BaseAdapter)listView.getAdapter()).notifyDataSetChanged();
         listView.setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(MNTheme.getCurrentThemeType(getActivity())));
         getView().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(MNTheme.getCurrentThemeType(getActivity())));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MNLog.i(TAG, "onDestroy");
+        ViewUnbindHelper.unbindReferences(listView);
     }
 }

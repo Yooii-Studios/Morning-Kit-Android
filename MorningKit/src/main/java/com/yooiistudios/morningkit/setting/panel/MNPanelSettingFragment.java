@@ -16,7 +16,8 @@ import android.widget.ScrollView;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
+import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.panel.core.selectpager.MNPanelSelectPagerAdapter;
@@ -55,8 +56,8 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
     @InjectView(R.id.setting_panel_container) RelativeLayout containerLayout;
 
-    // @InjectView(R.id.setting_panel_matrix_layout_line_1) LinearLayout panelMatrixItemLayoutLine1;
-//    @InjectView(R.id.setting_panel_matrix_layout_line_2) LinearLayout panelMatrixItemLayoutLine2;
+    @InjectView(R.id.setting_panel_matrix_layout_line_1) LinearLayout panelMatrixItemLayoutLine1;
+    @InjectView(R.id.setting_panel_matrix_layout_line_2) LinearLayout panelMatrixItemLayoutLine2;
     @InjectView(R.id.setting_panel_matrix_layout_line_3) LinearLayout panelMatrixItemLayoutLine3;
 
     @InjectView(R.id.setting_panel_matrix_scrollview) ScrollView panelMatrixScrollView;
@@ -617,5 +618,26 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         }
 
         // 상점 액티비티 오픈(자동)
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MNLog.i(TAG, "onDestroy");
+        ViewUnbindHelper.unbindReferences(containerLayout);
+
+        ViewUnbindHelper.unbindReferences(panelMatrixItemLayoutLine1);
+        ViewUnbindHelper.unbindReferences(panelMatrixItemLayoutLine2);
+        ViewUnbindHelper.unbindReferences(panelMatrixItemLayoutLine3);
+
+        ViewUnbindHelper.unbindReferences(panelMatrixScrollView);
+
+        ViewUnbindHelper.unbindReferences(panelMatrixItem1);
+        ViewUnbindHelper.unbindReferences(panelMatrixItem2);
+        ViewUnbindHelper.unbindReferences(panelMatrixItem3);
+        ViewUnbindHelper.unbindReferences(panelMatrixItem4);
+        ViewUnbindHelper.unbindReferences(panelMatrixItem5);
+
+        ViewUnbindHelper.unbindReferences(panelSelectPagerLayout);
     }
 }

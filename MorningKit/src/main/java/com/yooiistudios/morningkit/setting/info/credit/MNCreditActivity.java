@@ -12,7 +12,7 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MNCreditActivity extends MNSettingDetailActivity {
+public class MNCreditActivity extends  MNSettingDetailActivity {
     @InjectView(R.id.setting_more_info_credit_container) RelativeLayout backgroundLayout;
 
     @Override

@@ -12,6 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
 import com.yooiistudios.morningkit.setting.info.credit.MNCreditActivity;
 import com.yooiistudios.morningkit.setting.info.moreinfo.MNMoreInfoActivity;
@@ -111,5 +113,12 @@ public class MNInfoFragment extends Fragment implements MNInfoItemClickListener 
                 break;
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MNLog.i(TAG, "onDestroy");
+        ViewUnbindHelper.unbindReferences(listView);
     }
 }
