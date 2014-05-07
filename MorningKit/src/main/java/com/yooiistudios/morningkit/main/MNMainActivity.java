@@ -24,6 +24,7 @@ import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.validate.AppValidationChecker;
 import com.yooiistudios.morningkit.main.layout.MNMainButtonLayout;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
@@ -229,12 +230,18 @@ public class MNMainActivity extends Activity
         // 알람 리스트뷰
         MNMainLayoutSetter.adjustAlarmListView(MNMainActivity.this, newConfig.orientation);
         // 스크롤뷰 최상단으로 올려주기
-        scrollView.post(new Runnable() {
+        MNViewSizeMeasure.setViewSizeObserver(scrollView, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
             @Override
-            public void run() {
+            public void onLayoutLoad() {
                 scrollView.fullScroll(View.FOCUS_UP);
             }
         });
+//        scrollView.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                scrollView.fullScroll(View.FOCUS_UP);
+//            }
+//        });
 
         switch (MNTheme.getCurrentThemeType(this)) {
             case WATER_LILY:
