@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
@@ -35,7 +34,7 @@ public class MNSettingDetailActivity extends ActionBarActivity {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setTitle("Setting");
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.icon_setting_on_s3);
+        actionBar.setIcon(R.drawable.setting_classic_gray_on);
     }
 
     @Override

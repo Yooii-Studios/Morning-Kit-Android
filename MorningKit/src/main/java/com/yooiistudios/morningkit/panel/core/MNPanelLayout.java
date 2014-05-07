@@ -244,7 +244,7 @@ public class MNPanelLayout extends RelativeLayout {
     }
 
     public void applyTheme() {
-        setBackgroundResource(MNMainResources.getPanelLayoutSelectorResourcesId(
+        setBackgroundResource(MNMainResources.getPanelLayoutSelectorResourceId(
                 MNTheme.getCurrentThemeType(getContext())));
     }
 
