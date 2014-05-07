@@ -7,7 +7,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
-import android.util.Log;
 
 import org.joda.time.DateTime;
 
@@ -124,20 +123,20 @@ public class MNCalendarFetcher {
         DateTime tomorrowEndDateTime = tomorrowStartDateTime.plusDays(1);
 
         // 지금부터 내일 0시 0분 0초 미만의 시간(그 중에서도 all-day와 scheduled를 분리)
-        Log.i(TAG, "today events");
-        Log.i(TAG, "all-day events");
+//        Log.i(TAG, "today events");
+//        Log.i(TAG, "all-day events");
         calendarEventList.todayAlldayEvents = getEventsBetweenDates(context, calendarModels, true,
                 todayStartDateTime, todayEndDateTime);
-        Log.i(TAG, "scheduled events");
+//        Log.i(TAG, "scheduled events");
         calendarEventList.todayScheduledEvents = getEventsBetweenDates(context, calendarModels, false,
                 todayNowDateTime, todayEndDateTime);
 
         // 내일 0시 0분 0초 이상 모레 0시 0분 0초 미만의 일정(그 중에서도 all-day와 scheduled를 분리)
-        Log.i(TAG, "tomorrow events");
-        Log.i(TAG, "all-day events");
+//        Log.i(TAG, "tomorrow events");
+//        Log.i(TAG, "all-day events");
         calendarEventList.tomorrowAlldayEvents = getEventsBetweenDates(context, calendarModels, true,
                 tomorrowStartDateTime, tomorrowEndDateTime);
-        Log.i(TAG, "scheduled events");
+//        Log.i(TAG, "scheduled events");
         calendarEventList.tomorrowScheduledEvents = getEventsBetweenDates(context, calendarModels, false,
                 tomorrowStartDateTime, tomorrowEndDateTime);
 
@@ -207,15 +206,15 @@ public class MNCalendarFetcher {
 
                 String stimesr = sdfrr.format(begin);
 
-                System.out.println("title:" + title + "/stimes:" + stimesr +
-                        (calendarEvent.isAllDayEvent ? "/all-day" : ""));
+//                System.out.println("title:" + title + "/stimes:" + stimesr +
+//                        (calendarEvent.isAllDayEvent ? "/all-day" : ""));
 
                 calendarModelList.add(calendarEvent);
             }
             eventCursor.close();
             return calendarModelList;
         } else {
-            Log.e(TAG, "eventCursor is null");
+//            Log.e(TAG, "eventCursor is null");
 
             return null;
         }
@@ -242,20 +241,20 @@ public class MNCalendarFetcher {
         DateTime tomorrowEndDateTime = tomorrowStartDateTime.plusDays(1);
 
         // 지금부터 내일 0시 0분 0초 미만의 시간(그 중에서도 all-day와 scheduled를 분리)
-        Log.i(TAG, "today events");
-        Log.i(TAG, "all-day events");
+//        Log.i(TAG, "today events");
+//        Log.i(TAG, "all-day events");
         calendarEventList.todayAlldayEvents = getEventsBetweenDates14(context, calendarModels, true,
                 todayStartDateTime, todayEndDateTime);
-        Log.i(TAG, "scheduled events");
+//        Log.i(TAG, "scheduled events");
         calendarEventList.todayScheduledEvents = getEventsBetweenDates14(context, calendarModels, false,
                 todayNowDateTime, todayEndDateTime);
 
         // 내일 0시 0분 0초 이상 모레 0시 0분 0초 미만의 일정(그 중에서도 all-day와 scheduled를 분리)
-        Log.i(TAG, "tomorrow events");
-        Log.i(TAG, "all-day events");
+//        Log.i(TAG, "tomorrow events");
+//        Log.i(TAG, "all-day events");
         calendarEventList.tomorrowAlldayEvents = getEventsBetweenDates14(context, calendarModels, true,
                 tomorrowStartDateTime, tomorrowEndDateTime);
-        Log.i(TAG, "scheduled events");
+//        Log.i(TAG, "scheduled events");
         calendarEventList.tomorrowScheduledEvents = getEventsBetweenDates14(context, calendarModels, false,
                 tomorrowStartDateTime, tomorrowEndDateTime);
 
@@ -332,7 +331,7 @@ public class MNCalendarFetcher {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(beginTimeInMillis);
                 DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Log.i(TAG, "Event:" + title + "/Date:" + formatter.format(calendar.getTime()));
+//                Log.i(TAG, "Event:" + title + "/Date:" + formatter.format(calendar.getTime()));
 
                 calendarEvent.title = title;
                 calendarEvent.isAllDayEvent = isAllDayEvents;
@@ -342,7 +341,7 @@ public class MNCalendarFetcher {
             eventCursor.close();
             return calendarModelList;
         } else {
-            Log.e(TAG, "eventCursor is null");
+//            Log.e(TAG, "eventCursor is null");
             return null;
         }
     }
