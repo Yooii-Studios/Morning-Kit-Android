@@ -253,8 +253,6 @@ public class MNMainActivity extends Activity
      * OnClick
      */
     @OnClick(R.id.main_refresh_imageview) void refreshButtonClicked() {
-        MNLog.i(TAG, "refreshButtonClicked");
-
         // 투명 테마 사용 시 폰트 색을 토글시켜줌
         MNTranslucentFont.toggleFontType(getApplicationContext());
 

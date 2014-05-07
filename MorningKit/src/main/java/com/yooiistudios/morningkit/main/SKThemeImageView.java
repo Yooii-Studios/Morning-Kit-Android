@@ -3,13 +3,15 @@ package com.yooiistudios.morningkit.main;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.stevenkim.photo.SKBitmapLoader;
 import com.stevenkim.waterlily.SKWaterLily;
-import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 
 import java.io.FileNotFoundException;
 
@@ -34,14 +36,15 @@ public class SKThemeImageView extends ImageView {
     public void setWaterLilyImage(final int orientation) {
         clear();
 
-        post(new Runnable() {
+        MNViewSizeMeasure.setViewSizeObserver(this, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
             @Override
-            public void run() {
+            public void onLayoutLoad() {
                 Bitmap bitmap;
                 if (orientation == Configuration.ORIENTATION_PORTRAIT) {
                     bitmap = SKWaterLily.getPortraitBitmap(getContext(), getWidth(), getHeight());
+
                 } else {
-                    bitmap = SKWaterLily.getLandscapeBitmap(getContext(), getHeight(), getWidth());
+                    bitmap = SKWaterLily.getLandscapeBitmap(getContext(), getWidth(), getHeight());
                 }
                 setImageBitmap(bitmap);
             }
@@ -63,15 +66,17 @@ public class SKThemeImageView extends ImageView {
     }
 
     public void clear() {
-        setImageDrawable(null);
+        Drawable d = getDrawable();
+        if (d instanceof BitmapDrawable) {
+            Bitmap b = ((BitmapDrawable)d).getBitmap();
+            b.recycle();
+        } // 현재로서는 BitmapDrawable 이외의 drawable 들에 대한 직접적인 메모리 해제는 불가능하다.
+//        setImageDrawable(null);
     }
 
     @Override
     protected void onDetachedFromWindow() {
+        clear();
         super.onDetachedFromWindow();
-        MNLog.now("onDetachedFromWindow");
-//        clear();
     }
-
-
 }
