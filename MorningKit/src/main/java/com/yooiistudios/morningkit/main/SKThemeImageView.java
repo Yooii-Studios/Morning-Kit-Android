@@ -1,4 +1,4 @@
-package com.stevenkim.waterlily;
+package com.yooiistudios.morningkit.main;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -7,16 +7,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.stevenkim.photo.SKBitmapLoader;
+import com.stevenkim.waterlily.SKWaterLily;
 import com.yooiistudios.morningkit.common.log.MNLog;
+
+import java.io.FileNotFoundException;
 
 /**
  * Created by Wooseong Kim in MNSettingActivityProject from Yooii Studios Co., LTD. on 2014. 5. 6.
  *
  * SKWaterLilyImageView
- *  워터릴리 테마를 활용하기 위한 이미지뷰
+ *  사진테마, 워터릴리 테마를 활용하기 위한 이미지뷰
  */
-public class SKWaterLilyImageView extends ImageView {
-    public SKWaterLilyImageView(Context context) {
+public class SKThemeImageView extends ImageView {
+    public SKThemeImageView(Context context) {
         super(context);
 
         // customizing
@@ -42,6 +46,20 @@ public class SKWaterLilyImageView extends ImageView {
                 setImageBitmap(bitmap);
             }
         });
+    }
+
+    public void setPhotoThemeImage(final int orientation, Context context) throws FileNotFoundException {
+        clear();
+
+        Bitmap bitmap;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(context,
+                    SKBitmapLoader.getPortraitImageUri());
+        } else {
+            bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(context,
+                    SKBitmapLoader.getLandscapeImageUri());
+        }
+        setImageBitmap(bitmap);
     }
 
     public void clear() {

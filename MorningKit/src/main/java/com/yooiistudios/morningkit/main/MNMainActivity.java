@@ -18,7 +18,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.squareup.otto.Subscribe;
 import com.stevenkim.camera.SKCameraThemeView;
-import com.stevenkim.waterlily.SKWaterLilyImageView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
@@ -34,6 +33,7 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import butterknife.ButterKnife;
@@ -64,7 +64,7 @@ public class MNMainActivity extends Activity
 
     @Getter @InjectView(R.id.main_camera_layout)            RelativeLayout cameraLayout;
     SKCameraThemeView cameraThemeView;
-    SKWaterLilyImageView waterLilyImageView;
+    SKThemeImageView photoThemeImageView;
 
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
@@ -232,8 +232,15 @@ public class MNMainActivity extends Activity
 
         switch (MNTheme.getCurrentThemeType(this)) {
             case WATER_LILY:
-                if (waterLilyImageView != null) {
-                    waterLilyImageView.setWaterLilyImage(newConfig.orientation);
+                if (photoThemeImageView != null) {
+                    photoThemeImageView.setWaterLilyImage(newConfig.orientation);
+                }
+            case PHOTO:
+                try {
+                    photoThemeImageView.setPhotoThemeImage(newConfig.orientation,
+                            this.getApplicationContext());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
         }
     }
@@ -336,17 +343,21 @@ public class MNMainActivity extends Activity
                     cameraLayout.removeAllViews();
                     cameraThemeView = null;
                 }
-                waterLilyImageView = new SKWaterLilyImageView(this);
-                containerLayout.addView(waterLilyImageView, 0);
-                containerLayout.setBackgroundColor(Color.TRANSPARENT);
+                if (photoThemeImageView == null) {
+                    photoThemeImageView = new SKThemeImageView(this);
+                    containerLayout.addView(photoThemeImageView, 0);
+                    containerLayout.setBackgroundColor(Color.TRANSPARENT);
+                } else {
+                    photoThemeImageView.clear();
+                }
                 break;
 
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
-                containerLayout.removeView(waterLilyImageView);
-                if (waterLilyImageView != null) {
-                    waterLilyImageView.clear();
-                    waterLilyImageView = null;
+                containerLayout.removeView(photoThemeImageView);
+                if (photoThemeImageView != null) {
+                    photoThemeImageView.clear();
+                    photoThemeImageView = null;
                 }
 
                 // 기존에 생성이 되었다면 방향만 변경
@@ -372,10 +383,14 @@ public class MNMainActivity extends Activity
                 break;
 
             case PHOTO:
-                containerLayout.removeView(waterLilyImageView);
-                if (waterLilyImageView != null) {
-                    waterLilyImageView.clear();
-                    waterLilyImageView = null;
+                if (photoThemeImageView == null) {
+                    if (photoThemeImageView == null) {
+                        photoThemeImageView = new SKThemeImageView(this);
+                        containerLayout.addView(photoThemeImageView, 0);
+                        containerLayout.setBackgroundColor(Color.TRANSPARENT);
+                    } else {
+                        photoThemeImageView.clear();
+                    }
                 }
                 if (cameraThemeView != null) {
                     cameraLayout.removeAllViews();
@@ -387,10 +402,10 @@ public class MNMainActivity extends Activity
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
             case PASTEL_GREEN:
-                containerLayout.removeView(waterLilyImageView);
-                if (waterLilyImageView != null) {
-                    waterLilyImageView.clear();
-                    waterLilyImageView = null;
+                containerLayout.removeView(photoThemeImageView);
+                if (photoThemeImageView != null) {
+                    photoThemeImageView.clear();
+                    photoThemeImageView = null;
                 }
                 if (cameraThemeView != null) {
                     cameraLayout.removeAllViews();
