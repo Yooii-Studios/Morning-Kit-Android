@@ -13,10 +13,61 @@ public class MNMainResources {
     private MNMainResources() { throw new AssertionError("You MUST not create this class!"); }
 
     /**
+     * Main
+     */
+    public static int getRefreshButtonSelectorResourceId(MNThemeType themeType) {
+        switch (themeType) {
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case WATER_LILY:
+                return R.drawable.main_refresh_button_selector_translucent;
+
+            case MODERNITY_WHITE:
+                return R.drawable.main_refresh_button_selector_classic_white;
+
+            case SLATE_GRAY:
+                return R.drawable.main_refresh_button_selector_classic_gray;
+
+            case CELESTIAL_SKY_BLUE:
+                return R.drawable.main_refresh_button_selector_skyblue;
+
+            case PASTEL_GREEN:
+                return R.drawable.main_refresh_button_selector_pastel_green;
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+
+    public static int getSettingButtonSelectorResourceId(MNThemeType themeType) {
+        switch (themeType) {
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case WATER_LILY:
+                return R.drawable.main_setting_button_selector_translucent;
+
+            case MODERNITY_WHITE:
+                return R.drawable.main_setting_button_selector_classic_white;
+
+            case SLATE_GRAY:
+                return R.drawable.main_setting_button_selector_classic_gray;
+
+            case CELESTIAL_SKY_BLUE:
+                return R.drawable.main_setting_button_selector_skyblue;
+
+            case PASTEL_GREEN:
+                return R.drawable.main_setting_button_selector_pastel_green;
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+
+    /**
      * Panel
      */
-    public static int getPanelLayoutSelectorResourcesId(MNThemeType themeType) {
-        return getAlarmItemSelectorResourcesId(themeType);
+    public static int getPanelLayoutSelectorResourceId(MNThemeType themeType) {
+        return getAlarmItemSelectorResourceId(themeType);
     }
 
     /**
@@ -126,7 +177,7 @@ public class MNMainResources {
         }
     }
 
-    public static int getAlarmSwitchButtonSelectorResourcesId(MNThemeType themeType) {
+    public static int getAlarmSwitchButtonSelectorResourceId(MNThemeType themeType) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
@@ -152,7 +203,7 @@ public class MNMainResources {
         }
     }
 
-    public static int getAlarmItemSelectorResourcesId(MNThemeType themeType) {
+    public static int getAlarmItemSelectorResourceId(MNThemeType themeType) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:

@@ -104,7 +104,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
                 // inner layout selector
                 alarmCreateItemViewHolder.innerLayout.setBackgroundResource(
-                        MNMainResources.getAlarmItemSelectorResourcesId(currentThemeType));
+                        MNMainResources.getAlarmItemSelectorResourceId(currentThemeType));
 
                 // title
                 alarmCreateItemViewHolder.createAlarmTextView.setTextColor(
@@ -194,11 +194,11 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
         // inner layout 셀렉터
         alarmItemViewHolder.innerLayout.setBackgroundResource(
-                MNMainResources.getAlarmItemSelectorResourcesId(currentThemeType));
+                MNMainResources.getAlarmItemSelectorResourceId(currentThemeType));
 
         // 알람 스위치 셀렉터
         alarmItemViewHolder.switchImageButton.setImageResource(
-                MNMainResources.getAlarmSwitchButtonSelectorResourcesId(currentThemeType));
+                MNMainResources.getAlarmSwitchButtonSelectorResourceId(currentThemeType));
 
         // 그외 나머지
         if (alarm.isAlarmOn()) {
