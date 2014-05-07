@@ -181,6 +181,11 @@ public class MNMainActivity extends Activity
 
     @Override
     protected void onPause() {
+        // check photoImageView for preventing OOM
+        if (photoThemeImageView != null) {
+            photoThemeImageView.clear();
+        }
+
         // Partially visible
         adView.pause();
         super.onPause();
