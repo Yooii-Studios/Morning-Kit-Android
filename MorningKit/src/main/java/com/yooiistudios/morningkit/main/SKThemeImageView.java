@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.stevenkim.photo.SKBitmapLoader;
 import com.stevenkim.waterlily.SKWaterLily;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 
 import java.io.FileNotFoundException;
@@ -70,6 +71,7 @@ public class SKThemeImageView extends ImageView {
         if (d instanceof BitmapDrawable) {
             Bitmap b = ((BitmapDrawable)d).getBitmap();
             b.recycle();
+            MNLog.now("photoThemeImageView recycle Bitmap");
         } // 현재로서는 BitmapDrawable 이외의 drawable 들에 대한 직접적인 메모리 해제는 불가능하다.
 //        setImageDrawable(null);
     }
