@@ -162,8 +162,8 @@ public class MNCalendarListAdapter extends BaseAdapter {
                     itemLayout.setBackgroundColor(Color.TRANSPARENT);
                     timeTextView.setBackgroundColor(Color.TRANSPARENT);
                     titleTextView.setBackgroundColor(Color.TRANSPARENT);
-                    timeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType));
-                    titleTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType));
+                    timeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, context));
+                    titleTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, context));
                 }
             }
         } else {
@@ -182,7 +182,7 @@ public class MNCalendarListAdapter extends BaseAdapter {
 
                         itemLayout.setBackgroundColor(Color.TRANSPARENT);
                         timeTextView.setBackgroundColor(Color.TRANSPARENT);
-                        timeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType));
+                        timeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, context));
                     }
                 }
             }
@@ -195,7 +195,7 @@ public class MNCalendarListAdapter extends BaseAdapter {
                     dividerView.setVisibility(View.INVISIBLE);
                 } else {
                     dividerView.setVisibility(View.VISIBLE);
-                    dividerView.setBackgroundColor(MNMainColors.getSubFontColor(currentThemeType));
+                    dividerView.setBackgroundColor(MNMainColors.getSubFontColor(currentThemeType, context));
                 }
             }
         }

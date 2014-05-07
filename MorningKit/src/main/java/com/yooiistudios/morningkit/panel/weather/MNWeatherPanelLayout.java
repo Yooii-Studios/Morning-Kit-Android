@@ -520,15 +520,15 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext());
 
         // weather condition image view
-        int highlightColor = MNMainColors.getWeatherConditionColor(currentThemeType);
+        int highlightColor = MNMainColors.getWeatherConditionColor(currentThemeType, getContext());
         PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(highlightColor,
                 PorterDuff.Mode.SRC_ATOP);
         weatherConditionImageView.setColorFilter(colorFilter);
 
         // text views
-        currentTempTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType));
-        lowHighTempTextView.setTextColor(MNMainColors.getWeatherLowHighTextColor(currentThemeType));
-        cityNameTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType));
-        localTimeTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType));
+        currentTempTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, getContext()));
+        lowHighTempTextView.setTextColor(MNMainColors.getWeatherLowHighTextColor(currentThemeType, getContext()));
+        cityNameTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, getContext()));
+        localTimeTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, getContext()));
     }
 }

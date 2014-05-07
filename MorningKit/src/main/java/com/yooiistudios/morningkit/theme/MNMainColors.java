@@ -1,8 +1,11 @@
 package com.yooiistudios.morningkit.theme;
 
+import android.content.Context;
 import android.graphics.Color;
 
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.font.MNTranslucentFont;
+import com.yooiistudios.morningkit.theme.font.MNTranslucentFontType;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 19.
@@ -93,13 +96,19 @@ public class MNMainColors {
     /**
      * Font Color
      */
-    public static int getMainFontColor(MNThemeType themeType) {
+    public static int getMainFontColor(MNThemeType themeType, Context context) {
         switch (themeType) {
-            case WATER_LILY:
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return Color.parseColor("#252525");
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return Color.parseColor("#ffffff");
+                } else {
+                    return Color.parseColor("#333333");
+                }
+
+            case WATER_LILY:
+                return Color.parseColor("#333333");
 
             case MODERNITY_WHITE:
                 return Color.parseColor("#252525");
@@ -117,12 +126,18 @@ public class MNMainColors {
         }
     }
 
-    public static int getSubFontColor(MNThemeType themeType) {
+    public static int getSubFontColor(MNThemeType themeType, Context context) {
         switch (themeType) {
-            case WATER_LILY:
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return Color.parseColor("#cccccc");
+                } else {
+                    return Color.parseColor("#666666");
+                }
+
+            case WATER_LILY:
                 return Color.parseColor("#918f8f");
 
             case MODERNITY_WHITE:
@@ -170,28 +185,28 @@ public class MNMainColors {
      */
 
     // 나중에 알람만 다른 색을 쓰게 될 경우를 대비
-    public static int getAlarmMainFontColor(MNThemeType themeType) {
-        return getMainFontColor(themeType);
+    public static int getAlarmMainFontColor(MNThemeType themeType, Context context) {
+        return getMainFontColor(themeType, context);
     }
 
-    public static int getAlarmAddTextFontColor(MNThemeType themeType) {
+    public static int getAlarmAddTextFontColor(MNThemeType themeType, Context context) {
         if (themeType == MNThemeType.CELESTIAL_SKY_BLUE) {
             return Color.parseColor("#043f4b");
         } else if (themeType == MNThemeType.PASTEL_GREEN) {
             return Color.parseColor("#797979");
         } else {
-            return getAlarmMainFontColor(themeType);
+            return getAlarmMainFontColor(themeType, context);
         }
     }
 
-    public static int getAlarmSubFontColor(MNThemeType themeType) {
-        return getSubFontColor(themeType);
+    public static int getAlarmSubFontColor(MNThemeType themeType, Context context) {
+        return getSubFontColor(themeType, context);
     }
 
     /**
      * Panel
      */
-    public static int getWeatherLowHighTextColor(MNThemeType themeType) {
+    public static int getWeatherLowHighTextColor(MNThemeType themeType, Context context) {
         switch (themeType) {
             case WATER_LILY:
             case TRANQUILITY_BACK_CAMERA:
@@ -200,16 +215,16 @@ public class MNMainColors {
             case MODERNITY_WHITE:
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
-                return getMainFontColor(themeType);
+                return getMainFontColor(themeType, context);
 
             case PASTEL_GREEN:
-                return getSubFontColor(themeType);
+                return getSubFontColor(themeType, context);
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
 
-    public static int getWeatherConditionColor(MNThemeType themeType) {
+    public static int getWeatherConditionColor(MNThemeType themeType, Context context) {
         switch (themeType) {
             case WATER_LILY:
             case TRANQUILITY_BACK_CAMERA:
@@ -218,10 +233,10 @@ public class MNMainColors {
             case MODERNITY_WHITE:
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
-                return getMainFontColor(themeType);
+                return getMainFontColor(themeType, context);
 
             case PASTEL_GREEN:
-                return getSubFontColor(themeType);
+                return getSubFontColor(themeType, context);
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }

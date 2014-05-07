@@ -32,6 +32,7 @@ import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
+import com.yooiistudios.morningkit.theme.font.MNTranslucentFont;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -251,8 +252,11 @@ public class MNMainActivity extends Activity
     @OnClick(R.id.main_refresh_imageview) void refreshButtonClicked() {
         MNLog.i(TAG, "refreshButtonClicked");
 
+        MNTranslucentFont.toggleFontType(getApplicationContext());
+
         // 기획 변경 -> 리프레시 버튼 누르면 2초 동안은 동작하지 않음
         panelWindowLayout.refreshAllPanels();
+        alarmListView.refreshListView();
     }
 
     @OnClick(R.id.main_setting_imageview) void settingButtonClicked() {

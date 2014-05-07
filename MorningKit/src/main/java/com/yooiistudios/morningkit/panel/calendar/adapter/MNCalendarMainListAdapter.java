@@ -84,14 +84,14 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
                     switch (calendarEventItemInfo.calendarEventType) {
                         case TODAY_ALL_DAY:
                         case TODAY_SCHEDULED:
-                            timeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType));
-                            titleTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType));
+                            timeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, context));
+                            titleTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, context));
                             break;
 
                         case TOMORROW_ALL_DAY:
                         case TOMORROW_SCHEDULED:
-                            timeTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType));
-                            titleTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType));
+                            timeTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, context));
+                            titleTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, context));
                             break;
                     }
                 }
@@ -113,7 +113,7 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
 
                         itemLayout.setBackgroundColor(Color.TRANSPARENT);
                         timeTextView.setBackgroundColor(Color.TRANSPARENT);
-                        timeTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType));
+                        timeTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, context));
                     }
                 }
             }
@@ -127,7 +127,7 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
                 dividerView.setVisibility(View.INVISIBLE);
             } else {
                 dividerView.setVisibility(View.VISIBLE);
-                dividerView.setBackgroundColor(MNMainColors.getSubFontColor(currentThemeType));
+                dividerView.setBackgroundColor(MNMainColors.getSubFontColor(currentThemeType, context));
             }
         }
         return convertView;

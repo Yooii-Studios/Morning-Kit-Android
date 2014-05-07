@@ -109,7 +109,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
                 // title
                 alarmCreateItemViewHolder.createAlarmTextView.setTextColor(
-                        MNMainColors.getAlarmAddTextFontColor(currentThemeType));
+                        MNMainColors.getAlarmAddTextFontColor(currentThemeType, context));
 
                 // divider
                 alarmCreateItemViewHolder.dividingBarImageView.setImageResource(
@@ -155,7 +155,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
         alarmItemViewHolder.labelTextView.setText(alarm.getAlarmLabel());
         alarmItemViewHolder.labelTextView.setSelected(true);
-        alarmItemViewHolder.labelTextView.setTextColor(MNMainColors.getAlarmSubFontColor(currentThemeType));
+        alarmItemViewHolder.labelTextView.setTextColor(MNMainColors.getAlarmSubFontColor(currentThemeType, context));
     }
 
     private void initSwitchButton(final MNAlarm alarm, final MNAlarmItemViewHolder alarmItemViewHolder) {
@@ -203,15 +203,15 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
         // 그외 나머지
         if (alarm.isAlarmOn()) {
-            alarmItemViewHolder.timeTextView.setTextColor(MNMainColors.getAlarmMainFontColor(currentThemeType));
-            alarmItemViewHolder.ampmTextView.setTextColor(MNMainColors.getAlarmMainFontColor(currentThemeType));
+            alarmItemViewHolder.timeTextView.setTextColor(MNMainColors.getAlarmMainFontColor(currentThemeType, context));
+            alarmItemViewHolder.ampmTextView.setTextColor(MNMainColors.getAlarmMainFontColor(currentThemeType, context));
             alarmItemViewHolder.repeatTextView.setText(
                     MNAlarmRepeatString.makeShortRepeatString(alarm.getAlarmRepeatList(), context));
             alarmItemViewHolder.dividingBarImageView.setImageResource(
                     MNMainResources.getAlarmDividingBarOnResourceId(currentThemeType));
         } else {
-            alarmItemViewHolder.timeTextView.setTextColor(MNMainColors.getAlarmSubFontColor(currentThemeType));
-            alarmItemViewHolder.ampmTextView.setTextColor(MNMainColors.getAlarmSubFontColor(currentThemeType));
+            alarmItemViewHolder.timeTextView.setTextColor(MNMainColors.getAlarmSubFontColor(currentThemeType, context));
+            alarmItemViewHolder.ampmTextView.setTextColor(MNMainColors.getAlarmSubFontColor(currentThemeType, context));
             alarmItemViewHolder.repeatTextView.setText("");
             alarmItemViewHolder.dividingBarImageView.setImageResource(
                     MNMainResources.getAlarmDividingBarOffResourceId(currentThemeType));

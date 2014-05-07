@@ -101,17 +101,17 @@ public class MNAlarmRepeatString {
         } else if (repeatChecker.equals("0123456")) {
             shortRepeatSpannableString = new SpannableString("/ " + context.getString(R.string.alarm_pref_repeat_everyday));
             shortRepeatSpannableString.setSpan(
-                    new ForegroundColorSpan(MNMainColors.getAlarmMainFontColor(currentThemeType)),
+                    new ForegroundColorSpan(MNMainColors.getAlarmMainFontColor(currentThemeType, context)),
                     0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else if (repeatChecker.equals("01234")) {
             shortRepeatSpannableString = new SpannableString("/ " + context.getString(R.string.alarm_pref_repeat_weekdays));
             shortRepeatSpannableString.setSpan(
-                    new ForegroundColorSpan(MNMainColors.getAlarmMainFontColor(currentThemeType)),
+                    new ForegroundColorSpan(MNMainColors.getAlarmMainFontColor(currentThemeType, context)),
                     0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else if (repeatChecker.equals("56")) {
             shortRepeatSpannableString = new SpannableString("/ " + context.getString(R.string.alarm_pref_repeat_weekends));
             shortRepeatSpannableString.setSpan(
-                    new ForegroundColorSpan(MNMainColors.getAlarmMainFontColor(currentThemeType)),
+                    new ForegroundColorSpan(MNMainColors.getAlarmMainFontColor(currentThemeType, context)),
                     0, shortRepeatSpannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
             shortRepeatSpannableString =
@@ -126,7 +126,7 @@ public class MNAlarmRepeatString {
 
             // 제일 앞의 '/' 부분 색 입히기
             shortRepeatSpannableString.setSpan(new ForegroundColorSpan(
-                            MNMainColors.getAlarmMainFontColor(currentThemeType)), 0, 1,
+                            MNMainColors.getAlarmMainFontColor(currentThemeType, context)), 0, 1,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             for (int i = 0; i < alarmRepeatList.size(); i++) {
@@ -134,11 +134,11 @@ public class MNAlarmRepeatString {
                 int index = (i + 1) * 2;
                 if (alarmRepeatList.get(i)) {
                     shortRepeatSpannableString.setSpan(new ForegroundColorSpan(
-                            MNMainColors.getAlarmMainFontColor(currentThemeType)), index, index + 1,
+                            MNMainColors.getAlarmMainFontColor(currentThemeType, context)), index, index + 1,
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 } else {
                     shortRepeatSpannableString.setSpan(new ForegroundColorSpan(
-                            MNMainColors.getAlarmSubFontColor(currentThemeType)), index, index + 1,
+                            MNMainColors.getAlarmSubFontColor(currentThemeType, context)), index, index + 1,
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             }
