@@ -15,6 +15,7 @@ public class MNMainResources {
     /**
      * Main
      */
+    
     public static int getRefreshButtonSelectorResourceId(MNThemeType themeType) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
