@@ -3,13 +3,11 @@ package com.yooiistudios.morningkit.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,15 +18,13 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.squareup.otto.Subscribe;
 import com.stevenkim.camera.SKCameraThemeView;
-import com.stevenkim.waterlily.SKWaterLily;
-import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
+import com.stevenkim.waterlily.SKWaterLilyImageView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.log.MNLog;
-import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.validate.AppValidationChecker;
 import com.yooiistudios.morningkit.main.layout.MNMainButtonLayout;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
@@ -68,7 +64,7 @@ public class MNMainActivity extends Activity
 
     @Getter @InjectView(R.id.main_camera_layout)            RelativeLayout cameraLayout;
     SKCameraThemeView cameraThemeView;
-    ImageView waterLilyImageView;
+    SKWaterLilyImageView waterLilyImageView;
 
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
@@ -168,11 +164,12 @@ public class MNMainActivity extends Activity
         admobLayout.setBackgroundColor(Color.parseColor("#BB000000"));
         adView.resume();
 
+        // 테마 적용
+        processTheme();
+
         // 세팅 탭에서 돌아올 경우를 대비해 전체적인 레이아웃 최신화 적용
         onConfigurationChanged(getResources().getConfiguration());
 
-        // 테마 적용
-        processTheme();
     }
 
     @Override
@@ -233,29 +230,12 @@ public class MNMainActivity extends Activity
             }
         });
 
-        /*
         switch (MNTheme.getCurrentThemeType(this)) {
             case WATER_LILY:
                 if (waterLilyImageView != null) {
-                    MNViewSizeMeasure.setViewSizeObserver(waterLilyImageView, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
-                        @Override
-                        public void onLayoutLoad() {
-                            waterLilyImageView.setImageDrawable(null);
-                            Bitmap bitmap;
-                            if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                                bitmap = SKWaterLily.getPortraitBitmap(getApplicationContext(),
-                                        waterLilyImageView.getWidth(), waterLilyImageView.getHeight());
-                            } else {
-                                bitmap = SKWaterLily.getLandscapeBitmap(getApplicationContext(),
-                                        waterLilyImageView.getHeight(), waterLilyImageView.getWidth());
-                            }
-//                            waterLilyImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
-                            waterLilyImageView.setImageBitmap(bitmap);
-                        }
-                    });
+                    waterLilyImageView.setWaterLilyImage(newConfig.orientation);
                 }
         }
-        */
     }
 
     /**
@@ -297,6 +277,7 @@ public class MNMainActivity extends Activity
     public void onReceiveAd(Ad arg0) {
     }
     */
+
     /**
      * Panel
      */
@@ -348,7 +329,6 @@ public class MNMainActivity extends Activity
      */
     private void processTheme() {
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
-        containerLayout.setBackgroundColor(MNMainColors.getBackwardBackgroundColor(currentThemeType));
 
         switch (currentThemeType) {
             case WATER_LILY:
@@ -356,12 +336,7 @@ public class MNMainActivity extends Activity
                     cameraLayout.removeAllViews();
                     cameraThemeView = null;
                 }
-                waterLilyImageView = new ImageView(this);
-                RelativeLayout.LayoutParams layoutParams
-                        = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT);
-                waterLilyImageView.setLayoutParams(layoutParams);
-                waterLilyImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                waterLilyImageView = new SKWaterLilyImageView(this);
                 containerLayout.addView(waterLilyImageView, 0);
                 containerLayout.setBackgroundColor(Color.TRANSPARENT);
                 break;
@@ -370,7 +345,7 @@ public class MNMainActivity extends Activity
             case REFLECTION_FRONT_CAMERA:
                 containerLayout.removeView(waterLilyImageView);
                 if (waterLilyImageView != null) {
-                    waterLilyImageView.setImageDrawable(null);
+                    waterLilyImageView.clear();
                     waterLilyImageView = null;
                 }
 
@@ -398,9 +373,10 @@ public class MNMainActivity extends Activity
 
             case PHOTO:
                 containerLayout.removeView(waterLilyImageView);
-                waterLilyImageView.setImageDrawable(null);
-                waterLilyImageView = null;
-
+                if (waterLilyImageView != null) {
+                    waterLilyImageView.clear();
+                    waterLilyImageView = null;
+                }
                 if (cameraThemeView != null) {
                     cameraLayout.removeAllViews();
                     cameraThemeView = null;
@@ -410,16 +386,18 @@ public class MNMainActivity extends Activity
             case MODERNITY_WHITE:
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
+            case PASTEL_GREEN:
                 containerLayout.removeView(waterLilyImageView);
-                waterLilyImageView.setImageDrawable(null);
-                waterLilyImageView = null;
-
+                if (waterLilyImageView != null) {
+                    waterLilyImageView.clear();
+                    waterLilyImageView = null;
+                }
                 if (cameraThemeView != null) {
                     cameraLayout.removeAllViews();
                     cameraThemeView = null;
                 }
                 containerLayout.setBackgroundColor(MNMainColors.getBackwardBackgroundColor(
-                        MNTheme.getCurrentThemeType(this)));
+                        currentThemeType));
                 break;
         }
     }

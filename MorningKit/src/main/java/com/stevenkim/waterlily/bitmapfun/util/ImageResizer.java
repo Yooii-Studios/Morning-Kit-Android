@@ -253,16 +253,15 @@ public class ImageResizer extends ImageWorker {
             final long totalReqPixelsCap = reqWidth * reqHeight * 2;
 
             // 2x just once, not while - by Wooseong Kim
-            if (totalPixels > totalReqPixelsCap) {
-                inSampleSize *= 2;
-            }
+//            if (totalPixels > totalReqPixelsCap) {
+//                inSampleSize *= 2;
+//            }
 
-            /*
+            // previous code
             while (totalPixels > totalReqPixelsCap) {
                 inSampleSize *= 2;
                 totalPixels /= 2;
             }
-            */
         }
         return inSampleSize;
     }
