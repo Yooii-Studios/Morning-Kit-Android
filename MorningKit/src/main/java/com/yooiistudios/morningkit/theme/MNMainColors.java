@@ -43,6 +43,25 @@ public class MNMainColors {
         }
     }
 
+    public static int getButtonLayoutBackgroundColor(MNThemeType themeType) {
+        switch (themeType) {
+            case WATER_LILY:
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case PASTEL_GREEN:
+                return Color.parseColor("#CC000000");
+
+            case CELESTIAL_SKY_BLUE:
+                return Color.parseColor("#E5043f4b");
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+
+    // forward 쪽은 이제 selector로 처리
     public static int getForwardBackgroundColor(MNThemeType themeType) {
         switch (themeType) {
             case WATER_LILY:

@@ -32,6 +32,7 @@ import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
+import com.yooiistudios.morningkit.theme.MNMainResources;
 import com.yooiistudios.morningkit.theme.font.MNTranslucentFont;
 
 import java.io.FileNotFoundException;
@@ -59,7 +60,7 @@ public class MNMainActivity extends Activity
     @Getter @InjectView(R.id.main_alarm_list_view)          MNMainAlarmListView alarmListView;
     @Getter @InjectView(R.id.main_button_layout)            MNMainButtonLayout buttonLayout;
     @Getter @InjectView(R.id.main_refresh_imageview)        ImageView refreshImageView;
-    @Getter @InjectView(R.id.main_refresh_imageview)        ImageView settingImageView;
+    @Getter @InjectView(R.id.main_setting_imageview)        ImageView settingImageView;
     @Getter @InjectView(R.id.main_admob_layout)             RelativeLayout admobLayout;
     @Getter @InjectView(R.id.adView) AdView adView;
 
@@ -155,12 +156,6 @@ public class MNMainActivity extends Activity
         // 테마와 관련된 작업 실행
         panelWindowLayout.applyTheme();
 
-        // 버튼 레이아웃
-        GradientDrawable buttonShape = (GradientDrawable) buttonLayout.getBackground();
-        if (buttonShape != null) {
-            buttonShape.setColor(Color.parseColor("#BB000000"));
-        }
-
         // 애드몹 레이아웃
         admobLayout.setBackgroundColor(Color.parseColor("#BB000000"));
         adView.resume();
@@ -170,7 +165,6 @@ public class MNMainActivity extends Activity
 
         // 세팅 탭에서 돌아올 경우를 대비해 전체적인 레이아웃 최신화 적용
         onConfigurationChanged(getResources().getConfiguration());
-
     }
 
     @Override
@@ -348,6 +342,7 @@ public class MNMainActivity extends Activity
     private void processTheme() {
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
 
+        // Layout
         switch (currentThemeType) {
             case WATER_LILY:
                 if (cameraThemeView != null) {
@@ -425,6 +420,17 @@ public class MNMainActivity extends Activity
                 containerLayout.setBackgroundColor(MNMainColors.getBackwardBackgroundColor(
                         currentThemeType));
                 break;
+        }
+
+        // Button Layout & Admob Layout
+        refreshImageView.setImageResource(MNMainResources.getRefreshButtonSelectorResourceId(currentThemeType));
+        settingImageView.setImageResource(MNMainResources.getSettingButtonSelectorResourceId(currentThemeType));
+        GradientDrawable buttonShape = (GradientDrawable) buttonLayout.getBackground();
+        if (buttonShape != null) {
+            buttonShape.setColor(MNMainColors.getButtonLayoutBackgroundColor(currentThemeType));
+        }
+        if (admobLayout != null) {
+            admobLayout.setBackgroundColor(MNMainColors.getButtonLayoutBackgroundColor(currentThemeType));
         }
     }
 }
