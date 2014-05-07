@@ -236,6 +236,8 @@ public class MNMainActivity extends Activity
                 if (photoThemeImageView != null) {
                     photoThemeImageView.setWaterLilyImage(newConfig.orientation);
                 }
+                break;
+
             case PHOTO:
                 try {
                     photoThemeImageView.setPhotoThemeImage(newConfig.orientation,
@@ -243,6 +245,7 @@ public class MNMainActivity extends Activity
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
+                break;
         }
     }
 
