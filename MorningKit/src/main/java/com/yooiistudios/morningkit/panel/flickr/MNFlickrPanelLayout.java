@@ -3,6 +3,8 @@ package com.yooiistudios.morningkit.panel.flickr;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -14,6 +16,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapLoadSaver;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.flickr.model.MNFlickrBitmapAsyncTask;
@@ -72,6 +75,21 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
         getContentLayout().addView(imageView);
     }
 
+    private void clearBitmap() {
+        if (imageView != null) {
+            Drawable d = imageView.getDrawable();
+            if (d instanceof BitmapDrawable) {
+                Bitmap b = ((BitmapDrawable)d).getBitmap();
+                if (b != null) {
+                    b.recycle();
+                    MNLog.now("flickr imageview recycle Bitmap");
+                }
+            }
+            imageView.setImageBitmap(null);
+            polishedBitmap = null;
+        }
+    }
+
     @Override
     protected void processLoading() throws JSONException {
         super.processLoading();
@@ -83,10 +101,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
         }
 
         // 이미지뷰 초기화
-        if (imageView != null) {
-            imageView.setImageBitmap(null);
-            polishedBitmap = null;
-        }
+        clearBitmap();
 
         // 기존 쿼리는 취소
         if (photoInfoFetchAsyncTask != null) {
@@ -140,7 +155,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
         // 마무리 가공된 Bitmap을 RecycleImageView에 대입
 //        imageView.setImageDrawable(null);
 //        imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), polishedBitmap));
-        imageView.setImageBitmap(null);
         imageView.setImageBitmap(polishedBitmap);
     }
 
@@ -239,9 +253,9 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
             flickrBitmapAsyncTask = null;
         }
         if (polishedBitmap != null) {
-//            imageView.setImageDrawable(null);
-            imageView.setImageBitmap(null);
-            polishedBitmap = null;
+//            imageView.setImageBitmap(null);
+//            polishedBitmap = null;
+            clearBitmap();
         }
 
         // originalBitmap이 있으면 로딩이 되었다고 판단
