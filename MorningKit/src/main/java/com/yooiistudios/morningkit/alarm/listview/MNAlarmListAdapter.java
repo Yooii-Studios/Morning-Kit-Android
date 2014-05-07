@@ -50,7 +50,6 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         if (position < MNAlarmListManager.getAlarmList(context).size()) {
             MNAlarm alarm = null;
             try {

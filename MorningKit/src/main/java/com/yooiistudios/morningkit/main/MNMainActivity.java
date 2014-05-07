@@ -252,9 +252,10 @@ public class MNMainActivity extends Activity
     @OnClick(R.id.main_refresh_imageview) void refreshButtonClicked() {
         MNLog.i(TAG, "refreshButtonClicked");
 
+        // 투명 테마 사용 시 폰트 색을 토글시켜줌
         MNTranslucentFont.toggleFontType(getApplicationContext());
 
-        // 기획 변경 -> 리프레시 버튼 누르면 2초 동안은 동작하지 않음
+        // 패널 & 알람 리프레시
         panelWindowLayout.refreshAllPanels();
         alarmListView.refreshListView();
     }
