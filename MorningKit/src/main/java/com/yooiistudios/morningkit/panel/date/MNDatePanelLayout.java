@@ -221,10 +221,9 @@ public class MNDatePanelLayout extends MNPanelLayout {
     protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        // View.post 방식은 한박자 늦은 느낌이라 이것을 사용
-        MNViewSizeMeasure.setViewSizeObserver(lunarCalendarLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+        post(new Runnable() {
             @Override
-            public void onLayoutLoad() {
+            public void run() {
                 final LayoutParams lunarCalendarLayoutParams
                         = (LayoutParams) lunarCalendarLayout.getLayoutParams();
 
@@ -236,6 +235,23 @@ public class MNDatePanelLayout extends MNPanelLayout {
                 }
             }
         });
+
+        // View.post 방식은 한박자 늦은 느낌이라 이것을 사용
+        // 이것은 아예 제대로 안될 경우가 있다(갤노트 2에서)
+//        MNViewSizeMeasure.setViewSizeObserver(this, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+//            @Override
+//            public void onLayoutLoad() {
+//                final LayoutParams lunarCalendarLayoutParams
+//                        = (LayoutParams) lunarCalendarLayout.getLayoutParams();
+//
+//                // 적당한 너비로 맞추어주자. 나중에 아티스트와 함께 다시 맞출 것.
+//                if (lunarCalendarLayoutParams != null) {
+//                    lunarCalendarLayoutParams.leftMargin =
+//                            (int) ((getWidth() - lunarCalendarLayout.getWidth() - calendarLayout.getWidth()) / 3 * 0.8);
+//                    requestLayout();
+//                }
+//            }
+//        });
     }
 
     @Override
