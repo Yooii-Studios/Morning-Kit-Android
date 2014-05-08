@@ -67,23 +67,24 @@
         android:background="@drawable/shape_main_bottom_bar">
 
         <ImageView
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="@dimen/main_button_refresh_setting_size"
+            android:layout_height="@dimen/main_button_refresh_setting_size"
+            android:paddingTop="2dp"
             android:id="@+id/main_refresh_imageview"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/main_refresh_button_selector_classic_gray"
+            android:src="@drawable/main_refresh_button_selector_pastel_green"
             android:scaleType="fitCenter"
-            android:layout_alignParentStart="false"
             android:contentDescription="@string/loading"/>
 
         <ImageView
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="@dimen/main_button_refresh_setting_size"
+            android:layout_height="@dimen/main_button_refresh_setting_size"
+            android:paddingTop="2dp"
             android:id="@+id/main_setting_imageview"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/main_setting_button_selector_classic_gray"
+            android:src="@drawable/main_setting_button_selector_pastel_green"
             android:scaleType="fitCenter"
             android:contentDescription="@string/loading"/>
     </com.yooiistudios.morningkit.main.layout.MNMainButtonLayout>

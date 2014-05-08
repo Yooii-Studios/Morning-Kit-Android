@@ -17,9 +17,10 @@
 
     <!-- 버튼레이아웃은 outer 패딩의 2배 -->
     <dimen name="margin_main_button_layout">12dp</dimen>
-    <dimen name="padding_main_button_layout">6dp</dimen>
-    <dimen name="main_button_layout_height">48dp</dimen>
+    <dimen name="padding_main_button_layout">10dp</dimen>
+    <dimen name="main_button_layout_height">43dp</dimen>
     <dimen name="main_button_layout_corner_radius">12dp</dimen>
+    <dimen name="main_button_refresh_setting_size">35dp</dimen>
 
     <!-- Admob -->
     <dimen name="main_admob_layout_height">50dp</dimen>
@@ -41,7 +42,7 @@
     <dimen name="alarm_item_label_font_size">17sp</dimen>
 
     <dimen name="alarm_item_time_margin_top">1dp</dimen>
-    <dimen name="alarm_item_time_margin_left">10dp</dimen>
+    <dimen name="alarm_item_time_margin_left">11dp</dimen>
     <dimen name="alarm_item_ampm_margin_left">4dp</dimen>
     <dimen name="alarm_item_label_margin_bottom">7dp</dimen>
 
