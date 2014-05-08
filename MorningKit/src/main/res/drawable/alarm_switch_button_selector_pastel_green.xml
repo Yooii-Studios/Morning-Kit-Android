@@ -2,17 +2,17 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:drawable="@drawable/alarm_switch_on_classic_gray_retina"
+        android:drawable="@drawable/alarm_on_pastel_green"
         android:state_selected="true">
     </item>
 
     <item
-        android:drawable="@drawable/alarm_switch_off_classic_gray_retina"
+        android:drawable="@drawable/alarm_off_pastel_green"
         android:state_selected="false">
     </item>
 
     <item
-        android:drawable="@drawable/alarm_switch_off_classic_gray_retina"
+        android:drawable="@drawable/alarm_off_pastel_green"
         android:state_focused="true">
     </item>
 

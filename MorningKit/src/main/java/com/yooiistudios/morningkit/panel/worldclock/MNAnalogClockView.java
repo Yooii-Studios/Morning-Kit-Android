@@ -67,32 +67,30 @@ public class MNAnalogClockView extends RelativeLayout {
 
     private void initUI() {
         clockBaseImageView = new ImageView(getContext());
-        clockBaseImageView.setImageResource(R.drawable.clock_base_pm_classic_grey);
         LayoutParams clockBaseLayoutParams = new LayoutParams(MATCH_PARENT, MATCH_PARENT);
         clockBaseLayoutParams.addRule(CENTER_IN_PARENT);
         clockBaseImageView.setLayoutParams(clockBaseLayoutParams);
         addView(clockBaseImageView);
 
         secondHandImageView = new ImageView(getContext());
-        secondHandImageView.setImageResource(R.drawable.clock_hand_second);
         LayoutParams secondHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);
         secondHandLayoutParams.addRule(CENTER_IN_PARENT);
         secondHandImageView.setLayoutParams(secondHandLayoutParams);
         addView(secondHandImageView);
 
         minuteHandImageView = new ImageView(getContext());
-        minuteHandImageView.setImageResource(R.drawable.clock_hand_minute);
         LayoutParams minuteHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);
         minuteHandLayoutParams.addRule(CENTER_IN_PARENT);
         minuteHandImageView.setLayoutParams(minuteHandLayoutParams);
         addView(minuteHandImageView);
 
         hourHandImageView = new ImageView(getContext());
-        hourHandImageView.setImageResource(R.drawable.clock_hand_hour);
         LayoutParams hourHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);
         hourHandLayoutParams.addRule(CENTER_IN_PARENT);
         hourHandImageView.setLayoutParams(hourHandLayoutParams);
         addView(hourHandImageView);
+
+        applyTheme();
     }
 
     // 시, 분, 초를 대입해서 애니메이션 작동이 되게 한다
@@ -147,5 +145,12 @@ public class MNAnalogClockView extends RelativeLayout {
         }
         anim.setFillAfter(true);
         imageView.startAnimation(anim);
+    }
+
+    public void applyTheme() {
+        clockBaseImageView.setImageResource(R.drawable.clock_base_pm_pastel_green);
+        secondHandImageView.setImageResource(R.drawable.clock_hand_second_pm_pastel_green);
+        minuteHandImageView.setImageResource(R.drawable.clock_hand_minute_pm_pastel_green);
+        hourHandImageView.setImageResource(R.drawable.clock_hand_hour_pm_pastel_green);
     }
 }

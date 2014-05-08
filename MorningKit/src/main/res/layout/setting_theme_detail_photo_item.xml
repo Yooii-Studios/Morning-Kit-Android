@@ -50,7 +50,7 @@
             android:id="@+id/setting_theme_detail_photo_item_divider_imageview"
             android:layout_width="@dimen/setting_theme_detail_photo_item_divider_width"
             android:layout_height="@dimen/setting_theme_detail_photo_item_divider_height"
-            android:background="@drawable/dividing_bar_on_classic_white"
+            android:background="@drawable/alarm_dividing_bar_on_classic_white"
             android:scaleType="fitStart"
             android:adjustViewBounds="true"
             android:layout_toRightOf="@+id/setting_theme_detail_photo_item_crop_layout"

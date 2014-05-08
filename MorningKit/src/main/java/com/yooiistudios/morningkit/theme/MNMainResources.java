@@ -74,27 +74,27 @@ public class MNMainResources {
     /**
      * Alarm
      */
-    public static int getAlarmDividingBarResourceId(MNThemeType themeType) {
+    public static int getAddAlarmDividingBarResourceId(MNThemeType themeType) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.dividing_bar_off_translucent_black;
+                return R.drawable.alarm_dividing_bar_off_translucent_black;
 
             case WATER_LILY:
-                return R.drawable.dividing_bar_off_translucent_black;
+                return R.drawable.alarm_dividing_bar_off_translucent_black;
 
             case MODERNITY_WHITE:
-                return R.drawable.dividing_bar_on_classic_white;
+                return R.drawable.alarm_dividing_bar_on_classic_white;
 
             case SLATE_GRAY:
-                return R.drawable.dividing_bar_on_skyblue;
+                return R.drawable.alarm_dividing_bar_on_skyblue;
 
             case CELESTIAL_SKY_BLUE:
-                return R.drawable.dividing_bar_off_skyblue;
+                return R.drawable.alarm_dividing_bar_off_skyblue;
 
             case PASTEL_GREEN:
-                return R.drawable.dividing_bar_on_classic_white;
+                return R.drawable.alarm_dividing_bar_add_pastel_green;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -105,22 +105,22 @@ public class MNMainResources {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.dividing_bar_on_translucent_black;
+                return R.drawable.alarm_dividing_bar_on_translucent_black;
 
             case WATER_LILY:
-                return R.drawable.dividing_bar_on_translucent_black;
+                return R.drawable.alarm_dividing_bar_on_translucent_black;
 
             case MODERNITY_WHITE:
-                return R.drawable.dividing_bar_on_classic_white;
+                return R.drawable.alarm_dividing_bar_on_classic_white;
 
             case SLATE_GRAY:
-                return R.drawable.dividing_bar_on_skyblue;
+                return R.drawable.alarm_dividing_bar_on_skyblue;
 
             case CELESTIAL_SKY_BLUE:
-                return R.drawable.dividing_bar_on_skyblue;
+                return R.drawable.alarm_dividing_bar_on_skyblue;
 
             case PASTEL_GREEN:
-                return R.drawable.dividing_bar_on_classic_white;
+                return R.drawable.alarm_dividing_bar_on_pastel_green;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -131,22 +131,22 @@ public class MNMainResources {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.dividing_bar_off_translucent_black;
+                return R.drawable.alarm_dividing_bar_off_translucent_black;
 
             case WATER_LILY:
-                return R.drawable.dividing_bar_off_translucent_black;
+                return R.drawable.alarm_dividing_bar_off_translucent_black;
 
             case MODERNITY_WHITE:
-                return R.drawable.dividing_bar_off_classic_white;
+                return R.drawable.alarm_dividing_bar_off_classic_white;
 
             case SLATE_GRAY:
-                return R.drawable.dividing_bar_gray_s3;
+                return R.drawable.alarm_dividing_bar_off_classic_gray;
 
             case CELESTIAL_SKY_BLUE:
-                return R.drawable.dividing_bar_off_skyblue;
+                return R.drawable.alarm_dividing_bar_off_skyblue;
 
             case PASTEL_GREEN:
-                return R.drawable.dividing_bar_off_classic_white;
+                return R.drawable.alarm_dividing_bar_off_pastel_green;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -157,22 +157,22 @@ public class MNMainResources {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.plus_translucent_black;
+                return R.drawable.alarm_plus_translucent_black;
 
             case WATER_LILY:
-                return R.drawable.plus_translucent_black;
+                return R.drawable.alarm_plus_translucent_black;
 
             case MODERNITY_WHITE:
-                return R.drawable.plus_classic_white;
+                return R.drawable.alarm_plus_classic_white;
 
             case SLATE_GRAY:
-                return R.drawable.plus_classic_gray;
+                return R.drawable.alarm_plus_classic_gray;
 
             case CELESTIAL_SKY_BLUE:
-                return R.drawable.plus_skyblue;
+                return R.drawable.alarm_plus_skyblue;
 
             case PASTEL_GREEN:
-                return R.drawable.plus_classic_white;
+                return R.drawable.alarm_plus_pastel_green;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -198,7 +198,7 @@ public class MNMainResources {
                 return R.drawable.alarm_switch_button_selector_skyblue;
 
             case PASTEL_GREEN:
-                return R.drawable.alarm_switch_button_selector_classic_white;
+                return R.drawable.alarm_switch_button_selector_pastel_green;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
