@@ -21,6 +21,9 @@ import com.yooiistudios.morningkit.panel.exchangerates.model.FlagBitmapFactory;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNDefaultExchangeRatesInfo;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesAsyncTask;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesInfo;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import org.json.JSONException;
 
@@ -126,7 +129,6 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
                 getResources().getDimension(R.dimen.panel_exchange_rates_sub_font_size));
         targetToBaseCurrecyTextView.setSingleLine();
         LayoutParams targetToBaseLayoutParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
-        targetToBaseLayoutParams.topMargin = marginOuter;
         targetToBaseLayoutParams.leftMargin = marginOuter;
         targetToBaseLayoutParams.rightMargin = marginOuter;
         targetToBaseLayoutParams.addRule(BELOW, baseToTargetCurrecyTextView.getId());
@@ -239,6 +241,18 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 //                targetToBaseCurrecyTextView.resizeText();
 //            }
 //        });
+    }
+
+    @Override
+    public void applyTheme() {
+        super.applyTheme();
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext());
+
+        // weather condition image view
+        baseToTargetCurrecyTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType,
+                getContext().getApplicationContext()));
+        targetToBaseCurrecyTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType,
+                getContext().getApplicationContext()));
     }
 
     /**

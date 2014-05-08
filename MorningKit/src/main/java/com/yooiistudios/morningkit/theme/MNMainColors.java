@@ -51,8 +51,10 @@ public class MNMainColors {
             case PHOTO:
             case MODERNITY_WHITE:
             case SLATE_GRAY:
-            case PASTEL_GREEN:
                 return Color.parseColor("#CC000000");
+
+            case PASTEL_GREEN:
+                return Color.parseColor("#CC5ab38c");
 
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#E5043f4b");
@@ -219,7 +221,13 @@ public class MNMainColors {
     }
 
     public static int getAlarmSubFontColor(MNThemeType themeType, Context context) {
-        return getSubFontColor(themeType, context);
+        switch (themeType) {
+            case PASTEL_GREEN:
+                return Color.parseColor("#c1c1c1");
+
+            default:
+                return getSubFontColor(themeType, context);
+        }
     }
 
     /**
