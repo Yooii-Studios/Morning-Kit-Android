@@ -189,6 +189,10 @@ public class MNBitmapProcessor {
             ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
             paint.setColorFilter(f);
             canvas.drawBitmap(originalBitmap, 0, 0, paint);
+
+            // 그리고 난 뒤 리사이클
+            originalBitmap.recycle();
+
             return grayScaledBitmap;
         }
         return null;

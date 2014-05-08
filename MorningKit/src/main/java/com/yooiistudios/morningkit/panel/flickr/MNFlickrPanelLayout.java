@@ -202,10 +202,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
             originalBitmap = null;
         }
         originalBitmap = bitmap;
-        if (isGrayScale) {
-            // 쓰레드를 일단 사용하지 않는 것으로 결정
-            originalBitmap = MNBitmapProcessor.getGrayScaledBitmap(originalBitmap);
-        }
         getPolishedFlickrBitmap();
     }
 
