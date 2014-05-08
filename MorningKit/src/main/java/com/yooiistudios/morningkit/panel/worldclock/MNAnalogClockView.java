@@ -149,8 +149,8 @@ public class MNAnalogClockView extends RelativeLayout {
 
     public void applyTheme() {
         clockBaseImageView.setImageResource(R.drawable.clock_base_pm_pastel_green);
-        secondHandImageView.setImageResource(R.drawable.clock_hand_second_pastel_green);
-        minuteHandImageView.setImageResource(R.drawable.clock_hand_minute_pastel_green);
-        hourHandImageView.setImageResource(R.drawable.clock_hand_hour_pastel_green);
+        secondHandImageView.setImageResource(R.drawable.clock_hand_second_pm_pastel_green);
+        minuteHandImageView.setImageResource(R.drawable.clock_hand_minute_pm_pastel_green);
+        hourHandImageView.setImageResource(R.drawable.clock_hand_hour_pm_pastel_green);
     }
 }
