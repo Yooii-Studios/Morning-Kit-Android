@@ -258,7 +258,8 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
         // originalBitmap이 있으면 로딩이 되었다고 판단
         if (originalBitmap != null) {
             flickrBitmapAsyncTask = new MNFlickrBitmapAsyncTask(originalBitmap,
-                    imageView.getWidth(), imageView.getHeight(), isGrayScale, this, getContext());
+                    imageView.getWidth(), imageView.getHeight(), isGrayScale, this,
+                    getContext().getApplicationContext());
             flickrBitmapAsyncTask.execute();
         }
     }
