@@ -54,7 +54,7 @@ public class MNMainColors {
                 return Color.parseColor("#CC000000");
 
             case PASTEL_GREEN:
-                return Color.parseColor("#CC5ab38c");
+                return Color.parseColor("#CC5ab38c"); // 아직 더 조정할 필요가 있음
 
             case CELESTIAL_SKY_BLUE:
                 return Color.parseColor("#E5043f4b");
