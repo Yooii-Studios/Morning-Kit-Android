@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/alarm_item_time_margin_left"
             android:paddingBottom="@dimen/margin_inner"
             android:gravity="center_vertical"
             android:text="@string/add_an_alarm"
