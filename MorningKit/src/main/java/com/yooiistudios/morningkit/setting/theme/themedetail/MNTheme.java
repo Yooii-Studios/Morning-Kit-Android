@@ -22,7 +22,7 @@ public class MNTheme {
     private MNTheme(Context context) {
         if (context != null) {
             int uniqueId = context.getSharedPreferences(THEME_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                    .getInt(THEME_KEY, MNThemeType.MODERNITY_WHITE.getUniqueId());
+                    .getInt(THEME_KEY, MNThemeType.PASTEL_GREEN.getUniqueId());
 
             currentThemeType = MNThemeType.valueOfUniqueId(uniqueId);
         }
