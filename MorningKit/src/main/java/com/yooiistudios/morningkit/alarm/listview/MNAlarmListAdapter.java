@@ -112,7 +112,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
                 // divider
                 alarmCreateItemViewHolder.dividingBarImageView.setImageResource(
-                        MNMainResources.getAlarmDividingBarResourceId(currentThemeType));
+                        MNMainResources.getAddAlarmDividingBarResourceId(currentThemeType));
 
                 // plus
                 alarmCreateItemViewHolder.plusImageView.setImageResource(

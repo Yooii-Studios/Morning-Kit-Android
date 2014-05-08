@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/alarm_create_item_plus_image_view"
-            android:src="@drawable/alarm_dividing_bar_default"
+            android:src="@drawable/dividing_bar_on_translucent"
             android:contentDescription="@string/loading"
             android:layout_centerInParent="true"/>
 
@@ -54,7 +54,7 @@
             android:layout_height="@dimen/alarm_create_item_plus_size"
             android:layout_alignParentRight="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/alarm_plus_icon_s3"
+            android:src="@drawable/alarm_plus_pastel_green"
             android:contentDescription="@string/loading"
             android:layout_centerInParent="true"/>
 
