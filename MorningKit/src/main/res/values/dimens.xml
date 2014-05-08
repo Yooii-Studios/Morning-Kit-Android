@@ -96,14 +96,14 @@
 
     <!-- Exchange Rates -->
     <!-- Main -->
-    <dimen name="panel_exchange_rates_flag_width">60dp</dimen>
+    <dimen name="panel_exchange_rates_flag_width">55dp</dimen>
     <dimen name="panel_exchange_rates_flag_height">36dp</dimen>
     <dimen name="panel_exchange_rates_main_font_size">15dp</dimen>
     <dimen name="panel_exchange_rates_sub_font_size">12dp</dimen>
     <dimen name="panel_exchange_rates_minimum_font_size">9dp</dimen>
 
     <!-- Detail -->
-    <dimen name="panel_exchange_rates_detail_info_height">65dp</dimen>
+    <dimen name="panel_exchange_rates_detail_info_height">63dp</dimen>
     <dimen name="panel_exchange_rates_detail_flag_width">50dp</dimen>
     <dimen name="panel_exchange_rates_detail_flag_height">30dp</dimen>
     <dimen name="panel_exchange_rates_detail_currency_code_text_size">16dp</dimen>
