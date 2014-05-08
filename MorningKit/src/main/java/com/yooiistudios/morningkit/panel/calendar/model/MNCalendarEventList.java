@@ -47,7 +47,7 @@ public class MNCalendarEventList {
             } else {
                 // 오늘 스케쥴 이벤트
                 calendarEventItemInfo.calendarEventType = MNCalendarEventType.TODAY_SCHEDULED;
-                calendarEventItemInfo.convertedIndex = index;
+                calendarEventItemInfo.convertedIndex = index - todayAlldayEvents.size();
             }
         } else {
             if (todayAlldayEvents.size() + todayScheduledEvents.size() > index) {
