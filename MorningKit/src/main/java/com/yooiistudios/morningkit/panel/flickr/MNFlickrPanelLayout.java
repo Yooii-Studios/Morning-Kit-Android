@@ -170,7 +170,8 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        MNBitmapLoadSaver.loadBitmapUsingVolley(flickrPhotoInfo.getPhotoUrlString(), getContext(), this);
+        MNBitmapLoadSaver.loadBitmapUsingVolley(flickrPhotoInfo.getPhotoUrlString(),
+                getContext().getApplicationContext(), this);
     }
 
     @Override
