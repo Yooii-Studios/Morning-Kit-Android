@@ -147,6 +147,7 @@ public class MNBitmapProcessor {
         if(bitmap != null) {
             // 프레임에 맞게 비트맵 scaling
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true);
+            bitmap.recycle();
 
             Bitmap outputBitmap = Bitmap.createBitmap(scaledBitmap.getWidth(), scaledBitmap.getHeight(), Bitmap.Config.ARGB_8888);
 
@@ -172,6 +173,7 @@ public class MNBitmapProcessor {
 
             paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
             canvas.drawBitmap(scaledBitmap, rect, rect, paint);
+            scaledBitmap.recycle();
             return outputBitmap;
         }
         return null;
