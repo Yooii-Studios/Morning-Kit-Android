@@ -11,10 +11,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.date.model.DateUtil;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import org.json.JSONException;
 
@@ -234,5 +236,24 @@ public class MNDatePanelLayout extends MNPanelLayout {
                 }
             }
         });
+    }
+
+    @Override
+    public void applyTheme() {
+        super.applyTheme();
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext());
+
+        int mainFontColor = MNMainColors.getMainFontColor(currentThemeType,
+                getContext().getApplicationContext());
+        int subFontColor = MNMainColors.getSubFontColor(currentThemeType,
+                getContext().getApplicationContext());
+
+        monthTextView.setTextColor(subFontColor);
+        dayTextView.setTextColor(mainFontColor);
+        dayOfWeekTextView.setTextColor(subFontColor);
+
+        lunarMonthTextView.setTextColor(subFontColor);
+        lunarDayOfWeekTextView.setTextColor(mainFontColor);
+        lunarDayOfWeekTextView.setTextColor(subFontColor);
     }
 }
