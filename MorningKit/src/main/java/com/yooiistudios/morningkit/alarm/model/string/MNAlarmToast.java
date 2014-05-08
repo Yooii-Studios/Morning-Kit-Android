@@ -4,6 +4,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
 import java.util.Calendar;
 
@@ -46,22 +48,22 @@ public class MNAlarmToast {
                 }
             }
             if (minuteGap != 0) {
-                // 추후 구현
-//            if (GeneralSetting.getLanguageName().equals("English") ) {
-//                // 앞에 뭐가 있으면 and 붙임
-//                if (dayGap != 0 || hourGap != 0) {
-//                    toastString += "and ";
-//                }
-//            }
-
+                // 영어 전용
+                if (MNLanguage.getCurrentLanguageType(context.getApplicationContext()) ==
+                        MNLanguageType.ENGLISH) {
+                    // 앞에 뭐가 있으면 마지막에 and 를 붙임
+                    if (dayGap != 0 || hourGap != 0) {
+                        toastString += "and ";
+                    }
+                }
                 // 분만 있으면 and 안붙임
                 if (minuteGap == 1) {
                     toastString = toastString + minuteGap + context.getString(R.string.alarm_minute);
-                }else{
-                    toastString = toastString + minuteGap + context.getString(R.string.alarm_minute);
+                } else {
+                    toastString = toastString + minuteGap + context.getString(R.string.alarm_minutes);
                 }
-                toastString += context.getString(R.string.alarm_set_toast_part2);
             }
+            toastString += context.getString(R.string.alarm_set_toast_part2);
         } else {
             toastString = context.getString(R.string.alarm_set_for_less_than_1_minute);
         }
