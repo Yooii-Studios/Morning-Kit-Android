@@ -17,8 +17,10 @@ import com.yooiistudios.morningkit.panel.calendar.adapter.MNCalendarListAdapter;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarSelectDialog;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarUtils;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
@@ -81,8 +83,11 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
     @Override
     public void onResume() {
         super.onResume();
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity().getApplicationContext());
         eventsListView.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(
-                MNTheme.getCurrentThemeType(getActivity())));
+                currentThemeType));
+
+        noScheduleTextView.setTextColor(MNSettingColors.getDisabledFontColor(currentThemeType));
     }
 
     private void refreshUI() {

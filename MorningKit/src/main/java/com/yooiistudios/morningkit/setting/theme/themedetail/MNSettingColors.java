@@ -173,6 +173,10 @@ public class MNSettingColors {
 //        }
     }
 
+    public static int getDisabledFontColor(MNThemeType themeType) {
+        return Color.parseColor("#c1c1c1");
+    }
+
     public static int getLockedFontColor(MNThemeType themeType) {
         return Color.parseColor("#797979");
 
