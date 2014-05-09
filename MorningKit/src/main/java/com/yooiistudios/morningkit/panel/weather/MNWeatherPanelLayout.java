@@ -3,10 +3,13 @@ package com.yooiistudios.morningkit.panel.weather;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +31,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.weather.model.LocationUtils;
@@ -261,6 +265,11 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     protected void processLoading() throws JSONException {
         super.processLoading();
 
+        // recycle imageview
+        if (MNBitmapUtils.recycleImageView(weatherConditionImageView)) {
+            MNLog.i(TAG, "weather condition imageview recycled");
+        }
+
         // get data from panelDataObject
         loadPanelDataObject();
 
@@ -324,7 +333,14 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         // weather condition
         if (weatherData.weatherCondition != null) {
             // set image resource
-            weatherConditionImageView.setImageResource(weatherData.weatherCondition.getConditionResourceId());
+            Bitmap weatherConditionBitmap = BitmapFactory.decodeResource(
+                    getContext().getApplicationContext().getResources(),
+                    weatherData.weatherCondition.getConditionResourceId(), MNBitmapUtils.getDefaultOptions());
+
+            weatherConditionImageView.setImageDrawable(
+                    new BitmapDrawable(getContext().getApplicationContext().getResources(),
+                            weatherConditionBitmap));
+//            weatherConditionImageView.setImageResource(weatherData.weatherCondition.getConditionResourceId());
 
             // convert to bitmap with color
             applyTheme();

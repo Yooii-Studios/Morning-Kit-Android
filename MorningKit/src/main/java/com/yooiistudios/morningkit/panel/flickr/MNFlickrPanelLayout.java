@@ -77,7 +77,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
 
     private void clearBitmap() {
         if (MNBitmapUtils.recycleImageView(imageView)) {
-            MNLog.now("flickr bitmap recycled");
+            MNLog.i(TAG, "flickr bitmap recycled");
             polishedBitmap = null;
         }
 //        if (imageView != null) {
