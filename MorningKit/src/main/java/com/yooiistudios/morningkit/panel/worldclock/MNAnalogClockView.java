@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
@@ -12,6 +11,8 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainResources;
@@ -121,6 +122,10 @@ public class MNAnalogClockView extends RelativeLayout {
             rotate(secondHandImageView, newSecondAngle - DEGREE_MINUTE, newSecondAngle);
         }
 
+        // test: 리소스가 제대로 교체되는지
+//        isTimeAm = !isTimeAm;
+//        applyTheme();
+
         // when hour changed - check art resources(clock base for AM/PM)
         if (minute == 0 && second == 0) {
             if (hour >= 12) {
@@ -160,66 +165,63 @@ public class MNAnalogClockView extends RelativeLayout {
     private void applyTheme() {
 
         // recycle before alloc new image resource
-        clearBitmap(clockBaseImageView);
-        clearBitmap(secondHandImageView);
-        clearBitmap(minuteHandImageView);
-        clearBitmap(hourHandImageView);
+        MNLog.i(TAG, "recycle image views");
+        MNBitmapUtils.recycleImageView(clockBaseImageView);
+        MNBitmapUtils.recycleImageView(secondHandImageView);
+        MNBitmapUtils.recycleImageView(minuteHandImageView);
+        MNBitmapUtils.recycleImageView(hourHandImageView);
 
         // use BitmapFactory instead of setImageResource because of OOM
         MNThemeType currentType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
+        BitmapFactory.Options options = MNBitmapUtils.getDefaultOptions();
         if (isTimeAm) {
             Bitmap clockBaseBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockAMBase(currentType));
-            clockBaseImageView.setImageBitmap(clockBaseBitmap);
+                    MNMainResources.getWorldClockAMBase(currentType), options);
+            clockBaseImageView.setImageDrawable(
+                    new BitmapDrawable(getContext().getApplicationContext().getResources(), clockBaseBitmap));
 
             Bitmap secondHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockAMSecondHand(currentType));
-            secondHandImageView.setImageBitmap(secondHandBitmap);
+                    MNMainResources.getWorldClockAMSecondHand(currentType), options);
+            secondHandImageView.setImageDrawable(
+                    new BitmapDrawable(getContext().getApplicationContext().getResources(), secondHandBitmap));
 
             Bitmap minuteHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockAMMinuteHand(currentType));
-            minuteHandImageView.setImageBitmap(minuteHandBitmap);
+                    MNMainResources.getWorldClockAMMinuteHand(currentType), options);
+            minuteHandImageView.setImageDrawable(
+                    new BitmapDrawable(getContext().getApplicationContext().getResources(), minuteHandBitmap));
 
             Bitmap hourHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockAMHourHand(currentType));
-            hourHandImageView.setImageBitmap(hourHandBitmap);
+                    MNMainResources.getWorldClockAMHourHand(currentType), options);
+            hourHandImageView.setImageDrawable(
+                    new BitmapDrawable(getContext().getApplicationContext().getResources(), hourHandBitmap));
         } else {
             Bitmap clockBaseBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockPMBase(currentType));
-            clockBaseImageView.setImageBitmap(clockBaseBitmap);
+                    MNMainResources.getWorldClockPMBase(currentType), options);
+            clockBaseImageView.setImageDrawable(
+                    new BitmapDrawable(getContext().getApplicationContext().getResources(), clockBaseBitmap));
 
             Bitmap secondHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockPMSecondHand(currentType));
-            secondHandImageView.setImageBitmap(secondHandBitmap);
+                    MNMainResources.getWorldClockPMSecondHand(currentType), options);
+            secondHandImageView.setImageDrawable(
+                    new BitmapDrawable(getContext().getApplicationContext().getResources(), secondHandBitmap));
 
             Bitmap minuteHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockPMMinuteHand(currentType));
-            minuteHandImageView.setImageBitmap(minuteHandBitmap);
+                    MNMainResources.getWorldClockPMMinuteHand(currentType), options);
+            minuteHandImageView.setImageDrawable(
+                    new BitmapDrawable(getContext().getApplicationContext().getResources(), minuteHandBitmap));
 
             Bitmap hourHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockPMHourHand(currentType));
-            hourHandImageView.setImageBitmap(hourHandBitmap);
-        }
-    }
-
-    private void clearBitmap(ImageView imageView) {
-        if (imageView != null) {
-            Drawable d = imageView.getDrawable();
-            if (d instanceof BitmapDrawable) {
-                Bitmap b = ((BitmapDrawable)d).getBitmap();
-                if (b != null) {
-                    b.recycle();
-                }
-            }
-            imageView.setImageBitmap(null);
+                    MNMainResources.getWorldClockPMHourHand(currentType), options);
+            hourHandImageView.setImageDrawable(
+                    new BitmapDrawable(getContext().getApplicationContext().getResources(), hourHandBitmap));
         }
     }
 }

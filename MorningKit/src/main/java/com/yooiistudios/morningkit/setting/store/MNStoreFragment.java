@@ -421,29 +421,29 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     public void onDestroy() {
         super.onDestroy();
         MNLog.i("MNStoreFragment", "onDestroy");
-        ViewUnbindHelper.unbindReferences(progressBar);
-        ViewUnbindHelper.unbindReferences(loadingView);
-
-        ViewUnbindHelper.unbindReferences(fullVersionImageView);
-        ViewUnbindHelper.unbindReferences(fullVersionButtonImageView);
-        ViewUnbindHelper.unbindReferences(fullVersionButtonTextView);
-
-        ViewUnbindHelper.unbindReferences(leftTabDivider);
-        ViewUnbindHelper.unbindReferences(rightTabDivider);
-
-        ViewUnbindHelper.unbindReferences(functionTabLayout);
-        ViewUnbindHelper.unbindReferences(panelTabLayout);
-        ViewUnbindHelper.unbindReferences(themeTabLayout);
-
-        ViewUnbindHelper.unbindReferences(functionTextView);
-        ViewUnbindHelper.unbindReferences(panelTextView);
-        ViewUnbindHelper.unbindReferences(themeTextView);
-
-        ViewUnbindHelper.unbindReferences(functionGridView);
-        ViewUnbindHelper.unbindReferences(panelGridView);
-        ViewUnbindHelper.unbindReferences(themeGridView);
-
-        ViewUnbindHelper.unbindReferences(resetButton);
-        ViewUnbindHelper.unbindReferences(debugButton);
+//        ViewUnbindHelper.unbindReferences(progressBar);
+//        ViewUnbindHelper.unbindReferences(loadingView);
+//
+//        ViewUnbindHelper.unbindReferences(fullVersionImageView);
+//        ViewUnbindHelper.unbindReferences(fullVersionButtonImageView);
+//        ViewUnbindHelper.unbindReferences(fullVersionButtonTextView);
+//
+//        ViewUnbindHelper.unbindReferences(leftTabDivider);
+//        ViewUnbindHelper.unbindReferences(rightTabDivider);
+//
+//        ViewUnbindHelper.unbindReferences(functionTabLayout);
+//        ViewUnbindHelper.unbindReferences(panelTabLayout);
+//        ViewUnbindHelper.unbindReferences(themeTabLayout);
+//
+//        ViewUnbindHelper.unbindReferences(functionTextView);
+//        ViewUnbindHelper.unbindReferences(panelTextView);
+//        ViewUnbindHelper.unbindReferences(themeTextView);
+//
+//        ViewUnbindHelper.unbindReferences(functionGridView);
+//        ViewUnbindHelper.unbindReferences(panelGridView);
+//        ViewUnbindHelper.unbindReferences(themeGridView);
+//
+//        ViewUnbindHelper.unbindReferences(resetButton);
+//        ViewUnbindHelper.unbindReferences(debugButton);
     }
 }

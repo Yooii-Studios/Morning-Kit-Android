@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -15,6 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapLoadSaver;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
@@ -76,18 +76,21 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
     }
 
     private void clearBitmap() {
-        if (imageView != null) {
-            Drawable d = imageView.getDrawable();
-            if (d instanceof BitmapDrawable) {
-                Bitmap b = ((BitmapDrawable)d).getBitmap();
-                if (b != null) {
-                    b.recycle();
-                    MNLog.now("flickr imageview recycle Bitmap");
-                }
-            }
-            imageView.setImageBitmap(null);
+        if (MNBitmapUtils.recycleImageView(imageView)) {
+            MNLog.now("flickr bitmap recycled");
             polishedBitmap = null;
         }
+//        if (imageView != null) {
+//            Drawable d = imageView.getDrawable();
+//            if (d instanceof BitmapDrawable) {
+//                Bitmap b = ((BitmapDrawable) d).getBitmap();
+//                if (b != null) {
+//                    b.recycle();
+//                    MNLog.now("flickr imageview recycle Bitmap");
+//                }
+//            }
+//            imageView.setImageBitmap(null);
+//        }
     }
 
     @Override
@@ -152,10 +155,11 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
         // 리프레시 플래그 처리(로딩하는 동안엔 회전에 대응하지 않게 구현)
         isRefreshing = false;
 
-        // 마무리 가공된 Bitmap을 RecycleImageView에 대입
+        // 마무리 가공된 Bitmap을 대입
 //        imageView.setImageDrawable(null);
 //        imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), polishedBitmap));
-        imageView.setImageBitmap(polishedBitmap);
+        imageView.setImageDrawable(new BitmapDrawable(getContext().getApplicationContext().getResources(),
+                polishedBitmap));
     }
 
     /**
@@ -226,6 +230,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
     @Override
     protected void onSizeChanged(final int w, final int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        MNLog.i(TAG, "onSizeChanged");
         MNViewSizeMeasure.setViewSizeObserver(imageView, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
             @Override
             public void onLayoutLoad() {

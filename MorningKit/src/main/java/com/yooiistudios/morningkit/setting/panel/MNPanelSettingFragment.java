@@ -624,20 +624,20 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
     public void onDestroy() {
         super.onDestroy();
         MNLog.i(TAG, "onDestroy");
-        ViewUnbindHelper.unbindReferences(containerLayout);
-
-        ViewUnbindHelper.unbindReferences(panelMatrixItemLayoutLine1);
-        ViewUnbindHelper.unbindReferences(panelMatrixItemLayoutLine2);
-        ViewUnbindHelper.unbindReferences(panelMatrixItemLayoutLine3);
-
-        ViewUnbindHelper.unbindReferences(panelMatrixScrollView);
-
-        ViewUnbindHelper.unbindReferences(panelMatrixItem1);
-        ViewUnbindHelper.unbindReferences(panelMatrixItem2);
-        ViewUnbindHelper.unbindReferences(panelMatrixItem3);
-        ViewUnbindHelper.unbindReferences(panelMatrixItem4);
-        ViewUnbindHelper.unbindReferences(panelMatrixItem5);
-
-        ViewUnbindHelper.unbindReferences(panelSelectPagerLayout);
+//        ViewUnbindHelper.unbindReferences(containerLayout);
+//
+//        ViewUnbindHelper.unbindReferences(panelMatrixItemLayoutLine1);
+//        ViewUnbindHelper.unbindReferences(panelMatrixItemLayoutLine2);
+//        ViewUnbindHelper.unbindReferences(panelMatrixItemLayoutLine3);
+//
+//        ViewUnbindHelper.unbindReferences(panelMatrixScrollView);
+//
+//        ViewUnbindHelper.unbindReferences(panelMatrixItem1);
+//        ViewUnbindHelper.unbindReferences(panelMatrixItem2);
+//        ViewUnbindHelper.unbindReferences(panelMatrixItem3);
+//        ViewUnbindHelper.unbindReferences(panelMatrixItem4);
+//        ViewUnbindHelper.unbindReferences(panelMatrixItem5);
+//
+//        ViewUnbindHelper.unbindReferences(panelSelectPagerLayout);
     }
 }
