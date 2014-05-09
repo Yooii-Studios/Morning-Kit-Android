@@ -117,8 +117,8 @@ public class SKBitmapLoader {
         BitmapFactory.Options options = new BitmapFactory.Options();
 
         // 565를 사용했더니 사진에 그라데이션이 조금 생기기에 퍼포먼스를 조금 포기하고 이것으로 사용
-//        options.inPreferredConfig = Config.ARGB_8888;
-        options.inPreferredConfig = Config.RGB_565;
+        options.inPreferredConfig = Config.ARGB_8888;
+//        options.inPreferredConfig = Config.RGB_565;
         options.inJustDecodeBounds = true;
         options.inDither = true;
 
