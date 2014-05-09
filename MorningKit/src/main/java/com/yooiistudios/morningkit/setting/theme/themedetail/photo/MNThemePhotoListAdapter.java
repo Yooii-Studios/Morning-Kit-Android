@@ -98,7 +98,7 @@ public class MNThemePhotoListAdapter extends BaseAdapter {
                     }
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                    intent.putExtra("outputformat", Bitmap.CompressFormat.PNG.name());
+                    intent.putExtra("outputformat", Bitmap.CompressFormat.JPEG.name());
                     intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
                     // 사진 선택 기능으로 간다
