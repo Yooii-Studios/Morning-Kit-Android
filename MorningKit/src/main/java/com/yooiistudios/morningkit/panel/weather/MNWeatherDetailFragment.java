@@ -243,6 +243,7 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
             getPanelDataObject().put(WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO,
                     new Gson().toJson(selectedLocationInfo));
         } else {
+            getPanelDataObject().put(WEATHER_DATA_IS_USING_CURRENT_LOCATION, true);
             getPanelDataObject().remove(WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO);
         }
     }
