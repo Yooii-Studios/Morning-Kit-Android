@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -14,6 +15,8 @@ import android.widget.RelativeLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -150,6 +153,12 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
     protected void processLoading() throws JSONException {
         super.processLoading();
 
+        // recycle image views
+        if (MNBitmapUtils.recycleImageView(baseCurrencyImageView)) {
+            MNLog.i(TAG, "flag imageview recycled");
+        }
+        MNBitmapUtils.recycleImageView(targetCurrencyImageView);
+
         // get info from panelDataObject
         initExchangeRatesInfo();
 
@@ -199,21 +208,15 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         super.updateUI();
 
         // image
-//        baseCurrencyImageView.setImageDrawable(null);
-//        baseCurrencyImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-//                baseCurrencyBitmap));
-        baseCurrencyImageView.setImageBitmap(null);
-        Bitmap baseCurrencyBitmap = FlagBitmapFactory.getGrayscaledFlagBitmap(getContext(),
+        Bitmap baseCurrencyBitmap = FlagBitmapFactory.getGrayscaledFlagBitmap(getContext().getApplicationContext(),
                 exchangeRatesInfo.getBaseCountryCode());
-        baseCurrencyImageView.setImageBitmap(baseCurrencyBitmap);
+        baseCurrencyImageView.setImageDrawable(
+                new BitmapDrawable(getContext().getApplicationContext().getResources(), baseCurrencyBitmap));
 
-//        targetCurrencyImageView.setImageDrawable(null);
-//        targetCurrencyImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-//                targetCurrencyBitmap));
-        targetCurrencyImageView.setImageBitmap(null);
-        Bitmap targetCurrencyBitmap = FlagBitmapFactory.getGrayscaledFlagBitmap(getContext(),
+        Bitmap targetCurrencyBitmap = FlagBitmapFactory.getGrayscaledFlagBitmap(getContext().getApplicationContext(),
                 exchangeRatesInfo.getTargetCountryCode());
-        targetCurrencyImageView.setImageBitmap(targetCurrencyBitmap);
+        targetCurrencyImageView.setImageDrawable(
+                new BitmapDrawable(getContext().getApplicationContext().getResources(), targetCurrencyBitmap));
 
         // string
         updateTextViews();
