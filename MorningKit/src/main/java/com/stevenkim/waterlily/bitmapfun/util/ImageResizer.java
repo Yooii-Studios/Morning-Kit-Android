@@ -116,6 +116,12 @@ public class ImageResizer extends ImageWorker {
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
+
+        // 우성 추가
+        options.inPurgeable = true;       // 메모리를 줄여주는 옵션
+        options.inDither = true;          // 이미지를 깔끔하게 처리해서 보여주는 옵션
+        options.inPreferredConfig = Bitmap.Config.RGB_565;  // 워터릴리는 알파값이 필요 없음
+
         BitmapFactory.decodeResource(res, resId, options);
 
         // Calculate inSampleSize
