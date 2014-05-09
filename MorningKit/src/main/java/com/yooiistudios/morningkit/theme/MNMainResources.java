@@ -71,6 +71,151 @@ public class MNMainResources {
         return getAlarmItemSelectorResourceId(themeType);
     }
 
+    // World Clock
+    public static int getWorldClockAMBase(MNThemeType themeType) {
+        switch (themeType) {
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case CELESTIAL_SKY_BLUE:
+                return R.drawable.clock_base_am_classic_grey;
+
+            case PASTEL_GREEN:
+                return R.drawable.clock_base_am_pastel_green;
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+
+    public static int getWorldClockPMBase(MNThemeType themeType) {
+        switch (themeType) {
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case CELESTIAL_SKY_BLUE:
+                return R.drawable.clock_base_pm_classic_grey;
+
+            case PASTEL_GREEN:
+                return R.drawable.clock_base_pm_pastel_green;
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+
+    public static int getWorldClockAMHourHand(MNThemeType themeType) {
+        switch (themeType) {
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case CELESTIAL_SKY_BLUE:
+                return R.drawable.clock_hand_hour;
+
+            case PASTEL_GREEN:
+                return R.drawable.clock_hand_hour_am_pastel_green;
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+
+    public static int getWorldClockPMHourHand(MNThemeType themeType) {
+        switch (themeType) {
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case CELESTIAL_SKY_BLUE:
+                return R.drawable.clock_hand_hour;
+
+            case PASTEL_GREEN:
+                return R.drawable.clock_hand_hour_pm_pastel_green;
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+
+    public static int getWorldClockAMMinuteHand(MNThemeType themeType) {
+        switch (themeType) {
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case CELESTIAL_SKY_BLUE:
+                return R.drawable.clock_hand_minute;
+
+            case PASTEL_GREEN:
+                return R.drawable.clock_hand_minute_am_pastel_green;
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+
+    public static int getWorldClockPMMinuteHand(MNThemeType themeType) {
+        switch (themeType) {
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case CELESTIAL_SKY_BLUE:
+                return R.drawable.clock_hand_minute;
+
+            case PASTEL_GREEN:
+                return R.drawable.clock_hand_minute_pm_pastel_green;
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+
+    public static int getWorldClockAMSecondHand(MNThemeType themeType) {
+        switch (themeType) {
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case CELESTIAL_SKY_BLUE:
+                return R.drawable.clock_hand_second;
+
+            case PASTEL_GREEN:
+                return R.drawable.clock_hand_second_am_pastel_green;
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+
+    public static int getWorldClockPMSecondHand(MNThemeType themeType) {
+        switch (themeType) {
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case CELESTIAL_SKY_BLUE:
+                return R.drawable.clock_hand_second;
+
+            case PASTEL_GREEN:
+                return R.drawable.clock_hand_second_pm_pastel_green;
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+
     /**
      * Alarm
      */

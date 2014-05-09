@@ -1,6 +1,10 @@
 package com.yooiistudios.morningkit.panel.worldclock;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
@@ -8,7 +12,9 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainResources;
 
 import lombok.Setter;
 
@@ -38,6 +44,7 @@ public class MNAnalogClockView extends RelativeLayout {
     private ImageView secondHandImageView;
 
     @Setter boolean isFirstTick = true;
+    private boolean isTimeAm = false;
     private float overshoot;
 
     public MNAnalogClockView(Context context) {
@@ -89,8 +96,6 @@ public class MNAnalogClockView extends RelativeLayout {
         hourHandLayoutParams.addRule(CENTER_IN_PARENT);
         hourHandImageView.setLayoutParams(hourHandLayoutParams);
         addView(hourHandImageView);
-
-        applyTheme();
     }
 
     // 시, 분, 초를 대입해서 애니메이션 작동이 되게 한다
@@ -104,6 +109,8 @@ public class MNAnalogClockView extends RelativeLayout {
             rotate(hourHandImageView, 0, newHourAngle);
             rotate(minuteHandImageView, 0, newMinuteAngle);
             rotate(secondHandImageView, 0, newSecondAngle);
+
+            applyTheme();
         } else {
             if (minute == 0 && second == 0) {
                 rotate(hourHandImageView, newHourAngle - DEGREE_MINUTE, newHourAngle);
@@ -118,9 +125,12 @@ public class MNAnalogClockView extends RelativeLayout {
         if (minute == 0 && second == 0) {
             if (hour >= 12) {
                 // 정오부터 밤12시까지 PM
+                isTimeAm = false;
             } else {
                 // 오전 0시부터 정오 전까지 AM
+                isTimeAm = true;
             }
+            applyTheme();
         }
     }
 
@@ -147,10 +157,69 @@ public class MNAnalogClockView extends RelativeLayout {
         imageView.startAnimation(anim);
     }
 
-    public void applyTheme() {
-        clockBaseImageView.setImageResource(R.drawable.clock_base_pm_pastel_green);
-        secondHandImageView.setImageResource(R.drawable.clock_hand_second_pm_pastel_green);
-        minuteHandImageView.setImageResource(R.drawable.clock_hand_minute_pm_pastel_green);
-        hourHandImageView.setImageResource(R.drawable.clock_hand_hour_pm_pastel_green);
+    private void applyTheme() {
+
+        // recycle before alloc new image resource
+        clearBitmap(clockBaseImageView);
+        clearBitmap(secondHandImageView);
+        clearBitmap(minuteHandImageView);
+        clearBitmap(hourHandImageView);
+
+        // use BitmapFactory instead of setImageResource because of OOM
+        MNThemeType currentType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
+        if (isTimeAm) {
+            Bitmap clockBaseBitmap = BitmapFactory.decodeResource(
+                    getContext().getApplicationContext().getResources(),
+                    MNMainResources.getWorldClockAMBase(currentType));
+            clockBaseImageView.setImageBitmap(clockBaseBitmap);
+
+            Bitmap secondHandBitmap = BitmapFactory.decodeResource(
+                    getContext().getApplicationContext().getResources(),
+                    MNMainResources.getWorldClockAMSecondHand(currentType));
+            secondHandImageView.setImageBitmap(secondHandBitmap);
+
+            Bitmap minuteHandBitmap = BitmapFactory.decodeResource(
+                    getContext().getApplicationContext().getResources(),
+                    MNMainResources.getWorldClockAMMinuteHand(currentType));
+            minuteHandImageView.setImageBitmap(minuteHandBitmap);
+
+            Bitmap hourHandBitmap = BitmapFactory.decodeResource(
+                    getContext().getApplicationContext().getResources(),
+                    MNMainResources.getWorldClockAMHourHand(currentType));
+            hourHandImageView.setImageBitmap(hourHandBitmap);
+        } else {
+            Bitmap clockBaseBitmap = BitmapFactory.decodeResource(
+                    getContext().getApplicationContext().getResources(),
+                    MNMainResources.getWorldClockPMBase(currentType));
+            clockBaseImageView.setImageBitmap(clockBaseBitmap);
+
+            Bitmap secondHandBitmap = BitmapFactory.decodeResource(
+                    getContext().getApplicationContext().getResources(),
+                    MNMainResources.getWorldClockPMSecondHand(currentType));
+            secondHandImageView.setImageBitmap(secondHandBitmap);
+
+            Bitmap minuteHandBitmap = BitmapFactory.decodeResource(
+                    getContext().getApplicationContext().getResources(),
+                    MNMainResources.getWorldClockPMMinuteHand(currentType));
+            minuteHandImageView.setImageBitmap(minuteHandBitmap);
+
+            Bitmap hourHandBitmap = BitmapFactory.decodeResource(
+                    getContext().getApplicationContext().getResources(),
+                    MNMainResources.getWorldClockPMHourHand(currentType));
+            hourHandImageView.setImageBitmap(hourHandBitmap);
+        }
+    }
+
+    private void clearBitmap(ImageView imageView) {
+        if (imageView != null) {
+            Drawable d = imageView.getDrawable();
+            if (d instanceof BitmapDrawable) {
+                Bitmap b = ((BitmapDrawable)d).getBitmap();
+                if (b != null) {
+                    b.recycle();
+                }
+            }
+            imageView.setImageBitmap(null);
+        }
     }
 }
