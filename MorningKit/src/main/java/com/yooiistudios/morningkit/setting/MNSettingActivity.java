@@ -50,7 +50,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Theme
-        setTheme(R.style.MNSettingActionBarTheme_Light);
+        setTheme(R.style.MNSettingActionBarTheme_PastelGreen);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);

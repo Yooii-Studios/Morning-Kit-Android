@@ -60,7 +60,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Theme - 나중에 슬레이트 테마 나오면 그것으로 고정하자
-        setTheme(R.style.MNSettingActionBarTheme_Light);
+        setTheme(R.style.MNSettingActionBarTheme_PastelGreen);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unlock);

@@ -67,7 +67,7 @@
             android:name="com.yooiistudios.morningkit.setting.MNSettingActivity"
             android:parentActivityName="com.yooiistudios.morningkit.main.MNMainActivity"
             android:screenOrientation="sensorPortrait"
-            android:theme="@style/MNSettingActionBarTheme.Default" >
+            android:theme="@style/MNSettingActionBarTheme.PastelGreen" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -78,7 +78,7 @@
             android:name="com.yooiistudios.morningkit.setting.info.moreinfo.MNMoreInfoActivity"
             android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
             android:screenOrientation="sensorPortrait"
-            android:theme="@style/MNSettingActionBarTheme.Default" >
+            android:theme="@style/MNSettingActionBarTheme.PastelGreen" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
