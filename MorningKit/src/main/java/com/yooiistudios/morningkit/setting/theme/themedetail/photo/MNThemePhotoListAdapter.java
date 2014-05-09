@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.setting.theme.themedetail.photo;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,25 +63,31 @@ public class MNThemePhotoListAdapter extends BaseAdapter {
             MNThemePhotoItemViewHolder viewHolder = new MNThemePhotoItemViewHolder(convertView);
 
             Bitmap bitmap = null;
+            // 원 사이즈로 하니까 사진이 너무 작아진다: xxhdpi가 3배니까 3배 정도로만 크게 줄이면 될듯
+            int imageViewSize = activity.getApplicationContext().getResources()
+                    .getDimensionPixelSize(R.dimen.setting_theme_detail_photo_item_crop_layout_width) * 3;
 
             // load a bitmap, adjust layoutParams to wrap/match
             if (position == 0) {
                 try {
-                    bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(activity, SKBitmapLoader.getPortraitImageUri());
+                    bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(activity,
+                            SKBitmapLoader.getPortraitImageUri(), imageViewSize, imageViewSize);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
                 viewHolder.getTextView().setText(R.string.setting_theme_photo_portrait);
             } else {
                 try {
-                    bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(activity, SKBitmapLoader.getLandscapeImageUri());
+                    bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(activity,
+                            SKBitmapLoader.getLandscapeImageUri(), imageViewSize, imageViewSize);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
                 viewHolder.getTextView().setText(R.string.setting_theme_photo_landscape);
 
             }
-            viewHolder.getCropImageView().setImageBitmap(bitmap);
+            viewHolder.getCropImageView().setImageDrawable(
+                    new BitmapDrawable(activity.getApplicationContext().getResources(), bitmap));
 
             // theme
             MNThemeType currentThemeType = MNTheme.getCurrentThemeType(activity);

@@ -17,7 +17,7 @@ public class MNSettingDetailActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Theme
-        setTheme(R.style.MNSettingActionBarTheme_PastelGreen);
+//        setTheme(R.style.MNSettingActionBarTheme_PastelGreen);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_detail);
