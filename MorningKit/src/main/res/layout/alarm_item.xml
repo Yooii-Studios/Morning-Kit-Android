@@ -102,7 +102,7 @@
             android:layout_height="@dimen/alarm_item_switch_size"
             android:layout_alignParentRight="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/alarm_switch_on_classic_gray_retina"
+            android:src="@drawable/alarm_on_classic_gray_ipad"
             android:contentDescription="@string/loading"
             android:background="#00000000"
             android:layout_centerInParent="true"/>
