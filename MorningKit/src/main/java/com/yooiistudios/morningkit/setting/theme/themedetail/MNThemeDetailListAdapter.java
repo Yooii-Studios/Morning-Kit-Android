@@ -141,8 +141,12 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
 
             viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
             viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-            viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
-            viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
+            try {
+                viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
+                viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
+            } catch (OutOfMemoryError error) {
+                error.printStackTrace();
+            }
             viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
             // onClick

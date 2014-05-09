@@ -246,8 +246,7 @@ public class MNMainActivity extends Activity
 
             case PHOTO:
                 try {
-                    photoThemeImageView.setPhotoThemeImage(newConfig.orientation,
-                            this.getApplicationContext());
+                    photoThemeImageView.setPhotoThemeImage(newConfig.orientation);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }

@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
  *  사진테마, 워터릴리 테마를 활용하기 위한 이미지뷰
  */
 public class SKThemeImageView extends ImageView {
+    private static final String TAG = "SKThemeImageView";
     public SKThemeImageView(Context context) {
         super(context);
 
@@ -47,35 +48,46 @@ public class SKThemeImageView extends ImageView {
                 } else {
                     bitmap = SKWaterLily.getLandscapeBitmap(getContext(), getWidth(), getHeight());
                 }
-                setImageBitmap(bitmap);
+                try {
+                    setImageDrawable(new BitmapDrawable(getContext().getApplicationContext().getResources(),
+                            bitmap));
+                } catch (OutOfMemoryError error) {
+                    MNLog.i(TAG, "Water Lily Theme OOM");
+                    error.printStackTrace();
+                }
             }
         });
     }
 
-    public void setPhotoThemeImage(final int orientation, Context context) throws FileNotFoundException {
+    public void setPhotoThemeImage(final int orientation) throws FileNotFoundException {
         clear();
 
         Bitmap bitmap;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(context,
+            bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(getContext(),
                     SKBitmapLoader.getPortraitImageUri());
         } else {
-            bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(context,
+            bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(getContext(),
                     SKBitmapLoader.getLandscapeImageUri());
         }
-        setImageBitmap(bitmap);
+        try {
+            setImageDrawable(new BitmapDrawable(getContext().getApplicationContext().getResources(),
+                    bitmap));
+        } catch (OutOfMemoryError error) {
+            MNLog.i(TAG, "Photo Theme OOM");
+            error.printStackTrace();
+        }
     }
 
     public void clear() {
-        Drawable d = getDrawable();
-        if (d instanceof BitmapDrawable) {
-            Bitmap b = ((BitmapDrawable)d).getBitmap();
-            if (b != null) {
-                b.recycle();
+        Drawable drawable = getDrawable();
+        if (drawable instanceof BitmapDrawable) {
+            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+            if (bitmap != null && !bitmap.isRecycled()) {
+                bitmap.recycle();
                 MNLog.now("photoThemeImageView recycle Bitmap");
             }
-        } // 현재로서는 BitmapDrawable 이외의 drawable 들에 대한 직접적인 메모리 해제는 불가능하다.
-//        setImageDrawable(null);
+        }
     }
 
     @Override
