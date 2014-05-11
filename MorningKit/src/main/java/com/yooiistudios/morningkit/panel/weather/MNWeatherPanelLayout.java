@@ -399,6 +399,8 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         public void handleMessage( Message msg ){
             if (isClockRunning) {
 
+                MNLog.now("weather local time clock tick");
+
                 // tick(계산)
                 String timeString = "";
                 if (weatherData != null) {
@@ -424,8 +426,11 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         }
         isClockRunning = true;
 
-        int diffInMilli = (int) System.currentTimeMillis() % 1000;
-        clockHandler.sendEmptyMessageDelayed(0, 1000 - diffInMilli);
+//        long endMilli = System.currentTimeMillis();
+//        long delay = endMilli % 1000;
+
+//        clockHandler.sendEmptyMessageDelayed(0, 1000 - delay);
+        clockHandler.sendEmptyMessageDelayed(0, 0); // 첫 시작은 딜레이 없이 호출
     }
 
     private void stopClock() {
@@ -546,5 +551,19 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         lowHighTempTextView.setTextColor(MNMainColors.getWeatherLowHighTextColor(currentThemeType, getContext()));
         cityNameTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, getContext()));
         localTimeTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, getContext()));
+    }
+
+    // 뷰가 붙을 때 아날로그 시계뷰 재가동
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        startClock();
+    }
+
+    // 뷰가 사라질 때 아날로그 시계뷰 핸들러 중지
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        stopClock();
     }
 }
