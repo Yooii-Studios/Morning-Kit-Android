@@ -248,8 +248,10 @@ public class MNPanelLayout extends RelativeLayout {
     public void applyTheme() {
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
         setBackgroundResource(MNMainResources.getPanelLayoutSelectorResourceId(currentThemeType));
-        loadingTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType,
-                getContext().getApplicationContext()));
+        if (isUsingNetwork && loadingTextView != null) {
+            loadingTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType,
+                    getContext().getApplicationContext()));
+        }
     }
 
     protected void onPanelClick() {
