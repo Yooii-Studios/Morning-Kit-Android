@@ -40,7 +40,7 @@ public class MNAlarmWakeDialog {
         } else {
             builder = new AlertDialog.Builder(context);
         }
-        AlertDialog wakeDialog = builder.setPositiveButton(R.string.alarm_wake_dismiss, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.alarm_wake_dismiss, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 SKAlarmSoundPlayer.stop();
@@ -57,16 +57,21 @@ public class MNAlarmWakeDialog {
                 }
                 MNAlarmScrollViewBusProvider.getInstance().post(context);
             }
-        }).setNegativeButton(R.string.alarm_wake_snooze, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                SKAlarmSoundPlayer.stop();
+        });
 
-                MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), context);
-                targetAlarm.snoozeAlarm(context);
+        // 스누즈 옵션이 켜져 있을 경우에만 사용하기
+        if (alarm.isSnoozeOn()) {
+            builder.setNegativeButton(R.string.alarm_wake_snooze, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SKAlarmSoundPlayer.stop();
 
-            }
-        }).create();
+                    MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), context);
+                    targetAlarm.snoozeAlarm(context);
+                }
+            });
+        }
+        AlertDialog wakeDialog = builder.create();
 
         wakeDialog.setCancelable(false);
         wakeDialog.setCanceledOnTouchOutside(false);
