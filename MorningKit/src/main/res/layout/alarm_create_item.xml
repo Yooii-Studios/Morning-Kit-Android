@@ -42,10 +42,11 @@
         <ImageView
             android:id="@+id/alarm_create_item_dividing_bar_image_view"
             android:layout_width="@dimen/alarm_item_divider_with"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/alarm_item_divider_height"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/alarm_create_item_plus_image_view"
             android:src="@drawable/dividing_bar_on_translucent"
+            android:scaleType="centerCrop"
             android:contentDescription="@string/loading"
             android:layout_centerInParent="true"/>
 
