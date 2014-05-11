@@ -399,8 +399,6 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         public void handleMessage( Message msg ){
             if (isClockRunning) {
 
-                MNLog.now("weather local time clock tick");
-
                 // tick(계산)
                 String timeString = "";
                 if (weatherData != null) {
@@ -425,11 +423,6 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             return;
         }
         isClockRunning = true;
-
-//        long endMilli = System.currentTimeMillis();
-//        long delay = endMilli % 1000;
-
-//        clockHandler.sendEmptyMessageDelayed(0, 1000 - delay);
         clockHandler.sendEmptyMessageDelayed(0, 0); // 첫 시작은 딜레이 없이 호출
     }
 
@@ -438,6 +431,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             return;
         }
         isClockRunning = false;
+        clockHandler.removeMessages(0); // 기존 핸들러 메시지 삭제(1개만 유지하기 위함)
     }
 
     /**
