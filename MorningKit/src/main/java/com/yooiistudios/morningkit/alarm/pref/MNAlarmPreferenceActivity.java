@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.alarm.pref;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -36,6 +37,8 @@ import lombok.Setter;
 public class MNAlarmPreferenceActivity extends ActionBarActivity {
 
     public static final String ALARM_PREFERENCE_ALARM_ID = "ALARM_PREFERENCE_ALARM_ID";
+    public static final String ALARM_SHARED_PREFS = "ALARM_SHARED_PREFS";
+    public static final String ALARM_SHARED_PREFS_ALARM_SNOOZE_ON = "ALARM_SHARED_PREFS_ALARM_SNOOZE_ON";
     private static final String TAG = "MNAlarmPreferenceActivity";
 
     @Getter private int alarmId;
@@ -66,7 +69,11 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
                 alarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
             } else {
                 alarmPreferenceType = MNAlarmPreferenceType.ADD;
-                alarm = MNAlarmMaker.makeAlarm(this.getBaseContext());
+                alarm = MNAlarmMaker.makeAlarm(getApplicationContext());
+
+                // 알람 추가일 경우에는 최근 스누즈 사용 여부를 적용
+                SharedPreferences prefs = getSharedPreferences(ALARM_SHARED_PREFS, MODE_PRIVATE);
+                alarm.setSnoozeOn(prefs.getBoolean(ALARM_SHARED_PREFS_ALARM_SNOOZE_ON, true));
             }
             if ((alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.MUSIC ||
                     alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.RINGTONE) &&
@@ -150,6 +157,11 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     private void applyAlarmPreferneces() {
         alarm.startAlarm(this);
 
+        // 알람 저장하기 전에 스누즈 여부를 저장
+        SharedPreferences prefs = getSharedPreferences(ALARM_SHARED_PREFS, MODE_PRIVATE);
+        prefs.edit().putBoolean(ALARM_SHARED_PREFS_ALARM_SNOOZE_ON, alarm.isSnoozeOn()).commit();
+
+        // 알람 저장
         switch (alarmPreferenceType) {
             case ADD:
                 MNAlarmListManager.addAlarmToAlarmList(alarm, this);
