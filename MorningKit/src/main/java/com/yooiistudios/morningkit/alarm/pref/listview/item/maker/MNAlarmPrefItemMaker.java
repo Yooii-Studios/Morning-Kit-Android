@@ -17,6 +17,8 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceType;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmTimePicker;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 
 import java.util.Calendar;
 
@@ -65,7 +67,10 @@ public class MNAlarmPrefItemMaker {
         View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_snooze_item, parent, false);
         MNAlarmPrefSnoozeItemViewHolder viewHolder = new MNAlarmPrefSnoozeItemViewHolder(convertView);
         convertView.setTag(viewHolder);
+
         viewHolder.titleTextView.setText(R.string.alarm_wake_snooze);
+        viewHolder.titleTextView.setTextColor(MNSettingColors.getMainFontColor(
+                MNTheme.getCurrentThemeType(context.getApplicationContext())));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             viewHolder.snoozeSwitch.setChecked(alarm.isSnoozeOn());

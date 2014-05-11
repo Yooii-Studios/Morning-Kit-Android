@@ -90,7 +90,8 @@
         <ImageView
             android:id="@+id/alarm_item_dividing_bar_imageview"
             android:layout_width="@dimen/alarm_item_divider_with"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/alarm_item_divider_height"
+            android:scaleType="centerCrop"
             android:layout_toLeftOf="@+id/alarm_item_switch_imagebutton"
             android:src="@drawable/alarm_dividing_bar_on_skyblue"
             android:contentDescription="@string/loading"
