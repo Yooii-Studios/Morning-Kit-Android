@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailActivity;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainColors;
 import com.yooiistudios.morningkit.theme.MNMainResources;
 
 import org.json.JSONException;
@@ -244,8 +246,10 @@ public class MNPanelLayout extends RelativeLayout {
     }
 
     public void applyTheme() {
-        setBackgroundResource(MNMainResources.getPanelLayoutSelectorResourceId(
-                MNTheme.getCurrentThemeType(getContext())));
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
+        setBackgroundResource(MNMainResources.getPanelLayoutSelectorResourceId(currentThemeType));
+        loadingTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType,
+                getContext().getApplicationContext()));
     }
 
     protected void onPanelClick() {
