@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel.date;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -11,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.date.model.DateUtil;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
@@ -91,12 +91,15 @@ public class MNDatePanelLayout extends MNPanelLayout {
         innerContentLayout.addView(lunarCalendarLayout);
 
         // calendar
+        int minusMargin = getResources().getDimensionPixelSize(R.dimen.panel_date_minus_margin);
         monthTextView = new TextView(getContext());
         monthTextView.setGravity(Gravity.CENTER);
         monthTextView.setSingleLine();
         monthTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_date_month_text_size));
+//        monthTextView.setTypeface(monthTextView.getTypeface(), Typeface.BOLD);
         LinearLayout.LayoutParams monthTextViewParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        monthTextViewParams.setMargins(0, 0, 0, minusMargin);
         monthTextView.setLayoutParams(monthTextViewParams);
         calendarLayout.addView(monthTextView);
 
@@ -105,6 +108,7 @@ public class MNDatePanelLayout extends MNPanelLayout {
         dayTextView.setSingleLine();
         dayTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_date_day_text_size));
+        dayTextView.setTypeface(dayTextView.getTypeface(), Typeface.BOLD);
         LinearLayout.LayoutParams dayTextViewParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         dayTextView.setLayoutParams(dayTextViewParams);
         calendarLayout.addView(dayTextView);
@@ -114,17 +118,22 @@ public class MNDatePanelLayout extends MNPanelLayout {
         dayOfWeekTextView.setSingleLine();
         dayOfWeekTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_date_day_of_week_text_size));
+//        dayOfWeekTextView.setTypeface(dayOfWeekTextView.getTypeface(), Typeface.BOLD);
         LinearLayout.LayoutParams dayOfWeekTextViewParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        dayOfWeekTextViewParams.setMargins(0, minusMargin, 0, 0);
         dayOfWeekTextView.setLayoutParams(dayOfWeekTextViewParams);
         calendarLayout.addView(dayOfWeekTextView);
 
         // lunar
+        int lunarMinusMargin = getResources().getDimensionPixelSize(R.dimen.panel_date_lunar_minus_margin);
         lunarMonthTextView = new TextView(getContext());
         lunarMonthTextView.setGravity(Gravity.CENTER);
         lunarMonthTextView.setSingleLine();
         lunarMonthTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_date_lunar_month_text_size));
+//        lunarMonthTextView.setTypeface(lunarMonthTextView.getTypeface(), Typeface.BOLD);
         LinearLayout.LayoutParams lunarMonthTextViewParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        lunarMonthTextViewParams.setMargins(0, 0, 0, lunarMinusMargin);
         lunarMonthTextView.setLayoutParams(lunarMonthTextViewParams);
         lunarCalendarLayout.addView(lunarMonthTextView);
 
@@ -133,6 +142,7 @@ public class MNDatePanelLayout extends MNPanelLayout {
         lunarDayTextView.setSingleLine();
         lunarDayTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_date_lunar_day_text_size));
+        lunarDayTextView.setTypeface(lunarDayTextView.getTypeface(), Typeface.BOLD);
         LinearLayout.LayoutParams lunarDayTextViewParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         lunarDayTextView.setLayoutParams(lunarDayTextViewParams);
         lunarCalendarLayout.addView(lunarDayTextView);
@@ -142,7 +152,9 @@ public class MNDatePanelLayout extends MNPanelLayout {
         lunarDayOfWeekTextView.setSingleLine();
         lunarDayOfWeekTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_date_lunar_day_of_week_text_size));
+//        lunarDayOfWeekTextView.setTypeface(lunarDayOfWeekTextView.getTypeface(), Typeface.BOLD);
         LinearLayout.LayoutParams lunarDayOfWeekTextViewParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        lunarDayOfWeekTextViewParams.setMargins(0, lunarMinusMargin, 0, 0);
         lunarDayOfWeekTextView.setLayoutParams(lunarDayOfWeekTextViewParams);
         lunarCalendarLayout.addView(lunarDayOfWeekTextView);
 
