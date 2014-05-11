@@ -17,6 +17,9 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPrefListItemType;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -39,13 +42,17 @@ public class MNAlarmPrefLabelItemMaker {
         LabelItemViewHolder viewHolder = new LabelItemViewHolder(convertView);
         convertView.setTag(viewHolder);
 
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context.getApplicationContext());
+
         // Check for default alarm label
         viewHolder.titleTextView.setText(R.string.alarm_pref_label);
+        viewHolder.titleTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
         if (alarm.getAlarmLabel().equals("Alarm")) {
             viewHolder.detailTextView.setText(R.string.alarm_default_label);
         } else {
             viewHolder.detailTextView.setText(alarm.getAlarmLabel());
         }
+        viewHolder.detailTextView.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
         viewHolder.detailTextView.setSelected(true);
 
         // ClickListener

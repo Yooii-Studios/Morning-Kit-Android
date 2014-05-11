@@ -13,6 +13,9 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmRepeatString;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 16.
@@ -27,8 +30,11 @@ public class MNAlarmPrefRepeatItemMaker {
         final View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_default_item, parent, false);
         RepeatItemViewHolder viewHolder = new RepeatItemViewHolder(convertView);
         convertView.setTag(viewHolder);
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context.getApplicationContext());
         viewHolder.titleTextView.setText(R.string.alarm_pref_repeat);
+        viewHolder.titleTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
         viewHolder.detailTextView.setText(MNAlarmRepeatString.makeRepeatDetailString(alarm.getAlarmRepeatList(), context));
+        viewHolder.detailTextView.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
         viewHolder.detailTextView.setSelected(true);
 
         // ClickListener

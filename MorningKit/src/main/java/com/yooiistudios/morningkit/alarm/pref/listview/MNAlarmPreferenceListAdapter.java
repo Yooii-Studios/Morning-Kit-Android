@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -58,6 +59,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
                 convertView = MNAlarmPrefItemMaker.makeTimeItem(context, parent, alarm, alarmPreferenceType);
                 break;
         }
+        convertView.setBackgroundColor(Color.WHITE);
         return convertView;
     }
 

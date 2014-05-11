@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
-    android:background="#38aa38"
+    android:background="@color/white"
     android:clickable="false"
     android:focusable="false"
     android:paddingTop="@dimen/margin_inner"
@@ -23,7 +23,7 @@
         android:padding="@dimen/alarm_pref_list_item_padding"
         android:clickable="false"
         android:focusable="false"
-        android:background="@drawable/shape_rounded_view_classic_gray_normal"
+        android:background="@drawable/shape_rounded_view_pastel_green"
         android:orientation="vertical">
 
         <com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmTimePicker

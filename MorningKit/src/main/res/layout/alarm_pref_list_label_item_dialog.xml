@@ -2,9 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/alarm_item_inner_height"
-    android:paddingLeft="@dimen/alarm_pref_list_label_item_dialog_padding_button"
-    android:paddingRight="@dimen/alarm_pref_list_label_item_dialog_padding_button"
-    android:background="#3aa33a">
+    android:padding="@dimen/alarm_pref_list_label_item_dialog_padding_button">
 
     <EditText
         android:id="@+id/alarm_pref_label_dialog_editText"
@@ -14,8 +12,10 @@
         android:hint="@string/alarm_pref_label"
         android:longClickable="false"
         android:singleLine="true"
-        android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
-        android:background="#aa11cc">
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:textSize="@dimen/alarm_pref_list_item_textview_font_size">
     </EditText>
 
     <Button
