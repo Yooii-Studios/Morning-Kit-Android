@@ -38,6 +38,7 @@ public class MNPanelSelectPagerFirstFragment extends Fragment {
     public MNPanelSelectPagerFirstFragment() {}
 
     @Getter ArrayList<RelativeLayout> selectItemLayouts;
+    @Getter ArrayList<TextView> textViews;
     @InjectView(R.id.panel_selector_page1_1_item_layout) RelativeLayout selectItemLayout_1_1;
     @InjectView(R.id.panel_selector_page1_2_item_layout) RelativeLayout selectItemLayout_1_2;
     @InjectView(R.id.panel_selector_page1_3_item_layout) RelativeLayout selectItemLayout_1_3;
@@ -65,12 +66,24 @@ public class MNPanelSelectPagerFirstFragment extends Fragment {
 
     private void initTextViews() {
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
-        textView1_1.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        textView1_2.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        textView1_3.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        textView1_4.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        textView1_5.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        textView1_6.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+        textView1_1.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
+        textView1_2.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
+        textView1_3.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
+        textView1_4.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
+        textView1_5.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
+        textView1_6.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
+
+        if (textViews == null) {
+            textViews = new ArrayList<TextView>();
+        } else {
+            textViews.clear();
+        }
+        textViews.add(textView1_1);
+        textViews.add(textView1_2);
+        textViews.add(textView1_3);
+        textViews.add(textView1_4);
+        textViews.add(textView1_5);
+        textViews.add(textView1_6);
     }
 
     private void initSelectItemLayouts() {

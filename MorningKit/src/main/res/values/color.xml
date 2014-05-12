@@ -19,6 +19,7 @@
     <color name="pastel_green_forward_normal_color">#ffffff</color>
     <color name="pastel_green_forward_pressed_color">#e6e6e6</color>
     <color name="pastel_green_stroke_color">#c1c1c1</color>
+    <color name="pastel_green_main_font_color">#5ab38c</color>
     <color name="pastel_green_sub_font_color">#e6e6e6</color>
 
     <color name="translucent_forward_normal_color">#1affffff</color>

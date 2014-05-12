@@ -227,7 +227,7 @@ public class MNSettingColors {
      * Panel
      */
     public static int getDefaultPanelSelectIndicatorColor(MNThemeType themeType) {
-        return Color.parseColor("#c3c3c3");
+        return getDisabledFontColor(themeType);
 
 //        switch (themeType) {
 //            case WATER_LILY:
@@ -249,7 +249,7 @@ public class MNSettingColors {
     }
 
     public static int getCurrentPanelSelectIndicatorColor(MNThemeType themeType) {
-        return Color.parseColor("#989898");
+        return getMainFontColor(themeType);
 
 //        switch (themeType) {
 //            case WATER_LILY:
