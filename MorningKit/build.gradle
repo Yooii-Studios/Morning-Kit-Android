@@ -81,6 +81,9 @@ dependencies {
     compile project(':libraries:SKAlarmSound')
     compile project(':libraries:view-pager-indicator-library') // MNSettingActivityProject에 필요
 
+    // 포토 앨범 테마용 사진 고르기 라이브러리
+    compile project(':libraries:ExFilePickerLibrary')
+
     // 안드로이드 기본
     compile 'com.android.support:support-v4:+'
     compile 'com.android.support:appcompat-v7:+'

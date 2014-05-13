@@ -176,6 +176,12 @@
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/MNSettingActionBarTheme.PastelGreen">
         </activity>
+
+        <!-- ExFilePickerLibrary 사용하기 위한 액티비티 -->
+        <activity
+            android:name="ru.bartwell.exfilepicker.ExFilePickerActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/ExFilePickerThemeDark" />
     </application>
 
 </manifest>

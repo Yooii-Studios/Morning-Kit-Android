@@ -1,0 +1,16 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ru.bartwell.exfilepicker"
+    android:versionCode="5"
+    android:versionName="1.4" >
+
+    <uses-sdk
+        android:minSdkVersion="4"
+        android:targetSdkVersion="18" />
+
+    <application
+        android:icon="@drawable/efp__ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/ExFilePickerThemeDark" >
+    </application>
+
+</manifest>
