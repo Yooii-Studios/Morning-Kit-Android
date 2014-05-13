@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -18,9 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
-import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
@@ -49,7 +50,7 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
     @InjectView(R.id.flickr_detail_imageview) RecyclingImageView imageView;
     @InjectView(R.id.flickr_detail_edittext) EditText keywordEditText;
     @InjectView(R.id.flickr_detail_grayscale_textview) TextView grayScaleTextView;
-    @Optional @InjectView(R.id.flickr_detail_grayscale_checkbox) ImageButton grayscaleImageButton; // < V14
+    @Optional @InjectView(R.id.flickr_detail_grayscale_image_button) ImageButton grayscaleImageButton; // < V14
 //    Switch grayscaleSwitch; // >= V14
 
     private boolean isGrayScale;
@@ -108,7 +109,8 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
                             bitmapName + ".jpg", directory);
 
                     // 비트맵 세팅
-                    imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
+                    imageView.setImageDrawable(new BitmapDrawable(
+                            getActivity().getApplicationContext().getResources(), bitmap));
                     imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                     setImgViewOnClickListener();
                 } else {
@@ -230,5 +232,11 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
 
         }
         return true;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MNBitmapUtils.recycleImageView(imageView);
     }
 }
