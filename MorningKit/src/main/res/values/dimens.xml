@@ -68,6 +68,7 @@
     <!-- Detail Activity -->
     <dimen name="panel_detail_padding">10dp</dimen>
     <dimen name="panel_detail_padding_inner">5dp</dimen>
+    <dimen name="panel_detail_image_button_size">26dp</dimen>
 
     <!-- Select Pager -->
     <dimen name="panel_select_pager_height">166dp</dimen>
@@ -119,6 +120,8 @@
     <!-- Quotes -->
     <!-- Detail -->
     <dimen name="panel_quotes_detail_language_text_size">20dp</dimen>
+    <dimen name="panel_quote_detail_padding">20dp</dimen>
+    <dimen name="panel_quote_detail_rounded_corner_radius">15dp</dimen>
 
     <!-- Date -->
     <dimen name="panel_date_month_text_size">16sp</dimen>

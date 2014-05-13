@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,9 +19,6 @@ import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLanguage;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLoader;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
@@ -41,7 +38,7 @@ import static com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout.QUOTE
  *
  * MNQuotesDetailFragment
  */
-public class MNQuotesDetailFragment extends MNPanelDetailFragment implements CompoundButton.OnCheckedChangeListener {
+public class MNQuotesDetailFragment extends MNPanelDetailFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
     private static final String TAG = "MNQuotesDetailFragment";
 
     @InjectView(R.id.panel_quotes_detail_quote_textview) TextView quoteTextView;
@@ -51,7 +48,7 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
     @InjectView(R.id.panel_quotes_detail_language_japanese_layout) RelativeLayout languageJapaneseLayout;
     @InjectView(R.id.panel_quotes_detail_language_simplified_chinese_layout) RelativeLayout languageSimplifiedChineseLayout;
     @InjectView(R.id.panel_quotes_detail_language_traditional_chinese_layout) RelativeLayout languageTraditionalChineseLayout;
-    List<CheckBox> languageCheckBoxes;
+    List<ImageButton> languageImageButtons;
 
     List<Boolean> selectedLanguages;
     MNQuote quote;
@@ -143,46 +140,55 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
     }
 
     private void initLanguageLayouts() {
-        languageCheckBoxes = new ArrayList<CheckBox>();
-        languageCheckBoxes.add(getCheckBoxFromLayout(languageEnglishLayout));
-        languageCheckBoxes.add(getCheckBoxFromLayout(languageKoreanLayout));
-        languageCheckBoxes.add(getCheckBoxFromLayout(languageJapaneseLayout));
-        languageCheckBoxes.add(getCheckBoxFromLayout(languageSimplifiedChineseLayout));
-        languageCheckBoxes.add(getCheckBoxFromLayout(languageTraditionalChineseLayout));
+        languageImageButtons = new ArrayList<ImageButton>();
+        languageImageButtons.add(getImageButtonFromLayout(languageEnglishLayout));
+        languageImageButtons.add(getImageButtonFromLayout(languageKoreanLayout));
+        languageImageButtons.add(getImageButtonFromLayout(languageJapaneseLayout));
+        languageImageButtons.add(getImageButtonFromLayout(languageSimplifiedChineseLayout));
+        languageImageButtons.add(getImageButtonFromLayout(languageTraditionalChineseLayout));
 
         int i = 0;
         for (Boolean isLanguageSelected : selectedLanguages) {
-            CheckBox checkBox = languageCheckBoxes.get(i);
-            checkBox.setChecked(isLanguageSelected);
-            checkBox.setOnCheckedChangeListener(this);
+            ImageButton imageButton = languageImageButtons.get(i);
+            imageButton.setTag(i); // tag 를 index로 사용할 예정
+            if (isLanguageSelected) {
+                imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+            } else {
+                imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+            }
+            imageButton.setOnClickListener(this);
+//            checkBox.setChecked(isLanguageSelected);
+//            checkBox.setOnCheckedChangeListener(this);
             i++;
         }
-
         checkCheckBoxStates();
     }
 
-    private CheckBox getCheckBoxFromLayout(RelativeLayout layout) {
-        return (CheckBox) layout.findViewById(R.id.panel_quotes_detail_language_checkbox);
+    private ImageButton getImageButtonFromLayout(RelativeLayout layout) {
+        return (ImageButton) layout.findViewById(R.id.panel_quotes_detail_language_image_button);
     }
 
     private void checkCheckBoxStates() {
         // 1개만 선택이 되어 있다면 해당 체크박스는 disable해서 무조건 하나는 선택되어 있게 만든다
         // 그렇지 않다면 모두 선택할 수 있게 해주기
         int counter = 0;
-        CheckBox lastCheckBoxWhichIsOn = null;
-        for (CheckBox checkBox : languageCheckBoxes) {
-            if (checkBox.isChecked()) {
+        ImageButton lastImageButtonWhichIsOn = null;
+        int index = 0;
+        for (Boolean selected : selectedLanguages) {
+            if (selected) {
                 counter += 1;
-                lastCheckBoxWhichIsOn = checkBox;
+                lastImageButtonWhichIsOn = languageImageButtons.get(index);
+                index ++;
             }
         }
         if (counter == 1) {
-            if (lastCheckBoxWhichIsOn != null) {
-                lastCheckBoxWhichIsOn.setEnabled(false);
+            MNLog.i(TAG, "lastImageButtonWhichIsOn disabled");
+            if (lastImageButtonWhichIsOn != null) {
+                lastImageButtonWhichIsOn.setEnabled(false);
             }
         } else {
-            for (CheckBox checkBox : languageCheckBoxes) {
-                checkBox.setEnabled(true);
+            for (ImageButton imageButton : languageImageButtons) {
+                imageButton.setEnabled(true);
             }
         }
     }
@@ -194,21 +200,20 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
     }
 
     private void applyTheme() {
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
-        if (getView() != null) {
-            getView().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-            quoteTextView.setBackgroundColor(MNSettingColors.getExchangeRatesForwardColor(currentThemeType));
-        } else {
-            MNLog.e(TAG, "getView() is null!");
-        }
+//        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
+//        if (getView() != null) {
+//            getView().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+//        } else {
+//            MNLog.e(TAG, "getView() is null!");
+//        }
     }
     @Override
     protected void archivePanelData() throws JSONException {
         // 스위치를 가지고 List를 만듬
-        selectedLanguages.clear();
-        for (CheckBox checkBox: languageCheckBoxes) {
-            selectedLanguages.add(checkBox.isChecked());
-        }
+//        selectedLanguages.clear();
+//        for (CheckBox checkBox: languageCheckBoxes) {
+//            selectedLanguages.add(checkBox.isChecked());
+//        }
         MNLog.i(TAG, "selectedLanguages: " + selectedLanguages.toString());
         // 직렬화 해서 panelDataObject에 저장
         String selectedLanguagesJsonString = new Gson().toJson(selectedLanguages);
@@ -217,6 +222,20 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        checkCheckBoxStates();
+    }
+
+    @Override
+    public void onClick(View view) {
+        MNLog.i(TAG, "onClick: " + view.getTag());
+        int index = (Integer) view.getTag();
+        // 해당 스위치 토글
+        selectedLanguages.set(index, !selectedLanguages.get(index));
+        if (selectedLanguages.get(index)) {
+            view.setBackgroundResource(R.drawable.icon_panel_detail_checkbox_on);
+        } else {
+            view.setBackgroundResource(R.drawable.icon_panel_detail_checkbox);
+        }
         checkCheckBoxStates();
     }
 }

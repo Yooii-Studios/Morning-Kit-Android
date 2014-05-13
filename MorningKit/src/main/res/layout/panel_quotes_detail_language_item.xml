@@ -4,7 +4,7 @@
     android:layout_height="wrap_content" >
 
     <CheckBox
-        android:id="@+id/panel_quotes_detail_language_checkbox"
+        android:id="@+id/panel_quotes_detail_language_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -17,7 +17,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="@dimen/panel_detail_padding"
-        android:layout_toLeftOf="@id/panel_quotes_detail_language_checkbox"
+        android:layout_toLeftOf="@id/panel_quotes_detail_language_image_button"
         android:text="@string/setting_language_traditional_chinese"
         android:textSize="25dp"/>
 
