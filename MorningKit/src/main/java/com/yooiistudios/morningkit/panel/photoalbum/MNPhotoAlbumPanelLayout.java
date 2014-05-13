@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel.photoalbum;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -18,10 +19,11 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     public MNPhotoAlbumPanelLayout(Context context) {
         super(context);
     }
-
     public MNPhotoAlbumPanelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
+
+    private ImageView imageView;
 
     @Override
     protected void init() {
@@ -52,5 +54,16 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+
+//        MNViewSizeMeasure.setViewSizeObserver(imageView, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+//            @Override
+//            public void onLayoutLoad() {
+//                try {
+//                    getPolishedFlickrBitmap();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
     }
 }
