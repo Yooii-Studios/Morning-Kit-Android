@@ -48,11 +48,6 @@ public class MNAlarmPrefItemMaker {
         viewHolder.alarmTimePicker.setCurrentHour(alarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY));
 
         viewHolder.alarmTimePicker.setCurrentMinute(alarm.getAlarmCalendar().get(Calendar.MINUTE));
-        if (alarmPreferenceType == MNAlarmPreferenceType.ADD) {
-            viewHolder.alarmTimePicker.setCurrentMinute(alarm.getAlarmCalendar().get(Calendar.MINUTE) + 1);
-            alarm.getAlarmCalendar().add(Calendar.MINUTE, 1);
-        }
-
         viewHolder.alarmTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {

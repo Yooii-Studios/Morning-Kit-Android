@@ -22,6 +22,7 @@ import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundManager;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundType;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -70,6 +71,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
             } else {
                 alarmPreferenceType = MNAlarmPreferenceType.ADD;
                 alarm = MNAlarmMaker.makeAlarm(getApplicationContext());
+                alarm.getAlarmCalendar().add(Calendar.MINUTE, 1); // 추가시에는 1분을 추가해 주기
 
                 // 알람 추가일 경우에는 최근 스누즈 사용 여부를 적용
                 SharedPreferences prefs = getSharedPreferences(ALARM_SHARED_PREFS, MODE_PRIVATE);
