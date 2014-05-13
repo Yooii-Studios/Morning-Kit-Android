@@ -28,9 +28,9 @@
         android:layout_below="@id/flickr_detail_edittext">
 
         <ImageButton
-            android:id="@+id/flickr_detail_grayscale_checkbox"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+            android:id="@+id/flickr_detail_grayscale_image_button"
+            android:layout_width="@dimen/panel_detail_image_button_size"
+            android:layout_height="@dimen/panel_detail_image_button_size"
             android:layout_marginRight="@dimen/panel_detail_padding"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="@string/flickr_use_gray_scale"
             android:textStyle="bold"
-            android:layout_toLeftOf="@id/flickr_detail_grayscale_checkbox"
+            android:layout_toLeftOf="@id/flickr_detail_grayscale_image_button"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
