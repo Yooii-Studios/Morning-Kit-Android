@@ -93,16 +93,14 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
 
     @Subscribe
     public void onRepeatChanged(boolean[] repeats) {
-//        Log.i(TAG, "onRepeatChanged");
-        if (alarm != null) {
+        if (alarm != null && repeats.length == 7) {
             alarm.setRepeatOn(false);
-            for (int i = 0; i < alarm.getAlarmRepeatList().size(); i++) {
-                if (alarm.getAlarmRepeatList().get(i)) {
+            for (int i = 0; i < repeats.length; i++) {
+                if (repeats[i]) {
                     alarm.setRepeatOn(true);
                 }
                 alarm.getAlarmRepeatList().set(i, repeats[i]);
             }
-//            Log.i(TAG, "repeats: " + alarm.getAlarmRepeatList());
             notifyDataSetChanged();
         } else {
             throw new AssertionError("alarm must not be null!");
