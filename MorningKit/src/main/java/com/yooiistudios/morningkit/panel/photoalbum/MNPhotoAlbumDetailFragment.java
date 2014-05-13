@@ -56,7 +56,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     public static final int DEFAULT_INTERVAL_MIN = 0;
     public static final int DEFAULT_INTERVAL_SEC = 5;
     public static final File DEFAULT_PARENT_DIR =
-            Environment.getExternalStorageDirectory();
+            Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DCIM);
 
     private int intervalMinute;
     private int intervalSecond;
