@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -13,10 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
@@ -51,8 +49,8 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
     @InjectView(R.id.flickr_detail_imageview) RecyclingImageView imageView;
     @InjectView(R.id.flickr_detail_edittext) EditText keywordEditText;
     @InjectView(R.id.flickr_detail_grayscale_textview) TextView grayScaleTextView;
-    @Optional @InjectView(R.id.flickr_detail_grayscale_checkbox) CheckBox grayscaleCheckbox; // < V14
-    Switch grayscaleSwitch; // >= V14
+    @Optional @InjectView(R.id.flickr_detail_grayscale_checkbox) ImageButton grayscaleImageButton; // < V14
+//    Switch grayscaleSwitch; // >= V14
 
     private boolean isGrayScale;
     private MNFlickrBitmapSaveAsyncTask bitmapSaveAsyncTask;
@@ -73,12 +71,28 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
                     e.printStackTrace();
                 }
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                grayscaleSwitch = (Switch) rootView.findViewById(R.id.flickr_detail_grayscale_switch);
-                grayscaleSwitch.setChecked(isGrayScale);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+//                grayscaleSwitch = (Switch) rootView.findViewById(R.id.flickr_detail_grayscale_switch);
+//                grayscaleSwitch.setChecked(isGrayScale);
+//            } else {
+//                grayscaleCheckbox.setChecked(isGrayScale);
+//            }
+            if (isGrayScale) {
+                grayscaleImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
             } else {
-                grayscaleCheckbox.setChecked(isGrayScale);
+                grayscaleImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
             }
+            grayscaleImageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    isGrayScale = !isGrayScale;
+                    if (isGrayScale) {
+                        grayscaleImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+                    } else {
+                        grayscaleImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+                    }
+                }
+            });
 
             // 비트맵 로컬에서 읽어오기
             try {
@@ -133,11 +147,12 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
     @Override
     protected void archivePanelData() throws JSONException {
         // grayscale
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            getPanelDataObject().put(FLICKR_DATA_GRAYSCALE, grayscaleSwitch.isChecked());
-        } else {
-            getPanelDataObject().put(FLICKR_DATA_GRAYSCALE, grayscaleCheckbox.isChecked());
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+//            getPanelDataObject().put(FLICKR_DATA_GRAYSCALE, grayscaleSwitch.isChecked());
+//        } else {
+//            getPanelDataObject().put(FLICKR_DATA_GRAYSCALE, grayscaleCheckbox.isChecked());
+//        }
+        getPanelDataObject().put(FLICKR_DATA_GRAYSCALE, isGrayScale);
 
         // 키워드 길이가 0 이상일 경우에만 적용
         if (keywordEditText.getText().length() > 0) {

@@ -22,16 +22,21 @@
 
     <RelativeLayout
         android:layout_marginTop="@dimen/margin_outer"
+        android:layout_marginLeft="@dimen/panel_detail_padding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/flickr_detail_edittext">
 
-        <CheckBox
+        <ImageButton
             android:id="@+id/flickr_detail_grayscale_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginRight="@dimen/panel_detail_padding"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:scaleType="centerInside"
+            android:background="@android:color/transparent"
+            android:src="@drawable/icon_panel_detail_checkbox"/>
 
         <TextView
             android:id="@+id/flickr_detail_grayscale_textview"

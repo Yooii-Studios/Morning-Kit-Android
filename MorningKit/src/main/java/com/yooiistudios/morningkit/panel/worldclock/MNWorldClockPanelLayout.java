@@ -19,6 +19,9 @@ import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZone;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZoneLoader;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNWorldClock;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import org.json.JSONException;
 
@@ -115,10 +118,12 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         analogAmpmTextView.setGravity(Gravity.CENTER);
         LayoutParams ampmLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         ampmLayoutParams.addRule(ALIGN_PARENT_RIGHT);
-        ampmLayoutParams.rightMargin = getResources().getDimensionPixelSize(R.dimen.margin_outer);
         ampmLayoutParams.addRule(ALIGN_PARENT_TOP);
+        ampmLayoutParams.rightMargin = getResources().getDimensionPixelSize(R.dimen.panel_detail_padding);
         ampmLayoutParams.topMargin = getResources().getDimensionPixelSize(R.dimen.margin_outer);
         analogAmpmTextView.setLayoutParams(ampmLayoutParams);
+        analogAmpmTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_weather_city_name_local_time_text_size));
         getContentLayout().addView(analogAmpmTextView);
 
         // analog clock
@@ -137,7 +142,10 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         LayoutParams dayDiffLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         dayDiffLayoutParams.addRule(CENTER_HORIZONTAL);
         dayDiffLayoutParams.addRule(BELOW, analogClockView.getId());
+        dayDiffLayoutParams.setMargins(0, getResources().getDimensionPixelSize(R.dimen.margin_inner), 0, 0);
         analogDayDifferenceTextView.setLayoutParams(dayDiffLayoutParams);
+        analogDayDifferenceTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_weather_city_name_local_time_text_size));
         analogClockLayout.addView(analogDayDifferenceTextView);
 
         // city name
@@ -148,6 +156,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         cityNameLayoutParams.addRule(CENTER_HORIZONTAL);
         cityNameLayoutParams.addRule(BELOW, analogDayDifferenceTextView.getId());
         analogCityNameTextView.setLayoutParams(cityNameLayoutParams);
+        analogCityNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_weather_city_name_local_time_text_size));
         analogClockLayout.addView(analogCityNameTextView);
 
         // test
@@ -401,5 +411,23 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         stopClock();
+    }
+
+    @Override
+    public void applyTheme() {
+        super.applyTheme();
+
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
+        Context applicationContext = getContext().getApplicationContext();
+        int subFontColor = MNMainColors.getSubFontColor(currentThemeType, applicationContext);
+        int mainFontColor = MNMainColors.getMainFontColor(currentThemeType, applicationContext);
+        analogAmpmTextView.setTextColor(subFontColor);
+        analogDayDifferenceTextView.setTextColor(subFontColor);
+        analogCityNameTextView.setTextColor(subFontColor);
+
+        digitalAmpmTextView.setTextColor(subFontColor);
+        digitalTimeTextView.setTextColor(mainFontColor);
+        digitalDayDifferenceTextView.setTextColor(subFontColor);
+        digitalCityNameTextView.setTextColor(subFontColor);
     }
 }

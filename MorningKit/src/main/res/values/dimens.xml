@@ -124,12 +124,12 @@
     <dimen name="panel_date_month_text_size">16sp</dimen>
     <dimen name="panel_date_day_text_size">42sp</dimen>
     <dimen name="panel_date_day_of_week_text_size">16sp</dimen>
-    <dimen name="panel_date_minus_margin">-14dp</dimen>
+    <dimen name="panel_date_minus_margin">-6dp</dimen>
 
     <dimen name="panel_date_lunar_month_text_size">11sp</dimen>
     <dimen name="panel_date_lunar_day_text_size">32sp</dimen>
     <dimen name="panel_date_lunar_day_of_week_text_size">11sp</dimen>
-    <dimen name="panel_date_lunar_minus_margin">-9dp</dimen>
+    <dimen name="panel_date_lunar_minus_margin">-1dp</dimen>
 
     <!-- Setting -->
     <!-- Panel -->
