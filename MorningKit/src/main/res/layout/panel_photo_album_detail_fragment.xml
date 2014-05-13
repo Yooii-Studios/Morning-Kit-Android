@@ -1,104 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              tools:context=".PhotoFragment"
-              android:orientation="vertical">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/log"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="not loaded" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" >
-        <TextView
-            android:id="@+id/refreshTime_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="refresh time" />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/refreshTime_label">
-            <include
-                android:id="@+id/toggleSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                layout="@layout/common_switch"/>
-            <TextView
-                android:id="@+id/label_sec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/toggleSwitch"
-                android:visibility="gone"
-                android:text="초"/>
-            <EditText
-                android:id="@+id/edittext_sec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/label_sec"
-                android:visibility="gone"
-                android:inputType="numberSigned"
-                android:hint="sec"/>
-            <TextView
-                android:id="@+id/label_min"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/edittext_sec"
-                android:visibility="gone"
-                android:text="분"/>
-            <EditText
-                android:id="@+id/edittext_min"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/label_min"
-                android:visibility="gone"
-                android:inputType="numberSigned"
-                android:hint="min"/>
-        </RelativeLayout>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/transition_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="transition type" />
-        <RadioGroup
-            android:id="@+id/transition_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/radio_none"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="none"/>
-            <RadioButton
-                android:id="@+id/radio_alpha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="alpha"/>
-        </RadioGroup>
-    </RelativeLayout>
-    <Button
-        android:id="@+id/load"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="load"/>
+        android:layout_height="match_parent"
+        android:text="Photo Album Test"/>
 
-
-</LinearLayout>
+</RelativeLayout>
