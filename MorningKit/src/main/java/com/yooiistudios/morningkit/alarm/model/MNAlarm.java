@@ -71,6 +71,7 @@ public class MNAlarm implements Serializable, Cloneable {
     public void startAlarm(Context context) {
         isAlarmOn = true;
 
+        // 캘린더 시간 보정
         alarmCalendar = SKAlarmManager.adjustCalendar(alarmCalendar);
 
         if (isRepeatOn) {
