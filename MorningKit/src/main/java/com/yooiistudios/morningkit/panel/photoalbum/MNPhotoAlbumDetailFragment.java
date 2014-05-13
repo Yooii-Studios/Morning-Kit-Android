@@ -1,18 +1,41 @@
 package com.yooiistudios.morningkit.panel.photoalbum;
 
 import android.os.Bundle;
+import android.os.Environment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumTransitionType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
+import java.io.File;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 import butterknife.ButterKnife;
+import butterknife.InjectView;
+
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_FILELIST;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_PARENT_LIST;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_ROOT;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_INTERVAL_MINUTE;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_INTERVAL_SECOND;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_TRANS_TYPE;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_USE_REFRESH;
 
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2014. 5. 13.
@@ -21,10 +44,29 @@ import butterknife.ButterKnife;
  *  포토 앨범 패널 디테일 프래그먼트 by 동현
  */
 public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
+    @InjectView(R.id.toggleSwitch) CompoundButton refreshTimeToggleButton;
+    @InjectView(R.id.edittext_min) EditText minuteEditText;
+    @InjectView(R.id.edittext_sec) EditText secondEditText;
+    @InjectView(R.id.transition_group) RadioGroup transitionEffectRadioGroup;
+    @InjectView(R.id.label_min) TextView minLabel;
+    @InjectView(R.id.label_sec) TextView secLabel;
 
-//    @InjectView(R.id.panel_detail_weather_linear_layout)                    LinearLayout containerLayout;
-//    @InjectView(R.id.panel_detail_weather_use_current_location_textview)    TextView useCurrentLocationTextView;
-//    @InjectView(R.id.panel_detail_weather_use_current_location_checkbox)    CheckBox useCurrentLocationCheckBox;
+    public static final int INVALID_INTERVAL = -1;
+    //default constants
+    public static final int DEFAULT_INTERVAL_MIN = 0;
+    public static final int DEFAULT_INTERVAL_SEC = 5;
+    public static final File DEFAULT_PARENT_DIR =
+            Environment.getExternalStorageDirectory();
+
+    private int intervalMinute;
+    private int intervalSecond;
+//    private PhotoType type;
+    private boolean useRefresh;
+    private MNPhotoAlbumTransitionType transitionType;
+    private ArrayList<String> parentDirList;
+    private String rootDirForFiles;
+    private ArrayList<String> fileList;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +80,17 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                 initPanelDataObject();
             } catch (JSONException e) {
                 e.printStackTrace();
+
+//                type = PhotoType.DEFAULT;
+                intervalMinute = DEFAULT_INTERVAL_MIN;
+                intervalSecond = DEFAULT_INTERVAL_SEC;
+                useRefresh = false;
+                transitionType = MNPhotoAlbumTransitionType.NONE;
+
+                parentDirList = new ArrayList<String>();
+                parentDirList.add(DEFAULT_PARENT_DIR.getAbsolutePath());
+                rootDirForFiles = null;
+                fileList = null;
             }
 
             // UI
@@ -47,15 +100,112 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     }
 
     private void initPanelDataObject() throws JSONException {
-        // 메인에서 panelDataObject를 얻어서 여기서 처리
-        // 참고용 코드
-//        if (getPanelDataObject().has(WEATHER_DATA_IS_USING_CURRENT_LOCATION)) {
-//            // 기본은 현재위치 사용
-//            isUsingCurrentLocation = getPanelDataObject().getBoolean(WEATHER_DATA_IS_USING_CURRENT_LOCATION);
+//        if (getPanelDataObject().has(KEY_TYPE)) {
+//            String typeStr = getPanelDataObject().getString(KEY_TYPE);
+//            type = PhotoType.getTypeByKey(typeStr);
 //        }
+//        else {
+//            type = PhotoType.DEFAULT;
+//        }
+        if (getPanelDataObject().has(KEY_DATA_INTERVAL_MINUTE)) {
+            intervalMinute = getPanelDataObject()
+                    .getInt(KEY_DATA_INTERVAL_MINUTE);
+        }
+        else {
+            intervalMinute = INVALID_INTERVAL;
+        }
+        if (getPanelDataObject().has(KEY_DATA_INTERVAL_SECOND)) {
+            intervalSecond = getPanelDataObject()
+                    .getInt(KEY_DATA_INTERVAL_SECOND);
+        }
+        else {
+            intervalSecond = INVALID_INTERVAL;
+        }
+        if (getPanelDataObject().has(KEY_DATA_USE_REFRESH)) {
+            useRefresh = getPanelDataObject().getBoolean(KEY_DATA_USE_REFRESH);
+        }
+        else {
+            useRefresh = false;
+        }
+        if (getPanelDataObject().has(KEY_DATA_TRANS_TYPE)) {
+            String transitionTypeStr = getPanelDataObject().getString
+                    (KEY_DATA_TRANS_TYPE);
+            transitionType = MNPhotoAlbumTransitionType.getTypeByKey(
+                    transitionTypeStr);
+        }
+        else {
+            transitionType = MNPhotoAlbumTransitionType.NONE;
+        }
+        if (getPanelDataObject().has(KEY_DATA_FILE_PARENT_LIST)) {
+            Type type = new TypeToken<ArrayList<String>>(){}.getType();
+            parentDirList = new Gson().fromJson(
+                    getPanelDataObject().getString(KEY_DATA_FILE_PARENT_LIST),
+                    type);
+        }
+        else {
+            parentDirList = new ArrayList<String>();
+            parentDirList.add(DEFAULT_PARENT_DIR.getAbsolutePath());
+        }
+        if (getPanelDataObject().has(KEY_DATA_FILE_ROOT)) {
+            rootDirForFiles = getPanelDataObject().getString(
+                    KEY_DATA_FILE_ROOT);
+        }
+        else {
+            rootDirForFiles = null;
+        }
+        if (getPanelDataObject().has(KEY_DATA_FILE_FILELIST)) {
+            Type type = new TypeToken<ArrayList<String>>(){}.getType();
+            fileList = new Gson().fromJson(
+                    getPanelDataObject().getString(KEY_DATA_FILE_FILELIST),
+                    type);
+        }
+        else {
+            fileList = null;
+        }
     }
 
     private void initUI() {
+        refreshTimeToggleButton.setOnCheckedChangeListener(
+                onRefreshTimeCheckChangedListener);
+        transitionEffectRadioGroup.setOnCheckedChangeListener
+                (onTransitionChangedListener);
+        minuteEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence,
+                                          int i, int i2, int i3) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence,
+                                      int i, int i2, int i3) {
+                if (charSequence.length() > 0) {
+                    intervalMinute = Integer.parseInt(charSequence.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+        secondEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence,
+                                          int i, int i2, int i3) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence,
+                                      int i, int i2, int i3) {
+                if (charSequence.length() > 0) {
+                    intervalSecond = Integer.parseInt(charSequence.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
+        refreshTimeToggleButton.setChecked(useRefresh);
+        setTransitionType(transitionType, true);
+        updateTimeUI();
+
         // theme
         initTheme();
     }
@@ -64,19 +214,92 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
     }
 
+    private void setTransitionType(MNPhotoAlbumTransitionType type, boolean updateUI) {
+        transitionType = type;
+        if (updateUI) {
+            transitionEffectRadioGroup.check(type.getRadioId());
+        }
+    }
+
+    private void updateTimeUI() {//int intervalMin, int intervalSec
+        if (intervalMinute != INVALID_INTERVAL &&
+                intervalSecond != INVALID_INTERVAL) {
+            minuteEditText.setVisibility(View.VISIBLE);
+            secondEditText.setVisibility(View.VISIBLE);
+            minLabel.setVisibility(View.VISIBLE);
+            secLabel.setVisibility(View.VISIBLE);
+
+            minuteEditText.setText(
+                    String.valueOf(intervalMinute));
+            secondEditText.setText(
+                    String.valueOf(intervalSecond));
+        }
+        else {
+            minuteEditText.setVisibility(View.INVISIBLE);
+            secondEditText.setVisibility(View.INVISIBLE);
+            minLabel.setVisibility(View.INVISIBLE);
+            secLabel.setVisibility(View.INVISIBLE);
+
+            minuteEditText.setText(
+                    String.valueOf(INVALID_INTERVAL));
+            secondEditText.setText(
+                    String.valueOf(INVALID_INTERVAL));
+        }
+    }
+
     @Override
     protected void archivePanelData() throws JSONException {
-        // 참고용 코드
-//        getPanelDataObject().put(WEATHER_DATA_IS_USING_CURRENT_LOCATION, isUsingCurrentLocation);
-//        getPanelDataObject().put(WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME, isDisplayingLocaltime);
-//        getPanelDataObject().put(WEATHER_DATA_TEMP_CELSIUS, isUsingCelsius);
-//        // 선택 위치 정보가 없다면 명시적으로 삭제
-//        if (selectedLocationInfo != null) {
-//            getPanelDataObject().put(WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO,
-//                    new Gson().toJson(selectedLocationInfo));
-//        } else {
-//            getPanelDataObject().put(WEATHER_DATA_IS_USING_CURRENT_LOCATION, true);
-//            getPanelDataObject().remove(WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO);
-//        }
+//        getPanelDataObject().put(KEY_TYPE, type.getKey());
+        getPanelDataObject().put(KEY_DATA_INTERVAL_MINUTE, intervalMinute);
+        getPanelDataObject().put(KEY_DATA_INTERVAL_SECOND, intervalSecond);
+        getPanelDataObject().put(KEY_DATA_USE_REFRESH, useRefresh);
+        getPanelDataObject().put(KEY_DATA_TRANS_TYPE, transitionType.getKey());
+
+        getPanelDataObject().put(KEY_DATA_FILE_PARENT_LIST,
+                new Gson().toJson(parentDirList));
+        getPanelDataObject().put(KEY_DATA_FILE_ROOT, rootDirForFiles);
+        getPanelDataObject().put(KEY_DATA_FILE_FILELIST,
+                new Gson().toJson(fileList));
     }
+
+
+    private CompoundButton.OnCheckedChangeListener
+            onRefreshTimeCheckChangedListener
+            = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton btn, boolean checked) {
+            useRefresh = checked;
+            switch (btn.getId()) {
+                case R.id.toggleSwitch:
+                    if (checked) {
+                        if (intervalMinute == INVALID_INTERVAL ||
+                                intervalSecond == INVALID_INTERVAL) {
+                            intervalMinute = DEFAULT_INTERVAL_MIN;
+                            intervalSecond = DEFAULT_INTERVAL_SEC;
+                        }
+                    } else {
+                        intervalMinute = INVALID_INTERVAL;
+                        intervalSecond = INVALID_INTERVAL;
+                    }
+                    updateTimeUI();
+                    break;
+            }
+        }
+    };
+
+
+    private RadioGroup.OnCheckedChangeListener onTransitionChangedListener
+            = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup radioGroup, int id) {
+            switch(id) {
+                case R.id.radio_none:
+                    transitionType = MNPhotoAlbumTransitionType.NONE;
+                    break;
+                case R.id.radio_alpha:
+                    transitionType = MNPhotoAlbumTransitionType.ALPHA;
+                    break;
+            }
+        }
+    };
 }
