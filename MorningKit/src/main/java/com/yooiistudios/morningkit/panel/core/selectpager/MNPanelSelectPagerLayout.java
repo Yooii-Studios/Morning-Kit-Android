@@ -78,8 +78,8 @@ public class MNPanelSelectPagerLayout extends RelativeLayout {
         panelSelectPager.getAdapter().notifyDataSetChanged(); // 이렇게 하면 ViewPager의 live fragment를 얻을 수 없다
 
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
-//        pageIndicator.setFillColor(MNSettingColors.getCurrentPanelSelectIndicatorColor(currentThemeType));
-        pageIndicator.setFillColor(Color.RED);
+        setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+        pageIndicator.setFillColor(MNSettingColors.getCurrentPanelSelectIndicatorColor(currentThemeType));
         pageIndicator.setPageColor(MNSettingColors.getDefaultPanelSelectIndicatorColor(currentThemeType));
     }
 

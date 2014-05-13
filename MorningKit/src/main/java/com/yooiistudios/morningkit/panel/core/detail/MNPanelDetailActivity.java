@@ -84,6 +84,7 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
                 @Override
                 public void onLayoutLoad() {
                     panelSelectPagerLayout.setColorOfPanelSelectPager(currentPanelTypeIndex, -1);
+                    panelSelectPagerLayout.applyTheme();
                 }
             });
         }
