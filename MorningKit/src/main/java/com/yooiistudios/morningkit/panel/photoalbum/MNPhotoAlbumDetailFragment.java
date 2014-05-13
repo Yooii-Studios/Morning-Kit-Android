@@ -1,9 +1,11 @@
 package com.yooiistudios.morningkit.panel.photoalbum;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,8 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import ru.bartwell.exfilepicker.ExFilePickerActivity;
+import ru.bartwell.exfilepicker.ExFilePickerParcelObject;
 
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_FILELIST;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_PARENT_LIST;
@@ -44,20 +48,26 @@ import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayo
  *  포토 앨범 패널 디테일 프래그먼트 by 동현
  */
 public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
-    @InjectView(R.id.toggleSwitch) CompoundButton refreshTimeToggleButton;
-    @InjectView(R.id.edittext_min) EditText minuteEditText;
-    @InjectView(R.id.edittext_sec) EditText secondEditText;
-    @InjectView(R.id.transition_group) RadioGroup transitionEffectRadioGroup;
-    @InjectView(R.id.label_min) TextView minLabel;
-    @InjectView(R.id.label_sec) TextView secLabel;
+    private static final String TAG = "MNPhotoAlbumDetailFragment";
 
     public static final int INVALID_INTERVAL = -1;
+
     //default constants
     public static final int DEFAULT_INTERVAL_MIN = 0;
     public static final int DEFAULT_INTERVAL_SEC = 5;
     public static final File DEFAULT_PARENT_DIR =
             Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_DCIM);
+
+    //request code
+    public static final int RC_LOAD_PHOTO = 1;
+
+    @InjectView(R.id.toggleSwitch) CompoundButton refreshTimeToggleButton;
+    @InjectView(R.id.edittext_min) EditText minuteEditText;
+    @InjectView(R.id.edittext_sec) EditText secondEditText;
+    @InjectView(R.id.transition_group) RadioGroup transitionEffectRadioGroup;
+    @InjectView(R.id.label_min) TextView minLabel;
+    @InjectView(R.id.label_sec) TextView secLabel;
 
     private int intervalMinute;
     private int intervalSecond;
@@ -91,8 +101,17 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                 parentDirList = new ArrayList<String>();
                 parentDirList.add(DEFAULT_PARENT_DIR.getAbsolutePath());
                 rootDirForFiles = null;
-                fileList = null;
+                fileList = new ArrayList<String>();
             }
+
+            rootView.findViewById(R.id.load).setOnClickListener(new View
+                    .OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), ExFilePickerActivity.class);
+                    startActivityForResult(intent, RC_LOAD_PHOTO);
+                }
+            });
 
             // UI
             initUI();
@@ -161,7 +180,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                     type);
         }
         else {
-            fileList = null;
+            fileList = new ArrayList<String>();
         }
     }
 
@@ -258,7 +277,9 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 
         getPanelDataObject().put(KEY_DATA_FILE_PARENT_LIST,
                 new Gson().toJson(parentDirList));
-        getPanelDataObject().put(KEY_DATA_FILE_ROOT, rootDirForFiles);
+        if (rootDirForFiles != null) {
+            getPanelDataObject().put(KEY_DATA_FILE_ROOT, rootDirForFiles);
+        }
         getPanelDataObject().put(KEY_DATA_FILE_FILELIST,
                 new Gson().toJson(fileList));
     }
@@ -303,4 +324,39 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             }
         }
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case RC_LOAD_PHOTO:
+                if (data != null) {
+                    ExFilePickerParcelObject object = (ExFilePickerParcelObject)
+                            data.getParcelableExtra(
+                                    ExFilePickerParcelObject.class.
+                                            getCanonicalName());
+                    if (object.count > 0) {
+                        ArrayList<String> parentDirList =
+                                new ArrayList<String>();
+                        ArrayList<String> fileList =
+                                new ArrayList<String>();
+                        for (String name : object.names) {
+                            File file = new File(object.path, name);
+                            if (file.isDirectory()) {
+                                parentDirList.add(file.getAbsolutePath());
+                            }
+                            else {
+                                fileList.add(name);
+                            }
+
+                            Log.i(TAG, file.getAbsolutePath());
+                        }
+//                        loadData(parentDirList, object.path, fileList,
+//                                _getSetting());
+                    }
+                }
+                break;
+        }
+    }
 }
