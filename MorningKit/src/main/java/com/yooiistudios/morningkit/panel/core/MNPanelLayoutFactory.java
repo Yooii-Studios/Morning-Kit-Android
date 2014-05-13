@@ -8,6 +8,7 @@ import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownPanelLayou
 import com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayout;
 import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 import com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout;
+import com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout;
 import com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout;
 import com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout;
 import com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout;
@@ -74,6 +75,11 @@ public class MNPanelLayoutFactory {
             case DATE_COUNTDOWN:
                 newPanelLayout = new MNDateCountdownPanelLayout(context);
                 newPanelLayout.setPanelType(MNPanelType.DATE_COUNTDOWN);
+                break;
+
+            case PHOTO_ALBUM:
+                newPanelLayout = new MNPhotoAlbumPanelLayout(context);
+                newPanelLayout.setPanelType(MNPanelType.PHOTO_ALBUM);
                 break;
 
             default:

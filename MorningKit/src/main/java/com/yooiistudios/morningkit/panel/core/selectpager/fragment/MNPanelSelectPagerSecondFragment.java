@@ -59,7 +59,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
     @InjectView(R.id.panel_selector_page2_2_textview) TextView textView2_2;
     @InjectView(R.id.panel_selector_page2_3_textview) TextView textView2_3;
     @InjectView(R.id.panel_selector_page2_4_textview) TextView textView2_4;
-//    @InjectView(R.id.widget_selector_page2_5_textview) TextView textView2_5; // No panel yet
+    @InjectView(R.id.panel_selector_page2_5_textview) TextView textView2_5;
 //    @InjectView(R.id.widget_selector_page2_6_textview) TextView textView2_6; // No panel yey
 
     @InjectView(R.id.panel_selector_page2_2_lock_imageview) ImageView lockImageView2_2;
@@ -88,8 +88,8 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
         textView2_1.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
         textView2_2.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
         textView2_3.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
-        textView2_4.setTextColor(MNSettingColors.getStorePointedFontColor(currentThemeType)); // Store
-//        textView2_5.setTextColor(MNSettingColors.getMainFontColor(currentThemeType)); // No panel
+        textView2_4.setTextColor(MNSettingColors.getSubFontColor(currentThemeType)); // Store
+        textView2_5.setTextColor(MNSettingColors.getStorePointedFontColor(currentThemeType)); // No panel
 //        textView2_6.setTextColor(MNSettingColors.getMainFontColor(currentThemeType)); // No panel
 
         if (textViews == null) {
@@ -101,6 +101,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
         textViews.add(textView2_2);
         textViews.add(textView2_3);
         textViews.add(textView2_4);
+        textViews.add(textView2_5);
     }
 
     private void initShadowLayouts() {
