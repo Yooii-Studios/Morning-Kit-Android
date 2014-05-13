@@ -82,7 +82,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.panel_photo_album_detail_fragment, container, false);
+        View rootView = inflater.inflate(
+                R.layout.panel_photo_album_detail_fragment, container, false);
         if (rootView != null) {
             ButterKnife.inject(this, rootView);
 
@@ -108,7 +109,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                     .OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), ExFilePickerActivity.class);
+                    Intent intent = new Intent(getActivity(),
+                            ExFilePickerActivity.class);
                     startActivityForResult(intent, RC_LOAD_PHOTO);
                 }
             });
@@ -231,10 +233,12 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     }
 
     private void initTheme() {
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
+        MNThemeType currentThemeType =
+                MNTheme.getCurrentThemeType(getActivity());
     }
 
-    private void setTransitionType(MNPhotoAlbumTransitionType type, boolean updateUI) {
+    private void setTransitionType(MNPhotoAlbumTransitionType type,
+                                   boolean updateUI) {
         transitionType = type;
         if (updateUI) {
             transitionEffectRadioGroup.check(type.getRadioId());
@@ -352,6 +356,9 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 
                             Log.i(TAG, file.getAbsolutePath());
                         }
+                        this.parentDirList = parentDirList;
+                        this.rootDirForFiles = object.path;
+                        this.fileList = fileList;
 //                        loadData(parentDirList, object.path, fileList,
 //                                _getSetting());
                     }
