@@ -377,9 +377,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             return;
         }
         isClockRunning = true;
-
-        int diffInMilli = (int) System.currentTimeMillis() % 1000;
-        clockHandler.sendEmptyMessageDelayed(0, 1000 - diffInMilli);
+        clockHandler.sendEmptyMessageDelayed(0, 0);
     }
 
     private void stopClock() {
@@ -387,6 +385,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             return;
         }
         isClockRunning = false;
+        clockHandler.removeMessages(0);
     }
 
     // 뷰가 붙을 때 아날로그 시계뷰 재가동
