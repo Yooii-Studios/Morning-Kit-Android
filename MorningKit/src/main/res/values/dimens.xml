@@ -119,7 +119,7 @@
 
     <!-- Quotes -->
     <!-- Detail -->
-    <dimen name="panel_quotes_detail_language_text_size">20dp</dimen>
+    <dimen name="panel_quotes_detail_language_text_size">20sp</dimen>
     <dimen name="panel_quote_detail_padding">20dp</dimen>
     <dimen name="panel_quote_detail_rounded_corner_radius">15dp</dimen>
 

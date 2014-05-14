@@ -19,6 +19,8 @@ import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLanguage;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLoader;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 
 import org.json.JSONException;
 
@@ -131,6 +133,9 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
     }
 
     private void initQuoteTextView() {
+        quoteTextView.setTextColor(MNSettingColors.getSubFontColor(MNTheme.getCurrentThemeType(
+                getActivity().getApplicationContext())));
+
         if (quote != null) {
             quoteTextView.setVisibility(View.VISIBLE);
             quoteTextView.setText(quote.getQuote() + "\n" + quote.getAuthor());
@@ -157,8 +162,6 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
                 imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
             }
             imageButton.setOnClickListener(this);
-//            checkBox.setChecked(isLanguageSelected);
-//            checkBox.setOnCheckedChangeListener(this);
             i++;
         }
         checkCheckBoxStates();
@@ -176,19 +179,24 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
         int index = 0;
         for (Boolean selected : selectedLanguages) {
             if (selected) {
-                counter += 1;
                 lastImageButtonWhichIsOn = languageImageButtons.get(index);
-                index ++;
+                counter += 1;
             }
+            index ++;
         }
         if (counter == 1) {
-            MNLog.i(TAG, "lastImageButtonWhichIsOn disabled");
             if (lastImageButtonWhichIsOn != null) {
                 lastImageButtonWhichIsOn.setEnabled(false);
+                lastImageButtonWhichIsOn.setImageResource(R.drawable.icon_panel_detail_checkbox_on_disabled);
             }
         } else {
-            for (ImageButton imageButton : languageImageButtons) {
-                imageButton.setEnabled(true);
+            for (int i = 0; i < selectedLanguages.size(); i++) {
+                ImageButton imageButton = languageImageButtons.get(i);
+                if (selectedLanguages.get(i)) {
+                    imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+                } else {
+                    imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+                }
             }
         }
     }
@@ -209,12 +217,6 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
     }
     @Override
     protected void archivePanelData() throws JSONException {
-        // 스위치를 가지고 List를 만듬
-//        selectedLanguages.clear();
-//        for (CheckBox checkBox: languageCheckBoxes) {
-//            selectedLanguages.add(checkBox.isChecked());
-//        }
-        MNLog.i(TAG, "selectedLanguages: " + selectedLanguages.toString());
         // 직렬화 해서 panelDataObject에 저장
         String selectedLanguagesJsonString = new Gson().toJson(selectedLanguages);
         getPanelDataObject().put(QUOTES_LANGUAGES, selectedLanguagesJsonString);
@@ -226,15 +228,14 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
     }
 
     @Override
-    public void onClick(View view) {
-        MNLog.i(TAG, "onClick: " + view.getTag());
-        int index = (Integer) view.getTag();
+    public void onClick(View imageButton) {
+        int index = (Integer) imageButton.getTag();
         // 해당 스위치 토글
         selectedLanguages.set(index, !selectedLanguages.get(index));
         if (selectedLanguages.get(index)) {
-            view.setBackgroundResource(R.drawable.icon_panel_detail_checkbox_on);
+            ((ImageButton) imageButton).setImageResource(R.drawable.icon_panel_detail_checkbox_on);
         } else {
-            view.setBackgroundResource(R.drawable.icon_panel_detail_checkbox);
+            ((ImageButton) imageButton).setImageResource(R.drawable.icon_panel_detail_checkbox);
         }
         checkCheckBoxStates();
     }
