@@ -17,7 +17,6 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
-import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.panel.core.selectpager.MNPanelSelectPagerAdapter;
@@ -242,30 +241,33 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                 @Override public void onAnimationRepeat(Animator animator) {}
                 @Override
                 public void onAnimationEnd(Animator animator) {
-                    animatingViewIndex = -1;
-                    viewIndexToBeAnimatied++;
+                    // 애니메이션 중간에 액티비티 종료했을 경우를 대비
+                    if (getActivity() != null) {
+                        animatingViewIndex = -1;
+                        viewIndexToBeAnimatied++;
 
-                    int numberOfPanelMatrixItems;
-                    if (MNPanelMatrix.getCurrentPanelMatrixType(getActivity().getApplicationContext())
-                            == MNPanelMatrixType.PANEL_MATRIX_2X2) {
-                        numberOfPanelMatrixItems = 4;
-                    } else if (MNPanelMatrix.getCurrentPanelMatrixType(getActivity().getApplicationContext())
-                            == MNPanelMatrixType.PANEL_MATRIX_2X2) {
-                        numberOfPanelMatrixItems = 6;
-                    } else {
-                        numberOfPanelMatrixItems = panelMatrixItems.size();
-                    }
+                        int numberOfPanelMatrixItems;
+                        if (MNPanelMatrix.getCurrentPanelMatrixType(getActivity().getApplicationContext())
+                                == MNPanelMatrixType.PANEL_MATRIX_2X2) {
+                            numberOfPanelMatrixItems = 4;
+                        } else if (MNPanelMatrix.getCurrentPanelMatrixType(getActivity().getApplicationContext())
+                                == MNPanelMatrixType.PANEL_MATRIX_2X2) {
+                            numberOfPanelMatrixItems = 6;
+                        } else {
+                            numberOfPanelMatrixItems = panelMatrixItems.size();
+                        }
 
-                    if (viewIndexToBeAnimatied < numberOfPanelMatrixItems) {
-                        startRecursivePanelMatrixGuideAnimation();
-                    } else {
-                        if (animationRemainingCount > 0) {
-                            viewIndexToBeAnimatied = 0;
-                            animationRemainingCount--;
+                        if (viewIndexToBeAnimatied < numberOfPanelMatrixItems) {
                             startRecursivePanelMatrixGuideAnimation();
                         } else {
-                            // 제대로 모든 애니메이션이 종료
-                            isGuideAnimationOn = false;
+                            if (animationRemainingCount > 0) {
+                                viewIndexToBeAnimatied = 0;
+                                animationRemainingCount--;
+                                startRecursivePanelMatrixGuideAnimation();
+                            } else {
+                                // 제대로 모든 애니메이션이 종료
+                                isGuideAnimationOn = false;
+                            }
                         }
                     }
                 }
@@ -300,9 +302,6 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
-//                    RoundShadowRelativeLayout roundShadowRelativeLayout
-//                            = firstFragment.getSelectItemLayouts().get(animatingViewIndex);
-//                    roundShadowRelativeLayout.setSolidAreaColor((Integer) animator.getAnimatedValue());
                     ((GradientDrawable) selectItemLayout.getBackground()).setColor(
                             (Integer) animator.getAnimatedValue());
                 }
@@ -425,7 +424,12 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                         panelMatrixItem.startAnimation(blurAnimation);
                     }
                 }
+                // 이전에 클릭한 인덱스의 stroke 색 돌리기
+                if ((Integer) panelMatrixItem.getTag() == pressedPanelMatrixItemIndex) {
+                    panelMatrixItem.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_matrix);
+                }
             } else {
+                panelMatrixItem.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_deep_stroke_color);
                 if (isPanelMatrixItemPressed) {
                     Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                     if (clearAnimation != null) {
@@ -450,7 +454,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                 = (MNPanelSelectPagerSecondFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 1);
 
         // 방금 선택한 인덱스를 clear처리, 이전 인덱스는 blur 처리(처음이라면 -1이므로 상관없음)
-        for (RelativeLayout selectItemLayout : firstFragment.getSelectItemLayouts()) {
+        for (final RelativeLayout selectItemLayout : firstFragment.getSelectItemLayouts()) {
             if ((Integer) selectItemLayout.getTag() != position) {
                 if (!isPanelSelectPagerItemPressed || (Integer) selectItemLayout.getTag() == pressedSelectPagerItemIndex) {
                     Animation blurAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_blur);
@@ -458,7 +462,12 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                         selectItemLayout.startAnimation(blurAnimation);
                     }
                 }
+                // 이전에 클릭한 인덱스의 stroke 색 돌리기
+                if ((Integer) selectItemLayout.getTag() == pressedSelectPagerItemIndex) {
+                    selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
+                }
             } else {
+                selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_deep_stroke_color);
                 if (isPanelSelectPagerItemPressed) {
                     Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                     if (clearAnimation != null) {
@@ -475,7 +484,12 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                         selectItemLayout.startAnimation(blurAnimation);
                     }
                 }
+                // 이전에 클릭한 인덱스의 stroke 색 돌리기
+                if ((Integer) selectItemLayout.getTag() == pressedSelectPagerItemIndex) {
+                    selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
+                }
             } else {
+                selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_deep_stroke_color);
                 if (isPanelSelectPagerItemPressed) {
                     Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                     if (clearAnimation != null) {
@@ -491,11 +505,15 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
     private void clearPanelMatrixItemsAnimation(int position) {
         for (MNSettingPanelMatrixItem panelMatrixItem : panelMatrixItems) {
-            if ((Integer)panelMatrixItem.getTag() != position) {
+            if ((Integer) panelMatrixItem.getTag() != position) {
+                // 클리어 애니메이션
                 Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                 if (clearAnimation != null) {
                     panelMatrixItem.startAnimation(clearAnimation);
                 }
+            } else {
+                // stroke color 원상복구
+                panelMatrixItem.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_matrix);
             }
         }
         isPanelMatrixItemPressed = false;
@@ -512,20 +530,28 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         MNPanelSelectPagerSecondFragment secondFragment
                 = (MNPanelSelectPagerSecondFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 1);
 
-        for (RelativeLayout selectItemLayout : firstFragment.getSelectItemLayouts()) {
+        for (final RelativeLayout selectItemLayout : firstFragment.getSelectItemLayouts()) {
             if ((Integer) selectItemLayout.getTag() != position) {
+                // 클리어 애니메이션
                 Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                 if (clearAnimation != null) {
                     selectItemLayout.startAnimation(clearAnimation);
                 }
+            } else {
+                // stroke color 원상복구
+                selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
             }
         }
-        for (RelativeLayout selectItemLayout : secondFragment.getSelectItemLayouts()) {
+        for (final RelativeLayout selectItemLayout : secondFragment.getSelectItemLayouts()) {
             if ((Integer) selectItemLayout.getTag() != position) {
+                // 클리어 애니메이션
                 Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                 if (clearAnimation != null) {
                     selectItemLayout.startAnimation(clearAnimation);
                 }
+            } else {
+                // stroke color 원상복구
+                selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
             }
         }
 

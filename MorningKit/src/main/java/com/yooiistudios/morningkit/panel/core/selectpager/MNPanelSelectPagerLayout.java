@@ -15,7 +15,6 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.core.selectpager.fragment.MNPanelSelectPagerFirstFragment;
 import com.yooiistudios.morningkit.panel.core.selectpager.fragment.MNPanelSelectPagerSecondFragment;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
@@ -117,7 +116,7 @@ public class MNPanelSelectPagerLayout extends RelativeLayout {
                     = getSelectedItemLayout(previousPanelTypeIndex, firstFragment, secondFragment);
 
             if (previouslySelectedItemLayout != null) {
-                previouslySelectedItemLayout.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+                previouslySelectedItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
 
                 TextView selectedTextView = getSelectedTextView(previousPanelTypeIndex, firstFragment, secondFragment);
                 if (selectedTextView != null) {

@@ -13,9 +13,6 @@ import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -59,8 +56,7 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
             LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
             setLayoutParams(layoutParams);
-            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext());
-            setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+            setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_matrix);
 
             // container layout
             if (attrs != null) {

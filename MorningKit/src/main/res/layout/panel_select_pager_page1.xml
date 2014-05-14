@@ -18,7 +18,7 @@
             android:id="@+id/panel_selector_page1_1_item_layout"
             android:layout_width="0dp"
             android:layout_height="@dimen/panel_select_pager_item_height_no_shadow"
-            android:background="@drawable/shape_rounded_view_classic_white"
+            android:background="@drawable/shape_rounded_view_pastel_green_normal_panel_select_pager"
             android:layout_margin="@dimen/margin_inner"
             android:layout_weight="1">
             <TextView
@@ -35,7 +35,7 @@
             android:id="@+id/panel_selector_page1_2_item_layout"
             android:layout_width="0dp"
             android:layout_height="@dimen/panel_select_pager_item_height_no_shadow"
-            android:background="@drawable/shape_rounded_view_classic_white"
+            android:background="@drawable/shape_rounded_view_pastel_green_normal_panel_select_pager"
             android:layout_margin="@dimen/margin_inner"
             android:layout_weight="1">
             <TextView
@@ -52,7 +52,7 @@
             android:id="@+id/panel_selector_page1_3_item_layout"
             android:layout_width="0dp"
             android:layout_height="@dimen/panel_select_pager_item_height_no_shadow"
-            android:background="@drawable/shape_rounded_view_classic_white"
+            android:background="@drawable/shape_rounded_view_pastel_green_normal_panel_select_pager"
             android:layout_margin="@dimen/margin_inner"
             android:layout_weight="1">
             <TextView
@@ -77,7 +77,7 @@
             android:id="@+id/panel_selector_page1_4_item_layout"
             android:layout_width="0dp"
             android:layout_height="@dimen/panel_select_pager_item_height_no_shadow"
-            android:background="@drawable/shape_rounded_view_classic_white"
+            android:background="@drawable/shape_rounded_view_pastel_green_normal_panel_select_pager"
             android:layout_margin="@dimen/margin_inner"
             android:layout_weight="1">
             <TextView
@@ -94,7 +94,7 @@
             android:id="@+id/panel_selector_page1_5_item_layout"
             android:layout_width="0dp"
             android:layout_height="@dimen/panel_select_pager_item_height_no_shadow"
-            android:background="@drawable/shape_rounded_view_classic_white"
+            android:background="@drawable/shape_rounded_view_pastel_green_normal_panel_select_pager"
             android:layout_margin="@dimen/margin_inner"
             android:layout_weight="1">
             <TextView
@@ -111,7 +111,7 @@
             android:id="@+id/panel_selector_page1_6_item_layout"
             android:layout_width="0dp"
             android:layout_height="@dimen/panel_select_pager_item_height_no_shadow"
-            android:background="@drawable/shape_rounded_view_classic_white"
+            android:background="@drawable/shape_rounded_view_pastel_green_normal_panel_select_pager"
             android:layout_margin="@dimen/margin_inner"
             android:layout_weight="1">
             <TextView

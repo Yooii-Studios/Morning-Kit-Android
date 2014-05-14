@@ -78,7 +78,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        initShadowLayouts();
+        initSelectItemLayouts();
         initTextViews();
         checkPanelLockStates();
     }
@@ -104,19 +104,19 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
         textViews.add(textView2_5);
     }
 
-    private void initShadowLayouts() {
+    private void initSelectItemLayouts() {
         if (selectItemLayouts == null) {
             selectItemLayouts = new ArrayList<RelativeLayout>();
         } else {
             selectItemLayouts.clear();
         }
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
-        selectItemLayout_2_1.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
-        selectItemLayout_2_2.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
-        selectItemLayout_2_3.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
-        selectItemLayout_2_4.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
-        selectItemLayout_2_5.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
-        selectItemLayout_2_6.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+//        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
+//        selectItemLayout_2_1.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+//        selectItemLayout_2_2.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+//        selectItemLayout_2_3.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+//        selectItemLayout_2_4.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+//        selectItemLayout_2_5.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
+//        selectItemLayout_2_6.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
 
         selectItemLayouts.add(selectItemLayout_2_1);
         selectItemLayouts.add(selectItemLayout_2_2);
