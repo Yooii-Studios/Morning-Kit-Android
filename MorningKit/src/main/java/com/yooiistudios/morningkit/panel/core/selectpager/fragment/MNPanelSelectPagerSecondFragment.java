@@ -178,8 +178,6 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
             lockImageView2_2.setVisibility(View.VISIBLE);
             textView2_2.setTextColor(MNSettingColors.getLockedFontColor(currentThemeType));
             selectItemLayout_2_2.setBackgroundResource(MNSettingResources.getLockItemResourcesId(currentThemeType));
-//            selectItemLayout_2_2.setSolidAreaColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
-//            selectItemLayout_2_2.setPressedColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
             selectItemLayout_2_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -189,14 +187,13 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
             });
         } else {
             lockImageView2_2.setVisibility(View.INVISIBLE);
+            selectItemLayout_2_2.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
         }
         if (ownedSkus.indexOf(SKIabProducts.SKU_DATE_COUNTDOWN) == -1) {
             lockImageView2_3.setVisibility(View.VISIBLE);
             lockImageView2_3.setImageResource(MNSettingResources.getPanelSelectPagerLockResourceId(currentThemeType));
             textView2_3.setTextColor(MNSettingColors.getLockedFontColor(currentThemeType));
             selectItemLayout_2_3.setBackgroundResource(MNSettingResources.getLockItemResourcesId(currentThemeType));
-//            selectItemLayout_2_3.setSolidAreaColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
-//            selectItemLayout_2_3.setPressedColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
             selectItemLayout_2_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -206,6 +203,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
             });
         } else {
             lockImageView2_3.setVisibility(View.INVISIBLE);
+            selectItemLayout_2_3.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
         }
     }
 

@@ -157,7 +157,6 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
     @Override
     public void onResume() {
         super.onResume();
-
         getView().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(MNTheme.getCurrentThemeType(getActivity())));
         checkPanelMatrix();
         initPanelMatrixItems();

@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.setting;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -14,6 +15,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
+import com.yooiistudios.morningkit.setting.panel.MNPanelSettingFragment;
 import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
@@ -83,6 +85,16 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                // 패널 탭일 경우 구매 확인을 한 번 더 해주자(락 아이템 구매 UI 처리용)
+                if (position == 0) {
+                    String name = "android:switcher:" + mViewPager.getId() + ":" + position;
+                    Fragment viewPagerFragment = getSupportFragmentManager().findFragmentByTag(name);
+                    if (viewPagerFragment != null &&
+                            viewPagerFragment instanceof MNPanelSettingFragment) {
+                        viewPagerFragment.onResume();
+                    }
+                }
+
                 actionBar.setSelectedNavigationItem(position);
             }
         });

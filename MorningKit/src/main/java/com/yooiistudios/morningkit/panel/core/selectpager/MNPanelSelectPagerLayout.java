@@ -74,8 +74,19 @@ public class MNPanelSelectPagerLayout extends RelativeLayout {
     }
 
     public void applyTheme() {
-        panelSelectPager.getAdapter().notifyDataSetChanged(); // 이렇게 하면 ViewPager의 live fragment를 얻을 수 없다
+        panelSelectPager.getAdapter().notifyDataSetChanged();
 
+        // 구매 체크
+        ViewPager panelSelectPager = getPanelSelectPager();
+        MNPanelSelectPagerAdapter panelSelectPagerAdapter
+                = (MNPanelSelectPagerAdapter) getPanelSelectPager().getAdapter();
+        MNPanelSelectPagerSecondFragment secondFragment
+                = (MNPanelSelectPagerSecondFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 1);
+        if (secondFragment != null) {
+            secondFragment.onResume();
+        }
+
+        // 그외 테마 적용
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
         setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
         pageIndicator.setFillColor(MNSettingColors.getCurrentPanelSelectIndicatorColor(currentThemeType));
