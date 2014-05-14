@@ -91,12 +91,13 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
             } else {
                 panelNameTextView = new TextView(context);
             }
+
             // text type
             panelNameTextView.setGravity(Gravity.CENTER);
-            panelNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    resources.getDimension(R.dimen.setting_panel_item_text_font_size));
             panelNameTextView.setTypeface(panelNameTextView.getTypeface(), Typeface.BOLD);
             panelNameTextView.setSingleLine();
+            panelNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    resources.getDimension(R.dimen.setting_panel_item_text_font_size));
 
             // layout params
             LayoutParams textViewlayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
