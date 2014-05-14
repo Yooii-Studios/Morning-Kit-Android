@@ -419,15 +419,18 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         for (MNSettingPanelMatrixItem panelMatrixItem : panelMatrixItems) {
             if ((Integer)panelMatrixItem.getTag() != position) {
                 if (!isPanelMatrixItemPressed || (Integer)panelMatrixItem.getTag() == pressedPanelMatrixItemIndex) {
-                    panelMatrixItem.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_matrix);
                     Animation blurAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_blur);
                     if (blurAnimation != null) {
                         panelMatrixItem.startAnimation(blurAnimation);
                     }
                 }
+                // 이전에 클릭한 인덱스의 stroke 색 돌리기
+                if ((Integer) panelMatrixItem.getTag() == pressedPanelMatrixItemIndex) {
+                    panelMatrixItem.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_matrix);
+                }
             } else {
+                panelMatrixItem.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_deep_stroke_color);
                 if (isPanelMatrixItemPressed) {
-                    panelMatrixItem.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_deep_stroke_color);
                     Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                     if (clearAnimation != null) {
                         panelMatrixItem.startAnimation(clearAnimation);
@@ -454,15 +457,18 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         for (final RelativeLayout selectItemLayout : firstFragment.getSelectItemLayouts()) {
             if ((Integer) selectItemLayout.getTag() != position) {
                 if (!isPanelSelectPagerItemPressed || (Integer) selectItemLayout.getTag() == pressedSelectPagerItemIndex) {
-                    selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
                     Animation blurAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_blur);
                     if (blurAnimation != null) {
                         selectItemLayout.startAnimation(blurAnimation);
                     }
                 }
+                // 이전에 클릭한 인덱스의 stroke 색 돌리기
+                if ((Integer) selectItemLayout.getTag() == pressedSelectPagerItemIndex) {
+                    selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
+                }
             } else {
+                selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_deep_stroke_color);
                 if (isPanelSelectPagerItemPressed) {
-                    selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_deep_stroke_color);
                     Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                     if (clearAnimation != null) {
                         selectItemLayout.startAnimation(clearAnimation);
@@ -473,15 +479,18 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         for (RelativeLayout selectItemLayout : secondFragment.getSelectItemLayouts()) {
             if ((Integer) selectItemLayout.getTag() != position) {
                 if (!isPanelSelectPagerItemPressed || (Integer) selectItemLayout.getTag() == pressedSelectPagerItemIndex) {
-                    selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
                     Animation blurAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_blur);
                     if (blurAnimation != null) {
                         selectItemLayout.startAnimation(blurAnimation);
                     }
                 }
+                // 이전에 클릭한 인덱스의 stroke 색 돌리기
+                if ((Integer) selectItemLayout.getTag() == pressedSelectPagerItemIndex) {
+                    selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
+                }
             } else {
+                selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_deep_stroke_color);
                 if (isPanelSelectPagerItemPressed) {
-                    selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_deep_stroke_color);
                     Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                     if (clearAnimation != null) {
                         selectItemLayout.startAnimation(clearAnimation);
@@ -496,14 +505,15 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
     private void clearPanelMatrixItemsAnimation(int position) {
         for (MNSettingPanelMatrixItem panelMatrixItem : panelMatrixItems) {
-            if ((Integer)panelMatrixItem.getTag() != position) {
-                // stroke color 원상복구
-                panelMatrixItem.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_matrix);
+            if ((Integer) panelMatrixItem.getTag() != position) {
                 // 클리어 애니메이션
                 Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                 if (clearAnimation != null) {
                     panelMatrixItem.startAnimation(clearAnimation);
                 }
+            } else {
+                // stroke color 원상복구
+                panelMatrixItem.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_matrix);
             }
         }
         isPanelMatrixItemPressed = false;
@@ -522,24 +532,26 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
         for (final RelativeLayout selectItemLayout : firstFragment.getSelectItemLayouts()) {
             if ((Integer) selectItemLayout.getTag() != position) {
-                // stroke color 원상복구
-                selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
                 // 클리어 애니메이션
                 Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                 if (clearAnimation != null) {
                     selectItemLayout.startAnimation(clearAnimation);
                 }
+            } else {
+                // stroke color 원상복구
+                selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
             }
         }
         for (final RelativeLayout selectItemLayout : secondFragment.getSelectItemLayouts()) {
             if ((Integer) selectItemLayout.getTag() != position) {
-                // stroke color 원상복구
-                selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
                 // 클리어 애니메이션
                 Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                 if (clearAnimation != null) {
                     selectItemLayout.startAnimation(clearAnimation);
                 }
+            } else {
+                // stroke color 원상복구
+                selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
             }
         }
 
