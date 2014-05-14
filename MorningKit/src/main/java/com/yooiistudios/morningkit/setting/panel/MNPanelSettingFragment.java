@@ -17,7 +17,6 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
-import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.panel.core.selectpager.MNPanelSelectPagerAdapter;
@@ -300,9 +299,6 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
-//                    RoundShadowRelativeLayout roundShadowRelativeLayout
-//                            = firstFragment.getSelectItemLayouts().get(animatingViewIndex);
-//                    roundShadowRelativeLayout.setSolidAreaColor((Integer) animator.getAnimatedValue());
                     ((GradientDrawable) selectItemLayout.getBackground()).setColor(
                             (Integer) animator.getAnimatedValue());
                 }
@@ -450,9 +446,10 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                 = (MNPanelSelectPagerSecondFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 1);
 
         // 방금 선택한 인덱스를 clear처리, 이전 인덱스는 blur 처리(처음이라면 -1이므로 상관없음)
-        for (RelativeLayout selectItemLayout : firstFragment.getSelectItemLayouts()) {
+        for (final RelativeLayout selectItemLayout : firstFragment.getSelectItemLayouts()) {
             if ((Integer) selectItemLayout.getTag() != position) {
                 if (!isPanelSelectPagerItemPressed || (Integer) selectItemLayout.getTag() == pressedSelectPagerItemIndex) {
+                    selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
                     Animation blurAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_blur);
                     if (blurAnimation != null) {
                         selectItemLayout.startAnimation(blurAnimation);
@@ -460,6 +457,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                 }
             } else {
                 if (isPanelSelectPagerItemPressed) {
+                    selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_deep_stroke_color);
                     Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                     if (clearAnimation != null) {
                         selectItemLayout.startAnimation(clearAnimation);
@@ -470,6 +468,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         for (RelativeLayout selectItemLayout : secondFragment.getSelectItemLayouts()) {
             if ((Integer) selectItemLayout.getTag() != position) {
                 if (!isPanelSelectPagerItemPressed || (Integer) selectItemLayout.getTag() == pressedSelectPagerItemIndex) {
+                    selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
                     Animation blurAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_blur);
                     if (blurAnimation != null) {
                         selectItemLayout.startAnimation(blurAnimation);
@@ -477,6 +476,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                 }
             } else {
                 if (isPanelSelectPagerItemPressed) {
+                    selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_deep_stroke_color);
                     Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                     if (clearAnimation != null) {
                         selectItemLayout.startAnimation(clearAnimation);
@@ -512,16 +512,22 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
         MNPanelSelectPagerSecondFragment secondFragment
                 = (MNPanelSelectPagerSecondFragment) panelSelectPagerAdapter.getActiveFragment(panelSelectPager, 1);
 
-        for (RelativeLayout selectItemLayout : firstFragment.getSelectItemLayouts()) {
+        for (final RelativeLayout selectItemLayout : firstFragment.getSelectItemLayouts()) {
+            // stroke color 원상복구
+            selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
             if ((Integer) selectItemLayout.getTag() != position) {
+                // 클리어 애니메이션
                 Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                 if (clearAnimation != null) {
                     selectItemLayout.startAnimation(clearAnimation);
                 }
             }
         }
-        for (RelativeLayout selectItemLayout : secondFragment.getSelectItemLayouts()) {
+        for (final RelativeLayout selectItemLayout : secondFragment.getSelectItemLayouts()) {
+            // stroke color 원상복구
+            selectItemLayout.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
             if ((Integer) selectItemLayout.getTag() != position) {
+                // 클리어 애니메이션
                 Animation clearAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.panel_clear);
                 if (clearAnimation != null) {
                     selectItemLayout.startAnimation(clearAnimation);

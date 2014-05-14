@@ -68,7 +68,7 @@ public class MNSettingColors {
     }
 
     public static int getPressedBackgroundColor(MNThemeType themeType) {
-        return Color.parseColor("#f0f0f0f");
+        return Color.parseColor("#e6e6e6");
 
 //        switch (themeType) {
 //            case WATER_LILY:
@@ -95,7 +95,7 @@ public class MNSettingColors {
     }
 
     public static int getLockedBackgroundColor(MNThemeType themeType) {
-        return Color.parseColor("#f0f0f0");
+        return Color.parseColor("#e6e6e6");
 
 //        switch (themeType) {
 //            case WATER_LILY:
