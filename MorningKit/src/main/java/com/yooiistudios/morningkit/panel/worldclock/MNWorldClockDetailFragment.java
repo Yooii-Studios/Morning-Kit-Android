@@ -25,9 +25,6 @@ import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZone;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZoneLoader;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZoneSearchAsyncTask;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNWorldClockTimeZoneAdapter;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
@@ -162,16 +159,6 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
 
         // list view
         searchListView.setOnItemClickListener(this);
-
-        // Theme
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
-//        searchListView.setDivider(new ColorDrawable(MNSettingColors.getMainFontColor(currentThemeType)));
-        containerLayout.setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-        clockTypeTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        isUsing24HoursTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        analogCheckBox.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        digitalCheckBox.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        noSearchResultsTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
     }
 
     private void updateClockTypeUI() {

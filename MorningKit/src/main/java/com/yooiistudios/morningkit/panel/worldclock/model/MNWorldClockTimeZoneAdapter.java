@@ -9,9 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import java.util.ArrayList;
 
@@ -96,9 +93,9 @@ public class MNWorldClockTimeZoneAdapter extends BaseAdapter {
 //		timezoneView.setTextColor(GeneralSetting.getModalSubFontColor());
 
         // Theme
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
-        cityNameTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        timeZoneNameTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
+//        cityNameTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//        timeZoneNameTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
 
 		return convertView;
 	}
