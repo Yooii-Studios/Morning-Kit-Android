@@ -44,61 +44,31 @@ public class MNSettingPanelMatrixItemBuilder {
 
             switch (panelType) {
                 case WEATHER:
-                    panelImageResourceId = MNSettingResources.getWeatherResourceId(currentThemeType);
+                    panelImageResourceId = MNSettingResources.getWeatherResourceId();
                     break;
                 case DATE:
-                    panelImageResourceId = MNSettingResources.getDateResourceId(currentThemeType);
+                    panelImageResourceId = MNSettingResources.getDateResourceId();
                     break;
                 case CALENDAR:
-                    panelImageResourceId = MNSettingResources.getCalendarResourceId(currentThemeType);
+                    panelImageResourceId = MNSettingResources.getCalendarResourceId();
                     break;
                 case WORLD_CLOCK:
-                    panelImageResourceId = MNSettingResources.getWorldClockResourceId(currentThemeType);
+                    panelImageResourceId = MNSettingResources.getWorldClockResourceId();
                     break;
                 case QUOTES:
-                    panelImageResourceId = MNSettingResources.getQuotesResourceId(currentThemeType);
+                    panelImageResourceId = MNSettingResources.getQuotesResourceId();
                     break;
                 case FLICKR:
-                    panelImageResourceId = MNSettingResources.getFlickrResourceId(currentThemeType);
+                    panelImageResourceId = MNSettingResources.getFlickrResourceId();
                     break;
                 case EXCHANGE_RATES:
-                    panelImageResourceId = MNSettingResources.getExchangeRatesResourceId(currentThemeType);
+                    panelImageResourceId = MNSettingResources.getExchangeRatesResourceId();
                     break;
                 case MEMO:
-                    panelImageResourceId = MNSettingResources.getMemoResourceId(currentThemeType);
+                    panelImageResourceId = MNSettingResources.getMemoResourceId();
                     break;
                 case DATE_COUNTDOWN:
-                    panelImageResourceId = MNSettingResources.getDateCountdownResourceId(currentThemeType);
-                    break;
-            }
-
-            switch (panelType) {
-                case WEATHER:
-                    panelImageResourceId = MNSettingResources.getWeatherResourceId(currentThemeType);
-                    break;
-                case DATE:
-                    panelImageResourceId = MNSettingResources.getDateResourceId(currentThemeType);
-                    break;
-                case CALENDAR:
-                    panelImageResourceId = MNSettingResources.getCalendarResourceId(currentThemeType);
-                    break;
-                case WORLD_CLOCK:
-                    panelImageResourceId = MNSettingResources.getWorldClockResourceId(currentThemeType);
-                    break;
-                case QUOTES:
-                    panelImageResourceId = MNSettingResources.getQuotesResourceId(currentThemeType);
-                    break;
-                case FLICKR:
-                    panelImageResourceId = MNSettingResources.getFlickrResourceId(currentThemeType);
-                    break;
-                case EXCHANGE_RATES:
-                    panelImageResourceId = MNSettingResources.getExchangeRatesResourceId(currentThemeType);
-                    break;
-                case MEMO:
-                    panelImageResourceId = MNSettingResources.getMemoResourceId(currentThemeType);
-                    break;
-                case DATE_COUNTDOWN:
-                    panelImageResourceId = MNSettingResources.getDateCountdownResourceId(currentThemeType);
+                    panelImageResourceId = MNSettingResources.getDateCountdownResourceId();
                     break;
             }
 

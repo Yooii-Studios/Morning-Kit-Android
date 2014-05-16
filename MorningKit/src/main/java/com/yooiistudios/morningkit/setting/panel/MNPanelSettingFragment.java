@@ -568,7 +568,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                 // 새 패널로 변경
                 MNSettingPanelMatrixItemBuilder.buildItem(settingPanelMatrixItem,
                         panelTypeToBeChanged,
-                        getActivity(),
+                        getActivity().getApplicationContext(),
                         panelMatrixItemIndex,
                         this);
 

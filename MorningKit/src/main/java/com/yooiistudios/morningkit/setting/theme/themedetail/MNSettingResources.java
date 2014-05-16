@@ -112,187 +112,39 @@ public class MNSettingResources {
      * SettingPanlMatrixItem Resources
      */
 
-    public static int getWeatherResourceId(MNThemeType themeType) {
-        return R.drawable.widget_cover_weather_black_ipad;
-
-//        switch (themeType) {
-//            case WATER_LILY:
-//            case TRANQUILITY_BACK_CAMERA:
-//            case REFLECTION_FRONT_CAMERA:
-//            case PHOTO:
-//            case MODERNITY_WHITE:
-//            case PASTEL_GREEN:
-//                return R.drawable.widget_cover_weather_black_ipad;
-//
-//            case SLATE_GRAY:
-//            case CELESTIAL_SKY_BLUE:
-//                return R.drawable.widget_cover_weather_white_ipad;
-//
-//            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
-//        }
+    public static int getWeatherResourceId() {
+        return R.drawable.widget_cover_weather_white_ipad;
     }
 
-    public static int getDateResourceId(MNThemeType themeType) {
-        return R.drawable.widget_cover_calendar_black_ipad;
-
-//        switch (themeType) {
-//            case WATER_LILY:
-//            case TRANQUILITY_BACK_CAMERA:
-//            case REFLECTION_FRONT_CAMERA:
-//            case PHOTO:
-//            case MODERNITY_WHITE:
-//            case PASTEL_GREEN:
-//                return R.drawable.widget_cover_calendar_black_ipad;
-//
-//            case SLATE_GRAY:
-//            case CELESTIAL_SKY_BLUE:
-//                return R.drawable.widget_cover_calendar_white_ipad;
-//
-//            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
-//        }
+    public static int getDateResourceId() {
+        return R.drawable.widget_cover_calendar_white_ipad;
     }
 
-    public static int getCalendarResourceId(MNThemeType themeType) {
-        return R.drawable.widget_cover_reminder_black_ipad;
-
-//        switch (themeType) {
-//            case WATER_LILY:
-//            case TRANQUILITY_BACK_CAMERA:
-//            case REFLECTION_FRONT_CAMERA:
-//            case PHOTO:
-//            case MODERNITY_WHITE:
-//            case PASTEL_GREEN:
-//                return R.drawable.widget_cover_reminder_black_ipad;
-//
-//            case SLATE_GRAY:
-//            case CELESTIAL_SKY_BLUE:
-//                return R.drawable.widget_cover_reminder_white_ipad;
-//
-//            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
-//        }
+    public static int getCalendarResourceId() {
+        return R.drawable.widget_cover_reminder_white_ipad;
     }
 
-    public static int getWorldClockResourceId(MNThemeType themeType) {
-        return R.drawable.widget_cover_worldclock_black_ipad;
-
-//        switch (themeType) {
-//            case WATER_LILY:
-//            case TRANQUILITY_BACK_CAMERA:
-//            case REFLECTION_FRONT_CAMERA:
-//            case PHOTO:
-//            case MODERNITY_WHITE:
-//            case PASTEL_GREEN:
-//                return R.drawable.widget_cover_worldclock_black_ipad;
-//
-//            case SLATE_GRAY:
-//                return R.drawable.widget_cover_worldclock_white_ipad;
-//
-//            case CELESTIAL_SKY_BLUE:
-//                return R.drawable.widget_cover_worldclock_skyblue_ipad;
-//
-//            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
-//        }
+    public static int getWorldClockResourceId() {
+        return R.drawable.widget_cover_world_clock_pastel_green;
     }
 
-    public static int getQuotesResourceId(MNThemeType themeType) {
-        return R.drawable.widget_cover_quotes_black_ipad;
-
-//        switch (themeType) {
-//            case WATER_LILY:
-//            case TRANQUILITY_BACK_CAMERA:
-//            case REFLECTION_FRONT_CAMERA:
-//            case PHOTO:
-//            case MODERNITY_WHITE:
-//            case PASTEL_GREEN:
-//                return R.drawable.widget_cover_quotes_black_ipad;
-//
-//            case SLATE_GRAY:
-//            case CELESTIAL_SKY_BLUE:
-//                return R.drawable.widget_cover_quotes_white_ipad;
-//
-//            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
-//        }
+    public static int getQuotesResourceId() {
+        return R.drawable.widget_cover_quotes_white_ipad;
     }
 
-    public static int getFlickrResourceId(MNThemeType themeType) {
-        return R.drawable.widget_cover_flickr_black_ipad;
-
-//        switch (themeType) {
-//            case WATER_LILY:
-//            case TRANQUILITY_BACK_CAMERA:
-//            case REFLECTION_FRONT_CAMERA:
-//            case PHOTO:
-//            case MODERNITY_WHITE:
-//            case PASTEL_GREEN:
-//                return R.drawable.widget_cover_flickr_black_ipad;
-//
-//            case SLATE_GRAY:
-//            case CELESTIAL_SKY_BLUE:
-//                return R.drawable.widget_cover_flickr_white_ipad;
-//
-//            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
-//        }
+    public static int getFlickrResourceId() {
+        return R.drawable.widget_cover_flickr_pastel_green;
     }
 
-    public static int getExchangeRatesResourceId(MNThemeType themeType) {
-        return R.drawable.widget_cover_exchangerates_black_ipad;
-
-//        switch (themeType) {
-//            case WATER_LILY:
-//            case TRANQUILITY_BACK_CAMERA:
-//            case REFLECTION_FRONT_CAMERA:
-//            case PHOTO:
-//            case MODERNITY_WHITE:
-//            case PASTEL_GREEN:
-//                return R.drawable.widget_cover_exchangerates_black_ipad;
-//
-//            case SLATE_GRAY:
-//                return R.drawable.widget_cover_exchangerates_white_ipad;
-//
-//            case CELESTIAL_SKY_BLUE:
-//                return R.drawable.widget_cover_exchangerates_skyblue_ipad;
-//
-//            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
-//        }
+    public static int getExchangeRatesResourceId() {
+        return R.drawable.widget_cover_exchange_rates_pastel_green;
     }
 
-    public static int getMemoResourceId(MNThemeType themeType) {
-        return R.drawable.widget_cover_memo_black_ipad;
-
-//        switch (themeType) {
-//            case WATER_LILY:
-//            case TRANQUILITY_BACK_CAMERA:
-//            case REFLECTION_FRONT_CAMERA:
-//            case PHOTO:
-//            case MODERNITY_WHITE:
-//            case PASTEL_GREEN:
-//                return R.drawable.widget_cover_memo_black_ipad;
-//
-//            case SLATE_GRAY:
-//            case CELESTIAL_SKY_BLUE:
-//                return R.drawable.widget_cover_memo_white_ipad;
-//
-//            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
-//        }
+    public static int getMemoResourceId() {
+        return R.drawable.widget_cover_memo_white_ipad;
     }
 
-    public static int getDateCountdownResourceId(MNThemeType themeType) {
-        return R.drawable.widget_cover_datecountdown_black_ipad;
-
-//        switch (themeType) {
-//            case WATER_LILY:
-//            case TRANQUILITY_BACK_CAMERA:
-//            case REFLECTION_FRONT_CAMERA:
-//            case PHOTO:
-//            case MODERNITY_WHITE:
-//            case PASTEL_GREEN:
-//                return R.drawable.widget_cover_datecountdown_black_ipad;
-//
-//            case SLATE_GRAY:
-//            case CELESTIAL_SKY_BLUE:
-//                return R.drawable.widget_cover_datecountdown_white_ipad;
-//
-//            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
-//        }
+    public static int getDateCountdownResourceId() {
+        return R.drawable.widget_cover_datecountdown_white_ipad;
     }
 }

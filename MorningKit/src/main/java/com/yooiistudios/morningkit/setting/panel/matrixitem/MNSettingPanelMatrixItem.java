@@ -83,6 +83,7 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
             imageViewlayoutParams.addRule(CENTER_HORIZONTAL);
             imageViewlayoutParams.addRule(ALIGN_TOP);
             panelImageView.setLayoutParams(imageViewlayoutParams);
+            panelImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             containerLayout.addView(panelImageView);
 
             // text
