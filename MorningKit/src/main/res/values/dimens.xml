@@ -69,6 +69,7 @@
     <dimen name="panel_detail_padding">10dp</dimen>
     <dimen name="panel_detail_padding_inner">5dp</dimen>
     <dimen name="panel_detail_bigger_padding">16dp</dimen>
+    <dimen name="panel_detail_bigger_padding_inner">8dp</dimen>
     <dimen name="panel_detail_check_image_button_size">21dp</dimen>
 
     <!-- Select Pager -->
@@ -124,10 +125,11 @@
     <dimen name="panel_exchange_rates_minimum_font_size">9dp</dimen>
 
     <!-- Detail -->
-    <dimen name="panel_exchange_rates_detail_info_height">63dp</dimen>
+    <dimen name="panel_exchange_rates_detail_info_height">56dp</dimen>
     <dimen name="panel_exchange_rates_detail_flag_width">50dp</dimen>
     <dimen name="panel_exchange_rates_detail_flag_height">30dp</dimen>
-    <dimen name="panel_exchange_rates_detail_currency_code_text_size">16dp</dimen>
+    <dimen name="panel_exchange_rates_detail_swap_image_size">30dp</dimen>
+    <dimen name="panel_exchange_rates_detail_currency_code_text_size">17sp</dimen>
 
     <!-- Quotes -->
     <!-- Detail -->

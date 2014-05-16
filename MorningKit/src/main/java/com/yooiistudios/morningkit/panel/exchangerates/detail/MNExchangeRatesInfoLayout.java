@@ -82,7 +82,8 @@ public class MNExchangeRatesInfoLayout extends LinearLayout{
                         ViewGroup.LayoutParams.WRAP_CONTENT);
         currencyCodeTextViewLayoutParams.addRule(RelativeLayout.RIGHT_OF, flagImageView.getId());
         currencyCodeTextViewLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
-        currencyCodeTextViewLayoutParams.leftMargin = getResources().getDimensionPixelSize(R.dimen.margin_outer);
+        currencyCodeTextViewLayoutParams.leftMargin =
+                getResources().getDimensionPixelSize(R.dimen.panel_detail_bigger_padding);
         currencyCodeTextView.setLayoutParams(currencyCodeTextViewLayoutParams);
         float currencyCodeTextSize = getResources().getDimension(R.dimen.panel_exchange_rates_detail_currency_code_text_size);
         currencyCodeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, currencyCodeTextSize);
@@ -95,6 +96,8 @@ public class MNExchangeRatesInfoLayout extends LinearLayout{
     private void applyTheme() {
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext());
         setBackgroundColor(MNSettingColors.getExchangeRatesForwardColor(currentThemeType));
+
+        currencyCodeTextView.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
     }
 
     public void loadExchangeCountry(String currencyCode) {

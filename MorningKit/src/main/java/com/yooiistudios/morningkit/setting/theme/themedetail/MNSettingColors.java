@@ -295,7 +295,7 @@ public class MNSettingColors {
     }
 
     public static int getExchangeRatesForwardColor(MNThemeType themeType) {
-        return Color.parseColor("#f0f0f0");
+        return getPressedBackgroundColor(themeType);
 
 //        switch (themeType) {
 //            case WATER_LILY:

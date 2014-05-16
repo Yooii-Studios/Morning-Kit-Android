@@ -2,6 +2,8 @@ package com.yooiistudios.morningkit.panel.exchangerates.detail;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,22 +18,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.exchangerates.currencydialog.MNExchangeRatesSelectDialog;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNCurrencyInfo;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNDefaultExchangeRatesInfo;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesAsyncTask;
 import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesInfo;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
@@ -64,6 +63,7 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
     @InjectView(R.id.panel_exchange_rates_edit_base)            EditText baseEditText;
     @InjectView(R.id.panel_exchange_rates_edit_target)          EditText targetEditText;
 
+    @InjectView(R.id.panel_exchange_rates_swap_imageview)       ImageView swapImageView;
     @InjectView(R.id.panel_exchange_rates_swap_textview)        TextView swapTextView;
 
     MNExchangeRatesAsyncTask exchangeRatesAsyncTask;
@@ -85,6 +85,7 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
             targetInfoLayout.loadExchangeCountry(exchangeRatesInfo.getTargetCurrencyCode());
 
             initEditTexts();
+            initSwapLayout();
         }
         return rootView;
     }
@@ -112,6 +113,13 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
                 exchangeRatesInfo = MNDefaultExchangeRatesInfo.newInstance(getActivity());
             }
         }
+    }
+
+    public void initSwapLayout() {
+        int highlightColor = getResources().getColor(R.color.pastel_green_sub_font_color);
+        PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(highlightColor,
+                PorterDuff.Mode.SRC_ATOP);
+        swapImageView.setColorFilter(colorFilter);
     }
 
     @Override
@@ -256,14 +264,6 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
     }
 
     private void applyTheme() {
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
-        if (getView() != null) {
-            getView().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-        } else {
-            MNLog.e(TAG, "getView() is null!");
-        }
-        editTextsLayout.setBackgroundColor(MNSettingColors.getExchangeRatesForwardColor(currentThemeType));
-        swapTextView.setBackgroundColor(MNSettingColors.getExchangeRatesForwardColor(currentThemeType));
     }
 
     @Override
@@ -314,7 +314,7 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
         }
     }
 
-    @OnClick(R.id.panel_exchange_rates_swap_textview)
+    @OnClick(R.id.panel_exchange_rates_swap_layout)
     public void onSwapTextViewClicked(View v) {
         // reverse
         exchangeRatesInfo = exchangeRatesInfo.getReverseExchangeInfo();
