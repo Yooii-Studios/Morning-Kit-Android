@@ -25,29 +25,6 @@
             android:textSize="@dimen/panel_world_clock_detail_font_size"
             android:textColor="@color/pastel_green_sub_font_color"/>
 
-        <!--
-        <CheckBox
-            android:id="@+id/panel_detail_world_clock_clockType_checkbox_analog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/panel_detail_world_clock_clockType_checkbox_digital"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/margin_outer"
-            android:text="@string/world_clock_analog"
-            android:textSize="@dimen/panel_world_clock_detail_checkbox_font_size"
-            android:textColor="@color/pastel_green_sub_font_color" />
-
-        <CheckBox
-            android:id="@+id/panel_detail_world_clock_clockType_checkbox_digital"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="@string/world_clock_digital"
-            android:textSize="@dimen/panel_world_clock_detail_checkbox_font_size"
-            android:textColor="@color/pastel_green_sub_font_color"/>
-        -->
-
         <RelativeLayout
             android:id="@+id/panel_detail_world_clock_analog_layout"
             android:layout_width="wrap_content"

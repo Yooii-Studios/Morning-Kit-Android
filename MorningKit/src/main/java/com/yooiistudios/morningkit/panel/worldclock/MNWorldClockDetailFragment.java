@@ -46,15 +46,8 @@ import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayo
 public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements TextWatcher, MNTimeZoneSearchAsyncTask.OnTimeZoneSearchAsyncTaskListener, AdapterView.OnItemClickListener {
     private static final String TAG = "MNWorldClockDetailFragment";
 
-//    @InjectView(R.id.panel_detail_world_clock_linear_layout) LinearLayout containerLayout;
-
-//    @InjectView(R.id.panel_detail_world_clock_clockType_textview) TextView clockTypeTextView;
-//    @InjectView(R.id.panel_detail_world_clock_clockType_checkbox_analog) CheckBox analogCheckBox;
-//    @InjectView(R.id.panel_detail_world_clock_clockType_checkbox_digital) CheckBox digitalCheckBox;
-
     @InjectView(R.id.panel_detail_world_clock_use_24_hour_format_layout) RelativeLayout isUsing24HoursLayout;
     @InjectView(R.id.panel_detail_world_clock_use_24_hour_format_check_image_button) ImageButton isUsing24HoursCheckImageButton;
-//    @InjectView(R.id.panel_detail_world_clock_use_24_hour_format_textview) TextView isUsing24HoursTextView;
 
     @InjectView(R.id.panel_detail_world_clock_search_edit_text) EditText searchEditText;
     @InjectView(R.id.panel_detail_world_clock_search_listview) ListView searchListView;
@@ -123,31 +116,6 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
     private void initUI() {
         updateClockTypeUI();
 
-        // CheckBox
-//        analogCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-//                if (checked) {
-//                    isClockAnalog = checked;
-//                } else {
-//                    analogCheckBox.setChecked(true);
-//                }
-//                updateClockTypeUI();
-//            }
-//        });
-//
-//        digitalCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-//                if (checked) {
-//                    isClockAnalog = !checked;
-//                } else {
-//                    digitalCheckBox.setChecked(true);
-//                }
-//                updateClockTypeUI();
-//            }
-//        });
-
         // Analog/Digital Check ImageButton
         analogCheckLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,15 +165,11 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
     private void updateClockTypeUI() {
         if (isClockAnalog) {
             isUsing24HoursLayout.setVisibility(View.GONE);
-//            analogCheckBox.setChecked(true);
-//            digitalCheckBox.setChecked(false);
             analogCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox_on);
             digitalCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox);
         } else {
             isUsing24HoursLayout.setVisibility(View.VISIBLE);
             updateUsing24HoursUI();
-//            analogCheckBox.setChecked(false);
-//            digitalCheckBox.setChecked(true);
             analogCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox);
             digitalCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox_on);
         }
