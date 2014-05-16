@@ -9,10 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,9 +23,6 @@ import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZone;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZoneLoader;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZoneSearchAsyncTask;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNWorldClockTimeZoneAdapter;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
@@ -51,19 +46,17 @@ import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayo
 public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements TextWatcher, MNTimeZoneSearchAsyncTask.OnTimeZoneSearchAsyncTaskListener, AdapterView.OnItemClickListener {
     private static final String TAG = "MNWorldClockDetailFragment";
 
-    @InjectView(R.id.panel_detail_world_clock_linear_layout) LinearLayout containerLayout;
-
-    @InjectView(R.id.panel_detail_world_clock_clockType_textview) TextView clockTypeTextView;
-    @InjectView(R.id.panel_detail_world_clock_clockType_checkbox_analog) CheckBox analogCheckBox;
-    @InjectView(R.id.panel_detail_world_clock_clockType_checkbox_digital) CheckBox digitalCheckBox;
-
     @InjectView(R.id.panel_detail_world_clock_use_24_hour_format_layout) RelativeLayout isUsing24HoursLayout;
-    @InjectView(R.id.panel_detail_world_clock_use_24_hour_format_checkbox) CheckBox isUsing24HoursCheckBox;
-    @InjectView(R.id.panel_detail_world_clock_use_24_hour_format_textview) TextView isUsing24HoursTextView;
+    @InjectView(R.id.panel_detail_world_clock_use_24_hour_format_check_image_button) ImageButton isUsing24HoursCheckImageButton;
 
     @InjectView(R.id.panel_detail_world_clock_search_edit_text) EditText searchEditText;
     @InjectView(R.id.panel_detail_world_clock_search_listview) ListView searchListView;
     @InjectView(R.id.panel_detail_world_clock_no_search_result_textview) TextView noSearchResultsTextView;
+
+    @InjectView(R.id.panel_detail_world_clock_analog_layout) RelativeLayout analogCheckLayout;
+    @InjectView(R.id.panel_detail_world_clock_analog_check_imagebutton) ImageButton analogCheckImageButton;
+    @InjectView(R.id.panel_detail_world_clock_digital_layout) RelativeLayout digitalCheckLayout;
+    @InjectView(R.id.panel_detail_world_clock_digital_check_imagebutton) ImageButton digitalCheckImageButton;
 
     private boolean isClockAnalog = true;
     private boolean isUsing24Hours = false;
@@ -123,28 +116,33 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
     private void initUI() {
         updateClockTypeUI();
 
-        // CheckBox
-        analogCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        // Analog/Digital Check ImageButton
+        analogCheckLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                if (checked) {
-                    isClockAnalog = checked;
-                } else {
-                    analogCheckBox.setChecked(true);
+            public void onClick(View view) {
+                if (!isClockAnalog) {
+                    isClockAnalog = true;
+                    updateClockTypeUI();
                 }
-                MNWorldClockDetailFragment.this.updateClockTypeUI();
             }
         });
 
-        digitalCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        digitalCheckLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                if (checked) {
-                    isClockAnalog = !checked;
-                } else {
-                    digitalCheckBox.setChecked(true);
+            public void onClick(View view) {
+                if (isClockAnalog) {
+                    isClockAnalog = false;
+                    updateClockTypeUI();
                 }
-                MNWorldClockDetailFragment.this.updateClockTypeUI();
+            }
+        });
+
+        // isUsing24Hours Check ImageButton
+        isUsing24HoursCheckImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isUsing24Hours = !isUsing24Hours;
+                updateUsing24HoursUI();
             }
         });
 
@@ -162,43 +160,33 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
 
         // list view
         searchListView.setOnItemClickListener(this);
-
-        // Theme
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
-//        searchListView.setDivider(new ColorDrawable(MNSettingColors.getMainFontColor(currentThemeType)));
-        containerLayout.setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-        clockTypeTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        isUsing24HoursTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        analogCheckBox.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        digitalCheckBox.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        noSearchResultsTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
     }
 
     private void updateClockTypeUI() {
         if (isClockAnalog) {
             isUsing24HoursLayout.setVisibility(View.GONE);
-            analogCheckBox.setChecked(true);
-            digitalCheckBox.setChecked(false);
+            analogCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox_on);
+            digitalCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox);
         } else {
             isUsing24HoursLayout.setVisibility(View.VISIBLE);
             updateUsing24HoursUI();
-            analogCheckBox.setChecked(false);
-            digitalCheckBox.setChecked(true);
+            analogCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox);
+            digitalCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox_on);
         }
     }
 
     private void updateUsing24HoursUI() {
         if (isUsing24Hours) {
-            isUsing24HoursCheckBox.setChecked(true);
+            isUsing24HoursCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox_on);
         } else {
-            isUsing24HoursCheckBox.setChecked(false);
+            isUsing24HoursCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox);
         }
     }
 
     @Override
     protected void archivePanelData() throws JSONException {
         getPanelDataObject().put(WORLD_CLOCK_DATA_IS_ALALOG, isClockAnalog);
-        getPanelDataObject().put(WORLD_CLOCK_DATA_IS_24_HOUR, isUsing24HoursCheckBox.isChecked());
+        getPanelDataObject().put(WORLD_CLOCK_DATA_IS_24_HOUR, isUsing24Hours);
         String selectedTimeZoneJsonString = new Gson().toJson(selectedTimeZone);
         getPanelDataObject().put(WORLD_CLOCK_DATA_TIME_ZONE, selectedTimeZoneJsonString);
 

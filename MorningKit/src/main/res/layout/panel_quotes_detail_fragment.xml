@@ -33,8 +33,8 @@
 
             <ImageButton
                 android:id="@+id/panel_quotes_detail_language_image_button"
-                android:layout_width="@dimen/panel_detail_image_button_size"
-                android:layout_height="@dimen/panel_detail_image_button_size"
+                android:layout_width="@dimen/panel_detail_check_image_button_size"
+                android:layout_height="@dimen/panel_detail_check_image_button_size"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:scaleType="centerInside"
@@ -66,8 +66,8 @@
 
             <ImageButton
                 android:id="@+id/panel_quotes_detail_language_image_button"
-                android:layout_width="@dimen/panel_detail_image_button_size"
-                android:layout_height="@dimen/panel_detail_image_button_size"
+                android:layout_width="@dimen/panel_detail_check_image_button_size"
+                android:layout_height="@dimen/panel_detail_check_image_button_size"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:scaleType="centerInside"
@@ -99,8 +99,8 @@
 
             <ImageButton
                 android:id="@+id/panel_quotes_detail_language_image_button"
-                android:layout_width="@dimen/panel_detail_image_button_size"
-                android:layout_height="@dimen/panel_detail_image_button_size"
+                android:layout_width="@dimen/panel_detail_check_image_button_size"
+                android:layout_height="@dimen/panel_detail_check_image_button_size"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:scaleType="centerInside"
@@ -132,8 +132,8 @@
 
             <ImageButton
                 android:id="@+id/panel_quotes_detail_language_image_button"
-                android:layout_width="@dimen/panel_detail_image_button_size"
-                android:layout_height="@dimen/panel_detail_image_button_size"
+                android:layout_width="@dimen/panel_detail_check_image_button_size"
+                android:layout_height="@dimen/panel_detail_check_image_button_size"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:scaleType="centerInside"
@@ -165,8 +165,8 @@
 
             <ImageButton
                 android:id="@+id/panel_quotes_detail_language_image_button"
-                android:layout_width="@dimen/panel_detail_image_button_size"
-                android:layout_height="@dimen/panel_detail_image_button_size"
+                android:layout_width="@dimen/panel_detail_check_image_button_size"
+                android:layout_height="@dimen/panel_detail_check_image_button_size"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:scaleType="centerInside"
