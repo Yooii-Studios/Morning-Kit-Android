@@ -68,8 +68,8 @@
     <!-- Detail Activity -->
     <dimen name="panel_detail_padding">10dp</dimen>
     <dimen name="panel_detail_padding_inner">5dp</dimen>
-    <dimen name="panel_detail_bigger_padding">20dp</dimen>
-    <dimen name="panel_detail_image_button_size">26dp</dimen>
+    <dimen name="panel_detail_bigger_padding">16dp</dimen>
+    <dimen name="panel_detail_check_image_button_size">21dp</dimen>
 
     <!-- Select Pager -->
     <dimen name="panel_select_pager_height">166dp</dimen>
@@ -90,7 +90,7 @@
     <!-- World Clock -->
         <!-- Detail -->
     <dimen name="panel_world_clock_detail_magnifier_size">18dp</dimen>
-    <dimen name="panel_world_clock_detail_edit_text_height">40dp</dimen>
+    <dimen name="panel_world_clock_detail_edit_text_height">35dp</dimen>
     <dimen name="panel_world_clock_detail_edit_text_font_size">17sp</dimen>
     <dimen name="panel_world_clock_detail_checkbox_font_size">15sp</dimen>
     <dimen name="panel_world_clock_detail_font_size">17sp</dimen>
@@ -131,7 +131,7 @@
 
     <!-- Quotes -->
     <!-- Detail -->
-    <dimen name="panel_quotes_detail_language_text_size">20sp</dimen>
+    <dimen name="panel_quotes_detail_language_text_size">17sp</dimen>
     <dimen name="panel_quote_detail_padding">20dp</dimen>
     <dimen name="panel_quote_detail_rounded_corner_radius">15dp</dimen>
 
