@@ -3,9 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/panel_detail_padding"
-    tools:context="com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment">
+    tools:context="com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment"
+    android:background="@android:color/white">
 
-    <com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView
+    <ImageView
         android:id="@+id/flickr_detail_imageview"
         android:layout_width="match_parent"
         android:layout_height="@dimen/panel_flickr_image_view_height"
