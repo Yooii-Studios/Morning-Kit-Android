@@ -262,4 +262,11 @@ public class MNPanelLayout extends RelativeLayout {
 
         ((Activity)getContext()).startActivityForResult(intent, MNPanel.PANEL_DETAIL_ACTIVITY);
     }
+
+    public void onActivityPause() {
+
+    }
+    public void onActivityResume() {
+
+    }
 }

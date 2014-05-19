@@ -98,6 +98,19 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
 
         startTimer();
     }
+
+    @Override
+    public void onActivityPause() {
+        super.onActivityPause();
+        MNLog.i(TAG, "onActivityPause");
+    }
+
+    @Override
+    public void onActivityResume() {
+        super.onActivityResume();
+        MNLog.i(TAG, "onActivityResume");
+    }
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
