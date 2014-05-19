@@ -18,11 +18,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 
@@ -47,10 +47,10 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
 
     private static final String TAG = "MNFlickrDetailFragment";
 
-    @InjectView(R.id.flickr_detail_imageview) RecyclingImageView imageView;
-    @InjectView(R.id.flickr_detail_edittext) EditText keywordEditText;
-    @InjectView(R.id.flickr_detail_grayscale_textview) TextView grayScaleTextView;
-    @Optional @InjectView(R.id.flickr_detail_grayscale_image_button) ImageButton grayscaleImageButton; // < V14
+    @InjectView(R.id.panel_detail_flickr_imageview) ImageView imageView;
+    @InjectView(R.id.panel_detail_flickr_edit_text) EditText keywordEditText;
+    @InjectView(R.id.panel_detail_flickr_grayscale_textview) TextView grayScaleTextView;
+    @Optional @InjectView(R.id.panel_detail_flickr_grayscale_image_button) ImageButton grayscaleImageButton; // < V14
 //    Switch grayscaleSwitch; // >= V14
 
     private boolean isGrayScale;
@@ -237,6 +237,8 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MNBitmapUtils.recycleImageView(imageView);
+        if (MNBitmapUtils.recycleImageView(imageView)) {
+            MNLog.i(TAG, "recycleImageView");
+        }
     }
 }
