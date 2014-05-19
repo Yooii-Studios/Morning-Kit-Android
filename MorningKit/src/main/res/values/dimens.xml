@@ -68,8 +68,8 @@
     <!-- Detail Activity -->
     <dimen name="panel_detail_padding">10dp</dimen>
     <dimen name="panel_detail_padding_inner">5dp</dimen>
-    <dimen name="panel_detail_bigger_padding">16dp</dimen>
-    <dimen name="panel_detail_bigger_padding_inner">8dp</dimen>
+    <dimen name="panel_detail_bigger_padding">20dp</dimen>
+    <dimen name="panel_detail_bigger_padding_inner">10dp</dimen>
     <dimen name="panel_detail_check_image_button_size">21dp</dimen>
 
     <!-- Select Pager -->
