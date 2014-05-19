@@ -10,11 +10,14 @@ import android.widget.ViewSwitcher;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
+import com.yooiistudios.morningkit.common.log.MNLog;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import lombok.Getter;
 
 /**
  * Created by Dongheyon Jeong on in My Application 3 from Yooii Studios Co., LTD. on 2014. 5. 10.
@@ -31,6 +34,10 @@ public class MNPhotoAlbumDisplayHelper {
     private int mPhotoWidth;
     private int mPhotoHeight;
     private int mPhotoIdx;
+
+    @Getter private boolean isRunning;
+
+
 
     public MNPhotoAlbumDisplayHelper(Activity activity, ViewSwitcher viewSwitcher,
                               ArrayList<File> fileList,
@@ -68,12 +75,18 @@ public class MNPhotoAlbumDisplayHelper {
     public void stop() {
         if (mTimer != null) {
             mTimer.cancel();
+            mTimer.purge();
+            mTimer = null;
         }
+        isRunning = false;
         MNBitmapUtils.recycleImageView(mFirstView);
         MNBitmapUtils.recycleImageView(mSecondView);
     }
 
     public void start() {
+        stop();
+        isRunning = true;
+
         mFileList = MNPhotoAlbumFileManager.getValidImageFileList(
                 mFileList);
 //            mFileList = mSetting.getFileList();
@@ -107,6 +120,9 @@ public class MNPhotoAlbumDisplayHelper {
                 //prepare for timer
                 mTimer = new Timer();
                 mTimer.schedule(new PhotoDisplayTask(), mInterval, mInterval);
+            }
+            else {
+                isRunning = false;
             }
         }
     }
@@ -178,6 +194,7 @@ public class MNPhotoAlbumDisplayHelper {
         @Override
         public void run() {
             if (mFileList != null) {
+                MNLog.i("Timer", "timer running...");
                 mActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

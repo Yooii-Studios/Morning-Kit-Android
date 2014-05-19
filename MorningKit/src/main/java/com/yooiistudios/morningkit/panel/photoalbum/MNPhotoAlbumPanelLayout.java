@@ -93,16 +93,33 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        if (mDisplayHelper != null) {
-            mDisplayHelper.start();
-        }
-    }
 
+        MNLog.i(TAG, "onAttachedToWindow");
+
+        startTimer();
+    }
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+
+        MNLog.i(TAG, "onDetachedFromWindow");
+
+        stopTimer();
+    }
+    private void startTimer() {
+        MNLog.i("Timer", "start called");
+        if (mDisplayHelper != null && !mDisplayHelper.isRunning()) {
+            mDisplayHelper.start();
+            MNLog.i("Timer", "started. isRunning : " + mDisplayHelper.isRunning());
+        }
+    }
+    private void stopTimer() {
+        MNLog.i("Timer", "stop called");
         if (mDisplayHelper != null) {
             mDisplayHelper.stop();
+            mDisplayHelper = null;
+            MNLog.i("Timer", "stopped");
+            // isRunning : " + mDisplayHelper.isRunning()
         }
     }
 
@@ -112,8 +129,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
 
         if (getPanelDataObject().has(KEY_DATA_FILE_ROOT)) {
             mRootDir = getPanelDataObject().getString(KEY_DATA_FILE_ROOT);
-            MNLog.i(TAG, "root : " +
-                    mRootDir);
+            MNLog.i(TAG, "root : " + mRootDir);
         }
         else {
             mRootDir = null;
@@ -165,26 +181,12 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         else {
             mIntervalInMillisec = MNPhotoAlbumDetailFragment.INVALID_INTERVAL;
         }
-    }
 
-    @Override
-    protected void updateUI() {
-        super.updateUI();
-    }
 
-    @Override
-    public void applyTheme() {
-        super.applyTheme();
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-
-        boolean test = true;
-        if (test) {
-            return;
-        }
+//        boolean test = true;
+//        if (test) {
+//            return;
+//        }
 
         MNViewSizeMeasure.setViewSizeObserver(mViewSwitcher, new MNViewSizeMeasure
                 .OnGlobalLayoutObserver() {
@@ -204,15 +206,18 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                                 }
 
                                 if (mAllAbsoluteImageFileList != null) {
+                                    MNLog.i(TAG, "create display helper " +
+                                            "instance.");
                                     mDisplayHelper =
                                             new MNPhotoAlbumDisplayHelper(
                                                     (Activity) getContext(),
                                                     mViewSwitcher,
-                                                    mAllAbsoluteImageFileList, mTransitionType,
+                                                    mAllAbsoluteImageFileList,
+                                                    mTransitionType,
                                                     mIntervalInMillisec,
                                                     mViewSwitcher.getWidth(),
                                                     mViewSwitcher.getHeight());
-                                    mDisplayHelper.start();
+                                    startTimer();
                                 }
                             }
                         }
@@ -220,5 +225,20 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                 listFetcher.execute();
             }
         });
+    }
+
+    @Override
+    protected void updateUI() {
+        super.updateUI();
+    }
+
+    @Override
+    public void applyTheme() {
+        super.applyTheme();
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
     }
 }
