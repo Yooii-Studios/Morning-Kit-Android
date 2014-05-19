@@ -96,19 +96,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
 
         MNLog.i(TAG, "onAttachedToWindow");
 
-        startTimer();
-    }
-
-    @Override
-    public void onActivityPause() {
-        super.onActivityPause();
-        MNLog.i(TAG, "onActivityPause");
-    }
-
-    @Override
-    public void onActivityResume() {
-        super.onActivityResume();
-        MNLog.i(TAG, "onActivityResume");
+//        startTimer();
     }
 
     @Override
@@ -117,8 +105,25 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
 
         MNLog.i(TAG, "onDetachedFromWindow");
 
+//        stopTimer();
+    }
+
+    @Override
+    public void onActivityResume() {
+        super.onActivityResume();
+        MNLog.i(TAG, "onActivityResume");
+
+        startTimer();
+    }
+
+    @Override
+    public void onActivityPause() {
+        super.onActivityPause();
+        MNLog.i(TAG, "onActivityPause");
+
         stopTimer();
     }
+
     private void startTimer() {
         MNLog.i("Timer", "start called");
         if (mDisplayHelper != null && !mDisplayHelper.isRunning()) {
