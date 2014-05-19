@@ -133,6 +133,7 @@
             android:background="@android:color/transparent"
             android:textSize="@dimen/panel_world_clock_detail_edit_text_font_size"
             android:textColor="@color/pastel_green_sub_font_color"
+            android:textColorHint="@color/pastel_green_stroke_color"
             android:paddingLeft="@dimen/margin_outer"/>
 
         <View
