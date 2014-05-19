@@ -23,6 +23,7 @@
         <item name="android:actionBarStyle">@style/ActionBar.Solid.PastelGreen</item>
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.PastelGreen</item>
         <item name="android:actionBarTabTextStyle">@style/TabText.PastelGreen</item>
+        <item name="android:editTextStyle">@style/EditTextTheme.PastelGreen</item>
 
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/ActionBar.Solid.PastelGreen</item>
@@ -57,6 +58,13 @@
 
     <style name="TitleTextStyle.PastelGreen" parent="@style/TextAppearance.AppCompat.Widget.Base.ActionBar.Title">
         <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="EditTextTheme.PastelGreen" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/theme_edit_text_pastel_green</item>
+        <item name="android:textColor">@color/pastel_green_sub_font_color</item>
+        <item name="android:textColorHint">@color/pastel_green_stroke_color</item>
+        <item name="android:textColorHighlight">#995ab38c</item>
     </style>
 
 </resources>

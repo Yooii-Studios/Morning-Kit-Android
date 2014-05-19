@@ -1,13 +1,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/panel_detail_padding">
+    android:padding="@dimen/panel_detail_padding"
+    android:background="@android:color/white">
 
     <EditText
         android:id="@+id/date_countdown_detail_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/date_countdown_write_a_title"
+        android:textSize="@dimen/panel_detail_default_font_size"
+        android:textColor="@color/pastel_green_sub_font_color"
+        android:textColorHint="@color/pastel_green_stroke_color"
         android:singleLine="true"
         android:imeOptions="actionDone"
         android:inputType="text"/>

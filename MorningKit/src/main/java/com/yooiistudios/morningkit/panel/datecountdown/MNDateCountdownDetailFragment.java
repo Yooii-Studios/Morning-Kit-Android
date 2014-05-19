@@ -65,6 +65,7 @@ public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
                 // Calendar의 month는 -1을 해줘야 맞는다
                 datePicker.init(date.getYear(), date.getMonth() - 1, date.getDay(), null);
             }
+            titleEditText.requestFocus();
         }
         return rootView;
     }
