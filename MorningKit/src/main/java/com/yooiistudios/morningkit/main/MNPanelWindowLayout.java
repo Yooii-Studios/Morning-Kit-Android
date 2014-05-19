@@ -129,6 +129,16 @@ public class MNPanelWindowLayout extends LinearLayout
             panelLayout.applyTheme();
         }
     }
+    public void onActivityPause() {
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            panelLayout.onActivityPause();
+        }
+    }
+    public void onActivityResume() {
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            panelLayout.onActivityResume();
+        }
+    }
 
     // 방향과 무관
     public void refreshAllPanels() {

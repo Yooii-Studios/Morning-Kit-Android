@@ -150,6 +150,9 @@ public class MNMainActivity extends Activity
         // 테마와 관련된 작업 실행
         panelWindowLayout.applyTheme();
 
+        // 액티비티가 resume될 경우 패널에서 필요한 처리 수행
+        panelWindowLayout.onActivityResume();
+
         // 애드몹 레이아웃
         admobLayout.setBackgroundColor(Color.parseColor("#BB000000"));
         adView.resume();
@@ -173,6 +176,9 @@ public class MNMainActivity extends Activity
         if (photoThemeImageView != null) {
             photoThemeImageView.clear();
         }
+
+        // 액티비티가 pause될 경우 패널에서 필요한 처리 수행
+        panelWindowLayout.onActivityPause();
 
         // Partially visible
         adView.pause();
