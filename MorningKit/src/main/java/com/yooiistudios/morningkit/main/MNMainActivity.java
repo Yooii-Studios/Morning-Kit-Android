@@ -100,9 +100,6 @@ public class MNMainActivity extends Activity
         // 기존의 레거시 코드 대신에 이 한줄로 findViewById를 모두 대체
         ButterKnife.inject(this);
 
-//        // 특정 날짜 이후로 앱이 죽게 폭탄 설치 - 현재는 주석 처리
-//        AppValidationChecker.validationCheck(this);
-
         // 위젯 윈도우
         panelWindowLayout.initWithPanelMatrix();
 
@@ -118,10 +115,6 @@ public class MNMainActivity extends Activity
 //        adView = new AdView(this, AdSize.BANNER, MN.ads.ADMOB_ID);
 //        admobLayout.addView(adView);
 //        adView.loadAd(new AdRequest());
-
-        // 최초 실행시는 회전 감지를 안하기에, 명시적으로 onConfigurationChanged를 최초 한번은 호출
-        // -> onResume에서 호출하는 것으로 수정
-//        onConfigurationChanged(getResources().getConfiguration());
 
         // 알람 체크
         try {
