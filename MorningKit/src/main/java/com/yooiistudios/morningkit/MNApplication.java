@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit;
 import android.app.Application;
 import android.content.res.Configuration;
 
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
@@ -34,13 +35,12 @@ public class MNApplication extends Application {
     {
         super.onCreate();
 
-        //Initialize TestFlight with your app token.
-//        TestFlight.takeOff(this, "2d9ad656-0548-41d6-a963-7cab9b0b352e");
-
         Configuration config = getBaseContext().getResources().getConfiguration();
 
         // load language from MNLanguage
         MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(getBaseContext());
+
+        MNLog.i("MNApplication", "currentLanguage: " + currentLanguageType.toString());
 
         // update locale to current language
         locale = new Locale(currentLanguageType.getCode(), currentLanguageType.getRegion());
