@@ -60,7 +60,7 @@
                 android:editable="false"
                 android:gravity="right|center_vertical"
                 android:text="$"
-                android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                android:textSize="@dimen/panel_exchange_rates_detail_edit_text_size"
                 android:textColor="@color/pastel_green_sub_font_color"
                 android:background="#00000000"
                 android:focusable="false">
@@ -74,7 +74,7 @@
                 android:digits="0123456789.,"
                 android:inputType="numberDecimal"
                 android:padding="0dip"
-                android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                android:textSize="@dimen/panel_exchange_rates_detail_edit_text_size"
                 android:textColor="@color/pastel_green_sub_font_color"
                 android:singleLine="true"
                 android:background="#00000000"
@@ -102,7 +102,7 @@
                 android:inputType="numberDecimal"
                 android:padding="0dip"
                 android:text="$1.35"
-                android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                android:textSize="@dimen/panel_exchange_rates_detail_edit_text_size"
                 android:textColor="@color/pastel_green_sub_font_color"
                 android:background="#00000000"
                 android:focusable="false"/>
@@ -155,6 +155,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
         android:layout_gravity="right"
+        android:layout_marginTop="@dimen/margin_outer"
         android:layout_marginRight="@dimen/panel_detail_bigger_padding"
         android:paddingRight="@dimen/panel_detail_padding">
 
@@ -163,12 +164,14 @@
             android:layout_width="@dimen/panel_exchange_rates_detail_swap_image_size"
             android:layout_height="@dimen/panel_exchange_rates_detail_swap_image_size"
             android:src="@drawable/button_refresh_pastel_green_normal"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_inner"/>
 
         <TextView
             android:id="@+id/panel_exchange_rates_swap_textview"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
+            android:paddingRight="@dimen/margin_outer"
             android:layout_marginRight="@dimen/panel_detail_bigger_padding"
             android:gravity="center"
             android:text="@string/exchange_rate_switch_countries"
