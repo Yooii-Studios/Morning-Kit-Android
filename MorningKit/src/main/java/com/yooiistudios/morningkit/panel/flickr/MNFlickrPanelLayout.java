@@ -230,7 +230,6 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
     @Override
     protected void onSizeChanged(final int w, final int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        MNLog.i(TAG, "onSizeChanged");
         MNViewSizeMeasure.setViewSizeObserver(imageView, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
             @Override
             public void onLayoutLoad() {
