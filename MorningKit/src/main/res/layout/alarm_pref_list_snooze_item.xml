@@ -37,15 +37,16 @@
             android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
             android:layout_centerInParent="true"/>
 
-        <!--
-            android:background="#33aa33" -->
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/alarm_pref_list_snooze_item_checkbox"
+        <ImageButton
+            android:id="@+id/alarm_pref_list_snooze_item_check_image_button"
+            android:layout_width="@dimen/panel_detail_check_image_button_size"
+            android:layout_height="@dimen/panel_detail_check_image_button_size"
+            android:layout_marginRight="@dimen/margin_outer"
+            android:background="@android:color/transparent"
+            android:src="@drawable/icon_panel_detail_checkbox_on"
+            android:scaleType="centerCrop"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:checked="true" />
+            android:layout_alignParentRight="true" />
+
     </RelativeLayout>
 </RelativeLayout>
