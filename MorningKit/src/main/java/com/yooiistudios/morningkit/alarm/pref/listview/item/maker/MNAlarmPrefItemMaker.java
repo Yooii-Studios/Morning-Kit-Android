@@ -78,26 +78,6 @@ public class MNAlarmPrefItemMaker {
                 }
             }
         });
-
-//        viewHolder.snoozeCheckBox.setChecked(alarm.isSnoozeOn());
-//        viewHolder.snoozeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                alarm.setSnoozeOn(isChecked);
-//            }
-//        });
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-//            viewHolder.snoozeSwitch.setChecked(alarm.isSnoozeOn());
-//            viewHolder.snoozeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    alarm.setSnoozeOn(isChecked);
-//                }
-//            });
-//        } else {
-//
-//        }
         return convertView;
     }
 
@@ -117,18 +97,7 @@ public class MNAlarmPrefItemMaker {
         @InjectView(R.id.alarm_pref_list_snooze_item_title_textview)        TextView        titleTextView;
         @InjectView(R.id.alarm_pref_list_snooze_item_check_image_button)    ImageButton     snoozeCheckImageButton;
 
-        //        @Optional
-//        @InjectView(R.id.alarm_pref_list_snooze_item_checkbox)          CheckBox        snoozeCheckBox; // < V14
-//        @Optional
-//        @InjectView(R.id.alarm_pref_list_snooze_item_switch)            Switch          snoozeSwitch; // >= V14
-//        Switch snoozeSwitch; // >= V14
-
-        public MNAlarmPrefSnoozeItemViewHolder(View view) {
-            ButterKnife.inject(this, view);
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-//                snoozeSwitch = (Switch) view.findViewById(R.id.alarm_pref_list_snooze_item_switch);
-//            }
-        }
+        public MNAlarmPrefSnoozeItemViewHolder(View view) { ButterKnife.inject(this, view); }
     }
 
     static class MNAlarmPrefTimeItemViewHolder {
