@@ -127,7 +127,6 @@
             android:layout_height="@dimen/panel_world_clock_detail_edit_text_height"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/panel_world_clock_detail_magnifier_size"
-            android:ems="5"
             android:hint="@string/weather_search_city"
             android:singleLine="true"
             android:background="@android:color/transparent"
