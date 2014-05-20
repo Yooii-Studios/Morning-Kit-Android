@@ -38,7 +38,7 @@
     <style name="NPWidget.NumberPicker">
         <item name="android:orientation">vertical</item>
         <item name="android:fadingEdge">vertical</item>
-        <item name="android:fadingEdgeLength">50dip</item>
+        <item name="android:fadingEdgeLength">60dip</item>
     </style>
 
     <style name="NPWidget.Holo.NumberPicker" parent="NPWidget.NumberPicker">
@@ -47,7 +47,7 @@
         <item name="selectionDividerHeight">2dip</item>
         <item name="internalLayout">@layout/number_picker_with_selector_wheel</item>
         <item name="internalMinWidth">64dip</item>
-        <item name="internalMaxHeight">180dip</item>
+        <item name="internalMaxHeight">200dip</item>
         <item name="virtualButtonPressedDrawable">@drawable/item_background_holo_dark</item>
     </style>
 
