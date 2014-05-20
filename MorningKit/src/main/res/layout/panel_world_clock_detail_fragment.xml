@@ -37,6 +37,7 @@
                 android:id="@+id/panel_detail_world_clock_analog_check_imagebutton"
                 android:layout_width="@dimen/panel_detail_check_image_button_size"
                 android:layout_height="@dimen/panel_detail_check_image_button_size"
+                android:clickable="false"
                 android:background="@drawable/icon_panel_detail_checkbox"/>
 
             <TextView
@@ -63,6 +64,7 @@
                 android:id="@+id/panel_detail_world_clock_digital_check_imagebutton"
                 android:layout_width="@dimen/panel_detail_check_image_button_size"
                 android:layout_height="@dimen/panel_detail_check_image_button_size"
+                android:clickable="false"
                 android:background="@drawable/icon_panel_detail_checkbox_on"/>
 
             <TextView
