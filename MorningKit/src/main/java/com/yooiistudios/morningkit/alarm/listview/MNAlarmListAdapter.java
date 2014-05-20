@@ -152,7 +152,11 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
     private void initLabelTextView(MNAlarm alarm, MNAlarmItemViewHolder alarmItemViewHolder) {
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
-        alarmItemViewHolder.labelTextView.setText(alarm.getAlarmLabel());
+        if (alarm.getAlarmLabel() != null && alarm.getAlarmLabel().equals("Alarm")) {
+            alarmItemViewHolder.labelTextView.setText(R.string.alarm_default_label);
+        } else {
+            alarmItemViewHolder.labelTextView.setText(alarm.getAlarmLabel());
+        }
         alarmItemViewHolder.labelTextView.setSelected(true);
         alarmItemViewHolder.labelTextView.setTextColor(MNMainColors.getAlarmSubFontColor(currentThemeType, context));
     }
