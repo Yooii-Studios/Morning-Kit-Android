@@ -40,6 +40,7 @@
         android:id="@+id/date_countdown_detail_custom_date_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/panel_detail_bigger_padding"
         android:calendarViewShown="false"
         android:layout_below="@id/date_countdown_detail_edittext"/>
 
