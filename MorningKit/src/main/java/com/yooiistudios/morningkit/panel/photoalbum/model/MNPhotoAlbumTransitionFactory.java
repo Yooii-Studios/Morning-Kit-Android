@@ -14,7 +14,8 @@ public class MNPhotoAlbumTransitionFactory {
      * Index 0 contains inAnimation.
      * Index 1 contains outAnimation.
      */
-    public static Animation[] getTransitionAnimation(MNPhotoAlbumTransitionType type) {
+    public static Animation[] makeTransitionAnimation(
+            MNPhotoAlbumTransitionType type) {
         Animation[] animArr = new Animation[2];
         if (type.equals(MNPhotoAlbumTransitionType.ALPHA)) {
             AlphaAnimation inAnim = new AlphaAnimation(0.0f, 1.0f);

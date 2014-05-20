@@ -40,6 +40,7 @@ import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayo
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_INTERVAL_SECOND;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_TRANS_TYPE;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_USE_REFRESH;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_USE_GRAYSCALE;
 
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2014. 5. 13.
@@ -68,6 +69,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     @InjectView(R.id.transition_group) RadioGroup transitionEffectRadioGroup;
     @InjectView(R.id.label_min) TextView minLabel;
     @InjectView(R.id.label_sec) TextView secLabel;
+    @InjectView(R.id.grayscale_toggleSwitch)
+    CompoundButton grayscaleToggleButton;
 
     private int intervalMinute;
     private int intervalSecond;
@@ -77,6 +80,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     private ArrayList<String> parentDirList;
     private String rootDirForFiles;
     private ArrayList<String> fileList;
+    private boolean useGrayscale;
 
 
     @Override
@@ -103,6 +107,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                 parentDirList.add(DEFAULT_PARENT_DIR.getAbsolutePath());
                 rootDirForFiles = null;
                 fileList = new ArrayList<String>();
+                useGrayscale = false;
             }
 
             rootView.findViewById(R.id.load).setOnClickListener(new View
@@ -184,11 +189,19 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         else {
             fileList = new ArrayList<String>();
         }
+        if (getPanelDataObject().has(KEY_DATA_USE_GRAYSCALE)) {
+            useGrayscale = getPanelDataObject().getBoolean(KEY_DATA_USE_GRAYSCALE);
+        }
+        else {
+            useGrayscale = false;
+        }
     }
 
     private void initUI() {
         refreshTimeToggleButton.setOnCheckedChangeListener(
-                onRefreshTimeCheckChangedListener);
+                onSwitchCheckChangedListener);
+        grayscaleToggleButton.setOnCheckedChangeListener(
+                onSwitchCheckChangedListener);
         transitionEffectRadioGroup.setOnCheckedChangeListener
                 (onTransitionChangedListener);
         minuteEditText.addTextChangedListener(new TextWatcher() {
@@ -225,6 +238,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         });
 
         refreshTimeToggleButton.setChecked(useRefresh);
+        grayscaleToggleButton.setChecked(useGrayscale);
         setTransitionType(transitionType, true);
         updateTimeUI();
 
@@ -286,17 +300,18 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         }
         getPanelDataObject().put(KEY_DATA_FILE_FILELIST,
                 new Gson().toJson(fileList));
+        getPanelDataObject().put(KEY_DATA_USE_GRAYSCALE, useGrayscale);
     }
 
 
     private CompoundButton.OnCheckedChangeListener
-            onRefreshTimeCheckChangedListener
+            onSwitchCheckChangedListener
             = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton btn, boolean checked) {
-            useRefresh = checked;
             switch (btn.getId()) {
                 case R.id.toggleSwitch:
+                    useRefresh = checked;
                     if (checked) {
                         if (intervalMinute == INVALID_INTERVAL ||
                                 intervalSecond == INVALID_INTERVAL) {
@@ -308,6 +323,9 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                         intervalSecond = INVALID_INTERVAL;
                     }
                     updateTimeUI();
+                    break;
+                case R.id.grayscale_toggleSwitch:
+                    useGrayscale = checked;
                     break;
             }
         }
