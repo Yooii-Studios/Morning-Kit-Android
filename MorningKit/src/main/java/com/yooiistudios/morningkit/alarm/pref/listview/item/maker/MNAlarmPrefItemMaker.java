@@ -5,8 +5,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -56,20 +55,38 @@ public class MNAlarmPrefItemMaker {
 
     public static View makeSnoozeItem(Context context, ViewGroup parent, final MNAlarm alarm) {
         View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_snooze_item, parent, false);
-        MNAlarmPrefSnoozeItemViewHolder viewHolder = new MNAlarmPrefSnoozeItemViewHolder(convertView);
+        final MNAlarmPrefSnoozeItemViewHolder viewHolder = new MNAlarmPrefSnoozeItemViewHolder(convertView);
         convertView.setTag(viewHolder);
 
         viewHolder.titleTextView.setText(R.string.alarm_wake_snooze);
         viewHolder.titleTextView.setTextColor(MNSettingColors.getMainFontColor(
                 MNTheme.getCurrentThemeType(context.getApplicationContext())));
 
-        viewHolder.snoozeCheckBox.setChecked(alarm.isSnoozeOn());
-        viewHolder.snoozeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        if (alarm.isSnoozeOn()) {
+            viewHolder.snoozeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+        } else {
+            viewHolder.snoozeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+        }
+        viewHolder.snoozeCheckImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                alarm.setSnoozeOn(isChecked);
+            public void onClick(View view) {
+                alarm.setSnoozeOn(!alarm.isSnoozeOn());
+                if (alarm.isSnoozeOn()) {
+                    viewHolder.snoozeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+                } else {
+                    viewHolder.snoozeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+                }
             }
         });
+
+//        viewHolder.snoozeCheckBox.setChecked(alarm.isSnoozeOn());
+//        viewHolder.snoozeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                alarm.setSnoozeOn(isChecked);
+//            }
+//        });
+
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 //            viewHolder.snoozeSwitch.setChecked(alarm.isSnoozeOn());
 //            viewHolder.snoozeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -97,9 +114,11 @@ public class MNAlarmPrefItemMaker {
     }
 
     static class MNAlarmPrefSnoozeItemViewHolder {
-        @InjectView(R.id.alarm_pref_list_snooze_item_title_textview)    TextView        titleTextView;
-//        @Optional
-        @InjectView(R.id.alarm_pref_list_snooze_item_checkbox)          CheckBox        snoozeCheckBox; // < V14
+        @InjectView(R.id.alarm_pref_list_snooze_item_title_textview)        TextView        titleTextView;
+        @InjectView(R.id.alarm_pref_list_snooze_item_check_image_button)    ImageButton     snoozeCheckImageButton;
+
+        //        @Optional
+//        @InjectView(R.id.alarm_pref_list_snooze_item_checkbox)          CheckBox        snoozeCheckBox; // < V14
 //        @Optional
 //        @InjectView(R.id.alarm_pref_list_snooze_item_switch)            Switch          snoozeSwitch; // >= V14
 //        Switch snoozeSwitch; // >= V14
