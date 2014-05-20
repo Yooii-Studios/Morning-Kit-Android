@@ -3,8 +3,8 @@ package com.yooiistudios.morningkit.panel.photoalbum.model;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
 import com.yooiistudios.morningkit.R;
@@ -25,24 +25,30 @@ import lombok.Getter;
 public class MNPhotoAlbumDisplayHelper {
     private Activity mActivity;
     private ViewSwitcher mViewSwitcher;
-    private ArrayList<File> mFileList;
-    private ImageView mFirstView;
-    private ImageView mSecondView;
+    private ViewGroup mParentView;
+    private String mRootDir;
+    private ArrayList<String> mFileList;
+    private MNPhotoAlbumImageView mFirstView;
+    private MNPhotoAlbumImageView mSecondView;
     private Timer mTimer;
     private MNPhotoAlbumTransitionType mTransitionType;
     private long mInterval;
     private int mPhotoWidth;
     private int mPhotoHeight;
     private int mPhotoIdx;
+    private boolean mUseGrayscale;
 
     @Getter private boolean isRunning;
 
-
-
-    public MNPhotoAlbumDisplayHelper(Activity activity, ViewSwitcher viewSwitcher,
-                              ArrayList<File> fileList,
-                              MNPhotoAlbumTransitionType transitionType,
-                              long interval, int photoWidth, int photoHeight) {
+    public MNPhotoAlbumDisplayHelper(Activity activity,
+                                     ViewSwitcher viewSwitcher,
+                                     ViewGroup parentView,
+                                     String rootDir,
+                                     ArrayList<String> fileList,
+                                     MNPhotoAlbumTransitionType transitionType,
+                                     long interval,
+                                     int photoWidth, int photoHeight,
+                                     boolean useGrayscale) {
         if (viewSwitcher == null) {
             throw new IllegalArgumentException(viewSwitcher.toString() + " " +
                     "CANNOT be null");
@@ -55,22 +61,27 @@ public class MNPhotoAlbumDisplayHelper {
         else {
             for (int i = 0; i < viewSwitcherChildCount; i++ ) {
                 View child = viewSwitcher.getChildAt(i);
-                if (!(child instanceof ImageView)) {
+                if (!(child instanceof MNPhotoAlbumImageView)) {
                     throw new IllegalStateException(viewSwitcher.toString()
-                            + " MUST HAVE ImageView child ONLY.");
+                            + " MUST HAVE MNPhotoAlbumImageView child ONLY.");
                 }
             }
         }
         mActivity = activity;
         mViewSwitcher = viewSwitcher;
-        mFirstView = (ImageView)(mViewSwitcher.getChildAt(0));
-        mSecondView = (ImageView)(mViewSwitcher.getChildAt(1));
+        mParentView = parentView;
+//        mViewSwitcher.setOnSwitchAttachStateChangeListener(
+//                mOnSwitcherAttachStateChangedListener);
+        mFirstView = (MNPhotoAlbumImageView)(mViewSwitcher.getChildAt(0));
+        mSecondView = (MNPhotoAlbumImageView)(mViewSwitcher.getChildAt(1));
         mPhotoWidth = photoWidth;
         mPhotoHeight = photoHeight;
 
+        mRootDir = rootDir;
         mFileList = fileList;
         mTransitionType = transitionType;
         mInterval = interval;
+        mUseGrayscale = useGrayscale;
     }
     public void stop() {
         if (mTimer != null) {
@@ -79,17 +90,26 @@ public class MNPhotoAlbumDisplayHelper {
             mTimer = null;
         }
         isRunning = false;
-        MNBitmapUtils.recycleImageView(mFirstView);
-        MNBitmapUtils.recycleImageView(mSecondView);
+
+//        mParentView.removeView(mViewSwitcher);
+
+//        MNBitmapUtils.recycleImageView(mFirstView);
+//        MNBitmapUtils.recycleImageView(mSecondView);
     }
 
     public void start() {
         stop();
+
+//        mParentView.addView(mViewSwitcher,
+//                new ViewGroup.LayoutParams(
+//                        ViewGroup.LayoutParams.MATCH_PARENT,
+//                        ViewGroup.LayoutParams.MATCH_PARENT)
+//        );
+
         isRunning = true;
 
-        mFileList = MNPhotoAlbumFileManager.getValidImageFileList(
+        mFileList = MNPhotoAlbumFileManager.getValidImageFileList(mRootDir,
                 mFileList);
-//            mFileList = mSetting.getFileList();
         if (mFileList.size() == 0) {
             //TODO no images to display. show error message.
         }
@@ -97,18 +117,14 @@ public class MNPhotoAlbumDisplayHelper {
             mPhotoIdx = 0;
 
             //show first image
-            Bitmap bitmap = getPolishedBitmap(mFileList.get(mPhotoIdx),
-                    mPhotoWidth, mPhotoHeight);
-//                Bitmap bitmap = BitmapManager.createScaledBitmap(mActivity
-//                                .getApplicationContext(),
-//                        mFileList.get(mPhotoIdx),
-//                        mPhotoWidth, mPhotoHeight, true);
+            String fileName = mFileList.get(mPhotoIdx);
+            Bitmap bitmap = getPolishedBitmap(new File(mRootDir, fileName));
             mFirstView.setImageBitmap(bitmap);
 
             //init view switcher
             mViewSwitcher.setDisplayedChild(0);
             Animation[] animArr = MNPhotoAlbumTransitionFactory.
-                    getTransitionAnimation(mTransitionType);
+                    makeTransitionAnimation(mTransitionType);
             Animation inAnimation = animArr[0];
             Animation outAnimation = animArr[1];
             inAnimation.setAnimationListener(mAnimListener);
@@ -126,14 +142,24 @@ public class MNPhotoAlbumDisplayHelper {
             }
         }
     }
-    private Bitmap getPolishedBitmap(File file, int width, int height) {
+
+    public void notifyContainingActivityWillBeShown() {
+        mFirstView.setIsReadyForRecycle(false);
+        mSecondView.setIsReadyForRecycle(false);
+    }
+    public void notifyContainingActivityWillBeGone() {
+        mFirstView.setIsReadyForRecycle(true);
+        mSecondView.setIsReadyForRecycle(true);
+    }
+
+    private Bitmap getPolishedBitmap(File file) {
         Bitmap bitmap = MNBitmapProcessor.createSampleSizedBitmap(
-                file, width, height);
+                file, mPhotoWidth, mPhotoHeight);
         Bitmap croppedBitmap = MNBitmapProcessor.
-                getCroppedBitmap(bitmap, width, height);
+                getCroppedBitmap(bitmap, mPhotoWidth, mPhotoHeight);
         Bitmap polishedBitmap = MNBitmapProcessor.
-                getRoundedCornerBitmap(croppedBitmap, width, height,
-                        false,
+                getRoundedCornerBitmap(croppedBitmap, mPhotoWidth, mPhotoHeight,
+                        mUseGrayscale,
                         (int) mActivity.getResources()
                                 .getDimension(
                                         R.dimen.panel_flickr_round_radius));
@@ -150,8 +176,9 @@ public class MNPhotoAlbumDisplayHelper {
 
         int curViewIdx = mViewSwitcher.getDisplayedChild();
 
-        Bitmap bitmap = getPolishedBitmap(mFileList.get(mPhotoIdx),
-                mPhotoWidth, mPhotoHeight);
+        String fileName = mFileList.get(mPhotoIdx);
+        Bitmap bitmap = getPolishedBitmap(new File(mRootDir, fileName));
+//        Bitmap bitmap = getPolishedBitmap(mFileList.get(mPhotoIdx));
 
         if (bitmap == null) {
             showNext();

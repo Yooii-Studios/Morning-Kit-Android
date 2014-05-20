@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.panel.photoalbum.model;
 
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,16 +12,20 @@ import java.util.ArrayList;
 public class MNPhotoAlbumFileManager {
 
     private static final String TAG = "FileManager";
+    public static final File DEFAULT_PARENT_DIR =
+            Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DCIM);
 
-    public static ArrayList<File> getValidImageFileList(
-            ArrayList<File> fileList){
-        ArrayList<File> validFileList = new ArrayList<File>();
+    public static ArrayList<String> getValidImageFileList(String rootDir,
+            ArrayList<String> fileList){
+        ArrayList<String> validFileList = new ArrayList<String>();
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        for (File file : fileList) {
-            BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+        for (String fileName : fileList) {
+            String path = new File(rootDir, fileName).getAbsolutePath();
+            BitmapFactory.decodeFile(path, options);
             if (options.outWidth > 0 && options.outHeight > 0) {
-                validFileList.add(file);
+                validFileList.add(fileName);
             }
         }
         return validFileList;
