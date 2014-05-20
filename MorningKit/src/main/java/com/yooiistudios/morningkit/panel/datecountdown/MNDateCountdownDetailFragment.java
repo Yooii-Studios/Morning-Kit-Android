@@ -11,6 +11,8 @@ import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 
+import net.simonvt.datepicker.DatePicker;
+
 import org.json.JSONException;
 
 import java.lang.reflect.Type;
@@ -32,7 +34,8 @@ public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
     private static final String TAG = "MNDateCountdownDetailFragment";
 
     @InjectView(R.id.date_countdown_detail_edittext) EditText titleEditText;
-    @InjectView(R.id.date_countdown_detail_date_picker) MNDateCountdownDatePicker datePicker;
+//    @InjectView(R.id.date_countdown_detail_date_picker) MNDateCountdownDatePicker datePicker;
+    @InjectView(R.id.date_countdown_detail_custom_date_picker) DatePicker customDatePicker;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,7 +57,8 @@ public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
                     String dateJsonString = getPanelDataObject().getString(DATE_COUNTDOWN_DATA_DATE);
                     MNDate date = new Gson().fromJson(dateJsonString, type);
                     // Calendar의 month는 -1을 해줘야 맞는다
-                    datePicker.init(date.getYear(), date.getMonth() - 1, date.getDay(), null);
+//                    datePicker.init(date.getYear(), date.getMonth() - 1, date.getDay(), null);
+                    customDatePicker.init(date.getYear(), date.getMonth() - 1, date.getDay(), null);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -63,9 +67,11 @@ public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
                 titleEditText.setText(R.string.date_countdown_new_year);
                 MNDate date = MNDefaultDateMaker.getDefaultDate();
                 // Calendar의 month는 -1을 해줘야 맞는다
-                datePicker.init(date.getYear(), date.getMonth() - 1, date.getDay(), null);
+//                datePicker.init(date.getYear(), date.getMonth() - 1, date.getDay(), null);
+                customDatePicker.init(date.getYear(), date.getMonth() - 1, date.getDay(), null);
             }
             titleEditText.requestFocus();
+            customDatePicker.setCalendarViewShown(false); // custom은 달력 삭제를 코드로 설정해준다
         }
         return rootView;
     }
@@ -83,7 +89,8 @@ public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
         getPanelDataObject().put(DATE_COUNTDOWN_DATA_TITLE, titleString);
 
         // date - 월은 + 1을 해야 제대로 된 값이 된다(1월 ~ 12월)
-        MNDate date = new MNDate(datePicker.getYear(), datePicker.getMonth() + 1, datePicker.getDayOfMonth());
+        MNDate date = new MNDate(customDatePicker.getYear(), customDatePicker.getMonth() + 1,
+                customDatePicker.getDayOfMonth());
         String dateJsonString = new Gson().toJson(date);
         getPanelDataObject().put(DATE_COUNTDOWN_DATA_DATE, dateJsonString);
     }
