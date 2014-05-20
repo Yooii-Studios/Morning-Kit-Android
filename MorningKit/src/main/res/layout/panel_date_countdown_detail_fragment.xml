@@ -1,23 +1,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/panel_detail_padding"
+    android:padding="@dimen/panel_detail_bigger_padding"
     android:background="@android:color/white">
 
     <EditText
         android:id="@+id/date_countdown_detail_edittext"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/panel_world_clock_detail_edit_text_height"
+        android:paddingLeft="@dimen/margin_outer"
+        android:paddingRight="@dimen/margin_outer"
+        android:layout_gravity="center_vertical"
         android:hint="@string/date_countdown_write_a_title"
         android:textSize="@dimen/panel_detail_default_font_size"
         android:textColor="@color/pastel_green_sub_font_color"
         android:textColorHint="@color/pastel_green_stroke_color"
         android:singleLine="true"
         android:imeOptions="actionDone"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:background="@android:color/transparent"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/pastel_green_main_font_color"
+        android:layout_below="@id/date_countdown_detail_edittext"/>
+
+    <!--
     <com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownDatePicker
         android:id="@+id/date_countdown_detail_date_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        android:layout_below="@id/date_countdown_detail_edittext"/>
+    -->
+
+    <net.simonvt.datepicker.DatePicker
+        android:id="@+id/date_countdown_detail_custom_date_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:calendarViewShown="false"

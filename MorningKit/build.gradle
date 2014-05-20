@@ -21,8 +21,7 @@ repositories {
 
 android {
     compileSdkVersion 19
-//    buildToolsVersion "18.1.1"
-    buildToolsVersion '19.0.1'
+    buildToolsVersion '19.0.3'
 
     defaultConfig {
         minSdkVersion 10
@@ -80,6 +79,7 @@ dependencies {
     compile project(':libraries:SKAlarmManager')
     compile project(':libraries:SKAlarmSound')
     compile project(':libraries:view-pager-indicator-library') // MNSettingActivityProject에 필요
+    compile project(':libraries:DatePickerLibrary')
 
     // 포토 앨범 테마용 사진 고르기 라이브러리
     compile project(':libraries:ExFilePickerLibrary')

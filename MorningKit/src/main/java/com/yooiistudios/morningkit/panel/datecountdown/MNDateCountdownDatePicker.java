@@ -10,20 +10,26 @@ public class MNDateCountdownDatePicker extends DatePicker {
 
 	public MNDateCountdownDatePicker(Context context) {
 		super(context);
-		init();
+        if (!isInEditMode()) {
+            init();
+        }
 	}
 	
 	public MNDateCountdownDatePicker(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		init();
+        if (!isInEditMode()) {
+            init();
+        }
 	}
 	
 	public MNDateCountdownDatePicker(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		init();
+        if (!isInEditMode()) {
+            init();
+        }
 	}
 
-	// 넥서스 7에서 죽는 가능성 때문에 일단 주석 처
+	// 넥서스 7에서 죽는 가능성 때문에 일단 주석 처리
 	private void init() {
 		
 		/*

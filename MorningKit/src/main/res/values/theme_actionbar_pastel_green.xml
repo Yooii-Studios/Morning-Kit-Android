@@ -29,6 +29,11 @@
         <item name="actionBarStyle">@style/ActionBar.Solid.PastelGreen</item>
         <item name="actionBarTabStyle">@style/ActionBarTabStyle.PastelGreen</item>
         <item name="actionBarTabTextStyle">@style/TabText.PastelGreen</item>
+
+        <!-- Date Picker -->
+        <item name="calendarViewStyle">@style/Widget.Holo.Light.CalendarView</item>
+        <item name="datePickerStyle">@style/Widget.Holo.Light.DatePicker</item>
+        <item name="numberPickerStyle">@style/NPWidget.Holo.Light.NumberPicker</item>
     </style>
 
     <style name="ActionBar.Solid.PastelGreen" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">

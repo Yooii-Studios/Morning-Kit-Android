@@ -3,4 +3,7 @@ include ':libraries:SKAlarmManager'
 include ':libraries:SKAlarmSound'
 include ':libraries:view-pager-indicator-library'
 include ':libraries:ExFilePickerLibrary'
+include ':libraries:CalendarLibrary'
+include ':libraries:NumberPickerLibrary'
+include ':libraries:DatePickerLibrary'
 // project (':SKAlarmManager').projectDir = new File(settingsDir, '/libraries/SKAlarmManager')
