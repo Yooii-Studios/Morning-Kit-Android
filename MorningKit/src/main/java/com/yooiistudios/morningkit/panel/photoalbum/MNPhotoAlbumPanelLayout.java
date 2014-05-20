@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -19,8 +17,6 @@ import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumTransition
 
 import org.json.JSONException;
 
-import java.io.File;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -37,9 +33,10 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     public static final String KEY_DATA_INTERVAL_SECOND = "second";
     public static final String KEY_DATA_USE_REFRESH = "use refresh";
     public static final String KEY_DATA_TRANS_TYPE = "transition type";
-    public static final String KEY_DATA_FILE_PARENT_LIST = "selected files";
+//    public static final String KEY_DATA_FILE_PARENT_LIST = "selected files";
+    public static final String KEY_DATA_FILE_SELECTED = "selected file";
     public static final String KEY_DATA_FILE_ROOT = "selected file's root dir";
-    public static final String KEY_DATA_FILE_FILELIST = "selected file list";
+//    public static final String KEY_DATA_FILE_FILELIST = "selected file list";
     public static final String KEY_DATA_USE_GRAYSCALE = "use grayscale";
 
     public static final String KEY_FILE_LIST = "file list info";
@@ -50,9 +47,9 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     private MNPhotoAlbumTransitionType transitionType;
     private long intervalInMillisec;
     private String rootDir;
-    private ArrayList<String> parentList;
-    private ArrayList<String> fileList;
-    private ArrayList<File> allAbsoluteImageFileList;
+//    private ArrayList<String> parentList;
+//    private ArrayList<String> fileList;
+    private ArrayList<String> allAbsoluteImageFileList;
     private boolean useGrayscale;
 
     private MNPhotoAlbumDisplayHelper displayHelper;
@@ -104,18 +101,20 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
             public void onLayoutLoad() {
 
                 MNPhotoAlbumListFetcher listFetcher = new MNPhotoAlbumListFetcher(
-                        parentList, rootDir, fileList,
+                        rootDir,
                         new MNPhotoAlbumListFetcher.OnListFetchListener() {
                             @Override
-                            public void onPhotoListFetch(ArrayList<File> photoList) {
-                                if (photoList != null) {
-                                    for (File file : photoList) {
-                                        MNLog.i(TAG, file.getAbsolutePath());
-                                    }
-                                    allAbsoluteImageFileList = photoList;
-                                }
+                            public void onPhotoListFetch(ArrayList<String> photoList) {
+//                                if (photoList != null) {
+//                                    for (File file : photoList) {
+//                                        MNLog.i(TAG, file.getAbsolutePath());
+//                                    }
+//                                    allAbsoluteImageFileList = photoList;
+//                                }
 
-                                if (allAbsoluteImageFileList != null) {
+
+                                if (photoList != null) {
+                                    allAbsoluteImageFileList = photoList;
                                     MNLog.i(TAG, "create display helper " +
                                             "instance.");
                                     displayHelper =
@@ -123,6 +122,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                                                 (Activity) getContext(),
                                                 viewSwitcher,
                                                 MNPhotoAlbumPanelLayout.this,
+                                                rootDir,
                                                 allAbsoluteImageFileList,
                                                 transitionType,
                                                 intervalInMillisec,
@@ -182,33 +182,33 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         else {
             rootDir = null;
         }
-        if (getPanelDataObject().has(KEY_DATA_FILE_PARENT_LIST)) {
-            Type type = new TypeToken<ArrayList<String>>(){}.getType();
-            parentList = new Gson().fromJson(
-                    getPanelDataObject().getString(KEY_DATA_FILE_PARENT_LIST),
-                    type);
-            for (String name : parentList) {
-                MNLog.i(TAG, "parent : " + name);
-            }
-        }
-        else {
-            parentList = new ArrayList<String>();
-            parentList.add(MNPhotoAlbumDetailFragment.DEFAULT_PARENT_DIR
-                    .getAbsolutePath());
-
-        }
-        if (getPanelDataObject().has(KEY_DATA_FILE_FILELIST)) {
-            Type type = new TypeToken<ArrayList<String>>(){}.getType();
-            fileList = new Gson().fromJson(
-                    getPanelDataObject().getString(KEY_DATA_FILE_FILELIST),
-                    type);
-            for (String name : fileList) {
-                MNLog.i(TAG, "file : " + name);
-            }
-        }
-        else {
-            fileList = null;
-        }
+//        if (getPanelDataObject().has(KEY_DATA_FILE_PARENT_LIST)) {
+//            Type type = new TypeToken<ArrayList<String>>(){}.getType();
+//            parentList = new Gson().fromJson(
+//                    getPanelDataObject().getString(KEY_DATA_FILE_PARENT_LIST),
+//                    type);
+//            for (String name : parentList) {
+//                MNLog.i(TAG, "parent : " + name);
+//            }
+//        }
+//        else {
+//            parentList = new ArrayList<String>();
+//            parentList.add(MNPhotoAlbumDetailFragment.DEFAULT_PARENT_DIR
+//                    .getAbsolutePath());
+//
+//        }
+//        if (getPanelDataObject().has(KEY_DATA_FILE_FILELIST)) {
+//            Type type = new TypeToken<ArrayList<String>>(){}.getType();
+//            fileList = new Gson().fromJson(
+//                    getPanelDataObject().getString(KEY_DATA_FILE_FILELIST),
+//                    type);
+//            for (String name : fileList) {
+//                MNLog.i(TAG, "file : " + name);
+//            }
+//        }
+//        else {
+//            fileList = null;
+//        }
 
         if (getPanelDataObject().has(KEY_DATA_TRANS_TYPE)) {
             String key = getPanelDataObject().getString(KEY_DATA_TRANS_TYPE);

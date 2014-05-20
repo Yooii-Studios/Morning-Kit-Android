@@ -1,11 +1,12 @@
 package com.yooiistudios.morningkit.panel.photoalbum;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,8 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumTransitionType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
@@ -25,22 +25,21 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import org.json.JSONException;
 
 import java.io.File;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import ru.bartwell.exfilepicker.ExFilePickerActivity;
-import ru.bartwell.exfilepicker.ExFilePickerParcelObject;
 
-import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_FILELIST;
-import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_PARENT_LIST;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_ROOT;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_SELECTED;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_INTERVAL_MINUTE;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_INTERVAL_SECOND;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_TRANS_TYPE;
-import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_USE_REFRESH;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_USE_GRAYSCALE;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_USE_REFRESH;
+import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFileManager.DEFAULT_PARENT_DIR;
+
+//import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_FILELIST;
+//import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_PARENT_LIST;
 
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2014. 5. 13.
@@ -56,9 +55,6 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     //default constants
     public static final int DEFAULT_INTERVAL_MIN = 0;
     public static final int DEFAULT_INTERVAL_SEC = 5;
-    public static final File DEFAULT_PARENT_DIR =
-            Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DCIM);
 
     //request code
     public static final int RC_LOAD_PHOTO = 1;
@@ -77,9 +73,10 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 //    private PhotoType type;
     private boolean useRefresh;
     private MNPhotoAlbumTransitionType transitionType;
-    private ArrayList<String> parentDirList;
+//    private ArrayList<String> parentDirList;
     private String rootDirForFiles;
-    private ArrayList<String> fileList;
+    private String selectedFileName;
+//    private ArrayList<String> fileList;
     private boolean useGrayscale;
 
 
@@ -103,10 +100,11 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                 useRefresh = false;
                 transitionType = MNPhotoAlbumTransitionType.NONE;
 
-                parentDirList = new ArrayList<String>();
-                parentDirList.add(DEFAULT_PARENT_DIR.getAbsolutePath());
-                rootDirForFiles = null;
-                fileList = new ArrayList<String>();
+                selectedFileName = null;
+//                parentDirList = new ArrayList<String>();
+//                parentDirList.add(DEFAULT_PARENT_DIR.getAbsolutePath());
+                rootDirForFiles = DEFAULT_PARENT_DIR.getAbsolutePath();
+//                fileList = new ArrayList<String>();
                 useGrayscale = false;
             }
 
@@ -114,9 +112,20 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                     .OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(),
-                            ExFilePickerActivity.class);
+
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+//                    intent.putExtra("outputformat", Bitmap.CompressFormat.JPEG.name());
+                    intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+//                    Intent intent = new Intent();
+                    intent.setType("image/*");
+//                    intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(intent, RC_LOAD_PHOTO);
+
+//                    Intent intent = new Intent(getActivity(),
+//                            ExFilePickerActivity.class);
+//                    startActivityForResult(intent, RC_LOAD_PHOTO);
                 }
             });
 
@@ -163,32 +172,39 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         else {
             transitionType = MNPhotoAlbumTransitionType.NONE;
         }
-        if (getPanelDataObject().has(KEY_DATA_FILE_PARENT_LIST)) {
-            Type type = new TypeToken<ArrayList<String>>(){}.getType();
-            parentDirList = new Gson().fromJson(
-                    getPanelDataObject().getString(KEY_DATA_FILE_PARENT_LIST),
-                    type);
+//        if (getPanelDataObject().has(KEY_DATA_FILE_PARENT_LIST)) {
+//            Type type = new TypeToken<ArrayList<String>>(){}.getType();
+//            parentDirList = new Gson().fromJson(
+//                    getPanelDataObject().getString(KEY_DATA_FILE_PARENT_LIST),
+//                    type);
+//        }
+//        else {
+//            parentDirList = new ArrayList<String>();
+//            parentDirList.add(DEFAULT_PARENT_DIR.getAbsolutePath());
+//        }
+        if (getPanelDataObject().has(KEY_DATA_FILE_SELECTED)) {
+            selectedFileName = getPanelDataObject().getString(
+                    KEY_DATA_FILE_SELECTED);
         }
         else {
-            parentDirList = new ArrayList<String>();
-            parentDirList.add(DEFAULT_PARENT_DIR.getAbsolutePath());
+            selectedFileName = null;
         }
         if (getPanelDataObject().has(KEY_DATA_FILE_ROOT)) {
             rootDirForFiles = getPanelDataObject().getString(
                     KEY_DATA_FILE_ROOT);
         }
         else {
-            rootDirForFiles = null;
+            rootDirForFiles = DEFAULT_PARENT_DIR.getAbsolutePath();
         }
-        if (getPanelDataObject().has(KEY_DATA_FILE_FILELIST)) {
-            Type type = new TypeToken<ArrayList<String>>(){}.getType();
-            fileList = new Gson().fromJson(
-                    getPanelDataObject().getString(KEY_DATA_FILE_FILELIST),
-                    type);
-        }
-        else {
-            fileList = new ArrayList<String>();
-        }
+//        if (getPanelDataObject().has(KEY_DATA_FILE_FILELIST)) {
+//            Type type = new TypeToken<ArrayList<String>>(){}.getType();
+//            fileList = new Gson().fromJson(
+//                    getPanelDataObject().getString(KEY_DATA_FILE_FILELIST),
+//                    type);
+//        }
+//        else {
+//            fileList = new ArrayList<String>();
+//        }
         if (getPanelDataObject().has(KEY_DATA_USE_GRAYSCALE)) {
             useGrayscale = getPanelDataObject().getBoolean(KEY_DATA_USE_GRAYSCALE);
         }
@@ -293,13 +309,16 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         getPanelDataObject().put(KEY_DATA_USE_REFRESH, useRefresh);
         getPanelDataObject().put(KEY_DATA_TRANS_TYPE, transitionType.getKey());
 
-        getPanelDataObject().put(KEY_DATA_FILE_PARENT_LIST,
-                new Gson().toJson(parentDirList));
-        if (rootDirForFiles != null) {
+//        getPanelDataObject().put(KEY_DATA_FILE_PARENT_LIST,
+//                new Gson().toJson(parentDirList));
+
+        getPanelDataObject().put(KEY_DATA_FILE_SELECTED, selectedFileName);
+//        if (rootDirForFiles != null) {
             getPanelDataObject().put(KEY_DATA_FILE_ROOT, rootDirForFiles);
-        }
-        getPanelDataObject().put(KEY_DATA_FILE_FILELIST,
-                new Gson().toJson(fileList));
+//        }
+
+//        getPanelDataObject().put(KEY_DATA_FILE_FILELIST,
+//                new Gson().toJson(fileList));
         getPanelDataObject().put(KEY_DATA_USE_GRAYSCALE, useGrayscale);
     }
 
@@ -352,33 +371,66 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
+//            case RC_LOAD_PHOTO:
+//                if (data != null) {
+//                    ExFilePickerParcelObject object = (ExFilePickerParcelObject)
+//                            data.getParcelableExtra(
+//                                    ExFilePickerParcelObject.class.
+//                                            getCanonicalName());
+//                    if (object.count > 0) {
+//                        ArrayList<String> parentDirList =
+//                                new ArrayList<String>();
+//                        ArrayList<String> fileList =
+//                                new ArrayList<String>();
+//                        for (String name : object.names) {
+//                            File file = new File(object.path, name);
+//                            if (file.isDirectory()) {
+//                                parentDirList.add(file.getAbsolutePath());
+//                            }
+//                            else {
+//                                fileList.add(name);
+//                            }
+//
+//                            Log.i(TAG, file.getAbsolutePath());
+//                        }
+//                        this.parentDirList = parentDirList;
+//                        this.rootDirForFiles = object.path;
+//                        this.fileList = fileList;
+////                        loadData(parentDirList, object.path, fileList,
+////                                _getSetting());
+//                    }
+//                }
+//                break;
             case RC_LOAD_PHOTO:
-                if (data != null) {
-                    ExFilePickerParcelObject object = (ExFilePickerParcelObject)
-                            data.getParcelableExtra(
-                                    ExFilePickerParcelObject.class.
-                                            getCanonicalName());
-                    if (object.count > 0) {
-                        ArrayList<String> parentDirList =
-                                new ArrayList<String>();
-                        ArrayList<String> fileList =
-                                new ArrayList<String>();
-                        for (String name : object.names) {
-                            File file = new File(object.path, name);
-                            if (file.isDirectory()) {
-                                parentDirList.add(file.getAbsolutePath());
-                            }
-                            else {
-                                fileList.add(name);
-                            }
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    MNLog.i(TAG, data.getData().getPath());
 
-                            Log.i(TAG, file.getAbsolutePath());
-                        }
-                        this.parentDirList = parentDirList;
-                        this.rootDirForFiles = object.path;
-                        this.fileList = fileList;
-//                        loadData(parentDirList, object.path, fileList,
-//                                _getSetting());
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getActivity().getContentResolver().query(
+                            data.getData(), filePathColumn, null, null, null);
+                    if (cursor != null) {
+                        cursor.moveToFirst();
+
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        String picturePath = cursor.getString(columnIndex);
+
+                        cursor.close();
+
+                        System.out.println(picturePath);
+
+                        File selectedFile = new File(picturePath);
+
+//                        ArrayList<String> list = new ArrayList<String>();
+//                        list.add(selectedFile.getName());
+
+//                        this.parentDirList = new ArrayList<String>();
+                        this.selectedFileName = selectedFile.getName();
+                        this.rootDirForFiles = selectedFile.getParent();
+//                        this.fileList = list;
+                    }
+                    else {
+                        //TODO error while getting image from sdcard
                     }
                 }
                 break;

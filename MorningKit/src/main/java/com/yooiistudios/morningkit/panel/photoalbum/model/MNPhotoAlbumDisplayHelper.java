@@ -26,7 +26,8 @@ public class MNPhotoAlbumDisplayHelper {
     private Activity mActivity;
     private ViewSwitcher mViewSwitcher;
     private ViewGroup mParentView;
-    private ArrayList<File> mFileList;
+    private String mRootDir;
+    private ArrayList<String> mFileList;
     private MNPhotoAlbumImageView mFirstView;
     private MNPhotoAlbumImageView mSecondView;
     private Timer mTimer;
@@ -42,7 +43,8 @@ public class MNPhotoAlbumDisplayHelper {
     public MNPhotoAlbumDisplayHelper(Activity activity,
                                      ViewSwitcher viewSwitcher,
                                      ViewGroup parentView,
-                                     ArrayList<File> fileList,
+                                     String rootDir,
+                                     ArrayList<String> fileList,
                                      MNPhotoAlbumTransitionType transitionType,
                                      long interval,
                                      int photoWidth, int photoHeight,
@@ -75,6 +77,7 @@ public class MNPhotoAlbumDisplayHelper {
         mPhotoWidth = photoWidth;
         mPhotoHeight = photoHeight;
 
+        mRootDir = rootDir;
         mFileList = fileList;
         mTransitionType = transitionType;
         mInterval = interval;
@@ -105,9 +108,8 @@ public class MNPhotoAlbumDisplayHelper {
 
         isRunning = true;
 
-        mFileList = MNPhotoAlbumFileManager.getValidImageFileList(
+        mFileList = MNPhotoAlbumFileManager.getValidImageFileList(mRootDir,
                 mFileList);
-//            mFileList = mSetting.getFileList();
         if (mFileList.size() == 0) {
             //TODO no images to display. show error message.
         }
@@ -115,11 +117,8 @@ public class MNPhotoAlbumDisplayHelper {
             mPhotoIdx = 0;
 
             //show first image
-            Bitmap bitmap = getPolishedBitmap(mFileList.get(mPhotoIdx));
-//                Bitmap bitmap = BitmapManager.createScaledBitmap(mActivity
-//                                .getApplicationContext(),
-//                        mFileList.get(mPhotoIdx),
-//                        mPhotoWidth, mPhotoHeight, true);
+            String fileName = mFileList.get(mPhotoIdx);
+            Bitmap bitmap = getPolishedBitmap(new File(mRootDir, fileName));
             mFirstView.setImageBitmap(bitmap);
 
             //init view switcher
@@ -177,7 +176,9 @@ public class MNPhotoAlbumDisplayHelper {
 
         int curViewIdx = mViewSwitcher.getDisplayedChild();
 
-        Bitmap bitmap = getPolishedBitmap(mFileList.get(mPhotoIdx));
+        String fileName = mFileList.get(mPhotoIdx);
+        Bitmap bitmap = getPolishedBitmap(new File(mRootDir, fileName));
+//        Bitmap bitmap = getPolishedBitmap(mFileList.get(mPhotoIdx));
 
         if (bitmap == null) {
             showNext();
