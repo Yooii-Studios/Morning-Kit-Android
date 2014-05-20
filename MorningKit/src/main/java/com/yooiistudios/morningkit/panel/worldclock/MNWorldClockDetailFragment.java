@@ -165,21 +165,21 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
     private void updateClockTypeUI() {
         if (isClockAnalog) {
             isUsing24HoursLayout.setVisibility(View.GONE);
-            analogCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox_on);
-            digitalCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox);
+            analogCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+            digitalCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
         } else {
             isUsing24HoursLayout.setVisibility(View.VISIBLE);
             updateUsing24HoursUI();
-            analogCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox);
-            digitalCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox_on);
+            analogCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+            digitalCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
         }
     }
 
     private void updateUsing24HoursUI() {
         if (isUsing24Hours) {
-            isUsing24HoursCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox_on);
+            isUsing24HoursCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
         } else {
-            isUsing24HoursCheckImageButton.setBackgroundResource(R.drawable.icon_panel_detail_checkbox);
+            isUsing24HoursCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
         }
     }
 
