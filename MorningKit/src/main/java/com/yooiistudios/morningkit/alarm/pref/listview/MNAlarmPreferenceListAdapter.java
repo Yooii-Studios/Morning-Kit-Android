@@ -84,7 +84,11 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
     @Subscribe
     public void onLabelChanged(String labelString) {
         if (labelString != null) {
-            alarm.setAlarmLabel(labelString);
+            if (labelString.length() != 0) {
+                alarm.setAlarmLabel(labelString);
+            } else {
+                alarm.setAlarmLabel("Alarm");
+            }
             notifyDataSetChanged();
         } else {
             throw new AssertionError("labelString must be null!");
