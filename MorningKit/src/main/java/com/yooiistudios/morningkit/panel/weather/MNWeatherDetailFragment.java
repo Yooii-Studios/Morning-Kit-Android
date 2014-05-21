@@ -30,6 +30,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME;
 import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEATHER_DATA_IS_USING_CURRENT_LOCATION;
@@ -303,5 +304,10 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
             noSearchResultsTextView.setText(R.string.no_search_result);
             noSearchResultsTextView.setVisibility(View.VISIBLE);
         }
+    }
+
+    @OnClick(R.id.panel_detail_weather_removeAllButton)
+    public void onRemoveAllButtonClicked() {
+        searchEditText.setText("");
     }
 }
