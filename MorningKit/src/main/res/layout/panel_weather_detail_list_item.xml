@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/panel_weather_detail_list_item_container"
     android:layout_width="match_parent"
-    android:layout_height="45dp"
+    android:layout_height="50dp"
     android:orientation="horizontal"
     android:background="#00ffffff">
 
@@ -14,9 +14,9 @@
 
         <com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView
             android:id="@+id/panel_weather_detail_list_item_image_view"
-            android:layout_width="68dp"
+            android:layout_width="55dp"
             android:layout_height="match_parent"
-            android:padding="@dimen/panel_detail_padding_inner"
+            android:padding="@dimen/margin_inner"
             android:src="@drawable/icon_144"/>
 
     </LinearLayout>

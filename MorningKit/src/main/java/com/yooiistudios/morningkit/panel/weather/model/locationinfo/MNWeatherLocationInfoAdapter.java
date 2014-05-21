@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
@@ -68,7 +67,6 @@ public class MNWeatherLocationInfoAdapter extends BaseAdapter {
             convertView.setVisibility(View.VISIBLE);
 		}
 
-        LinearLayout containerLayout = (LinearLayout) convertView.findViewById(R.id.panel_weather_detail_list_item_container);
         RecyclingImageView flagImageView = (RecyclingImageView) convertView.findViewById(R.id.panel_weather_detail_list_item_image_view);
         TextView cityNameTextView = (TextView) convertView.findViewById(R.id.panel_weather_detail_list_item_city_text_view);
         TextView countryNameTextView = (TextView) convertView.findViewById(R.id.panel_weather_detail_list_item_country_text_view);
@@ -77,7 +75,7 @@ public class MNWeatherLocationInfoAdapter extends BaseAdapter {
         MNWeatherLocationInfo weatherLocationInfo = getItem(position);
         Bitmap countryFlagBitmap = FlagBitmapFactory.getGrayscaledFlagBitmap(context, weatherLocationInfo.countryCode);
         flagImageView.setImageDrawable(new RecyclingBitmapDrawable(context.getResources(), countryFlagBitmap));
-        flagImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        flagImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
         String city = weatherLocationInfo.name;
         city = city.substring(0, 1).toUpperCase()+city.substring(1);
