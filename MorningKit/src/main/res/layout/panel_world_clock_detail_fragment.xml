@@ -173,6 +173,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:cacheColorHint="#00000000"
+            android:listSelector="@drawable/panel_detail_item_selector"
             android:dividerHeight="0dp"
             android:divider="#ffffffff" >
         </ListView>
