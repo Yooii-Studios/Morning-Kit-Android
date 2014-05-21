@@ -277,11 +277,14 @@
     <string name="alarm_set_for_less_than_1_minute">알람이 1분 내에 울립니다</string>
     <string name="store_item_full_version">풀버전</string>
 
-    <!-- Alarm Pref -->
-    <string name="alarm_sound_string_app_music">모닝키트 음악</string>
-
     <!-- Panel -->
       <!-- Flickr -->
     <string name="saving">저장 중…</string>
+
+       <!-- World Clock -->
+    <string name="no_search_result">검색결과 없음</string>
+
+     <!-- Calendar -->
+    <string name="calendar_select_calendars">캘린더 선택</string>
 
 </resources>

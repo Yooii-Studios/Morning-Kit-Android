@@ -278,10 +278,6 @@
     <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
     <string name="store_item_full_version">Full Version</string>
 
-        <!-- Alarm Pref -->
-    <string name="alarm_sound_string_app_music">Morning Kit Music</string>
-    <string name="action_settings">Settings</string>
-
     <!-- Panel -->
         <!-- Flickr -->
     <string name="saving">Saving…</string>

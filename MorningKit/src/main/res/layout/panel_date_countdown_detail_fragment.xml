@@ -8,7 +8,7 @@
         android:id="@+id/date_countdown_detail_edittext"
         android:layout_width="match_parent"
         android:layout_height="@dimen/panel_world_clock_detail_edit_text_height"
-        android:paddingLeft="@dimen/margin_outer"
+        android:paddingLeft="@dimen/panel_detail_padding"
         android:paddingRight="@dimen/margin_outer"
         android:layout_gravity="center_vertical"
         android:hint="@string/date_countdown_write_a_title"
