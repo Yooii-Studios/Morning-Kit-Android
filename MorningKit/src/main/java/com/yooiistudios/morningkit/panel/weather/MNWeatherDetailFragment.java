@@ -24,11 +24,13 @@ import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLoc
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfoAdapter;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfoLoader;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfoSearchAsyncTask;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
 import java.lang.reflect.Type;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -86,7 +88,6 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
             ButterKnife.inject(this, rootView);
 
             // 모든 위치 정보 로딩
-            MNLog.now("before load: " + Calendar.getInstance().getTimeInMillis());
             locationInfoLoader = new MNWeatherLocationInfoLoader(getActivity(), this);
             locationInfoLoader.execute();
 
@@ -264,12 +265,13 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     }
 
     private void searchCity(CharSequence searchCharSequence) {
+        MNLog.i(TAG, "searchCity");
         if (searchAsyncTask != null) {
             searchAsyncTask.cancel(true);
         }
-        MNLog.now("search started: " + Calendar.getInstance().getTimeInMillis());
         // 최초 키워드 입력시만 "검색 중..." 표시
         if (listAdapter.getCount() == 0) {
+            MNLog.i(TAG, "searching");
             noSearchResultsTextView.setText(R.string.searching);
         }
         searchAsyncTask = new MNWeatherLocationInfoSearchAsyncTask(getActivity(),
@@ -280,7 +282,6 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     // MNWeatherLocationInfoLoader listener
     @Override
     public void OnWeatherLocationInfoLoad(List<MNWeatherLocationInfo> weatherLocationInfoList) {
-        MNLog.now("after load: " + Calendar.getInstance().getTimeInMillis());
         locationInfoList = weatherLocationInfoList;
         if (selectedLocationInfo != null) {
             searchEditText.setText(selectedLocationInfo.getName());
@@ -292,8 +293,7 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     // MNWeatherLocationInfoSearchAsyncTask
     @Override
     public void OnSearchFinished(List<MNWeatherLocationInfo> filteredWeatherLocationInfoList) {
-        MNLog.now("search finished: " + Calendar.getInstance().getTimeInMillis());
-
+        MNLog.i(TAG, "OnSearchFinished");
         if (filteredWeatherLocationInfoList != null && filteredWeatherLocationInfoList.size() > 0) {
             noSearchResultsTextView.setVisibility(View.GONE);
             listAdapter.setLocationInfoList(filteredWeatherLocationInfoList);

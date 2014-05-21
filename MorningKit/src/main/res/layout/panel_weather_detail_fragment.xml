@@ -126,7 +126,7 @@
             android:textSize="@dimen/panel_detail_default_font_size"
             android:textColor="@color/pastel_green_sub_font_color"
             android:textColorHint="@color/pastel_green_stroke_color"
-            android:paddingLeft="@dimen/margin_outer" />
+            android:paddingLeft="@dimen/panel_detail_padding" />
 
         <View
             android:layout_width="match_parent"
@@ -170,8 +170,8 @@
             android:alpha="1"
             android:gravity="center_horizontal"
             android:text="@string/no_search_result"
-            android:textSize="17dp"
-            android:textColor="#ffffff"/>
+            android:textSize="@dimen/panel_detail_default_font_size"
+            android:textColor="@color/pastel_green_sub_font_color"/>
 
     </FrameLayout>
 </LinearLayout>
