@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,9 +17,6 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.exchangerates.model.FlagBitmapFactory;
 import com.yooiistudios.morningkit.panel.weather.model.countrycode.CountryCodeInverter;
 import com.yooiistudios.morningkit.panel.weather.model.countrycode.USStateCodeInverter;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +77,7 @@ public class MNWeatherLocationInfoAdapter extends BaseAdapter {
         MNWeatherLocationInfo weatherLocationInfo = getItem(position);
         Bitmap countryFlagBitmap = FlagBitmapFactory.getGrayscaledFlagBitmap(context, weatherLocationInfo.countryCode);
         flagImageView.setImageDrawable(new RecyclingBitmapDrawable(context.getResources(), countryFlagBitmap));
+        flagImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         String city = weatherLocationInfo.name;
         city = city.substring(0, 1).toUpperCase()+city.substring(1);
@@ -94,12 +93,6 @@ public class MNWeatherLocationInfoAdapter extends BaseAdapter {
             countryNameString = CountryCodeInverter.getCountryNameOfCode(context, weatherLocationInfo.countryCode);
         }
         countryNameTextView.setText(countryNameString);
-
-        // Theme
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
-        containerLayout.setBackgroundColor(Color.TRANSPARENT);
-        cityNameTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        countryNameTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
 
 		return convertView;
 	}

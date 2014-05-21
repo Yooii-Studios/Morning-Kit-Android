@@ -5,7 +5,10 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    android:padding="@dimen/panel_detail_bigger_padding">
+    android:paddingTop="@dimen/panel_detail_bigger_padding"
+    android:paddingLeft="@dimen/panel_detail_bigger_padding"
+    android:paddingRight="@dimen/panel_detail_bigger_padding"
+    android:paddingBottom="@dimen/panel_detail_bigger_padding_inner">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -152,14 +155,13 @@
         android:id="@+id/panel_detail_weather_search_listview_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_outer" >
+        android:layout_marginTop="@dimen/panel_detail_padding" >
 
         <ListView
             android:id="@+id/panel_detail_weather_search_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:cacheColorHint="#00000000"
-            android:dividerHeight="0.5dp"
             android:divider="#ffffffff" >
         </ListView>
 
