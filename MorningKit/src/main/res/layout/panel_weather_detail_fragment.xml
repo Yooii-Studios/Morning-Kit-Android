@@ -86,29 +86,6 @@
 
         </RelativeLayout>
 
-        <!--
-        <CheckBox
-            android:id="@+id/panel_detail_weather_temperature_celsius_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/panel_detail_weather_temperature_fahrenheit_checkbox"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/margin_outer"
-            android:text="℃"
-            android:textSize="@dimen/panel_detail_default_font_size"
-            android:textColor="@color/pastel_green_sub_font_color" />
-
-        <CheckBox
-            android:id="@+id/panel_detail_weather_temperature_fahrenheit_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="℉"
-            android:textSize="@dimen/panel_detail_default_font_size"
-            android:textColor="@color/pastel_green_sub_font_color"/>
-        -->
-
     </RelativeLayout>
 
     <RelativeLayout

@@ -48,17 +48,17 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
 
     @InjectView(R.id.panel_detail_weather_display_local_time_check_image_button)        ImageButton     displayLocalTimeCheckImageButton;
 
+    // temperature
     @InjectView(R.id.panel_detail_weather_temperature_celsius_layout)                   RelativeLayout  celsiusLayout;
     @InjectView(R.id.panel_detail_weather_temperature_celsius_check_image_button)       ImageButton     celsiusCheckImageButton;
     @InjectView(R.id.panel_detail_weather_temperature_fahrenheit_layout)                RelativeLayout  fahrenheitLayout;
     @InjectView(R.id.panel_detail_weather_temperature_fahrenheit_check_image_button)    ImageButton     fahrenheitCheckImageButton;
 
-//    @InjectView(R.id.panel_detail_weather_temperature_celsius_checkbox) CheckBox temperatureCelsiusCheckBox;
-//    @InjectView(R.id.panel_detail_weather_temperature_fahrenheit_checkbox) CheckBox temperatureFahrenheitCheckBox;
-
+    // search
     @InjectView(R.id.panel_detail_weather_search_frame_layout)  FrameLayout searchEditLayout;
     @InjectView(R.id.panel_detail_weather_search_edit_text)     EditText    searchEditText;
 
+    // listview
     @InjectView(R.id.panel_detail_weather_search_listview_frame_layout) FrameLayout searchListViewLayout;
     @InjectView(R.id.panel_detail_weather_search_listview)              ListView    searchListView;
     @InjectView(R.id.panel_detail_weather_no_search_result_textview)    TextView    noSearchResultsTextView;
@@ -132,13 +132,9 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
         if (isUsingCelsius) {
             celsiusCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
             fahrenheitCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
-//            temperatureCelsiusCheckBox.setChecked(true);
-//            temperatureFahrenheitCheckBox.setChecked(false);
         } else {
             celsiusCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
             fahrenheitCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
-//            temperatureCelsiusCheckBox.setChecked(false);
-//            temperatureFahrenheitCheckBox.setChecked(true);
         }
 
         setUseCurrentLocationState();
@@ -202,29 +198,6 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
                 updateTemperatureCheckImageButtonStates();
             }
         });
-
-//        temperatureCelsiusCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if (b) {
-//                    isUsingCelsius = b;
-//                } else {
-//                    temperatureCelsiusCheckBox.setChecked(true);
-//                }
-//                updateTemperatureCheckImageButtonStates();
-//            }
-//        });
-//        temperatureFahrenheitCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if (b) {
-//                    isUsingCelsius = !b;
-//                } else {
-//                    temperatureFahrenheitCheckBox.setChecked(true);
-//                }
-//                updateTemperatureCheckImageButtonStates();
-//            }
-//        });
     }
 
     private void updateTemperatureCheckImageButtonStates() {
