@@ -32,8 +32,8 @@
 
         <!-- Date Picker -->
         <item name="calendarViewStyle">@style/Widget.Holo.Light.CalendarView</item>
-        <item name="datePickerStyle">@style/Widget.Holo.Light.DatePicker</item>
         <item name="numberPickerStyle">@style/NPWidget.Holo.Light.NumberPicker</item>
+        <item name="datePickerStyle">@style/Widget.Holo.Light.DatePicker</item>
     </style>
 
     <style name="ActionBar.Solid.PastelGreen" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">

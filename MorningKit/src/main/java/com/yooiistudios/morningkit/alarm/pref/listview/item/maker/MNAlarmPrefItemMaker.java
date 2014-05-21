@@ -7,12 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceType;
-import com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmTimePicker;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 
@@ -21,6 +19,8 @@ import java.util.Calendar;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import lombok.Getter;
+
+import static net.simonvt.timepicker.TimePicker.OnTimeChangedListener;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 13.
@@ -39,13 +39,15 @@ public class MNAlarmPrefItemMaker {
         View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_time_item, parent, false);
         MNAlarmPrefTimeItemViewHolder viewHolder = new MNAlarmPrefTimeItemViewHolder(convertView);
         convertView.setTag(viewHolder);
+
+        // 새로 사용할 TimePicker
         viewHolder.alarmTimePicker.setIs24HourView(DateFormat.is24HourFormat(context));
         viewHolder.alarmTimePicker.setCurrentHour(alarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY));
 
         viewHolder.alarmTimePicker.setCurrentMinute(alarm.getAlarmCalendar().get(Calendar.MINUTE));
-        viewHolder.alarmTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+        viewHolder.alarmTimePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
             @Override
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+            public void onTimeChanged(net.simonvt.timepicker.TimePicker view, int hourOfDay, int minute) {
                 alarm.getAlarmCalendar().set(Calendar.HOUR_OF_DAY, hourOfDay);
                 alarm.getAlarmCalendar().set(Calendar.MINUTE, minute);
             }
@@ -94,14 +96,15 @@ public class MNAlarmPrefItemMaker {
     }
 
     static class MNAlarmPrefSnoozeItemViewHolder {
-        @InjectView(R.id.alarm_pref_list_snooze_item_title_textview)        TextView        titleTextView;
-        @InjectView(R.id.alarm_pref_list_snooze_item_check_image_button)    ImageButton     snoozeCheckImageButton;
+        @InjectView(R.id.alarm_pref_list_snooze_item_title_textview)            TextView        titleTextView;
+        @InjectView(R.id.alarm_pref_list_snooze_item_check_image_button)        ImageButton     snoozeCheckImageButton;
 
         public MNAlarmPrefSnoozeItemViewHolder(View view) { ButterKnife.inject(this, view); }
     }
 
     static class MNAlarmPrefTimeItemViewHolder {
-        @InjectView(R.id.alarm_pref_list_time_item_picker)          MNAlarmTimePicker   alarmTimePicker;
+        @InjectView(R.id.alarm_pref_list_time_item_picker)
+        net.simonvt.timepicker.TimePicker alarmTimePicker;
 
         public MNAlarmPrefTimeItemViewHolder(View view) {
             ButterKnife.inject(this, view);
