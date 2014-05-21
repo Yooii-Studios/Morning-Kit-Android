@@ -11,22 +11,18 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfo;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfoAdapter;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfoLoader;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfoSearchAsyncTask;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
@@ -49,15 +45,10 @@ import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEA
 public class MNWeatherDetailFragment extends MNPanelDetailFragment implements AdapterView.OnItemClickListener, TextWatcher, MNWeatherLocationInfoLoader.OnWeatherLocatinInfoLoaderListener, MNWeatherLocationInfoSearchAsyncTask.MNWeatherLocationInfoSearchAsyncTaskListener {
     private static final String TAG = "MNWeatherDetailFragment";
 
-    @InjectView(R.id.panel_detail_weather_linear_layout) LinearLayout containerLayout;
+    @InjectView(R.id.panel_detail_weather_use_current_location_check_image_button) ImageButton useCurrentLocationCheckImageButton;
 
-    @InjectView(R.id.panel_detail_weather_use_current_location_textview) TextView useCurrentLocationTextView;
-    @InjectView(R.id.panel_detail_weather_use_current_location_checkbox) CheckBox useCurrentLocationCheckBox;
-
-    @InjectView(R.id.panel_detail_weather_display_local_time_textview) TextView displayLocalTimeTextView;
     @InjectView(R.id.panel_detail_weather_display_local_time_checkbox) CheckBox displayLocalTimeCheckBox;
 
-    @InjectView(R.id.panel_detail_weather_temperature_unit_textView) TextView temperatureUnitTextView;
     @InjectView(R.id.panel_detail_weather_temperature_celsius_checkbox) CheckBox temperatureCelsiusCheckBox;
     @InjectView(R.id.panel_detail_weather_temperature_fahrenheit_checkbox) CheckBox temperatureFahrenheitCheckBox;
 
@@ -160,10 +151,10 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     }
 
     private void initCheckedChangeListners() {
-        useCurrentLocationCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        useCurrentLocationCheckImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                isUsingCurrentLocation = b;
+            public void onClick(View view) {
+                isUsingCurrentLocation = !isUsingCurrentLocation;
                 setUseCurrentLocationState();
             }
         });
@@ -210,11 +201,12 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     }
 
     private void setUseCurrentLocationState() {
-        useCurrentLocationCheckBox.setChecked(isUsingCurrentLocation);
         if (isUsingCurrentLocation) {
+            useCurrentLocationCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
             searchEditLayout.setVisibility(View.GONE);
             searchListViewLayout.setVisibility(View.GONE);
         } else {
+            useCurrentLocationCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
             searchEditLayout.setVisibility(View.VISIBLE);
             searchListViewLayout.setVisibility(View.VISIBLE);
         }
@@ -265,13 +257,11 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     }
 
     private void searchCity(CharSequence searchCharSequence) {
-        MNLog.i(TAG, "searchCity");
         if (searchAsyncTask != null) {
             searchAsyncTask.cancel(true);
         }
         // 최초 키워드 입력시만 "검색 중..." 표시
         if (listAdapter.getCount() == 0) {
-            MNLog.i(TAG, "searching");
             noSearchResultsTextView.setText(R.string.searching);
         }
         searchAsyncTask = new MNWeatherLocationInfoSearchAsyncTask(getActivity(),
@@ -293,7 +283,6 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     // MNWeatherLocationInfoSearchAsyncTask
     @Override
     public void OnSearchFinished(List<MNWeatherLocationInfo> filteredWeatherLocationInfoList) {
-        MNLog.i(TAG, "OnSearchFinished");
         if (filteredWeatherLocationInfoList != null && filteredWeatherLocationInfoList.size() > 0) {
             noSearchResultsTextView.setVisibility(View.GONE);
             listAdapter.setLocationInfoList(filteredWeatherLocationInfoList);
