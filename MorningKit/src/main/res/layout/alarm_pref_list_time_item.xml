@@ -26,20 +26,8 @@
         android:background="@drawable/shape_rounded_view_pastel_green"
         android:orientation="vertical">
 
-        <!--
-        <com.yooiistudios.morningkit.alarm.pref.listview.item.MNAlarmTimePicker
-            android:id="@+id/alarm_pref_list_time_item_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-        -->
-
         <net.simonvt.timepicker.TimePicker
-            android:id="@+id/alarm_pref_list_time_custom_item_picker"
+            android:id="@+id/alarm_pref_list_time_item_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

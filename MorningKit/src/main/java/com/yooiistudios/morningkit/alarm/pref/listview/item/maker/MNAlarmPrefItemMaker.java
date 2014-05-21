@@ -40,25 +40,12 @@ public class MNAlarmPrefItemMaker {
         MNAlarmPrefTimeItemViewHolder viewHolder = new MNAlarmPrefTimeItemViewHolder(convertView);
         convertView.setTag(viewHolder);
 
-        // 기존 TimePicker
-//        viewHolder.alarmTimePicker.setIs24HourView(DateFormat.is24HourFormat(context));
-//        viewHolder.alarmTimePicker.setCurrentHour(alarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY));
-//
-//        viewHolder.alarmTimePicker.setCurrentMinute(alarm.getAlarmCalendar().get(Calendar.MINUTE));
-//        viewHolder.alarmTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-//            @Override
-//            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-//                alarm.getAlarmCalendar().set(Calendar.HOUR_OF_DAY, hourOfDay);
-//                alarm.getAlarmCalendar().set(Calendar.MINUTE, minute);
-//            }
-//        });
+        // 새로 사용할 TimePicker
+        viewHolder.alarmTimePicker.setIs24HourView(DateFormat.is24HourFormat(context));
+        viewHolder.alarmTimePicker.setCurrentHour(alarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY));
 
-        // 새로 사용할 Custom TimePicker
-        viewHolder.alarmCustomTimePicker.setIs24HourView(DateFormat.is24HourFormat(context));
-        viewHolder.alarmCustomTimePicker.setCurrentHour(alarm.getAlarmCalendar().get(Calendar.HOUR_OF_DAY));
-
-        viewHolder.alarmCustomTimePicker.setCurrentMinute(alarm.getAlarmCalendar().get(Calendar.MINUTE));
-        viewHolder.alarmCustomTimePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
+        viewHolder.alarmTimePicker.setCurrentMinute(alarm.getAlarmCalendar().get(Calendar.MINUTE));
+        viewHolder.alarmTimePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
             @Override
             public void onTimeChanged(net.simonvt.timepicker.TimePicker view, int hourOfDay, int minute) {
                 alarm.getAlarmCalendar().set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -116,8 +103,8 @@ public class MNAlarmPrefItemMaker {
     }
 
     static class MNAlarmPrefTimeItemViewHolder {
-//        @InjectView(R.id.alarm_pref_list_time_item_picker)                      MNAlarmTimePicker alarmTimePicker;
-        @InjectView(R.id.alarm_pref_list_time_custom_item_picker)               net.simonvt.timepicker.TimePicker alarmCustomTimePicker;
+        @InjectView(R.id.alarm_pref_list_time_item_picker)
+        net.simonvt.timepicker.TimePicker alarmTimePicker;
 
         public MNAlarmPrefTimeItemViewHolder(View view) {
             ButterKnife.inject(this, view);
