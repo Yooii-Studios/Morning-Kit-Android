@@ -24,9 +24,6 @@ import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLoc
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfoAdapter;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfoLoader;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfoSearchAsyncTask;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
@@ -223,14 +220,6 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     }
 
     private void initTheme() {
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
-        containerLayout.setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-        useCurrentLocationTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        displayLocalTimeTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        temperatureUnitTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        noSearchResultsTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        temperatureCelsiusCheckBox.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        temperatureFahrenheitCheckBox.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
     }
 
     @Override
