@@ -80,7 +80,7 @@ dependencies {
     compile project(':libraries:SKAlarmSound')
     compile project(':libraries:view-pager-indicator-library') // MNSettingActivityProject에 필요
     compile project(':libraries:DatePickerLibrary')
-//    compile project(':libraries:TimePickerLibrary')
+    compile project(':libraries:TimePickerLibrary')
 
     // 포토 앨범 테마용 사진 고르기 라이브러리
     compile project(':libraries:ExFilePickerLibrary')
