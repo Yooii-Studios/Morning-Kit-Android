@@ -124,7 +124,7 @@ dependencies {
     // TEST //
     //////////
     testCompile 'junit:junit:4.10'
-    testCompile 'org.robolectric:robolectric:2.3-SNAPSHOT' // ActionBarActivity의 문제를 해결하고자 2.2에서 변경
+    testCompile 'org.robolectric:robolectric:2.4-SNAPSHOT' // ActionBarActivity의 문제를 해결하고자 2.2에서 변경
     testCompile 'com.squareup:fest-android:1.0.+'
 
 //    instrumentTestCompile 'junit:junit:4.10'
@@ -132,7 +132,7 @@ dependencies {
 //    instrumentTestCompile 'com.squareup:fest-android:1.0.+'
 
     androidTestCompile 'junit:junit:4.10'
-    androidTestCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
+    androidTestCompile 'org.robolectric:robolectric:2.4-SNAPSHOT'
     androidTestCompile 'com.squareup:fest-android:1.0.+'
 
     // 이미지 로딩 관련 유명
