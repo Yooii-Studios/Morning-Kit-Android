@@ -3,9 +3,9 @@
     android:id="@+id/panel_detail_weather_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333333"
+    android:background="@android:color/white"
     android:orientation="vertical"
-    android:padding="@dimen/panel_detail_padding">
+    android:padding="@dimen/panel_detail_bigger_padding">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,8 +21,8 @@
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="@string/weather_temperature_unit"
-            android:textSize="17dp"
-            android:textColor="#ffffff"/>
+            android:textSize="@dimen/panel_detail_default_font_size"
+            android:textColor="@color/pastel_green_sub_font_color"/>
 
         <CheckBox
             android:id="@+id/panel_detail_weather_temperature_celsius_checkbox"
@@ -32,8 +32,8 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_outer"
             android:text="℃"
-            android:textSize="17dp"
-            android:textColor="#ffffff" />
+            android:textSize="@dimen/panel_detail_default_font_size"
+            android:textColor="@color/pastel_green_sub_font_color" />
 
         <CheckBox
             android:id="@+id/panel_detail_weather_temperature_fahrenheit_checkbox"
@@ -42,8 +42,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="℉"
-            android:textSize="17dp"
-            android:textColor="#ffffff"/>
+            android:textSize="@dimen/panel_detail_default_font_size"
+            android:textColor="@color/pastel_green_sub_font_color"/>
 
     </RelativeLayout>
 
@@ -62,8 +62,8 @@
             android:layout_toLeftOf="@+id/panel_detail_weather_display_local_time_checkbox"
             android:gravity="center_vertical"
             android:text="@string/display_local_time"
-            android:textSize="17dp"
-            android:textColor="#ffffff" />
+            android:textSize="@dimen/panel_detail_default_font_size"
+            android:textColor="@color/pastel_green_sub_font_color" />
 
         <CheckBox
             android:id="@+id/panel_detail_weather_display_local_time_checkbox"
@@ -89,8 +89,8 @@
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="@string/weather_use_current_location"
-            android:textSize="17dp"
-            android:textColor="#ffffff"/>
+            android:textSize="@dimen/panel_detail_default_font_size"
+            android:textColor="@color/pastel_green_sub_font_color"/>
 
         <CheckBox
             android:id="@+id/panel_detail_weather_use_current_location_checkbox"
@@ -108,15 +108,31 @@
         android:layout_gravity="center_vertical"
         android:layout_marginTop="@dimen/margin_outer" >
 
+        <ImageView
+            android:layout_width="@dimen/panel_world_clock_detail_magnifier_size"
+            android:layout_height="@dimen/panel_world_clock_detail_magnifier_size"
+            android:layout_gravity="center_vertical|left"
+            android:background="@drawable/icon_magnifier"/>
+
         <EditText
             android:id="@+id/panel_detail_weather_search_edit_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/panel_world_clock_detail_edit_text_height"
             android:layout_gravity="center_vertical"
-            android:ems="5"
+            android:layout_marginLeft="@dimen/panel_world_clock_detail_magnifier_size"
             android:hint="@string/weather_search_city"
             android:singleLine="true"
-            android:textSize="17dp" />
+            android:background="@android:color/transparent"
+            android:textSize="@dimen/panel_detail_default_font_size"
+            android:textColor="@color/pastel_green_sub_font_color"
+            android:textColorHint="@color/pastel_green_stroke_color"
+            android:paddingLeft="@dimen/margin_outer" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@color/pastel_green_main_font_color"/>
 
         <!--
         <Button
