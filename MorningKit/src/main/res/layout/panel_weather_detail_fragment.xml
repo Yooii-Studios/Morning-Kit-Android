@@ -53,7 +53,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_outer">
+        android:layout_marginTop="@dimen/panel_detail_bigger_padding">
 
         <TextView
             android:id="@+id/panel_detail_weather_display_local_time_textview"
@@ -83,7 +83,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_outer" >
+        android:layout_marginTop="@dimen/panel_detail_bigger_padding" >
 
         <TextView
             android:id="@+id/panel_detail_weather_use_current_location_textview"
