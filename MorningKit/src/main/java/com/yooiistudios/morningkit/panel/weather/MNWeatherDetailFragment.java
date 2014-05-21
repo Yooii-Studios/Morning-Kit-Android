@@ -7,31 +7,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfo;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfoAdapter;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfoLoader;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfoSearchAsyncTask;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
 import java.lang.reflect.Type;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -50,24 +44,24 @@ import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEA
 public class MNWeatherDetailFragment extends MNPanelDetailFragment implements AdapterView.OnItemClickListener, TextWatcher, MNWeatherLocationInfoLoader.OnWeatherLocatinInfoLoaderListener, MNWeatherLocationInfoSearchAsyncTask.MNWeatherLocationInfoSearchAsyncTaskListener {
     private static final String TAG = "MNWeatherDetailFragment";
 
-    @InjectView(R.id.panel_detail_weather_linear_layout) LinearLayout containerLayout;
+    @InjectView(R.id.panel_detail_weather_use_current_location_check_image_button)      ImageButton     useCurrentLocationCheckImageButton;
 
-    @InjectView(R.id.panel_detail_weather_use_current_location_textview) TextView useCurrentLocationTextView;
-    @InjectView(R.id.panel_detail_weather_use_current_location_checkbox) CheckBox useCurrentLocationCheckBox;
+    @InjectView(R.id.panel_detail_weather_display_local_time_check_image_button)        ImageButton     displayLocalTimeCheckImageButton;
 
-    @InjectView(R.id.panel_detail_weather_display_local_time_textview) TextView displayLocalTimeTextView;
-    @InjectView(R.id.panel_detail_weather_display_local_time_checkbox) CheckBox displayLocalTimeCheckBox;
+    // temperature
+    @InjectView(R.id.panel_detail_weather_temperature_celsius_layout)                   RelativeLayout  celsiusLayout;
+    @InjectView(R.id.panel_detail_weather_temperature_celsius_check_image_button)       ImageButton     celsiusCheckImageButton;
+    @InjectView(R.id.panel_detail_weather_temperature_fahrenheit_layout)                RelativeLayout  fahrenheitLayout;
+    @InjectView(R.id.panel_detail_weather_temperature_fahrenheit_check_image_button)    ImageButton     fahrenheitCheckImageButton;
 
-    @InjectView(R.id.panel_detail_weather_temperature_unit_textView) TextView temperatureUnitTextView;
-    @InjectView(R.id.panel_detail_weather_temperature_celsius_checkbox) CheckBox temperatureCelsiusCheckBox;
-    @InjectView(R.id.panel_detail_weather_temperature_fahrenheit_checkbox) CheckBox temperatureFahrenheitCheckBox;
+    // search
+    @InjectView(R.id.panel_detail_weather_search_frame_layout)  FrameLayout searchEditLayout;
+    @InjectView(R.id.panel_detail_weather_search_edit_text)     EditText    searchEditText;
 
-    @InjectView(R.id.panel_detail_weather_search_frame_layout) FrameLayout searchEditLayout;
-    @InjectView(R.id.panel_detail_weather_search_edit_text) EditText searchEditText;
-
+    // listview
     @InjectView(R.id.panel_detail_weather_search_listview_frame_layout) FrameLayout searchListViewLayout;
-    @InjectView(R.id.panel_detail_weather_search_listview) ListView searchListView;
-    @InjectView(R.id.panel_detail_weather_no_search_result_textview) TextView noSearchResultsTextView;
+    @InjectView(R.id.panel_detail_weather_search_listview)              ListView    searchListView;
+    @InjectView(R.id.panel_detail_weather_no_search_result_textview)    TextView    noSearchResultsTextView;
 
     // basic settings
     boolean isUsingCurrentLocation = true;
@@ -89,7 +83,6 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
             ButterKnife.inject(this, rootView);
 
             // 모든 위치 정보 로딩
-            MNLog.now("before load: " + Calendar.getInstance().getTimeInMillis());
             locationInfoLoader = new MNWeatherLocationInfoLoader(getActivity(), this);
             locationInfoLoader.execute();
 
@@ -129,15 +122,19 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
 
     private void initUI() {
         // local time
-        displayLocalTimeCheckBox.setChecked(isDisplayingLocaltime);
+        if (isDisplayingLocaltime) {
+            displayLocalTimeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+        } else {
+            displayLocalTimeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+        }
 
         // temperature
         if (isUsingCelsius) {
-            temperatureCelsiusCheckBox.setChecked(true);
-            temperatureFahrenheitCheckBox.setChecked(false);
+            celsiusCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+            fahrenheitCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
         } else {
-            temperatureCelsiusCheckBox.setChecked(false);
-            temperatureFahrenheitCheckBox.setChecked(true);
+            celsiusCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+            fahrenheitCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
         }
 
         setUseCurrentLocationState();
@@ -162,75 +159,70 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     }
 
     private void initCheckedChangeListners() {
-        useCurrentLocationCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        useCurrentLocationCheckImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                isUsingCurrentLocation = b;
+            public void onClick(View view) {
+                isUsingCurrentLocation = !isUsingCurrentLocation;
                 setUseCurrentLocationState();
             }
         });
 
-        displayLocalTimeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        displayLocalTimeCheckImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                isDisplayingLocaltime = b;
+            public void onClick(View view) {
+                isDisplayingLocaltime = !isDisplayingLocaltime;
+                if (isDisplayingLocaltime) {
+                    displayLocalTimeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+                } else {
+                    displayLocalTimeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+                }
             }
         });
 
-        temperatureCelsiusCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        celsiusLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    isUsingCelsius = b;
-                } else {
-                    temperatureCelsiusCheckBox.setChecked(true);
+            public void onClick(View view) {
+                if (!isUsingCelsius) {
+                    isUsingCelsius = true;
                 }
-                setTemperatureCheckBoxStates();
+                updateTemperatureCheckImageButtonStates();
             }
         });
-        temperatureFahrenheitCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        fahrenheitLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    isUsingCelsius = !b;
-                } else {
-                    temperatureFahrenheitCheckBox.setChecked(true);
+            public void onClick(View view) {
+                if (isUsingCelsius) {
+                    isUsingCelsius = false;
                 }
-                setTemperatureCheckBoxStates();
+                updateTemperatureCheckImageButtonStates();
             }
         });
     }
 
-    private void setTemperatureCheckBoxStates() {
+    private void updateTemperatureCheckImageButtonStates() {
         if (isUsingCelsius) {
-            temperatureCelsiusCheckBox.setChecked(true);
-            temperatureFahrenheitCheckBox.setChecked(false);
+            celsiusCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+            fahrenheitCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
         } else {
-            temperatureCelsiusCheckBox.setChecked(false);
-            temperatureFahrenheitCheckBox.setChecked(true);
+            celsiusCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+            fahrenheitCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
         }
     }
 
     private void setUseCurrentLocationState() {
-        useCurrentLocationCheckBox.setChecked(isUsingCurrentLocation);
         if (isUsingCurrentLocation) {
+            useCurrentLocationCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
             searchEditLayout.setVisibility(View.GONE);
             searchListViewLayout.setVisibility(View.GONE);
         } else {
+            useCurrentLocationCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
             searchEditLayout.setVisibility(View.VISIBLE);
             searchListViewLayout.setVisibility(View.VISIBLE);
         }
     }
 
     private void initTheme() {
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
-        containerLayout.setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-        useCurrentLocationTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        displayLocalTimeTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        temperatureUnitTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        noSearchResultsTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        temperatureCelsiusCheckBox.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        temperatureFahrenheitCheckBox.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
     }
 
     @Override
@@ -278,7 +270,6 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
         if (searchAsyncTask != null) {
             searchAsyncTask.cancel(true);
         }
-        MNLog.now("search started: " + Calendar.getInstance().getTimeInMillis());
         // 최초 키워드 입력시만 "검색 중..." 표시
         if (listAdapter.getCount() == 0) {
             noSearchResultsTextView.setText(R.string.searching);
@@ -291,7 +282,6 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     // MNWeatherLocationInfoLoader listener
     @Override
     public void OnWeatherLocationInfoLoad(List<MNWeatherLocationInfo> weatherLocationInfoList) {
-        MNLog.now("after load: " + Calendar.getInstance().getTimeInMillis());
         locationInfoList = weatherLocationInfoList;
         if (selectedLocationInfo != null) {
             searchEditText.setText(selectedLocationInfo.getName());
@@ -303,8 +293,6 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     // MNWeatherLocationInfoSearchAsyncTask
     @Override
     public void OnSearchFinished(List<MNWeatherLocationInfo> filteredWeatherLocationInfoList) {
-        MNLog.now("search finished: " + Calendar.getInstance().getTimeInMillis());
-
         if (filteredWeatherLocationInfoList != null && filteredWeatherLocationInfoList.size() > 0) {
             noSearchResultsTextView.setVisibility(View.GONE);
             listAdapter.setLocationInfoList(filteredWeatherLocationInfoList);
