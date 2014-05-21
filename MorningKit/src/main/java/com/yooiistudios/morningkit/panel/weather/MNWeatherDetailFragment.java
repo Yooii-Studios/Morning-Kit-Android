@@ -47,7 +47,7 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
 
     @InjectView(R.id.panel_detail_weather_use_current_location_check_image_button) ImageButton useCurrentLocationCheckImageButton;
 
-    @InjectView(R.id.panel_detail_weather_display_local_time_checkbox) CheckBox displayLocalTimeCheckBox;
+    @InjectView(R.id.panel_detail_weather_display_local_time_check_image_button) ImageButton displayLocalTimeCheckImageButton;
 
     @InjectView(R.id.panel_detail_weather_temperature_celsius_checkbox) CheckBox temperatureCelsiusCheckBox;
     @InjectView(R.id.panel_detail_weather_temperature_fahrenheit_checkbox) CheckBox temperatureFahrenheitCheckBox;
@@ -118,7 +118,11 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
 
     private void initUI() {
         // local time
-        displayLocalTimeCheckBox.setChecked(isDisplayingLocaltime);
+        if (isDisplayingLocaltime) {
+            displayLocalTimeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+        } else {
+            displayLocalTimeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+        }
 
         // temperature
         if (isUsingCelsius) {
@@ -159,10 +163,15 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
             }
         });
 
-        displayLocalTimeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        displayLocalTimeCheckImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                isDisplayingLocaltime = b;
+            public void onClick(View view) {
+                isDisplayingLocaltime = !isDisplayingLocaltime;
+                if (isDisplayingLocaltime) {
+                    displayLocalTimeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+                } else {
+                    displayLocalTimeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+                }
             }
         });
 
