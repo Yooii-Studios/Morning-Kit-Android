@@ -20,13 +20,73 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/panel_detail_weather_temperature_celsius_checkbox"
+            android:layout_toLeftOf="@+id/panel_detail_weather_temperature_celsius_layout"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="@string/weather_temperature_unit"
             android:textSize="@dimen/panel_detail_default_font_size"
             android:textColor="@color/pastel_green_sub_font_color"/>
 
+        <RelativeLayout
+            android:id="@+id/panel_detail_weather_temperature_celsius_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/panel_detail_weather_temperature_fahrenheit_layout"
+            android:layout_marginRight="@dimen/panel_detail_bigger_padding">
+
+            <ImageButton
+                android:id="@+id/panel_detail_weather_temperature_celsius_check_image_button"
+                android:layout_width="@dimen/panel_detail_check_image_button_size"
+                android:layout_height="@dimen/panel_detail_check_image_button_size"
+                android:clickable="false"
+                android:scaleType="centerCrop"
+                android:background="@android:color/transparent"
+                android:src="@drawable/icon_panel_detail_checkbox"/>
+
+            <TextView
+                android:id="@+id/panel_detail_weather_temperature_celsius_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/panel_detail_default_font_size"
+                android:text="℃"
+                android:textColor="@color/pastel_green_sub_font_color"
+                android:layout_toRightOf="@+id/panel_detail_weather_temperature_celsius_check_image_button"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_inner"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/panel_detail_weather_temperature_fahrenheit_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true">
+
+            <ImageButton
+                android:id="@+id/panel_detail_weather_temperature_fahrenheit_check_image_button"
+                android:layout_width="@dimen/panel_detail_check_image_button_size"
+                android:layout_height="@dimen/panel_detail_check_image_button_size"
+                android:clickable="false"
+                android:scaleType="centerCrop"
+                android:background="@android:color/transparent"
+                android:src="@drawable/icon_panel_detail_checkbox_on"/>
+
+            <TextView
+                android:id="@+id/panel_detail_weather_temperature_fahrenheit_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/panel_detail_default_font_size"
+                android:text="℉"
+                android:textColor="@color/pastel_green_sub_font_color"
+                android:layout_toRightOf="@+id/panel_detail_weather_temperature_fahrenheit_check_image_button"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_inner"/>
+
+        </RelativeLayout>
+
+        <!--
         <CheckBox
             android:id="@+id/panel_detail_weather_temperature_celsius_checkbox"
             android:layout_width="wrap_content"
@@ -47,6 +107,7 @@
             android:text="℉"
             android:textSize="@dimen/panel_detail_default_font_size"
             android:textColor="@color/pastel_green_sub_font_color"/>
+        -->
 
     </RelativeLayout>
 
@@ -115,7 +176,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="@dimen/margin_outer" >
+        android:layout_marginTop="@dimen/panel_detail_padding" >
 
         <ImageView
             android:layout_width="@dimen/panel_world_clock_detail_magnifier_size"
