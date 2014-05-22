@@ -53,8 +53,6 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
     private static final String TAG = "MNPanelSettingFragment";
 
-    @InjectView(R.id.setting_panel_container) RelativeLayout containerLayout;
-
     @InjectView(R.id.setting_panel_matrix_layout_line_1) LinearLayout panelMatrixItemLayoutLine1;
     @InjectView(R.id.setting_panel_matrix_layout_line_2) LinearLayout panelMatrixItemLayoutLine2;
     @InjectView(R.id.setting_panel_matrix_layout_line_3) LinearLayout panelMatrixItemLayoutLine3;

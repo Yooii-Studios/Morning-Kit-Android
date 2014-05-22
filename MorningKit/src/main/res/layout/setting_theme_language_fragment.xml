@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.yooiistudios.morningkit.setting.theme.language.MNLanguageFragment"
-    android:paddingTop="@dimen/margin_inner"
-    android:paddingBottom="@dimen/margin_inner"
     android:background="@android:color/transparent" >
 
     <ListView
@@ -12,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="0dp"
+        android:paddingTop="@dimen/margin_inner"
+        android:paddingBottom="@dimen/margin_inner"
         android:divider="#00ffffff" />
 
 </RelativeLayout>
