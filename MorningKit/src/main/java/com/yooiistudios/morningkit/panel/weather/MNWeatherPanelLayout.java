@@ -17,6 +17,7 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -360,8 +361,24 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             cityNameTextView.setText(capitalize(weatherData.weatherLocationInfo.getName()));
         }
 
-        // 시계가 시작하지 않았다면 시작하기
-        startClock();
+        // 로컬 시계 사용 여부에 따라 UI 변경
+        if (isDisplayingLocaltime) {
+            localTimeTextView.setVisibility(View.VISIBLE);
+            startClock();
+
+            // 도시 텍스트뷰 마진 설정
+            RelativeLayout.LayoutParams cityNameParams =
+                    (RelativeLayout.LayoutParams) cityNameTextView.getLayoutParams();
+            cityNameParams.topMargin = 0;
+        } else {
+            localTimeTextView.setVisibility(View.GONE);
+            stopClock();
+
+            // 도시 텍스트뷰 마진 설정
+            RelativeLayout.LayoutParams cityNameParams =
+                    (RelativeLayout.LayoutParams) cityNameTextView.getLayoutParams();
+            cityNameParams.topMargin = getResources().getDimensionPixelSize(R.dimen.panel_detail_padding_inner);
+        }
     }
 
     private String capitalize(String line) {
