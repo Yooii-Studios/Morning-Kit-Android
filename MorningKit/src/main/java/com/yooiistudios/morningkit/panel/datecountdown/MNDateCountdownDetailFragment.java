@@ -19,6 +19,7 @@ import java.lang.reflect.Type;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 import static com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownPanelLayout.DATE_COUNTDOWN_DATA_DATE;
 import static com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownPanelLayout.DATE_COUNTDOWN_DATA_TITLE;
@@ -93,5 +94,10 @@ public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
                 customDatePicker.getDayOfMonth());
         String dateJsonString = new Gson().toJson(date);
         getPanelDataObject().put(DATE_COUNTDOWN_DATA_DATE, dateJsonString);
+    }
+
+    @OnClick(R.id.panel_detail_date_countdown_removeAllButton)
+    public void onRemoveAllButtonClicked() {
+        titleEditText.setText("");
     }
 }

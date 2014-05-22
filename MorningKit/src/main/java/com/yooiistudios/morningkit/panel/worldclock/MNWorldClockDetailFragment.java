@@ -31,6 +31,7 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_DATA_IS_24_HOUR;
 import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_DATA_IS_ALALOG;
@@ -245,5 +246,10 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
             this.selectedTimeZone = selectedTimeZone;
             onActionBarDoneClicked();
         }
+    }
+
+    @OnClick(R.id.panel_detail_world_clock_removeAllButton)
+    public void onRemoveAllButtonClicked() {
+        searchEditText.setText("");
     }
 }

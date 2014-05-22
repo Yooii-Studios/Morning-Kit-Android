@@ -30,6 +30,7 @@ import org.json.JSONException;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import butterknife.Optional;
 
 import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICKR_DATA_GRAYSCALE;
@@ -240,5 +241,10 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
         if (MNBitmapUtils.recycleImageView(imageView)) {
             MNLog.i(TAG, "recycleImageView");
         }
+    }
+
+    @OnClick(R.id.panel_detail_flickr_removeAllButton)
+    public void onRemoveAllButtonClicked() {
+        keywordEditText.setText("");
     }
 }
