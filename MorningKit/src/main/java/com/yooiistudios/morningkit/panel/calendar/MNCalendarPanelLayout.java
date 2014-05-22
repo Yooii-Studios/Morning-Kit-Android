@@ -53,6 +53,8 @@ public class MNCalendarPanelLayout extends MNPanelLayout {
         eventsListView.setLayoutParams(eventsListViewLayoutParams);
         eventsListView.setFocusable(false);
         eventsListView.setClickable(false);
+        eventsListView.setVerticalScrollBarEnabled(false);
+        eventsListView.setHorizontalScrollBarEnabled(false);
         getContentLayout().addView(eventsListView);
     }
 
