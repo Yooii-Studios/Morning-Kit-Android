@@ -1,9 +1,11 @@
 package com.yooiistudios.morningkit.panel.datecountdown;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
@@ -99,5 +101,10 @@ public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
     @OnClick(R.id.panel_detail_date_countdown_removeAllButton)
     public void onRemoveAllButtonClicked() {
         titleEditText.setText("");
+
+        // 전체 삭제하며 키보드 보여줌
+        InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.showSoftInput(titleEditText, InputMethodManager.SHOW_IMPLICIT);      // 보여줄때
+//        mgr.hideSoftInputFromWindow(search_key.getWindowToken(), 0);        // 숨길때
     }
 }
