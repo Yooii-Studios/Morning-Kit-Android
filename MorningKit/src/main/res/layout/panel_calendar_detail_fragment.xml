@@ -2,37 +2,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/panel_detail_padding"
+    android:padding="@dimen/panel_quote_detail_padding"
+    android:background="@android:color/white"
     tools:context="com.yooiistudios.morningkit.panel.calendar.MNCalendarDetailFragment">
 
     <ListView
-        android:id="@+id/calendar_detail_events_listview"
+        android:id="@+id/panel_calendar_detail_events_listview"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/panel_calendar_list_view_height"
+        android:layout_height="@dimen/panel_calendar_detail_list_view_height"
         android:listSelector="#00000000"
         android:dividerHeight="0dp"
         android:divider="#00000000"
-        android:paddingTop="@dimen/margin_inner"
-        android:paddingBottom="@dimen/margin_inner"/>
+        android:background="@drawable/shape_rounded_view_pastel_green_quote"
+        android:padding="@dimen/panel_detail_padding"/>
 
-    <Button
-        android:id="@+id/calendar_detail_select_calendars_button"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/panel_calendar_detail_select_calendars_layout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/calendar_detail_events_listview"
-        android:layout_marginTop="@dimen/margin_outer"
-        android:text="@string/calendar_select_calendars"/>
+        android:layout_below="@id/panel_calendar_detail_events_listview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/panel_calendar_detail_select_calendars_top_margin">
+        
+        <ImageView
+            android:id="@+id/panel_calendar_detail_select_calendars_image_view"
+            android:layout_width="@dimen/panel_calendar_detail_select_calendars_icon_size"
+            android:layout_height="@dimen/panel_calendar_detail_select_calendars_icon_size"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/widget_cover_datecountdown_white_ipad"/>
+
+        <TextView
+            android:id="@+id/panel_calendar_detail_select_calendars_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/panel_detail_bigger_padding_inner"
+            android:layout_toRightOf="@id/panel_calendar_detail_select_calendars_image_view"
+            android:text="@string/calendar_select_calendars"
+            android:textSize="@dimen/panel_calendar_detail_select_calendars_font_size"
+            android:textColor="@color/pastel_green_sub_font_color"/>
+        
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/calendar_detail_no_schedule_textview"
+        android:id="@+id/panel_calendar_detail_no_schedule_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/reminder_no_schedule"
-        android:textSize="@dimen/panel_calendar_detail_item_textview_font_size"
-        android:layout_marginLeft="@dimen/panel_calendar_no_events_today_left_margin"
-        android:layout_marginRight="@dimen/panel_calendar_no_events_today_left_margin"
-        android:layout_marginTop="@dimen/panel_calendar_no_events_today_top_margin"
-        android:layout_marginBottom="@dimen/panel_calendar_no_events_today_top_margin"
-        android:textColor="#000000"/>
+        android:textSize="@dimen/panel_calendar_detail_select_calendars_font_size"
+        android:textColor="@color/pastel_green_sub_font_color"
+        android:layout_marginLeft="@dimen/panel_calendar_detail_no_events_today_left_margin"
+        android:layout_marginRight="@dimen/panel_calendar_detail_no_events_today_left_margin"
+        android:layout_marginTop="@dimen/panel_calendar_detail_no_events_today_top_margin"
+        android:layout_marginBottom="@dimen/panel_calendar_detail_no_events_today_top_margin"/>
 
 </RelativeLayout>

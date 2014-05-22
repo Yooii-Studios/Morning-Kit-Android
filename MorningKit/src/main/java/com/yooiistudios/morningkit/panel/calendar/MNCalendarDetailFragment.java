@@ -2,11 +2,13 @@ package com.yooiistudios.morningkit.panel.calendar;
 
 import android.app.AlertDialog;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,10 +19,6 @@ import com.yooiistudios.morningkit.panel.calendar.adapter.MNCalendarListAdapter;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarSelectDialog;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarUtils;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
@@ -41,9 +39,9 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
 
     private static final String TAG = "MNCalendarDetailFragment";
 
-    @InjectView(R.id.calendar_detail_events_listview) ListView eventsListView;
-    @InjectView(R.id.calendar_detail_select_calendars_button) Button selectCalendarsButton;
-    @InjectView(R.id.calendar_detail_no_schedule_textview) TextView noScheduleTextView;
+    @InjectView(R.id.panel_calendar_detail_events_listview) ListView eventsListView;
+    @InjectView(R.id.panel_calendar_detail_select_calendars_image_view) ImageView selectCalendarsImageView;
+    @InjectView(R.id.panel_calendar_detail_no_schedule_textview) TextView noScheduleTextView;
 
     boolean[] selectedArr;
 
@@ -83,11 +81,12 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
     @Override
     public void onResume() {
         super.onResume();
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity().getApplicationContext());
-        eventsListView.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(
-                currentThemeType));
 
-        noScheduleTextView.setTextColor(MNSettingColors.getDisabledFontColor(currentThemeType));
+        // 아이콘 이미지뷰 색 필터 적용
+        int highlightColor = getResources().getColor(R.color.pastel_green_sub_font_color);
+        PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(highlightColor,
+                PorterDuff.Mode.SRC_ATOP);
+        selectCalendarsImageView.setColorFilter(colorFilter);
     }
 
     private void refreshUI() {
@@ -110,7 +109,7 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
         }
     }
 
-    @OnClick(R.id.calendar_detail_select_calendars_button)
+    @OnClick(R.id.panel_calendar_detail_select_calendars_layout)
     void selectCalendarButtonClicked() {
         AlertDialog calendarSelectDialog = MNCalendarSelectDialog.makeDialog(getActivity(), this,
                 MNCalendarUtils.loadCalendarModels(getActivity()));

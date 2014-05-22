@@ -158,12 +158,12 @@ public class MNCalendarListAdapter extends BaseAdapter {
                         .findViewById(R.id.panel_calendar_detail_event_item_title_textview);
                 titleTextView.setText(calendarModel.title);
 
-                if (!MNPanelLayout.DEBUG_UI) {
-                    itemLayout.setBackgroundColor(Color.TRANSPARENT);
-                    timeTextView.setBackgroundColor(Color.TRANSPARENT);
-                    titleTextView.setBackgroundColor(Color.TRANSPARENT);
-                    timeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, context));
-                    titleTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, context));
+                if (MNPanelLayout.DEBUG_UI) {
+                    itemLayout.setBackgroundColor(Color.MAGENTA);
+                    timeTextView.setBackgroundColor(Color.BLUE);
+                    titleTextView.setBackgroundColor(Color.RED);
+                    timeTextView.setTextColor(Color.YELLOW);
+                    titleTextView.setTextColor(Color.GREEN);
                 }
             }
         } else {
@@ -173,16 +173,16 @@ public class MNCalendarListAdapter extends BaseAdapter {
                         viewGroup, false);
 
                 if (convertView != null) {
-                    if (!MNPanelLayout.DEBUG_UI) {
+                    if (MNPanelLayout.DEBUG_UI) {
                         RelativeLayout itemLayout = (RelativeLayout) convertView
                                 .findViewById(R.id.panel_calendar_detail_event_indicator_item_layout);
 
                         TextView timeTextView = (TextView) convertView
                                 .findViewById(R.id.panel_calendar_detail_event_indicator_item_time_textview);
 
-                        itemLayout.setBackgroundColor(Color.TRANSPARENT);
-                        timeTextView.setBackgroundColor(Color.TRANSPARENT);
-                        timeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, context));
+                        itemLayout.setBackgroundColor(Color.RED);
+                        timeTextView.setBackgroundColor(Color.GREEN);
+                        timeTextView.setTextColor(Color.MAGENTA);
                     }
                 }
             }
