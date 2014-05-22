@@ -1,11 +1,13 @@
 package com.yooiistudios.morningkit.panel.weather;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -30,6 +32,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME;
 import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEATHER_DATA_IS_USING_CURRENT_LOCATION;
@@ -303,5 +306,15 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
             noSearchResultsTextView.setText(R.string.no_search_result);
             noSearchResultsTextView.setVisibility(View.VISIBLE);
         }
+    }
+
+    @OnClick(R.id.panel_detail_weather_removeAllButton)
+    public void onRemoveAllButtonClicked() {
+        searchEditText.setText("");
+
+        // 전체 삭제하며 키보드 보여줌
+        InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT);      // 보여줄때
+//        mgr.hideSoftInputFromWindow(search_key.getWindowToken(), 0);        // 숨길때
     }
 }

@@ -8,6 +8,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_DATA_IS_24_HOUR;
 import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout.WORLD_CLOCK_DATA_IS_ALALOG;
@@ -245,5 +247,15 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
             this.selectedTimeZone = selectedTimeZone;
             onActionBarDoneClicked();
         }
+    }
+
+    @OnClick(R.id.panel_detail_world_clock_removeAllButton)
+    public void onRemoveAllButtonClicked() {
+        searchEditText.setText("");
+
+        // 전체 삭제하며 키보드 보여줌
+        InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT);      // 보여줄때
+//        mgr.hideSoftInputFromWindow(search_key.getWindowToken(), 0);        // 숨길때
     }
 }

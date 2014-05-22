@@ -152,18 +152,14 @@
             android:layout_gravity="bottom"
             android:background="@color/pastel_green_main_font_color"/>
 
-        <!--
-        <Button
-            android:id="@+id/worldclock_removeAllButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <View
+            android:id="@+id/panel_detail_world_clock_removeAllButton"
+            android:layout_width="@dimen/panel_detail_remove_all_button_size"
+            android:layout_height="@dimen/panel_detail_remove_all_button_size"
             android:layout_gravity="center_vertical|right"
-                android:layout_marginBottom="8dip"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dip"
-            android:background="@drawable/navigation_cancel"
-            android:onClick="onRemoveAllButtonClikced" />
-            -->
+            android:layout_marginBottom="@dimen/margin_inner"
+            android:layout_marginTop="@dimen/margin_inner"
+            android:background="@drawable/ic_action_cancel_pastel_green" />
     </FrameLayout>
 
     <FrameLayout

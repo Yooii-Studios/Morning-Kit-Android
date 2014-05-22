@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -30,6 +31,7 @@ import org.json.JSONException;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import butterknife.Optional;
 
 import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICKR_DATA_GRAYSCALE;
@@ -240,5 +242,15 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
         if (MNBitmapUtils.recycleImageView(imageView)) {
             MNLog.i(TAG, "recycleImageView");
         }
+    }
+
+    @OnClick(R.id.panel_detail_flickr_removeAllButton)
+    public void onRemoveAllButtonClicked() {
+        keywordEditText.setText("");
+
+        // 전체 삭제하며 키보드 보여줌
+        InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.showSoftInput(keywordEditText, InputMethodManager.SHOW_IMPLICIT);      // 보여줄때
+//        mgr.hideSoftInputFromWindow(search_key.getWindowToken(), 0);        // 숨길때
     }
 }
