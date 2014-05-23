@@ -29,6 +29,7 @@
             android:layout_width="@dimen/panel_calendar_detail_select_calendars_icon_size"
             android:layout_height="@dimen/panel_calendar_detail_select_calendars_icon_size"
             android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/panel_calendar_detail_select_calendars_right_margin"
             android:background="@android:color/transparent"
             android:src="@drawable/widget_cover_datecountdown_white_ipad"/>
 
@@ -37,7 +38,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/panel_detail_bigger_padding_inner"
             android:layout_toRightOf="@id/panel_calendar_detail_select_calendars_image_view"
             android:text="@string/calendar_select_calendars"
             android:textSize="@dimen/panel_calendar_detail_select_calendars_font_size"

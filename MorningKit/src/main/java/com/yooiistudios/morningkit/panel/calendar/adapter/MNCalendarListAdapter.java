@@ -18,9 +18,6 @@ import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventList;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventType;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventUtils;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
-import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import java.text.SimpleDateFormat;
 
@@ -122,7 +119,6 @@ public class MNCalendarListAdapter extends BaseAdapter {
     protected View initEventItem(int position, MNCalendarEvent calendarModel,
                                  MNCalendarEventItemInfo calendarEventItemInfo, ViewGroup viewGroup) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
         View convertView = null;
 
         if (calendarModel != null) {
@@ -143,12 +139,21 @@ public class MNCalendarListAdapter extends BaseAdapter {
                     } else {
                         timeTextView.setText("");
                     }
+                    // AMPM 표시 삭제
+                    TextView ampmTextView = (TextView) convertView
+                            .findViewById(R.id.panel_calendar_detail_event_item_ampm_textview);
+                    ampmTextView.setVisibility(View.INVISIBLE);
                 } else {
                     SimpleDateFormat simpleDateFormat;
                     if (DateFormat.is24HourFormat(context)) {
                         simpleDateFormat = new SimpleDateFormat("HH:mm");
+
+                        // AMPM 표시 삭제
+                        TextView ampmTextView = (TextView) convertView
+                                .findViewById(R.id.panel_calendar_detail_event_item_ampm_textview);
+                        ampmTextView.setVisibility(View.INVISIBLE);
                     } else {
-                        simpleDateFormat = new SimpleDateFormat("a hh:mm");
+                        simpleDateFormat = new SimpleDateFormat("hh:mm");
                     }
                     timeTextView.setText(simpleDateFormat.format(calendarModel.beginDate));
                 }
@@ -195,7 +200,6 @@ public class MNCalendarListAdapter extends BaseAdapter {
                     dividerView.setVisibility(View.INVISIBLE);
                 } else {
                     dividerView.setVisibility(View.VISIBLE);
-                    dividerView.setBackgroundColor(MNMainColors.getSubFontColor(currentThemeType, context));
                 }
             }
         }

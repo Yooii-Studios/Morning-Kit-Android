@@ -6,18 +6,41 @@
     android:layout_marginTop="@dimen/margin_inner"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/panel_calendar_detail_event_item_time_textview"
-        android:layout_width="@dimen/panel_calendar_detail_item_time_textview_width"
+    <LinearLayout
+        android:id="@+id/panel_calendar_detail_event_item_time_layout"
+        android:layout_width="@dimen/panel_calendar_detail_item_time_layout_width"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:text="06:00"
-        android:textColor="@color/pastel_green_sub_font_color"
-        android:textSize="@dimen/panel_calendar_detail_item_textview_font_size"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:layout_marginLeft="@dimen/panel_calendar_detail_item_textview_padding"/>
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/panel_calendar_detail_event_item_time_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="1dp"
+            android:text="06:00"
+            android:textColor="@color/pastel_green_sub_font_color"
+            android:textSize="@dimen/panel_calendar_detail_item_textview_font_size"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_marginLeft="@dimen/panel_calendar_detail_item_textview_padding"/>
+
+        <TextView
+            android:id="@+id/panel_calendar_detail_event_item_ampm_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/margin_inner"
+            android:paddingRight="@dimen/margin_inner"
+            android:layout_marginLeft="@dimen/margin_inner"
+            android:background="@drawable/shape_rounded_view_pastel_green_calendar_detail_ampm"
+            android:text="@string/alarm_pm"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/panel_calendar_detail_item_ampm_textview_font_size"
+            android:singleLine="true"
+            android:ellipsize="end"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/panel_calendar_detail_event_item_title_textview"
@@ -30,7 +53,7 @@
         android:textSize="@dimen/panel_calendar_detail_item_textview_font_size"
         android:singleLine="true"
         android:ellipsize="end"
-        android:layout_toRightOf="@+id/panel_calendar_detail_event_item_time_textview"
+        android:layout_toRightOf="@+id/panel_calendar_detail_event_item_time_layout"
         android:layout_marginLeft="@dimen/panel_detail_bigger_padding"
         android:layout_marginRight="@dimen/panel_calendar_detail_item_textview_padding"/>
 
@@ -38,10 +61,10 @@
         android:id="@+id/panel_calendar_event_item_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#000000"
+        android:background="@color/pastel_green_stroke_color"
         android:layout_marginTop="@dimen/margin_outer"
-        android:layout_marginLeft="@dimen/panel_detail_padding"
-        android:layout_marginRight="@dimen/panel_detail_padding"
-        android:layout_below="@id/panel_calendar_detail_event_item_time_textview"/>
+        android:layout_marginLeft="@dimen/panel_detail_padding_inner"
+        android:layout_marginRight="@dimen/panel_detail_padding_inner"
+        android:layout_below="@id/panel_calendar_detail_event_item_time_layout"/>
 
 </RelativeLayout>
