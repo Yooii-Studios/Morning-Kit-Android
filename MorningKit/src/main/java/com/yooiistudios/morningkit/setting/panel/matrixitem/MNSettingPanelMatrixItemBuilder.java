@@ -13,9 +13,7 @@ import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
-import com.yooiistudios.morningkit.theme.MNMainColors;
 
 /**
  * Created by StevenKim in Morning Kit from Yooii Studios Co., LTD. on 2014. 2. 3.
@@ -39,7 +37,6 @@ public class MNSettingPanelMatrixItemBuilder {
             MNBitmapUtils.recycleImageView(panelImageView);
 
             // new resources
-            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
             int panelImageResourceId = 0;
 
             switch (panelType) {
@@ -81,8 +78,7 @@ public class MNSettingPanelMatrixItemBuilder {
                     break;
 
                 default:
-                    int highlightColor = MNMainColors.getSubFontColor(currentThemeType,
-                            context.getApplicationContext());
+                    int highlightColor = MNSettingColors.getSubFontColor(MNThemeType.PASTEL_GREEN);
                     PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(highlightColor,
                             PorterDuff.Mode.SRC_ATOP);
                     panelMatrixItem.getPanelImageView().setColorFilter(colorFilter);
@@ -96,7 +92,7 @@ public class MNSettingPanelMatrixItemBuilder {
 
             // text
             panelMatrixItem.getPanelNameTextView().setText(MNPanelType.toString(panelType.getIndex(), context));
-            panelMatrixItem.getPanelNameTextView().setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
+            panelMatrixItem.getPanelNameTextView().setTextColor(MNSettingColors.getSubFontColor(MNThemeType.PASTEL_GREEN));
 
             // onclick
             panelMatrixItem.getContainerLayout().setOnClickListener(new View.OnClickListener() {

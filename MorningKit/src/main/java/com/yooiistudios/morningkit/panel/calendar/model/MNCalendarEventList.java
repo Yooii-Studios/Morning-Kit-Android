@@ -23,55 +23,71 @@ public class MNCalendarEventList {
         tomorrowScheduledEvents = new ArrayList<MNCalendarEvent>();
     }
 
-    public int getSize() {
+    public int getSize(boolean isLoadedFromMain) {
         int size = todayAlldayEvents.size() + todayScheduledEvents.size() +
                 tomorrowAlldayEvents.size() + tomorrowScheduledEvents.size();
 
         if (tomorrowAlldayEvents.size() > 0 || tomorrowScheduledEvents.size() > 0) {
             return size + 1; // 내일 아이템 표시용
         } else {
-            return size;
+            if (isLoadedFromMain) {
+                return size;
+            } else {
+                return size + 1;
+            }
         }
     }
 
-    public MNCalendarEventItemInfo getCalendarEventItemInfo(int index) {
+    public MNCalendarEventItemInfo getCalendarEventItemInfo(int index, boolean isLoadedFromMain) {
         MNCalendarEventItemInfo calendarEventItemInfo = new MNCalendarEventItemInfo();
+
+        // 디테일 이벤트리스트인 경우 최상단을 인디케이터로 사용
+        int convertedItemIndex = index;
+        if (!isLoadedFromMain) {
+            convertedItemIndex -= 1;
+
+            if (index == 0) {
+                calendarEventItemInfo.calendarEventType = MNCalendarEventType.TODAY_INDICATOR;
+                calendarEventItemInfo.convertedIndex = 0;
+                return calendarEventItemInfo;
+            }
+        }
 
         // 인덱스에 맞게 해당 캘린더 이벤트를 가져옴
         if (tomorrowAlldayEvents.size() == 0 &&
                 tomorrowScheduledEvents.size() == 0) {
-            if (index < todayAlldayEvents.size()) {
+            if (convertedItemIndex < todayAlldayEvents.size()) {
                 // 오늘 종일 이벤트
                 calendarEventItemInfo.calendarEventType = MNCalendarEventType.TODAY_ALL_DAY;
-                calendarEventItemInfo.convertedIndex = index;
+                calendarEventItemInfo.convertedIndex = convertedItemIndex;
             } else {
                 // 오늘 스케쥴 이벤트
                 calendarEventItemInfo.calendarEventType = MNCalendarEventType.TODAY_SCHEDULED;
-                calendarEventItemInfo.convertedIndex = index - todayAlldayEvents.size();
+                calendarEventItemInfo.convertedIndex = convertedItemIndex - todayAlldayEvents.size();
             }
         } else {
-            if (todayAlldayEvents.size() + todayScheduledEvents.size() > index) {
+            if (todayAlldayEvents.size() + todayScheduledEvents.size() > convertedItemIndex) {
                 // 오늘 이벤트
-                if (index < todayAlldayEvents.size()) {
+                if (convertedItemIndex < todayAlldayEvents.size()) {
                     // 오늘 종일 이벤트
                     calendarEventItemInfo.calendarEventType = MNCalendarEventType.TODAY_ALL_DAY;
-                    calendarEventItemInfo.convertedIndex = index;
+                    calendarEventItemInfo.convertedIndex = convertedItemIndex;
                 } else {
                     // 오늘 스케쥴 이벤트
                     calendarEventItemInfo.calendarEventType = MNCalendarEventType.TODAY_SCHEDULED;
-                    calendarEventItemInfo.convertedIndex = index - todayAlldayEvents.size();
+                    calendarEventItemInfo.convertedIndex = convertedItemIndex - todayAlldayEvents.size();
                 }
-            } else if (todayAlldayEvents.size() + todayScheduledEvents.size() < index) {
+            } else if (todayAlldayEvents.size() + todayScheduledEvents.size() < convertedItemIndex) {
                 int todayEventsSize = todayAlldayEvents.size() + todayScheduledEvents.size() + 1; // 1은 내일 표시 아이템
                 // 내일 이벤트
-                if (index - todayEventsSize < tomorrowAlldayEvents.size()) {
+                if (convertedItemIndex - todayEventsSize < tomorrowAlldayEvents.size()) {
                     // 내일 종일 이벤트
                     calendarEventItemInfo.calendarEventType = MNCalendarEventType.TOMORROW_ALL_DAY;
-                    calendarEventItemInfo.convertedIndex = index - todayEventsSize;
+                    calendarEventItemInfo.convertedIndex = convertedItemIndex - todayEventsSize;
                 } else {
                     // 내일 스케쥴 이벤트
                     calendarEventItemInfo.calendarEventType = MNCalendarEventType.TOMORROW_SCHEDULED;
-                    calendarEventItemInfo.convertedIndex = index - todayEventsSize - tomorrowAlldayEvents.size();
+                    calendarEventItemInfo.convertedIndex = convertedItemIndex - todayEventsSize - tomorrowAlldayEvents.size();
                 }
             } else {
                 // 내일 표시 아이템

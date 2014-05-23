@@ -18,9 +18,6 @@ import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventList;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventType;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventUtils;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
-import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import java.text.SimpleDateFormat;
 
@@ -49,11 +46,10 @@ public class MNCalendarListAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         if (calendarEventList != null) {
-            return calendarEventList.getSize();
+            return calendarEventList.getSize(false);
         } else {
             return 0;
         }
-//        return calendarEvents.size();
     }
 
     @Override
@@ -69,7 +65,7 @@ public class MNCalendarListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         MNCalendarEvent calendarModel = null;
-        MNCalendarEventItemInfo calendarEventItemInfo = calendarEventList.getCalendarEventItemInfo(i);
+        MNCalendarEventItemInfo calendarEventItemInfo = initCalendarEventItemInfo(i);
         switch (calendarEventItemInfo.calendarEventType) {
             case TODAY_ALL_DAY:
                 calendarModel = calendarEventList.todayAlldayEvents.get(calendarEventItemInfo.convertedIndex);
@@ -85,9 +81,6 @@ public class MNCalendarListAdapter extends BaseAdapter {
 
             case TOMORROW_SCHEDULED:
                 calendarModel = calendarEventList.tomorrowScheduledEvents.get(calendarEventItemInfo.convertedIndex);
-                break;
-
-            case TOMORROW_INDICATOR:
                 break;
         }
         View convertView = initEventItem(i, calendarModel, calendarEventItemInfo, viewGroup);
@@ -119,10 +112,13 @@ public class MNCalendarListAdapter extends BaseAdapter {
         return convertView;
     }
 
+    protected MNCalendarEventItemInfo initCalendarEventItemInfo(int index) {
+        return calendarEventList.getCalendarEventItemInfo(index, false);
+    }
+
     protected View initEventItem(int position, MNCalendarEvent calendarModel,
                                  MNCalendarEventItemInfo calendarEventItemInfo, ViewGroup viewGroup) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
         View convertView = null;
 
         if (calendarModel != null) {
@@ -143,12 +139,21 @@ public class MNCalendarListAdapter extends BaseAdapter {
                     } else {
                         timeTextView.setText("");
                     }
+                    // AMPM 표시 삭제
+                    TextView ampmTextView = (TextView) convertView
+                            .findViewById(R.id.panel_calendar_detail_event_item_ampm_textview);
+                    ampmTextView.setVisibility(View.INVISIBLE);
                 } else {
                     SimpleDateFormat simpleDateFormat;
                     if (DateFormat.is24HourFormat(context)) {
                         simpleDateFormat = new SimpleDateFormat("HH:mm");
+
+                        // AMPM 표시 삭제
+                        TextView ampmTextView = (TextView) convertView
+                                .findViewById(R.id.panel_calendar_detail_event_item_ampm_textview);
+                        ampmTextView.setVisibility(View.INVISIBLE);
                     } else {
-                        simpleDateFormat = new SimpleDateFormat("a hh:mm");
+                        simpleDateFormat = new SimpleDateFormat("hh:mm");
                     }
                     timeTextView.setText(simpleDateFormat.format(calendarModel.beginDate));
                 }
@@ -158,31 +163,52 @@ public class MNCalendarListAdapter extends BaseAdapter {
                         .findViewById(R.id.panel_calendar_detail_event_item_title_textview);
                 titleTextView.setText(calendarModel.title);
 
-                if (!MNPanelLayout.DEBUG_UI) {
-                    itemLayout.setBackgroundColor(Color.TRANSPARENT);
-                    timeTextView.setBackgroundColor(Color.TRANSPARENT);
-                    titleTextView.setBackgroundColor(Color.TRANSPARENT);
-                    timeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, context));
-                    titleTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, context));
+                if (MNPanelLayout.DEBUG_UI) {
+                    itemLayout.setBackgroundColor(Color.MAGENTA);
+                    timeTextView.setBackgroundColor(Color.BLUE);
+                    titleTextView.setBackgroundColor(Color.RED);
+                    timeTextView.setTextColor(Color.YELLOW);
+                    titleTextView.setTextColor(Color.GREEN);
                 }
             }
         } else {
+            if (calendarEventItemInfo.calendarEventType == MNCalendarEventType.TODAY_INDICATOR) {
+                // 오늘 표시 아이템
+                convertView = inflater.inflate(R.layout.panel_calendar_detail_event_indicator_item,
+                        viewGroup, false);
+
+                if (convertView != null) {
+                    TextView textView = (TextView) convertView
+                            .findViewById(R.id.panel_calendar_detail_event_indicator_item_textview);
+
+                    textView.setText(R.string.world_clock_today);
+
+                    if (MNPanelLayout.DEBUG_UI) {
+                        RelativeLayout itemLayout = (RelativeLayout) convertView
+                                .findViewById(R.id.panel_calendar_detail_event_indicator_item_layout);
+
+                        itemLayout.setBackgroundColor(Color.RED);
+                        textView.setBackgroundColor(Color.GREEN);
+                        textView.setTextColor(Color.MAGENTA);
+                    }
+                }
+            }
             if (calendarEventItemInfo.calendarEventType == MNCalendarEventType.TOMORROW_INDICATOR) {
                 // 내일 표시 아이템
                 convertView = inflater.inflate(R.layout.panel_calendar_detail_event_indicator_item,
                         viewGroup, false);
 
                 if (convertView != null) {
-                    if (!MNPanelLayout.DEBUG_UI) {
+                    if (MNPanelLayout.DEBUG_UI) {
                         RelativeLayout itemLayout = (RelativeLayout) convertView
                                 .findViewById(R.id.panel_calendar_detail_event_indicator_item_layout);
 
                         TextView timeTextView = (TextView) convertView
-                                .findViewById(R.id.panel_calendar_detail_event_indicator_item_time_textview);
+                                .findViewById(R.id.panel_calendar_detail_event_indicator_item_textview);
 
-                        itemLayout.setBackgroundColor(Color.TRANSPARENT);
-                        timeTextView.setBackgroundColor(Color.TRANSPARENT);
-                        timeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, context));
+                        itemLayout.setBackgroundColor(Color.RED);
+                        timeTextView.setBackgroundColor(Color.GREEN);
+                        timeTextView.setTextColor(Color.MAGENTA);
                     }
                 }
             }
@@ -191,11 +217,10 @@ public class MNCalendarListAdapter extends BaseAdapter {
         if (convertView != null) {
             View dividerView = convertView.findViewById(R.id.panel_calendar_event_item_divider);
             if (!MNPanelLayout.DEBUG_UI) {
-                if (position == calendarEventList.getSize() - 1) {
+                if (position == calendarEventList.getSize(false) - 1) {
                     dividerView.setVisibility(View.INVISIBLE);
                 } else {
                     dividerView.setVisibility(View.VISIBLE);
-                    dividerView.setBackgroundColor(MNMainColors.getSubFontColor(currentThemeType, context));
                 }
             }
         }

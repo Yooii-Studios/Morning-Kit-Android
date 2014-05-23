@@ -3,7 +3,6 @@
     android:id="@+id/panel_calendar_event_indicator_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffaa38"
     android:layout_marginTop="1dp"
     android:orientation="vertical" >
 
@@ -14,8 +13,7 @@
         android:gravity="left|center_vertical"
         android:layout_centerInParent="true"
         android:text="@string/world_clock_tomorrow"
-        android:background="#3311ff"
-        android:textColor="#ffffff"
+        android:textColor="@color/pastel_green_main_font_color"
         android:textSize="@dimen/panel_calendar_item_textview_font_size"
         android:singleLine="true"
         android:ellipsize="end"
@@ -27,7 +25,7 @@
         android:id="@+id/panel_calendar_event_item_divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#000000"
+        android:background="@color/pastel_green_main_font_color"
         android:layout_marginTop="@dimen/margin_inner"
         android:layout_marginLeft="@dimen/margin_inner"
         android:layout_marginRight="@dimen/margin_inner"
