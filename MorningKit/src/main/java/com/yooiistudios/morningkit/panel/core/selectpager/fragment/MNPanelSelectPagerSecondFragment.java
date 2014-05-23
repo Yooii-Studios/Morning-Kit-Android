@@ -60,7 +60,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
     @InjectView(R.id.panel_selector_page2_3_textview) TextView textView2_3;
     @InjectView(R.id.panel_selector_page2_4_textview) TextView textView2_4;
     @InjectView(R.id.panel_selector_page2_5_textview) TextView textView2_5;
-//    @InjectView(R.id.widget_selector_page2_6_textview) TextView textView2_6; // No panel yey
+//    @InjectView(R.id.widget_selector_page2_6_textview) TextView textView2_6; // No panel yet
 
     @InjectView(R.id.panel_selector_page2_2_lock_imageview) ImageView lockImageView2_2;
     @InjectView(R.id.panel_selector_page2_3_lock_imageview) ImageView lockImageView2_3;
@@ -70,6 +70,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.panel_select_pager_page2, container, false);
         if (rootView != null) {
             ButterKnife.inject(this, rootView);
+            initTextViews();
         }
         return rootView;
     }
@@ -79,17 +80,16 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
         super.onResume();
 
         initSelectItemLayouts();
-        initTextViews();
         checkPanelLockStates();
     }
 
     private void initTextViews() {
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity().getApplicationContext());
         textView2_1.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
         textView2_2.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
         textView2_3.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
-        textView2_4.setTextColor(MNSettingColors.getSubFontColor(currentThemeType)); // Store
-        textView2_5.setTextColor(MNSettingColors.getStorePointedFontColor(currentThemeType)); // No panel
+        textView2_4.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
+        textView2_5.setTextColor(MNSettingColors.getStorePointedFontColor(currentThemeType)); // Store
 //        textView2_6.setTextColor(MNSettingColors.getMainFontColor(currentThemeType)); // No panel
 
         if (textViews == null) {
@@ -110,14 +110,6 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
         } else {
             selectItemLayouts.clear();
         }
-//        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
-//        selectItemLayout_2_1.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
-//        selectItemLayout_2_2.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
-//        selectItemLayout_2_3.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
-//        selectItemLayout_2_4.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
-//        selectItemLayout_2_5.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
-//        selectItemLayout_2_6.setBackgroundResource(MNSettingResources.getNormalItemResourcesId(currentThemeType));
-
         selectItemLayouts.add(selectItemLayout_2_1);
         selectItemLayouts.add(selectItemLayout_2_2);
         selectItemLayouts.add(selectItemLayout_2_3);
@@ -168,7 +160,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
     }
 
     private void checkPanelLockStates() {
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity().getApplicationContext());
 
         // 구매 확인을 하고, 구매가 되지 않았을 경우 background 색 변경, lockImageView 표시
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
@@ -187,6 +179,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
             });
         } else {
             lockImageView2_2.setVisibility(View.INVISIBLE);
+            textView2_2.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
             selectItemLayout_2_2.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
         }
         if (ownedSkus.indexOf(SKIabProducts.SKU_DATE_COUNTDOWN) == -1) {
@@ -203,6 +196,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
             });
         } else {
             lockImageView2_3.setVisibility(View.INVISIBLE);
+            textView2_3.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
             selectItemLayout_2_3.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
         }
     }
@@ -212,7 +206,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
             MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
         }
 
-        Intent intent = new Intent(getActivity(), MNUnlockActivity.class);
+        Intent intent = new Intent(getActivity().getApplicationContext(), MNUnlockActivity.class);
         intent.putExtra(MNUnlockActivity.PRODUCT_SKU_KEY, sku);
         getActivity().startActivity(intent);
         getActivity().overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
@@ -223,7 +217,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
             MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
         }
 
-        Intent intent = new Intent(getActivity(), MNStoreActivity.class);
+        Intent intent = new Intent(getActivity().getApplicationContext(), MNStoreActivity.class);
         getActivity().startActivity(intent);
         getActivity().overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
     }
