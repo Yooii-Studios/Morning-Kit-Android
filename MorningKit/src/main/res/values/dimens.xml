@@ -159,6 +159,11 @@
     <dimen name="panel_date_lunar_day_of_week_text_size">11sp</dimen>
     <dimen name="panel_date_lunar_minus_margin">-1dp</dimen>
 
+    <!-- Date Countdown -->
+    <dimen name="panel_date_countdown_title_font_size">16sp</dimen>
+    <dimen name="panel_date_countdown_count_font_size">30sp</dimen>
+    <dimen name="panel_date_countdown_date_font_size">16sp</dimen>
+
     <!-- Setting -->
     <!-- Panel -->
     <dimen name="setting_panel_matrix_layout_height">240dp</dimen>
