@@ -170,6 +170,9 @@ public class MNPhotoAlbumDisplayHelper {
 //        mTimer = new Timer();
 //        mTimer.schedule(new PhotoDisplayTask(), mInterval, mInterval);
     }
+    public void pause() {
+
+    }
     public synchronized void setTransitionType(MNPhotoAlbumTransitionType type) {
         mTransitionType = type;
     }

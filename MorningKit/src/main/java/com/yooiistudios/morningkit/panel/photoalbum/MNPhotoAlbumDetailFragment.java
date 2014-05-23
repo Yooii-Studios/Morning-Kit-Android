@@ -78,6 +78,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     CompoundButton grayscaleToggleButton;
 
     private MNPhotoAlbumDisplayHelper displayHelper;
+    private MNPhotoAlbumListFetcher listFetcher;
 
     private int intervalMinute;
     private int intervalSecond;
@@ -149,6 +150,31 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                     new MNPhotoAlbumDisplayHelper(
                             getActivity(), previewSwitcher,
                             lp.width, lp.height);
+
+
+            if (listFetcher != null) {
+                listFetcher.cancel(true);
+            }
+            listFetcher = new MNPhotoAlbumListFetcher(
+                    rootDirForFiles,
+                    new MNPhotoAlbumListFetcher.OnListFetchListener() {
+                        @Override
+                        public void onPhotoListFetch(ArrayList<String> photoList) {
+                            previewName.setText("Loaded.");
+                            if (photoList != null) {
+                                fileList = photoList;
+                                displayHelper.start(
+                                        rootDirForFiles, fileList,
+                                        transitionType,
+                                        (intervalMinute * 60 +
+                                                intervalSecond) * 1000,
+                                        useGrayscale
+                                );
+                            }
+                        }
+                    }
+            );
+            listFetcher.execute();
         }
         return rootView;
     }
@@ -295,7 +321,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                 displayHelper.setInterval(
                         (intervalMinute * 60 +
                                 intervalSecond) * 1000);
-                updatePreviewUI(true);
+                updatePreviewUI();
                 return true;
             }
             return false;
@@ -382,7 +408,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                         intervalSecond = INVALID_INTERVAL;
                     }
                     updateTimeUI();
-                    updatePreviewUI(true);
+                    updatePreviewUI();
                     break;
                 case R.id.grayscale_toggleSwitch:
                     useGrayscale = checked;
@@ -411,38 +437,26 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         }
     };
     private void updatePreviewUI() {
-        updatePreviewUI(false);
-    }
-    private void updatePreviewUI(boolean restart) {
         if (displayHelper != null && rootDirForFiles != null) {
-            if (!displayHelper.isRunning()) {
-                displayHelper.start(
-                        rootDirForFiles, fileList,
-                        transitionType,
-                        (intervalMinute * 60 +
-                                intervalSecond) * 1000,
-                        useGrayscale
-                );
+            displayHelper.setRootDir(rootDirForFiles);
+            displayHelper.setTransitionType(transitionType);
+            displayHelper.setUseGrayscale(useGrayscale);
+            if (intervalMinute == INVALID_INTERVAL ||
+                    intervalSecond == INVALID_INTERVAL) {
+                displayHelper.setInterval(INVALID_INTERVAL);
+                ArrayList<String> tmpFileList = new ArrayList<String>();
+                tmpFileList.add(selectedFileName);
+                displayHelper.setFileList(tmpFileList);
+                displayHelper.restart();
             }
             else {
-                displayHelper.setRootDir(rootDirForFiles);
                 displayHelper.setFileList(fileList);
-                displayHelper.setTransitionType(transitionType);
-                displayHelper.setUseGrayscale(useGrayscale);
-                if (intervalMinute == INVALID_INTERVAL ||
-                        intervalSecond == INVALID_INTERVAL) {
-                    displayHelper.setInterval(INVALID_INTERVAL);
-                }
-                if (restart) {
-                    displayHelper.restart();
-                }
+                displayHelper.restart();
             }
         }
         else {
             //TODO config when default setting
         }
-
-//        previewImage
     }
 
     @Override
@@ -511,26 +525,37 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                         // load image items for preview
                         previewName.setText("Loading...");
 
-                        MNPhotoAlbumListFetcher listFetcher = new MNPhotoAlbumListFetcher(
-                                rootDirForFiles,
-                                new MNPhotoAlbumListFetcher.OnListFetchListener() {
-                                    @Override
-                                    public void onPhotoListFetch(ArrayList<String> photoList) {
-                                        previewName.setText("Loaded.");
-                                        if (photoList != null) {
-                                            fileList = photoList;
-                                            updatePreviewUI();
+                        if (listFetcher != null) {
+                            listFetcher.cancel(true);
+                            listFetcher = new MNPhotoAlbumListFetcher(
+                                    rootDirForFiles,
+                                    new MNPhotoAlbumListFetcher.OnListFetchListener() {
+                                        @Override
+                                        public void onPhotoListFetch(ArrayList<String> photoList) {
+                                            previewName.setText("Loaded.");
+                                            if (photoList != null) {
+                                                fileList = photoList;
+                                                updatePreviewUI();
+                                            }
                                         }
                                     }
-                                }
-                        );
-                        listFetcher.execute();
+                            );
+                            listFetcher.execute();
+                        }
                     }
                     else {
                         //TODO error while getting image from sdcard
                     }
                 }
                 break;
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (listFetcher != null) {
+            listFetcher.cancel(true);
         }
     }
 }
