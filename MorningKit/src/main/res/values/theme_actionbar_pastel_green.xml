@@ -22,6 +22,8 @@
     <style name="Theme.MNSettingActionBarTheme.PastelGreen" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/ActionBar.Solid.PastelGreen</item>
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.PastelGreen</item>
+        <!-- 탭 divider 변경이 제대로 되지 않아서 일단 보류 -->
+        <!-- <item name="android:actionBarTabBarStyle">@style/ActionBarTabBarStyle.PastelGreen</item> -->
         <item name="android:actionBarTabTextStyle">@style/TabText.PastelGreen</item>
         <item name="android:editTextStyle">@style/EditTextTheme.PastelGreen</item>
 
@@ -56,6 +58,20 @@
     <style name="ActionBarTabStyle.PastelGreen" parent="@style/Widget.AppCompat.Light.ActionBar.TabView">
         <item name="android:background">@drawable/theme_tab_indicator_ab_pastelgreen</item>
     </style>
+
+    <!--
+    <style name="ActionBarTabBarStyle.PastelGreen" parent="@style/Widget.AppCompat.Light.ActionBar.TabBar">
+        <item name="android:actionBarDivider">@color/pastel_green_sub_font_color</item>
+        <item name="android:divider">@color/pastel_green_sub_font_color</item>
+        <item name="android:dividerPadding">3dip</item>
+        <item name="android:showDividers">middle</item>
+
+        <item name="actionBarDivider">@color/pastel_green_sub_font_color</item>
+        <item name="divider">@color/pastel_green_sub_font_color</item>
+        <item name="dividerPadding">3dip</item>
+        <item name="showDividers">middle</item>
+    </style>
+    -->
 
     <style name="TabText.PastelGreen" parent="@style/Widget.AppCompat.ActionBar.TabText">
         <item name="android:textColor">@color/pastel_green_sub_font_color</item>
