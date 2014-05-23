@@ -106,8 +106,8 @@
     <dimen name="panel_flickr_image_view_height">180dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
 
     <!-- Calendar -->
-    <dimen name="panel_calendar_item_time_textview_width">60dp</dimen>
-    <dimen name="panel_calendar_item_textview_font_size">11dp</dimen>
+    <dimen name="panel_calendar_item_time_textview_width">55dp</dimen>
+    <dimen name="panel_calendar_item_textview_font_size">11sp</dimen>
     <dimen name="panel_calendar_item_margin_inner">2dp</dimen>
     <dimen name="panel_calendar_item_margin_outer">4dp</dimen>
         <!-- Detail -->

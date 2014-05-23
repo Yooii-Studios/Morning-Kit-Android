@@ -80,7 +80,7 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
                     if (DateFormat.is24HourFormat(context)) {
                         simpleDateFormat = new SimpleDateFormat("HH:mm");
                     } else {
-                        simpleDateFormat = new SimpleDateFormat("a hh:mm");
+                        simpleDateFormat = new SimpleDateFormat("hh:mm a");
                     }
                     timeTextView.setText(simpleDateFormat.format(calendarModel.beginDate));
                 }
@@ -98,8 +98,8 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
                     switch (calendarEventItemInfo.calendarEventType) {
                         case TODAY_ALL_DAY:
                         case TODAY_SCHEDULED:
-                            timeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, context));
-                            titleTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, context));
+                            timeTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, context));
+                            titleTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, context));
                             break;
 
                         case TOMORROW_ALL_DAY:
@@ -107,6 +107,15 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
                             timeTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, context));
                             titleTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, context));
                             break;
+                    }
+
+                    // Divider
+                    View dividerView = convertView.findViewById(R.id.panel_calendar_event_item_divider);
+                    if (position == calendarEventList.getSize(false) - 1) {
+                        dividerView.setVisibility(View.INVISIBLE);
+                    } else {
+                        dividerView.setVisibility(View.VISIBLE);
+                        dividerView.setBackgroundColor(MNMainColors.getSubFontColor(currentThemeType, context));
                     }
                 }
             }
@@ -127,21 +136,13 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
 
                         itemLayout.setBackgroundColor(Color.TRANSPARENT);
                         timeTextView.setBackgroundColor(Color.TRANSPARENT);
-                        timeTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, context));
+                        timeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, context));
+
+                        // Divider
+                        View dividerView = convertView.findViewById(R.id.panel_calendar_event_item_divider);
+                        dividerView.setBackgroundColor(MNMainColors.getMainFontColor(currentThemeType, context));
                     }
                 }
-            }
-        }
-        // Divider
-        View dividerView = (View) convertView.
-                findViewById(R.id.panel_calendar_event_item_divider);
-
-        if (!MNPanelLayout.DEBUG_UI) {
-            if (position == calendarEventList.getSize(false) - 1) {
-                dividerView.setVisibility(View.INVISIBLE);
-            } else {
-                dividerView.setVisibility(View.VISIBLE);
-                dividerView.setBackgroundColor(MNMainColors.getSubFontColor(currentThemeType, context));
             }
         }
         return convertView;
