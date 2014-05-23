@@ -79,7 +79,7 @@
     <dimen name="panel_select_pager_item_height">68dp</dimen>
     <dimen name="panel_select_pager_item_height_no_shadow">62dp</dimen>
     <dimen name="panel_select_pager_page_control_height">20dp</dimen>
-    <dimen name="panel_select_pager_font_size">14dp</dimen>
+    <dimen name="panel_select_pager_font_size">14sp</dimen>
     <dimen name="panel_select_pager_lock_image_view_size">13dp</dimen>
 
     <!-- Weather -->
