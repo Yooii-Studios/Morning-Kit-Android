@@ -153,7 +153,8 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     private void startTimer() {
         MNLog.i("Timer", "start called");
         if (displayHelper != null && !displayHelper.isRunning()) {
-            displayHelper.start();
+            displayHelper.start(rootDir, allAbsoluteImageFileList,
+                    transitionType, intervalInMillisec, useGrayscale);
             MNLog.i("Timer", "started. isRunning : " + displayHelper.isRunning());
         }
     }
@@ -270,10 +271,8 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         if (allAbsoluteImageFileList != null) {
             displayHelper =
                     new MNPhotoAlbumDisplayHelper((Activity) getContext(),
-                            viewSwitcher, MNPhotoAlbumPanelLayout.this,
-                            rootDir, allAbsoluteImageFileList, transitionType,
-                            intervalInMillisec, getWidth(), getHeight(),
-                            useGrayscale
+                            viewSwitcher,
+                            getWidth(), getHeight()
                     );
             startTimer();
         }

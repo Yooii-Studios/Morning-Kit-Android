@@ -7,12 +7,19 @@
               android:orientation="vertical"
               android:padding="@dimen/panel_detail_bigger_padding">
 
-    <ImageView
-        android:id="@+id/preview_image"
+    <ViewSwitcher
+        android:id="@+id/preview_switcher"
         android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:background="#00ffff"/>
+        android:layout_height="100dp">
+        <com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </ViewSwitcher>
     <TextView
         android:id="@+id/preview_name"
         android:layout_width="wrap_content"

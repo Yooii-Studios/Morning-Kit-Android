@@ -3,7 +3,6 @@ package com.yooiistudios.morningkit.panel.photoalbum.model;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.ViewSwitcher;
 
@@ -26,7 +25,7 @@ import lombok.Getter;
 public class MNPhotoAlbumDisplayHelper {
     private Activity mActivity;
     private ViewSwitcher mViewSwitcher;
-    private ViewGroup mParentView;
+//    private ViewGroup mParentView;
     private String mRootDir;
     private ArrayList<String> mFileList;
     private MNPhotoAlbumImageView mFirstView;
@@ -39,17 +38,15 @@ public class MNPhotoAlbumDisplayHelper {
     private int mPhotoIdx;
     private boolean mUseGrayscale;
 
+//    private final Object fileListLock = new Object();
+//    private final Object rootDirLock = new Object();
+//    private final Object grayscaleLock = new Object();
+
     @Getter private boolean isRunning;
 
     public MNPhotoAlbumDisplayHelper(Activity activity,
                                      ViewSwitcher viewSwitcher,
-                                     ViewGroup parentView,
-                                     String rootDir,
-                                     ArrayList<String> fileList,
-                                     MNPhotoAlbumTransitionType transitionType,
-                                     long interval,
-                                     int photoWidth, int photoHeight,
-                                     boolean useGrayscale) {
+                                     int photoWidth, int photoHeight) {
         if (viewSwitcher == null) {
             throw new IllegalArgumentException(viewSwitcher.toString() + " " +
                     "CANNOT be null");
@@ -70,19 +67,12 @@ public class MNPhotoAlbumDisplayHelper {
         }
         mActivity = activity;
         mViewSwitcher = viewSwitcher;
-        mParentView = parentView;
 //        mViewSwitcher.setOnSwitchAttachStateChangeListener(
 //                mOnSwitcherAttachStateChangedListener);
         mFirstView = (MNPhotoAlbumImageView)(mViewSwitcher.getChildAt(0));
         mSecondView = (MNPhotoAlbumImageView)(mViewSwitcher.getChildAt(1));
         mPhotoWidth = photoWidth;
         mPhotoHeight = photoHeight;
-
-        mRootDir = rootDir;
-        mFileList = fileList;
-        mTransitionType = transitionType;
-        mInterval = interval;
-        mUseGrayscale = useGrayscale;
     }
     public void stop() {
         if (mTimer != null) {
@@ -98,8 +88,18 @@ public class MNPhotoAlbumDisplayHelper {
 //        MNBitmapUtils.recycleImageView(mSecondView);
     }
 
-    public void start() {
+    public synchronized void start(String rootDir,
+            ArrayList<String> fileList,
+            MNPhotoAlbumTransitionType transitionType,
+            long interval,
+            boolean useGrayscale) {
         stop();
+
+        mRootDir = rootDir;
+//        setFileList(fileList);
+        mTransitionType = transitionType;
+        mInterval = interval;
+        mUseGrayscale = useGrayscale;
 
 //        mParentView.addView(mViewSwitcher,
 //                new ViewGroup.LayoutParams(
@@ -109,8 +109,10 @@ public class MNPhotoAlbumDisplayHelper {
 
         isRunning = true;
 
-        mFileList = MNPhotoAlbumFileManager.getValidImageFileList(mRootDir,
-                mFileList);
+        mFileList = MNPhotoAlbumFileManager.getValidImageFileList(
+                mRootDir, fileList);
+//        setFileList(MNPhotoAlbumFileManager.getValidImageFileList(
+//                        mRootDir, fileList));
         if (mFileList.size() == 0) {
             //TODO no images to display. show error message.
         }
@@ -145,6 +147,36 @@ public class MNPhotoAlbumDisplayHelper {
         }
     }
 
+    public synchronized void setRootDir(String rootDir) {
+        mRootDir = rootDir;
+    }
+    public synchronized void setFileList(ArrayList<String> fileList) {
+        mFileList = fileList;
+    }
+    public synchronized void setInterval(long interval) {
+        mInterval = interval;
+//        if (isRunning()) {
+//            restart();
+//        }
+    }
+    public void restart() {
+        stop();
+        start(mRootDir, mFileList, mTransitionType, mInterval, mUseGrayscale);
+//        if (mTimer != null) {
+//            mTimer.cancel();
+//            mTimer.purge();
+//            mTimer = null;
+//        }
+//        mTimer = new Timer();
+//        mTimer.schedule(new PhotoDisplayTask(), mInterval, mInterval);
+    }
+    public synchronized void setTransitionType(MNPhotoAlbumTransitionType type) {
+        mTransitionType = type;
+    }
+    public synchronized void setUseGrayscale(boolean useGrayscale) {
+        mUseGrayscale = useGrayscale;
+    }
+
     public void notifyContainingActivityWillBeShown() {
         mFirstView.setIsReadyForRecycle(false);
         mSecondView.setIsReadyForRecycle(false);
@@ -169,7 +201,7 @@ public class MNPhotoAlbumDisplayHelper {
 
         return polishedBitmap;
     }
-    private void showNext() {
+    private synchronized void showNext() {
         mPhotoIdx = getRandomIndex();
 //        mPhotoIdx++;
 //
@@ -179,9 +211,9 @@ public class MNPhotoAlbumDisplayHelper {
 
         int curViewIdx = mViewSwitcher.getDisplayedChild();
 
+        Bitmap bitmap = null;
         String fileName = mFileList.get(mPhotoIdx);
-        Bitmap bitmap = getPolishedBitmap(new File(mRootDir, fileName));
-//        Bitmap bitmap = getPolishedBitmap(mFileList.get(mPhotoIdx));
+        bitmap = getPolishedBitmap(new File(mRootDir, fileName));
 
         if (bitmap == null) {
             // remove invalid photo item.

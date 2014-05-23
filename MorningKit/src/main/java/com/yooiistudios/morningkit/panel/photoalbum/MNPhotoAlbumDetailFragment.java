@@ -7,17 +7,22 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumDisplayHelper;
+import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumListFetcher;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumTransitionType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -25,6 +30,7 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import org.json.JSONException;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -59,6 +65,9 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     //request code
     public static final int RC_LOAD_PHOTO = 1;
 
+//    @InjectView(R.id.preview_image) ImageView previewImage;
+    @InjectView(R.id.preview_switcher) ViewSwitcher previewSwitcher;
+    @InjectView(R.id.preview_name) TextView previewName;
     @InjectView(R.id.toggleSwitch) CompoundButton refreshTimeToggleButton;
     @InjectView(R.id.edittext_min) EditText minuteEditText;
     @InjectView(R.id.edittext_sec) EditText secondEditText;
@@ -68,6 +77,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     @InjectView(R.id.grayscale_toggleSwitch)
     CompoundButton grayscaleToggleButton;
 
+    private MNPhotoAlbumDisplayHelper displayHelper;
+
     private int intervalMinute;
     private int intervalSecond;
 //    private PhotoType type;
@@ -76,7 +87,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 //    private ArrayList<String> parentDirList;
     private String rootDirForFiles;
     private String selectedFileName;
-//    private ArrayList<String> fileList;
+    private ArrayList<String> fileList;
     private boolean useGrayscale;
 
 
@@ -131,6 +142,13 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 
             // UI
             initUI();
+
+            ViewGroup.LayoutParams lp =
+                    previewSwitcher.getLayoutParams();
+            displayHelper =
+                    new MNPhotoAlbumDisplayHelper(
+                            getActivity(), previewSwitcher,
+                            lp.width, lp.height);
         }
         return rootView;
     }
@@ -223,7 +241,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         minuteEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence,
-                                          int i, int i2, int i3) {}
+                                          int i, int i2, int i3) {
+            }
 
             @Override
             public void onTextChanged(CharSequence charSequence,
@@ -234,8 +253,10 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) {
+            }
         });
+        minuteEditText.setOnEditorActionListener(onEditorActionListener);
         secondEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence,
@@ -252,6 +273,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             @Override
             public void afterTextChanged(Editable editable) {}
         });
+        secondEditText.setOnEditorActionListener(onEditorActionListener);
 
         refreshTimeToggleButton.setChecked(useRefresh);
         grayscaleToggleButton.setChecked(useGrayscale);
@@ -261,6 +283,24 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         // theme
         initTheme();
     }
+    TextView.OnEditorActionListener onEditorActionListener =
+            new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                    actionId == EditorInfo.IME_ACTION_DONE ||
+                    keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
+                            keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+
+                displayHelper.setInterval(
+                        (intervalMinute * 60 +
+                                intervalSecond) * 1000);
+                updatePreviewUI(true);
+                return true;
+            }
+            return false;
+        }
+    };
 
     private void initTheme() {
         MNThemeType currentThemeType =
@@ -342,11 +382,14 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                         intervalSecond = INVALID_INTERVAL;
                     }
                     updateTimeUI();
+                    updatePreviewUI(true);
                     break;
                 case R.id.grayscale_toggleSwitch:
                     useGrayscale = checked;
+                    updatePreviewUI();
                     break;
             }
+
         }
     };
 
@@ -363,8 +406,44 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                     transitionType = MNPhotoAlbumTransitionType.ALPHA;
                     break;
             }
+
+            updatePreviewUI();
         }
     };
+    private void updatePreviewUI() {
+        updatePreviewUI(false);
+    }
+    private void updatePreviewUI(boolean restart) {
+        if (displayHelper != null && rootDirForFiles != null) {
+            if (!displayHelper.isRunning()) {
+                displayHelper.start(
+                        rootDirForFiles, fileList,
+                        transitionType,
+                        (intervalMinute * 60 +
+                                intervalSecond) * 1000,
+                        useGrayscale
+                );
+            }
+            else {
+                displayHelper.setRootDir(rootDirForFiles);
+                displayHelper.setFileList(fileList);
+                displayHelper.setTransitionType(transitionType);
+                displayHelper.setUseGrayscale(useGrayscale);
+                if (intervalMinute == INVALID_INTERVAL ||
+                        intervalSecond == INVALID_INTERVAL) {
+                    displayHelper.setInterval(INVALID_INTERVAL);
+                }
+                if (restart) {
+                    displayHelper.restart();
+                }
+            }
+        }
+        else {
+            //TODO config when default setting
+        }
+
+//        previewImage
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -428,6 +507,24 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                         this.selectedFileName = selectedFile.getName();
                         this.rootDirForFiles = selectedFile.getParent();
 //                        this.fileList = list;
+
+                        // load image items for preview
+                        previewName.setText("Loading...");
+
+                        MNPhotoAlbumListFetcher listFetcher = new MNPhotoAlbumListFetcher(
+                                rootDirForFiles,
+                                new MNPhotoAlbumListFetcher.OnListFetchListener() {
+                                    @Override
+                                    public void onPhotoListFetch(ArrayList<String> photoList) {
+                                        previewName.setText("Loaded.");
+                                        if (photoList != null) {
+                                            fileList = photoList;
+                                            updatePreviewUI();
+                                        }
+                                    }
+                                }
+                        );
+                        listFetcher.execute();
                     }
                     else {
                         //TODO error while getting image from sdcard

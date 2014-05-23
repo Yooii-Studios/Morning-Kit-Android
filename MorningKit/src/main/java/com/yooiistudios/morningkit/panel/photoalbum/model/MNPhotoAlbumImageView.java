@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.panel.photoalbum.model;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -16,6 +17,11 @@ public class MNPhotoAlbumImageView extends ImageView {
 
     public MNPhotoAlbumImageView(Context context) {
         super(context);
+
+        init(false);
+    }
+    public MNPhotoAlbumImageView(Context context, AttributeSet attr) {
+        super(context, attr);
 
         init(false);
     }
