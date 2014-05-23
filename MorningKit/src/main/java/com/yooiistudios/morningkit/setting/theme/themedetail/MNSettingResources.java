@@ -43,7 +43,7 @@ public class MNSettingResources {
     }
 
     public static int getLockItemResourcesId(MNThemeType themeType) {
-        return R.drawable.shape_rounded_view_classic_white_unlocked;
+        return R.drawable.shape_rounded_view_pastel_green_locked;
     }
 
     public static int getCheckResourceId(MNThemeType themeType) {
