@@ -14,6 +14,7 @@ import com.yooiistudios.morningkit.common.log.MNLog;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -114,7 +115,8 @@ public class MNPhotoAlbumDisplayHelper {
             //TODO no images to display. show error message.
         }
         else {
-            mPhotoIdx = 0;
+//            mPhotoIdx = 0;
+            mPhotoIdx = getRandomIndex();
 
             //show first image
             String fileName = mFileList.get(mPhotoIdx);
@@ -168,11 +170,12 @@ public class MNPhotoAlbumDisplayHelper {
         return polishedBitmap;
     }
     private void showNext() {
-        mPhotoIdx++;
-
-        if (mPhotoIdx == mFileList.size()) {
-            mPhotoIdx = 0;
-        }
+        mPhotoIdx = getRandomIndex();
+//        mPhotoIdx++;
+//
+//        if (mPhotoIdx == mFileList.size()) {
+//            mPhotoIdx = 0;
+//        }
 
         int curViewIdx = mViewSwitcher.getDisplayedChild();
 
@@ -181,6 +184,9 @@ public class MNPhotoAlbumDisplayHelper {
 //        Bitmap bitmap = getPolishedBitmap(mFileList.get(mPhotoIdx));
 
         if (bitmap == null) {
+            // remove invalid photo item.
+            mFileList.remove(mPhotoIdx);
+
             showNext();
             return;
         }
@@ -193,6 +199,12 @@ public class MNPhotoAlbumDisplayHelper {
             mViewSwitcher.showPrevious();
         }
     }
+
+    private int getRandomIndex() {
+        Random random = new Random(System.currentTimeMillis());
+        return random.nextInt(mFileList.size());
+    }
+
     private Animation.AnimationListener mAnimListener =
             new Animation.AnimationListener() {
                 @Override

@@ -51,7 +51,7 @@ public class MNPanelLayout extends RelativeLayout {
     @Getter TextView panelNameTextView;
     @Getter TextView panelStatusTextView;
 
-    @Getter boolean isUsingNetwork;
+    @Getter @Setter boolean isUsingNetwork;
     @Getter @Setter JSONObject panelDataObject;
 
     public MNPanelLayout(Context context) {
