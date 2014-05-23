@@ -39,6 +39,20 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
     }
 
     @Override
+    public int getCount() {
+        if (calendarEventList != null) {
+            return calendarEventList.getSize(true);
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    protected MNCalendarEventItemInfo initCalendarEventItemInfo(int index) {
+        return calendarEventList.getCalendarEventItemInfo(index, true);
+    }
+
+    @Override
     protected View initEventItem(int position, MNCalendarEvent calendarModel,
                                  MNCalendarEventItemInfo calendarEventItemInfo, ViewGroup viewGroup) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -123,7 +137,7 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
                 findViewById(R.id.panel_calendar_event_item_divider);
 
         if (!MNPanelLayout.DEBUG_UI) {
-            if (position == calendarEventList.getSize() - 1) {
+            if (position == calendarEventList.getSize(false) - 1) {
                 dividerView.setVisibility(View.INVISIBLE);
             } else {
                 dividerView.setVisibility(View.VISIBLE);

@@ -7,7 +7,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/panel_calendar_detail_event_indicator_item_time_textview"
+        android:id="@+id/panel_calendar_detail_event_indicator_item_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|left"
@@ -29,6 +29,6 @@
         android:layout_marginTop="@dimen/margin_outer"
         android:layout_marginLeft="@dimen/panel_detail_padding_inner"
         android:layout_marginRight="@dimen/panel_detail_padding_inner"
-        android:layout_below="@id/panel_calendar_detail_event_indicator_item_time_textview"/>
+        android:layout_below="@id/panel_calendar_detail_event_indicator_item_textview"/>
 
 </RelativeLayout>
