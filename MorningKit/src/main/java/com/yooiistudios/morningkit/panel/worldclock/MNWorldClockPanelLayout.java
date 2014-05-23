@@ -324,13 +324,17 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             }
         }
 
+        String hourString = String.valueOf(hour);
+        if (hour < 10 && isUsing24Hours) {
+            hourString = "0" + hourString;
+        }
         String minuteString = String.valueOf(minute);
         if (minute < 10) {
             minuteString = "0" + minuteString;
         }
 
         String colonString = second % 2 == 0 ? ":" : " ";
-        String timeString = String.valueOf(hour) + colonString + minuteString;
+        String timeString = hourString + colonString + minuteString;
         digitalTimeTextView.setText(timeString);
 
         // am/pm
