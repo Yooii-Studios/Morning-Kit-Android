@@ -48,7 +48,7 @@ public class MNCalendarPanelLayout extends MNPanelLayout {
         LayoutParams eventsListViewLayoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
-        int marginInner = getResources().getDimensionPixelSize(R.dimen.margin_inner);
+        int marginInner = getResources().getDimensionPixelSize(R.dimen.panel_detail_padding);
         eventsListViewLayoutParams.setMargins(marginInner, marginInner, marginInner, marginInner);
         eventsListView.setLayoutParams(eventsListViewLayoutParams);
         eventsListView.setFocusable(false);
