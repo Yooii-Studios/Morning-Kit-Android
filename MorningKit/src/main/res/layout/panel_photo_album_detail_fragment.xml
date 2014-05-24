@@ -9,8 +9,9 @@
 
     <ViewSwitcher
         android:id="@+id/preview_switcher"
-        android:layout_width="100dp"
-        android:layout_height="100dp">
+        android:layout_width="@dimen/panel_photo_album_detail_preview_width"
+        android:layout_height="@dimen/panel_photo_album_detail_preview_height"
+        android:layout_gravity="center_horizontal">
         <com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
