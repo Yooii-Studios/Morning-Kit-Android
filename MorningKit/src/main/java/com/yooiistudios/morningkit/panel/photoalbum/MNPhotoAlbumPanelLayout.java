@@ -10,6 +10,7 @@ import android.widget.ViewSwitcher;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
+import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCommonUtil;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumDisplayHelper;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumImageView;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumListFetcher;
@@ -18,6 +19,8 @@ import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumTransition
 import org.json.JSONException;
 
 import java.util.ArrayList;
+
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFragment.INVALID_INTERVAL;
 
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2014. 5. 13.
@@ -47,6 +50,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     private MNPhotoAlbumTransitionType transitionType;
     private long intervalInMillisec;
     private String rootDir;
+    private String selectedFile;
 //    private ArrayList<String> parentList;
 //    private ArrayList<String> fileList;
     private ArrayList<String> allAbsoluteImageFileList;
@@ -97,46 +101,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         if (displayHelper != null) {
             displayHelper.notifyContainingActivityWillBeShown();
         }
-        startTimer();
-
-//        MNViewSizeMeasure.setViewSizeObserver(MNPhotoAlbumPanelLayout.this,
-//                new MNViewSizeMeasure.OnGlobalLayoutObserver() {
-//            @Override
-//            public void onLayoutLoad() {
-//
-//                MNPhotoAlbumListFetcher listFetcher = new MNPhotoAlbumListFetcher(
-//                        rootDir,
-//                        new MNPhotoAlbumListFetcher.OnListFetchListener() {
-//                            @Override
-//                            public void onPhotoListFetch(ArrayList<String> photoList) {
-//                                if (photoList != null) {
-//                                    allAbsoluteImageFileList = photoList;
-//                                    MNLog.i(TAG, "create display helper " +
-//                                            "instance.");
-//                                    displayHelper =
-//                                        new MNPhotoAlbumDisplayHelper(
-//                                                (Activity) getContext(),
-//                                                viewSwitcher,
-//                                                MNPhotoAlbumPanelLayout.this,
-//                                                rootDir,
-//                                                allAbsoluteImageFileList,
-//                                                transitionType,
-//                                                intervalInMillisec,
-//                                                MNPhotoAlbumPanelLayout.this
-//                                                        .getWidth(),
-//                                                MNPhotoAlbumPanelLayout.this
-//                                                        .getHeight(),
-//                                                useGrayscale);
-////                                    displayHelper
-////                                        .notifyContainingActivityWillBeShown();
-//                                    startTimer();
-//                                }
-//                            }
-//                        }
-//                );
-//                listFetcher.execute();
-//            }
-//        });
+        updateUI();
     }
 
     @Override
@@ -150,11 +115,25 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         stopTimer();
     }
 
-    private void startTimer() {
+    private void startTimer(int photoWidth, int photoHeight) {
         MNLog.i("Timer", "start called");
         if (displayHelper != null && !displayHelper.isRunning()) {
-            displayHelper.start(rootDir, allAbsoluteImageFileList,
-                    transitionType, intervalInMillisec, useGrayscale);
+            ArrayList<String> list;
+            if (selectedFile != null) {
+                if (intervalInMillisec == INVALID_INTERVAL) {
+                    list = new ArrayList<String>();
+                    list.add(selectedFile);
+                }
+                else {
+                    list = allAbsoluteImageFileList;
+                }
+            }
+            else {
+                list = allAbsoluteImageFileList;
+            }
+            displayHelper.start(rootDir, list,
+                    transitionType, intervalInMillisec, useGrayscale,
+                    photoWidth, photoHeight);
             MNLog.i("Timer", "started. isRunning : " + displayHelper.isRunning());
         }
     }
@@ -179,33 +158,13 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         else {
             rootDir = null;
         }
-//        if (getPanelDataObject().has(KEY_DATA_FILE_PARENT_LIST)) {
-//            Type type = new TypeToken<ArrayList<String>>(){}.getType();
-//            parentList = new Gson().fromJson(
-//                    getPanelDataObject().getString(KEY_DATA_FILE_PARENT_LIST),
-//                    type);
-//            for (String name : parentList) {
-//                MNLog.i(TAG, "parent : " + name);
-//            }
-//        }
-//        else {
-//            parentList = new ArrayList<String>();
-//            parentList.add(MNPhotoAlbumDetailFragment.DEFAULT_PARENT_DIR
-//                    .getAbsolutePath());
-//
-//        }
-//        if (getPanelDataObject().has(KEY_DATA_FILE_FILELIST)) {
-//            Type type = new TypeToken<ArrayList<String>>(){}.getType();
-//            fileList = new Gson().fromJson(
-//                    getPanelDataObject().getString(KEY_DATA_FILE_FILELIST),
-//                    type);
-//            for (String name : fileList) {
-//                MNLog.i(TAG, "file : " + name);
-//            }
-//        }
-//        else {
-//            fileList = null;
-//        }
+
+        if (getPanelDataObject().has(KEY_DATA_FILE_SELECTED)) {
+            selectedFile = getPanelDataObject().getString(KEY_DATA_FILE_SELECTED);
+        }
+        else {
+            selectedFile = null;
+        }
 
         if (getPanelDataObject().has(KEY_DATA_TRANS_TYPE)) {
             String key = getPanelDataObject().getString(KEY_DATA_TRANS_TYPE);
@@ -221,10 +180,14 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
             int intervalMinute = getPanelDataObject()
                     .getInt(KEY_DATA_INTERVAL_MINUTE);
 
-            intervalInMillisec = (intervalMinute*60 + intervalSecond)*1000;
+
+            intervalInMillisec = MNPhotoAlbumCommonUtil
+                    .getTransitionInterval(
+                            intervalMinute,
+                            intervalSecond);
         }
         else {
-            intervalInMillisec = MNPhotoAlbumDetailFragment.INVALID_INTERVAL;
+            intervalInMillisec = INVALID_INTERVAL;
         }
 
         if (getPanelDataObject().has(KEY_DATA_USE_GRAYSCALE)) {
@@ -235,6 +198,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
             useGrayscale = false;
         }
 
+        allAbsoluteImageFileList = null;
 
         MNViewSizeMeasure.setViewSizeObserver(MNPhotoAlbumPanelLayout.this,
             new MNViewSizeMeasure.OnGlobalLayoutObserver() {
@@ -272,11 +236,10 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
             if (displayHelper == null) {
                 displayHelper =
                         new MNPhotoAlbumDisplayHelper((Activity) getContext(),
-                                viewSwitcher,
-                                getWidth(), getHeight()
+                                viewSwitcher
                         );
             }
-            startTimer();
+            startTimer(getWidth(), getHeight());
         }
     }
 
@@ -288,5 +251,16 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+
+        MNLog.i("view size changed", "onSizeChanged\t" +
+                String.format("width: %d, " +"height : %d",
+                        w, h));
+
+        MNViewSizeMeasure.setViewSizeObserver(viewSwitcher, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+            @Override
+            public void onLayoutLoad() {
+                updateUI();
+            }
+        });
     }
 }

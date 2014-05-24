@@ -21,6 +21,7 @@ import android.widget.ViewSwitcher;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCommonUtil;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumDisplayHelper;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumListFetcher;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumTransitionType;
@@ -149,35 +150,33 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             // UI
             initUI();
 
-            ViewGroup.LayoutParams lp =
-                    previewSwitcher.getLayoutParams();
             displayHelper =
                     new MNPhotoAlbumDisplayHelper(
-                            getActivity(), previewSwitcher,
-                            lp.width, lp.height);
+                            getActivity(), previewSwitcher);
 
 
             if (listFetcher != null) {
                 listFetcher.cancel(true);
             }
+            previewName.setText("Loading...");
             listFetcher = new MNPhotoAlbumListFetcher(
                     rootDirForFiles,
                     new MNPhotoAlbumListFetcher.OnListFetchListener() {
                         @Override
                         public void onPhotoListFetch(ArrayList<String> photoList) {
-                            previewName.setText("Loaded.");
+                            previewName.setText(new File(rootDirForFiles)
+                                    .getName());
                             if (photoList != null) {
                                 fileList = photoList;
-                                if (photoList.size() > 0) {
+                                if (selectedFileName == null &&
+                                        photoList.size() > 0) {
                                     selectedFileName = photoList.get(0);
                                 }
-                                displayHelper.start(
-                                        rootDirForFiles, fileList,
-                                        transitionType,
-                                        (intervalMinute * 60 +
-                                                intervalSecond) * 1000,
-                                        useGrayscale
-                                );
+                                ViewGroup.LayoutParams lp =
+                                        previewSwitcher.getLayoutParams();
+                                displayHelper.setPhotoWidth(lp.width);
+                                displayHelper.setPhotoHeight(lp.height);
+                                updatePreviewUI(true);
                             }
                         }
                     }
@@ -188,13 +187,6 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     }
 
     private void initPanelDataObject() throws JSONException {
-//        if (getPanelDataObject().has(KEY_TYPE)) {
-//            String typeStr = getPanelDataObject().getString(KEY_TYPE);
-//            type = PhotoType.getTypeByKey(typeStr);
-//        }
-//        else {
-//            type = PhotoType.DEFAULT;
-//        }
         if (getPanelDataObject().has(KEY_DATA_INTERVAL_MINUTE)) {
             intervalMinute = getPanelDataObject()
                     .getInt(KEY_DATA_INTERVAL_MINUTE);
@@ -224,16 +216,6 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         else {
             transitionType = MNPhotoAlbumTransitionType.NONE;
         }
-//        if (getPanelDataObject().has(KEY_DATA_FILE_PARENT_LIST)) {
-//            Type type = new TypeToken<ArrayList<String>>(){}.getType();
-//            parentDirList = new Gson().fromJson(
-//                    getPanelDataObject().getString(KEY_DATA_FILE_PARENT_LIST),
-//                    type);
-//        }
-//        else {
-//            parentDirList = new ArrayList<String>();
-//            parentDirList.add(DEFAULT_PARENT_DIR.getAbsolutePath());
-//        }
         if (getPanelDataObject().has(KEY_DATA_FILE_SELECTED)) {
             selectedFileName = getPanelDataObject().getString(
                     KEY_DATA_FILE_SELECTED);
@@ -248,15 +230,6 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         else {
             rootDirForFiles = DEFAULT_PARENT_DIR.getAbsolutePath();
         }
-//        if (getPanelDataObject().has(KEY_DATA_FILE_FILELIST)) {
-//            Type type = new TypeToken<ArrayList<String>>(){}.getType();
-//            fileList = new Gson().fromJson(
-//                    getPanelDataObject().getString(KEY_DATA_FILE_FILELIST),
-//                    type);
-//        }
-//        else {
-//            fileList = new ArrayList<String>();
-//        }
         if (getPanelDataObject().has(KEY_DATA_USE_GRAYSCALE)) {
             useGrayscale = getPanelDataObject().getBoolean(KEY_DATA_USE_GRAYSCALE);
         }
@@ -327,10 +300,11 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                             keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
 
                 if (displayHelper != null) {
-                    displayHelper.setInterval(
-                            (intervalMinute * 60 +
-                                    intervalSecond) * 1000
-                    );
+                    long interval = MNPhotoAlbumCommonUtil
+                            .getTransitionInterval(
+                                    intervalMinute,
+                                    intervalSecond);
+                    displayHelper.setInterval(interval);
                 }
                 updatePreviewUI();
             }
@@ -421,10 +395,11 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                     updateTimeUI();
 
                     if (displayHelper != null) {
-                        displayHelper.setInterval(
-                                (intervalMinute * 60 +
-                                        intervalSecond) * 1000
-                        );
+                        long interval = MNPhotoAlbumCommonUtil
+                                .getTransitionInterval(
+                                        intervalMinute,
+                                        intervalSecond);
+                        displayHelper.setInterval(interval);
                     }
                     updatePreviewUI();
                     break;
@@ -491,36 +466,6 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-//            case RC_LOAD_PHOTO:
-//                if (data != null) {
-//                    ExFilePickerParcelObject object = (ExFilePickerParcelObject)
-//                            data.getParcelableExtra(
-//                                    ExFilePickerParcelObject.class.
-//                                            getCanonicalName());
-//                    if (object.count > 0) {
-//                        ArrayList<String> parentDirList =
-//                                new ArrayList<String>();
-//                        ArrayList<String> fileList =
-//                                new ArrayList<String>();
-//                        for (String name : object.names) {
-//                            File file = new File(object.path, name);
-//                            if (file.isDirectory()) {
-//                                parentDirList.add(file.getAbsolutePath());
-//                            }
-//                            else {
-//                                fileList.add(name);
-//                            }
-//
-//                            Log.i(TAG, file.getAbsolutePath());
-//                        }
-//                        this.parentDirList = parentDirList;
-//                        this.rootDirForFiles = object.path;
-//                        this.fileList = fileList;
-////                        loadData(parentDirList, object.path, fileList,
-////                                _getSetting());
-//                    }
-//                }
-//                break;
             case RC_LOAD_PHOTO:
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     MNLog.i(TAG, data.getData().getPath());
@@ -541,13 +486,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 
                         File selectedFile = new File(picturePath);
 
-//                        ArrayList<String> list = new ArrayList<String>();
-//                        list.add(selectedFile.getName());
-
-//                        this.parentDirList = new ArrayList<String>();
                         this.selectedFileName = selectedFile.getName();
                         this.rootDirForFiles = selectedFile.getParent();
-//                        this.fileList = list;
 
                         // load image items for preview
                         previewName.setText("Loading...");
@@ -559,10 +499,12 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                                     new MNPhotoAlbumListFetcher.OnListFetchListener() {
                                         @Override
                                         public void onPhotoListFetch(ArrayList<String> photoList) {
-                                            previewName.setText("Loaded.");
+                                            previewName.setText(
+                                                    new File(rootDirForFiles)
+                                                    .getName());
                                             if (photoList != null) {
                                                 fileList = photoList;
-                                                updatePreviewUI();
+                                                updatePreviewUI(true);
                                             }
                                         }
                                     }
