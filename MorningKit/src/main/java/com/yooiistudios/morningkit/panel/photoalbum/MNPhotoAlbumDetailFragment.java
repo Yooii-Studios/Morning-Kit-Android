@@ -124,6 +124,11 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                     .OnClickListener() {
                 @Override
                 public void onClick(View view) {
+//                    boolean a = true;
+//                    if (a) {
+//                        displayHelper.stop();
+//                        return;
+//                    }
 
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
@@ -163,6 +168,9 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                             previewName.setText("Loaded.");
                             if (photoList != null) {
                                 fileList = photoList;
+                                if (photoList.size() > 0) {
+                                    selectedFileName = photoList.get(0);
+                                }
                                 displayHelper.start(
                                         rootDirForFiles, fileList,
                                         transitionType,
@@ -318,11 +326,13 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                     keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
                             keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
 
-                displayHelper.setInterval(
-                        (intervalMinute * 60 +
-                                intervalSecond) * 1000);
+                if (displayHelper != null) {
+                    displayHelper.setInterval(
+                            (intervalMinute * 60 +
+                                    intervalSecond) * 1000
+                    );
+                }
                 updatePreviewUI();
-                return true;
             }
             return false;
         }
@@ -407,12 +417,20 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                         intervalMinute = INVALID_INTERVAL;
                         intervalSecond = INVALID_INTERVAL;
                     }
+
                     updateTimeUI();
+
+                    if (displayHelper != null) {
+                        displayHelper.setInterval(
+                                (intervalMinute * 60 +
+                                        intervalSecond) * 1000
+                        );
+                    }
                     updatePreviewUI();
                     break;
                 case R.id.grayscale_toggleSwitch:
                     useGrayscale = checked;
-                    updatePreviewUI();
+                    updatePreviewUI(true);
                     break;
             }
 
@@ -437,7 +455,11 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         }
     };
     private void updatePreviewUI() {
-        if (displayHelper != null && rootDirForFiles != null) {
+        updatePreviewUI(false);
+    }
+    private void updatePreviewUI(boolean restart) {
+        if (displayHelper != null && rootDirForFiles != null &&
+                fileList != null) {
             displayHelper.setRootDir(rootDirForFiles);
             displayHelper.setTransitionType(transitionType);
             displayHelper.setUseGrayscale(useGrayscale);
@@ -447,7 +469,12 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                 ArrayList<String> tmpFileList = new ArrayList<String>();
                 tmpFileList.add(selectedFileName);
                 displayHelper.setFileList(tmpFileList);
-                displayHelper.restart();
+                if (restart || displayHelper.isRunning()) {
+                    displayHelper.restart();
+                }
+//                else {
+//
+//                }
             }
             else {
                 displayHelper.setFileList(fileList);
@@ -556,6 +583,9 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         super.onPause();
         if (listFetcher != null) {
             listFetcher.cancel(true);
+        }
+        if (displayHelper != null && displayHelper.isRunning()) {
+            displayHelper.stop();
         }
     }
 }

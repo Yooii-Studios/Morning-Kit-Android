@@ -43,6 +43,7 @@ public class MNPhotoAlbumDisplayHelper {
 //    private final Object grayscaleLock = new Object();
 
     @Getter private boolean isRunning;
+    private boolean isShowingSingleImage;
 
     public MNPhotoAlbumDisplayHelper(Activity activity,
                                      ViewSwitcher viewSwitcher,

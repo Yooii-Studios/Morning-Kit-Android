@@ -269,11 +269,13 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         super.updateUI();
 
         if (allAbsoluteImageFileList != null) {
-            displayHelper =
-                    new MNPhotoAlbumDisplayHelper((Activity) getContext(),
-                            viewSwitcher,
-                            getWidth(), getHeight()
-                    );
+            if (displayHelper == null) {
+                displayHelper =
+                        new MNPhotoAlbumDisplayHelper((Activity) getContext(),
+                                viewSwitcher,
+                                getWidth(), getHeight()
+                        );
+            }
             startTimer();
         }
     }
