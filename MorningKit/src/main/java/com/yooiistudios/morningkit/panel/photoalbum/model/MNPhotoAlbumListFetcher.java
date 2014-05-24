@@ -61,6 +61,9 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
     @Override
     protected void onPostExecute(ArrayList<String> resultList) {
         super.onPostExecute(resultList);
+        if (isCancelled()) {
+            resultList = null;
+        }
         if (onListFetchListener != null) {
             onListFetchListener.onPhotoListFetch(resultList);
         }

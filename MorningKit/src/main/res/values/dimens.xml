@@ -158,6 +158,11 @@
     <dimen name="panel_date_lunar_day_text_size">32sp</dimen>
     <dimen name="panel_date_lunar_day_of_week_text_size">11sp</dimen>
     <dimen name="panel_date_lunar_minus_margin">-1dp</dimen>
+    
+    <!-- Photo Album -->
+    <!-- Detail -->
+    <dimen name="panel_photo_album_detail_preview_width">100dp</dimen>
+    <dimen name="panel_photo_album_detail_preview_height">100dp</dimen>
 
     <!-- Date Countdown -->
     <dimen name="panel_date_countdown_title_font_size">16sp</dimen>

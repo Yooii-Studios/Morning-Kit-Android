@@ -22,10 +22,12 @@ public class MNPhotoAlbumFileManager {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         for (String fileName : fileList) {
-            String path = new File(rootDir, fileName).getAbsolutePath();
-            BitmapFactory.decodeFile(path, options);
-            if (options.outWidth > 0 && options.outHeight > 0) {
-                validFileList.add(fileName);
+            if (fileName != null) {
+                String path = new File(rootDir, fileName).getAbsolutePath();
+                BitmapFactory.decodeFile(path, options);
+                if (options.outWidth > 0 && options.outHeight > 0) {
+                    validFileList.add(fileName);
+                }
             }
         }
         return validFileList;
