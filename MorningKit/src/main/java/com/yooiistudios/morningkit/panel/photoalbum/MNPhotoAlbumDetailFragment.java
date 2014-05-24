@@ -158,12 +158,14 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             if (listFetcher != null) {
                 listFetcher.cancel(true);
             }
+            previewName.setText("Loading...");
             listFetcher = new MNPhotoAlbumListFetcher(
                     rootDirForFiles,
                     new MNPhotoAlbumListFetcher.OnListFetchListener() {
                         @Override
                         public void onPhotoListFetch(ArrayList<String> photoList) {
-                            previewName.setText("Loaded.");
+                            previewName.setText(new File(rootDirForFiles)
+                                    .getName());
                             if (photoList != null) {
                                 fileList = photoList;
                                 if (selectedFileName == null &&
@@ -497,7 +499,9 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                                     new MNPhotoAlbumListFetcher.OnListFetchListener() {
                                         @Override
                                         public void onPhotoListFetch(ArrayList<String> photoList) {
-                                            previewName.setText("Loaded.");
+                                            previewName.setText(
+                                                    new File(rootDirForFiles)
+                                                    .getName());
                                             if (photoList != null) {
                                                 fileList = photoList;
                                                 updatePreviewUI(true);
