@@ -46,8 +46,7 @@ public class MNPhotoAlbumDisplayHelper {
     private boolean isShowingSingleImage;
 
     public MNPhotoAlbumDisplayHelper(Activity activity,
-                                     ViewSwitcher viewSwitcher,
-                                     int photoWidth, int photoHeight) {
+                                     ViewSwitcher viewSwitcher) {
         if (viewSwitcher == null) {
             throw new IllegalArgumentException(viewSwitcher.toString() + " " +
                     "CANNOT be null");
@@ -72,8 +71,6 @@ public class MNPhotoAlbumDisplayHelper {
 //                mOnSwitcherAttachStateChangedListener);
         mFirstView = (MNPhotoAlbumImageView)(mViewSwitcher.getChildAt(0));
         mSecondView = (MNPhotoAlbumImageView)(mViewSwitcher.getChildAt(1));
-        mPhotoWidth = photoWidth;
-        mPhotoHeight = photoHeight;
     }
     public void stop() {
         if (mTimer != null) {
@@ -91,9 +88,8 @@ public class MNPhotoAlbumDisplayHelper {
 
     public synchronized void start(String rootDir,
             ArrayList<String> fileList,
-            MNPhotoAlbumTransitionType transitionType,
-            long interval,
-            boolean useGrayscale) {
+            MNPhotoAlbumTransitionType transitionType, long interval,
+            boolean useGrayscale, int photoWidth, int photoHeight) {
         stop();
 
         mRootDir = rootDir;
@@ -101,6 +97,8 @@ public class MNPhotoAlbumDisplayHelper {
         mTransitionType = transitionType;
         mInterval = interval;
         mUseGrayscale = useGrayscale;
+        mPhotoWidth = photoWidth;
+        mPhotoHeight = photoHeight;
 
 //        mParentView.addView(mViewSwitcher,
 //                new ViewGroup.LayoutParams(
@@ -160,9 +158,16 @@ public class MNPhotoAlbumDisplayHelper {
 //            restart();
 //        }
     }
+    public synchronized void setPhotoWidth(int width) {
+        mPhotoWidth = width;
+    }
+    public synchronized void setPhotoHeight(int height) {
+        mPhotoHeight = height;
+    }
     public void restart() {
         stop();
-        start(mRootDir, mFileList, mTransitionType, mInterval, mUseGrayscale);
+        start(mRootDir, mFileList, mTransitionType, mInterval, mUseGrayscale,
+                mPhotoWidth, mPhotoHeight);
 //        if (mTimer != null) {
 //            mTimer.cancel();
 //            mTimer.purge();

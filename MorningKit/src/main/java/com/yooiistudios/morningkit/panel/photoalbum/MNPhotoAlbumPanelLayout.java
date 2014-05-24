@@ -97,7 +97,8 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         if (displayHelper != null) {
             displayHelper.notifyContainingActivityWillBeShown();
         }
-        startTimer();
+        updateUI();
+//        startTimer();
 
 //        MNViewSizeMeasure.setViewSizeObserver(MNPhotoAlbumPanelLayout.this,
 //                new MNViewSizeMeasure.OnGlobalLayoutObserver() {
@@ -150,11 +151,12 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         stopTimer();
     }
 
-    private void startTimer() {
+    private void startTimer(int photoWidth, int photoHeight) {
         MNLog.i("Timer", "start called");
         if (displayHelper != null && !displayHelper.isRunning()) {
             displayHelper.start(rootDir, allAbsoluteImageFileList,
-                    transitionType, intervalInMillisec, useGrayscale);
+                    transitionType, intervalInMillisec, useGrayscale,
+                    photoWidth, photoHeight);
             MNLog.i("Timer", "started. isRunning : " + displayHelper.isRunning());
         }
     }
@@ -272,11 +274,10 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
             if (displayHelper == null) {
                 displayHelper =
                         new MNPhotoAlbumDisplayHelper((Activity) getContext(),
-                                viewSwitcher,
-                                getWidth(), getHeight()
+                                viewSwitcher
                         );
             }
-            startTimer();
+            startTimer(getWidth(), getHeight());
         }
     }
 
@@ -288,5 +289,25 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+
+        MNLog.i("view size changed", "onSizeChanged\t" +
+                String.format("width: %d, " +"height : %d",
+                        w, h));
+
+        MNViewSizeMeasure.setViewSizeObserver(viewSwitcher, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+            @Override
+            public void onLayoutLoad() {
+                updateUI();
+            }
+        });
+//
+//        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                MNLog.i("view size changed", "onGlobalLayout\t" +
+//                        String.format("width : %d, " +"height : %d",
+//                                getWidth(), getHeight()));
+//            }
+//        });
     }
 }

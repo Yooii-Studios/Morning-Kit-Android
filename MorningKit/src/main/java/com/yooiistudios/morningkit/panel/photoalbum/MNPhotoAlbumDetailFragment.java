@@ -149,12 +149,9 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             // UI
             initUI();
 
-            ViewGroup.LayoutParams lp =
-                    previewSwitcher.getLayoutParams();
             displayHelper =
                     new MNPhotoAlbumDisplayHelper(
-                            getActivity(), previewSwitcher,
-                            lp.width, lp.height);
+                            getActivity(), previewSwitcher);
 
 
             if (listFetcher != null) {
@@ -171,12 +168,15 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                                 if (photoList.size() > 0) {
                                     selectedFileName = photoList.get(0);
                                 }
+                                ViewGroup.LayoutParams lp =
+                                        previewSwitcher.getLayoutParams();
                                 displayHelper.start(
                                         rootDirForFiles, fileList,
                                         transitionType,
                                         (intervalMinute * 60 +
                                                 intervalSecond) * 1000,
-                                        useGrayscale
+                                        useGrayscale,
+                                        lp.width, lp.height
                                 );
                             }
                         }
