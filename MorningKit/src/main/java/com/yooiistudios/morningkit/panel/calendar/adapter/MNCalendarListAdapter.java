@@ -192,8 +192,7 @@ public class MNCalendarListAdapter extends BaseAdapter {
                         textView.setTextColor(Color.MAGENTA);
                     }
                 }
-            }
-            if (calendarEventItemInfo.calendarEventType == MNCalendarEventType.TOMORROW_INDICATOR) {
+            } else if(calendarEventItemInfo.calendarEventType == MNCalendarEventType.TOMORROW_INDICATOR) {
                 // 내일 표시 아이템
                 convertView = inflater.inflate(R.layout.panel_calendar_detail_event_indicator_item,
                         viewGroup, false);
@@ -213,12 +212,11 @@ public class MNCalendarListAdapter extends BaseAdapter {
                 }
             }
         }
-
         if (convertView != null) {
             View dividerView = convertView.findViewById(R.id.panel_calendar_event_item_divider);
             if (!MNPanelLayout.DEBUG_UI) {
                 if (position == calendarEventList.getSize(false) - 1) {
-                    dividerView.setVisibility(View.INVISIBLE);
+                    dividerView.setVisibility(View.GONE);
                 } else {
                     dividerView.setVisibility(View.VISIBLE);
                 }

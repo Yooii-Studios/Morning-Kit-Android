@@ -41,7 +41,7 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
     @Override
     public int getCount() {
         if (calendarEventList != null) {
-            return calendarEventList.getSize(true);
+            return calendarEventList.getSize(false);
         } else {
             return 0;
         }
@@ -49,7 +49,7 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
 
     @Override
     protected MNCalendarEventItemInfo initCalendarEventItemInfo(int index) {
-        return calendarEventList.getCalendarEventItemInfo(index, true);
+        return calendarEventList.getCalendarEventItemInfo(index, false);
     }
 
     @Override
@@ -90,6 +90,8 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
                         .findViewById(R.id.panel_calendar_event_item_title_textview);
                 titleTextView.setText(calendarModel.title);
 
+                View dividerView = convertView.findViewById(R.id.panel_calendar_event_item_divider);
+
                 if (!MNPanelLayout.DEBUG_UI) {
                     itemLayout.setBackgroundColor(Color.TRANSPARENT);
                     timeTextView.setBackgroundColor(Color.TRANSPARENT);
@@ -109,38 +111,76 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
                             break;
                     }
 
-                    // Divider
-                    View dividerView = convertView.findViewById(R.id.panel_calendar_event_item_divider);
+                    // 제일 마지막 아이템 Divider 숨기기
                     if (position == calendarEventList.getSize(false) - 1) {
-                        dividerView.setVisibility(View.INVISIBLE);
+                        dividerView.setVisibility(View.GONE);
                     } else {
                         dividerView.setVisibility(View.VISIBLE);
-                        dividerView.setBackgroundColor(MNMainColors.getSubFontColor(currentThemeType, context));
+                        dividerView.setBackgroundColor(
+                                MNMainColors.getCalendarItemDividerColor(currentThemeType, context));
                     }
+                } else {
+                    itemLayout.setBackgroundColor(Color.MAGENTA);
+                    timeTextView.setBackgroundColor(Color.BLUE);
+                    titleTextView.setBackgroundColor(Color.YELLOW);
+                    dividerView.setBackgroundColor(Color.CYAN);
                 }
             }
         } else {
-            if (calendarEventItemInfo.calendarEventType == MNCalendarEventType.TOMORROW_INDICATOR) {
+            if (calendarEventItemInfo.calendarEventType == MNCalendarEventType.TODAY_INDICATOR) {
+                // 오늘 표시 아이템
+                convertView = inflater.inflate(R.layout.panel_calendar_event_indicator_item,
+                        viewGroup, false);
 
+                if (convertView != null) {
+                    RelativeLayout itemLayout = (RelativeLayout) convertView
+                            .findViewById(R.id.panel_calendar_event_indicator_item_layout);
+
+                    TextView textView = (TextView) convertView
+                            .findViewById(R.id.panel_calendar_event_indicator_item_time_textview);
+                    textView.setText(R.string.world_clock_today);
+
+                    View dividerView = convertView.findViewById(R.id.panel_calendar_event_item_divider);
+
+                    if (!MNPanelLayout.DEBUG_UI) {
+                        itemLayout.setBackgroundColor(Color.TRANSPARENT);
+                        textView.setBackgroundColor(Color.TRANSPARENT);
+                        textView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, context));
+                        // Divider
+                        dividerView.setBackgroundColor(
+                                MNMainColors.getCalendarDividerItemDividerColor(currentThemeType, context));
+                    } else {
+                        itemLayout.setBackgroundColor(Color.RED);
+                        textView.setBackgroundColor(Color.GREEN);
+                        textView.setTextColor(Color.MAGENTA);
+                    }
+                }
+            } else if (calendarEventItemInfo.calendarEventType == MNCalendarEventType.TOMORROW_INDICATOR) {
                 // 내일 표시 아이템
                 convertView = inflater.inflate(R.layout.panel_calendar_event_indicator_item,
                         viewGroup, false);
 
                 if (convertView != null) {
+
+                    RelativeLayout itemLayout = (RelativeLayout) convertView
+                            .findViewById(R.id.panel_calendar_event_indicator_item_layout);
+
+                    TextView timeTextView = (TextView) convertView
+                            .findViewById(R.id.panel_calendar_event_indicator_item_time_textview);
+                    View dividerView = convertView.findViewById(R.id.panel_calendar_event_item_divider);
+
                     if (!MNPanelLayout.DEBUG_UI) {
-                        RelativeLayout itemLayout = (RelativeLayout) convertView
-                                .findViewById(R.id.panel_calendar_event_indicator_item_layout);
-
-                        TextView timeTextView = (TextView) convertView
-                                .findViewById(R.id.panel_calendar_event_indicator_item_time_textview);
-
                         itemLayout.setBackgroundColor(Color.TRANSPARENT);
                         timeTextView.setBackgroundColor(Color.TRANSPARENT);
                         timeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, context));
-
                         // Divider
-                        View dividerView = convertView.findViewById(R.id.panel_calendar_event_item_divider);
-                        dividerView.setBackgroundColor(MNMainColors.getMainFontColor(currentThemeType, context));
+                        dividerView.setBackgroundColor(
+                                MNMainColors.getCalendarDividerItemDividerColor(currentThemeType, context));
+                    } else {
+                        itemLayout.setBackgroundColor(Color.MAGENTA);
+                        timeTextView.setBackgroundColor(Color.BLUE);
+                        timeTextView.setTextColor(Color.YELLOW);
+                        dividerView.setBackgroundColor(Color.CYAN);
                     }
                 }
             }
