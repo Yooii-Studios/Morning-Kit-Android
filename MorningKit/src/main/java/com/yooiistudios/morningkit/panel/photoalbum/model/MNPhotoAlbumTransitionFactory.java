@@ -17,20 +17,21 @@ public class MNPhotoAlbumTransitionFactory {
     public static Animation[] makeTransitionAnimation(
             MNPhotoAlbumTransitionType type) {
         Animation[] animArr = new Animation[2];
+        int duration = type.getDurationInMillisec();
         if (type.equals(MNPhotoAlbumTransitionType.ALPHA)) {
             AlphaAnimation inAnim = new AlphaAnimation(0.0f, 1.0f);
-            inAnim.setDuration(300);
+            inAnim.setDuration(duration);
             AlphaAnimation outAnim = new AlphaAnimation(1.0f, 0.0f);
-            outAnim.setDuration(300);
+            outAnim.setDuration(duration);
 
             animArr[0] = inAnim;
             animArr[1] = outAnim;
         }
         else {
             AlphaAnimation inAnim = new AlphaAnimation(0.0f, 1.0f);
-            inAnim.setDuration(0);
+            inAnim.setDuration(duration);
             AlphaAnimation outAnim = new AlphaAnimation(1.0f, 0.0f);
-            outAnim.setDuration(0);
+            outAnim.setDuration(duration);
 
             animArr[0] = inAnim;
             animArr[1] = outAnim;
