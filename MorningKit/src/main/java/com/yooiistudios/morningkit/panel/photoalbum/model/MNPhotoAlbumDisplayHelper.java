@@ -128,6 +128,10 @@ public class MNPhotoAlbumDisplayHelper {
             mViewSwitcher.setDisplayedChild(0);
             Animation[] animArr = MNPhotoAlbumTransitionFactory.
                     makeTransitionAnimation(mTransitionType);
+
+            int transitionDuration = mTransitionType
+                    .getDurationInMillisec();
+
             Animation inAnimation = animArr[0];
             Animation outAnimation = animArr[1];
             inAnimation.setAnimationListener(mAnimListener);
@@ -138,7 +142,9 @@ public class MNPhotoAlbumDisplayHelper {
             if (mFileList.size() > 1 && mInterval > 0) {
                 //prepare for timer
                 mTimer = new Timer();
-                mTimer.schedule(new PhotoDisplayTask(), mInterval, mInterval);
+                mTimer.schedule(new PhotoDisplayTask(),
+                        mInterval + transitionDuration,
+                        mInterval + transitionDuration);
             }
             else {
                 isRunning = false;
