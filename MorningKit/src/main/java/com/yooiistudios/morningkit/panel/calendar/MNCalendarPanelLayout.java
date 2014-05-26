@@ -51,6 +51,8 @@ public class MNCalendarPanelLayout extends MNPanelLayout {
         int marginInner = getResources().getDimensionPixelSize(R.dimen.panel_detail_padding);
         eventsListViewLayoutParams.setMargins(marginInner, marginInner, marginInner, marginInner);
         eventsListView.setLayoutParams(eventsListViewLayoutParams);
+        eventsListView.setVerticalFadingEdgeEnabled(false);
+        eventsListView.setHorizontalFadingEdgeEnabled(false);
         eventsListView.setFocusable(false);
         eventsListView.setClickable(false);
         eventsListView.setVerticalScrollBarEnabled(false);
