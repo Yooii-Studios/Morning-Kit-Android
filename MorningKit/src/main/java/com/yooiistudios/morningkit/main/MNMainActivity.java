@@ -174,7 +174,7 @@ public class MNMainActivity extends Activity
     protected void onPause() {
         // check photoImageView for preventing OOM
         if (photoThemeImageView != null) {
-            photoThemeImageView.clear();
+            photoThemeImageView.setReadyForRecycle(true);
         }
 
         // 액티비티가 pause될 경우 패널에서 필요한 처리 수행

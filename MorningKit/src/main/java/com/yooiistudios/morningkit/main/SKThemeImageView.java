@@ -4,17 +4,20 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.stevenkim.photo.SKBitmapLoader;
 import com.stevenkim.waterlily.SKWaterLily;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 
 import java.io.FileNotFoundException;
+
+import lombok.Setter;
 
 /**
  * Created by Wooseong Kim in MNSettingActivityProject from Yooii Studios Co., LTD. on 2014. 5. 6.
@@ -24,6 +27,7 @@ import java.io.FileNotFoundException;
  */
 public class SKThemeImageView extends ImageView {
     private static final String TAG = "SKThemeImageView";
+    @Setter boolean isReadyForRecycle;
     public SKThemeImageView(Context context) {
         super(context);
 
@@ -80,19 +84,29 @@ public class SKThemeImageView extends ImageView {
     }
 
     public void clear() {
-        Drawable drawable = getDrawable();
-        if (drawable instanceof BitmapDrawable) {
-            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-            if (bitmap != null && !bitmap.isRecycled()) {
-                bitmap.recycle();
-                MNLog.now("photoThemeImageView recycle Bitmap");
-            }
-        }
+        MNBitmapUtils.recycleImageView(this);
+//        Drawable drawable = getDrawable();
+//        if (drawable instanceof BitmapDrawable) {
+//            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+//            if (bitmap != null && !bitmap.isRecycled()) {
+//                bitmap.recycle();
+//                MNLog.now("photoThemeImageView recycle Bitmap");
+//            }
+//        }
     }
 
+//    @Override
+//    protected void onDetachedFromWindow() {
+//        super.onDetachedFromWindow();
+//    }
+
     @Override
-    protected void onDetachedFromWindow() {
-        clear();
-        super.onDetachedFromWindow();
+    protected void onWindowVisibilityChanged(int visibility) {
+        super.onWindowVisibilityChanged(visibility);
+
+        MNLog.i(TAG, "onWindowVisibilityChanged");
+        if (visibility == View.GONE && isReadyForRecycle) {
+            clear();
+        }
     }
 }
