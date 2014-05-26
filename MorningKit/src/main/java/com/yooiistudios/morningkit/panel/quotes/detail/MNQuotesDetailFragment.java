@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -40,7 +39,7 @@ import static com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout.QUOTE
  *
  * MNQuotesDetailFragment
  */
-public class MNQuotesDetailFragment extends MNPanelDetailFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+public class MNQuotesDetailFragment extends MNPanelDetailFragment implements View.OnClickListener {
     private static final String TAG = "MNQuotesDetailFragment";
 
     @InjectView(R.id.panel_quotes_detail_quote_textview) TextView quoteTextView;
@@ -192,6 +191,7 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
         } else {
             for (int i = 0; i < selectedLanguages.size(); i++) {
                 ImageButton imageButton = languageImageButtons.get(i);
+                imageButton.setEnabled(true);
                 if (selectedLanguages.get(i)) {
                     imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
                 } else {
@@ -220,11 +220,6 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
         // 직렬화 해서 panelDataObject에 저장
         String selectedLanguagesJsonString = new Gson().toJson(selectedLanguages);
         getPanelDataObject().put(QUOTES_LANGUAGES, selectedLanguagesJsonString);
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        checkCheckBoxStates();
     }
 
     @Override
