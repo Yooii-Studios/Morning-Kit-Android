@@ -302,4 +302,40 @@ public class MNMainColors {
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
+
+    public static int getQuoteContentTextColor(MNThemeType themeType, Context context) {
+        switch (themeType) {
+            case WATER_LILY:
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case CELESTIAL_SKY_BLUE:
+                return getMainFontColor(themeType, context);
+
+            case PASTEL_GREEN:
+                return getSubFontColor(themeType, context);
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
+
+    public static int getQuoteAuthorTextColor(MNThemeType themeType, Context context) {
+        switch (themeType) {
+            case WATER_LILY:
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+            case MODERNITY_WHITE:
+            case SLATE_GRAY:
+            case CELESTIAL_SKY_BLUE:
+                return getSubFontColor(themeType, context);
+
+            case PASTEL_GREEN:
+                return getMainFontColor(themeType, context);
+
+            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+        }
+    }
 }

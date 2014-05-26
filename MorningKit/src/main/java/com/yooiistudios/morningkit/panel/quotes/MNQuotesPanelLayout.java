@@ -1,8 +1,15 @@
 package com.yooiistudios.morningkit.panel.quotes;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +19,16 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuote;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLanguage;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLoader;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import org.json.JSONException;
 
@@ -37,7 +48,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     public static final String QUOTES_STRING = "QUOTES_STRING";
     public static final String QUOTES_LANGUAGES = "QUOTES_LANGUAGES";
 
-    TextView quoteTextView;
+    AutoResizeTextView quoteTextView;
 
     List<Boolean> selectedLanguages;
     MNQuote quote;
@@ -54,11 +65,11 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     protected void init() {
         super.init();
 
-        quoteTextView = new TextView(getContext());
+        quoteTextView = new AutoResizeTextView(getContext());
         LayoutParams quoteTextViewLayoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
-        int margin = getResources().getDimensionPixelSize(R.dimen.margin_outer);
+        int margin = getResources().getDimensionPixelSize(R.dimen.panel_quotes_padding);
         quoteTextViewLayoutParams.setMargins(margin, margin, margin, margin);
         quoteTextView.setLayoutParams(quoteTextViewLayoutParams);
         quoteTextView.setGravity(Gravity.CENTER);
@@ -112,8 +123,6 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
             }
         }
 
-        MNLog.i(TAG, "selectedLanguages: " + selectedLanguages.toString());
-
         // 초기화 이후 panelDataObject에 저장
         getPanelDataObject().put(QUOTES_LANGUAGES, new Gson().toJson(selectedLanguages));
     }
@@ -121,7 +130,6 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     private void getRandomQuote() {
         // 해당 언어에 따라 명언 골라주기
         // while이 이상적이지만 혹시나 모를 무한루프 방지를 위해 100번만 돌림
-//        MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
         Random randomGenerator = new Random();
         int randomLanguageIndex = 0;
         for (int i = 0; i < 100; i++) {
@@ -142,7 +150,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
 
         if (quote != null) {
             quoteTextView.setVisibility(View.VISIBLE);
-            quoteTextView.setText(quote.getQuote() + "\n" + quote.getAuthor());
+            applyTheme(); // 여기서 조립과 색 적용을 모두 함
         } else {
             quoteTextView.setVisibility(View.GONE);
         }
@@ -160,5 +168,54 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    @Override
+    public void applyTheme() {
+        super.applyTheme();
+
+        if (quote != null) {
+            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(
+                    getContext().getApplicationContext());
+
+            SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+
+            // 명언 텍스트 조립
+            SpannableString contentString = new SpannableString(quote.getQuote());
+                // 폰트 색
+            contentString.setSpan(
+                    new ForegroundColorSpan(MNMainColors.getQuoteContentTextColor(currentThemeType, getContext().getApplicationContext())),
+                    0, contentString.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            stringBuilder.append(contentString);
+
+            // 내용과 저자 텍스트 사이 간격 주기(텍스트 사이즈를 줄여서 한 줄의 높이를 적당히 조절)
+            SpannableString emptyString = new SpannableString("\n\n");
+            emptyString.setSpan(new RelativeSizeSpan(0.4f), 0, emptyString.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            stringBuilder.append(emptyString);
+
+            // 저자 텍스트 조립
+            SpannableString authorString = new SpannableString(quote.getAuthor());
+                // 폰트 색
+            authorString.setSpan(
+                    new ForegroundColorSpan(MNMainColors.getQuoteAuthorTextColor(currentThemeType, getContext().getApplicationContext())),
+                    0, authorString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                // 크기 좀 더 작게 표시
+            authorString.setSpan(new RelativeSizeSpan(0.85f), 0, authorString.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            stringBuilder.append(authorString);
+
+            // 방향에 따라 최초 사이즈를 약간 다르게 주기
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                quoteTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                        getResources().getDimensionPixelSize(R.dimen.panel_quotes_default_font_size_port));
+            } else {
+                quoteTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                        getResources().getDimensionPixelSize(R.dimen.panel_quotes_default_font_size_land));
+            }
+            quoteTextView.setText(stringBuilder, TextView.BufferType.SPANNABLE);
+        }
     }
 }

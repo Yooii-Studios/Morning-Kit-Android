@@ -145,6 +145,9 @@
 
     <!-- Quotes -->
     <!-- Detail -->
+    <dimen name="panel_quotes_padding">13dp</dimen>
+    <dimen name="panel_quotes_default_font_size_port">15sp</dimen>
+    <dimen name="panel_quotes_default_font_size_land">17sp</dimen>
     <dimen name="panel_quotes_detail_language_text_size">17sp</dimen>
     <dimen name="panel_quote_detail_padding">20dp</dimen>
     <dimen name="panel_quote_detail_rounded_corner_radius">15dp</dimen>
