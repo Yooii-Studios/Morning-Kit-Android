@@ -211,7 +211,7 @@ public class MNPhotoAlbumDisplayHelper {
                         mUseGrayscale,
                         (int) mActivity.getResources()
                                 .getDimension(
-                                        R.dimen.panel_flickr_round_radius));
+                                        R.dimen.panel_round_radius));
         croppedBitmap.recycle();
 
         return polishedBitmap;

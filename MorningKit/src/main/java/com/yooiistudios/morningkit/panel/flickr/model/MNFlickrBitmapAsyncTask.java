@@ -47,7 +47,7 @@ public class MNFlickrBitmapAsyncTask extends AsyncTask<Void, Void, Bitmap> {
             // 크롭, 라운딩, 그레이스케일 등등 처리하기
             Bitmap croppedBitmap = MNBitmapProcessor.getCroppedBitmap(originalBitmap, width, height);
             Bitmap polishedBitmap = MNBitmapProcessor.getRoundedCornerBitmap(croppedBitmap, width, height, isGrayScale,
-                    (int) context.getResources().getDimension(R.dimen.panel_flickr_round_radius));
+                    (int) context.getResources().getDimension(R.dimen.panel_round_radius));
             croppedBitmap.recycle();
 
             return polishedBitmap;
