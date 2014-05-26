@@ -33,7 +33,11 @@ public class MNCalendarEventList {
             if (isLoadedFromMain) {
                 return size;
             } else {
-                return size + 1;
+                if (size == 0) {
+                    return 0;
+                } else {
+                    return size + 1;
+                }
             }
         }
     }
