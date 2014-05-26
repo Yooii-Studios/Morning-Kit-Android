@@ -130,7 +130,6 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     private void getRandomQuote() {
         // 해당 언어에 따라 명언 골라주기
         // while이 이상적이지만 혹시나 모를 무한루프 방지를 위해 100번만 돌림
-//        MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
         Random randomGenerator = new Random();
         int randomLanguageIndex = 0;
         for (int i = 0; i < 100; i++) {
@@ -189,34 +188,12 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
                     0, contentString.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             stringBuilder.append(contentString);
-                // 저자 텍스트와 간격 벌리기
-//            contentString.setSpan(
-//                    new LineHeightSpan() {
-//                        @Override
-//                        public void chooseHeight(CharSequence charSequence, int start, int end, int spanstartv, int v, Paint.FontMetricsInt fontMetricsInt) {
-////                            fontMetricsInt.bottom += getResources().getDimensionPixelSize(R.dimen.margin_outer);
-//                            fontMetricsInt.descent += getResources().getDimensionPixelSize(R.dimen.margin_outer);
-//                        }
-//                    }, contentString.length(), contentString.length(),
-//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//            stringBuilder.append(contentString);
 
-            // 내용과 저자 텍스트 사이 간격 주기(텍스트 사이즈를 줄여서 한 줄의 높이를 적당히 조절
+            // 내용과 저자 텍스트 사이 간격 주기(텍스트 사이즈를 줄여서 한 줄의 높이를 적당히 조절)
             SpannableString emptyString = new SpannableString("\n\n");
             emptyString.setSpan(new RelativeSizeSpan(0.4f), 0, emptyString.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//            emptyString.setSpan(
-//                    new LineHeightSpan() {
-//                        @Override
-//                        public void chooseHeight(CharSequence charSequence, int start, int end, int spanstartv, int v, Paint.FontMetricsInt fontMetricsInt) {
-//                            fontMetricsInt.bottom += getResources().getDimensionPixelSize(R.dimen.margin_outer);
-//                            fontMetricsInt.descent += getResources().getDimensionPixelSize(R.dimen.margin_outer);
-//                        }
-//                    }, 0, emptyString.length(),
-//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             stringBuilder.append(emptyString);
-
-//            stringBuilder.append("\n");
 
             // 저자 텍스트 조립
             SpannableString authorString = new SpannableString(quote.getAuthor());
@@ -224,44 +201,13 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
             authorString.setSpan(
                     new ForegroundColorSpan(MNMainColors.getQuoteAuthorTextColor(currentThemeType, getContext().getApplicationContext())),
                     0, authorString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                // 저자 텍스트의 크기는 좀 더 작게 표시하기
+                // 크기 좀 더 작게 표시
             authorString.setSpan(new RelativeSizeSpan(0.85f), 0, authorString.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            // 저자 텍스트의 간격 벌리기
-//            authorString.setSpan(new LineHeightSpan() {
-//                                     @Override
-//                                     public void chooseHeight(CharSequence charSequence, int start, int end, int spanstartv, int v, Paint.FontMetricsInt fontMetricsInt) {
-//                                         fontMetricsInt.top -= getResources().getDimensionPixelSize(R.dimen.panel_detail_bigger_padding);
-//                                         fontMetricsInt.ascent -= getResources().getDimensionPixelSize(R.dimen.panel_detail_bigger_padding);
-//                                     }
-//                                 }, 0, authorString.length(),
-//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             stringBuilder.append(authorString);
 
-//            SpannableString quoteSpannableString =
-//                    new SpannableString(quote.getQuote() + "\n\n" + quote.getAuthor());
-//
-//            // 명언은 quoteTextColor, 저자는 authorTextColor
-//            quoteSpannableString.setSpan(
-//                    new ForegroundColorSpan(MNMainColors.getQuoteContentTextColor(currentThemeType, getContext().getApplicationContext())),
-//                    0, quote.getQuote().length(),
-//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//
-//            quoteSpannableString.setSpan(
-//                    new ForegroundColorSpan(MNMainColors.getQuoteAuthorTextColor(currentThemeType, getContext().getApplicationContext())),
-//                    quote.getQuote().length() + 1, quoteSpannableString.length(),
-//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//
-//            // 저자 텍스트의 크기는 좀 더 작게 표시하기
-//            quoteSpannableString.setSpan(new RelativeSizeSpan(0.8f),
-//                    quote.getQuote().length() + 1, quoteSpannableString.length(),
-//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-//            quoteSpannableString.setSpan(new SuperscriptSpan(),
-//                    quote.getQuote().length() + 1, quoteSpannableString.length(),
-//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
+            // 방향에 따라 최초 사이즈를 약간 다르게 주기
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 quoteTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                         getResources().getDimensionPixelSize(R.dimen.panel_quotes_default_font_size_port));
@@ -269,7 +215,6 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
                 quoteTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                         getResources().getDimensionPixelSize(R.dimen.panel_quotes_default_font_size_land));
             }
-//            quoteTextView.setText(quoteSpannableString);
             quoteTextView.setText(stringBuilder, TextView.BufferType.SPANNABLE);
         }
     }
