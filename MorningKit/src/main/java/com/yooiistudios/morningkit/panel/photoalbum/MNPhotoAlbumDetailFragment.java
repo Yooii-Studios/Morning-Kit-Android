@@ -176,6 +176,13 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                                         previewSwitcher.getLayoutParams();
                                 displayHelper.setPhotoWidth(lp.width);
                                 displayHelper.setPhotoHeight(lp.height);
+
+                                long interval = MNPhotoAlbumCommonUtil
+                                        .getTransitionInterval(
+                                                intervalMinute,
+                                                intervalSecond);
+                                displayHelper.setInterval(interval);
+
                                 updatePreviewUI(true);
                             }
                         }
