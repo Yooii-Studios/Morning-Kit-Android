@@ -85,20 +85,7 @@ public class SKThemeImageView extends ImageView {
 
     public void clear() {
         MNBitmapUtils.recycleImageView(this);
-//        Drawable drawable = getDrawable();
-//        if (drawable instanceof BitmapDrawable) {
-//            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-//            if (bitmap != null && !bitmap.isRecycled()) {
-//                bitmap.recycle();
-//                MNLog.now("photoThemeImageView recycle Bitmap");
-//            }
-//        }
     }
-
-//    @Override
-//    protected void onDetachedFromWindow() {
-//        super.onDetachedFromWindow();
-//    }
 
     @Override
     protected void onWindowVisibilityChanged(int visibility) {
