@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.ViewSwitcher;
 
+import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -71,10 +72,6 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
 
         Context context = getContext().getApplicationContext();
 
-        TextView tempTextView = new TextView(context);
-        tempTextView.setText("PhotoAlbum Test");
-        addView(tempTextView);
-
         viewSwitcher = new ViewSwitcher(context);
         viewSwitcher.addView(new MNPhotoAlbumImageView(context),
                 new ViewGroup.LayoutParams(
@@ -87,11 +84,13 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                         ViewGroup.LayoutParams.MATCH_PARENT)
         );
 
-        addView(viewSwitcher,
-                new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT)
-        );
+        int strokeMargin = getResources().getDimensionPixelSize(R.dimen.theme_shape_width_stroke);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        lp.setMargins(strokeMargin, strokeMargin, strokeMargin, strokeMargin);
+
+        getContentLayout().addView(viewSwitcher, lp);
     }
 
     @Override
@@ -239,7 +238,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                                 viewSwitcher
                         );
             }
-            startTimer(getWidth(), getHeight());
+            startTimer(viewSwitcher.getWidth(), viewSwitcher.getHeight());
         }
     }
 
