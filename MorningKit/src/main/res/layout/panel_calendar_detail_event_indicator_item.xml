@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_inner"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/pastel_green_forward_pressed_color">
 
     <TextView
         android:id="@+id/panel_calendar_detail_event_indicator_item_textview"

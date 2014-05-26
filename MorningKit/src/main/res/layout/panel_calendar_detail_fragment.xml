@@ -14,7 +14,8 @@
         android:dividerHeight="0dp"
         android:divider="#00000000"
         android:background="@drawable/shape_rounded_view_pastel_green_quote"
-        android:padding="@dimen/panel_detail_padding"/>
+        android:padding="@dimen/panel_detail_padding"
+        android:fadingEdge="none"/>
 
     <RelativeLayout
         android:id="@+id/panel_calendar_detail_select_calendars_layout"
