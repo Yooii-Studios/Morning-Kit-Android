@@ -66,6 +66,9 @@ public class MNAlarm implements Serializable, Cloneable {
         } else {
             SKAlarmManager.cancelAlarm(alarmId, context, MNMainActivity.class);
         }
+
+        // 스누즈 알람도 제거
+        SKAlarmManager.cancelAlarm(alarmId + 7, context, MNMainActivity.class);
     }
 
     public void startAlarm(Context context) {
