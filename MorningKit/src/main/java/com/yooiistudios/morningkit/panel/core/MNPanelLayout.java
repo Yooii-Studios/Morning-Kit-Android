@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -148,30 +149,36 @@ public class MNPanelLayout extends RelativeLayout {
                 ViewGroup.LayoutParams.MATCH_PARENT);
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         statusLayout.setLayoutParams(layoutParams);
-        int padding = getResources().getDimensionPixelSize(R.dimen.panel_layout_padding);
+        int padding = getResources().getDimensionPixelSize(R.dimen.panel_cover_padding);
         statusLayout.setPadding(padding, padding, padding, padding);
         addView(statusLayout);
         statusLayout.setVisibility(INVISIBLE); // 최초 INVISIBLE, 필요에 따라 사용
 
-        // panel name
-        panelNameTextView = new TextView(getContext());
-        LayoutParams nameLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        nameLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-        panelNameTextView.setLayoutParams(nameLayoutParams);
-        panelNameTextView.setGravity(Gravity.CENTER);
-        statusLayout.addView(panelNameTextView);
-
         // panel status
         panelStatusTextView = new TextView(getContext());
+        panelStatusTextView.setId(34293757);
         LayoutParams descriptionLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         descriptionLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-//        descriptionLayoutParams.bottomMargin
-//                = (int) getResources().getDimension(R.dimen.margin_outer);
         panelStatusTextView.setLayoutParams(descriptionLayoutParams);
         panelStatusTextView.setGravity(Gravity.CENTER);
+        panelStatusTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.panel_cover_status_text_size));
         statusLayout.addView(panelStatusTextView);
+
+        // panel name
+        panelNameTextView = new TextView(getContext());
+        LayoutParams nameLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        nameLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        nameLayoutParams.addRule(ABOVE, panelStatusTextView.getId());
+        panelNameTextView.setLayoutParams(nameLayoutParams);
+//        int outerPadding = getResources().getDimensionPixelSize(R.dimen.margin_outer);
+//        panelNameTextView.setPadding(0, 0, 0, outerPadding);
+        panelNameTextView.setGravity(Gravity.CENTER);
+        panelNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.panel_cover_name_text_size));
+        statusLayout.addView(panelNameTextView);
     }
 
     public void refreshPanel() throws JSONException {
@@ -248,10 +255,16 @@ public class MNPanelLayout extends RelativeLayout {
     public void applyTheme() {
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
         setBackgroundResource(MNMainResources.getPanelLayoutSelectorResourceId(currentThemeType));
+        // loading
         if (isUsingNetwork && loadingTextView != null) {
             loadingTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType,
                     getContext().getApplicationContext()));
         }
+        // cover
+        panelNameTextView.setTextColor(MNMainColors.getQuoteContentTextColor(currentThemeType,
+                getContext().getApplicationContext()));
+        panelStatusTextView.setTextColor(MNMainColors.getQuoteAuthorTextColor(currentThemeType,
+                getContext().getApplicationContext()));
     }
 
     protected void onPanelClick() {
