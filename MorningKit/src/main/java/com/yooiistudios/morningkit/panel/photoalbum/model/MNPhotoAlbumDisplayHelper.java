@@ -38,6 +38,8 @@ public class MNPhotoAlbumDisplayHelper {
     private int mPhotoIdx;
     private boolean mUseGrayscale;
 
+    private MNPhotoAlbumBitmapLoader mBitmapLoader;
+
     private static final int HANDLER_WHAT = 100;
 //    private final Object fileListLock = new Object();
 //    private final Object rootDirLock = new Object();
@@ -80,6 +82,9 @@ public class MNPhotoAlbumDisplayHelper {
 //            mTimer = null;
 //        }
         displayHandler.removeMessages(HANDLER_WHAT);
+        if (mBitmapLoader != null) {
+            mBitmapLoader.cancel(true);
+        }
         isRunning = false;
 
 //        mParentView.removeView(mViewSwitcher);
@@ -91,7 +96,8 @@ public class MNPhotoAlbumDisplayHelper {
     public synchronized void start(String rootDir,
             ArrayList<String> fileList,
             MNPhotoAlbumTransitionType transitionType, long interval,
-            boolean useGrayscale, int photoWidth, int photoHeight) {
+            boolean useGrayscale, int photoWidth, int photoHeight,
+            final OnStartListener onStartListener) {
         stop();
 
         mRootDir = rootDir;
@@ -124,13 +130,24 @@ public class MNPhotoAlbumDisplayHelper {
             //show first image
             String fileName = mFileList.get(mPhotoIdx);
 
-            new MNPhotoAlbumBitmapLoader(mActivity, MNPhotoAlbumBitmapLoader
+            if (onStartListener != null) {
+                onStartListener.onStartLoadingBitmap();
+            }
+            mBitmapLoader = new MNPhotoAlbumBitmapLoader(mActivity,
+                    MNPhotoAlbumBitmapLoader
                     .TYPE.FILE, new File(mRootDir, fileName).getAbsolutePath(),
                     mPhotoWidth, mPhotoHeight, false, new MNPhotoAlbumBitmapLoader.OnBitmapLoadListener() {
                 @Override
                 public void onLoadBitmap(Bitmap bitmap) {
                     MNLog.i("MNPhotoAlbumBitmapLoader", "onLoadBitmap");
+                    if (mBitmapLoader.isCancelled()) {
+                        bitmap.recycle();
+                        return;
+                    }
                     mFirstView.setImageBitmap(bitmap);
+                    if (onStartListener != null) {
+                        onStartListener.onFirstBitmapLoad();
+                    }
 
                     //init view switcher
                     mViewSwitcher.setDisplayedChild(0);
@@ -164,7 +181,8 @@ public class MNPhotoAlbumDisplayHelper {
                     //TODO on error while getting bitmap
                     MNLog.i("MNPhotoAlbumBitmapLoader", "onError");
                 }
-            }).execute();
+            });
+            mBitmapLoader.execute();
 
 //            Bitmap bitmap = getPolishedBitmap(new File(mRootDir, fileName));
         }
@@ -188,10 +206,10 @@ public class MNPhotoAlbumDisplayHelper {
     public synchronized void setPhotoHeight(int height) {
         mPhotoHeight = height;
     }
-    public void restart() {
+    public void restart(OnStartListener onStartListener) {
         stop();
         start(mRootDir, mFileList, mTransitionType, mInterval, mUseGrayscale,
-                mPhotoWidth, mPhotoHeight);
+                mPhotoWidth, mPhotoHeight, onStartListener);
 //        if (mTimer != null) {
 //            mTimer.cancel();
 //            mTimer.purge();
@@ -321,6 +339,11 @@ public class MNPhotoAlbumDisplayHelper {
             }
         }
     };
+
+    public interface OnStartListener {
+        public void onStartLoadingBitmap();
+        public void onFirstBitmapLoad();
+    }
 
 //    private class PhotoDisplayTask extends TimerTask {
 //        @Override

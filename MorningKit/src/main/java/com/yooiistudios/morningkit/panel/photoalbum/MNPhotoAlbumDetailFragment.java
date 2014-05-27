@@ -449,7 +449,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                 tmpFileList.add(selectedFileName);
                 displayHelper.setFileList(tmpFileList);
                 if (restart || displayHelper.isRunning()) {
-                    displayHelper.restart();
+                    displayHelper.restart(listener);
                 }
 //                else {
 //
@@ -457,13 +457,27 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             }
             else {
                 displayHelper.setFileList(fileList);
-                displayHelper.restart();
+                displayHelper.restart(listener);
             }
         }
         else {
             //TODO config when default setting
         }
     }
+    MNPhotoAlbumDisplayHelper.OnStartListener listener =
+            new MNPhotoAlbumDisplayHelper.OnStartListener() {
+                @Override
+                public void onStartLoadingBitmap() {
+                    previewName.setText("Loading...");
+                }
+
+                @Override
+                public void onFirstBitmapLoad() {
+                    previewName.setText(new File(rootDirForFiles)
+                            .getName());
+                }
+            };
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
