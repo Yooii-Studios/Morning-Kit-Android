@@ -1,6 +1,15 @@
 package com.yooiistudios.morningkit.panel.quotes.detail;
 
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.AlignmentSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +29,7 @@ import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
@@ -137,7 +147,45 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
 
         if (quote != null) {
             quoteTextView.setVisibility(View.VISIBLE);
-            quoteTextView.setText(quote.getQuote() + "\n" + quote.getAuthor());
+            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(
+                    getActivity().getApplicationContext());
+
+            SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+
+            // 명언 텍스트 조립
+            SpannableString contentString = new SpannableString(quote.getQuote());
+            // 폰트 색
+            contentString.setSpan(
+                    new ForegroundColorSpan(MNSettingColors.getSubFontColor(currentThemeType)),
+                    0, contentString.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            stringBuilder.append(contentString);
+
+            // 내용과 저자 텍스트 사이 간격 주기(텍스트 사이즈를 줄여서 한 줄의 높이를 적당히 조절)
+            SpannableString emptyString = new SpannableString("\n\n");
+            emptyString.setSpan(new RelativeSizeSpan(0.4f), 0, emptyString.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            stringBuilder.append(emptyString);
+
+            // 저자 텍스트 조립
+            SpannableString authorString = new SpannableString("- " + quote.getAuthor());
+            // 폰트 색
+            authorString.setSpan(
+                    new ForegroundColorSpan(MNSettingColors.getMainFontColor(currentThemeType)),
+                    0, authorString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            // 크기 좀 더 작게 표시
+            authorString.setSpan(new RelativeSizeSpan(0.85f), 0, authorString.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            // 오른정렬
+            authorString.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE),
+                    0, authorString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            stringBuilder.append(authorString);
+
+            // 기본 사이즈로 초기화 후 리사이징
+            quoteTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    getResources().getDimensionPixelSize(R.dimen.panel_quotes_detail_quote_text_size));
+            quoteTextView.setText(stringBuilder, TextView.BufferType.SPANNABLE);
         } else {
             quoteTextView.setVisibility(View.GONE);
         }
