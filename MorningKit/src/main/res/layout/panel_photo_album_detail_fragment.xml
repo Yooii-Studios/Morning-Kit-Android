@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="refresh time" />
+                android:text="@string/photo_album_label_refresh_time" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,36 +51,37 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     layout="@layout/common_switch"/>
-                <TextView
-                    android:id="@+id/label_sec"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/time_wrapper"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@id/toggleSwitch"
-                    android:visibility="gone"
-                    android:text="초"/>
-                <EditText
-                    android:id="@+id/edittext_sec"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/label_sec"
-                    android:visibility="gone"
-                    android:inputType="numberSigned"
-                    android:hint="sec"/>
-                <TextView
-                    android:id="@+id/label_min"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/edittext_sec"
-                    android:visibility="gone"
-                    android:text="분"/>
-                <EditText
-                    android:id="@+id/edittext_min"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/label_min"
-                    android:visibility="gone"
-                    android:inputType="numberSigned"
-                    android:hint="min"/>
+                    android:gravity="right"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
+                    <EditText
+                        android:id="@+id/edittext_min"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberSigned"
+                        android:hint="@string/photo_album_minute_hint"/>
+                    <TextView
+                        android:id="@+id/label_min"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/photo_album_minute_postfix"/>
+                    <EditText
+                        android:id="@+id/edittext_sec"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberSigned"
+                        android:hint="@string/photo_album_second_hint"/>
+                    <TextView
+                        android:id="@+id/label_sec"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/photo_album_second_postfix"/>
+                </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
         <RelativeLayout
@@ -91,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="transition type" />
+                android:text="@string/photo_album_label_transition_type" />
             <RadioGroup
                 android:id="@+id/transition_group"
                 android:layout_width="wrap_content"
@@ -118,7 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="use grayscale" />
+                android:text="@string/photo_album_label_grayscale" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -137,7 +138,7 @@
             android:id="@+id/load"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="load"/>
+            android:text="@string/photo_album_load"/>
     </LinearLayout>
 
 </ScrollView>

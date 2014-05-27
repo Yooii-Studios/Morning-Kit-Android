@@ -76,6 +76,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     @InjectView(R.id.transition_group) RadioGroup transitionEffectRadioGroup;
     @InjectView(R.id.label_min) TextView minLabel;
     @InjectView(R.id.label_sec) TextView secLabel;
+    @InjectView(R.id.time_wrapper) ViewGroup timeWrapper;
     @InjectView(R.id.grayscale_toggleSwitch)
     CompoundButton grayscaleToggleButton;
 
@@ -148,8 +149,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                                 }
 
                                 @Override
-                                public void onError(String message) {
-                                    previewName.setText(message);
+                                public void onError(int messageResId) {
+                                    previewName.setText(messageResId);
                                 }
                             }
                     );
@@ -246,6 +247,12 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     }
 
     private void initUI() {
+        // init transition type ui
+//        for (MNPhotoAlbumTransitionType type :
+//                MNPhotoAlbumTransitionType.values()) {
+////            transitionEffectRadioGroup
+//        }
+
         refreshTimeToggleButton.setOnCheckedChangeListener(
                 onSwitchCheckChangedListener);
         grayscaleToggleButton.setOnCheckedChangeListener(
@@ -335,10 +342,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     private void updateTimeUI() {
         if (intervalMinute != INVALID_INTERVAL &&
                 intervalSecond != INVALID_INTERVAL) {
-            minuteEditText.setVisibility(View.VISIBLE);
-            secondEditText.setVisibility(View.VISIBLE);
-            minLabel.setVisibility(View.VISIBLE);
-            secLabel.setVisibility(View.VISIBLE);
+            timeWrapper.setVisibility(View.VISIBLE);
 
             minuteEditText.setText(
                     String.valueOf(intervalMinute));
@@ -346,10 +350,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                     String.valueOf(intervalSecond));
         }
         else {
-            minuteEditText.setVisibility(View.INVISIBLE);
-            secondEditText.setVisibility(View.INVISIBLE);
-            minLabel.setVisibility(View.INVISIBLE);
-            secLabel.setVisibility(View.INVISIBLE);
+            timeWrapper.setVisibility(View.INVISIBLE);
 
             minuteEditText.setText(
                     String.valueOf(INVALID_INTERVAL));

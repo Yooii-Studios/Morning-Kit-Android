@@ -251,9 +251,10 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                                     }
 
                                     @Override
-                                    public void onError(String message) {
+                                    public void onError(int messageResId) {
                                         stopLoadingAnimation();
-                                        showCoverLayout(message);
+                                        showCoverLayout(getContext().
+                                                getString(messageResId));
                                     }
                                 });
             }
