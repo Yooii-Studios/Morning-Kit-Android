@@ -5,12 +5,14 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -105,10 +107,11 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         imageViewLayout.addView(targetCurrencyImageView);
 
         // base-target currency
-        float minTextSize = getResources().getDimension(R.dimen.panel_exchange_rates_minimum_font_size);
+//        float minTextSize = getResources().getDimension(R.dimen.panel_exchange_rates_minimum_font_size);
 
+        int panelBiggerMargin = getResources().getDimensionPixelSize(R.dimen.panel_detail_bigger_padding);
         baseToTargetCurrecyTextView = new AutoResizeTextView(getContext());
-        baseToTargetCurrecyTextView.setMinTextSize(minTextSize); // 나중에 구현하자
+//        baseToTargetCurrecyTextView.setMinTextSize(minTextSize); // 나중에 구현하자
         baseToTargetCurrecyTextView.setId(8123747);
         baseToTargetCurrecyTextView.setGravity(Gravity.CENTER);
         baseToTargetCurrecyTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
@@ -116,8 +119,8 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         baseToTargetCurrecyTextView.setSingleLine();
         LayoutParams baseToTargetLayoutParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
         baseToTargetLayoutParams.topMargin = marginOuter;
-        baseToTargetLayoutParams.leftMargin = marginOuter;
-        baseToTargetLayoutParams.rightMargin = marginOuter;
+        baseToTargetLayoutParams.leftMargin = panelBiggerMargin;
+        baseToTargetLayoutParams.rightMargin = panelBiggerMargin;
         baseToTargetLayoutParams.addRule(BELOW, imageViewLayout.getId());
         baseToTargetLayoutParams.addRule(CENTER_HORIZONTAL);
         baseToTargetCurrecyTextView.setLayoutParams(baseToTargetLayoutParams);
@@ -125,15 +128,15 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 
         // target-base currency
         targetToBaseCurrecyTextView = new AutoResizeTextView(getContext());
-        targetToBaseCurrecyTextView.setMinTextSize(minTextSize);
+//        targetToBaseCurrecyTextView.setMinTextSize(minTextSize);
         targetToBaseCurrecyTextView.setMaxTextSize(getResources().getDimension(R.dimen.panel_exchange_rates_sub_font_size));
         targetToBaseCurrecyTextView.setGravity(Gravity.CENTER);
         targetToBaseCurrecyTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_exchange_rates_sub_font_size));
         targetToBaseCurrecyTextView.setSingleLine();
         LayoutParams targetToBaseLayoutParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
-        targetToBaseLayoutParams.leftMargin = marginOuter;
-        targetToBaseLayoutParams.rightMargin = marginOuter;
+        targetToBaseLayoutParams.leftMargin = panelBiggerMargin;
+        targetToBaseLayoutParams.rightMargin = panelBiggerMargin;
         targetToBaseLayoutParams.addRule(BELOW, baseToTargetCurrecyTextView.getId());
         targetToBaseLayoutParams.addRule(CENTER_HORIZONTAL);
         targetToBaseCurrecyTextView.setLayoutParams(targetToBaseLayoutParams);
@@ -228,22 +231,19 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         String targetCurrencyString = exchangeRatesInfo.getTargetCurrencySymbol() +
                 MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getTargetCurrencyMoney());
 
-//        baseToTargetCurrecyTextView.setText("");
-//        baseToTargetCurrecyTextView.resizeText();
-        baseToTargetCurrecyTextView.setText(baseCurrencyString + " = " + targetCurrencyString);
-//        targetToBaseCurrecyTextView.setText("");
-//        targetToBaseCurrecyTextView.resizeText();
-        targetToBaseCurrecyTextView.setText(targetCurrencyString + " = " + baseCurrencyString);
+        // 기본 폰트 크기로 설정하면 자동으로 리사이징 진행
+        SpannableStringBuilder baseToTargetStringBuilder = new SpannableStringBuilder();
+        baseToTargetStringBuilder.append(baseCurrencyString).append(" = ").append(targetCurrencyString);
+        baseToTargetCurrecyTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_main_font_size));
+        baseToTargetCurrecyTextView.setText(baseToTargetStringBuilder, TextView.BufferType.SPANNABLE);
 
-//        MNViewSizeMeasure.setViewSizeObserver(this, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
-//            @Override
-//            public void onLayoutLoad() {
-////                    baseToTargetCurrecyTextView.resetTextSize();
-//                baseToTargetCurrecyTextView.resizeText();
-////                    targetToBaseCurrecyTextView.resetTextSize();
-//                targetToBaseCurrecyTextView.resizeText();
-//            }
-//        });
+        // 기본 폰트 크기로 설정하면 자동으로 리사이징 진행
+        SpannableStringBuilder targetToBaseStringBuilder = new SpannableStringBuilder();
+        targetToBaseStringBuilder.append(targetCurrencyString).append(" = ").append(baseCurrencyString);
+        targetToBaseCurrecyTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_sub_font_size));
+        targetToBaseCurrecyTextView.setText(targetToBaseStringBuilder, TextView.BufferType.SPANNABLE);
     }
 
     @Override
@@ -270,13 +270,7 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
             MNViewSizeMeasure.setViewSizeObserver(this, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
                 @Override
                 public void onLayoutLoad() {
-
                     updateTextViews();
-
-//                    baseToTargetCurrecyTextView.resetTextSize();
-//                    baseToTargetCurrecyTextView.resizeText();
-//                    targetToBaseCurrecyTextView.resetTextSize();
-//                    targetToBaseCurrecyTextView.resizeText();
                 }
             });
 

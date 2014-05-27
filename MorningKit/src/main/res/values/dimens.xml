@@ -131,9 +131,9 @@
         <!-- Main -->
     <dimen name="panel_exchange_rates_flag_width">55dp</dimen>
     <dimen name="panel_exchange_rates_flag_height">36dp</dimen>
-    <dimen name="panel_exchange_rates_main_font_size">15dp</dimen>
-    <dimen name="panel_exchange_rates_sub_font_size">12dp</dimen>
-    <dimen name="panel_exchange_rates_minimum_font_size">9dp</dimen>
+    <dimen name="panel_exchange_rates_main_font_size">15sp</dimen>
+    <dimen name="panel_exchange_rates_sub_font_size">12sp</dimen>
+    <dimen name="panel_exchange_rates_minimum_font_size">9sp</dimen>
 
         <!-- Detail -->
     <dimen name="panel_exchange_rates_detail_info_height">56dp</dimen>
