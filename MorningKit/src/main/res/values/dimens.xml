@@ -59,7 +59,7 @@
     <dimen name="alarm_pref_list_label_item_dialog_padding_button">5dp</dimen>
     <dimen name="alarm_pref_list_label_item_dialog_font_size">18sp</dimen>
     <dimen name="alarm_pref_list_label_item_dialog_button_size">30dp</dimen>
-    <dimen name="alarm_pref_list_label_item_dialog_edit_remove_button_padding">50dp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_edit_remove_button_padding">40dp</dimen>
 
         <!-- Alarm Custom Dialog -->
     <dimen name="alarm_custom_dialog_label_font_size">25sp</dimen>
@@ -89,7 +89,7 @@
     <dimen name="panel_detail_bigger_padding_inner">10dp</dimen>
     <dimen name="panel_detail_check_image_button_size">21dp</dimen>
     <dimen name="panel_detail_remove_all_button_size">25dp</dimen>
-    <dimen name="panel_detail_remove_all_button_padding">35dp</dimen>
+    <dimen name="panel_detail_remove_all_button_padding">30dp</dimen>
     <dimen name="panel_detail_default_font_size">17sp</dimen>
 
     <!-- Select Pager -->
