@@ -53,11 +53,11 @@
     <dimen name="alarm_pref_list_item_outer_height">60dp</dimen> <!-- inner + margin_inner * 2  -->
     <dimen name="alarm_pref_list_item_title_textview_width">110dp</dimen>
     <dimen name="alarm_pref_list_item_padding">10dp</dimen>
-    <dimen name="alarm_pref_list_item_textview_font_size">18dp</dimen>
+    <dimen name="alarm_pref_list_item_textview_font_size">18sp</dimen>
 
             <!-- Label Dialog -->
     <dimen name="alarm_pref_list_label_item_dialog_padding_button">5dp</dimen>
-    <dimen name="alarm_pref_list_label_item_dialog_font_size">18dp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_font_size">18sp</dimen>
     <dimen name="alarm_pref_list_label_item_dialog_button_size">30dp</dimen>
 
         <!-- Alarm Custom Dialog -->
