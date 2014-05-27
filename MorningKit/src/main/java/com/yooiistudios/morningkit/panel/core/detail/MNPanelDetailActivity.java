@@ -83,8 +83,8 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
             MNViewSizeMeasure.setViewSizeObserver(panelSelectPagerLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
                 @Override
                 public void onLayoutLoad() {
-                    panelSelectPagerLayout.setColorOfPanelSelectPager(currentPanelTypeIndex, -1);
                     panelSelectPagerLayout.applyTheme();
+                    panelSelectPagerLayout.setColorOfPanelSelectPager(currentPanelTypeIndex, -1);
                 }
             });
         }
