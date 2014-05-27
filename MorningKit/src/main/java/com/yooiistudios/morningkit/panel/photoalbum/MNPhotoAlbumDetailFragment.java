@@ -13,8 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +23,7 @@ import android.widget.ViewSwitcher;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCheckboxView;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCommonUtil;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumDisplayHelper;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumListFetcher;
@@ -70,7 +71,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 
     @InjectView(R.id.preview_switcher) ViewSwitcher previewSwitcher;
     @InjectView(R.id.preview_name) TextView previewName;
-    @InjectView(R.id.toggleSwitch) CompoundButton refreshTimeToggleButton;
+    @InjectView(R.id.toggleRefresh)
+    MNPhotoAlbumCheckboxView refreshTimeToggleButton;
     @InjectView(R.id.edittext_min) EditText minuteEditText;
     @InjectView(R.id.edittext_sec) EditText secondEditText;
     @InjectView(R.id.transition_group) RadioGroup transitionEffectRadioGroup;
@@ -78,7 +80,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     @InjectView(R.id.label_sec) TextView secLabel;
     @InjectView(R.id.time_wrapper) ViewGroup timeWrapper;
     @InjectView(R.id.grayscale_toggleSwitch)
-    CompoundButton grayscaleToggleButton;
+    MNPhotoAlbumCheckboxView grayscaleToggleButton;
 
     private MNPhotoAlbumDisplayHelper displayHelper;
     private MNPhotoAlbumListFetcher listFetcher;
@@ -253,9 +255,9 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 ////            transitionEffectRadioGroup
 //        }
 
-        refreshTimeToggleButton.setOnCheckedChangeListener(
+        refreshTimeToggleButton.setOnCheckListener(
                 onSwitchCheckChangedListener);
-        grayscaleToggleButton.setOnCheckedChangeListener(
+        grayscaleToggleButton.setOnCheckListener(
                 onSwitchCheckChangedListener);
         transitionEffectRadioGroup.setOnCheckedChangeListener
                 (onTransitionChangedListener);
@@ -371,13 +373,13 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     }
 
 
-    private CompoundButton.OnCheckedChangeListener
+    private MNPhotoAlbumCheckboxView.OnCheckListener
             onSwitchCheckChangedListener
-            = new CompoundButton.OnCheckedChangeListener() {
+            = new MNPhotoAlbumCheckboxView.OnCheckListener() {
         @Override
-        public void onCheckedChanged(CompoundButton btn, boolean checked) {
+        public void onCheck(ImageButton btn, boolean checked) {
             switch (btn.getId()) {
-                case R.id.toggleSwitch:
+                case R.id.toggleRefresh:
                     useRefresh = checked;
                     if (checked) {
                         if (intervalMinute == INVALID_INTERVAL ||
@@ -452,7 +454,6 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             }
         }
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

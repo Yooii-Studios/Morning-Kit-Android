@@ -45,17 +45,26 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/refreshTime_label">
-                <include
-                    android:id="@+id/toggleSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCheckboxView
+                    android:id="@+id/toggleRefresh"
+                    android:layout_width="@dimen/panel_detail_check_image_button_size"
+                    android:layout_height="@dimen/panel_detail_check_image_button_size"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                    layout="@layout/common_switch"/>
+                    android:scaleType="centerInside"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/icon_panel_detail_checkbox"/>
+                <!--<include-->
+                    <!--android:id="@+id/toggleRefresh"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--layout="@layout/common_switch"/>-->
                 <LinearLayout
                     android:id="@+id/time_wrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/toggleSwitch"
+                    android:layout_toLeftOf="@id/toggleRefresh"
                     android:gravity="right"
                     android:orientation="horizontal"
                     android:visibility="invisible">
@@ -126,12 +135,21 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/grayscale_label">
-                <include
+                <com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCheckboxView
                     android:id="@+id/grayscale_toggleSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/panel_detail_check_image_button_size"
+                    android:layout_height="@dimen/panel_detail_check_image_button_size"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                    layout="@layout/common_switch"/>
+                    android:scaleType="centerInside"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/icon_panel_detail_checkbox"/>
+                <!--<include-->
+                    <!--android:id="@+id/grayscale_toggleSwitch"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--layout="@layout/common_switch"/>-->
             </RelativeLayout>
         </RelativeLayout>
         <Button
