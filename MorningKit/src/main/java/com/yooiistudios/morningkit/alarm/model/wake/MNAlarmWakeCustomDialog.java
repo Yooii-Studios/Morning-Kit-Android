@@ -21,7 +21,6 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -58,7 +57,7 @@ public class MNAlarmWakeCustomDialog {
             final AlertDialog wakeDialog = builder.create();
             wakeDialog.setView(customView, 0, 0, 0, 0);
 
-            MNAlarmWakeCustomView alarmWakeCustomView = new MNAlarmWakeCustomView(customView);
+            final MNAlarmWakeCustomView alarmWakeCustomView = new MNAlarmWakeCustomView(customView);
 
             // 애니메이션
             if (context.getApplicationContext() != null) {
@@ -85,6 +84,7 @@ public class MNAlarmWakeCustomDialog {
                 @Override
                 public void onClick(View view) {
                     wakeDialog.dismiss();
+                    alarmWakeCustomView.alarmImageView.clearAnimation();
                     SKAlarmSoundPlayer.stop();
 
                     MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), context);
@@ -108,6 +108,7 @@ public class MNAlarmWakeCustomDialog {
                     @Override
                     public void onClick(View view) {
                         wakeDialog.dismiss();
+                        alarmWakeCustomView.alarmImageView.clearAnimation();
                         SKAlarmSoundPlayer.stop();
 
                         MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), context);
