@@ -8,6 +8,7 @@
         android:id="@+id/alarm_pref_label_dialog_editText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingRight="@dimen/alarm_pref_list_label_item_dialog_edit_remove_button_padding"
         android:ems="10"
         android:hint="@string/alarm_pref_label"
         android:longClickable="false"

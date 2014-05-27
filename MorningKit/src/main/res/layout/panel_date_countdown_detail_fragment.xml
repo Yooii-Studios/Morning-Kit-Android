@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/panel_world_clock_detail_edit_text_height"
             android:paddingLeft="@dimen/panel_detail_padding"
-            android:paddingRight="@dimen/margin_outer"
+            android:paddingRight="@dimen/panel_detail_remove_all_button_padding"
             android:layout_gravity="center_vertical"
             android:hint="@string/date_countdown_write_a_title"
             android:textSize="@dimen/panel_detail_default_font_size"

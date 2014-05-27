@@ -144,7 +144,8 @@
             android:textSize="@dimen/panel_world_clock_detail_edit_text_font_size"
             android:textColor="@color/pastel_green_sub_font_color"
             android:textColorHint="@color/pastel_green_stroke_color"
-            android:paddingLeft="@dimen/panel_detail_padding"/>
+            android:paddingLeft="@dimen/panel_detail_padding"
+            android:paddingRight="@dimen/panel_detail_remove_all_button_padding"/>
 
         <View
             android:layout_width="match_parent"
