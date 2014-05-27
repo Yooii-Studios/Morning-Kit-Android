@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <TextView
+    <com.yooiistudios.morningkit.common.textview.AutoResizeTextView
         android:id="@+id/alarm_wake_custom_dialog_label_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +17,9 @@
         android:text="@string/alarm_default_label"
         android:textColor="@color/pastel_green_main_font_color"
         android:textStyle="bold"
-        android:textSize="@dimen/alarm_custom_dialog_label_font_size"/>
+        android:textSize="@dimen/alarm_custom_dialog_label_font_size"
+        android:singleLine="true"
+        android:ellipsize="end"/>
 
     <View
         android:id="@+id/alarm_wake_custom_dialog_divider"
@@ -48,7 +50,8 @@
         android:text="6:40 AM"
         android:textColor="@color/pastel_green_main_font_color"
         android:textStyle="bold"
-        android:textSize="@dimen/alarm_custom_dialog_time_text_font_size"/>
+        android:textSize="@dimen/alarm_custom_dialog_time_text_font_size"
+        android:ellipsize="end"/>
 
     <View
         android:id="@+id/alarm_wake_custom_dialog_button_divider"
