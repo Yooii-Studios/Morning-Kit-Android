@@ -12,6 +12,8 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.panel.photoalbum.model
+        .MNPhotoAlbumBitmapLoader.TYPE;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -133,9 +135,10 @@ public class MNPhotoAlbumDisplayHelper {
             if (onStartListener != null) {
                 onStartListener.onStartLoadingBitmap();
             }
+            File file = new File(mRootDir, fileName);
+            TYPE type = file.isFile() ? TYPE.FILE : TYPE.URI;
             mBitmapLoader = new MNPhotoAlbumBitmapLoader(mActivity,
-                    MNPhotoAlbumBitmapLoader
-                    .TYPE.FILE, new File(mRootDir, fileName).getAbsolutePath(),
+                    type, new File(mRootDir, fileName).getAbsolutePath(),
                     mPhotoWidth, mPhotoHeight, false, new MNPhotoAlbumBitmapLoader.OnBitmapLoadListener() {
                 @Override
                 public void onLoadBitmap(Bitmap bitmap) {
@@ -314,8 +317,10 @@ public class MNPhotoAlbumDisplayHelper {
                 // UI갱신
                 mPhotoIdx = getRandomIndex();
                 String fileName = mFileList.get(mPhotoIdx);
-                new MNPhotoAlbumBitmapLoader(mActivity, MNPhotoAlbumBitmapLoader
-                        .TYPE.FILE, new File(mRootDir, fileName).getAbsolutePath(),
+                File file = new File(mRootDir, fileName);
+                TYPE type = file.isFile() ? TYPE.FILE : TYPE.URI;
+                new MNPhotoAlbumBitmapLoader(mActivity, type,
+                        file.getAbsolutePath(),
                         mPhotoWidth, mPhotoHeight, false,
                         new MNPhotoAlbumBitmapLoader.OnBitmapLoadListener() {
                             @Override

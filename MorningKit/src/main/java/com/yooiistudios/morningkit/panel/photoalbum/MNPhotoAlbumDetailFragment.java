@@ -16,6 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.yooiistudios.morningkit.R;
@@ -503,6 +504,13 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                         System.out.println(picturePath);
 
                         File selectedFile = new File(picturePath);
+                        if (!selectedFile.isFile()) {
+                            //TODO invalid file. Show error message.
+                            Toast.makeText(getActivity(),
+                                    "blah...invalid image.",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
                         this.selectedFileName = selectedFile.getName();
                         this.rootDirForFiles = selectedFile.getParent();
