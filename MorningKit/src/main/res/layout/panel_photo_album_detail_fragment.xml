@@ -1,140 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              tools:context=".PhotoFragment"
-              android:orientation="vertical"
-              android:padding="@dimen/panel_detail_bigger_padding">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".PhotoFragment"
+            android:padding="@dimen/panel_detail_bigger_padding">
 
-    <ViewSwitcher
-        android:id="@+id/preview_switcher"
-        android:layout_width="@dimen/panel_photo_album_detail_preview_width"
-        android:layout_height="@dimen/panel_photo_album_detail_preview_height"
-        android:layout_gravity="center_horizontal">
-        <com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-        <com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-    </ViewSwitcher>
-    <TextView
-        android:id="@+id/preview_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="text"/>
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ViewSwitcher
+            android:id="@+id/preview_switcher"
+            android:layout_width="@dimen/panel_photo_album_detail_preview_width"
+            android:layout_height="@dimen/panel_photo_album_detail_preview_height"
+            android:layout_gravity="center_horizontal">
+            <com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+            <com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </ViewSwitcher>
         <TextView
-            android:id="@+id/refreshTime_label"
+            android:id="@+id/preview_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="refresh time" />
+            android:layout_gravity="center_horizontal"
+            android:text="text"/>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/refreshTime_label">
-            <include
-                android:id="@+id/toggleSwitch"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/refreshTime_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="refresh time" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/refreshTime_label">
+                <include
+                    android:id="@+id/toggleSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    layout="@layout/common_switch"/>
+                <TextView
+                    android:id="@+id/label_sec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/toggleSwitch"
+                    android:visibility="gone"
+                    android:text="초"/>
+                <EditText
+                    android:id="@+id/edittext_sec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/label_sec"
+                    android:visibility="gone"
+                    android:inputType="numberSigned"
+                    android:hint="sec"/>
+                <TextView
+                    android:id="@+id/label_min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/edittext_sec"
+                    android:visibility="gone"
+                    android:text="분"/>
+                <EditText
+                    android:id="@+id/edittext_min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/label_min"
+                    android:visibility="gone"
+                    android:inputType="numberSigned"
+                    android:hint="min"/>
+            </RelativeLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/transition_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="transition type" />
+            <RadioGroup
+                android:id="@+id/transition_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                layout="@layout/common_switch"/>
-            <TextView
-                android:id="@+id/label_sec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/toggleSwitch"
-                android:visibility="gone"
-                android:text="초"/>
-            <EditText
-                android:id="@+id/edittext_sec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/label_sec"
-                android:visibility="gone"
-                android:inputType="numberSigned"
-                android:hint="sec"/>
-            <TextView
-                android:id="@+id/label_min"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/edittext_sec"
-                android:visibility="gone"
-                android:text="분"/>
-            <EditText
-                android:id="@+id/edittext_min"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/label_min"
-                android:visibility="gone"
-                android:inputType="numberSigned"
-                android:hint="min"/>
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/radio_none"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="none"/>
+                <RadioButton
+                    android:id="@+id/radio_alpha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="alpha"/>
+            </RadioGroup>
         </RelativeLayout>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/transition_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="transition type" />
-        <RadioGroup
-            android:id="@+id/transition_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/radio_none"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="none"/>
-            <RadioButton
-                android:id="@+id/radio_alpha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="alpha"/>
-        </RadioGroup>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <TextView
-            android:id="@+id/grayscale_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="use grayscale" />
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/grayscale_label">
-            <include
-                android:id="@+id/grayscale_toggleSwitch"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/grayscale_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="use grayscale" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                layout="@layout/common_switch"/>
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/grayscale_label">
+                <include
+                    android:id="@+id/grayscale_toggleSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    layout="@layout/common_switch"/>
+            </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
-    <Button
-        android:id="@+id/load"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="load"/>
+        <Button
+            android:id="@+id/load"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="load"/>
+    </LinearLayout>
 
-
-</LinearLayout>
+</ScrollView>

@@ -16,6 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.yooiistudios.morningkit.R;
@@ -131,14 +132,11 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 //                        return;
 //                    }
 
-                    Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-//                    intent.putExtra("outputformat", Bitmap.CompressFormat.JPEG.name());
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-//                    Intent intent = new Intent();
                     intent.setType("image/*");
-//                    intent.setAction(Intent.ACTION_GET_CONTENT);
+//                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+
                     startActivityForResult(intent, RC_LOAD_PHOTO);
 
 //                    Intent intent = new Intent(getActivity(),
@@ -452,7 +450,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                 tmpFileList.add(selectedFileName);
                 displayHelper.setFileList(tmpFileList);
                 if (restart || displayHelper.isRunning()) {
-                    displayHelper.restart();
+                    displayHelper.restart(listener);
                 }
 //                else {
 //
@@ -460,13 +458,27 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             }
             else {
                 displayHelper.setFileList(fileList);
-                displayHelper.restart();
+                displayHelper.restart(listener);
             }
         }
         else {
             //TODO config when default setting
         }
     }
+    MNPhotoAlbumDisplayHelper.OnStartListener listener =
+            new MNPhotoAlbumDisplayHelper.OnStartListener() {
+                @Override
+                public void onStartLoadingBitmap() {
+                    previewName.setText("Loading...");
+                }
+
+                @Override
+                public void onFirstBitmapLoad() {
+                    previewName.setText(new File(rootDirForFiles)
+                            .getName());
+                }
+            };
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -492,6 +504,13 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                         System.out.println(picturePath);
 
                         File selectedFile = new File(picturePath);
+                        if (!selectedFile.isFile()) {
+                            //TODO invalid file. Show error message.
+                            Toast.makeText(getActivity(),
+                                    "blah...invalid image.",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
                         this.selectedFileName = selectedFile.getName();
                         this.rootDirForFiles = selectedFile.getParent();

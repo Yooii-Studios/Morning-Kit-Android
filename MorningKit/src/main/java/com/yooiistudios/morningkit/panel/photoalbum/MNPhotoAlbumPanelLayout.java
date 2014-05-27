@@ -160,7 +160,17 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
             }
             displayHelper.start(rootDir, list,
                     transitionType, intervalInMillisec, useGrayscale,
-                    photoWidth, photoHeight);
+                    photoWidth, photoHeight, new MNPhotoAlbumDisplayHelper.OnStartListener() {
+                        @Override
+                        public void onStartLoadingBitmap() {
+                            startLoadingAnimation();
+                        }
+
+                        @Override
+                        public void onFirstBitmapLoad() {
+                            stopLoadingAnimation();
+                        }
+                    });
             MNLog.i("Timer", "started. isRunning : " + displayHelper.isRunning());
         }
     }
