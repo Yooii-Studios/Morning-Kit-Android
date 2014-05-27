@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import org.json.JSONException;
 
@@ -77,5 +80,13 @@ public class MNMemoPanelLayout extends MNPanelLayout {
             showCoverLayout(getResources().getString(R.string.memo_write_here));
             memoTextView.setText(null);
         }
+    }
+
+    @Override
+    public void applyTheme() {
+        super.applyTheme();
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
+        memoTextView.setTextColor(
+                MNMainColors.getQuoteContentTextColor(currentThemeType, getContext().getApplicationContext()));
     }
 }
