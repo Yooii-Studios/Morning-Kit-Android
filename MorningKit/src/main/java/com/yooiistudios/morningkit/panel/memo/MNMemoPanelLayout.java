@@ -67,8 +67,10 @@ public class MNMemoPanelLayout extends MNPanelLayout {
             String archivedString = prefs.getString(MEMO_PREFS_CONTENT, null);
             if (archivedString != null) {
                 memoString = archivedString;
+                getPanelDataObject().put(MEMO_DATA_CONTENT, memoString);
             } else {
                 memoString = null;
+                getPanelDataObject().put(MEMO_DATA_CONTENT, null);
             }
         }
     }
@@ -76,7 +78,7 @@ public class MNMemoPanelLayout extends MNPanelLayout {
     @Override
     protected void updateUI() {
         super.updateUI();
-        if (memoString != null) {
+        if (memoString != null && memoString.length() != 0) {
             hideCoverLayout();
             SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
             stringBuilder.append(memoString);
@@ -113,7 +115,6 @@ public class MNMemoPanelLayout extends MNPanelLayout {
                     updateUI();
                 }
             });
-
         }
     }
 }
