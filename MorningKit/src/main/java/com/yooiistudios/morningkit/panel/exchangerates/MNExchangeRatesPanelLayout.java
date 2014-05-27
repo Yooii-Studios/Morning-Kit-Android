@@ -97,7 +97,7 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         imageViewLayout.addView(baseCurrencyImageView);
 
         // target image
-        int marginOuter = getResources().getDimensionPixelSize(R.dimen.margin_outer);
+        int marginOuter = getResources().getDimensionPixelSize(R.dimen.panel_layout_padding);
 
         targetCurrencyImageView = new ImageView(getContext());
         targetCurrencyImageView.setScaleType(ImageView.ScaleType.FIT_XY);
