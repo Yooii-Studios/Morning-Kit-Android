@@ -17,45 +17,20 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
         ArrayList<String>> {
     private static final String TAG = "PhotoListFetcher";
 
-    public static final String KEY_FILELIST_PARENT = "parent dir";
-    public static final String KEY_FILELIST_FILES = "file list";
-
-//    private ArrayList<String> mParemntDirList;
     private String mParentForFileList;
-//    private ArrayList<String> mFileList;
     private OnListFetchListener onListFetchListener;
 
-    public MNPhotoAlbumListFetcher(/*ArrayList<String> parentDirList,*/
-                                   String parentForFileList,
-                                   /*ArrayList<String> fileList,*/
+    public MNPhotoAlbumListFetcher(String parentForFileList,
                                    OnListFetchListener onListFetchListener) {
-//        mParemntDirList = parentDirList;
         mParentForFileList = parentForFileList;
-//        mFileList = fileList;
         this.onListFetchListener = onListFetchListener;
     }
 
     @Override
     protected ArrayList<String> doInBackground(Void... voids) {
         MNLog.i(TAG, "start loading");
-//        JSONArray fileArray = null;
-//        try {
-//            fileArray = getFileListJSONArray(mParentForFileList, "image");
-//        } catch(JSONException e) {
-//            e.printStackTrace();
-//        }
-//        MNLog.i(TAG, "end loading");
-//        ArrayList<File> fileList;
-//        try {
-//            fileList = getFileList(fileArray);
-//        } catch(JSONException e) {
-//            e.printStackTrace();
-//            fileList = null;
-//        }
 
         return getFileList(new File(mParentForFileList), null, "image");
-
-//        return fileList;
     }
 
     @Override
@@ -69,13 +44,6 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
         }
     }
 
-//    public static ArrayList<String> getFileList(
-//            String parentForFileList,
-//            String mimeType) throws JSONException {
-//        return getFileList(
-//                new File(parentForFileList), null, mimeType);
-//    }
-
     public static ArrayList<String> getFileList(File rootDir, File curDir,
                                                 String mimetype) {
         ArrayList<String> inFiles = new ArrayList<String>();
@@ -87,7 +55,6 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
             }
             else {
                 if(checkMimetype(file, mimetype)) {
-//                    inFiles.add(file.getName());
                     String relativePath = file.getAbsolutePath().replace(
                             rootDir.getAbsolutePath(), "");
                     inFiles.add(relativePath);
@@ -96,25 +63,6 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
         }
         return inFiles;
     }
-//    public static ArrayList<String> getFileList(String rootDir, File parentDir,
-//                                                String mimetype) {
-//        ArrayList<String> inFiles = new ArrayList<String>();
-//        File[] files = parentDir.listFiles();
-//        for (File file : files) {
-//            if (file.isDirectory()) {
-//                inFiles.addAll(getFileList(rootDir, file, mimetype));
-//            }
-//            else {
-//                if(checkMimetype(file, mimetype)) {
-////                    inFiles.add(file.getName());
-//                    String relativePath = file.getAbsolutePath().replace(
-//                            rootDir, "");
-//                    inFiles.add(relativePath);
-//                }
-//            }
-//        }
-//        return inFiles;
-//    }
 
     public static boolean checkMimetype(File fileToCheck,
                                         String mimetypeToCompare) {
@@ -146,22 +94,6 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
             }
         }
     }
-
-//    private ArrayList<File> getFileList(JSONArray fileListArr) throws
-//            JSONException {
-//        ArrayList<File> fileList = new ArrayList<File>();
-//        for (int i = 0; i < fileListArr.length(); i++) {
-//            JSONObject set = fileListArr.getJSONObject(i);
-//            String parentDir = set.getString(KEY_FILELIST_PARENT);
-//            JSONArray fileArr = set.getJSONArray(KEY_FILELIST_FILES);
-//            for (int j = 0; j < fileArr.length(); j++) {
-//                String fileName = fileArr.getString(j);
-//                fileList.add(new File(parentDir, fileName));
-//            }
-//        }
-//
-//        return fileList;
-//    }
 
     public interface OnListFetchListener {
         public void onPhotoListFetch(ArrayList<String> photoList);

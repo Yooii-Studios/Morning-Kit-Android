@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.panel.photoalbum;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -67,7 +68,6 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     //request code
     public static final int RC_LOAD_PHOTO = 1;
 
-//    @InjectView(R.id.preview_image) ImageView previewImage;
     @InjectView(R.id.preview_switcher) ViewSwitcher previewSwitcher;
     @InjectView(R.id.preview_name) TextView previewName;
     @InjectView(R.id.toggleSwitch) CompoundButton refreshTimeToggleButton;
@@ -84,10 +84,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 
     private int intervalMinute;
     private int intervalSecond;
-//    private PhotoType type;
     private boolean useRefresh;
     private MNPhotoAlbumTransitionType transitionType;
-//    private ArrayList<String> parentDirList;
     private String rootDirForFiles;
     private String selectedFileName;
     private ArrayList<String> fileList;
@@ -108,17 +106,13 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             } catch (JSONException e) {
                 e.printStackTrace();
 
-//                type = PhotoType.DEFAULT;
                 intervalMinute = DEFAULT_INTERVAL_MIN;
                 intervalSecond = DEFAULT_INTERVAL_SEC;
                 useRefresh = false;
                 transitionType = MNPhotoAlbumTransitionType.NONE;
 
                 selectedFileName = null;
-//                parentDirList = new ArrayList<String>();
-//                parentDirList.add(DEFAULT_PARENT_DIR.getAbsolutePath());
                 rootDirForFiles = DEFAULT_PARENT_DIR.getAbsolutePath();
-//                fileList = new ArrayList<String>();
                 useGrayscale = false;
             }
 
@@ -126,22 +120,12 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                     .OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    boolean a = true;
-//                    if (a) {
-//                        displayHelper.stop();
-//                        return;
-//                    }
-
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
-//                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+                        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                    }
                     startActivityForResult(intent, RC_LOAD_PHOTO);
-
-//                    Intent intent = new Intent(getActivity(),
-//                            ExFilePickerActivity.class);
-//                    startActivityForResult(intent, RC_LOAD_PHOTO);
                 }
             });
 
@@ -150,13 +134,31 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 
             displayHelper =
                     new MNPhotoAlbumDisplayHelper(
-                            getActivity(), previewSwitcher);
+                            getActivity(), previewSwitcher,
+                            new MNPhotoAlbumDisplayHelper.OnStartListener() {
+                                @Override
+                                public void onStartLoadingBitmap() {
+                                    previewName.setText(R.string.loading);
+                                }
+
+                                @Override
+                                public void onFirstBitmapLoad() {
+                                    previewName.setText(new File(rootDirForFiles)
+                                            .getName());
+                                }
+
+                                @Override
+                                public void onError(String message) {
+                                    previewName.setText(message);
+                                }
+                            }
+                    );
 
 
             if (listFetcher != null) {
                 listFetcher.cancel(true);
             }
-            previewName.setText("Loading...");
+            previewName.setText(R.string.loading);
             listFetcher = new MNPhotoAlbumListFetcher(
                     rootDirForFiles,
                     new MNPhotoAlbumListFetcher.OnListFetchListener() {
@@ -330,7 +332,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         }
     }
 
-    private void updateTimeUI() {//int intervalMin, int intervalSec
+    private void updateTimeUI() {
         if (intervalMinute != INVALID_INTERVAL &&
                 intervalSecond != INVALID_INTERVAL) {
             minuteEditText.setVisibility(View.VISIBLE);
@@ -358,22 +360,12 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 
     @Override
     protected void archivePanelData() throws JSONException {
-//        getPanelDataObject().put(KEY_TYPE, type.getKey());
         getPanelDataObject().put(KEY_DATA_INTERVAL_MINUTE, intervalMinute);
         getPanelDataObject().put(KEY_DATA_INTERVAL_SECOND, intervalSecond);
         getPanelDataObject().put(KEY_DATA_USE_REFRESH, useRefresh);
         getPanelDataObject().put(KEY_DATA_TRANS_TYPE, transitionType.getKey());
-
-//        getPanelDataObject().put(KEY_DATA_FILE_PARENT_LIST,
-//                new Gson().toJson(parentDirList));
-
         getPanelDataObject().put(KEY_DATA_FILE_SELECTED, selectedFileName);
-//        if (rootDirForFiles != null) {
-            getPanelDataObject().put(KEY_DATA_FILE_ROOT, rootDirForFiles);
-//        }
-
-//        getPanelDataObject().put(KEY_DATA_FILE_FILELIST,
-//                new Gson().toJson(fileList));
+        getPanelDataObject().put(KEY_DATA_FILE_ROOT, rootDirForFiles);
         getPanelDataObject().put(KEY_DATA_USE_GRAYSCALE, useGrayscale);
     }
 
@@ -450,34 +442,15 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                 tmpFileList.add(selectedFileName);
                 displayHelper.setFileList(tmpFileList);
                 if (restart || displayHelper.isRunning()) {
-                    displayHelper.restart(listener);
+                    displayHelper.restart();
                 }
-//                else {
-//
-//                }
             }
             else {
                 displayHelper.setFileList(fileList);
-                displayHelper.restart(listener);
+                displayHelper.restart();
             }
         }
-        else {
-            //TODO config when default setting
-        }
     }
-    MNPhotoAlbumDisplayHelper.OnStartListener listener =
-            new MNPhotoAlbumDisplayHelper.OnStartListener() {
-                @Override
-                public void onStartLoadingBitmap() {
-                    previewName.setText("Loading...");
-                }
-
-                @Override
-                public void onFirstBitmapLoad() {
-                    previewName.setText(new File(rootDirForFiles)
-                            .getName());
-                }
-            };
 
 
     @Override
@@ -489,7 +462,10 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     MNLog.i(TAG, data.getData().getPath());
 
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA,
+                            MediaStore.Images.Media.DESCRIPTION,
+                            MediaStore.Images.Media.PICASA_ID,
+                            MediaStore.Images.Media.TITLE};
 
                     Cursor cursor = getActivity().getContentResolver().query(
                             data.getData(), filePathColumn, null, null, null);
@@ -505,9 +481,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 
                         File selectedFile = new File(picturePath);
                         if (!selectedFile.isFile()) {
-                            //TODO invalid file. Show error message.
                             Toast.makeText(getActivity(),
-                                    "blah...invalid image.",
+                                    "blah...Can't use photo in that folder.",
                                     Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -539,7 +514,9 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                         }
                     }
                     else {
-                        //TODO error while getting image from sdcard
+                        Toast.makeText(getActivity(),
+                                "blah...error while getting image.",
+                                Toast.LENGTH_LONG).show();
                     }
                 }
                 break;
@@ -556,4 +533,6 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             displayHelper.stop();
         }
     }
+
+
 }

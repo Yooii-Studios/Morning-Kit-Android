@@ -33,20 +33,13 @@ import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFra
 public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     private static final String TAG = "MNPhotoAlbumPanelLayout";
 
-//    public static final String KEY_TYPE = "type";
     public static final String KEY_DATA_INTERVAL_MINUTE = "minute";
     public static final String KEY_DATA_INTERVAL_SECOND = "second";
     public static final String KEY_DATA_USE_REFRESH = "use refresh";
     public static final String KEY_DATA_TRANS_TYPE = "transition type";
-//    public static final String KEY_DATA_FILE_PARENT_LIST = "selected files";
     public static final String KEY_DATA_FILE_SELECTED = "selected file";
     public static final String KEY_DATA_FILE_ROOT = "selected file's root dir";
-//    public static final String KEY_DATA_FILE_FILELIST = "selected file list";
     public static final String KEY_DATA_USE_GRAYSCALE = "use grayscale";
-
-    public static final String KEY_FILE_LIST = "file list info";
-    public static final String KEY_FILELIST_PARENT = "parent dir";
-    public static final String KEY_FILELIST_FILES = "file list";
 
     private ViewSwitcher viewSwitcher;
     private MNPhotoAlbumTransitionType transitionType;
@@ -55,8 +48,6 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     private String selectedFile;
     private String displayingFile;
     private String previousSelectedFile;
-//    private ArrayList<String> parentList;
-//    private ArrayList<String> fileList;
     private ArrayList<String> allAbsoluteImageFileList;
     private boolean useGrayscale;
 
@@ -101,9 +92,6 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
             displayingFile = selectedFile;
         }
         else {
-//            if (selectedFile != previousSelectedFile) {
-//                displayingFile = selectedFile;
-//            }
             if (allAbsoluteImageFileList != null) {
                 Random random = new Random(System.currentTimeMillis());
                 displayingFile = allAbsoluteImageFileList.get(
@@ -112,13 +100,6 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         }
     }
 
-//    @Override
-//    protected void onPanelClick() {
-//        super.onPanelClick();
-//
-//        displayingFile = null;
-//    }
-
     @Override
     public void onActivityResume() {
         super.onActivityResume();
@@ -126,7 +107,6 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         if (displayHelper != null) {
             displayHelper.notifyContainingActivityWillBeShown();
         }
-//        refreshDisplayingFile();
         updateUI();
     }
 
@@ -138,7 +118,6 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         if (displayHelper != null) {
             displayHelper.notifyContainingActivityWillBeGone();
         }
-//        displayingFile = null;
         stopTimer();
     }
 
@@ -160,17 +139,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
             }
             displayHelper.start(rootDir, list,
                     transitionType, intervalInMillisec, useGrayscale,
-                    photoWidth, photoHeight, new MNPhotoAlbumDisplayHelper.OnStartListener() {
-                        @Override
-                        public void onStartLoadingBitmap() {
-                            startLoadingAnimation();
-                        }
-
-                        @Override
-                        public void onFirstBitmapLoad() {
-                            stopLoadingAnimation();
-                        }
-                    });
+                    photoWidth, photoHeight);
             MNLog.i("Timer", "started. isRunning : " + displayHelper.isRunning());
         }
     }
@@ -178,9 +147,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         MNLog.i("Timer", "stop called");
         if (displayHelper != null) {
             displayHelper.stop();
-//            displayHelper = null;
             MNLog.i("Timer", "stopped");
-            // isRunning : " + displayHelper.isRunning()
         }
     }
 
@@ -259,24 +226,36 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                     listFetcher.execute();
                 }
             });
-
-//        boolean test = true;
-//        if (test) {
-//            return;
-//        }
-
     }
 
     @Override
     protected void updateUI() {
         super.updateUI();
+        hideCoverLayout();
+        startLoadingAnimation();
 
         if (allAbsoluteImageFileList != null) {
             if (displayHelper == null) {
                 displayHelper =
-                        new MNPhotoAlbumDisplayHelper((Activity) getContext(),
-                                viewSwitcher
-                        );
+                        new MNPhotoAlbumDisplayHelper(
+                                (Activity) getContext(),viewSwitcher,
+                                new MNPhotoAlbumDisplayHelper.OnStartListener() {
+                                    @Override
+                                    public void onStartLoadingBitmap() {
+                                        startLoadingAnimation();
+                                    }
+
+                                    @Override
+                                    public void onFirstBitmapLoad() {
+                                        stopLoadingAnimation();
+                                    }
+
+                                    @Override
+                                    public void onError(String message) {
+                                        stopLoadingAnimation();
+                                        showCoverLayout(message);
+                                    }
+                                });
             }
             startTimer(viewSwitcher.getWidth(), viewSwitcher.getHeight());
         }
