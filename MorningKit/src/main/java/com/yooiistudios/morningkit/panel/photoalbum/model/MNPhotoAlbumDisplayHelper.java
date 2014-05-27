@@ -2,6 +2,8 @@ package com.yooiistudios.morningkit.panel.photoalbum.model;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ViewSwitcher;
@@ -14,8 +16,6 @@ import com.yooiistudios.morningkit.common.log.MNLog;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import lombok.Getter;
 
@@ -30,7 +30,7 @@ public class MNPhotoAlbumDisplayHelper {
     private ArrayList<String> mFileList;
     private MNPhotoAlbumImageView mFirstView;
     private MNPhotoAlbumImageView mSecondView;
-    private Timer mTimer;
+//    private Timer mTimer;
     private MNPhotoAlbumTransitionType mTransitionType;
     private long mInterval;
     private int mPhotoWidth;
@@ -38,6 +38,7 @@ public class MNPhotoAlbumDisplayHelper {
     private int mPhotoIdx;
     private boolean mUseGrayscale;
 
+    private static final int HANDLER_WHAT = 100;
 //    private final Object fileListLock = new Object();
 //    private final Object rootDirLock = new Object();
 //    private final Object grayscaleLock = new Object();
@@ -73,11 +74,12 @@ public class MNPhotoAlbumDisplayHelper {
         mSecondView = (MNPhotoAlbumImageView)(mViewSwitcher.getChildAt(1));
     }
     public void stop() {
-        if (mTimer != null) {
-            mTimer.cancel();
-            mTimer.purge();
-            mTimer = null;
-        }
+//        if (mTimer != null) {
+//            mTimer.cancel();
+//            mTimer.purge();
+//            mTimer = null;
+//        }
+        displayHandler.removeMessages(HANDLER_WHAT);
         isRunning = false;
 
 //        mParentView.removeView(mViewSwitcher);
@@ -116,39 +118,55 @@ public class MNPhotoAlbumDisplayHelper {
             //TODO no images to display. show error message.
         }
         else {
-//            mPhotoIdx = 0;
-            mPhotoIdx = getRandomIndex();
+            mPhotoIdx = 0;
+//            mPhotoIdx = getRandomIndex();
 
             //show first image
             String fileName = mFileList.get(mPhotoIdx);
-            Bitmap bitmap = getPolishedBitmap(new File(mRootDir, fileName));
-            mFirstView.setImageBitmap(bitmap);
 
-            //init view switcher
-            mViewSwitcher.setDisplayedChild(0);
-            Animation[] animArr = MNPhotoAlbumTransitionFactory.
-                    makeTransitionAnimation(mTransitionType);
+            new MNPhotoAlbumBitmapLoader(mActivity, MNPhotoAlbumBitmapLoader
+                    .TYPE.FILE, new File(mRootDir, fileName).getAbsolutePath(),
+                    mPhotoWidth, mPhotoHeight, false, new MNPhotoAlbumBitmapLoader.OnBitmapLoadListener() {
+                @Override
+                public void onLoadBitmap(Bitmap bitmap) {
+                    MNLog.i("MNPhotoAlbumBitmapLoader", "onLoadBitmap");
+                    mFirstView.setImageBitmap(bitmap);
 
-            int transitionDuration = mTransitionType
-                    .getDurationInMillisec();
+                    //init view switcher
+                    mViewSwitcher.setDisplayedChild(0);
+                    Animation[] animArr = MNPhotoAlbumTransitionFactory.
+                            makeTransitionAnimation(mTransitionType);
 
-            Animation inAnimation = animArr[0];
-            Animation outAnimation = animArr[1];
-            inAnimation.setAnimationListener(mAnimListener);
-            outAnimation.setAnimationListener(mAnimListener);
-            mViewSwitcher.setInAnimation(inAnimation);
-            mViewSwitcher.setOutAnimation(outAnimation);
+                    Animation inAnimation = animArr[0];
+                    Animation outAnimation = animArr[1];
+                    inAnimation.setAnimationListener(mAnimListener);
+                    outAnimation.setAnimationListener(mAnimListener);
+                    mViewSwitcher.setInAnimation(inAnimation);
+                    mViewSwitcher.setOutAnimation(outAnimation);
 
-            if (mFileList.size() > 1 && mInterval > 0) {
-                //prepare for timer
-                mTimer = new Timer();
-                mTimer.schedule(new PhotoDisplayTask(),
-                        mInterval + transitionDuration,
-                        mInterval + transitionDuration);
-            }
-            else {
-                isRunning = false;
-            }
+                    if (mFileList.size() > 1 && mInterval > 0) {
+                        //prepare for timer
+                        displayHandler.sendEmptyMessageDelayed(HANDLER_WHAT,
+                                mInterval + mTransitionType
+                                        .getDurationInMillisec());
+//                        mTimer = new Timer();
+//                        mTimer.schedule(new PhotoDisplayTask(),
+//                                mInterval + transitionDuration,
+//                                mInterval + transitionDuration);
+                    }
+                    else {
+                        isRunning = false;
+                    }
+                }
+
+                @Override
+                public void onError() {
+                    //TODO on error while getting bitmap
+                    MNLog.i("MNPhotoAlbumBitmapLoader", "onError");
+                }
+            }).execute();
+
+//            Bitmap bitmap = getPolishedBitmap(new File(mRootDir, fileName));
         }
     }
 
@@ -216,27 +234,22 @@ public class MNPhotoAlbumDisplayHelper {
 
         return polishedBitmap;
     }
-    private synchronized void showNext() {
-        mPhotoIdx = getRandomIndex();
-//        mPhotoIdx++;
-//
-//        if (mPhotoIdx == mFileList.size()) {
-//            mPhotoIdx = 0;
-//        }
+    private synchronized void showNext(Bitmap bitmap) {
+//        mPhotoIdx = getRandomIndex();
 
         int curViewIdx = mViewSwitcher.getDisplayedChild();
 
-        Bitmap bitmap = null;
-        String fileName = mFileList.get(mPhotoIdx);
-        bitmap = getPolishedBitmap(new File(mRootDir, fileName));
+//        Bitmap bitmap = null;
+//        String fileName = mFileList.get(mPhotoIdx);
+//        bitmap = getPolishedBitmap(new File(mRootDir, fileName));
 
-        if (bitmap == null) {
-            // remove invalid photo item.
-            mFileList.remove(mPhotoIdx);
-
-            showNext();
-            return;
-        }
+//        if (bitmap == null) {
+//            // remove invalid photo item.
+//            mFileList.remove(mPhotoIdx);
+//
+//            showNext();
+//            return;
+//        }
 
         if (curViewIdx%2 ==  0) {
             mSecondView.setImageBitmap(bitmap);
@@ -276,21 +289,54 @@ public class MNPhotoAlbumDisplayHelper {
                 }
             };
 
-    private class PhotoDisplayTask extends TimerTask {
+    private Handler displayHandler = new Handler() {
         @Override
-        public void run() {
-            if (mFileList != null) {
-                MNLog.i("Timer", "timer running...");
-                mActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showNext();
-                    }
-                });
-            }
-            else {
-                throw new IllegalStateException("mFileList CANNOT be null.");
+        public void handleMessage( Message msg ){
+            if (isRunning){
+                // UI갱신
+                mPhotoIdx = getRandomIndex();
+                String fileName = mFileList.get(mPhotoIdx);
+                new MNPhotoAlbumBitmapLoader(mActivity, MNPhotoAlbumBitmapLoader
+                        .TYPE.FILE, new File(mRootDir, fileName).getAbsolutePath(),
+                        mPhotoWidth, mPhotoHeight, false,
+                        new MNPhotoAlbumBitmapLoader.OnBitmapLoadListener() {
+                            @Override
+                            public void onLoadBitmap(Bitmap bitmap) {
+                                showNext(bitmap);
+
+                                displayHandler.sendEmptyMessageDelayed(HANDLER_WHAT,
+                                        mInterval + mTransitionType.getDurationInMillisec());
+                            }
+
+                            @Override
+                            public void onError() {
+                                mFileList.remove(mPhotoIdx);
+
+                                displayHandler.sendEmptyMessage(HANDLER_WHAT);
+//                                displayHandler.sendEmptyMessageDelayed(HANDLER_WHAT,
+//                                        mInterval + mTransitionType.getDurationInMillisec());
+//                                showNext();
+                            }
+                        }).execute();
             }
         }
-    }
+    };
+
+//    private class PhotoDisplayTask extends TimerTask {
+//        @Override
+//        public void run() {
+//            if (mFileList != null) {
+//                MNLog.i("Timer", "timer running...");
+//                mActivity.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        showNext();
+//                    }
+//                });
+//            }
+//            else {
+//                throw new IllegalStateException("mFileList CANNOT be null.");
+//            }
+//        }
+//    }
 }

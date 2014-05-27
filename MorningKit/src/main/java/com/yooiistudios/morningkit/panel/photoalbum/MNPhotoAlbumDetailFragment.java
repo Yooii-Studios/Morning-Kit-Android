@@ -131,14 +131,11 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 //                        return;
 //                    }
 
-                    Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-//                    intent.putExtra("outputformat", Bitmap.CompressFormat.JPEG.name());
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-//                    Intent intent = new Intent();
                     intent.setType("image/*");
-//                    intent.setAction(Intent.ACTION_GET_CONTENT);
+//                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+
                     startActivityForResult(intent, RC_LOAD_PHOTO);
 
 //                    Intent intent = new Intent(getActivity(),
