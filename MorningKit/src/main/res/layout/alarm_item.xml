@@ -79,6 +79,7 @@
             android:layout_alignLeft="@+id/alarm_item_time_textview"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/alarm_item_label_margin_bottom"
+            android:layout_marginRight="@dimen/panel_detail_bigger_padding"
             android:ellipsize="marquee"
             android:maxLines="1"
             android:singleLine="true"
