@@ -128,14 +128,14 @@
     <dimen name="panel_calendar_detail_select_calendars_font_size">20sp</dimen>
 
     <!-- Exchange Rates -->
-    <!-- Main -->
+        <!-- Main -->
     <dimen name="panel_exchange_rates_flag_width">55dp</dimen>
     <dimen name="panel_exchange_rates_flag_height">36dp</dimen>
     <dimen name="panel_exchange_rates_main_font_size">15dp</dimen>
     <dimen name="panel_exchange_rates_sub_font_size">12dp</dimen>
     <dimen name="panel_exchange_rates_minimum_font_size">9dp</dimen>
 
-    <!-- Detail -->
+        <!-- Detail -->
     <dimen name="panel_exchange_rates_detail_info_height">56dp</dimen>
     <dimen name="panel_exchange_rates_detail_flag_width">50dp</dimen>
     <dimen name="panel_exchange_rates_detail_flag_height">30dp</dimen>
@@ -144,13 +144,16 @@
     <dimen name="panel_exchange_rates_detail_edit_text_size">15sp</dimen>
 
     <!-- Quotes -->
-    <!-- Detail -->
+        <!-- Main -->
     <dimen name="panel_quotes_padding">13dp</dimen>
     <dimen name="panel_quotes_default_font_size_port">15sp</dimen>
     <dimen name="panel_quotes_default_font_size_land">17sp</dimen>
+        <!-- Detail -->
+    <dimen name="panel_quotes_detail_quote_text_size">18sp</dimen>
     <dimen name="panel_quotes_detail_language_text_size">17sp</dimen>
-    <dimen name="panel_quote_detail_padding">20dp</dimen>
-    <dimen name="panel_quote_detail_rounded_corner_radius">15dp</dimen>
+    <dimen name="panel_quotes_detail_padding">20dp</dimen>
+    <dimen name="panel_quotes_detail_text_padding">25dp</dimen>
+    <dimen name="panel_quotes_detail_rounded_corner_radius">15dp</dimen>
 
     <!-- Date -->
     <dimen name="panel_date_month_text_size">16sp</dimen>

@@ -11,23 +11,23 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:baselineAligned="false"
-        android:padding="@dimen/panel_quote_detail_padding">
+        android:padding="@dimen/panel_quotes_detail_padding">
 
         <TextView
             android:id="@+id/panel_quotes_detail_quote_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rounded_view_pastel_green_quote"
-            android:padding="@dimen/panel_quote_detail_padding"
+            android:padding="@dimen/panel_quotes_detail_text_padding"
             android:gravity="center"
             android:text="To marry is to halve your rights and double your duties.\nArthur Schopenhaur"
-            android:textSize="20dp"/>
+            android:textSize="@dimen/panel_quotes_detail_quote_text_size"/>
 
         <RelativeLayout
             android:id="@+id/panel_quotes_detail_language_english_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/panel_detail_padding"
+            android:layout_marginTop="@dimen/panel_detail_bigger_padding"
             android:layout_marginLeft="@dimen/panel_detail_padding"
             android:layout_marginRight="@dimen/panel_detail_padding">
 
