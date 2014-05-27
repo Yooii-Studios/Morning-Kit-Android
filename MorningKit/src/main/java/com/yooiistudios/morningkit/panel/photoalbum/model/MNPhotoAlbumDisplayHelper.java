@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ViewSwitcher;
 
+import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.common.log.MNLog;
 
@@ -97,7 +98,7 @@ public class MNPhotoAlbumDisplayHelper {
         if (mFileList.size() == 0) {
             isRunning = false;
             if (mOnStartListener != null) {
-                mOnStartListener.onError("blah...no image to display.");
+                mOnStartListener.onError(R.string.photo_album_no_image);
             }
         }
         else {
@@ -152,8 +153,8 @@ public class MNPhotoAlbumDisplayHelper {
                     MNLog.i("MNPhotoAlbumBitmapLoader", "onError");
                     isRunning = false;
                     if (mOnStartListener != null) {
-                        mOnStartListener.onError("blah...Error occurred while " +
-                                "getting image.");
+                        mOnStartListener.onError(
+                                R.string.photo_album_error_getting_photo);
                     }
                 }
             });
@@ -250,7 +251,7 @@ public class MNPhotoAlbumDisplayHelper {
                 if (mPhotoIdx == INVALID_INDEX) {
                     stop();
                     if (mOnStartListener != null) {
-                        mOnStartListener.onError("blah...no image to display.");
+                        mOnStartListener.onError(R.string.photo_album_no_image);
                     }
 
                     return;
@@ -282,7 +283,7 @@ public class MNPhotoAlbumDisplayHelper {
     public interface OnStartListener {
         public void onStartLoadingBitmap();
         public void onFirstBitmapLoad();
-        public void onError(String message);
+        public void onError(int messageResId);
     }
 
 }
