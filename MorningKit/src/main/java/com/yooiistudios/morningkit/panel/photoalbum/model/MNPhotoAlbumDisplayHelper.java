@@ -112,7 +112,8 @@ public class MNPhotoAlbumDisplayHelper {
             }
             mBitmapLoader = new MNPhotoAlbumBitmapLoader(mActivity,
                     new File(mRootDir, fileName).getAbsolutePath(),
-                    mPhotoWidth, mPhotoHeight, false, new MNPhotoAlbumBitmapLoader.OnBitmapLoadListener() {
+                    mPhotoWidth, mPhotoHeight, mUseGrayscale,
+                    new MNPhotoAlbumBitmapLoader.OnBitmapLoadListener() {
                 @Override
                 public void onLoadBitmap(Bitmap bitmap) {
                     MNLog.i("MNPhotoAlbumBitmapLoader", "onLoadBitmap");
@@ -259,7 +260,7 @@ public class MNPhotoAlbumDisplayHelper {
                 String fileName = mFileList.get(mPhotoIdx);
                 new MNPhotoAlbumBitmapLoader(mActivity,
                         new File(mRootDir, fileName).getAbsolutePath(),
-                        mPhotoWidth, mPhotoHeight, false,
+                        mPhotoWidth, mPhotoHeight, mUseGrayscale,
                         new MNPhotoAlbumBitmapLoader.OnBitmapLoadListener() {
                             @Override
                             public void onLoadBitmap(Bitmap bitmap) {

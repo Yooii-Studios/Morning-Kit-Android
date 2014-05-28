@@ -2,20 +2,24 @@ package com.yooiistudios.morningkit.panel.photoalbum;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
@@ -23,6 +27,7 @@ import android.widget.ViewSwitcher;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCheckboxView;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCommonUtil;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumDisplayHelper;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumListFetcher;
@@ -59,26 +64,31 @@ import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFil
 public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     private static final String TAG = "MNPhotoAlbumDetailFragment";
 
+    // tags
+    private static final Object TAG_TRANSITION_CHECKBOX = new Object();
+
     public static final int INVALID_INTERVAL = -1;
 
-    //default constants
+    // default constants
     public static final int DEFAULT_INTERVAL_MIN = 0;
     public static final int DEFAULT_INTERVAL_SEC = 5;
 
-    //request code
+    // request code
     public static final int RC_LOAD_PHOTO = 1;
 
     @InjectView(R.id.preview_switcher) ViewSwitcher previewSwitcher;
     @InjectView(R.id.preview_name) TextView previewName;
-    @InjectView(R.id.toggleSwitch) CompoundButton refreshTimeToggleButton;
+    @InjectView(R.id.toggleRefresh)
+    MNPhotoAlbumCheckboxView refreshTimeToggleButton;
     @InjectView(R.id.edittext_min) EditText minuteEditText;
     @InjectView(R.id.edittext_sec) EditText secondEditText;
-    @InjectView(R.id.transition_group) RadioGroup transitionEffectRadioGroup;
+//    @InjectView(R.id.transition_group) RadioGroup transitionEffectRadioGroup;
+    @InjectView(R.id.transition_type_wrapper) LinearLayout trantisionWrapper;
     @InjectView(R.id.label_min) TextView minLabel;
     @InjectView(R.id.label_sec) TextView secLabel;
     @InjectView(R.id.time_wrapper) ViewGroup timeWrapper;
     @InjectView(R.id.grayscale_toggleSwitch)
-    CompoundButton grayscaleToggleButton;
+    MNPhotoAlbumCheckboxView grayscaleToggleButton;
 
     private MNPhotoAlbumDisplayHelper displayHelper;
     private MNPhotoAlbumListFetcher listFetcher;
@@ -248,17 +258,75 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 
     private void initUI() {
         // init transition type ui
-//        for (MNPhotoAlbumTransitionType type :
-//                MNPhotoAlbumTransitionType.values()) {
-////            transitionEffectRadioGroup
-//        }
+        Resources res = getActivity().getResources();
+        int checkboxSize = res.getDimensionPixelSize(
+                R.dimen.panel_detail_check_image_button_size);
+        int transitionTextSizeSP = res.getDimensionPixelSize(
+                R.dimen.panel_detail_default_font_size);
+        int transitionItemPadding = res.getDimensionPixelSize(
+                R.dimen.panel_detail_bigger_padding);
+        int transitionInnerPadding = res.getDimensionPixelSize(
+                R.dimen.margin_inner);
+        int transitionTextColor = res.getColor(
+                R.color.pastel_green_sub_font_color);
 
-        refreshTimeToggleButton.setOnCheckedChangeListener(
+        int transitionTypeCount = MNPhotoAlbumTransitionType.values().length;
+        for (int i = 0; i < transitionTypeCount; i++) {
+            MNPhotoAlbumTransitionType type =
+                    MNPhotoAlbumTransitionType.values()[i];
+
+            // wrapper
+            final LinearLayout wrapper = new LinearLayout(getActivity());
+
+            // create checkbox view
+            MNPhotoAlbumCheckboxView checkboxView =
+                    new MNPhotoAlbumCheckboxView(getActivity());
+            checkboxView.setBackgroundColor(Color.TRANSPARENT);
+            checkboxView.setImageResource(R.drawable.icon_panel_detail_checkbox);
+            checkboxView.setScaleType(ImageView.ScaleType.FIT_XY);
+            checkboxView.setTag(TAG_TRANSITION_CHECKBOX);
+            checkboxView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    wrapper.performClick();
+                }
+            });
+
+            // text
+            TextView textView = new TextView(getActivity());
+            textView.setText(type.getName(getActivity()));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    transitionTextSizeSP);
+            textView.setTextColor(transitionTextColor);
+
+            // wrapper
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    checkboxSize, checkboxSize);
+            lp.setMargins(0, 0, transitionInnerPadding, 0);
+            wrapper.setGravity(Gravity.CENTER_VERTICAL);
+            wrapper.addView(checkboxView, lp);
+            wrapper.addView(textView);
+            wrapper.setTag(type);
+            wrapper.setOnClickListener(onTransitionChangedListener);
+
+            lp = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+
+            if (i < transitionTypeCount-1) {
+                lp.setMargins(0, 0, transitionItemPadding, 0);
+            }
+
+            trantisionWrapper.addView(wrapper, lp);
+        }
+
+        refreshTimeToggleButton.setOnCheckListener(
                 onSwitchCheckChangedListener);
-        grayscaleToggleButton.setOnCheckedChangeListener(
+        grayscaleToggleButton.setOnCheckListener(
                 onSwitchCheckChangedListener);
-        transitionEffectRadioGroup.setOnCheckedChangeListener
-                (onTransitionChangedListener);
+//        transitionEffectRadioGroup.setOnCheckedChangeListener
+//                (onTransitionChangedListener);
         minuteEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence,
@@ -298,7 +366,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 
         refreshTimeToggleButton.setChecked(useRefresh);
         grayscaleToggleButton.setChecked(useGrayscale);
-        setTransitionType(transitionType, true);
+//        setTransitionType(transitionType, true);
+        updateTransitionTypeUI();
         updateTimeUI();
 
         // theme
@@ -331,11 +400,23 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                 MNTheme.getCurrentThemeType(getActivity());
     }
 
-    private void setTransitionType(MNPhotoAlbumTransitionType type,
-                                   boolean updateUI) {
-        transitionType = type;
-        if (updateUI) {
-            transitionEffectRadioGroup.check(type.getRadioId());
+    private void updateTransitionTypeUI() {
+        for (int i = 0; i < trantisionWrapper.getChildCount(); i++) {
+            View view = trantisionWrapper.getChildAt(i);
+            Object tag = view.getTag();
+            checkTransitionTag(tag);
+
+            MNPhotoAlbumCheckboxView checkbox =
+                    (MNPhotoAlbumCheckboxView)view.findViewWithTag(
+                            TAG_TRANSITION_CHECKBOX);
+            if (tag == transitionType) {
+                // on
+                checkbox.setChecked(true);
+            }
+            else {
+                // off
+                checkbox.setChecked(false);
+            }
         }
     }
 
@@ -371,13 +452,13 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     }
 
 
-    private CompoundButton.OnCheckedChangeListener
+    private MNPhotoAlbumCheckboxView.OnCheckListener
             onSwitchCheckChangedListener
-            = new CompoundButton.OnCheckedChangeListener() {
+            = new MNPhotoAlbumCheckboxView.OnCheckListener() {
         @Override
-        public void onCheckedChanged(CompoundButton btn, boolean checked) {
+        public void onCheck(ImageView btn, boolean checked) {
             switch (btn.getId()) {
-                case R.id.toggleSwitch:
+                case R.id.toggleRefresh:
                     useRefresh = checked;
                     if (checked) {
                         if (intervalMinute == INVALID_INTERVAL ||
@@ -410,23 +491,46 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         }
     };
 
+    private View.OnClickListener onTransitionChangedListener =
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Object tag = view.getTag();
+                    checkTransitionTag(tag);
+                    transitionType = (MNPhotoAlbumTransitionType)tag;
 
-    private RadioGroup.OnCheckedChangeListener onTransitionChangedListener
-            = new RadioGroup.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(RadioGroup radioGroup, int id) {
-            switch(id) {
-                case R.id.radio_none:
-                    transitionType = MNPhotoAlbumTransitionType.NONE;
-                    break;
-                case R.id.radio_alpha:
-                    transitionType = MNPhotoAlbumTransitionType.ALPHA;
-                    break;
-            }
+                    updateTransitionTypeUI();
+                    updatePreviewUI();
+                }
+            };
 
-            updatePreviewUI();
+    private void checkTransitionTag(Object tag) {
+        if (tag == null) {
+            throw new IllegalStateException(
+                    tag + "MUST NOT be null.");
         }
-    };
+        if (!(tag instanceof MNPhotoAlbumTransitionType)) {
+            throw new IllegalStateException(tag + "MUST be an " +
+                    "instance of " + MNPhotoAlbumTransitionType
+                    .class.getName());
+        }
+    }
+//    private RadioGroup.OnCheckedChangeListener onTransitionChangedListener
+//            = new RadioGroup.OnCheckedChangeListener() {
+//        @Override
+//        public void onCheckedChanged(RadioGroup radioGroup, int id) {
+//            switch(id) {
+//                case R.id.radio_none:
+//                    transitionType = MNPhotoAlbumTransitionType.NONE;
+//                    break;
+//                case R.id.radio_alpha:
+//                    transitionType = MNPhotoAlbumTransitionType.ALPHA;
+//                    break;
+//            }
+//
+//            updatePreviewUI();
+//        }
+//    };
     private void updatePreviewUI() {
         updatePreviewUI(false);
     }
@@ -452,7 +556,6 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             }
         }
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
