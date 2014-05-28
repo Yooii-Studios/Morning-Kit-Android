@@ -30,21 +30,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="text"/>
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="@dimen/panel_photo_album_detail_row_height"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
             <TextView
                 android:id="@+id/refreshTime_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:text="@string/photo_album_label_refresh_time" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/refreshTime_label">
+                android:layout_marginLeft="5dp">
                 <com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCheckboxView
                     android:id="@+id/toggleRefresh"
                     android:layout_width="@dimen/panel_detail_check_image_button_size"
@@ -67,7 +66,7 @@
                     android:layout_toLeftOf="@id/toggleRefresh"
                     android:gravity="right"
                     android:orientation="horizontal"
-                    android:visibility="invisible">
+                    android:visibility="visible">
                     <EditText
                         android:id="@+id/edittext_min"
                         android:layout_width="wrap_content"
@@ -92,49 +91,40 @@
                         android:text="@string/photo_album_second_postfix"/>
                 </LinearLayout>
             </RelativeLayout>
-        </RelativeLayout>
-        <RelativeLayout
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/panel_photo_album_detail_row_height"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
             <TextView
                 android:id="@+id/transition_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:text="@string/photo_album_label_transition_type" />
-            <RadioGroup
-                android:id="@+id/transition_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+            <LinearLayout
+                android:id="@+id/transition_type_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
                 android:orientation="horizontal">
-                <RadioButton
-                    android:id="@+id/radio_none"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="none"/>
-                <RadioButton
-                    android:id="@+id/radio_alpha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="alpha"/>
-            </RadioGroup>
-        </RelativeLayout>
-        <RelativeLayout
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="@dimen/panel_photo_album_detail_row_height"
+            android:orientation="horizontal"
+            android:gravity="center_vertical" >
             <TextView
                 android:id="@+id/grayscale_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:text="@string/photo_album_label_grayscale" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/grayscale_label">
+                android:layout_marginLeft="5dp">
                 <com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCheckboxView
                     android:id="@+id/grayscale_toggleSwitch"
                     android:layout_width="@dimen/panel_detail_check_image_button_size"
@@ -144,14 +134,8 @@
                     android:scaleType="centerInside"
                     android:background="@android:color/transparent"
                     android:src="@drawable/icon_panel_detail_checkbox"/>
-                <!--<include-->
-                    <!--android:id="@+id/grayscale_toggleSwitch"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--layout="@layout/common_switch"/>-->
             </RelativeLayout>
-        </RelativeLayout>
+        </LinearLayout>
         <Button
             android:id="@+id/load"
             android:layout_width="wrap_content"

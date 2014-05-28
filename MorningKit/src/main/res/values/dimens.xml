@@ -187,6 +187,7 @@
     <!-- Detail -->
     <dimen name="panel_photo_album_detail_preview_width">100dp</dimen>
     <dimen name="panel_photo_album_detail_preview_height">100dp</dimen>
+    <dimen name="panel_photo_album_detail_row_height">40dp</dimen>
 
     <!-- Date Countdown -->
     <dimen name="panel_date_countdown_title_font_size">16sp</dimen>

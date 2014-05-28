@@ -3,14 +3,14 @@ package com.yooiistudios.morningkit.panel.photoalbum.model;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.yooiistudios.morningkit.R;
 
 /**
  * Created by Dongheyon Jeong on in morning-kit from Yooii Studios Co., LTD. on 2014. 5. 27.
  */
-public class MNPhotoAlbumCheckboxView extends ImageButton {
+public class MNPhotoAlbumCheckboxView extends ImageView {
     private OnCheckListener mOnCheckListener;
     private boolean mChecked;
 
@@ -60,6 +60,6 @@ public class MNPhotoAlbumCheckboxView extends ImageButton {
 
 
     public interface OnCheckListener {
-        public void onCheck(ImageButton btn, boolean checked);
+        public void onCheck(ImageView btn, boolean checked);
     }
 }
