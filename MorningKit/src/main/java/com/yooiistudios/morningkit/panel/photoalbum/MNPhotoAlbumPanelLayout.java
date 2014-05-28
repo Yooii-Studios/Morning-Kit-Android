@@ -154,6 +154,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     @Override
     protected void processLoading() throws JSONException {
         super.processLoading();
+        startLoadingAnimation();
 
         if (getPanelDataObject().has(KEY_DATA_FILE_ROOT)) {
             rootDir = getPanelDataObject().getString(KEY_DATA_FILE_ROOT);

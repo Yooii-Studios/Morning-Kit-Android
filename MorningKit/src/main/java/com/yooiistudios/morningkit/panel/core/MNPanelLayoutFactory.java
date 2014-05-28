@@ -81,6 +81,7 @@ public class MNPanelLayoutFactory {
                 newPanelLayout = new MNPhotoAlbumPanelLayout(context);
                 newPanelLayout.setPanelType(MNPanelType.PHOTO_ALBUM);
                 newPanelLayout.initNetworkPanel();
+                newPanelLayout.setUsingNetwork(false);
                 break;
 
             default:
