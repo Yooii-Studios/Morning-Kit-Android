@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel.photoalbum;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -256,10 +258,23 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 
     private void initUI() {
         // init transition type ui
-        int checkboxSize = getActivity().getResources().getDimensionPixelSize(
+        Resources res = getActivity().getResources();
+        int checkboxSize = res.getDimensionPixelSize(
                 R.dimen.panel_detail_check_image_button_size);
-        for (MNPhotoAlbumTransitionType type :
-                MNPhotoAlbumTransitionType.values()) {
+        int transitionTextSizeSP = res.getDimensionPixelSize(
+                R.dimen.panel_detail_default_font_size);
+        int transitionItemPadding = res.getDimensionPixelSize(
+                R.dimen.panel_detail_bigger_padding);
+        int transitionInnerPadding = res.getDimensionPixelSize(
+                R.dimen.margin_inner);
+        int transitionTextColor = res.getColor(
+                R.color.pastel_green_sub_font_color);
+
+        int transitionTypeCount = MNPhotoAlbumTransitionType.values().length;
+        for (int i = 0; i < transitionTypeCount; i++) {
+            MNPhotoAlbumTransitionType type =
+                    MNPhotoAlbumTransitionType.values()[i];
+
             // wrapper
             final LinearLayout wrapper = new LinearLayout(getActivity());
 
@@ -280,14 +295,30 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             // text
             TextView textView = new TextView(getActivity());
             textView.setText(type.getName(getActivity()));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    transitionTextSizeSP);
+            textView.setTextColor(transitionTextColor);
+
+            // wrapper
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    checkboxSize, checkboxSize);
+            lp.setMargins(0, 0, transitionInnerPadding, 0);
             wrapper.setGravity(Gravity.CENTER_VERTICAL);
-            wrapper.addView(checkboxView, new ViewGroup.LayoutParams(
-                    checkboxSize, checkboxSize));
+            wrapper.addView(checkboxView, lp);
             wrapper.addView(textView);
             wrapper.setTag(type);
             wrapper.setOnClickListener(onTransitionChangedListener);
 
-            trantisionWrapper.addView(wrapper);
+            lp = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+
+            if (i < transitionTypeCount-1) {
+                lp.setMargins(0, 0, transitionItemPadding, 0);
+            }
+
+            trantisionWrapper.addView(wrapper, lp);
         }
 
         refreshTimeToggleButton.setOnCheckListener(

@@ -185,8 +185,8 @@
     
     <!-- Photo Album -->
     <!-- Detail -->
-    <dimen name="panel_photo_album_detail_preview_width">100dp</dimen>
-    <dimen name="panel_photo_album_detail_preview_height">100dp</dimen>
+    <dimen name="panel_photo_album_detail_preview_width">200dp</dimen>
+    <dimen name="panel_photo_album_detail_preview_height">140dp</dimen>
     <dimen name="panel_photo_album_detail_row_height">40dp</dimen>
 
     <!-- Date Countdown -->

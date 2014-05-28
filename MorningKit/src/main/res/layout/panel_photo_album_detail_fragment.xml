@@ -4,6 +4,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".PhotoFragment"
+            android:background="@android:color/white"
             android:padding="@dimen/panel_detail_bigger_padding">
 
     <LinearLayout
@@ -39,6 +40,8 @@
                 android:id="@+id/refreshTime_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/panel_detail_default_font_size"
+                android:textColor="@color/pastel_green_sub_font_color"
                 android:text="@string/photo_album_label_refresh_time" />
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -101,6 +104,8 @@
                 android:id="@+id/transition_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/panel_detail_default_font_size"
+                android:textColor="@color/pastel_green_sub_font_color"
                 android:text="@string/photo_album_label_transition_type" />
             <LinearLayout
                 android:id="@+id/transition_type_wrapper"
@@ -120,6 +125,8 @@
                 android:id="@+id/grayscale_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/panel_detail_default_font_size"
+                android:textColor="@color/pastel_green_sub_font_color"
                 android:text="@string/photo_album_label_grayscale" />
             <RelativeLayout
                 android:layout_width="match_parent"
