@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp">
-                <com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCheckboxView
+                <ImageView
                     android:id="@+id/toggleRefresh"
                     android:layout_width="@dimen/panel_detail_check_image_button_size"
                     android:layout_height="@dimen/panel_detail_check_image_button_size"

@@ -301,5 +301,6 @@
     <string name="photo_album_transition_none">None</string>
     <string name="photo_album_transition_alpha">Alpha</string>
     <string name="photo_album_load">Load</string>
+    <string name="photo_album_dialog_transition_off">Off</string>
 
 </resources>

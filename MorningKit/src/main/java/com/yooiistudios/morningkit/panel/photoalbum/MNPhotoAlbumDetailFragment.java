@@ -8,8 +8,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v4.app.DialogFragment;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -31,6 +30,7 @@ import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCheckboxVi
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCommonUtil;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumDisplayHelper;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumListFetcher;
+import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumRefreshTimeDialogFragment;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumTransitionType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -61,11 +61,13 @@ import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFil
  * MNPhotoAlbumDetailFragment
  *  포토 앨범 패널 디테일 프래그먼트 by 동현
  */
-public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
+public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
+        implements MNPhotoAlbumRefreshTimeDialogFragment.OnClickListener {
     private static final String TAG = "MNPhotoAlbumDetailFragment";
 
     // tags
     private static final Object TAG_TRANSITION_CHECKBOX = new Object();
+    public static final String TAG_TRANSITION_DIALOG = "transition dialog";
 
     public static final int INVALID_INTERVAL = -1;
 
@@ -79,7 +81,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
     @InjectView(R.id.preview_switcher) ViewSwitcher previewSwitcher;
     @InjectView(R.id.preview_name) TextView previewName;
     @InjectView(R.id.toggleRefresh)
-    MNPhotoAlbumCheckboxView refreshTimeToggleButton;
+    ImageView refreshTimeToggleButton;
     @InjectView(R.id.edittext_min) EditText minuteEditText;
     @InjectView(R.id.edittext_sec) EditText secondEditText;
 //    @InjectView(R.id.transition_group) RadioGroup transitionEffectRadioGroup;
@@ -321,54 +323,74 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
             trantisionWrapper.addView(wrapper, lp);
         }
 
-        refreshTimeToggleButton.setOnCheckListener(
-                onSwitchCheckChangedListener);
+        refreshTimeToggleButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                int minute;
+                int second;
+                if (intervalMinute == INVALID_INTERVAL ||
+                        intervalSecond == INVALID_INTERVAL) {
+                    minute = DEFAULT_INTERVAL_MIN;
+                    second = DEFAULT_INTERVAL_SEC;
+                }
+                else {
+                    minute = intervalMinute;
+                    second = intervalSecond;
+                }
+                DialogFragment newFragment =
+                        MNPhotoAlbumRefreshTimeDialogFragment.
+                                newInstance(minute, second);
+                newFragment.setTargetFragment(
+                        MNPhotoAlbumDetailFragment.this, -1);
+                newFragment.show(getFragmentManager(), TAG_TRANSITION_DIALOG);
+            }
+        });
         grayscaleToggleButton.setOnCheckListener(
                 onSwitchCheckChangedListener);
-//        transitionEffectRadioGroup.setOnCheckedChangeListener
-//                (onTransitionChangedListener);
-        minuteEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence,
-                                          int i, int i2, int i3) {
-            }
+        minuteEditText.setEnabled(false);
+        secondEditText.setEnabled(false);
+//        minuteEditText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence,
+//                                          int i, int i2, int i3) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence,
+//                                      int i, int i2, int i3) {
+//                if (charSequence.length() > 0) {
+//                    intervalMinute = Integer.parseInt(charSequence.toString());
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//            }
+//        });
+//        minuteEditText.setOnEditorActionListener(onEditorActionListener);
+//        secondEditText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence,
+//                                          int i, int i2, int i3) {}
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence,
+//                                      int i, int i2, int i3) {
+//                if (charSequence.length() > 0) {
+//                    intervalSecond = Integer.parseInt(charSequence.toString());
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {}
+//        });
+//        secondEditText.setOnEditorActionListener(onEditorActionListener);
 
-            @Override
-            public void onTextChanged(CharSequence charSequence,
-                                      int i, int i2, int i3) {
-                if (charSequence.length() > 0) {
-                    intervalMinute = Integer.parseInt(charSequence.toString());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
-        minuteEditText.setOnEditorActionListener(onEditorActionListener);
-        secondEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence,
-                                          int i, int i2, int i3) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence,
-                                      int i, int i2, int i3) {
-                if (charSequence.length() > 0) {
-                    intervalSecond = Integer.parseInt(charSequence.toString());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {}
-        });
-        secondEditText.setOnEditorActionListener(onEditorActionListener);
-
-        refreshTimeToggleButton.setChecked(useRefresh);
+//        refreshTimeToggleButton.setChecked(useRefresh);
         grayscaleToggleButton.setChecked(useGrayscale);
 //        setTransitionType(transitionType, true);
         updateTransitionTypeUI();
-        updateTimeUI();
+        updateRefreshTimeUI();
 
         // theme
         initTheme();
@@ -420,7 +442,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         }
     }
 
-    private void updateTimeUI() {
+    private void updateRefreshTimeUI() {
         if (intervalMinute != INVALID_INTERVAL &&
                 intervalSecond != INVALID_INTERVAL) {
             timeWrapper.setVisibility(View.VISIBLE);
@@ -437,6 +459,15 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                     String.valueOf(INVALID_INTERVAL));
             secondEditText.setText(
                     String.valueOf(INVALID_INTERVAL));
+        }
+
+        if (useRefresh) {
+            refreshTimeToggleButton.setImageResource(R.drawable
+                    .icon_panel_detail_checkbox_on);
+        }
+        else {
+            refreshTimeToggleButton.setImageResource(R.drawable
+                    .icon_panel_detail_checkbox);
         }
     }
 
@@ -459,6 +490,26 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         public void onCheck(ImageView btn, boolean checked) {
             switch (btn.getId()) {
                 case R.id.toggleRefresh:
+                    boolean a = true;
+                    if (a) {
+                        int minute;
+                        int second;
+                        if (intervalMinute == INVALID_INTERVAL ||
+                                intervalSecond == INVALID_INTERVAL) {
+                            minute = DEFAULT_INTERVAL_MIN;
+                            second = DEFAULT_INTERVAL_SEC;
+                        }
+                        else {
+                            minute = intervalMinute;
+                            second = intervalSecond;
+                        }
+                        DialogFragment newFragment =
+                                MNPhotoAlbumRefreshTimeDialogFragment.
+                                        newInstance(minute, second);
+                        newFragment.show(getFragmentManager(), "dialog");
+
+                        return;
+                    }
                     useRefresh = checked;
                     if (checked) {
                         if (intervalMinute == INVALID_INTERVAL ||
@@ -471,7 +522,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
                         intervalSecond = INVALID_INTERVAL;
                     }
 
-                    updateTimeUI();
+                    updateRefreshTimeUI();
 
                     if (displayHelper != null) {
                         long interval = MNPhotoAlbumCommonUtil
@@ -490,6 +541,19 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
 
         }
     };
+
+    private void onTimeUpdated() {
+        updateRefreshTimeUI();
+
+        if (displayHelper != null) {
+            long interval = MNPhotoAlbumCommonUtil
+                    .getTransitionInterval(
+                            intervalMinute,
+                            intervalSecond);
+            displayHelper.setInterval(interval);
+        }
+        updatePreviewUI(true);
+    }
 
     private View.OnClickListener onTransitionChangedListener =
             new View.OnClickListener() {
@@ -638,5 +702,26 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment {
         }
     }
 
+    @Override
+    public void onConfirm(int minute, int second) {
+        intervalMinute = minute;
+        intervalSecond = second;
+        useRefresh = true;
 
+        onTimeUpdated();
+    }
+
+    @Override
+    public void onCancel() {
+
+    }
+
+    @Override
+    public void onTurnOff() {
+        intervalMinute = INVALID_INTERVAL;
+        intervalSecond = INVALID_INTERVAL;
+        useRefresh = false;
+
+        onTimeUpdated();
+    }
 }
