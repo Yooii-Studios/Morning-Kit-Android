@@ -15,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.network.InternetConnectionManager;
+import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailActivity;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -50,7 +52,7 @@ public class MNPanelLayout extends RelativeLayout {
     // cover
     @Getter RelativeLayout statusLayout;
     @Getter TextView panelNameTextView;
-    @Getter TextView panelStatusTextView;
+    @Getter AutoResizeTextView panelStatusTextView;
 
     @Getter @Setter boolean isUsingNetwork;
     @Getter @Setter JSONObject panelDataObject;
@@ -155,7 +157,7 @@ public class MNPanelLayout extends RelativeLayout {
         statusLayout.setVisibility(INVISIBLE); // 최초 INVISIBLE, 필요에 따라 사용
 
         // panel status
-        panelStatusTextView = new TextView(getContext());
+        panelStatusTextView = new AutoResizeTextView(getContext());
         panelStatusTextView.setId(34293757);
         LayoutParams descriptionLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -164,6 +166,7 @@ public class MNPanelLayout extends RelativeLayout {
         panelStatusTextView.setGravity(Gravity.CENTER);
         panelStatusTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimensionPixelSize(R.dimen.panel_cover_status_text_size));
+        panelStatusTextView.setSingleLine();
         statusLayout.addView(panelStatusTextView);
 
         // panel name
@@ -184,8 +187,8 @@ public class MNPanelLayout extends RelativeLayout {
     public void refreshPanel() throws JSONException {
         if (isUsingNetwork) {
             // 네트워크 체크
-            boolean isReachable = true;
-            if (isReachable) {
+            if (InternetConnectionManager.isNetworkAvailable(getContext().getApplicationContext())) {
+                hideCoverLayout();
                 try {
                     processLoading();
                 } catch (JSONException e) {
@@ -226,6 +229,7 @@ public class MNPanelLayout extends RelativeLayout {
     protected void startLoadingAnimation() {
         loadingLayout.setVisibility(VISIBLE);
         contentLayout.setVisibility(INVISIBLE);
+        statusLayout.setVisibility(INVISIBLE);
         AnimationDrawable loadingAnimation = (AnimationDrawable) loadingImageView.getBackground();
         loadingAnimation.start();
         loadingTextView.setText(R.string.loading);
@@ -239,17 +243,23 @@ public class MNPanelLayout extends RelativeLayout {
     }
 
     protected void showCoverLayout(String description) {
+        contentLayout.setVisibility(INVISIBLE);
         statusLayout.setVisibility(VISIBLE);
+        if (isUsingNetwork) {
+            loadingLayout.setVisibility(INVISIBLE);
+        }
         panelNameTextView.setText(MNPanelType.toString(getPanelType().getIndex(), getContext()));
         panelStatusTextView.setText(description);
     }
 
     protected void hideCoverLayout() {
+        contentLayout.setVisibility(VISIBLE);
         statusLayout.setVisibility(INVISIBLE);
     }
 
     protected void showNetworkIsUnavailable() {
-
+        stopLoadingAnimation();
+        showCoverLayout(getResources().getString(R.string.no_network_connection));
     }
 
     public void applyTheme() {

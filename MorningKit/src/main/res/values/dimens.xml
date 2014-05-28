@@ -76,8 +76,8 @@
     <!-- Panel -->
     <dimen name="panel_layout_padding">10dp</dimen>
     <dimen name="panel_cover_padding">16dp</dimen>
-    <dimen name="panel_cover_name_text_size">28sp</dimen>
-    <dimen name="panel_cover_status_text_size">13sp</dimen>
+    <dimen name="panel_cover_name_text_size">23sp</dimen>
+    <dimen name="panel_cover_status_text_size">12sp</dimen>
     <dimen name="panel_network_status_gap_margin">10dp</dimen>
     <dimen name="panel_network_animation_size">45dp</dimen>
     <dimen name="panel_round_radius">7.5dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
