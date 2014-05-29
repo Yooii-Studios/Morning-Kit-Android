@@ -188,8 +188,12 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                                 }
                                 ViewGroup.LayoutParams lp =
                                         previewSwitcher.getLayoutParams();
-                                displayHelper.setPhotoWidth(lp.width);
-                                displayHelper.setPhotoHeight(lp.height);
+                                displayHelper.setPhotoWidth(lp.width -
+                                        (previewSwitcher.getPaddingLeft() +
+                                        previewSwitcher.getPaddingLeft()));
+                                displayHelper.setPhotoHeight(lp.height -
+                                        (previewSwitcher.getPaddingTop() +
+                                        previewSwitcher.getPaddingBottom()));
 
                                 long interval = MNPhotoAlbumCommonUtil
                                         .getTransitionInterval(
