@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    style="?android:attr/spinnerDropDownItemStyle"
+    android:singleLine="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/panel_detail_default_font_size"
+    android:minHeight="@dimen/panel_photo_album_dropdown_minHeight"
+    android:ellipsize="marquee"/>

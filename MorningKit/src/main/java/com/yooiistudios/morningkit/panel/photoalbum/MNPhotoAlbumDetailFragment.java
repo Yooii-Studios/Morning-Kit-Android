@@ -7,15 +7,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
@@ -23,13 +21,13 @@ import android.widget.ViewSwitcher;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
+import com.yooiistudios.morningkit.panel.photoalbum.adapter.MNPhotoAlbumDropdownAdapter;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCheckboxView;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCommonUtil;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumDisplayHelper;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumListFetcher;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumRefreshTimeDialogFragment;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumTransitionType;
-import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumTransitionTypeDialogFragment;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
@@ -60,8 +58,7 @@ import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFil
  *  포토 앨범 패널 디테일 프래그먼트 by 동현
  */
 public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
-        implements MNPhotoAlbumRefreshTimeDialogFragment.OnClickListener,
-MNPhotoAlbumTransitionTypeDialogFragment.OnSelectTypeListener {
+        implements MNPhotoAlbumRefreshTimeDialogFragment.OnClickListener{
     private static final String TAG = "MNPhotoAlbumDetailFragment";
 
     // tags
@@ -80,15 +77,14 @@ MNPhotoAlbumTransitionTypeDialogFragment.OnSelectTypeListener {
     public static final int RC_LOAD_PHOTO = 1;
 
     @InjectView(R.id.preview_switcher) ViewSwitcher previewSwitcher;
+    @InjectView(R.id.preview_unavailable_imageView)
+    ImageView previewUnavailableImageView;
     @InjectView(R.id.preview_name) TextView previewName;
     @InjectView(R.id.toggleRefresh)
     ImageView refreshTimeToggleButton;
     @InjectView(R.id.edittext_min) EditText minuteEditText;
     @InjectView(R.id.edittext_sec) EditText secondEditText;
-//    @InjectView(R.id.transition_group) RadioGroup transitionEffectRadioGroup;
-    @InjectView(R.id.transition_type_wrapper) LinearLayout trantisionWrapper;
-    @InjectView(R.id.transition_type_select)
-    Button selectTrantisionTypeBtn;
+    @InjectView(R.id.transition_type_spinner) Spinner transitionTypeSpinner;
     @InjectView(R.id.label_min) TextView minLabel;
     @InjectView(R.id.label_sec) TextView secLabel;
     @InjectView(R.id.time_wrapper) ViewGroup timeWrapper;
@@ -154,6 +150,7 @@ MNPhotoAlbumTransitionTypeDialogFragment.OnSelectTypeListener {
                             new MNPhotoAlbumDisplayHelper.OnStartListener() {
                                 @Override
                                 public void onStartLoadingBitmap() {
+                                    togglePreviewWrapper(true);
                                     previewName.setText(R.string.loading);
                                 }
 
@@ -165,6 +162,7 @@ MNPhotoAlbumTransitionTypeDialogFragment.OnSelectTypeListener {
 
                                 @Override
                                 public void onError(int messageResId) {
+                                    togglePreviewWrapper(false);
                                     previewName.setText(messageResId);
                                 }
                             }
@@ -207,6 +205,16 @@ MNPhotoAlbumTransitionTypeDialogFragment.OnSelectTypeListener {
             listFetcher.execute();
         }
         return rootView;
+    }
+    private void togglePreviewWrapper(boolean available) {
+        if (available) {
+            previewSwitcher.setVisibility(View.VISIBLE);
+            previewUnavailableImageView.setVisibility(View.GONE);
+        }
+        else {
+            previewSwitcher.setVisibility(View.GONE);
+            previewUnavailableImageView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initPanelDataObject() throws JSONException {
@@ -262,79 +270,31 @@ MNPhotoAlbumTransitionTypeDialogFragment.OnSelectTypeListener {
     }
 
     private void initUI() {
+        // init preview wrapper
+        togglePreviewWrapper(true);
+
         // init transition type ui
-//        Resources res = getActivity().getResources();
-//        int checkboxSize = res.getDimensionPixelSize(
-//                R.dimen.panel_detail_check_image_button_size);
-//        int transitionTextSizeSP = res.getDimensionPixelSize(
-//                R.dimen.panel_detail_default_font_size);
-//        int transitionItemPadding = res.getDimensionPixelSize(
-//                R.dimen.panel_detail_bigger_padding);
-//        int transitionInnerPadding = res.getDimensionPixelSize(
-//                R.dimen.margin_inner);
-//        int transitionTextColor = res.getColor(
-//                R.color.pastel_green_sub_font_color);
-//
-//        int transitionTypeCount = MNPhotoAlbumTransitionType.values().length;
-//        for (int i = 0; i < transitionTypeCount; i++) {
-//            MNPhotoAlbumTransitionType type =
-//                    MNPhotoAlbumTransitionType.values()[i];
-//
-//            // wrapper
-//            final LinearLayout wrapper = new LinearLayout(getActivity());
-//
-//            // create checkbox view
-//            MNPhotoAlbumCheckboxView checkboxView =
-//                    new MNPhotoAlbumCheckboxView(getActivity());
-//            checkboxView.setBackgroundColor(Color.TRANSPARENT);
-//            checkboxView.setImageResource(R.drawable.icon_panel_detail_checkbox);
-//            checkboxView.setScaleType(ImageView.ScaleType.FIT_XY);
-//            checkboxView.setTag(TAG_TRANSITION_CHECKBOX);
-//            checkboxView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    wrapper.performClick();
-//                }
-//            });
-//
-//            // text
-//            TextView textView = new TextView(getActivity());
-//            textView.setText(type.getName(getActivity()));
-//            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-//                    transitionTextSizeSP);
-//            textView.setTextColor(transitionTextColor);
-//
-//            // wrapper
-//            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-//                    checkboxSize, checkboxSize);
-//            lp.setMargins(0, 0, transitionInnerPadding, 0);
-//            wrapper.setGravity(Gravity.CENTER_VERTICAL);
-//            wrapper.addView(checkboxView, lp);
-//            wrapper.addView(textView);
-//            wrapper.setTag(type);
-//            wrapper.setOnClickListener(onTransitionChangedListener);
-//
-//            lp = new LinearLayout.LayoutParams(
-//                    ViewGroup.LayoutParams.WRAP_CONTENT,
-//                    ViewGroup.LayoutParams.WRAP_CONTENT
-//            );
-//
-//            if (i < transitionTypeCount-1) {
-//                lp.setMargins(0, 0, transitionItemPadding, 0);
-//            }
-//
-//            trantisionWrapper.addView(wrapper, lp);
-//        }
-        selectTrantisionTypeBtn.setOnClickListener(new View.OnClickListener(){
+        ArrayList<String> transitionNameList = new ArrayList<String>();
+        for (MNPhotoAlbumTransitionType type :
+                MNPhotoAlbumTransitionType.values()) {
+            transitionNameList.add(type.name());
+        }
+        MNPhotoAlbumDropdownAdapter spinnerArrayAdapter =
+                new MNPhotoAlbumDropdownAdapter(
+                        getActivity(), transitionNameList);
+        transitionTypeSpinner.setAdapter(spinnerArrayAdapter);
+        transitionTypeSpinner.setSelection(transitionType.ordinal());
+        transitionTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                MNPhotoAlbumTransitionTypeDialogFragment fragment =
-                        MNPhotoAlbumTransitionTypeDialogFragment.newInstance(
-                                transitionType
-                        );
-                fragment.setTargetFragment(
-                        MNPhotoAlbumDetailFragment.this, -1);
-                fragment.show(getFragmentManager(), TAG_TRANSITION_TYPE_DIALOG);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                transitionType = MNPhotoAlbumTransitionType.values()[i];
+
+                transitionTypeSpinner.setSelection(transitionType.ordinal());
+                updatePreviewUI();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
@@ -361,101 +321,27 @@ MNPhotoAlbumTransitionTypeDialogFragment.OnSelectTypeListener {
             }
         });
         grayscaleToggleButton.setOnCheckListener(
-                onSwitchCheckChangedListener);
+                new MNPhotoAlbumCheckboxView.OnCheckListener() {
+                    @Override
+                    public void onCheck(ImageView btn, boolean checked) {
+                        useGrayscale = checked;
+                        updatePreviewUI(true);
+
+                    }
+                });
         minuteEditText.setEnabled(false);
         secondEditText.setEnabled(false);
-//        minuteEditText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence,
-//                                          int i, int i2, int i3) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence,
-//                                      int i, int i2, int i3) {
-//                if (charSequence.length() > 0) {
-//                    intervalMinute = Integer.parseInt(charSequence.toString());
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
-//        minuteEditText.setOnEditorActionListener(onEditorActionListener);
-//        secondEditText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence,
-//                                          int i, int i2, int i3) {}
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence,
-//                                      int i, int i2, int i3) {
-//                if (charSequence.length() > 0) {
-//                    intervalSecond = Integer.parseInt(charSequence.toString());
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {}
-//        });
-//        secondEditText.setOnEditorActionListener(onEditorActionListener);
-
-//        refreshTimeToggleButton.setChecked(useRefresh);
         grayscaleToggleButton.setChecked(useGrayscale);
-//        setTransitionType(transitionType, true);
-//        updateTransitionTypeUI();
         updateRefreshTimeUI();
 
         // theme
         initTheme();
     }
-    TextView.OnEditorActionListener onEditorActionListener =
-            new TextView.OnEditorActionListener() {
-        @Override
-        public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
-                    actionId == EditorInfo.IME_ACTION_DONE ||
-                    keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
-                            keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-
-                if (displayHelper != null) {
-                    long interval = MNPhotoAlbumCommonUtil
-                            .getTransitionInterval(
-                                    intervalMinute,
-                                    intervalSecond);
-                    displayHelper.setInterval(interval);
-                }
-                updatePreviewUI();
-            }
-            return false;
-        }
-    };
 
     private void initTheme() {
         MNThemeType currentThemeType =
                 MNTheme.getCurrentThemeType(getActivity());
     }
-
-//    private void updateTransitionTypeUI() {
-//        for (int i = 0; i < trantisionWrapper.getChildCount(); i++) {
-//            View view = trantisionWrapper.getChildAt(i);
-//            Object tag = view.getTag();
-//            checkTransitionTag(tag);
-//
-//            MNPhotoAlbumCheckboxView checkbox =
-//                    (MNPhotoAlbumCheckboxView)view.findViewWithTag(
-//                            TAG_TRANSITION_CHECKBOX);
-//            if (tag == transitionType) {
-//                // on
-//                checkbox.setChecked(true);
-//            }
-//            else {
-//                // off
-//                checkbox.setChecked(false);
-//            }
-//        }
-//    }
 
     private void updateRefreshTimeUI() {
         if (intervalMinute != INVALID_INTERVAL &&
@@ -497,66 +383,6 @@ MNPhotoAlbumTransitionTypeDialogFragment.OnSelectTypeListener {
         getPanelDataObject().put(KEY_DATA_USE_GRAYSCALE, useGrayscale);
     }
 
-
-    private MNPhotoAlbumCheckboxView.OnCheckListener
-            onSwitchCheckChangedListener
-            = new MNPhotoAlbumCheckboxView.OnCheckListener() {
-        @Override
-        public void onCheck(ImageView btn, boolean checked) {
-            switch (btn.getId()) {
-                case R.id.toggleRefresh:
-                    boolean a = true;
-                    if (a) {
-                        int minute;
-                        int second;
-                        if (intervalMinute == INVALID_INTERVAL ||
-                                intervalSecond == INVALID_INTERVAL) {
-                            minute = DEFAULT_INTERVAL_MIN;
-                            second = DEFAULT_INTERVAL_SEC;
-                        }
-                        else {
-                            minute = intervalMinute;
-                            second = intervalSecond;
-                        }
-                        DialogFragment newFragment =
-                                MNPhotoAlbumRefreshTimeDialogFragment.
-                                        newInstance(minute, second);
-                        newFragment.show(getFragmentManager(), "dialog");
-
-                        return;
-                    }
-                    useRefresh = checked;
-                    if (checked) {
-                        if (intervalMinute == INVALID_INTERVAL ||
-                                intervalSecond == INVALID_INTERVAL) {
-                            intervalMinute = DEFAULT_INTERVAL_MIN;
-                            intervalSecond = DEFAULT_INTERVAL_SEC;
-                        }
-                    } else {
-                        intervalMinute = INVALID_INTERVAL;
-                        intervalSecond = INVALID_INTERVAL;
-                    }
-
-                    updateRefreshTimeUI();
-
-                    if (displayHelper != null) {
-                        long interval = MNPhotoAlbumCommonUtil
-                                .getTransitionInterval(
-                                        intervalMinute,
-                                        intervalSecond);
-                        displayHelper.setInterval(interval);
-                    }
-                    updatePreviewUI();
-                    break;
-                case R.id.grayscale_toggleSwitch:
-                    useGrayscale = checked;
-                    updatePreviewUI(true);
-                    break;
-            }
-
-        }
-    };
-
     private void onTimeUpdated() {
         updateRefreshTimeUI();
 
@@ -570,46 +396,6 @@ MNPhotoAlbumTransitionTypeDialogFragment.OnSelectTypeListener {
         updatePreviewUI(true);
     }
 
-    private View.OnClickListener onTransitionChangedListener =
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Object tag = view.getTag();
-                    checkTransitionTag(tag);
-                    transitionType = (MNPhotoAlbumTransitionType)tag;
-
-//                    updateTransitionTypeUI();
-                    updatePreviewUI();
-                }
-            };
-
-    private void checkTransitionTag(Object tag) {
-        if (tag == null) {
-            throw new IllegalStateException(
-                    tag + "MUST NOT be null.");
-        }
-        if (!(tag instanceof MNPhotoAlbumTransitionType)) {
-            throw new IllegalStateException(tag + "MUST be an " +
-                    "instance of " + MNPhotoAlbumTransitionType
-                    .class.getName());
-        }
-    }
-//    private RadioGroup.OnCheckedChangeListener onTransitionChangedListener
-//            = new RadioGroup.OnCheckedChangeListener() {
-//        @Override
-//        public void onCheckedChanged(RadioGroup radioGroup, int id) {
-//            switch(id) {
-//                case R.id.radio_none:
-//                    transitionType = MNPhotoAlbumTransitionType.NONE;
-//                    break;
-//                case R.id.radio_alpha:
-//                    transitionType = MNPhotoAlbumTransitionType.ALPHA;
-//                    break;
-//            }
-//
-//            updatePreviewUI();
-//        }
-//    };
     private void updatePreviewUI() {
         updatePreviewUI(false);
     }
@@ -738,13 +524,5 @@ MNPhotoAlbumTransitionTypeDialogFragment.OnSelectTypeListener {
         useRefresh = false;
 
         onTimeUpdated();
-    }
-
-    @Override
-    public void onSelectType(MNPhotoAlbumTransitionType type) {
-        transitionType = type;
-
-//        updateTransitionTypeUI();
-        updatePreviewUI();
     }
 }
