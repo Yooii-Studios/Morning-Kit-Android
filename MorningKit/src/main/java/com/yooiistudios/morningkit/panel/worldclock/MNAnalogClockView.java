@@ -80,11 +80,11 @@ public class MNAnalogClockView extends RelativeLayout {
         clockBaseImageView.setLayoutParams(clockBaseLayoutParams);
         addView(clockBaseImageView);
 
-        secondHandImageView = new ImageView(getContext());
-        LayoutParams secondHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);
-        secondHandLayoutParams.addRule(CENTER_IN_PARENT);
-        secondHandImageView.setLayoutParams(secondHandLayoutParams);
-        addView(secondHandImageView);
+        hourHandImageView = new ImageView(getContext());
+        LayoutParams hourHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);
+        hourHandLayoutParams.addRule(CENTER_IN_PARENT);
+        hourHandImageView.setLayoutParams(hourHandLayoutParams);
+        addView(hourHandImageView);
 
         minuteHandImageView = new ImageView(getContext());
         LayoutParams minuteHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);
@@ -92,11 +92,11 @@ public class MNAnalogClockView extends RelativeLayout {
         minuteHandImageView.setLayoutParams(minuteHandLayoutParams);
         addView(minuteHandImageView);
 
-        hourHandImageView = new ImageView(getContext());
-        LayoutParams hourHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);
-        hourHandLayoutParams.addRule(CENTER_IN_PARENT);
-        hourHandImageView.setLayoutParams(hourHandLayoutParams);
-        addView(hourHandImageView);
+        secondHandImageView = new ImageView(getContext());
+        LayoutParams secondHandLayoutParams = new LayoutParams(WRAP_CONTENT, MATCH_PARENT);
+        secondHandLayoutParams.addRule(CENTER_IN_PARENT);
+        secondHandImageView.setLayoutParams(secondHandLayoutParams);
+        addView(secondHandImageView);
     }
 
     // 시, 분, 초를 대입해서 애니메이션 작동이 되게 한다
@@ -106,6 +106,7 @@ public class MNAnalogClockView extends RelativeLayout {
         int newSecondAngle = second * DEGREE_MINUTE;
 
         if (isFirstTick) {
+            checkAmPm(hour);
             isFirstTick = false;
             rotate(hourHandImageView, 0, newHourAngle);
             rotate(minuteHandImageView, 0, newMinuteAngle);
@@ -128,17 +129,20 @@ public class MNAnalogClockView extends RelativeLayout {
 
         // when hour changed - check art resources(clock base for AM/PM)
         if (minute == 0 && second == 0) {
-            if (hour >= 12) {
-                // 정오부터 밤12시까지 PM
-                isTimeAm = false;
-            } else {
-                // 오전 0시부터 정오 전까지 AM
-                isTimeAm = true;
-            }
+            checkAmPm(hour);
             applyTheme();
         }
     }
 
+    private void checkAmPm(int hour) {
+        if (hour >= 12) {
+            // 정오부터 밤12시까지 PM
+            isTimeAm = false;
+        } else {
+            // 오전 0시부터 정오 전까지 AM
+            isTimeAm = true;
+        }
+    }
     private void rotate(ImageView imageView, int fromAngle, int toAngle){
         Animation anim;
         anim = new RotateAnimation(fromAngle, toAngle,
@@ -175,17 +179,18 @@ public class MNAnalogClockView extends RelativeLayout {
         MNThemeType currentType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
         BitmapFactory.Options options = MNBitmapUtils.getDefaultOptions();
         if (isTimeAm) {
+            MNLog.i(TAG, "isTimeAM");
             Bitmap clockBaseBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
                     MNMainResources.getWorldClockAMBase(currentType), options);
             clockBaseImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), clockBaseBitmap));
 
-            Bitmap secondHandBitmap = BitmapFactory.decodeResource(
+            Bitmap hourHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockAMSecondHand(currentType), options);
-            secondHandImageView.setImageDrawable(
-                    new BitmapDrawable(getContext().getApplicationContext().getResources(), secondHandBitmap));
+                    MNMainResources.getWorldClockAMHourHand(currentType), options);
+            hourHandImageView.setImageDrawable(
+                    new BitmapDrawable(getContext().getApplicationContext().getResources(), hourHandBitmap));
 
             Bitmap minuteHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
@@ -193,23 +198,24 @@ public class MNAnalogClockView extends RelativeLayout {
             minuteHandImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), minuteHandBitmap));
 
-            Bitmap hourHandBitmap = BitmapFactory.decodeResource(
+            Bitmap secondHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockAMHourHand(currentType), options);
-            hourHandImageView.setImageDrawable(
-                    new BitmapDrawable(getContext().getApplicationContext().getResources(), hourHandBitmap));
+                    MNMainResources.getWorldClockAMSecondHand(currentType), options);
+            secondHandImageView.setImageDrawable(
+                    new BitmapDrawable(getContext().getApplicationContext().getResources(), secondHandBitmap));
         } else {
+            MNLog.i(TAG, "isTimePM");
             Bitmap clockBaseBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
                     MNMainResources.getWorldClockPMBase(currentType), options);
             clockBaseImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), clockBaseBitmap));
 
-            Bitmap secondHandBitmap = BitmapFactory.decodeResource(
+            Bitmap hourHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockPMSecondHand(currentType), options);
-            secondHandImageView.setImageDrawable(
-                    new BitmapDrawable(getContext().getApplicationContext().getResources(), secondHandBitmap));
+                    MNMainResources.getWorldClockPMHourHand(currentType), options);
+            hourHandImageView.setImageDrawable(
+                    new BitmapDrawable(getContext().getApplicationContext().getResources(), hourHandBitmap));
 
             Bitmap minuteHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
@@ -217,11 +223,11 @@ public class MNAnalogClockView extends RelativeLayout {
             minuteHandImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), minuteHandBitmap));
 
-            Bitmap hourHandBitmap = BitmapFactory.decodeResource(
+            Bitmap secondHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockPMHourHand(currentType), options);
-            hourHandImageView.setImageDrawable(
-                    new BitmapDrawable(getContext().getApplicationContext().getResources(), hourHandBitmap));
+                    MNMainResources.getWorldClockPMSecondHand(currentType), options);
+            secondHandImageView.setImageDrawable(
+                    new BitmapDrawable(getContext().getApplicationContext().getResources(), secondHandBitmap));
         }
     }
 }
