@@ -167,8 +167,58 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                                 }
                             }
                     );
+            ViewGroup.LayoutParams lp =
+                    previewSwitcher.getLayoutParams();
+            displayHelper.setPhotoWidth(lp.width -
+                    (previewSwitcher.getPaddingLeft() +
+                            previewSwitcher.getPaddingLeft()));
+            displayHelper.setPhotoHeight(lp.height -
+                    (previewSwitcher.getPaddingTop() +
+                            previewSwitcher.getPaddingBottom()));
         }
+
+        loadFileList();
+
         return rootView;
+    }
+
+    private void loadFileList() {
+        if (listFetcher != null) {
+            listFetcher.cancel(true);
+        }
+        previewName.setText(R.string.loading);
+        listFetcher = new MNPhotoAlbumListFetcher(
+                rootDirForFiles,
+                new MNPhotoAlbumListFetcher.OnListFetchListener() {
+                    @Override
+                    public void onPhotoListFetch(ArrayList<String> photoList) {
+                        previewName.setText(new File(rootDirForFiles)
+                                .getName());
+                        if (photoList != null) {
+                            fileList = photoList;
+                            if (selectedFileName == null &&
+                                    photoList.size() > 0) {
+                                selectedFileName = photoList.get(0);
+                            }
+
+                            long interval = MNPhotoAlbumCommonUtil
+                                    .getTransitionInterval(
+                                            intervalMinute,
+                                            intervalSecond);
+                            displayHelper.setInterval(interval);
+
+                            updatePreviewUI(true);
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+                        togglePreviewWrapper(false);
+                        previewName.setText(R.string.photo_album_no_image);
+                    }
+                }
+        );
+        listFetcher.execute();
     }
     private void togglePreviewWrapper(boolean available) {
         if (available) {
@@ -369,18 +419,16 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
             displayHelper.setRootDir(rootDirForFiles);
             displayHelper.setTransitionType(transitionType);
             displayHelper.setUseGrayscale(useGrayscale);
+            displayHelper.setSelectedFile(selectedFileName);
+            displayHelper.setFileList(fileList);
             if (intervalMinute == INVALID_INTERVAL ||
                     intervalSecond == INVALID_INTERVAL) {
                 displayHelper.setInterval(INVALID_INTERVAL);
-                ArrayList<String> tmpFileList = new ArrayList<String>();
-                tmpFileList.add(selectedFileName);
-                displayHelper.setFileList(tmpFileList);
                 if (restart || displayHelper.isRunning()) {
                     displayHelper.restart();
                 }
             }
             else {
-                displayHelper.setFileList(fileList);
                 displayHelper.restart();
             }
         }
@@ -417,37 +465,38 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                             return;
                         }
 
-                        this.selectedFileName = selectedFile.getName();
                         this.rootDirForFiles = selectedFile.getParent();
+                        this.selectedFileName = selectedFile.getAbsolutePath
+                                ().replace(rootDirForFiles, "");
 
-                        // load image items for preview
-                        previewName.setText("Loading...");
-
-                        if (listFetcher != null) {
-                            listFetcher.cancel(true);
-                            listFetcher = new MNPhotoAlbumListFetcher(
-                                    rootDirForFiles,
-                                    new MNPhotoAlbumListFetcher.OnListFetchListener() {
-                                        @Override
-                                        public void onPhotoListFetch(ArrayList<String> photoList) {
-                                            previewName.setText(
-                                                    new File(rootDirForFiles)
-                                                    .getName());
-                                            if (photoList != null) {
-                                                fileList = photoList;
-                                                updatePreviewUI(true);
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onError() {
-                                            togglePreviewWrapper(false);
-                                            previewName.setText(R.string.photo_album_no_image);
-                                        }
-                                    }
-                            );
-                            listFetcher.execute();
-                        }
+//                        // load image items for preview
+//                        previewName.setText("Loading...");
+//
+//                        if (listFetcher != null) {
+//                            listFetcher.cancel(true);
+//                            listFetcher = new MNPhotoAlbumListFetcher(
+//                                    rootDirForFiles,
+//                                    new MNPhotoAlbumListFetcher.OnListFetchListener() {
+//                                        @Override
+//                                        public void onPhotoListFetch(ArrayList<String> photoList) {
+//                                            previewName.setText(
+//                                                    new File(rootDirForFiles)
+//                                                    .getName());
+//                                            if (photoList != null) {
+//                                                fileList = photoList;
+//                                                updatePreviewUI(true);
+//                                            }
+//                                        }
+//
+//                                        @Override
+//                                        public void onError() {
+//                                            togglePreviewWrapper(false);
+//                                            previewName.setText(R.string.photo_album_no_image);
+//                                        }
+//                                    }
+//                            );
+//                            listFetcher.execute();
+//                        }
                     }
                     else {
                         Toast.makeText(getActivity(),
@@ -460,58 +509,20 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        MNLog.i(TAG, "onStart");
-        if (listFetcher != null) {
-            listFetcher.cancel(true);
-        }
-        previewName.setText(R.string.loading);
-        listFetcher = new MNPhotoAlbumListFetcher(
-                rootDirForFiles,
-                new MNPhotoAlbumListFetcher.OnListFetchListener() {
-                    @Override
-                    public void onPhotoListFetch(ArrayList<String> photoList) {
-                        previewName.setText(new File(rootDirForFiles)
-                                .getName());
-                        if (photoList != null) {
-                            fileList = photoList;
-                            if (selectedFileName == null &&
-                                    photoList.size() > 0) {
-                                selectedFileName = photoList.get(0);
-                            }
-                            ViewGroup.LayoutParams lp =
-                                    previewSwitcher.getLayoutParams();
-                            displayHelper.setPhotoWidth(lp.width -
-                                    (previewSwitcher.getPaddingLeft() +
-                                            previewSwitcher.getPaddingLeft()));
-                            displayHelper.setPhotoHeight(lp.height -
-                                    (previewSwitcher.getPaddingTop() +
-                                            previewSwitcher.getPaddingBottom()));
+    public void onResume() {
+        super.onResume();
 
-                            long interval = MNPhotoAlbumCommonUtil
-                                    .getTransitionInterval(
-                                            intervalMinute,
-                                            intervalSecond);
-                            displayHelper.setInterval(interval);
-
-                            updatePreviewUI(true);
-                        }
-                    }
-
-                    @Override
-                    public void onError() {
-                        togglePreviewWrapper(false);
-                        previewName.setText(R.string.photo_album_no_image);
-                    }
-                }
-        );
-        listFetcher.execute();
+        loadFileList();
+//        else {
+//            if (displayHelper != null) {
+//                displayHelper.restart();
+//            }
+//        }
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         MNLog.i(TAG, "onStop");
         if (listFetcher != null) {
             listFetcher.cancel(true);

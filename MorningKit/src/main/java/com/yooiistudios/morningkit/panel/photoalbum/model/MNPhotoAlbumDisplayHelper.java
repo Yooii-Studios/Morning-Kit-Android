@@ -26,6 +26,7 @@ public class MNPhotoAlbumDisplayHelper {
     private ViewSwitcher mViewSwitcher;
     private String mRootDir;
     private ArrayList<String> mFileList;
+    private String mSelectedFile;
     private MNPhotoAlbumImageView mFirstView;
     private MNPhotoAlbumImageView mSecondView;
     private MNPhotoAlbumTransitionType mTransitionType;
@@ -79,12 +80,13 @@ public class MNPhotoAlbumDisplayHelper {
     }
 
     public synchronized void start(String rootDir,
-            ArrayList<String> fileList,
+            ArrayList<String> fileList, String selectedFile,
             MNPhotoAlbumTransitionType transitionType, long interval,
             boolean useGrayscale, int photoWidth, int photoHeight) {
         stop();
 
         mRootDir = rootDir;
+        mSelectedFile = selectedFile;
         mTransitionType = transitionType;
         mInterval = interval;
         mUseGrayscale = useGrayscale;
@@ -102,10 +104,16 @@ public class MNPhotoAlbumDisplayHelper {
             }
         }
         else {
-            mPhotoIdx = 0;
+            String fileName;
+            if (mSelectedFile != null && mFileList.contains(mSelectedFile)) {
+                fileName = mSelectedFile;
+            }
+            else {
+                mPhotoIdx = 0;
 
-            //show first image
-            String fileName = mFileList.get(mPhotoIdx);
+                //show first image
+                fileName = mFileList.get(mPhotoIdx);
+            }
 
             if (mOnStartListener != null) {
                 mOnStartListener.onStartLoadingBitmap();
@@ -166,6 +174,9 @@ public class MNPhotoAlbumDisplayHelper {
     public synchronized void setRootDir(String rootDir) {
         mRootDir = rootDir;
     }
+    public synchronized void setSelectedFile(String selectedFile) {
+        mSelectedFile = selectedFile;
+    }
     public synchronized void setFileList(ArrayList<String> fileList) {
         mFileList = fileList;
     }
@@ -180,8 +191,8 @@ public class MNPhotoAlbumDisplayHelper {
     }
     public void restart() {
         stop();
-        start(mRootDir, mFileList, mTransitionType, mInterval, mUseGrayscale,
-                mPhotoWidth, mPhotoHeight);
+        start(mRootDir, mFileList, mSelectedFile, mTransitionType, mInterval,
+                mUseGrayscale, mPhotoWidth, mPhotoHeight);
     }
     public synchronized void setTransitionType(MNPhotoAlbumTransitionType type) {
         mTransitionType = type;
