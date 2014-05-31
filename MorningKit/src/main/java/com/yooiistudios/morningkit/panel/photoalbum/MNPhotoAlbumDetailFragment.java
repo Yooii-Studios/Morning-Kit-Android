@@ -167,52 +167,6 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                                 }
                             }
                     );
-
-
-            if (listFetcher != null) {
-                listFetcher.cancel(true);
-            }
-            previewName.setText(R.string.loading);
-            listFetcher = new MNPhotoAlbumListFetcher(
-                    rootDirForFiles,
-                    new MNPhotoAlbumListFetcher.OnListFetchListener() {
-                        @Override
-                        public void onPhotoListFetch(ArrayList<String> photoList) {
-                            previewName.setText(new File(rootDirForFiles)
-                                    .getName());
-                            if (photoList != null) {
-                                fileList = photoList;
-                                if (selectedFileName == null &&
-                                        photoList.size() > 0) {
-                                    selectedFileName = photoList.get(0);
-                                }
-                                ViewGroup.LayoutParams lp =
-                                        previewSwitcher.getLayoutParams();
-                                displayHelper.setPhotoWidth(lp.width -
-                                        (previewSwitcher.getPaddingLeft() +
-                                        previewSwitcher.getPaddingLeft()));
-                                displayHelper.setPhotoHeight(lp.height -
-                                        (previewSwitcher.getPaddingTop() +
-                                        previewSwitcher.getPaddingBottom()));
-
-                                long interval = MNPhotoAlbumCommonUtil
-                                        .getTransitionInterval(
-                                                intervalMinute,
-                                                intervalSecond);
-                                displayHelper.setInterval(interval);
-
-                                updatePreviewUI(true);
-                            }
-                        }
-
-                        @Override
-                        public void onError() {
-                            togglePreviewWrapper(false);
-                            previewName.setText(R.string.photo_album_no_image);
-                        }
-                    }
-            );
-            listFetcher.execute();
         }
         return rootView;
     }
@@ -441,10 +395,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     MNLog.i(TAG, data.getData().getPath());
 
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA,
-                            MediaStore.Images.Media.DESCRIPTION,
-                            MediaStore.Images.Media.PICASA_ID,
-                            MediaStore.Images.Media.TITLE};
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
                     Cursor cursor = getActivity().getContentResolver().query(
                             data.getData(), filePathColumn, null, null, null);
@@ -509,8 +460,59 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStart() {
+        super.onStart();
+        MNLog.i(TAG, "onStart");
+        if (listFetcher != null) {
+            listFetcher.cancel(true);
+        }
+        previewName.setText(R.string.loading);
+        listFetcher = new MNPhotoAlbumListFetcher(
+                rootDirForFiles,
+                new MNPhotoAlbumListFetcher.OnListFetchListener() {
+                    @Override
+                    public void onPhotoListFetch(ArrayList<String> photoList) {
+                        previewName.setText(new File(rootDirForFiles)
+                                .getName());
+                        if (photoList != null) {
+                            fileList = photoList;
+                            if (selectedFileName == null &&
+                                    photoList.size() > 0) {
+                                selectedFileName = photoList.get(0);
+                            }
+                            ViewGroup.LayoutParams lp =
+                                    previewSwitcher.getLayoutParams();
+                            displayHelper.setPhotoWidth(lp.width -
+                                    (previewSwitcher.getPaddingLeft() +
+                                            previewSwitcher.getPaddingLeft()));
+                            displayHelper.setPhotoHeight(lp.height -
+                                    (previewSwitcher.getPaddingTop() +
+                                            previewSwitcher.getPaddingBottom()));
+
+                            long interval = MNPhotoAlbumCommonUtil
+                                    .getTransitionInterval(
+                                            intervalMinute,
+                                            intervalSecond);
+                            displayHelper.setInterval(interval);
+
+                            updatePreviewUI(true);
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+                        togglePreviewWrapper(false);
+                        previewName.setText(R.string.photo_album_no_image);
+                    }
+                }
+        );
+        listFetcher.execute();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        MNLog.i(TAG, "onStop");
         if (listFetcher != null) {
             listFetcher.cancel(true);
         }
@@ -518,6 +520,17 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
             displayHelper.stop();
         }
     }
+
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        if (listFetcher != null) {
+//            listFetcher.cancel(true);
+//        }
+//        if (displayHelper != null && displayHelper.isRunning()) {
+//            displayHelper.stop();
+//        }
+//    }
 
     @Override
     public void onConfirm(int minute, int second) {
