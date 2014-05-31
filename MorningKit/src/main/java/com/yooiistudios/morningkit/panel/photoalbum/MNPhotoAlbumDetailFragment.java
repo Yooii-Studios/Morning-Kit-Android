@@ -204,6 +204,12 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                                 updatePreviewUI(true);
                             }
                         }
+
+                        @Override
+                        public void onError() {
+                            togglePreviewWrapper(false);
+                            previewName.setText(R.string.photo_album_no_image);
+                        }
                     }
             );
             listFetcher.execute();
@@ -480,6 +486,12 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                                                 fileList = photoList;
                                                 updatePreviewUI(true);
                                             }
+                                        }
+
+                                        @Override
+                                        public void onError() {
+                                            togglePreviewWrapper(false);
+                                            previewName.setText(R.string.photo_album_no_image);
                                         }
                                     }
                             );

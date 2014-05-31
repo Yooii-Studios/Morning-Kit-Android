@@ -19,6 +19,8 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
 
     private String mParentForFileList;
     private OnListFetchListener onListFetchListener;
+    private boolean mIsRunning;
+    private static final boolean DEBUG = true;
 
     public MNPhotoAlbumListFetcher(String parentForFileList,
                                    OnListFetchListener onListFetchListener) {
@@ -27,8 +29,20 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        mIsRunning = true;
+    }
+
+    @Override
     protected ArrayList<String> doInBackground(Void... voids) {
         MNLog.i(TAG, "start loading");
+
+//        try {
+//            Thread.sleep(2000);
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
 
         return getFileList(new File(mParentForFileList), null, "image");
     }
@@ -39,9 +53,19 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
         if (isCancelled()) {
             resultList = null;
         }
+        if (resultList == null) {
+            if (onListFetchListener != null) {
+                onListFetchListener.onError();
+            }
+            return;
+        }
         if (onListFetchListener != null) {
             onListFetchListener.onPhotoListFetch(resultList);
         }
+        mIsRunning = false;
+    }
+    public boolean isRunning() {
+        return mIsRunning;
     }
 
     public static ArrayList<String> getFileList(File rootDir, File curDir,
@@ -49,12 +73,19 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
         ArrayList<String> inFiles = new ArrayList<String>();
         File[] files =
                 curDir != null ? curDir.listFiles() : rootDir.listFiles();
+        if (files == null) {
+            return null;
+        }
         for (File file : files) {
+            if (DEBUG) {
+                if (file.isHidden()) {
+                    continue;
+                }
+            }
             if (file.isDirectory()) {
                 inFiles.addAll(getFileList(rootDir, file, mimetype));
-            }
-            else {
-                if(checkMimetype(file, mimetype)) {
+            } else {
+                if (checkMimetype(file, mimetype)) {
                     String relativePath = file.getAbsolutePath().replace(
                             rootDir.getAbsolutePath(), "");
                     inFiles.add(relativePath);
@@ -97,5 +128,6 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
 
     public interface OnListFetchListener {
         public void onPhotoListFetch(ArrayList<String> photoList);
+        public void onError();
     }
 }
