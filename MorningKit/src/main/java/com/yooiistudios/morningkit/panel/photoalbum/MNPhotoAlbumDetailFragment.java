@@ -188,8 +188,12 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                                 }
                                 ViewGroup.LayoutParams lp =
                                         previewSwitcher.getLayoutParams();
-                                displayHelper.setPhotoWidth(lp.width);
-                                displayHelper.setPhotoHeight(lp.height);
+                                displayHelper.setPhotoWidth(lp.width -
+                                        (previewSwitcher.getPaddingLeft() +
+                                        previewSwitcher.getPaddingLeft()));
+                                displayHelper.setPhotoHeight(lp.height -
+                                        (previewSwitcher.getPaddingTop() +
+                                        previewSwitcher.getPaddingBottom()));
 
                                 long interval = MNPhotoAlbumCommonUtil
                                         .getTransitionInterval(
@@ -199,6 +203,12 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
 
                                 updatePreviewUI(true);
                             }
+                        }
+
+                        @Override
+                        public void onError() {
+                            togglePreviewWrapper(false);
+                            previewName.setText(R.string.photo_album_no_image);
                         }
                     }
             );
@@ -476,6 +486,12 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                                                 fileList = photoList;
                                                 updatePreviewUI(true);
                                             }
+                                        }
+
+                                        @Override
+                                        public void onError() {
+                                            togglePreviewWrapper(false);
+                                            previewName.setText(R.string.photo_album_no_image);
                                         }
                                     }
                             );
