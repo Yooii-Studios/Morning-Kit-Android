@@ -140,7 +140,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
             else {
                 list = allAbsoluteImageFileList;
             }
-            displayHelper.start(rootDir, list,
+            displayHelper.start(rootDir, list, selectedFile,
                     transitionType, intervalInMillisec, useGrayscale,
                     photoWidth, photoHeight);
             MNLog.i("Timer", "started. isRunning : " + displayHelper.isRunning());
