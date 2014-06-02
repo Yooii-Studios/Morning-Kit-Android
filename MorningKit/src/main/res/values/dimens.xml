@@ -213,8 +213,8 @@
     <!-- Theme -->
     <dimen name="setting_item_padding">8dp</dimen>
     <dimen name="setting_item_title_textview_height">26dp</dimen>
-    <dimen name="setting_item_title_font_size">20dp</dimen>
-    <dimen name="setting_item_detail_font_size">16dp</dimen>
+    <dimen name="setting_item_title_font_size">20sp</dimen>
+    <dimen name="setting_item_detail_font_size">16sp</dimen>
     <dimen name="setting_item_detail_textview_left_margin">12dp</dimen>
 
     <!-- Theme - detail item -->

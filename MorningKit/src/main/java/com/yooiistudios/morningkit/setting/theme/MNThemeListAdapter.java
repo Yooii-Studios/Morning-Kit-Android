@@ -17,8 +17,6 @@ import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixActivity;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeDetailActivity;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -87,11 +85,11 @@ public class MNThemeListAdapter extends BaseAdapter {
             }
 
             // theme
-            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
-            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-            viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-            viewHolder.getDetailTextView().setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
-            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
+//            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
+//            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+//            viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//            viewHolder.getDetailTextView().setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
+//            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
             // onClick
             viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
