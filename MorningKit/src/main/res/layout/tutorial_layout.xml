@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#a0000000">
+
+    <TextView
+        android:id="@+id/tutorial_skip_tutorial_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/tutorial_margin_skip_tutorial"
+        android:padding="@dimen/margin_inner"
+        android:background="@drawable/tutorial_skip_shape"
+        android:gravity="center"
+        android:text="@string/tutorial1_skip_tutorial"
+        android:textSize="@dimen/tutorial_skip_tutorial_text_size"
+        android:textColor="#ffcc00"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tutorial_tap_screen_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/main_button_layout_height"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/panel_detail_bigger_padding"
+        android:layout_marginLeft="@dimen/panel_detail_bigger_padding"
+        android:layout_marginBottom="@dimen/main_admob_layout_height"
+        android:padding="@dimen/margin_inner"
+        android:gravity="center"
+        android:text="@string/tutorial1_tap_screen"
+        android:textStyle="bold"
+        android:textSize="@dimen/tutorial_tap_screen_text_size"
+        android:textColor="#0099ff"/>
+
+</RelativeLayout>

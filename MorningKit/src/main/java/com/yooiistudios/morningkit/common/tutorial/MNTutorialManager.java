@@ -10,8 +10,9 @@ import android.content.SharedPreferences;
  *  튜토리얼 상태를 관리
  */
 public class MNTutorialManager {
-    public static final String PREFS = "MNTutorialManager";
-    public static final String KEY_IS_TUTORIAL_SHOWN = "KEY_IS_TUTORIAL_SHOWN";
+    private static final String PREFS = "MNTutorialManager";
+    private static final String KEY_IS_TUTORIAL_SHOWN = "KEY_IS_TUTORIAL_SHOWN";
+
     public static boolean isTutorialShown(Context context) {
         SharedPreferences prefs =
                 context.getSharedPreferences("SKAlarmSoundManager", Context.MODE_PRIVATE);
