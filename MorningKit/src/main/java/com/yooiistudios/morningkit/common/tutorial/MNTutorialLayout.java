@@ -156,14 +156,17 @@ public class MNTutorialLayout extends RelativeLayout {
         int innerMargin = resources.getDimensionPixelSize(R.dimen.margin_inner);
         int panelHeight = resources.getDimensionPixelSize(R.dimen.panel_height);
         int circleLeftRightMargin = (int) ((deviceWidth - innerMargin * 2) / 4.0f - circleSize / 2.0f);
-        int circleTopMargin = (int) (innerMargin + (panelHeight / 2.0f) - (circleSize / 2.0f));
-        int textViewMargin = resources.getDimensionPixelSize(R.dimen.panel_cover_padding);
+        int circleTopMargin = (int) (innerMargin * 2 + (panelHeight / 2.0f) - (circleSize / 2.0f));
+        int textViewMargin = resources.getDimensionPixelSize(R.dimen.panel_detail_bigger_padding);
+        int alarmHeight = resources.getDimensionPixelSize(R.dimen.alarm_item_outer_height);
+        int textViewHeight = alarmHeight / 2;
+        int panelWindowHeight = panelHeight * 2 + innerMargin * 2;
 
         // Text
-        firstTextView = new AutoResizeTextView(applicationContext);
+        firstTextView = new AutoResizeTextView(getContext());
         LayoutParams textViewLayoutParams =
-                new LayoutParams(MATCH_PARENT, panelHeight * 2 - innerMargin * 2);
-        textViewLayoutParams.topMargin = innerMargin * 2;
+                new LayoutParams(MATCH_PARENT, textViewHeight);
+        textViewLayoutParams.topMargin = innerMargin * 2 + panelWindowHeight / 2 - textViewHeight / 2;
         textViewLayoutParams.leftMargin = textViewMargin;
         textViewLayoutParams.rightMargin = textViewMargin;
         firstTextView.setLayoutParams(textViewLayoutParams);
@@ -273,7 +276,7 @@ public class MNTutorialLayout extends RelativeLayout {
                 new LayoutParams(circleSize, circleSize);
         circleView3Params.addRule(ALIGN_PARENT_TOP);
         circleView3Params.addRule(ALIGN_PARENT_LEFT);
-        circleView3Params.topMargin = circleTopMargin + panelHeight;
+        circleView3Params.topMargin = circleTopMargin + panelHeight + innerMargin * 2;
         circleView3Params.leftMargin = circleLeftRightMargin;
         firstCircleView3.setLayoutParams(circleView3Params);
         firstCircleView3.setBackgroundResource(R.drawable.tutorial_circle_gray_shape);
@@ -316,7 +319,7 @@ public class MNTutorialLayout extends RelativeLayout {
                 new LayoutParams(circleSize, circleSize);
         circleView4Params.addRule(ALIGN_PARENT_TOP);
         circleView4Params.addRule(ALIGN_PARENT_RIGHT);
-        circleView4Params.topMargin = circleTopMargin + panelHeight;
+        circleView4Params.topMargin = circleTopMargin + panelHeight + innerMargin * 2;
         circleView4Params.rightMargin = circleLeftRightMargin;
         firstCircleView4.setLayoutParams(circleView4Params);
         firstCircleView4.setBackgroundResource(R.drawable.tutorial_circle_gray_shape);
@@ -411,10 +414,10 @@ public class MNTutorialLayout extends RelativeLayout {
         int alarmHeight = resources.getDimensionPixelSize(R.dimen.alarm_item_outer_height);
         int biggerMargin = resources.getDimensionPixelSize(R.dimen.panel_detail_bigger_padding);
         int textViewHeight = alarmHeight / 2;
-        int textViewMargin = resources.getDimensionPixelSize(R.dimen.panel_cover_padding);
+        int textViewMargin = resources.getDimensionPixelSize(R.dimen.panel_detail_bigger_padding);
         int circleSize = resources.getDimensionPixelSize(R.dimen.tutorial_circle_size);
-        int circleTopMargin = (int) (innerMargin + panelHeight * 2.0f +
-                alarmHeight * 1.5f - circleSize / 2.0f);
+        int circleTopMargin = (int) (innerMargin * 5 + panelHeight * 2 +
+                alarmHeight * 1.5 - circleSize / 2);
         int alarmIconSize = resources.getDimensionPixelSize(R.dimen.tutorial_alarm_icon_size);
 
         // Anim 관련
@@ -453,7 +456,7 @@ public class MNTutorialLayout extends RelativeLayout {
         secondTextView = new AutoResizeTextView(applicationContext);
         secondTextView.setId(1874575);
         LayoutParams textViewLayoutParams =
-                new LayoutParams(WRAP_CONTENT, textViewHeight);
+                new LayoutParams(MATCH_PARENT, textViewHeight);
         textViewLayoutParams.addRule(CENTER_HORIZONTAL);
         textViewLayoutParams.addRule(BELOW, secondAlarmImageView.getId());
         textViewLayoutParams.leftMargin = textViewMargin;
@@ -568,9 +571,9 @@ public class MNTutorialLayout extends RelativeLayout {
         int textViewHeight = alarmHeight / 2;
         int textViewMargin = resources.getDimensionPixelSize(R.dimen.panel_cover_padding);
         int circleSize = resources.getDimensionPixelSize(R.dimen.tutorial_circle_size);
-        int circleTopMargin = (int) (innerMargin + panelHeight * 2.0f +
-                alarmHeight * 1.5f - circleSize / 2.0f);
-        int circleLeftRightMargin = (int) ((deviceWidth - innerMargin * 2) / 4.0f - circleSize / 2.0f);
+        int circleTopMargin = (int) (innerMargin * 5 + panelHeight * 2 +
+                alarmHeight * 1.5 - circleSize / 2);
+        int circleRightMargin = (int) ((deviceWidth - innerMargin * 2) / 4.0f - circleSize / 2.0f);
 
         // 튜토리얼 3:
         // 드래그해서 알람을 지울 수 있는 애니메이션을 보여준다.
@@ -588,7 +591,7 @@ public class MNTutorialLayout extends RelativeLayout {
         circleViewParams.addRule(CENTER_HORIZONTAL);
         circleViewParams.addRule(ALIGN_PARENT_RIGHT);
         circleViewParams.topMargin = circleTopMargin;
-        circleViewParams.rightMargin = circleLeftRightMargin;
+        circleViewParams.rightMargin = circleRightMargin;
         thirdCircleView.setLayoutParams(circleViewParams);
         thirdCircleView.setBackgroundResource(R.drawable.tutorial_circle_gray_shape);
         addView(thirdCircleView);
@@ -729,7 +732,7 @@ public class MNTutorialLayout extends RelativeLayout {
         // Text
         thirdTextView = new AutoResizeTextView(applicationContext);
         LayoutParams textViewLayoutParams =
-                new LayoutParams(WRAP_CONTENT, textViewHeight);
+                new LayoutParams(MATCH_PARENT, textViewHeight);
         textViewLayoutParams.addRule(CENTER_HORIZONTAL);
         textViewLayoutParams.addRule(BELOW, thirdCircleView.getId());
         textViewLayoutParams.topMargin = textTopMargin;
@@ -929,7 +932,6 @@ public class MNTutorialLayout extends RelativeLayout {
     }
 
     private void initDefaultTextView(TextView textView) {
-        Resources resources = getResources();
         if (resources != null && textView != null) {
             textView.setGravity(Gravity.CENTER);
             textView.setSingleLine();

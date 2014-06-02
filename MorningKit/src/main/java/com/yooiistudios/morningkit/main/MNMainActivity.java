@@ -92,10 +92,16 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         setContentView(R.layout.activity_main);
 
-//        UrQA 라이브러리 추가 - 취소, TestFairy 쓸 예정
-//        URQAController.InitializeAndStartSession(getApplicationContext(), String.valueOf(72369777));
         initMainActivity();
         scrollView.smoothScrollTo(0, 0);
+
+        // 튜토리얼 체크
+        if (!MNTutorialManager.isTutorialShown(getApplicationContext())) {
+            // 튜토리얼 전 세로고정 설정
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+            MNTutorialLayout tutorialLayout = new MNTutorialLayout(getApplicationContext(), this);
+            containerLayout.addView(tutorialLayout);
+        }
     }
 
     void initMainActivity() {
@@ -164,14 +170,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         // 세팅 탭에서 돌아올 경우를 대비해 전체적인 레이아웃 최신화 적용
         onConfigurationChanged(getResources().getConfiguration());
-
-        // 튜토리얼 체크
-        if (!MNTutorialManager.isTutorialShown(getApplicationContext())) {
-            // 튜토리얼 전 세로고정 설정
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-            MNTutorialLayout tutorialLayout = new MNTutorialLayout(getApplicationContext(), this);
-            containerLayout.addView(tutorialLayout);
-        }
     }
 
     @Override
