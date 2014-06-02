@@ -62,7 +62,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
     private boolean isUsing24Hours = false;
     private MNWorldClock worldClock;
 
-    private Handler clockHandler = new Handler() {
+    private MNAlarmWakeDialogHandler clockHandler = new MNAlarmWakeDialogHandler();
+    private class MNAlarmWakeDialogHandler extends Handler {
         @Override
         public void handleMessage( Message msg ){
             if (isClockRunning){
@@ -77,7 +78,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
                 clockHandler.sendEmptyMessageDelayed(0, 1000 - delay);
             }
         }
-    };
+    }
 
     public MNWorldClockPanelLayout(Context context) {
         super(context);
