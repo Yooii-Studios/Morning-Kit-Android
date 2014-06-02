@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -25,6 +26,8 @@ import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
+import com.yooiistudios.morningkit.common.tutorial.MNTutorialLayout;
+import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.common.validate.AppValidationChecker;
 import com.yooiistudios.morningkit.main.layout.MNMainButtonLayout;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
@@ -50,8 +53,7 @@ import lombok.Getter;
  * MNMainActivity
  *  앱에서 가장 중요한 메인 액티비티
  */
-public class MNMainActivity extends Activity
-{
+public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutorialFinishListener {
     private static final String TAG = "MNMainActivity";
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
@@ -90,10 +92,16 @@ public class MNMainActivity extends Activity
 
         setContentView(R.layout.activity_main);
 
-//        UrQA 라이브러리 추가 - 취소, TestFairy 쓸 예정
-//        URQAController.InitializeAndStartSession(getApplicationContext(), String.valueOf(72369777));
         initMainActivity();
         scrollView.smoothScrollTo(0, 0);
+
+        // 튜토리얼 체크
+        if (!MNTutorialManager.isTutorialShown(getApplicationContext())) {
+            // 튜토리얼 전 세로고정 설정
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+            MNTutorialLayout tutorialLayout = new MNTutorialLayout(getApplicationContext(), this);
+            containerLayout.addView(tutorialLayout);
+        }
     }
 
     void initMainActivity() {
@@ -437,5 +445,12 @@ public class MNMainActivity extends Activity
         if (admobLayout != null) {
             admobLayout.setBackgroundColor(MNMainColors.getButtonLayoutBackgroundColor(currentThemeType));
         }
+    }
+
+    @Override
+    public void onFinishTutorial() {
+        MNTutorialManager.setTutorialShown(getApplicationContext());
+        // 튜토리얼 후 회전 가능하게 방향 설정
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
     }
 }
