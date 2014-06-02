@@ -112,5 +112,5 @@
         android:layout_width="@dimen/pro_dog_ear_size"
         android:layout_height="@dimen/pro_dog_ear_size"
         android:background="@android:color/transparent"
-        android:src="@drawable/icon_pro_dog_ear"/>
+        android:src="@drawable/icon_pro_dog_ear_selector"/>
 </RelativeLayout>
