@@ -167,44 +167,58 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                                 }
                             }
                     );
+            ViewGroup.LayoutParams lp =
+                    previewSwitcher.getLayoutParams();
+            displayHelper.setPhotoWidth(lp.width -
+                    (previewSwitcher.getPaddingLeft() +
+                            previewSwitcher.getPaddingLeft()));
+            displayHelper.setPhotoHeight(lp.height -
+                    (previewSwitcher.getPaddingTop() +
+                            previewSwitcher.getPaddingBottom()));
+        }
 
+        loadFileList();
 
-            if (listFetcher != null) {
-                listFetcher.cancel(true);
-            }
-            previewName.setText(R.string.loading);
-            listFetcher = new MNPhotoAlbumListFetcher(
-                    rootDirForFiles,
-                    new MNPhotoAlbumListFetcher.OnListFetchListener() {
-                        @Override
-                        public void onPhotoListFetch(ArrayList<String> photoList) {
-                            previewName.setText(new File(rootDirForFiles)
-                                    .getName());
-                            if (photoList != null) {
-                                fileList = photoList;
-                                if (selectedFileName == null &&
-                                        photoList.size() > 0) {
-                                    selectedFileName = photoList.get(0);
-                                }
-                                ViewGroup.LayoutParams lp =
-                                        previewSwitcher.getLayoutParams();
-                                displayHelper.setPhotoWidth(lp.width);
-                                displayHelper.setPhotoHeight(lp.height);
+        return rootView;
+    }
 
-                                long interval = MNPhotoAlbumCommonUtil
-                                        .getTransitionInterval(
-                                                intervalMinute,
-                                                intervalSecond);
-                                displayHelper.setInterval(interval);
-
-                                updatePreviewUI(true);
+    private void loadFileList() {
+        if (listFetcher != null) {
+            listFetcher.cancel(true);
+        }
+        previewName.setText(R.string.loading);
+        listFetcher = new MNPhotoAlbumListFetcher(
+                rootDirForFiles,
+                new MNPhotoAlbumListFetcher.OnListFetchListener() {
+                    @Override
+                    public void onPhotoListFetch(ArrayList<String> photoList) {
+                        previewName.setText(new File(rootDirForFiles)
+                                .getName());
+                        if (photoList != null) {
+                            fileList = photoList;
+                            if (selectedFileName == null &&
+                                    photoList.size() > 0) {
+                                selectedFileName = photoList.get(0);
                             }
+
+                            long interval = MNPhotoAlbumCommonUtil
+                                    .getTransitionInterval(
+                                            intervalMinute,
+                                            intervalSecond);
+                            displayHelper.setInterval(interval);
+
+                            updatePreviewUI(true);
                         }
                     }
-            );
-            listFetcher.execute();
-        }
-        return rootView;
+
+                    @Override
+                    public void onError() {
+                        togglePreviewWrapper(false);
+                        previewName.setText(R.string.photo_album_no_image);
+                    }
+                }
+        );
+        listFetcher.execute();
     }
     private void togglePreviewWrapper(boolean available) {
         if (available) {
@@ -405,18 +419,16 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
             displayHelper.setRootDir(rootDirForFiles);
             displayHelper.setTransitionType(transitionType);
             displayHelper.setUseGrayscale(useGrayscale);
+            displayHelper.setSelectedFile(selectedFileName);
+            displayHelper.setFileList(fileList);
             if (intervalMinute == INVALID_INTERVAL ||
                     intervalSecond == INVALID_INTERVAL) {
                 displayHelper.setInterval(INVALID_INTERVAL);
-                ArrayList<String> tmpFileList = new ArrayList<String>();
-                tmpFileList.add(selectedFileName);
-                displayHelper.setFileList(tmpFileList);
                 if (restart || displayHelper.isRunning()) {
                     displayHelper.restart();
                 }
             }
             else {
-                displayHelper.setFileList(fileList);
                 displayHelper.restart();
             }
         }
@@ -431,10 +443,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     MNLog.i(TAG, data.getData().getPath());
 
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA,
-                            MediaStore.Images.Media.DESCRIPTION,
-                            MediaStore.Images.Media.PICASA_ID,
-                            MediaStore.Images.Media.TITLE};
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
                     Cursor cursor = getActivity().getContentResolver().query(
                             data.getData(), filePathColumn, null, null, null);
@@ -456,31 +465,38 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                             return;
                         }
 
-                        this.selectedFileName = selectedFile.getName();
                         this.rootDirForFiles = selectedFile.getParent();
+                        this.selectedFileName = selectedFile.getAbsolutePath
+                                ().replace(rootDirForFiles, "");
 
-                        // load image items for preview
-                        previewName.setText("Loading...");
-
-                        if (listFetcher != null) {
-                            listFetcher.cancel(true);
-                            listFetcher = new MNPhotoAlbumListFetcher(
-                                    rootDirForFiles,
-                                    new MNPhotoAlbumListFetcher.OnListFetchListener() {
-                                        @Override
-                                        public void onPhotoListFetch(ArrayList<String> photoList) {
-                                            previewName.setText(
-                                                    new File(rootDirForFiles)
-                                                    .getName());
-                                            if (photoList != null) {
-                                                fileList = photoList;
-                                                updatePreviewUI(true);
-                                            }
-                                        }
-                                    }
-                            );
-                            listFetcher.execute();
-                        }
+//                        // load image items for preview
+//                        previewName.setText("Loading...");
+//
+//                        if (listFetcher != null) {
+//                            listFetcher.cancel(true);
+//                            listFetcher = new MNPhotoAlbumListFetcher(
+//                                    rootDirForFiles,
+//                                    new MNPhotoAlbumListFetcher.OnListFetchListener() {
+//                                        @Override
+//                                        public void onPhotoListFetch(ArrayList<String> photoList) {
+//                                            previewName.setText(
+//                                                    new File(rootDirForFiles)
+//                                                    .getName());
+//                                            if (photoList != null) {
+//                                                fileList = photoList;
+//                                                updatePreviewUI(true);
+//                                            }
+//                                        }
+//
+//                                        @Override
+//                                        public void onError() {
+//                                            togglePreviewWrapper(false);
+//                                            previewName.setText(R.string.photo_album_no_image);
+//                                        }
+//                                    }
+//                            );
+//                            listFetcher.execute();
+//                        }
                     }
                     else {
                         Toast.makeText(getActivity(),
@@ -493,8 +509,21 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        loadFileList();
+//        else {
+//            if (displayHelper != null) {
+//                displayHelper.restart();
+//            }
+//        }
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
+        MNLog.i(TAG, "onStop");
         if (listFetcher != null) {
             listFetcher.cancel(true);
         }
@@ -502,6 +531,17 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
             displayHelper.stop();
         }
     }
+
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        if (listFetcher != null) {
+//            listFetcher.cancel(true);
+//        }
+//        if (displayHelper != null && displayHelper.isRunning()) {
+//            displayHelper.stop();
+//        }
+//    }
 
     @Override
     public void onConfirm(int minute, int second) {
