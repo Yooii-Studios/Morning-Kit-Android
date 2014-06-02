@@ -92,21 +92,28 @@ public class MNMainLayoutSetter {
             mainActivity.getAdView().setVisibility(View.GONE);
         } else {
             mainActivity.getAdView().setVisibility(View.VISIBLE);
-            switch (orientation) {
-                // 버튼 레이아웃에 광고가 있을 경우 애드몹 레이아웃으로 옮기기
-                case Configuration.ORIENTATION_PORTRAIT:
-                    if (mainActivity.getButtonLayout().findViewById(R.id.adView) != null) {
-                        mainActivity.getButtonLayout().removeView(mainActivity.getAdView());
-                        mainActivity.getAdmobLayout().addView(mainActivity.getAdView());
-                    }
-                    break;
-                // Landscape 모드에서 버튼 레이아웃으로 광고 옮기기
-                case Configuration.ORIENTATION_LANDSCAPE:
-                    if (mainActivity.getAdmobLayout().findViewById(R.id.adView) != null) {
-                        mainActivity.getAdmobLayout().removeView(mainActivity.getAdView());
-                        mainActivity.getButtonLayout().addView(mainActivity.getAdView());
-                    }
-                    break;
+            if (MNDeviceSizeInfo.isTablet(mainActivity.getApplicationContext())) {
+                if (mainActivity.getAdmobLayout().findViewById(R.id.adView) != null) {
+                    mainActivity.getAdmobLayout().removeView(mainActivity.getAdView());
+                    mainActivity.getButtonLayout().addView(mainActivity.getAdView());
+                }
+            } else {
+                switch (orientation) {
+                    // 버튼 레이아웃에 광고가 있을 경우 애드몹 레이아웃으로 옮기기
+                    case Configuration.ORIENTATION_PORTRAIT:
+                        if (mainActivity.getButtonLayout().findViewById(R.id.adView) != null) {
+                            mainActivity.getButtonLayout().removeView(mainActivity.getAdView());
+                            mainActivity.getAdmobLayout().addView(mainActivity.getAdView());
+                        }
+                        break;
+                    // Landscape 모드에서 버튼 레이아웃으로 광고 옮기기
+                    case Configuration.ORIENTATION_LANDSCAPE:
+                        if (mainActivity.getAdmobLayout().findViewById(R.id.adView) != null) {
+                            mainActivity.getAdmobLayout().removeView(mainActivity.getAdView());
+                            mainActivity.getButtonLayout().addView(mainActivity.getAdView());
+                        }
+                        break;
+                }
             }
         }
     }
@@ -288,21 +295,35 @@ public class MNMainLayoutSetter {
         if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_NO_ADS, context)) {
             return 0;
         } else {
-            return (int)context.getResources().getDimension(R.dimen.main_admob_layout_height);
+            if (MNDeviceSizeInfo.isTablet(context)) {
+                return 0;
+            } else {
+                return (int) context.getResources().getDimension(R.dimen.main_admob_layout_height);
+            }
         }
     }
 
     public static float getButtonLayoutHeight(Context context, int orientation) {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT:
-                return (int) context.getResources().getDimension(R.dimen.main_button_layout_height);
+                if (MNDeviceSizeInfo.isTablet(context)) {
+                    return (int) (context.getResources().getDimension(R.dimen.main_admob_layout_height)
+                            + context.getResources().getDimension(R.dimen.margin_inner) * 2);
+                } else {
+                    return (int) context.getResources().getDimension(R.dimen.main_button_layout_height);
+                }
 
             case Configuration.ORIENTATION_LANDSCAPE:
                 if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_NO_ADS, context)) {
-                    return (int) context.getResources().getDimension(R.dimen.main_button_layout_height);
+                    if (MNDeviceSizeInfo.isTablet(context)) {
+                        return (int) (context.getResources().getDimension(R.dimen.main_admob_layout_height)
+                                + context.getResources().getDimension(R.dimen.margin_inner) * 2);
+                    } else {
+                        return (int) context.getResources().getDimension(R.dimen.main_button_layout_height);
+                    }
                 } else {
-                    return (int) (context.getResources().getDimension(R.dimen.main_button_layout_height)
-                            + context.getResources().getDimension(R.dimen.margin_outer) * 2);
+                    return (int) (context.getResources().getDimension(R.dimen.main_admob_layout_height)
+                            + context.getResources().getDimension(R.dimen.margin_inner) * 2);
                 }
 
             default: // Test에서 Undefined 사용
