@@ -3,12 +3,16 @@ package com.yooiistudios.morningkit.common.size;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by MNDeviceSizeInfo in MorningKit from Yooii Studios Co., LTD. on 2013. 10. 22.
@@ -23,16 +27,32 @@ public class MNDeviceSizeInfo {
     private MNDeviceSizeInfo() { throw new AssertionError(); } // You must not create instance
 
     /**
-     * Table Check
+     * Checking Tablet
+     * 600dp = 7inch, 720dp = 10inch
      */
-	public static boolean isTablet(Context context)	{
-		Configuration config = context.getResources().getConfiguration();
-		if (config.smallestScreenWidthDp >= 600) {
-			return true;
-		} else {
-			return false;
-		}	
-	}
+	public static boolean isTablet(Context context) {
+//        // smallestScreenWidthDp가 SDK 13 이상부터 사용가능
+//        Configuration config = context.getResources().getConfiguration();
+//        // sw600dp 이상이면 태블릿으로 인식
+//        return config.smallestScreenWidthDp >= 600;
+
+        // http://stackoverflow.com/questions/10238652/smallestscreenwidthdp-for-pre-3-2-devices
+        return (getSmallestScreenWidthDp(context) >= 600);
+    }
+
+    private static int getSmallestScreenWidthDp(Context context) {
+        Resources resources = context.getResources();
+        try {
+            Field field = Configuration.class.getDeclaredField("smallestScreenWidthDp");
+            return (Integer) field.get(resources.getConfiguration());
+        } catch (Exception e) {
+            // not perfect because reported screen size might not include status and button bars
+            // example on my Galaxy Tab 10.1 the actual value is 800 whereas the computed value is only 752
+            DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+            int smallestScreenWidthPixels = Math.min(displayMetrics.widthPixels, displayMetrics.heightPixels);
+            return Math.round(smallestScreenWidthPixels / displayMetrics.density);
+        }
+    }
 
     // http://stackoverflow.com/questions/16784101/how-to-find-tablet-or-phone-in-android-programmatically
 //    public static boolean isTablet(Context context) {
