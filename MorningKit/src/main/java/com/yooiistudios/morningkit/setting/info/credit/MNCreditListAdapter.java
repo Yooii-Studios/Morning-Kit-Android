@@ -131,12 +131,12 @@ public class MNCreditListAdapter extends BaseAdapter {
             viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
             // onClick
-            viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
+//            viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
         }
         return convertView;
     }
