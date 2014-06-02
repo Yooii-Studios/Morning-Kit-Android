@@ -27,7 +27,7 @@
             android:layout_marginRight="@dimen/panel_photo_album_dialog_refresh_item_horizontal_margin"
             android:textSize="@dimen/panel_photo_album_dialog_refresh_textSize"
             android:textColor="@android:color/white"
-            android:text="@string/photo_album_minute_postfix"/>
+            android:text="@string/photo_album_minute"/>
         <EditText
             android:id="@+id/secondEditText"
             android:layout_width="wrap_content"
@@ -42,6 +42,6 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/panel_photo_album_dialog_refresh_textSize"
             android:textColor="@android:color/white"
-            android:text="@string/photo_album_second_postfix"/>
+            android:text="@string/photo_album_second"/>
     </LinearLayout>
 </LinearLayout>
