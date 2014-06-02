@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFragment.INVALID_INTERVAL;
+import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFileManager.DEFAULT_PARENT_DIR;
 
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2014. 5. 13.
@@ -166,7 +167,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
             MNLog.i(TAG, "root : " + rootDir);
         }
         else {
-            rootDir = null;
+            rootDir = DEFAULT_PARENT_DIR.getAbsolutePath();
         }
 
         if (getPanelDataObject().has(KEY_DATA_FILE_SELECTED)) {
