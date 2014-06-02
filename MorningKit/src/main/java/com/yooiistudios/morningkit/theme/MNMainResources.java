@@ -77,11 +77,13 @@ public class MNMainResources {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case WATER_LILY:
-            case MODERNITY_WHITE:
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.clock_base_am_gray;
+
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+                return R.drawable.clock_base_am_white;
 
             case PASTEL_GREEN:
                 return R.drawable.clock_base_am_pastel_green;
@@ -95,11 +97,13 @@ public class MNMainResources {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case WATER_LILY:
-            case MODERNITY_WHITE:
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.clock_base_pm_gray;
+
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+                return R.drawable.clock_base_pm_white;
 
             case PASTEL_GREEN:
                 return R.drawable.clock_base_pm_pastel_green;
@@ -113,11 +117,13 @@ public class MNMainResources {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case WATER_LILY:
-            case MODERNITY_WHITE:
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.clock_hand_hour_gray;
+
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+                return R.drawable.clock_hand_hour_white;
 
             case PASTEL_GREEN:
                 return R.drawable.clock_hand_hour_am_pastel_green;
@@ -131,11 +137,13 @@ public class MNMainResources {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case WATER_LILY:
-            case MODERNITY_WHITE:
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.clock_hand_hour_gray;
+
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+                return R.drawable.clock_hand_hour_white;
 
             case PASTEL_GREEN:
                 return R.drawable.clock_hand_hour_pm_pastel_green;
@@ -149,11 +157,13 @@ public class MNMainResources {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case WATER_LILY:
-            case MODERNITY_WHITE:
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.clock_hand_minute_gray;
+
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+                return R.drawable.clock_hand_minute_white;
 
             case PASTEL_GREEN:
                 return R.drawable.clock_hand_minute_am_pastel_green;
@@ -167,11 +177,13 @@ public class MNMainResources {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case WATER_LILY:
-            case MODERNITY_WHITE:
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.clock_hand_minute_gray;
+
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+                return R.drawable.clock_hand_minute_white;
 
             case PASTEL_GREEN:
                 return R.drawable.clock_hand_minute_pm_pastel_green;
@@ -185,11 +197,13 @@ public class MNMainResources {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case WATER_LILY:
-            case MODERNITY_WHITE:
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.clock_hand_second_gray;
+
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+                return R.drawable.clock_hand_second_white;
 
             case PASTEL_GREEN:
                 return R.drawable.clock_hand_second_am_pastel_green;
@@ -203,11 +217,13 @@ public class MNMainResources {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case WATER_LILY:
-            case MODERNITY_WHITE:
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
                 return R.drawable.clock_hand_second_gray;
+
+            case WATER_LILY:
+            case MODERNITY_WHITE:
+                return R.drawable.clock_hand_second_white;
 
             case PASTEL_GREEN:
                 return R.drawable.clock_hand_second_pm_pastel_green;
