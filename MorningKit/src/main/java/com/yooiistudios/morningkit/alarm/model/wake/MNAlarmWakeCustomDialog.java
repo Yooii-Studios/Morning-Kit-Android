@@ -35,7 +35,9 @@ import butterknife.InjectView;
  *  알람이 울릴 때 보여 줄 다이얼로그를 생성
  */
 public class MNAlarmWakeCustomDialog {
-    private MNAlarmWakeCustomDialog() { throw new AssertionError("You MUST NOT create this class!"); }
+    private MNAlarmWakeCustomDialog() {
+        throw new AssertionError("You MUST NOT create this class!");
+    }
 
     public static void show(MNAlarm alarm, Context context) {
         AlertDialog wakeDialog = makeWakeAlertDialog(alarm, context);
@@ -43,9 +45,9 @@ public class MNAlarmWakeCustomDialog {
             wakeDialog.show();
 
             // 5분 후 dismiss 자동으로 되게 구현
-            Message msg = Message.obtain(alarmTimerHandler, alarm.getAlarmId(), wakeDialog);
+            Message msg = Message.obtain(alarmWakeDialogHandler, alarm.getAlarmId(), wakeDialog);
 //            alarmTimerHandler.sendMessageDelayed(msg, 10 * 1000); // for test
-            alarmTimerHandler.sendEmptyMessageDelayed(0, 5 * 60 * 1000);
+            alarmWakeDialogHandler.sendEmptyMessageDelayed(0, 5 * 60 * 1000);
         }
     }
 
@@ -138,20 +140,32 @@ public class MNAlarmWakeCustomDialog {
     }
 
     static class MNAlarmWakeCustomView {
-        @InjectView(R.id.alarm_wake_custom_dialog_image_view)               ImageView   alarmImageView;
-        @InjectView(R.id.alarm_wake_custom_dialog_label_text_view)          TextView    labelTextView;
-        @InjectView(R.id.alarm_wake_custom_dialog_time_text_view)           TextView    timeTextView;
-        @InjectView(R.id.alarm_wake_custom_dialog_dismiss_textview)         TextView    dismissTextView;
-        @InjectView(R.id.alarm_wake_custom_dialog_button_middle_divider)    View        buttonMiddleDivider;
-        @InjectView(R.id.alarm_wake_custom_dialog_snooze_textview)          TextView    snoozeTextView;
+        @InjectView(R.id.alarm_wake_custom_dialog_image_view)
+        ImageView alarmImageView;
+        @InjectView(R.id.alarm_wake_custom_dialog_label_text_view)
+        TextView labelTextView;
+        @InjectView(R.id.alarm_wake_custom_dialog_time_text_view)
+        TextView timeTextView;
+        @InjectView(R.id.alarm_wake_custom_dialog_dismiss_textview)
+        TextView dismissTextView;
+        @InjectView(R.id.alarm_wake_custom_dialog_button_middle_divider)
+        View buttonMiddleDivider;
+        @InjectView(R.id.alarm_wake_custom_dialog_snooze_textview)
+        TextView snoozeTextView;
 
         public MNAlarmWakeCustomView(View view) {
             ButterKnife.inject(this, view);
         }
     }
 
+    /**
+     * Instances of static inner classes do not hold an implicit
+     * reference to their outer class.
+     */
     // 5분 동안 반응이 없으면 강제로 dismiss 시키기
-    private static Handler alarmTimerHandler = new Handler() {
+    private static MNAlarmWakeDialogHandler alarmWakeDialogHandler = new MNAlarmWakeDialogHandler();
+
+    private static class MNAlarmWakeDialogHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             MNLog.i("MNAlarmWakeDialogHandler", "alarmId: " + msg.what);
@@ -185,5 +199,5 @@ public class MNAlarmWakeCustomDialog {
             }
             MNAlarmScrollViewBusProvider.getInstance().post(context);
         }
-    };
+    }
 }
