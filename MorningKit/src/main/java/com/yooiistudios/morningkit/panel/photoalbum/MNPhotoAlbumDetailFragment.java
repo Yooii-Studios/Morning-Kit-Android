@@ -104,6 +104,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     private ArrayList<String> fileList;
     private boolean useGrayscale;
 
+    private int recentIntervalMinute = DEFAULT_INTERVAL_MIN;
+    private int recentIntervalSecond = DEFAULT_INTERVAL_SEC;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -333,7 +335,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                     onTurnOff();
                 }
                 else {
-                    showTimeDialog();
+                    onConfirm(recentIntervalMinute, recentIntervalSecond);
+//                    showTimeDialog();
                 }
             }
         });
@@ -592,6 +595,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     public void onConfirm(int minute, int second) {
         intervalMinute = minute;
         intervalSecond = second;
+        recentIntervalMinute = minute;
+        recentIntervalSecond = second;
         useRefresh = true;
 
         onTimeUpdated();
