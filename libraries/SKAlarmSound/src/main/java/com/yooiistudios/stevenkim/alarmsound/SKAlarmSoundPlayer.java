@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -44,9 +46,7 @@ public class SKAlarmSoundPlayer {
     public static void play(final Uri uri, final Context context) throws IOException {
         getMediaPlayer().reset();
         getMediaPlayer().setDataSource(context, uri);
-        getMediaPlayer().prepare();
-        getMediaPlayer().setLooping(true);
-        getMediaPlayer().start();
+        play();
     }
 
     public static void stop() {
@@ -59,9 +59,7 @@ public class SKAlarmSoundPlayer {
             getMediaPlayer().reset();
             getMediaPlayer().setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
             afd.close();
-            getMediaPlayer().prepare();
-            getMediaPlayer().setLooping(true);
-            getMediaPlayer().start();
+            play();
         }
     }
 
@@ -81,9 +79,7 @@ public class SKAlarmSoundPlayer {
                     getMediaPlayer().reset();
                     Uri uri = Uri.parse(alarmSound.getSoundPath());
                     getMediaPlayer().setDataSource(context, uri);
-                    getMediaPlayer().prepare();
-                    getMediaPlayer().setLooping(true);
-                    getMediaPlayer().start();
+                    play();
                     break;
 
                 default:
@@ -93,4 +89,20 @@ public class SKAlarmSoundPlayer {
             Toast.makeText(context, "No Alarm Sound", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private static void play() throws IOException {
+        getMediaPlayer().prepare();
+        getMediaPlayer().setLooping(true);
+        getMediaPlayer().start();
+
+        // 5분 후 꺼지게 구현
+        alarmTimerHandler.sendEmptyMessageDelayed(0, 5 * 60 * 1000);
+    }
+
+    private static Handler alarmTimerHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            stop();
+        }
+    };
 }
