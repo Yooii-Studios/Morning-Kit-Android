@@ -62,8 +62,8 @@ public class MNMainAdmobLayoutTest {
 
         // 광고가 있을 때만 테스트를 제대로 하면 됨
         // AdSize 계산
-        AdSize adViewSize = AdSize.createAdSize(AdSize.BANNER, mainActivity);
-        assertThat(adViewSize.getWidth(), is(not(0)));
+//        AdSize adViewSize = AdSize.createAdSize(AdSize.BANNER, mainActivity);
+        assertThat(AdSize.BANNER.getWidthInPixels(mainActivity), is(not(0)));
 
         // calculatedButtonLayoutWidth 계산
         int calculatedButtonLayoutWidth = deviceWidth - (int)(mainActivity.getResources().getDimension(R.dimen.margin_main_button_layout) * 2);
@@ -74,7 +74,7 @@ public class MNMainAdmobLayoutTest {
         RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mainActivity.getAdmobLayout().getLayoutParams();
         assertThat(admobLayoutParams, notNullValue());
         // 1. buttonLayout 너비가 AdView보다 크다면, admobLayout을 buttonLayout와 같게 맞추어 주고,
-        if (calculatedButtonLayoutWidth > adViewSize.getWidthInPixels(mainActivity)) {
+        if (calculatedButtonLayoutWidth > AdSize.BANNER.getWidthInPixels(mainActivity)) {
 //            Log.i(TAG, "buttonLayout's width is wider than Adview's width");
             RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mainActivity.getButtonLayout().getLayoutParams();
             assertThat(buttonLayoutParams, notNullValue());
