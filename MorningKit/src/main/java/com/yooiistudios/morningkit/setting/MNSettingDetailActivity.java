@@ -32,9 +32,9 @@ public class MNSettingDetailActivity extends ActionBarActivity {
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setTitle("Setting");
+        actionBar.setTitle(R.string.tab_setting);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.setting_classic_gray_on);
+        actionBar.setIcon(R.drawable.icon_actionbar_setting);
     }
 
     @Override

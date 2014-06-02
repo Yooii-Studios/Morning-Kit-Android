@@ -56,7 +56,7 @@ public class MNStoreActivity extends MNSettingDetailActivity {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setTitle(R.string.info_store);
         actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setIcon(R.drawable.status_bar_icon);
+        actionBar.setIcon(R.drawable.icon_actionbar_morning);
     }
 
     private void initIab() {

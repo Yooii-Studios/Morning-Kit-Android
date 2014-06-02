@@ -61,7 +61,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.status_bar_icon);
+        actionBar.setIcon(R.drawable.icon_actionbar_morning);
 
         int latestTabIndex;
         SharedPreferences prefs = getSharedPreferences(SETTING_PREFERENCES, MODE_PRIVATE);
