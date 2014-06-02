@@ -65,11 +65,11 @@ public class MNCreditListAdapter extends BaseAdapter {
                     break;
                 case 3:
                     viewHolder.getTitleTextView().setText("Main Artist");
-                    viewHolder.getNameTextView().setText("Ga Hyeon Park");
+                    viewHolder.getNameTextView().setText("Jeong Eun Sil");
                     break;
                 case 4:
                     viewHolder.getTitleTextView().setText("Artist");
-                    viewHolder.getNameTextView().setText("Jeong Eun Sil");
+                    viewHolder.getNameTextView().setText("Ga Hyeon Park");
                     break;
                 case 5:
                     viewHolder.getTitleTextView().setText("Artist");

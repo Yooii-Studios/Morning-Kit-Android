@@ -11,10 +11,6 @@ import android.widget.TextView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -60,12 +56,12 @@ public class MNInfoListAdapter extends BaseAdapter {
                     viewHolder.getTextView().setText(R.string.info_credit);
                     break;
             }
-            // theme
-            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
 
-            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-            viewHolder.getTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
+            // theme
+//            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
+//            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+//            viewHolder.getTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
             // onClick
             viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
