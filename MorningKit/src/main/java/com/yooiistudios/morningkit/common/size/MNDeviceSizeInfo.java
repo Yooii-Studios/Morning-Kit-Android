@@ -17,8 +17,7 @@ import android.view.WindowManager;
  *  1. 기기의 사이즈 확인
  *  2. 폰 or 태블릿 여부 확인(> 7인치)
  */
-public class MNDeviceSizeInfo
-{
+public class MNDeviceSizeInfo {
 	public static final String TAG = "MNDeviceSizeInfo";
 
     private MNDeviceSizeInfo() { throw new AssertionError(); } // You must not create instance
@@ -26,8 +25,7 @@ public class MNDeviceSizeInfo
     /**
      * Table Check
      */
-	public static boolean isTablet(Context context)
-	{
+	public static boolean isTablet(Context context)	{
 		Configuration config = context.getResources().getConfiguration();
 		if (config.smallestScreenWidthDp >= 600) {
 			return true;
@@ -57,63 +55,36 @@ public class MNDeviceSizeInfo
 
     // DipToPixel의 픽셀이 미세하게 안맞는 경우가 있어 Device 크키는 새로 구현 - 우성
 	public static int getDeviceHeight(Context context) {
-		/*
-		Configuration config = context.getResources().getConfiguration();
-		
-		return DipToPixel.getPixel(context, config.screenHeightDp);
-		*/
-		
-//		Log.i(TAG, "heightPixels: " + context.getResources().getDisplayMetrics().heightPixels);
-		
-//		return context.getResources().getDisplayMetrics().heightPixels;
-		
-		int measuredHeight = 0;
+		int measuredHeight;
 		Point size = new Point();
 		
-		WindowManager w = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+		WindowManager windowManager =
+                (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
 
-	    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2){
-	          w.getDefaultDisplay().getSize(size);
-
-	          measuredHeight = size.y; 
-        }else{
-          Display d = w.getDefaultDisplay(); 
-          measuredHeight = d.getHeight(); 
+	    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+	          windowManager.getDefaultDisplay().getSize(size);
+	          measuredHeight = size.y;
+        } else {
+            Display d = windowManager.getDefaultDisplay();
+            measuredHeight = d.getHeight();
         }
-	    
 	    return measuredHeight;
 	}
 	
 	public static int getDeviceWidth(Context context) {
-		/*
-		Configuration config = context.getResources().getConfiguration();
-		Log.i(TAG, "" + config.screenWidthDp);
-		
-		return DipToPixel.getPixel(context, config.screenWidthDp);
-		*/
-
-		/*
-		Configuration config = context.getResources().getConfiguration();
-		
-		Log.i(TAG, "DipToPixel heightPixels: " + DipToPixel.getPixel(context, config.screenHeightDp));
-		Log.i(TAG, "heightPixels: " + context.getResources().getDisplayMetrics().heightPixels);
-		Log.i(TAG, "widthPixels: " + context.getResources().getDisplayMetrics().widthPixels);
-		*/
-		
-		int measuredWidth = 0;
+		int measuredWidth;
 		Point size = new Point();
 		
-		WindowManager w = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+		WindowManager windowManager =
+                (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
 
-	    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2){
-	          w.getDefaultDisplay().getSize(size);
-
+	    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+	          windowManager.getDefaultDisplay().getSize(size);
 	          measuredWidth = size.x;
-        }else{
-          Display d = w.getDefaultDisplay(); 
-          measuredWidth = d.getWidth(); 
+        } else {
+            Display d = windowManager.getDefaultDisplay();
+            measuredWidth = d.getWidth();
         }
-	    
 	    return measuredWidth;
 	}
 }
