@@ -302,10 +302,10 @@ public class MNMainResources {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.alarm_plus_translucent_black;
+                return R.drawable.alarm_plus_classic_gray;
 
             case WATER_LILY:
-                return R.drawable.alarm_plus_translucent_black;
+                return R.drawable.alarm_plus_classic_white;
 
             case MODERNITY_WHITE:
                 return R.drawable.alarm_plus_classic_white;
