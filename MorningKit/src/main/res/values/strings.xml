@@ -295,9 +295,9 @@
     <string name="photo_album_label_transition_type">Transition Type</string>
     <string name="photo_album_label_grayscale">Use Grayscale</string>
     <string name="photo_album_minute_hint">min</string>
-    <string name="photo_album_minute_postfix">min</string>
+    <string name="photo_album_minute">min</string>
     <string name="photo_album_second_hint">sec</string>
-    <string name="photo_album_second_postfix">sec</string>
+    <string name="photo_album_second">sec</string>
     <string name="photo_album_transition_none">None</string>
     <string name="photo_album_transition_alpha">Alpha</string>
     <string name="photo_album_load">Load</string>

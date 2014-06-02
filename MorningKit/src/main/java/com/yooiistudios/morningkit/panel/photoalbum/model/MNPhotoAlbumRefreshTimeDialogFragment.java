@@ -66,7 +66,7 @@ public class MNPhotoAlbumRefreshTimeDialogFragment extends DialogFragment {
         }
 
         return builder
-                .setTitle("blah...title")
+                .setTitle(R.string.photo_album_label_refresh_time)
                 .setView(root)
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
