@@ -33,6 +33,8 @@ import com.yooiistudios.morningkit.main.layout.MNMainButtonLayout;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
+import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
+import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
@@ -70,6 +72,8 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     @Getter @InjectView(R.id.main_camera_layout)            RelativeLayout cameraLayout;
     SKCameraThemeView cameraThemeView;
     SKThemeImageView photoThemeImageView;
+
+    @Getter @InjectView(R.id.main_dog_ear_image_view)       ImageView dogEarImageView;
 
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
@@ -170,6 +174,13 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         // 세팅 탭에서 돌아올 경우를 대비해 전체적인 레이아웃 최신화 적용
         onConfigurationChanged(getResources().getConfiguration());
+
+        // 풀버전 구매 확인, 독이어 제거
+        if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_FULL_VERSION, getApplicationContext())) {
+            dogEarImageView.setVisibility(View.GONE);
+        } else {
+            dogEarImageView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -275,6 +286,10 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     @OnClick(R.id.main_setting_imageview) void settingButtonClicked() {
         startActivity(new Intent(MNMainActivity.this, MNSettingActivity.class));
+    }
+
+    @OnClick(R.id.main_dog_ear_image_view) void dogEarImageViewClicked() {
+        startActivity(new Intent(MNMainActivity.this, MNStoreActivity.class));
     }
 
     /**
