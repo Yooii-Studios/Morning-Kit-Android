@@ -139,15 +139,15 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
             // theme
             MNThemeType currentThemeType = MNTheme.getCurrentThemeType(activity);
 
-            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-            viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-            try {
-                viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
-                viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
-            } catch (OutOfMemoryError error) {
-                error.printStackTrace();
-            }
-            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
+//            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+//            viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//            try {
+//                viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
+//                viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
+//            } catch (OutOfMemoryError error) {
+//                error.printStackTrace();
+//            }
+//            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
             // onClick
             viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {

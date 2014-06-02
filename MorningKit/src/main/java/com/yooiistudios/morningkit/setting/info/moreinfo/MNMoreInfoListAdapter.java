@@ -11,8 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
@@ -59,16 +57,9 @@ public class MNMoreInfoListAdapter extends BaseAdapter {
                 }
 
                 // theme
-                viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-                viewHolder.getTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-                viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
-
-                // theme - shadow
-//                RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-
-                // 동적 생성 -> 색 변경 로직 변경
-//                RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
-//                MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, context);
+//                viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+//                viewHolder.getTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//                viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
                 // onClick
                 viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
@@ -97,10 +88,10 @@ public class MNMoreInfoListAdapter extends BaseAdapter {
                 }
 
                 // theme
-                viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-                viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-                viewHolder.getDetailTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-                viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
+//                viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+//                viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//                viewHolder.getDetailTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//                viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
             }
         }
         return convertView;
