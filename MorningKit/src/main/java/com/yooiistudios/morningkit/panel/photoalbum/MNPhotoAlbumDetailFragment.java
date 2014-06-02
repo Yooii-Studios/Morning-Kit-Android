@@ -196,7 +196,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
             listFetcher.cancel(true);
         }
 
-        togglePreviewWrapper(false);
+        togglePreviewWrapper(true);
         previewName.setText(R.string.loading);
         listFetcher = new MNPhotoAlbumListFetcher(
                 rootDirForFiles,
