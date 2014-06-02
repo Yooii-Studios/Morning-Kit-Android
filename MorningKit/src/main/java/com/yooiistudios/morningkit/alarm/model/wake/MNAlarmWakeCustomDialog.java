@@ -43,8 +43,8 @@ public class MNAlarmWakeCustomDialog {
             wakeDialog.show();
 
             // 5분 후 dismiss 자동으로 되게 구현
-            Message msg = Message.obtain(alarmWakeDialogHandler, alarm.getAlarmId(), wakeDialog);
-            alarmWakeDialogHandler.sendMessageDelayed(msg, 10 * 1000); // for test
+            Message msg = Message.obtain(alarmTimerHandler, alarm.getAlarmId(), wakeDialog);
+            alarmTimerHandler.sendMessageDelayed(msg, 10 * 1000); // for test
 //            alarmWakeDialogHandler.sendEmptyMessageDelayed(0, 5 * 60 * 1000);
         }
     }
@@ -151,34 +151,33 @@ public class MNAlarmWakeCustomDialog {
     }
 
     // 5분 동안 반응이 없으면 강제로 dismiss 시키기
-    private static MNAlarmWakeDialogHandler alarmWakeDialogHandler = new MNAlarmWakeDialogHandler();
-
-    /**
-     * Instances of static inner classes do not hold an implicit
-     * reference to their outer class.
-     */
-    private static class MNAlarmWakeDialogHandler extends Handler {
-
+    private static Handler alarmTimerHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             MNLog.i("MNAlarmWakeDialogHandler", "alarmId: " + msg.what);
 
+            // get values
             int alarmId = msg.what;
             AlertDialog wakeDialog = (AlertDialog) msg.obj;
             Context context = wakeDialog.getContext().getApplicationContext();
 
+            // clear animation
             ImageView alarmImageView =
                     (ImageView) wakeDialog.findViewById(R.id.alarm_wake_custom_dialog_image_view);
             alarmImageView.clearAnimation();
-            SKAlarmSoundPlayer.stop();
-
             wakeDialog.dismiss();
 
+            // stop alarm sound
+            SKAlarmSoundPlayer.stop();
+
+            // manipulate target alarm
             MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarmId, context);
             targetAlarm.stopAlarm(context);
             if (targetAlarm.isRepeatOn()) {
                 targetAlarm.startAlarm(context);
             }
+
+            // save alarm
             try {
                 MNAlarmListManager.saveAlarmList(context);
             } catch (IOException e) {
@@ -186,5 +185,5 @@ public class MNAlarmWakeCustomDialog {
             }
             MNAlarmScrollViewBusProvider.getInstance().post(context);
         }
-    }
+    };
 }
