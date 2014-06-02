@@ -121,7 +121,9 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
             displayHelper.notifyContainingActivityWillBeGone();
         }
         stopTimer();
-        listFetcher.cancel(true);
+        if (listFetcher != null) {
+            listFetcher.cancel(true);
+        }
     }
 
     private void startTimer(int photoWidth, int photoHeight) {
