@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.Message;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -94,15 +92,5 @@ public class SKAlarmSoundPlayer {
         getMediaPlayer().prepare();
         getMediaPlayer().setLooping(true);
         getMediaPlayer().start();
-
-        // 5분 후 꺼지게 구현
-        alarmTimerHandler.sendEmptyMessageDelayed(0, 5 * 60 * 1000);
     }
-
-    private static Handler alarmTimerHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            stop();
-        }
-    };
 }
