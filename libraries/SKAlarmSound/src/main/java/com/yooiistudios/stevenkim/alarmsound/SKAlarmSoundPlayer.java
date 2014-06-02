@@ -45,6 +45,7 @@ public class SKAlarmSoundPlayer {
         getMediaPlayer().reset();
         getMediaPlayer().setDataSource(context, uri);
         getMediaPlayer().prepare();
+        getMediaPlayer().setLooping(true);
         getMediaPlayer().start();
     }
 
@@ -59,6 +60,7 @@ public class SKAlarmSoundPlayer {
             getMediaPlayer().setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
             afd.close();
             getMediaPlayer().prepare();
+            getMediaPlayer().setLooping(true);
             getMediaPlayer().start();
         }
     }
@@ -80,6 +82,7 @@ public class SKAlarmSoundPlayer {
                     Uri uri = Uri.parse(alarmSound.getSoundPath());
                     getMediaPlayer().setDataSource(context, uri);
                     getMediaPlayer().prepare();
+                    getMediaPlayer().setLooping(true);
                     getMediaPlayer().start();
                     break;
 
