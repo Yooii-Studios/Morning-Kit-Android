@@ -13,10 +13,6 @@ import android.widget.TextView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import java.util.Locale;
 
@@ -68,14 +64,13 @@ public class MNLanguageListAdapter extends BaseAdapter {
             }
 
             // theme
-            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(activity);
-
-            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-            viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-            viewHolder.getDetailTextView().setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
-            viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
-            viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
-            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
+//            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(activity);
+//            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+//            viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//            viewHolder.getDetailTextView().setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
+//            viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
+//            viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
+//            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
             // onClick
             viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
