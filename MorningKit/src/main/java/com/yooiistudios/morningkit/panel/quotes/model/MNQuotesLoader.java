@@ -43,8 +43,10 @@ public class MNQuotesLoader {
             // 결과에 index도 추가
             if (searchResult.length == 1) {
                 MNLog.e(TAG, "loading error: " + language.toString() + ": " + randomIndex);
+                quote = MNQuote.newInstance(searchResult[0], "");
+            } else {
+                quote = MNQuote.newInstance(searchResult[0], searchResult[1]);
             }
-            quote = MNQuote.newInstance(searchResult[0], searchResult[1]);
 //            result[0] = searchResult[0];
 //            result[1] = searchResult[1];
 //            result[2] = String.format("%d", index);
