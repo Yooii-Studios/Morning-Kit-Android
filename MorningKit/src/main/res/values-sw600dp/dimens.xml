@@ -235,8 +235,8 @@
     <dimen name="setting_more_info_license_title_font_size">30dp</dimen>
 
     <!-- Credit -->
-    <dimen name="setting_info_credit_title_font_size">14dp</dimen>
-    <dimen name="setting_info_credit_name_font_size">19dp</dimen>
+    <dimen name="setting_info_credit_title_font_size">14sp</dimen>
+    <dimen name="setting_info_credit_name_font_size">19sp</dimen>
 
     <!-- Store -->
     <dimen name="setting_store_full_version_title_textsize">19dp</dimen>

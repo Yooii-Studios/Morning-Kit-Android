@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/margin_inner"
     android:paddingBottom="@dimen/margin_inner"
     android:paddingLeft="@dimen/margin_outer"
-    android:paddingRight="@dimen/margin_outer" >
+    android:paddingRight="@dimen/margin_outer"
+    android:background="@android:color/white">
 
     <!--
     <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
@@ -41,7 +42,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:text="Executive Producer"
-            android:textColor="#000000"
+            android:textColor="@color/pastel_green_sub_font_color"
             android:textSize="@dimen/setting_info_credit_title_font_size"
             android:textStyle="bold"
             android:layout_centerInParent="true"
@@ -56,7 +57,7 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="@dimen/setting_item_detail_textview_left_margin"
             android:text="Robert Song"
-            android:textColor="#000000"
+            android:textColor="@color/pastel_green_main_font_color"
             android:textSize="@dimen/setting_info_credit_name_font_size"
             android:textStyle="bold"
             android:layout_centerInParent="true"/>
