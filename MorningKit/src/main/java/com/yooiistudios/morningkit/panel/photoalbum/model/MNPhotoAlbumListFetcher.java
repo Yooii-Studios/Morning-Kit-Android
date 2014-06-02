@@ -6,8 +6,10 @@ import android.webkit.MimeTypeMap;
 import com.yooiistudios.morningkit.common.log.MNLog;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -109,21 +111,27 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
             e.printStackTrace();
             return false;
         }
-        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(urlOfFile
-                .toString());
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        String mimetype = mime.getMimeTypeFromExtension(fileExtension);
+        String path;
+        try {
+            path = URLEncoder.encode(urlOfFile.toString(), "UTF-8");
+            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(path);
+            MimeTypeMap mime = MimeTypeMap.getSingleton();
+            String mimetype = mime.getMimeTypeFromExtension(fileExtension);
 
-        if (mimetype == null) {
-            return false;
-        }
-        else {
-            if (mimetype.contains(mimetypeToCompare)) {
-                return true;
-            } else {
+            if (mimetype == null) {
                 return false;
             }
+            else {
+                if (mimetype.contains(mimetypeToCompare)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } catch(UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
     public interface OnListFetchListener {

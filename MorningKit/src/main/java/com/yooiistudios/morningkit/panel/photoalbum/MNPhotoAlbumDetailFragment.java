@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.panel.photoalbum;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -11,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -77,19 +77,20 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     public static final int RC_LOAD_PHOTO = 1;
 
     @InjectView(R.id.preview_switcher) ViewSwitcher previewSwitcher;
-    @InjectView(R.id.preview_unavailable_imageView)
-    ImageView previewUnavailableImageView;
+    @InjectView(R.id.preview_unavailable)
+    View previewUnavailableView;
     @InjectView(R.id.preview_name) TextView previewName;
     @InjectView(R.id.toggleRefresh)
     ImageView refreshTimeToggleButton;
-    @InjectView(R.id.edittext_min) EditText minuteEditText;
-    @InjectView(R.id.edittext_sec) EditText secondEditText;
+//    @InjectView(R.id.edittext_min) EditText minuteEditText;
+//    @InjectView(R.id.edittext_sec) EditText secondEditText;
     @InjectView(R.id.transition_type_spinner) Spinner transitionTypeSpinner;
-    @InjectView(R.id.label_min) TextView minLabel;
-    @InjectView(R.id.label_sec) TextView secLabel;
-    @InjectView(R.id.time_wrapper) ViewGroup timeWrapper;
+//    @InjectView(R.id.label_min) TextView minLabel;
+//    @InjectView(R.id.label_sec) TextView secLabel;
+//    @InjectView(R.id.time_wrapper) ViewGroup timeWrapper;
     @InjectView(R.id.grayscale_toggleSwitch)
     MNPhotoAlbumCheckboxView grayscaleToggleButton;
+    @InjectView(R.id.refreshTime) TextView refreshTime;
 
     private MNPhotoAlbumDisplayHelper displayHelper;
     private MNPhotoAlbumListFetcher listFetcher;
@@ -103,6 +104,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     private ArrayList<String> fileList;
     private boolean useGrayscale;
 
+    private int recentIntervalMinute = DEFAULT_INTERVAL_MIN;
+    private int recentIntervalSecond = DEFAULT_INTERVAL_SEC;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -132,7 +135,15 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                     .OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    Intent intent;
+                    intent = new Intent(Intent.ACTION_PICK);
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+//                        intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    }
+                    else {
+//                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//                        intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    }
                     intent.setType("image/*");
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
                         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
@@ -163,7 +174,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                                 @Override
                                 public void onError(int messageResId) {
                                     togglePreviewWrapper(false);
-                                    previewName.setText(messageResId);
+//                                    previewName.setText(messageResId);
                                 }
                             }
                     );
@@ -186,12 +197,15 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         if (listFetcher != null) {
             listFetcher.cancel(true);
         }
+
+        togglePreviewWrapper(true);
         previewName.setText(R.string.loading);
         listFetcher = new MNPhotoAlbumListFetcher(
                 rootDirForFiles,
                 new MNPhotoAlbumListFetcher.OnListFetchListener() {
                     @Override
                     public void onPhotoListFetch(ArrayList<String> photoList) {
+                        togglePreviewWrapper(true);
                         previewName.setText(new File(rootDirForFiles)
                                 .getName());
                         if (photoList != null) {
@@ -222,12 +236,14 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     }
     private void togglePreviewWrapper(boolean available) {
         if (available) {
+            previewName.setVisibility(View.VISIBLE);
             previewSwitcher.setVisibility(View.VISIBLE);
-            previewUnavailableImageView.setVisibility(View.GONE);
+            previewUnavailableView.setVisibility(View.GONE);
         }
         else {
+            previewName.setVisibility(View.GONE);
             previewSwitcher.setVisibility(View.GONE);
-            previewUnavailableImageView.setVisibility(View.VISIBLE);
+            previewUnavailableView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -237,20 +253,20 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                     .getInt(KEY_DATA_INTERVAL_MINUTE);
         }
         else {
-            intervalMinute = INVALID_INTERVAL;
+            intervalMinute = DEFAULT_INTERVAL_MIN;
         }
         if (getPanelDataObject().has(KEY_DATA_INTERVAL_SECOND)) {
             intervalSecond = getPanelDataObject()
                     .getInt(KEY_DATA_INTERVAL_SECOND);
         }
         else {
-            intervalSecond = INVALID_INTERVAL;
+            intervalSecond = DEFAULT_INTERVAL_SEC;
         }
         if (getPanelDataObject().has(KEY_DATA_USE_REFRESH)) {
             useRefresh = getPanelDataObject().getBoolean(KEY_DATA_USE_REFRESH);
         }
         else {
-            useRefresh = false;
+            useRefresh = true;
         }
         if (getPanelDataObject().has(KEY_DATA_TRANS_TYPE)) {
             String transitionTypeStr = getPanelDataObject().getString
@@ -312,26 +328,22 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
             }
         });
 
-        refreshTimeToggleButton.setOnClickListener(new View.OnClickListener(){
+        refreshTimeToggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int minute;
-                int second;
-                if (intervalMinute == INVALID_INTERVAL ||
-                        intervalSecond == INVALID_INTERVAL) {
-                    minute = DEFAULT_INTERVAL_MIN;
-                    second = DEFAULT_INTERVAL_SEC;
+                if (useRefresh) {
+                    onTurnOff();
                 }
                 else {
-                    minute = intervalMinute;
-                    second = intervalSecond;
+                    onConfirm(recentIntervalMinute, recentIntervalSecond);
+//                    showTimeDialog();
                 }
-                DialogFragment newFragment =
-                        MNPhotoAlbumRefreshTimeDialogFragment.
-                                newInstance(minute, second);
-                newFragment.setTargetFragment(
-                        MNPhotoAlbumDetailFragment.this, -1);
-                newFragment.show(getFragmentManager(), TAG_TRANSITION_DIALOG);
+            }
+        });
+        refreshTime.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                showTimeDialog();
             }
         });
         grayscaleToggleButton.setOnCheckListener(
@@ -343,13 +355,33 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
 
                     }
                 });
-        minuteEditText.setEnabled(false);
-        secondEditText.setEnabled(false);
+//        minuteEditText.setEnabled(false);
+//        secondEditText.setEnabled(false);
         grayscaleToggleButton.setChecked(useGrayscale);
         updateRefreshTimeUI();
 
         // theme
         initTheme();
+    }
+
+    private void showTimeDialog() {
+        int minute;
+        int second;
+        if (intervalMinute == INVALID_INTERVAL ||
+                intervalSecond == INVALID_INTERVAL) {
+            minute = DEFAULT_INTERVAL_MIN;
+            second = DEFAULT_INTERVAL_SEC;
+        }
+        else {
+            minute = intervalMinute;
+            second = intervalSecond;
+        }
+        DialogFragment newFragment =
+                MNPhotoAlbumRefreshTimeDialogFragment.
+                        newInstance(minute, second);
+        newFragment.setTargetFragment(
+                MNPhotoAlbumDetailFragment.this, -1);
+        newFragment.show(getFragmentManager(), TAG_TRANSITION_DIALOG);
     }
 
     private void initTheme() {
@@ -360,20 +392,26 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     private void updateRefreshTimeUI() {
         if (intervalMinute != INVALID_INTERVAL &&
                 intervalSecond != INVALID_INTERVAL) {
-            timeWrapper.setVisibility(View.VISIBLE);
+            refreshTime.setVisibility(View.VISIBLE);
 
-            minuteEditText.setText(
-                    String.valueOf(intervalMinute));
-            secondEditText.setText(
-                    String.valueOf(intervalSecond));
+            String timeStr = "";
+
+            if (intervalMinute > 0) {
+                timeStr += intervalMinute + " " +
+                        getString(R.string.photo_album_minute);
+            }
+            if (intervalSecond > 0) {
+                if (timeStr.length() > 0) {
+                    timeStr += "  ";
+                }
+                timeStr += intervalSecond + " " +
+                        getString(R.string.photo_album_second);
+            }
+            refreshTime.setText(timeStr);
         }
         else {
-            timeWrapper.setVisibility(View.INVISIBLE);
-
-            minuteEditText.setText(
-                    String.valueOf(INVALID_INTERVAL));
-            secondEditText.setText(
-                    String.valueOf(INVALID_INTERVAL));
+            refreshTime.setVisibility(View.VISIBLE);
+            refreshTime.setText("");
         }
 
         if (useRefresh) {
@@ -441,12 +479,22 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         switch (requestCode) {
             case RC_LOAD_PHOTO:
                 if (resultCode == Activity.RESULT_OK && data != null) {
-                    MNLog.i(TAG, data.getData().getPath());
+//                    MNLog.i(TAG, data.getData().getPath());
+
+                    Uri uri = data.getData();
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                        final int takeFlags = data.getFlags()
+//                                & (Intent.FLAG_GRANT_READ_URI_PERMISSION
+//                                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//                        // Check for the freshest data.
+//                        getActivity().getContentResolver()
+//                                .takePersistableUriPermission(uri, takeFlags);
+//                    }
 
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
                     Cursor cursor = getActivity().getContentResolver().query(
-                            data.getData(), filePathColumn, null, null, null);
+                            uri, filePathColumn, null, null, null);
                     if (cursor != null) {
                         cursor.moveToFirst();
 
@@ -547,6 +595,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     public void onConfirm(int minute, int second) {
         intervalMinute = minute;
         intervalSecond = second;
+        recentIntervalMinute = minute;
+        recentIntervalSecond = second;
         useRefresh = true;
 
         onTimeUpdated();

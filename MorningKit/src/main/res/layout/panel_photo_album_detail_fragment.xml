@@ -16,14 +16,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginBottom="@dimen/panel_detail_padding_inner"
+            android:layout_marginBottom="@dimen/panel_detail_padding"
             android:orientation="horizontal"
             android:gravity="center_vertical|right">
             <ImageView
                 android:layout_width="@dimen/panel_photo_album_detail_load_icon_size"
                 android:layout_height="@dimen/panel_photo_album_detail_load_icon_size"
                 android:layout_marginRight="@dimen/panel_detail_padding_inner"
-                android:background="#00ffff"/>
+                android:src="@drawable/panel_photo_album_detail_load"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,23 +50,41 @@
                     android:layout_height="match_parent"
                     />
             </ViewSwitcher>
-            <ImageView
-                android:id="@+id/preview_unavailable_imageView"
-                android:layout_width="@dimen/panel_photo_album_detail_preview_unavailable_size"
-                android:layout_height="@dimen/panel_photo_album_detail_preview_unavailable_size"
-                android:layout_gravity="center"
-                android:background="#00ffff"/>
+            <LinearLayout
+                android:id="@+id/preview_unavailable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <ImageView
+                    android:layout_width="@dimen/panel_photo_album_detail_preview_unavailable_size"
+                    android:layout_height="@dimen/panel_photo_album_detail_preview_unavailable_size"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/panel_detail_padding_inner"
+                    android:src="@drawable/panel_photo_album_detail_noimage"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/pastel_green_sub_font_color"
+                    android:textSize="@dimen/panel_detail_default_font_size"
+                    android:text="@string/photo_album_no_image"/>
+            </LinearLayout>
         </FrameLayout>
         <TextView
             android:id="@+id/preview_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/panel_detail_padding_inner"
+            android:textColor="@color/pastel_green_sub_font_color"
+            android:textSize="@dimen/panel_detail_default_font_size"
             android:text="text"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/panel_photo_album_detail_row_height"
             android:orientation="horizontal"
+            android:layout_marginTop="@dimen/panel_detail_padding"
             android:gravity="center_vertical">
             <TextView
                 android:id="@+id/refreshTime_label"
@@ -77,54 +95,64 @@
                 android:text="@string/photo_album_label_refresh_time" />
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="5dp">
                 <ImageView
                     android:id="@+id/toggleRefresh"
                     android:layout_width="@dimen/panel_detail_check_image_button_size"
-                    android:layout_height="@dimen/panel_detail_check_image_button_size"
+                    android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:scaleType="centerInside"
                     android:background="@android:color/transparent"
                     android:src="@drawable/icon_panel_detail_checkbox"/>
+                <TextView
+                    android:id="@+id/refreshTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@id/toggleRefresh"
+                    android:gravity="right|center_vertical"
+                    android:layout_marginRight="@dimen/panel_detail_padding_inner"
+                    android:textSize="@dimen/panel_detail_default_font_size"
+                    android:textColor="@color/pastel_green_sub_font_color"
+                    android:text="asdf"/>
                 <!--<include-->
                     <!--android:id="@+id/toggleRefresh"-->
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="wrap_content"-->
                     <!--android:layout_alignParentRight="true"-->
                     <!--layout="@layout/common_switch"/>-->
-                <LinearLayout
-                    android:id="@+id/time_wrapper"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/toggleRefresh"
-                    android:gravity="right"
-                    android:orientation="horizontal"
-                    android:visibility="visible">
-                    <EditText
-                        android:id="@+id/edittext_min"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberSigned"
-                        android:hint="@string/photo_album_minute_hint"/>
-                    <TextView
-                        android:id="@+id/label_min"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/photo_album_minute_postfix"/>
-                    <EditText
-                        android:id="@+id/edittext_sec"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberSigned"
-                        android:hint="@string/photo_album_second_hint"/>
-                    <TextView
-                        android:id="@+id/label_sec"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/photo_album_second_postfix"/>
-                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/time_wrapper"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_toLeftOf="@id/toggleRefresh"-->
+                    <!--android:gravity="right"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:visibility="visible">-->
+                    <!--<EditText-->
+                        <!--android:id="@+id/edittext_min"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:inputType="numberSigned"-->
+                        <!--android:hint="@string/photo_album_minute_hint"/>-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/label_min"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/photo_album_minute_postfix"/>-->
+                    <!--<EditText-->
+                        <!--android:id="@+id/edittext_sec"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:inputType="numberSigned"-->
+                        <!--android:hint="@string/photo_album_second_hint"/>-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/label_sec"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/photo_album_second_postfix"/>-->
+                <!--</LinearLayout>-->
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout
@@ -146,7 +174,7 @@
                 <com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCheckboxView
                     android:id="@+id/grayscale_toggleSwitch"
                     android:layout_width="@dimen/panel_detail_check_image_button_size"
-                    android:layout_height="@dimen/panel_detail_check_image_button_size"
+                    android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:scaleType="centerInside"
