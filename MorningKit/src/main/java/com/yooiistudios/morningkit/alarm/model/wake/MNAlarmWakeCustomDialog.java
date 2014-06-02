@@ -44,8 +44,8 @@ public class MNAlarmWakeCustomDialog {
 
             // 5분 후 dismiss 자동으로 되게 구현
             Message msg = Message.obtain(alarmTimerHandler, alarm.getAlarmId(), wakeDialog);
-            alarmTimerHandler.sendMessageDelayed(msg, 10 * 1000); // for test
-//            alarmWakeDialogHandler.sendEmptyMessageDelayed(0, 5 * 60 * 1000);
+//            alarmTimerHandler.sendMessageDelayed(msg, 10 * 1000); // for test
+            alarmTimerHandler.sendEmptyMessageDelayed(0, 5 * 60 * 1000);
         }
     }
 
