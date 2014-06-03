@@ -191,11 +191,17 @@
             android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen">
         </activity>
 
-        <!-- ExFilePickerLibrary 사용하기 위한 액티비티 -->
+        <!-- naver iab -->
         <activity
-            android:name="ru.bartwell.exfilepicker.ExFilePickerActivity"
-            android:configChanges="orientation|screenSize|locale|layoutDirection"
-            android:theme="@style/ExFilePickerThemeDark" />
+            android:name="com.naver.iap.NaverIabActivity"
+            android:theme="@style/Theme.Transparent" >
+        </activity>
+        <!-- <activity android:name="com.nhn.android.appstore.iap.sample.RestorePaymentActivity" >
+        </activity> -->
+        <activity
+            android:name="com.nhn.android.appstore.iap.cpa.NIAPCPAActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+
     </application>
 
 </manifest>
