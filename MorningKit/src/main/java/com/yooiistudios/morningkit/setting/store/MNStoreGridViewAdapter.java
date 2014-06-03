@@ -42,6 +42,7 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
 
     public interface MNStoreGridViewOnClickListener {
         public void onItemClickedDebug(String sku);
+        public void onItemClickedForNaver(String sku);
     }
 
     private MNStoreGridViewAdapter(){}
@@ -156,8 +157,13 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                     MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
                 }
                 if (MNStoreDebugChecker.isUsingStore(context)) {
-                    iabManager.processPurchase((String) viewHolder.getPriceTextView().getTag(),
-                            onIabPurchaseFinishedListener);
+                    if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+                        storeGridViewOnClickListener.onItemClickedForNaver(
+                                (String) viewHolder.getPriceTextView().getTag());
+                    } else {
+                        iabManager.processPurchase((String) viewHolder.getPriceTextView().getTag(),
+                                onIabPurchaseFinishedListener);
+                    }
                 } else {
                     storeGridViewOnClickListener.onItemClickedDebug((String) viewHolder.getPriceTextView().getTag());
                 }
@@ -205,7 +211,11 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                     MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
                 }
                 if (MNStoreDebugChecker.isUsingStore(context)) {
-                    iabManager.processPurchase((String) v.getTag(), onIabPurchaseFinishedListener);
+                    if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+                        storeGridViewOnClickListener.onItemClickedForNaver((String) v.getTag());
+                    } else {
+                        iabManager.processPurchase((String) v.getTag(), onIabPurchaseFinishedListener);
+                    }
                 } else {
                     storeGridViewOnClickListener.onItemClickedDebug((String) v.getTag());
                 }

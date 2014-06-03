@@ -391,9 +391,9 @@ public class NaverIabActivity extends NIAPActivity {
 			
 			MNLog.i(TAG, resultMessage + "\n" + requestDesc + "\n" + resultDetail + "\n" + resultExtraValue);
 //			if (ConfigurationManager.SignatureConfig.getInstance(this).isDebugBuild()) {
-            if (MNLog.isDebug) {
-                Toast.makeText(NaverIabActivity.this, resultMessage + "\n" + requestDesc + "\n" + resultDetail + "\n" + resultExtraValue, Toast.LENGTH_SHORT).show();
-			}
+//            if (MNLog.isDebug) {
+//                Toast.makeText(NaverIabActivity.this, resultMessage + "\n" + requestDesc + "\n" + resultDetail + "\n" + resultExtraValue, Toast.LENGTH_SHORT).show();
+//			}
 		}
 	}
 
@@ -416,7 +416,7 @@ public class NaverIabActivity extends NIAPActivity {
 				errorMessage = "unknown error has occured";
 			}
 //			if (ConfigurationManager.SignatureConfig.getInstance(this).isDebugBuild()) {
-				Toast.makeText(NaverIabActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+//				Toast.makeText(NaverIabActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
 //			}
 		}
 		MNLog.i(TAG, "Request Type : " + requestDesc + ",\nError Code : " + errorCode + ",\nError Description " + errorMessage);

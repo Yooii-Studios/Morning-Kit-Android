@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.setting.store;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.naver.iap.NaverIabActivity;
+import com.naver.iap.NaverIabInventoryItem;
+import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
@@ -29,6 +33,7 @@ import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.store.util.Purchase;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -74,6 +79,10 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @InjectView(R.id.setting_store_reset_button) Button resetButton;
     @InjectView(R.id.setting_store_debug_button) Button debugButton;
 
+    // For Naver
+    protected static final boolean IS_STORE_FOR_NAVER = true;
+    private static final int RC_NAVER_IAB = 8374;
+
     // setActivity 반드시 해줘야함
     public MNStoreFragment(){}
 
@@ -104,10 +113,18 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
 
     private void initIab() {
         // 이 부분 때문에 크래시가 나서 일단 null 체크를 해줌
-        if (activity != null) {
-            iabManager = new SKIabManager(activity, this);
-            iabManager.loadWithAllItems();
-            activity.setIabHelper(iabManager.getHelper());
+        if (IS_STORE_FOR_NAVER) {
+            showLoadingViews();
+
+            Intent intent = new Intent(getActivity(), NaverIabActivity.class);
+            intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_QUERY_PURCHASE);
+            startActivityForResult(intent, RC_NAVER_IAB);
+        } else {
+            if (activity != null) {
+                iabManager = new SKIabManager(activity, this);
+                iabManager.loadWithAllItems();
+                activity.setIabHelper(iabManager.getHelper());
+            }
         }
     }
 
@@ -274,7 +291,17 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             MNSoundEffectsPlayer.play(R.raw.effect_view_open, getActivity());
         }
         if (MNStoreDebugChecker.isUsingStore(getActivity())) {
-            iabManager.processPurchase(SKIabProducts.SKU_FULL_VERSION, this);
+            if (IS_STORE_FOR_NAVER) {
+                showLoadingViews();
+
+                Intent intent = new Intent(getActivity(), NaverIabActivity.class);
+                intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
+                intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
+                        NaverIabProductUtils.naverSkuMap.get(SKIabProducts.SKU_FULL_VERSION));
+                startActivityForResult(intent, RC_NAVER_IAB);
+            } else {
+                iabManager.processPurchase(SKIabProducts.SKU_FULL_VERSION, this);
+            }
         } else {
             SKIabProducts.saveIabProduct(SKIabProducts.SKU_FULL_VERSION, getActivity());
             initUI();
@@ -373,10 +400,25 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     }
 
     // 풀 버전을 제외한 아이템을 클릭하면 구매 처리하기
+
+    /**
+     * MNStoreGridViewOnClickListener
+     */
     @Override
     public void onItemClickedDebug(String sku) {
         SKIabProducts.saveIabProduct(sku, getActivity());
         initUI();
+    }
+
+    @Override
+    public void onItemClickedForNaver(String sku) {
+        showLoadingViews();
+
+        Intent intent = new Intent(getActivity(), NaverIabActivity.class);
+        intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
+        intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
+                NaverIabProductUtils.naverSkuMap.get(sku));
+        startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
     }
 
     private void initFullVersionUIDebug() {
@@ -418,32 +460,25 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        MNLog.i("MNStoreFragment", "onDestroy");
-//        ViewUnbindHelper.unbindReferences(progressBar);
-//        ViewUnbindHelper.unbindReferences(loadingView);
-//
-//        ViewUnbindHelper.unbindReferences(fullVersionImageView);
-//        ViewUnbindHelper.unbindReferences(fullVersionButtonImageView);
-//        ViewUnbindHelper.unbindReferences(fullVersionButtonTextView);
-//
-//        ViewUnbindHelper.unbindReferences(leftTabDivider);
-//        ViewUnbindHelper.unbindReferences(rightTabDivider);
-//
-//        ViewUnbindHelper.unbindReferences(functionTabLayout);
-//        ViewUnbindHelper.unbindReferences(panelTabLayout);
-//        ViewUnbindHelper.unbindReferences(themeTabLayout);
-//
-//        ViewUnbindHelper.unbindReferences(functionTextView);
-//        ViewUnbindHelper.unbindReferences(panelTextView);
-//        ViewUnbindHelper.unbindReferences(themeTextView);
-//
-//        ViewUnbindHelper.unbindReferences(functionGridView);
-//        ViewUnbindHelper.unbindReferences(panelGridView);
-//        ViewUnbindHelper.unbindReferences(themeGridView);
-//
-//        ViewUnbindHelper.unbindReferences(resetButton);
-//        ViewUnbindHelper.unbindReferences(debugButton);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        MNLog.now("onActivityResult");
+        switch (requestCode) {
+            case RC_NAVER_IAB:
+                if (resultCode == Activity.RESULT_OK) {
+                    String action = data.getStringExtra(NaverIabActivity.KEY_ACTION);
+                    if (action.equals(NaverIabActivity.ACTION_PURCHASE)) {
+                        MNLog.now("ACTION_PURCHASE");
+                        hideLoadingViews();
+                    } else if (action.equals(NaverIabActivity.ACTION_QUERY_PURCHASE)) {
+                        MNLog.now("ACTION_QUERY_PURCHASE");
+                        ArrayList<NaverIabInventoryItem> productList =
+                                data.getParcelableArrayListExtra(NaverIabActivity.KEY_PRODUCT_LIST);
+                        MNLog.now(productList.toString());
+                        hideLoadingViews();
+                    }
+                }
+                break;
+        }
     }
 }
