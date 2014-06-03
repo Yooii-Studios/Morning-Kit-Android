@@ -194,7 +194,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             resetButton.setVisibility(View.VISIBLE);
             debugButton.setVisibility(View.VISIBLE);
             if (MNStoreDebugChecker.isUsingStore(getActivity())) {
-                debugButton.setText("Store");
+                if (IS_STORE_FOR_NAVER) {
+                    debugButton.setText("Naver Store");
+                } else {
+                    debugButton.setText("Google Store");
+                }
             } else {
                 debugButton.setText("Debug");
             }
@@ -378,7 +382,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             debugButton.setText("Debug");
             MNStoreDebugChecker.setUsingStore(false, getActivity());
         } else {
-            debugButton.setText("Store");
+            if (IS_STORE_FOR_NAVER) {
+                debugButton.setText("Naver Store");
+            } else {
+                debugButton.setText("Google Store");
+            }
             MNStoreDebugChecker.setUsingStore(true, getActivity());
         }
     }
