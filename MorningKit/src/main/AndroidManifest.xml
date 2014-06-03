@@ -26,7 +26,6 @@
         android:xlargeScreens="true" />
 
     <!-- android:name=".MNApplication" -->
-
     <!-- 출시시 아래 코드를 추가할 필요가 있음 -->
     <!--android:debuggable="false"-->
     <application
@@ -190,12 +189,5 @@
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen">
         </activity>
-
-        <!-- ExFilePickerLibrary 사용하기 위한 액티비티 -->
-        <activity
-            android:name="ru.bartwell.exfilepicker.ExFilePickerActivity"
-            android:configChanges="orientation|screenSize|locale|layoutDirection"
-            android:theme="@style/ExFilePickerThemeDark" />
     </application>
-
 </manifest>
