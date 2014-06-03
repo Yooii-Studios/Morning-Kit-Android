@@ -82,9 +82,6 @@ dependencies {
     compile project(':libraries:DatePickerLibrary')
     compile project(':libraries:TimePickerLibrary')
 
-    // 포토 앨범 테마용 사진 고르기 라이브러리
-    compile project(':libraries:ExFilePickerLibrary')
-
     // 안드로이드 기본
     compile 'com.android.support:support-v4:+'
     compile 'com.android.support:appcompat-v7:+'

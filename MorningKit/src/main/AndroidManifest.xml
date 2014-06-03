@@ -26,7 +26,6 @@
         android:xlargeScreens="true" />
 
     <!-- android:name=".MNApplication" -->
-
     <!-- 출시시 아래 코드를 추가할 필요가 있음 -->
     <!--android:debuggable="false"-->
     <application
@@ -203,5 +202,4 @@
             android:configChanges="keyboardHidden|orientation|screenSize" />
 
     </application>
-
 </manifest>
