@@ -3,7 +3,6 @@ package com.naver.iap;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.nhn.android.appstore.iap.payment.NIAPActivity;
@@ -239,12 +238,12 @@ public class NaverIabActivity extends NIAPActivity {
 			jsonExtraValue = new JSONObject(result.getExtraValue());
 			signature = jsonExtraValue.getString("signature");
 		} catch (JSONException e) {
-			Log.e(TAG, "error has occred while parsing json!");
+			MNLog.e(TAG, "error has occred while parsing json!");
 			return false;
 		}
 		
 		if (TextUtils.isEmpty(signature)) {
-			Log.e(TAG, "empty signature data");
+            MNLog.e(TAG, "empty signature data");
 			return false;
 		}
 		
