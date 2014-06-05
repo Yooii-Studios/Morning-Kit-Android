@@ -21,7 +21,6 @@ import com.naver.iap.NaverIabActivity;
 import com.naver.iap.NaverIabInventoryItem;
 import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.number.MNDecimalFormatUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
@@ -179,6 +178,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setInventory(inventory);
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setInventory(inventory);
 
+            List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
+            ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setOwnedSkus(ownedSkus);
+            ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
+            ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setOwnedSkus(ownedSkus);
+
             ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
@@ -224,8 +228,6 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     }
 
     public void onRefreshPurchases() {
-        MNLog.now("MNStoreFragment onRefreshPurchases");
-
         // 구매된 아이템들 UI 다시 확인
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
         if (ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
@@ -494,10 +496,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 if (resultCode == Activity.RESULT_OK) {
                     String action = data.getStringExtra(NaverIabActivity.KEY_ACTION);
                     if (action.equals(NaverIabActivity.ACTION_PURCHASE)) {
-//                        MNLog.now("ACTION_PURCHASE");
-
                         String purchasedIabItemKey = data.getStringExtra(NaverIabActivity.KEY_PRODUCT_KEY);
-//                        MNLog.now("purchasedIabItemKey: " + purchasedIabItemKey);
 
                         if (purchasedIabItemKey != null) {
                             // SKIabProducts에 적용
@@ -509,10 +508,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                         }
 
                     } else if (action.equals(NaverIabActivity.ACTION_QUERY_PURCHASE)) {
-//                        MNLog.now("ACTION_QUERY_PURCHASE");
                         ArrayList<NaverIabInventoryItem> productList =
                                 data.getParcelableArrayListExtra(NaverIabActivity.KEY_PRODUCT_LIST);
-//                        MNLog.now(productList.toString());
 
                         // 구매 목록 SKIabProducts에 적용
                         SKIabProducts.saveIabProducts(productList, getActivity());
