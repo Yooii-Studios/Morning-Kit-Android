@@ -21,7 +21,7 @@ import com.naver.iap.NaverIabActivity;
 import com.naver.iap.NaverIabInventoryItem;
 import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.number.MNDecimalFormatUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
@@ -137,6 +137,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 null, iabManager, this, this));
     }
 
+    // For Google
     private void initUIAfterLoading(Inventory inventory) {
         if (inventory.hasDetails(SKIabProducts.SKU_FULL_VERSION)) {
             // Full version
@@ -473,37 +474,35 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        MNLog.now("onActivityResult/requestCode: " + requestCode + "/resultCode: " + resultCode);
         switch (requestCode) {
             case RC_NAVER_IAB:
                 if (resultCode == Activity.RESULT_OK) {
                     String action = data.getStringExtra(NaverIabActivity.KEY_ACTION);
                     if (action.equals(NaverIabActivity.ACTION_PURCHASE)) {
-                        MNLog.now("ACTION_PURCHASE");
+//                        MNLog.now("ACTION_PURCHASE");
 
-//                        releasePurchaseFlowLock();
-//
-//                        String googleSKU = NaverIabHelper.getInstance(this).getProduct(data.getStringExtra(NaverIabActivity.KEY_PRODUCT_KEY)).getGoogleSKU();
-//                        IabPurchaseInfo info = IabPurchaseInfo.getInstance();
-//                        if (googleSKU.equals(IabProductType.FULL_VERSION.getSKUKey())) {
-//                            //full version
-//                            info.saveProductUnlocked(this, IabProductType.FULL_VERSION, IabPurchaseInfo.IabUnlockType.IAB, false);
-//
-//                            disableFullversionButton();
-//                            resizeFullversionText();
-//                        }
-//                        else {
-//                            IabProductCategory category = IabProductCategory.getBySKU(googleSKU);
-//
-//                            info.saveProductCategoryUnlocked(this, category, IabPurchaseInfo.IabUnlockType.IAB);
-//                        }
-//                        mAdapter.notifyDataSetChanged();
+                        String purchasedIabItemKey = data.getStringExtra(NaverIabActivity.KEY_PRODUCT_KEY);
+//                        MNLog.now("purchasedIabItemKey: " + purchasedIabItemKey);
+
+                        if (purchasedIabItemKey != null) {
+                            // SKIabProducts에 적용
+                            String ownedSku = NaverIabProductUtils.googleSkuMap.get(purchasedIabItemKey);
+                            SKIabProducts.saveIabProduct(ownedSku, getActivity());
+
+                            // 구매 후 UI 재로딩
+                            updateUIAfterPurchase(ownedSku);
+                        }
 
                     } else if (action.equals(NaverIabActivity.ACTION_QUERY_PURCHASE)) {
-                        MNLog.now("ACTION_QUERY_PURCHASE");
+//                        MNLog.now("ACTION_QUERY_PURCHASE");
                         ArrayList<NaverIabInventoryItem> productList =
                                 data.getParcelableArrayListExtra(NaverIabActivity.KEY_PRODUCT_LIST);
-                        MNLog.now(productList.toString());
+//                        MNLog.now(productList.toString());
+
+                        // 구매 목록 SKIabProducts에 적용
+                        SKIabProducts.saveIabProducts(productList, getActivity());
+
+                        // 이후 UI 로딩
                         initUIAfterLoading(productList);
                     }
                 }
@@ -514,15 +513,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     }
 
     private void initUIAfterLoading(List<NaverIabInventoryItem> productList) {
-        MNLog.now("initUIAfterLoading");
         NaverIabInventoryItem fullversionNaverIabItem = null;
-        MNLog.now("NaverIabProductUtils.googleSkuMap.get(SKIabProducts.SKU_FULL_VERSION): " + NaverIabProductUtils.googleSkuMap.get(SKIabProducts.SKU_FULL_VERSION));
         for (NaverIabInventoryItem naverIabInventoryItem : productList) {
-            MNLog.now("naverIabInventoryItem.getKey(): " + naverIabInventoryItem.getKey());
             if (naverIabInventoryItem.getKey().equals(
-                    NaverIabProductUtils.googleSkuMap.get(SKIabProducts.SKU_FULL_VERSION))) {
+                    NaverIabProductUtils.naverSkuMap.get(SKIabProducts.SKU_FULL_VERSION))) {
                 fullversionNaverIabItem = naverIabInventoryItem;
-                MNLog.now("fullversionNaverIabItem = naverIabInventoryItem");
             }
         }
 
@@ -554,7 +549,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                         });
                         fullVersionButtonImageView.startAnimation(animation);
                     }
-                    fullVersionButtonTextView.setText(fullversionNaverIabItem.getPrice());
+                    fullVersionButtonTextView.setText(
+                            "₩" + MNDecimalFormatUtils.makeStringComma(fullversionNaverIabItem.getPrice()));
                     fullVersionImageView.setClickable(true);
                     fullVersionButtonImageView.setClickable(true);
                 }
@@ -568,5 +564,23 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
         }
+    }
+
+    private void updateUIAfterPurchase(String ownedSku) {
+        if (ownedSku.equals(SKIabProducts.SKU_FULL_VERSION)) {
+            // Full version
+            fullVersionButtonTextView.setText(R.string.store_purchased);
+            fullVersionImageView.setClickable(false);
+            fullVersionButtonImageView.setClickable(false);
+        }
+        // Others
+        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
+        ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setOwnedSkus(ownedSkus);
+        ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
+        ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setOwnedSkus(ownedSkus);
+
+        ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
+        ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
+        ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
     }
 }

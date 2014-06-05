@@ -3,6 +3,8 @@ package com.yooiistudios.morningkit.setting.store.iab;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.naver.iap.NaverIabInventoryItem;
+import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreDebugChecker;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
@@ -121,11 +123,26 @@ public class SKIabProducts {
     }
 
     /**
-     * For Debug mode
+     * For Debug Mode
      */
     public static void resetIabProductsDebug(Context context) {
         SharedPreferences.Editor edit = context.getSharedPreferences(SHARED_PREFERENCES_IAB_DEBUG,
                 Context.MODE_PRIVATE).edit();
         edit.clear().commit();
+    }
+
+    /**
+     * For Naver Store Mode
+     */
+    // 인앱 정보를 읽어오며 자동으로 적용
+    public static void saveIabProducts(List<NaverIabInventoryItem> productList, Context context) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(SHARED_PREFERENCES_IAB, Context.MODE_PRIVATE).edit();
+        edit.clear(); // 모두 삭제 후 다시 추가
+        for (NaverIabInventoryItem naverIabInventoryItem : productList) {
+            if (naverIabInventoryItem.isAvailable()) {
+                edit.putBoolean(NaverIabProductUtils.googleSkuMap.get(naverIabInventoryItem.getKey()), true);
+            }
+        }
+        edit.commit();
     }
 }

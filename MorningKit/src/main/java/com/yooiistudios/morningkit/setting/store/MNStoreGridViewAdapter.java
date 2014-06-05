@@ -10,7 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.naver.iap.NaverIabInventoryItem;
+import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.number.MNDecimalFormatUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
@@ -18,6 +20,7 @@ import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -180,21 +183,48 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
 
         // price - check from inventory
         String sku = (String) viewHolder.getPriceTextView().getTag();
-        if (inventory != null) {
-            if (inventory.hasDetails(sku)) {
-                if (inventory.hasPurchase(sku)) {
-                    viewHolder.getPriceTextView().setText(R.string.store_purchased);
-                } else {
-                    viewHolder.getPriceTextView().setText(inventory.getSkuDetails(sku).getPrice());
+
+        if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+            // Naver
+            boolean hasDetails = false;
+            if (naverIabInventoryItemList != null) {
+                for (NaverIabInventoryItem naverIabInventoryItem : naverIabInventoryItemList) {
+                    if (naverIabInventoryItem.getKey().equals(
+                            NaverIabProductUtils.naverSkuMap.get(sku))) {
+                        hasDetails = true;
+
+                        if (naverIabInventoryItem.isAvailable()) {
+                            viewHolder.getPriceTextView().setText(R.string.store_purchased);
+                        } else {
+                            viewHolder.getPriceTextView().setText(
+                                    "₩" + MNDecimalFormatUtils.makeStringComma(naverIabInventoryItem.getPrice()));
+                        }
+                    }
+                }
+                if (!hasDetails) {
+                    viewHolder.getPriceTextView().setText(R.string.loading);
                 }
             } else {
                 viewHolder.getPriceTextView().setText(R.string.loading);
             }
         } else {
-            viewHolder.getPriceTextView().setText(R.string.loading);
+            // Google
+            if (inventory != null) {
+                if (inventory.hasDetails(sku)) {
+                    if (inventory.hasPurchase(sku)) {
+                        viewHolder.getPriceTextView().setText(R.string.store_purchased);
+                    } else {
+                        viewHolder.getPriceTextView().setText(inventory.getSkuDetails(sku).getPrice());
+                    }
+                } else {
+                    viewHolder.getPriceTextView().setText(R.string.loading);
+                }
+            } else {
+                viewHolder.getPriceTextView().setText(R.string.loading);
+            }
         }
 
-        // price - purchase check from ownedSkus
+        // price - purchase check from ownedSkus - 풀버전 구매시는 ownedSkus에서 체크
         if (ownedSkus != null && ownedSkus.contains(sku)) {
             viewHolder.getPriceTextView().setText(R.string.store_purchased);
         } else {
@@ -236,6 +266,14 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
             viewHolder.getInnerLayout().setBackgroundResource(
                     R.drawable.shape_rounded_view_classic_gray);
         }
+    }
+
+    protected String makeStringComma(String priceString) {
+        if (priceString == null || priceString.length() == 0)
+            return "";
+        long value = Long.parseLong(priceString);
+        DecimalFormat format = new DecimalFormat("###,###");
+        return format.format(value);
     }
 
     /**
