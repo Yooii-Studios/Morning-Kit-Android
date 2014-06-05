@@ -1,8 +1,4 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-
     <!-- 전체 -->
     <dimen name="rounded_corner_radius">8dp</dimen>
     <dimen name="rounded_corner_radius_unlock">5dp</dimen>
@@ -18,7 +14,7 @@
 
     <!-- 버튼레이아웃은 outer 패딩의 2배 -->
     <dimen name="margin_main_button_layout">12dp</dimen>
-    <dimen name="padding_main_button_layout">10dp</dimen>
+    <dimen name="padding_main_button_layout">8dp</dimen>
     <dimen name="main_button_layout_height">43dp</dimen>
     <dimen name="main_button_layout_corner_radius">12dp</dimen>
     <dimen name="main_button_refresh_setting_size">35dp</dimen>
@@ -79,7 +75,7 @@
     <dimen name="panel_cover_padding">16dp</dimen>
     <dimen name="panel_cover_name_text_size">23sp</dimen>
     <dimen name="panel_cover_status_text_size">12sp</dimen>
-    <dimen name="panel_network_status_gap_margin">10dp</dimen>
+    <dimen name="panel_network_status_gap_margin">12dp</dimen>
     <dimen name="panel_network_animation_size">45dp</dimen>
     <dimen name="panel_round_radius">7.5dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
 
@@ -100,6 +96,7 @@
     <dimen name="panel_select_pager_page_control_height">20dp</dimen>
     <dimen name="panel_select_pager_font_size">14sp</dimen>
     <dimen name="panel_select_pager_lock_image_view_size">13dp</dimen>
+    <dimen name="panel_select_pager_circle_indicator_size">3.5dp</dimen>
 
     <!-- Weather -->
         <!-- Main -->
@@ -203,6 +200,9 @@
     <dimen name="panel_date_countdown_date_font_size">16sp</dimen>
 
     <!-- Setting -->
+    <dimen name="setting_actionbar_title_font_size">18sp</dimen>
+    <dimen name="setting_actionbar_tab_text_font_size">12sp</dimen>
+
     <!-- Panel -->
     <dimen name="setting_panel_matrix_layout_height">240dp</dimen>
     <dimen name="setting_panel_item_height">120dp</dimen>
@@ -232,25 +232,25 @@
     <dimen name="setting_theme_language_item_padding">8dp</dimen>
 
     <!-- License -->
-    <dimen name="setting_more_info_license_title_font_size">30dp</dimen>
+    <dimen name="setting_more_info_license_title_font_size">26sp</dimen>
 
     <!-- Credit -->
     <dimen name="setting_info_credit_title_font_size">14sp</dimen>
     <dimen name="setting_info_credit_name_font_size">19sp</dimen>
 
     <!-- Store -->
-    <dimen name="setting_store_full_version_title_textsize">19dp</dimen>
+    <dimen name="setting_store_full_version_title_textsize">19sp</dimen>
     <dimen name="setting_store_full_version_title_margin_top">6dp</dimen>
-    <dimen name="setting_store_full_version_description_textsize">10dp</dimen>
+    <dimen name="setting_store_full_version_description_textsize">10sp</dimen>
     <dimen name="setting_store_full_version_text_margin">10dp</dimen>
 
     <dimen name="setting_store_full_version_button_left_margin">15dp</dimen>
     <dimen name="setting_store_full_version_button_bottom_margin">20dp</dimen>
     <dimen name="setting_store_full_version_button_size">80dp</dimen>
-    <dimen name="setting_store_full_version_button_textsize">14dp</dimen>
+    <dimen name="setting_store_full_version_button_textsize">14sp</dimen>
 
     <dimen name="setting_store_tab_height">40dp</dimen>
-    <dimen name="setting_store_tab_textsize">13dp</dimen>
+    <dimen name="setting_store_tab_textsize">13sp</dimen>
     <dimen name="setting_store_tab_bar_height">4dp</dimen>
     <dimen name="setting_store_tab_divider_margin">9dp</dimen>
     <dimen name="setting_store_tab_divider_width">1dp</dimen>
@@ -262,9 +262,9 @@
     <dimen name="setting_store_gridview_item_outer_height">82dp</dimen> <!-- inner + margin_inner * 2  -->
     <dimen name="setting_store_gridview_item_image_view_size">56dp</dimen>
     <dimen name="setting_store_gridview_item_name_text_height">38dp</dimen>
-    <dimen name="setting_store_gridview_item_name_text_size">13dp</dimen>
-    <dimen name="setting_store_gridview_item_price_text_width">60dip</dimen>
-    <dimen name="setting_store_gridview_item_price_text_size">8dip</dimen>
+    <dimen name="setting_store_gridview_item_name_text_size">13sp</dimen>
+    <dimen name="setting_store_gridview_item_price_text_width">60dp</dimen>
+    <dimen name="setting_store_gridview_item_price_text_size">8sp</dimen>
 
     <!-- Unlock -->
     <dimen name="unlock_listview_shadow_blur_radius">8dp</dimen>

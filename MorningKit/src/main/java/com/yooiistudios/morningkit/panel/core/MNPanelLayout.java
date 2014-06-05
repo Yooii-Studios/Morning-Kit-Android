@@ -141,6 +141,8 @@ public class MNPanelLayout extends RelativeLayout {
                 = (int) getResources().getDimension(R.dimen.panel_network_status_gap_margin);
         loadingTextView.setLayoutParams(networkStatusTextViewLayoutParams);
         loadingTextView.setGravity(Gravity.CENTER);
+        loadingTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(R.dimen.panel_cover_status_text_size));
         loadingLayout.addView(loadingTextView);
     }
 

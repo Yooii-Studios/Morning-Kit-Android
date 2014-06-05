@@ -28,6 +28,6 @@
             app:strokeColor="#00000000"
             app:centered="true"
             app:snap="true"
-            app:radius="3.5dp"/>
+            app:radius="@dimen/panel_select_pager_circle_indicator_size"/>
     </LinearLayout>
 </merge>
