@@ -224,7 +224,7 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
             }
         }
 
-        // price - purchase check from ownedSkus - 풀버전 구매시는 ownedSkus에서 체크
+        // price - purchase check from ownedSkus - 풀버전, 언락은 ownedSkus에서 체크
         if (ownedSkus != null && ownedSkus.contains(sku)) {
             viewHolder.getPriceTextView().setText(R.string.store_purchased);
         } else {

@@ -155,35 +155,37 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                 // perform any handling of activity results not related to in-app
                 // billing...
                 super.onActivityResult(requestCode, resultCode, data);
-                if (resultCode != MNReviewApp.REQ_REVIEW_APP) {
+                if (requestCode == MNReviewApp.REQ_REVIEW_APP) {
                     onAfterReviewItemClicked();
                 }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
-            if (resultCode != MNReviewApp.REQ_REVIEW_APP) {
-                onAfterReviewItemClicked();
-            }
-        }
-        switch (requestCode) {
-            case MNStoreFragment.RC_NAVER_IAB:
-                if (resultCode == Activity.RESULT_OK) {
-                    String action = data.getStringExtra(NaverIabActivity.KEY_ACTION);
-                    if (action.equals(NaverIabActivity.ACTION_PURCHASE)) {
+            // 네이버 구매
+            switch (requestCode) {
+                case MNStoreFragment.RC_NAVER_IAB:
+                    if (resultCode == Activity.RESULT_OK) {
+                        String action = data.getStringExtra(NaverIabActivity.KEY_ACTION);
+                        if (action.equals(NaverIabActivity.ACTION_PURCHASE)) {
 
-                        String purchasedIabItemKey = data.getStringExtra(NaverIabActivity.KEY_PRODUCT_KEY);
+                            String purchasedIabItemKey = data.getStringExtra(NaverIabActivity.KEY_PRODUCT_KEY);
 
-                        if (purchasedIabItemKey != null) {
-                            // SKIabProducts에 적용
-                            String ownedSku = NaverIabProductUtils.googleSkuMap.get(purchasedIabItemKey);
-                            SKIabProducts.saveIabProduct(ownedSku, this);
+                            if (purchasedIabItemKey != null) {
+                                // SKIabProducts에 적용
+                                String ownedSku = NaverIabProductUtils.googleSkuMap.get(purchasedIabItemKey);
+                                SKIabProducts.saveIabProduct(ownedSku, this);
 
-                            // 구매 후 UI 재로딩
-                            refreshUI();
+                                // 구매 후 UI 재로딩
+                                refreshUI();
+                            }
                         }
                     }
-                }
-                break;
+                    break;
+            }
+            // 리뷰 달기
+            if (requestCode == MNReviewApp.REQ_REVIEW_APP) {
+                onAfterReviewItemClicked();
+            }
         }
     }
 

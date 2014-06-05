@@ -154,10 +154,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                     if (animation != null) {
                         animation.setAnimationListener(new Animation.AnimationListener() {
                             @Override
-                            public void onAnimationStart(Animation animation) {
-
-                            }
-
+                            public void onAnimationStart(Animation animation) {}
                             @Override
                             public void onAnimationEnd(Animation animation) {
                                 Animation textAniamtion = AnimationUtils.loadAnimation(getActivity(),
@@ -166,11 +163,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                                     fullVersionButtonTextView.startAnimation(textAniamtion);
                                 }
                             }
-
                             @Override
-                            public void onAnimationRepeat(Animation animation) {
-
-                            }
+                            public void onAnimationRepeat(Animation animation) {}
                         });
                         fullVersionButtonImageView.startAnimation(animation);
                     }
@@ -183,6 +177,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setInventory(inventory);
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setInventory(inventory);
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setInventory(inventory);
+
+            List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
+            ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setOwnedSkus(ownedSkus);
+            ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
+            ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setOwnedSkus(ownedSkus);
 
             ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
@@ -223,6 +222,24 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setOwnedSkus(ownedSkus);
         }
+        ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
+        ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
+        ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
+    }
+
+    public void onRefreshPurchases() {
+        // 구매된 아이템들 UI 다시 확인
+        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
+        if (ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
+            // Full version
+            fullVersionButtonTextView.setText(R.string.store_purchased);
+            fullVersionImageView.setClickable(false);
+            fullVersionButtonImageView.setClickable(false);
+        }
+        ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setOwnedSkus(ownedSkus);
+        ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
+        ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setOwnedSkus(ownedSkus);
+
         ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
         ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
         ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
@@ -479,10 +496,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 if (resultCode == Activity.RESULT_OK) {
                     String action = data.getStringExtra(NaverIabActivity.KEY_ACTION);
                     if (action.equals(NaverIabActivity.ACTION_PURCHASE)) {
-//                        MNLog.now("ACTION_PURCHASE");
-
                         String purchasedIabItemKey = data.getStringExtra(NaverIabActivity.KEY_PRODUCT_KEY);
-//                        MNLog.now("purchasedIabItemKey: " + purchasedIabItemKey);
 
                         if (purchasedIabItemKey != null) {
                             // SKIabProducts에 적용
@@ -494,10 +508,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                         }
 
                     } else if (action.equals(NaverIabActivity.ACTION_QUERY_PURCHASE)) {
-//                        MNLog.now("ACTION_QUERY_PURCHASE");
                         ArrayList<NaverIabInventoryItem> productList =
                                 data.getParcelableArrayListExtra(NaverIabActivity.KEY_PRODUCT_LIST);
-//                        MNLog.now(productList.toString());
 
                         // 구매 목록 SKIabProducts에 적용
                         SKIabProducts.saveIabProducts(productList, getActivity());
@@ -556,9 +568,15 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 }
             }
             // Other
+            List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
+
             ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setNaverIabInventoryItemList(productList);
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setNaverIabInventoryItemList(productList);
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setNaverIabInventoryItemList(productList);
+
+            ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setOwnedSkus(ownedSkus);
+            ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
+            ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setOwnedSkus(ownedSkus);
 
             ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
