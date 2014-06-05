@@ -483,29 +483,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                     if (action.equals(NaverIabActivity.ACTION_PURCHASE)) {
                         MNLog.now("ACTION_PURCHASE");
 
-//                        releasePurchaseFlowLock();
-//
-//                        String googleSKU = NaverIabHelper.getInstance(this).getProduct(data.getStringExtra(NaverIabActivity.KEY_PRODUCT_KEY)).getGoogleSKU();
-//                        IabPurchaseInfo info = IabPurchaseInfo.getInstance();
-//                        if (googleSKU.equals(IabProductType.FULL_VERSION.getSKUKey())) {
-//                            //full version
-//                            info.saveProductUnlocked(this, IabProductType.FULL_VERSION, IabPurchaseInfo.IabUnlockType.IAB, false);
-//
-//                            disableFullversionButton();
-//                            resizeFullversionText();
-//                        }
-//                        else {
-//                            IabProductCategory category = IabProductCategory.getBySKU(googleSKU);
-//
-//                            info.saveProductCategoryUnlocked(this, category, IabPurchaseInfo.IabUnlockType.IAB);
-//                        }
-//                        mAdapter.notifyDataSetChanged();
-
-                        // SKIabProducts에 적용
                         String purchasedIabItemKey = data.getStringExtra(NaverIabActivity.KEY_PRODUCT_KEY);
                         MNLog.now("purchasedIabItemKey: " + purchasedIabItemKey);
 
                         if (purchasedIabItemKey != null) {
+                            // SKIabProducts에 적용
                             String ownedSku = NaverIabProductUtils.googleSkuMap.get(purchasedIabItemKey);
                             SKIabProducts.saveIabProduct(ownedSku, getActivity());
 
@@ -518,6 +500,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                         ArrayList<NaverIabInventoryItem> productList =
                                 data.getParcelableArrayListExtra(NaverIabActivity.KEY_PRODUCT_LIST);
                         MNLog.now(productList.toString());
+
+                        // 구매 목록 SKIabProducts에 적용
+                        SKIabProducts.saveIabProducts(productList, getActivity());
+
+                        // 이후 UI 로딩
                         initUIAfterLoading(productList);
                     }
                 }
