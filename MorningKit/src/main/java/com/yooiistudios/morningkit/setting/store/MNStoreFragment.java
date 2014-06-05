@@ -155,10 +155,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                     if (animation != null) {
                         animation.setAnimationListener(new Animation.AnimationListener() {
                             @Override
-                            public void onAnimationStart(Animation animation) {
-
-                            }
-
+                            public void onAnimationStart(Animation animation) {}
                             @Override
                             public void onAnimationEnd(Animation animation) {
                                 Animation textAniamtion = AnimationUtils.loadAnimation(getActivity(),
@@ -167,11 +164,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                                     fullVersionButtonTextView.startAnimation(textAniamtion);
                                 }
                             }
-
                             @Override
-                            public void onAnimationRepeat(Animation animation) {
-
-                            }
+                            public void onAnimationRepeat(Animation animation) {}
                         });
                         fullVersionButtonImageView.startAnimation(animation);
                     }
@@ -229,11 +223,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        MNLog.now("MNStoreFragment onResume");
+    public void onRefreshPurchases() {
+        MNLog.now("MNStoreFragment onRefreshPurchases");
 
         // 구매된 아이템들 UI 다시 확인
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
@@ -580,9 +571,15 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 }
             }
             // Other
+            List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
+
             ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setNaverIabInventoryItemList(productList);
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setNaverIabInventoryItemList(productList);
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setNaverIabInventoryItemList(productList);
+
+            ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setOwnedSkus(ownedSkus);
+            ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
+            ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setOwnedSkus(ownedSkus);
 
             ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();

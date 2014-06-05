@@ -99,7 +99,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
                     // 상점 탭일 경우 구매 로딩을 한 번 더 해주자(다른 탭에서 언락했을 경우 UI 처리용)
                     if (viewPagerFragment != null &&
                             viewPagerFragment instanceof MNStoreFragment) {
-                        viewPagerFragment.onResume();
+                        ((MNStoreFragment)viewPagerFragment).onRefreshPurchases();
                     }
                 }
 
