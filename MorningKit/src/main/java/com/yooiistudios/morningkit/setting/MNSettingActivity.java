@@ -16,6 +16,7 @@ import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.panel.MNPanelSettingFragment;
+import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
@@ -85,12 +86,19 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                // 패널 탭일 경우 구매 확인을 한 번 더 해주자(락 아이템 구매 UI 처리용)
+                String name = "android:switcher:" + mViewPager.getId() + ":" + position;
+                Fragment viewPagerFragment = getSupportFragmentManager().findFragmentByTag(name);
+
                 if (position == 0) {
-                    String name = "android:switcher:" + mViewPager.getId() + ":" + position;
-                    Fragment viewPagerFragment = getSupportFragmentManager().findFragmentByTag(name);
+                    // 패널 탭일 경우 구매 확인을 한 번 더 해주자(락 아이템 구매 UI 처리용)
                     if (viewPagerFragment != null &&
                             viewPagerFragment instanceof MNPanelSettingFragment) {
+                        viewPagerFragment.onResume();
+                    }
+                } else if (position == 1) {
+                    // 상점 탭일 경우 구매 로딩을 한 번 더 해주자(다른 탭에서 언락했을 경우 UI 처리용)
+                    if (viewPagerFragment != null &&
+                            viewPagerFragment instanceof MNStoreFragment) {
                         viewPagerFragment.onResume();
                     }
                 }
