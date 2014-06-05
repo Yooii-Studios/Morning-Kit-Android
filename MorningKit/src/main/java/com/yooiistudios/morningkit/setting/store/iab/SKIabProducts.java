@@ -117,7 +117,6 @@ public class SKIabProducts {
             SharedPreferences unlockPrefs = context.getSharedPreferences(MNUnlockActivity.SHARED_PREFS, Context.MODE_PRIVATE);
             String reviewUsedProductSku = unlockPrefs.getString(MNUnlockActivity.REVIEW_USED_PRODUCT_SKU, null);
             if (reviewUsedProductSku != null && ownedSkus.indexOf(reviewUsedProductSku) == -1) {
-                MNLog.now("reviewUsedProductSku");
                 ownedSkus.add(reviewUsedProductSku);
             }
         }
