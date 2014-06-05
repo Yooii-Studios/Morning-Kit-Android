@@ -155,9 +155,15 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                 // perform any handling of activity results not related to in-app
                 // billing...
                 super.onActivityResult(requestCode, resultCode, data);
+                if (resultCode != MNReviewApp.REQ_REVIEW_APP) {
+                    onAfterReviewItemClicked();
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
+            if (resultCode != MNReviewApp.REQ_REVIEW_APP) {
+                onAfterReviewItemClicked();
+            }
         }
         switch (requestCode) {
             case MNStoreFragment.RC_NAVER_IAB:
