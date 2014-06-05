@@ -22,6 +22,7 @@ import com.naver.iap.NaverIabInventoryItem;
 import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.number.MNDecimalFormatUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
@@ -33,6 +34,7 @@ import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.store.util.Purchase;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,6 +139,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 null, iabManager, this, this));
     }
 
+    // For Google
     private void initUIAfterLoading(Inventory inventory) {
         if (inventory.hasDetails(SKIabProducts.SKU_FULL_VERSION)) {
             // Full version
@@ -514,7 +517,6 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     }
 
     private void initUIAfterLoading(List<NaverIabInventoryItem> productList) {
-        MNLog.now("initUIAfterLoading");
         NaverIabInventoryItem fullversionNaverIabItem = null;
         for (NaverIabInventoryItem naverIabInventoryItem : productList) {
             if (naverIabInventoryItem.getKey().equals(
@@ -551,7 +553,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                         });
                         fullVersionButtonImageView.startAnimation(animation);
                     }
-                    fullVersionButtonTextView.setText(fullversionNaverIabItem.getPrice());
+                    fullVersionButtonTextView.setText(
+                            "₩" + MNDecimalFormatUtils.makeStringComma(fullversionNaverIabItem.getPrice()));
                     fullVersionImageView.setClickable(true);
                     fullVersionButtonImageView.setClickable(true);
                 }
