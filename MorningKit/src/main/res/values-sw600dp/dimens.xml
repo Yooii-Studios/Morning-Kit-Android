@@ -23,12 +23,12 @@
     <dimen name="main_admob_layout_height">50dp</dimen>
 
     <!-- Widget Window, 원래 높이 239(갤3 기준) -->
-    <dimen name="main_panel_window_layout_height">338dp</dimen> <!-- 전체 위젯 높이는 위젯 2줄 + outer * 2 + inner * 1 로 구성 --> <!--Done-->
-    <dimen name="panel_height">169dp</dimen> <!-- 115dp + 6dp(inner_margin)는 스샷에서 위젯 크기 직접 잼 --> <!--Done-->
+    <dimen name="main_panel_window_layout_height">360dp</dimen> <!-- 전체 위젯 높이는 위젯 2줄 + outer * 2 + inner * 1 로 구성 --> <!--Done-->
+    <dimen name="panel_height">180dp</dimen> <!-- 115dp + 6dp(inner_margin)는 스샷에서 위젯 크기 직접 잼 --> <!--Done-->
 
     <!-- Alarm -->
-    <dimen name="alarm_item_outer_height">99dp</dimen> <!-- inner + shadow_inner * 2  --> <!--Done-->
-    <dimen name="alarm_item_inner_height">93dp</dimen>              <!--Done-->
+    <dimen name="alarm_item_outer_height">96dp</dimen> <!-- inner + shadow_inner * 2  --> <!--Done-->
+    <dimen name="alarm_item_inner_height">90dp</dimen>              <!--Done-->
     <dimen name="alarm_item_divider_with">3dp</dimen>               <!--Done-->
     <dimen name="alarm_item_divider_height">36.4dp</dimen>          <!--Done-->
     <dimen name="alarm_create_item_plus_size">84dp</dimen>          <!--Done-->
