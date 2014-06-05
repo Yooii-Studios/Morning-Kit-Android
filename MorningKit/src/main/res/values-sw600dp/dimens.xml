@@ -6,10 +6,10 @@
     <dimen name="pro_dog_ear_size">44.8dp</dimen>                       <!--Done-->
 
     <!-- 앱 전체적으로 쓰이는 패딩 -->
-    <dimen name="margin_outer">6dp</dimen>
-    <dimen name="margin_inner">3dp</dimen>
-    <dimen name="margin_shadow_inner">4dp</dimen>
-    <dimen name="margin_outer_minus_inner">3dp</dimen>
+    <dimen name="margin_outer">8dp</dimen>                              <!--Done-->
+    <dimen name="margin_inner">4dp</dimen>                              <!--Done-->
+    <dimen name="margin_shadow_inner">5dp</dimen>                       <!--Done-->
+    <dimen name="margin_outer_minus_inner">4dp</dimen>                  <!--Done-->
     <dimen name="theme_shape_width_stroke">1.5dp</dimen>                <!--Done-->
 
     <!-- 버튼레이아웃은 outer 패딩의 2배 -->
@@ -95,7 +95,7 @@
     <!-- 높이 계산 -->
     <!-- innerMargin + innerMargin + NoShadowHeight + innerMargin + innerMargin + pageControlHeight + innerMargin -->
     <dimen name="panel_select_pager_height">226dp</dimen>                   <!--Done-->
-    <dimen name="panel_select_pager_item_height">68dp</dimen>
+    <dimen name="panel_select_pager_item_height">68dp</dimen>               <!--UnDone, 사용안함-->
     <dimen name="panel_select_pager_item_height_no_shadow">90dp</dimen>     <!--Done-->
     <dimen name="panel_select_pager_page_control_height">25dp</dimen>       <!--Done-->
     <dimen name="panel_select_pager_font_size">18sp</dimen>                 <!--Done-->
