@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.naver.iap.NaverIabActivity;
 import com.naver.iap.NaverIabProductUtils;
@@ -131,7 +130,6 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     @OnClick(R.id.unlock_reset_button)
     void onResetButtonClicked(Button button) {
-
         initDescriptionTextView();
 
         // 사용 이력을 전부 초기화해주자, 거의 리뷰에만 쓰일듯
@@ -309,7 +307,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     @Override
     public void onIabSetupFailed(IabResult result) {
-        Toast.makeText(this, result.toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, result.toString(), Toast.LENGTH_SHORT).show();
+        showComplain("Setup Failed: " + result.getMessage());
     }
 
     @Override
@@ -317,7 +316,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     @Override
     public void onQueryFailed(IabResult result) {
-        Toast.makeText(this, result.toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, result.toString(), Toast.LENGTH_SHORT).show();
+        showComplain("Query Failed: " + result.getMessage());
     }
 
     /**
@@ -327,7 +327,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     public void onIabPurchaseFinished(IabResult result, Purchase info) {
         // 구매된 리스트를 확인해 SharedPreferences에 적용하기
         if (result.isSuccess()) {
-            Toast.makeText(this, result.getMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, result.getMessage(), Toast.LENGTH_SHORT).show();
 
             if (info != null && info.getDeveloperPayload().equals(SKIabManager.DEVELOPER_PAYLOAD)) {
                 SKIabProducts.saveIabProduct(info.getSku(), this);
