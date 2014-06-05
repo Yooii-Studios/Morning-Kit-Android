@@ -123,6 +123,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
 
                 intervalMinute = DEFAULT_INTERVAL_MIN;
                 intervalSecond = DEFAULT_INTERVAL_SEC;
+                recentIntervalMinute = DEFAULT_INTERVAL_MIN;
+                recentIntervalSecond = DEFAULT_INTERVAL_SEC;
                 useRefresh = false;
                 transitionType = MNPhotoAlbumTransitionType.NONE;
 
@@ -251,16 +253,20 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         if (getPanelDataObject().has(KEY_DATA_INTERVAL_MINUTE)) {
             intervalMinute = getPanelDataObject()
                     .getInt(KEY_DATA_INTERVAL_MINUTE);
+            recentIntervalMinute = intervalMinute;
         }
         else {
             intervalMinute = DEFAULT_INTERVAL_MIN;
+            recentIntervalMinute = DEFAULT_INTERVAL_MIN;
         }
         if (getPanelDataObject().has(KEY_DATA_INTERVAL_SECOND)) {
             intervalSecond = getPanelDataObject()
                     .getInt(KEY_DATA_INTERVAL_SECOND);
+            recentIntervalSecond = intervalSecond;
         }
         else {
             intervalSecond = DEFAULT_INTERVAL_SEC;
+            recentIntervalSecond = DEFAULT_INTERVAL_SEC;
         }
         if (getPanelDataObject().has(KEY_DATA_USE_REFRESH)) {
             useRefresh = getPanelDataObject().getBoolean(KEY_DATA_USE_REFRESH);
