@@ -101,7 +101,7 @@
     <dimen name="panel_select_pager_page_control_height">25dp</dimen>       <!--Done-->
     <dimen name="panel_select_pager_font_size">18sp</dimen>                 <!--Done-->
     <dimen name="panel_select_pager_lock_image_view_size">19.5dp</dimen>    <!--Done-->
-    <dimen name="panel_select_pager_circle_indicator_size">4.0dp</dimen>    <!--Done-->
+    <dimen name="panel_select_pager_circle_indicator_size">5dp</dimen>      <!--Done-->
 
     <!-- Weather -->
     <!-- Main -->
