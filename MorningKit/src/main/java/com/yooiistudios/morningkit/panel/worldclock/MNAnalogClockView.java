@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainResources;
@@ -169,7 +168,7 @@ public class MNAnalogClockView extends RelativeLayout {
     private void applyTheme() {
 
         // recycle before alloc new image resource
-        MNLog.i(TAG, "recycle image views");
+//        MNLog.i(TAG, "recycle image views");
         MNBitmapUtils.recycleImageView(clockBaseImageView);
         MNBitmapUtils.recycleImageView(secondHandImageView);
         MNBitmapUtils.recycleImageView(minuteHandImageView);
@@ -179,7 +178,7 @@ public class MNAnalogClockView extends RelativeLayout {
         MNThemeType currentType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
         BitmapFactory.Options options = MNBitmapUtils.getDefaultOptions();
         if (isTimeAm) {
-            MNLog.i(TAG, "isTimeAM");
+//            MNLog.i(TAG, "isTimeAM");
             Bitmap clockBaseBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
                     MNMainResources.getWorldClockAMBase(currentType), options);
@@ -204,7 +203,7 @@ public class MNAnalogClockView extends RelativeLayout {
             secondHandImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), secondHandBitmap));
         } else {
-            MNLog.i(TAG, "isTimePM");
+//            MNLog.i(TAG, "isTimePM");
             Bitmap clockBaseBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
                     MNMainResources.getWorldClockPMBase(currentType), options);
