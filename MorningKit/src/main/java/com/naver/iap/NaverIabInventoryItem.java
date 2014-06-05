@@ -3,7 +3,7 @@ package com.naver.iap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class NaverIabInventoryItem implements Parcelable{
+public class NaverIabInventoryItem implements Parcelable {
 	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
 		@Override
 		public NaverIabInventoryItem createFromParcel(Parcel in) {

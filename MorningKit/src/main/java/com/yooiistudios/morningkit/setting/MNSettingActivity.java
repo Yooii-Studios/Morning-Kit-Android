@@ -134,7 +134,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        Log.d(TAG, "onActivityResult(" + requestCode + ", " + resultCode);
+        MNLog.i(TAG, "onActivityResult(" + requestCode + ", " + resultCode);
 
         if (iabHelper == null) return;
             // Pass on the activity result to the helper for handling

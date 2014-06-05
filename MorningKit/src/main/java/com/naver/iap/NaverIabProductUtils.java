@@ -24,6 +24,7 @@ public class NaverIabProductUtils {
     private static final String NAVER_IAB_CELESTIAL = "1000007655";
 
     public static final Map<String, String> naverSkuMap;
+    public static final Map<String, String> googleSkuMap;
 
     static {
         naverSkuMap = new HashMap<String, String>();
@@ -35,5 +36,15 @@ public class NaverIabProductUtils {
         naverSkuMap.put(SKIabProducts.SKU_MEMO, NAVER_IAB_MEMO);
         naverSkuMap.put(SKIabProducts.SKU_MODERNITY, NAVER_IAB_MODERNITY);
         naverSkuMap.put(SKIabProducts.SKU_CELESTIAL, NAVER_IAB_CELESTIAL);
+
+        googleSkuMap = new HashMap<String, String>();
+        googleSkuMap.put(NAVER_IAB_FULL_VERSION, SKIabProducts.SKU_FULL_VERSION);
+        googleSkuMap.put(NAVER_IAB_MORE_ALARM_SLOTS, SKIabProducts.SKU_MORE_ALARM_SLOTS);
+        googleSkuMap.put(NAVER_IAB_NO_ADS, SKIabProducts.SKU_NO_ADS);
+        googleSkuMap.put(NAVER_IAB_PANEL_MATRIX_2X3, SKIabProducts.SKU_PANEL_MATRIX_2X3);
+        googleSkuMap.put(NAVER_IAB_DATE_COUNTDOWN, SKIabProducts.SKU_DATE_COUNTDOWN);
+        googleSkuMap.put(NAVER_IAB_MEMO, SKIabProducts.SKU_MEMO);
+        googleSkuMap.put(NAVER_IAB_MODERNITY, SKIabProducts.SKU_MODERNITY);
+        googleSkuMap.put(NAVER_IAB_CELESTIAL, SKIabProducts.SKU_CELESTIAL);
     }
 }

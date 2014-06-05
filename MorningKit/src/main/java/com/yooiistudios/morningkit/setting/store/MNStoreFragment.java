@@ -467,26 +467,106 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         }
     }
 
+    /**
+     *  Naver App Store
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        MNLog.now("onActivityResult");
+        MNLog.now("onActivityResult/requestCode: " + requestCode + "/resultCode: " + resultCode);
         switch (requestCode) {
             case RC_NAVER_IAB:
                 if (resultCode == Activity.RESULT_OK) {
                     String action = data.getStringExtra(NaverIabActivity.KEY_ACTION);
                     if (action.equals(NaverIabActivity.ACTION_PURCHASE)) {
                         MNLog.now("ACTION_PURCHASE");
-                        hideLoadingViews();
+
+//                        releasePurchaseFlowLock();
+//
+//                        String googleSKU = NaverIabHelper.getInstance(this).getProduct(data.getStringExtra(NaverIabActivity.KEY_PRODUCT_KEY)).getGoogleSKU();
+//                        IabPurchaseInfo info = IabPurchaseInfo.getInstance();
+//                        if (googleSKU.equals(IabProductType.FULL_VERSION.getSKUKey())) {
+//                            //full version
+//                            info.saveProductUnlocked(this, IabProductType.FULL_VERSION, IabPurchaseInfo.IabUnlockType.IAB, false);
+//
+//                            disableFullversionButton();
+//                            resizeFullversionText();
+//                        }
+//                        else {
+//                            IabProductCategory category = IabProductCategory.getBySKU(googleSKU);
+//
+//                            info.saveProductCategoryUnlocked(this, category, IabPurchaseInfo.IabUnlockType.IAB);
+//                        }
+//                        mAdapter.notifyDataSetChanged();
+
                     } else if (action.equals(NaverIabActivity.ACTION_QUERY_PURCHASE)) {
                         MNLog.now("ACTION_QUERY_PURCHASE");
                         ArrayList<NaverIabInventoryItem> productList =
                                 data.getParcelableArrayListExtra(NaverIabActivity.KEY_PRODUCT_LIST);
                         MNLog.now(productList.toString());
-                        hideLoadingViews();
+                        initUIAfterLoading(productList);
                     }
                 }
+                // 네이버 인앱 페이지에서 돌아오면 로딩뷰 감추기
+                hideLoadingViews();
                 break;
+        }
+    }
+
+    private void initUIAfterLoading(List<NaverIabInventoryItem> productList) {
+        MNLog.now("initUIAfterLoading");
+        NaverIabInventoryItem fullversionNaverIabItem = null;
+        MNLog.now("NaverIabProductUtils.googleSkuMap.get(SKIabProducts.SKU_FULL_VERSION): " + NaverIabProductUtils.googleSkuMap.get(SKIabProducts.SKU_FULL_VERSION));
+        for (NaverIabInventoryItem naverIabInventoryItem : productList) {
+            MNLog.now("naverIabInventoryItem.getKey(): " + naverIabInventoryItem.getKey());
+            if (naverIabInventoryItem.getKey().equals(
+                    NaverIabProductUtils.googleSkuMap.get(SKIabProducts.SKU_FULL_VERSION))) {
+                fullversionNaverIabItem = naverIabInventoryItem;
+                MNLog.now("fullversionNaverIabItem = naverIabInventoryItem");
+            }
+        }
+
+        if (fullversionNaverIabItem != null) {
+            if (fullversionNaverIabItem.isAvailable()) {
+                fullVersionButtonTextView.setText(R.string.store_purchased);
+                fullVersionImageView.setClickable(false);
+                fullVersionButtonImageView.setClickable(false);
+            } else {
+                if (!MNStoreDebugChecker.isUsingStore(getActivity())) {
+                    initFullVersionUIDebug();
+                } else {
+                    Animation animation = AnimationUtils.loadAnimation(getActivity(),
+                            R.anim.store_view_scale_up_and_down);
+                    if (animation != null) {
+                        animation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {}
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                Animation textAniamtion = AnimationUtils.loadAnimation(getActivity(),
+                                        R.anim.store_view_scale_up_and_down);
+                                if (textAniamtion != null) {
+                                    fullVersionButtonTextView.startAnimation(textAniamtion);
+                                }
+                            }
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {}
+                        });
+                        fullVersionButtonImageView.startAnimation(animation);
+                    }
+                    fullVersionButtonTextView.setText(fullversionNaverIabItem.getPrice());
+                    fullVersionImageView.setClickable(true);
+                    fullVersionButtonImageView.setClickable(true);
+                }
+            }
+            // Other
+            ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setNaverIabInventoryItemList(productList);
+            ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setNaverIabInventoryItemList(productList);
+            ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setNaverIabInventoryItemList(productList);
+
+            ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
+            ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
+            ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
         }
     }
 }

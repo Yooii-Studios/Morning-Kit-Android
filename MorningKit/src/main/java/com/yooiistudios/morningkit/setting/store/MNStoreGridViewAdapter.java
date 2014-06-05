@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.naver.iap.NaverIabInventoryItem;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
@@ -37,6 +38,9 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
     private IabHelper.OnIabPurchaseFinishedListener onIabPurchaseFinishedListener;
     @Setter Inventory inventory;
     @Setter List<String> ownedSkus;
+
+    // For Naver Iab
+    @Setter List<NaverIabInventoryItem> naverIabInventoryItemList;
 
     private MNStoreGridViewOnClickListener storeGridViewOnClickListener;
 
@@ -197,10 +201,6 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
             if (!MNStoreDebugChecker.isUsingStore(context)) {
                 viewHolder.getPriceTextView().setText("$0.99");
             }
-        }
-
-        if (viewHolder.getPriceTextView().getText() != null) {
-            String priceText = viewHolder.getPriceTextView().getText().toString();
         }
 
         // onClick

@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.widget.RelativeLayout;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
@@ -60,20 +61,28 @@ public class MNStoreActivity extends MNSettingDetailActivity {
     }
 
     private void initIab() {
-        iabManager = new SKIabManager(this, storeFragment);
-        iabManager.loadWithAllItems();
-        storeFragment.setIabManager(iabManager);
+        boolean isStoreForNaver = MNStoreFragment.IS_STORE_FOR_NAVER;
+        if (!isStoreForNaver) {
+            iabManager = new SKIabManager(this, storeFragment);
+            iabManager.loadWithAllItems();
+            storeFragment.setIabManager(iabManager);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (iabManager.getHelper() == null) return;
+        MNLog.now("MNStoreActivity onActivityResult");
+        if (iabManager != null) {
+            if (iabManager.getHelper() == null) return;
 
-        // Pass on the activity result to the helper for handling
-        if (!iabManager.getHelper().handleActivityResult(requestCode, resultCode, data)) {
-            // not handled, so handle it ourselves (here's where you'd
-            // perform any handling of activity results not related to in-app
-            // billing...
+            // Pass on the activity result to the helper for handling
+            if (!iabManager.getHelper().handleActivityResult(requestCode, resultCode, data)) {
+                // not handled, so handle it ourselves (here's where you'd
+                // perform any handling of activity results not related to in-app
+                // billing...
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
