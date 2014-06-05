@@ -48,7 +48,7 @@ public class MNMainLayoutSetter {
                 scrollViewLayoutParams.addRule(RelativeLayout.ABOVE, R.id.main_button_layout);
                 // 아래쪽으로 margin_outer - margin_inner 만큼 주어야 윗 마진(margin_outer)과 같아짐
                 // -> margin_inner로 panelWindowLayout의 topMargin을 변경
-                scrollViewLayoutParams.bottomMargin = (int)(scrollView.getResources().getDimension(R.dimen.margin_inner));
+                scrollViewLayoutParams.bottomMargin = scrollView.getResources().getDimensionPixelSize(R.dimen.margin_inner);
                 break;
             }
         }
@@ -56,7 +56,7 @@ public class MNMainLayoutSetter {
 
     public static void adjustPanelLayoutParamsAtOrientation(MNMainActivity mainActivity, int orientation) {
         LinearLayout.LayoutParams panelWindowLayoutParams = (LinearLayout.LayoutParams) mainActivity.getPanelWindowLayout().getLayoutParams();
-        panelWindowLayoutParams.height = (int) getPanelWindowLayoutHeight(mainActivity, orientation);
+        panelWindowLayoutParams.height = getPanelWindowLayoutHeight(mainActivity, orientation);
 
         // 방향에 따른 패널 매트릭스 배열 재정렬
         mainActivity.getPanelWindowLayout().adjustPanelLayoutMatrixAtOrientation(orientation);
@@ -64,7 +64,7 @@ public class MNMainLayoutSetter {
 
     public static void adjustButtonLayoutParamsAtOrientation(RelativeLayout buttonLayout, int orientation) {
         RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
-        buttonLayoutParams.height = (int)getButtonLayoutHeight(buttonLayout.getContext(), orientation);
+        buttonLayoutParams.height = getButtonLayoutHeight(buttonLayout.getContext(), orientation);
     }
 
     public static void adjustAdmobLayoutParamsAtOrientation(RelativeLayout admobLayout, int orientation) {
@@ -74,7 +74,7 @@ public class MNMainLayoutSetter {
                 if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_NO_ADS, admobLayout.getContext())) {
                     admobLayoutParams.height = 0;
                 } else {
-                    admobLayoutParams.height = (int) getAdmobLayoutHeightOnPortrait(admobLayout.getContext());
+                    admobLayoutParams.height = getAdmobLayoutHeightOnPortrait(admobLayout.getContext());
                 }
                 break;
             }
@@ -133,7 +133,7 @@ public class MNMainLayoutSetter {
 
                 int calcaulatedButtonLayoutWidth = MNDeviceSizeInfo.getDeviceWidth(context) -
                         buttonLayoutMargin * 2;
-//                (int)(context.getResources().getDimension(R.dimen.margin_main_button_layout) * 2);
+//                (int)(context.getResources().getDimensionPixelSize(R.dimen.margin_main_button_layout) * 2);
 
                 if (adSize.getWidthInPixels(context) <= calcaulatedButtonLayoutWidth) { // buttonLayout.getWidth()) {
                     RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
@@ -169,7 +169,7 @@ public class MNMainLayoutSetter {
                         (contentHeight <= deviceHeight && contentHeight > deviceHeight - bottomLayoutHeight)) {
                     // margin_inner를 빼는 이유는 panelWindowLayout에서 topMargin을 주었기에 그만큼 빼주어야 하는 것으로 추정
                     alarmListViewLayoutParams.height = getAlarmListViewHeightOnPortrait(mainActivity) +
-                            (int) getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT) -
+                            getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT) -
                             mainActivity.getResources().getDimensionPixelSize(R.dimen.margin_inner);
                 } else {
                     alarmListViewLayoutParams.height = getAlarmListViewHeightOnPortrait(mainActivity);
@@ -207,7 +207,7 @@ public class MNMainLayoutSetter {
                         Configuration.ORIENTATION_LANDSCAPE);
 
                 Resources resources = mainActivity.getResources();
-                int bottomPadding = (int)(resources.getDimension(R.dimen.margin_outer_minus_inner));
+                int bottomPadding = (int)(resources.getDimensionPixelSize(R.dimen.margin_outer_minus_inner));
                 int scrollViewContentHeight = deviceHeight - statusBarHeight - buttonLayoutHeight - bottomPadding;
 
 //                Log.i(TAG, "buttonLayout height: " + mainActivity.getScrollView().getLayoutParams().height);
@@ -234,7 +234,7 @@ public class MNMainLayoutSetter {
     /**
      * Getting height of main layouts & views
      */
-    public static float getPanelWindowLayoutHeight(MNMainActivity mainActivity, int orientation) {
+    public static int getPanelWindowLayoutHeight(MNMainActivity mainActivity, int orientation) {
         Resources resources = mainActivity.getResources();
 
         // 높이 조절
@@ -259,7 +259,7 @@ public class MNMainLayoutSetter {
             case Configuration.ORIENTATION_LANDSCAPE:
                 int deviceHeight = MNDeviceSizeInfo.getDeviceHeight(mainActivity);
                 int statusBarHeight = MNDeviceSizeInfo.getStatusBarHeight(mainActivity);
-                int bottomLayoutHeight = (int)getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_LANDSCAPE);
+                int bottomLayoutHeight = getBottomLayoutHeight(mainActivity, Configuration.ORIENTATION_LANDSCAPE);
                 int marginTop = resources.getDimensionPixelSize(R.dimen.margin_inner);
                 return deviceHeight - statusBarHeight - bottomLayoutHeight - marginTop;
 
@@ -273,16 +273,16 @@ public class MNMainLayoutSetter {
                 (MNAlarmListManager.getAlarmList(context).size() + 1);
     }
 
-    public static float getBottomLayoutHeight(MNMainActivity mainActivity, int orientation) {
+    public static int getBottomLayoutHeight(MNMainActivity mainActivity, int orientation) {
         Resources resources = mainActivity.getResources();
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT:
                 return getButtonLayoutHeight(mainActivity, Configuration.ORIENTATION_PORTRAIT) +
                         getAdmobLayoutHeightOnPortrait(mainActivity) +
-                        resources.getDimension(R.dimen.margin_inner);
+                        resources.getDimensionPixelSize(R.dimen.margin_inner);
 
             case Configuration.ORIENTATION_LANDSCAPE:
-                return resources.getDimension(R.dimen.margin_outer_minus_inner)
+                return resources.getDimensionPixelSize(R.dimen.margin_outer_minus_inner)
                         + getButtonLayoutHeight(mainActivity, Configuration.ORIENTATION_LANDSCAPE);
 
             default:
@@ -291,39 +291,39 @@ public class MNMainLayoutSetter {
         }
     }
 
-    public static float getAdmobLayoutHeightOnPortrait(Context context) {
+    public static int getAdmobLayoutHeightOnPortrait(Context context) {
         if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_NO_ADS, context)) {
             return 0;
         } else {
             if (MNDeviceSizeInfo.isTablet(context)) {
                 return 0;
             } else {
-                return (int) context.getResources().getDimension(R.dimen.main_admob_layout_height);
+                return context.getResources().getDimensionPixelSize(R.dimen.main_admob_layout_height);
             }
         }
     }
 
-    public static float getButtonLayoutHeight(Context context, int orientation) {
+    public static int getButtonLayoutHeight(Context context, int orientation) {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT:
                 if (MNDeviceSizeInfo.isTablet(context)) {
-                    return (int) (context.getResources().getDimension(R.dimen.main_admob_layout_height)
-                            + context.getResources().getDimension(R.dimen.margin_inner) * 2);
+                    return context.getResources().getDimensionPixelSize(R.dimen.main_admob_layout_height)
+                            + context.getResources().getDimensionPixelSize(R.dimen.margin_inner) * 2;
                 } else {
-                    return (int) context.getResources().getDimension(R.dimen.main_button_layout_height);
+                    return context.getResources().getDimensionPixelSize(R.dimen.main_button_layout_height);
                 }
 
             case Configuration.ORIENTATION_LANDSCAPE:
                 if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_NO_ADS, context)) {
                     if (MNDeviceSizeInfo.isTablet(context)) {
-                        return (int) (context.getResources().getDimension(R.dimen.main_admob_layout_height)
-                                + context.getResources().getDimension(R.dimen.margin_inner) * 2);
+                        return context.getResources().getDimensionPixelSize(R.dimen.main_admob_layout_height)
+                                + context.getResources().getDimensionPixelSize(R.dimen.margin_inner) * 2;
                     } else {
-                        return (int) context.getResources().getDimension(R.dimen.main_button_layout_height);
+                        return context.getResources().getDimensionPixelSize(R.dimen.main_button_layout_height);
                     }
                 } else {
-                    return (int) (context.getResources().getDimension(R.dimen.main_admob_layout_height)
-                            + context.getResources().getDimension(R.dimen.margin_inner) * 2);
+                    return context.getResources().getDimensionPixelSize(R.dimen.main_admob_layout_height)
+                            + context.getResources().getDimensionPixelSize(R.dimen.margin_inner) * 2;
                 }
 
             default: // Test에서 Undefined 사용
