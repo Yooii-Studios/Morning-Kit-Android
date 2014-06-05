@@ -574,13 +574,13 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             fullVersionButtonTextView.setText(R.string.store_purchased);
             fullVersionImageView.setClickable(false);
             fullVersionButtonImageView.setClickable(false);
-        } else {
-            // Others
-            List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
-            ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setOwnedSkus(ownedSkus);
-            ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
-            ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setOwnedSkus(ownedSkus);
         }
+        // Others
+        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
+        ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setOwnedSkus(ownedSkus);
+        ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
+        ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setOwnedSkus(ownedSkus);
+
         ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
         ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
         ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
