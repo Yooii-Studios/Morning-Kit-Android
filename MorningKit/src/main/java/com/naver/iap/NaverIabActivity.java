@@ -388,7 +388,8 @@ public class NaverIabActivity extends NIAPActivity {
 			String resultDetail = "Result Detail : " + result.getResult();
 			String resultExtraValue = "Extra Value : " + result.getExtraValue();
 			
-			MNLog.i(TAG, resultMessage + "\n" + requestDesc + "\n" + resultDetail + "\n" + resultExtraValue);
+//			MNLog.i(TAG, resultMessage + "\n" + requestDesc + "\n" + resultDetail + "\n" + resultExtraValue);
+
 //			if (ConfigurationManager.SignatureConfig.getInstance(this).isDebugBuild()) {
 //            if (MNLog.isDebug) {
 //                Toast.makeText(NaverIabActivity.this, resultMessage + "\n" + requestDesc + "\n" + resultDetail + "\n" + resultExtraValue, Toast.LENGTH_SHORT).show();
