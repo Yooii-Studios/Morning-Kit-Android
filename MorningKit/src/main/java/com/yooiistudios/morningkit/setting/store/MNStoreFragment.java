@@ -516,13 +516,10 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     private void initUIAfterLoading(List<NaverIabInventoryItem> productList) {
         MNLog.now("initUIAfterLoading");
         NaverIabInventoryItem fullversionNaverIabItem = null;
-        MNLog.now("NaverIabProductUtils.googleSkuMap.get(SKIabProducts.SKU_FULL_VERSION): " + NaverIabProductUtils.googleSkuMap.get(SKIabProducts.SKU_FULL_VERSION));
         for (NaverIabInventoryItem naverIabInventoryItem : productList) {
-            MNLog.now("naverIabInventoryItem.getKey(): " + naverIabInventoryItem.getKey());
             if (naverIabInventoryItem.getKey().equals(
-                    NaverIabProductUtils.googleSkuMap.get(SKIabProducts.SKU_FULL_VERSION))) {
+                    NaverIabProductUtils.naverSkuMap.get(SKIabProducts.SKU_FULL_VERSION))) {
                 fullversionNaverIabItem = naverIabInventoryItem;
-                MNLog.now("fullversionNaverIabItem = naverIabInventoryItem");
             }
         }
 
