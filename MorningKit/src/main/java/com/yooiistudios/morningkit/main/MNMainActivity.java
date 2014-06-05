@@ -25,6 +25,7 @@ import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.review.MNReviewUtil;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialLayout;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
@@ -106,6 +107,8 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             MNTutorialLayout tutorialLayout = new MNTutorialLayout(getApplicationContext(), this);
             containerLayout.addView(tutorialLayout);
         }
+
+        MNReviewUtil.checkRate(this);
     }
 
     void initMainActivity() {
