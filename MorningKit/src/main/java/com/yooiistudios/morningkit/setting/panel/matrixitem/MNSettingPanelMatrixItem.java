@@ -101,11 +101,11 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
                     resources.getDimension(R.dimen.setting_panel_item_text_font_size));
 
             // layout params
-            LayoutParams textViewlayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            LayoutParams textViewLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
-            textViewlayoutParams.addRule(ALIGN_PARENT_BOTTOM);
-            textViewlayoutParams.bottomMargin = (int) resources.getDimension(R.dimen.margin_inner);
-            panelNameTextView.setLayoutParams(textViewlayoutParams);
+            textViewLayoutParams.addRule(ALIGN_PARENT_BOTTOM);
+            textViewLayoutParams.bottomMargin = (int) resources.getDimension(R.dimen.margin_inner);
+            panelNameTextView.setLayoutParams(textViewLayoutParams);
             containerLayout.addView(panelNameTextView);
         }
     }
