@@ -6,8 +6,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
-import com.yooiistudios.morningkit.common.log.MNLog;
-
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2014. 5. 9.
  *
@@ -25,15 +23,15 @@ public class MNBitmapUtils {
                 Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
                 if (bitmap != null && !bitmap.isRecycled()) {
                     bitmap.recycle();
-                    MNLog.i(TAG, "bitmap recycled");
+//                    MNLog.i(TAG, "bitmap recycled");
                     imageView.setImageBitmap(null);
                     return true;
                 } else {
-                    MNLog.i(TAG, "bitmap is null");
+//                    MNLog.i(TAG, "bitmap is null");
                 }
             }
         } else {
-            MNLog.i(TAG, "imageView is null");
+//            MNLog.i(TAG, "imageView is null");
         }
         return false;
     }
