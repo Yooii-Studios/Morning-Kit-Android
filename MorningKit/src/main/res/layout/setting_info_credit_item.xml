@@ -29,7 +29,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/shape_rounded_view_classic_white"
+        android:background="@drawable/shape_rounded_view_pastel_green"
         android:padding="@dimen/alarm_pref_list_item_padding"
         android:clickable="false"
         android:focusable="false"
