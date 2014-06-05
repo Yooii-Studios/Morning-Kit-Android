@@ -21,7 +21,6 @@ import com.naver.iap.NaverIabActivity;
 import com.naver.iap.NaverIabInventoryItem;
 import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.number.MNDecimalFormatUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
@@ -475,16 +474,15 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        MNLog.now("onActivityResult/requestCode: " + requestCode + "/resultCode: " + resultCode);
         switch (requestCode) {
             case RC_NAVER_IAB:
                 if (resultCode == Activity.RESULT_OK) {
                     String action = data.getStringExtra(NaverIabActivity.KEY_ACTION);
                     if (action.equals(NaverIabActivity.ACTION_PURCHASE)) {
-                        MNLog.now("ACTION_PURCHASE");
+//                        MNLog.now("ACTION_PURCHASE");
 
                         String purchasedIabItemKey = data.getStringExtra(NaverIabActivity.KEY_PRODUCT_KEY);
-                        MNLog.now("purchasedIabItemKey: " + purchasedIabItemKey);
+//                        MNLog.now("purchasedIabItemKey: " + purchasedIabItemKey);
 
                         if (purchasedIabItemKey != null) {
                             // SKIabProducts에 적용
@@ -496,10 +494,10 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                         }
 
                     } else if (action.equals(NaverIabActivity.ACTION_QUERY_PURCHASE)) {
-                        MNLog.now("ACTION_QUERY_PURCHASE");
+//                        MNLog.now("ACTION_QUERY_PURCHASE");
                         ArrayList<NaverIabInventoryItem> productList =
                                 data.getParcelableArrayListExtra(NaverIabActivity.KEY_PRODUCT_LIST);
-                        MNLog.now(productList.toString());
+//                        MNLog.now(productList.toString());
 
                         // 구매 목록 SKIabProducts에 적용
                         SKIabProducts.saveIabProducts(productList, getActivity());
