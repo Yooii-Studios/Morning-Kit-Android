@@ -3,19 +3,19 @@
     <dimen name="rounded_corner_radius">8dp</dimen>
     <dimen name="rounded_corner_radius_unlock">5dp</dimen>
     <dimen name="rounded_corner_radius_unlock_listview">14dp</dimen>
-    <dimen name="pro_dog_ear_size">48dp</dimen>                         <!--Done-->
+    <dimen name="pro_dog_ear_size">44.8dp</dimen>                       <!--Done-->
 
     <!-- 앱 전체적으로 쓰이는 패딩 -->
     <dimen name="margin_outer">6dp</dimen>
     <dimen name="margin_inner">3dp</dimen>
     <dimen name="margin_shadow_inner">4dp</dimen>
     <dimen name="margin_outer_minus_inner">3dp</dimen>
-    <dimen name="theme_shape_width_stroke">1.5dp</dimen>                  <!--Done-->
+    <dimen name="theme_shape_width_stroke">1.5dp</dimen>                <!--Done-->
 
     <!-- 버튼레이아웃은 outer 패딩의 2배 -->
     <dimen name="margin_main_button_layout">18dp</dimen>                <!--Done-->
     <dimen name="padding_main_button_layout">15dp</dimen>               <!--Done-->
-    <dimen name="main_button_layout_height">64.5dp</dimen>                <!--Done-->
+    <dimen name="main_button_layout_height">64.5dp</dimen>              <!--Done-->
     <dimen name="main_button_layout_corner_radius">18dp</dimen>         <!--Done-->
     <dimen name="main_button_refresh_setting_size">41dp</dimen>         <!--Done-->
 
@@ -23,34 +23,34 @@
     <dimen name="main_admob_layout_height">50dp</dimen>
 
     <!-- Widget Window, 원래 높이 239(갤3 기준) -->
-    <dimen name="main_panel_window_layout_height">364dp</dimen> <!-- 전체 위젯 높이는 위젯 2줄 + outer * 2 + inner * 1 로 구성 --> <!--Done-->
-    <dimen name="panel_height">182dp</dimen> <!-- 115dp + 6dp(inner_margin)는 스샷에서 위젯 크기 직접 잼 --> <!--Done-->
+    <dimen name="main_panel_window_layout_height">338dp</dimen> <!-- 전체 위젯 높이는 위젯 2줄 + outer * 2 + inner * 1 로 구성 --> <!--Done-->
+    <dimen name="panel_height">169dp</dimen> <!-- 115dp + 6dp(inner_margin)는 스샷에서 위젯 크기 직접 잼 --> <!--Done-->
 
     <!-- Alarm -->
-    <dimen name="alarm_item_outer_height">107dp</dimen> <!-- inner + shadow_inner * 2  --> <!--Done-->
-    <dimen name="alarm_item_inner_height">101dp</dimen>             <!--Done-->
+    <dimen name="alarm_item_outer_height">99dp</dimen> <!-- inner + shadow_inner * 2  --> <!--Done-->
+    <dimen name="alarm_item_inner_height">93dp</dimen>              <!--Done-->
     <dimen name="alarm_item_divider_with">3dp</dimen>               <!--Done-->
-    <dimen name="alarm_item_divider_height">39dp</dimen>            <!--Done-->
-    <dimen name="alarm_create_item_plus_size">90dp</dimen>          <!--Done-->
-    <dimen name="alarm_item_switch_size">90dp</dimen>               <!--Done-->
+    <dimen name="alarm_item_divider_height">36.4dp</dimen>          <!--Done-->
+    <dimen name="alarm_create_item_plus_size">84dp</dimen>          <!--Done-->
+    <dimen name="alarm_item_switch_size">84dp</dimen>               <!--Done-->
 
-    <dimen name="alarm_item_time_font_size">43.5sp</dimen>          <!--Done-->
-    <dimen name="alarm_item_ampm_font_size">25.5sp</dimen>          <!--Done-->
-    <dimen name="alarm_item_repeat_font_size">21sp</dimen>          <!--Done-->
-    <dimen name="alarm_item_label_font_size">25.5sp</dimen>         <!--Done-->
+    <dimen name="alarm_item_time_font_size">40.6sp</dimen>          <!--Done-->
+    <dimen name="alarm_item_ampm_font_size">23.8sp</dimen>          <!--Done-->
+    <dimen name="alarm_item_repeat_font_size">19.6sp</dimen>        <!--Done-->
+    <dimen name="alarm_item_label_font_size">23.8sp</dimen>         <!--Done-->
 
-    <dimen name="alarm_item_time_margin_top">1.5dp</dimen>          <!--Done-->
-    <dimen name="alarm_item_time_margin_left">16.5dp</dimen>        <!--Done-->
-    <dimen name="alarm_item_ampm_margin_left">6dp</dimen>           <!--Done-->
-    <dimen name="alarm_item_label_margin_bottom">10.5dp</dimen>     <!--Done-->
+    <dimen name="alarm_item_time_margin_top">1.4dp</dimen>          <!--Done-->
+    <dimen name="alarm_item_time_margin_left">15.4dp</dimen>        <!--Done-->
+    <dimen name="alarm_item_ampm_margin_left">5.6dp</dimen>         <!--Done-->
+    <dimen name="alarm_item_label_margin_bottom">9.8dp</dimen>      <!--Done-->
 
-    <dimen name="alarm_create_item_title_font_size">33sp</dimen>    <!--Done-->
+    <dimen name="alarm_create_item_title_font_size">30.8sp</dimen>  <!--Done-->
 
     <!-- Alarm Preferences -->
-    <dimen name="alarm_pref_list_item_outer_height">60dp</dimen> <!-- inner + margin_inner * 2  -->
-    <dimen name="alarm_pref_list_item_title_textview_width">110dp</dimen>
-    <dimen name="alarm_pref_list_item_padding">10dp</dimen>
-    <dimen name="alarm_pref_list_item_textview_font_size">18sp</dimen>
+    <dimen name="alarm_pref_list_item_outer_height">84dp</dimen> <!-- inner + margin_inner * 2  --> <!--Done-->
+    <dimen name="alarm_pref_list_item_title_textview_width">154dp</dimen>   <!--Done-->
+    <dimen name="alarm_pref_list_item_padding">14dp</dimen>                 <!--Done-->
+    <dimen name="alarm_pref_list_item_textview_font_size">25.2sp</dimen>    <!--Done-->
 
     <!-- Label Dialog -->
     <dimen name="alarm_pref_list_label_item_dialog_padding_button">5dp</dimen>
@@ -59,43 +59,46 @@
     <dimen name="alarm_pref_list_label_item_dialog_edit_remove_button_padding">40dp</dimen>
 
     <!-- Alarm Custom Dialog -->
-    <dimen name="alarm_custom_dialog_label_font_size">25sp</dimen>
-    <dimen name="alarm_custom_dialog_label_left_right_padding">23dp</dimen>
-    <dimen name="alarm_custom_dialog_label_top_bottom_padding">8dp</dimen>
-    <dimen name="alarm_custom_dialog_divider_padding">15dp</dimen>
-    <dimen name="alarm_custom_dialog_image_view_size">95dp</dimen>
-    <dimen name="alarm_custom_dialog_image_view_top_margin">20dp</dimen>
-    <dimen name="alarm_custom_dialog_time_text_top_margin">10dp</dimen>
-    <dimen name="alarm_custom_dialog_time_text_bottom_margin">20dp</dimen>
-    <dimen name="alarm_custom_dialog_time_text_font_size">22sp</dimen>
-    <dimen name="alarm_custom_dialog_button_text_font_size">16sp</dimen>
+    <dimen name="alarm_custom_dialog_label_font_size">35sp</dimen>              <!--Done-->
+    <dimen name="alarm_custom_dialog_label_left_right_padding">32.2dp</dimen>   <!--Done-->
+    <dimen name="alarm_custom_dialog_label_top_bottom_padding">11.2dp</dimen>   <!--Done-->
+    <dimen name="alarm_custom_dialog_divider_padding">21dp</dimen>              <!--Done-->
+    <dimen name="alarm_custom_dialog_image_view_size">133dp</dimen>             <!--Done-->
+    <dimen name="alarm_custom_dialog_image_view_top_margin">28dp</dimen>        <!--Done-->
+    <dimen name="alarm_custom_dialog_time_text_top_margin">14dp</dimen>         <!--Done-->
+    <dimen name="alarm_custom_dialog_time_text_bottom_margin">28dp</dimen>      <!--Done-->
+    <dimen name="alarm_custom_dialog_time_text_font_size">30.8sp</dimen>        <!--Done-->
+    <dimen name="alarm_custom_dialog_button_text_font_size">22.4sp</dimen>      <!--Done-->
 
     <!-- Panel -->
-    <dimen name="panel_layout_padding">10dp</dimen>
-    <dimen name="panel_cover_padding">16dp</dimen>
-    <dimen name="panel_cover_name_text_size">23sp</dimen>
-    <dimen name="panel_cover_status_text_size">12sp</dimen>
-    <dimen name="panel_network_status_gap_margin">10dp</dimen>
-    <dimen name="panel_network_animation_size">45dp</dimen>
+    <dimen name="panel_layout_padding">14dp</dimen>             <!--Done-->
+    <dimen name="panel_cover_padding">22.4dp</dimen>            <!--Done-->
+    <dimen name="panel_cover_name_text_size">32.2sp</dimen>     <!--Done-->
+    <dimen name="panel_cover_status_text_size">16.8sp</dimen>   <!--Done-->
+    <dimen name="panel_network_status_gap_margin">14dp</dimen>  <!--Done-->
+    <dimen name="panel_network_animation_size">63dp</dimen>     <!--Done-->
     <dimen name="panel_round_radius">7.5dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
 
     <!-- Detail Activity -->
-    <dimen name="panel_detail_padding">10dp</dimen>
-    <dimen name="panel_detail_padding_inner">5dp</dimen>
-    <dimen name="panel_detail_bigger_padding">20dp</dimen>
-    <dimen name="panel_detail_bigger_padding_inner">10dp</dimen>
-    <dimen name="panel_detail_check_image_button_size">21dp</dimen>
-    <dimen name="panel_detail_remove_all_button_size">25dp</dimen>
-    <dimen name="panel_detail_remove_all_button_padding">30dp</dimen>
-    <dimen name="panel_detail_default_font_size">17sp</dimen>
+    <dimen name="panel_detail_padding">14dp</dimen>                     <!--Done-->
+    <dimen name="panel_detail_padding_inner">7dp</dimen>                <!--Done-->
+    <dimen name="panel_detail_bigger_padding">28dp</dimen>              <!--Done-->
+    <dimen name="panel_detail_bigger_padding_inner">14dp</dimen>        <!--Done-->
+    <dimen name="panel_detail_check_image_button_size">29.4dp</dimen>   <!--Done-->
+    <dimen name="panel_detail_remove_all_button_size">35dp</dimen>      <!--Done-->
+    <dimen name="panel_detail_remove_all_button_padding">42dp</dimen>   <!--Done-->
+    <dimen name="panel_detail_default_font_size">23.8sp</dimen>         <!--Done-->
 
     <!-- Select Pager -->
-    <dimen name="panel_select_pager_height">166dp</dimen>
+    <!-- 높이 계산 -->
+    <!-- innerMargin + innerMargin + NoShadowHeight + innerMargin + innerMargin + pageControlHeight + innerMargin -->
+    <dimen name="panel_select_pager_height">226dp</dimen>                   <!--Done-->
     <dimen name="panel_select_pager_item_height">68dp</dimen>
-    <dimen name="panel_select_pager_item_height_no_shadow">62dp</dimen>
-    <dimen name="panel_select_pager_page_control_height">20dp</dimen>
-    <dimen name="panel_select_pager_font_size">14sp</dimen>
-    <dimen name="panel_select_pager_lock_image_view_size">13dp</dimen>
+    <dimen name="panel_select_pager_item_height_no_shadow">90dp</dimen>     <!--Done-->
+    <dimen name="panel_select_pager_page_control_height">25dp</dimen>       <!--Done-->
+    <dimen name="panel_select_pager_font_size">18sp</dimen>                 <!--Done-->
+    <dimen name="panel_select_pager_lock_image_view_size">19.5dp</dimen>    <!--Done-->
+    <dimen name="panel_select_pager_circle_indicator_size">4.0dp</dimen>    <!--Done-->
 
     <!-- Weather -->
     <!-- Main -->
