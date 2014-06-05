@@ -282,8 +282,8 @@ public class MNMainLayoutSetter {
                         resources.getDimensionPixelSize(R.dimen.margin_inner);
 
             case Configuration.ORIENTATION_LANDSCAPE:
-                return resources.getDimensionPixelSize(R.dimen.margin_outer_minus_inner)
-                        + getButtonLayoutHeight(mainActivity, Configuration.ORIENTATION_LANDSCAPE);
+                return getButtonLayoutHeight(mainActivity, Configuration.ORIENTATION_LANDSCAPE)
+                        + resources.getDimensionPixelSize(R.dimen.margin_outer_minus_inner);
 
             default:
                 MNLog.e(TAG, "not expected orientation: " + orientation);
