@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBar;
 import android.widget.RelativeLayout;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
@@ -71,7 +70,6 @@ public class MNStoreActivity extends MNSettingDetailActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        MNLog.now("MNStoreActivity onActivityResult");
         if (iabManager != null) {
             if (iabManager.getHelper() == null) return;
 

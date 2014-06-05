@@ -34,7 +34,6 @@ import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.store.util.Purchase;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -502,6 +501,18 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
 //                        }
 //                        mAdapter.notifyDataSetChanged();
 
+                        // SKIabProducts에 적용
+                        String purchasedIabItemKey = data.getStringExtra(NaverIabActivity.KEY_PRODUCT_KEY);
+                        MNLog.now("purchasedIabItemKey: " + purchasedIabItemKey);
+
+                        if (purchasedIabItemKey != null) {
+                            String ownedSku = NaverIabProductUtils.googleSkuMap.get(purchasedIabItemKey);
+                            SKIabProducts.saveIabProduct(ownedSku, getActivity());
+
+                            // 구매 후 UI 재로딩
+                            updateUIAfterPurchase(ownedSku);
+                        }
+
                     } else if (action.equals(NaverIabActivity.ACTION_QUERY_PURCHASE)) {
                         MNLog.now("ACTION_QUERY_PURCHASE");
                         ArrayList<NaverIabInventoryItem> productList =
@@ -568,5 +579,23 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
         }
+    }
+
+    private void updateUIAfterPurchase(String ownedSku) {
+        if (ownedSku.equals(SKIabProducts.SKU_FULL_VERSION)) {
+            // Full version
+            fullVersionButtonTextView.setText(R.string.store_purchased);
+            fullVersionImageView.setClickable(false);
+            fullVersionButtonImageView.setClickable(false);
+        } else {
+            // Others
+            List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
+            ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setOwnedSkus(ownedSkus);
+            ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
+            ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setOwnedSkus(ownedSkus);
+        }
+        ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
+        ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
+        ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
     }
 }
