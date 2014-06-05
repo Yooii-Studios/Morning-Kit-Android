@@ -202,6 +202,9 @@
     <dimen name="panel_date_countdown_date_font_size">16sp</dimen>
 
     <!-- Setting -->
+    <dimen name="setting_actionbar_title_font_size">23sp</dimen>
+    <dimen name="setting_actionbar_tab_text_font_size">14sp</dimen>
+
     <!-- Panel -->
     <dimen name="setting_panel_matrix_layout_height">256dp</dimen>  <!--Done-->
     <dimen name="setting_panel_item_height">168dp</dimen>           <!--Done-->
@@ -234,8 +237,8 @@
     <dimen name="setting_more_info_license_title_font_size">30dp</dimen>
 
     <!-- Credit -->
-    <dimen name="setting_info_credit_title_font_size">14sp</dimen>
-    <dimen name="setting_info_credit_name_font_size">19sp</dimen>
+    <dimen name="setting_info_credit_title_font_size">17sp</dimen>      <!--Done-->
+    <dimen name="setting_info_credit_name_font_size">24sp</dimen>       <!--Done-->
 
     <!-- Store -->
     <dimen name="setting_store_full_version_title_textsize">19dp</dimen>

@@ -200,6 +200,9 @@
     <dimen name="panel_date_countdown_date_font_size">16sp</dimen>
 
     <!-- Setting -->
+    <dimen name="setting_actionbar_title_font_size">18sp</dimen>
+    <dimen name="setting_actionbar_tab_text_font_size">12sp</dimen>
+
     <!-- Panel -->
     <dimen name="setting_panel_matrix_layout_height">240dp</dimen>
     <dimen name="setting_panel_item_height">120dp</dimen>
