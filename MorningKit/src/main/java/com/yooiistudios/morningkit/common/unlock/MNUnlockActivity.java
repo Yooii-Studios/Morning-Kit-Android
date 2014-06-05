@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.common.unlock;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,8 +13,6 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
@@ -23,9 +22,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.naver.iap.NaverIabActivity;
+import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
-import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
+import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManagerListener;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
@@ -33,7 +34,6 @@ import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.store.util.IabResult;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.store.util.Purchase;
-import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -50,12 +50,12 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     private String productSku;
 
+    @Getter private SKIabManager iabManager;
+
     @InjectView(R.id.unlock_container)              RelativeLayout          containerLayout;
     @InjectView(R.id.unlock_listview_layout)        RelativeLayout          listViewLayout;
     @InjectView(R.id.unlock_description_textview)   TextView                descriptionTextView;
     @InjectView(R.id.unlock_listview)               ListView                listView;
-
-    @Getter private SKIabManager iabManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         // description - 0x00ccff 로 포인트 변경함
         descriptionTextView.setGravity(Gravity.NO_GRAVITY);
         descriptionTextView.setText(R.string.unlock_description);
-        descriptionTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.unlock_description_textsize));
+        descriptionTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.unlock_description_textsize));
 
         if (descriptionTextView.getText() != null) {
             String descriptionString = descriptionTextView.getText().toString();
@@ -121,8 +122,11 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     }
 
     private void initIab() {
-        iabManager = new SKIabManager(this, this);
-        iabManager.loadWithAllItems();
+        boolean isStoreForNaver = MNStoreFragment.IS_STORE_FOR_NAVER;
+        if (!isStoreForNaver) {
+            iabManager = new SKIabManager(this, this);
+            iabManager.loadWithAllItems();
+        }
     }
 
     @OnClick(R.id.unlock_reset_button)
@@ -144,17 +148,38 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (iabManager.getHelper() == null) return;
+        if (iabManager != null) {
+            if (iabManager.getHelper() == null) return;
 
-        // Pass on the activity result to the helper for handling
-        if (!iabManager.getHelper().handleActivityResult(requestCode, resultCode, data)) {
-            // not handled, so handle it ourselves (here's where you'd
-            // perform any handling of activity results not related to in-app
-            // billing...
-            if (resultCode != MNReviewApp.REQ_REVIEW_APP) {
-                onAfterReviewItemClicked();
+            // Pass on the activity result to the helper for handling
+            if (!iabManager.getHelper().handleActivityResult(requestCode, resultCode, data)) {
+                // not handled, so handle it ourselves (here's where you'd
+                // perform any handling of activity results not related to in-app
+                // billing...
+                super.onActivityResult(requestCode, resultCode, data);
             }
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+        switch (requestCode) {
+            case MNStoreFragment.RC_NAVER_IAB:
+                if (resultCode == Activity.RESULT_OK) {
+                    String action = data.getStringExtra(NaverIabActivity.KEY_ACTION);
+                    if (action.equals(NaverIabActivity.ACTION_PURCHASE)) {
+
+                        String purchasedIabItemKey = data.getStringExtra(NaverIabActivity.KEY_PRODUCT_KEY);
+
+                        if (purchasedIabItemKey != null) {
+                            // SKIabProducts에 적용
+                            String ownedSku = NaverIabProductUtils.googleSkuMap.get(purchasedIabItemKey);
+                            SKIabProducts.saveIabProduct(ownedSku, this);
+
+                            // 구매 후 UI 재로딩
+                            refreshUI();
+                        }
+                    }
+                }
+                break;
         }
     }
 
@@ -170,11 +195,27 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     public void onItemClick(int position) {
         switch (position) {
             case 0:
-                iabManager.processPurchase(SKIabProducts.SKU_FULL_VERSION, this);
+                if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+                    Intent intent = new Intent(this, NaverIabActivity.class);
+                    intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
+                    intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
+                            NaverIabProductUtils.naverSkuMap.get(SKIabProducts.SKU_FULL_VERSION));
+                    startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
+                } else {
+                    iabManager.processPurchase(SKIabProducts.SKU_FULL_VERSION, this);
+                }
                 break;
 
             case 1:
-                iabManager.processPurchase(productSku, this);
+                if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+                    Intent intent = new Intent(this, NaverIabActivity.class);
+                    intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
+                    intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
+                            NaverIabProductUtils.naverSkuMap.get(productSku));
+                    startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
+                } else {
+                    iabManager.processPurchase(productSku, this);
+                }
                 break;
 
             case 2:
@@ -230,24 +271,19 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
             descriptionTextView.startAnimation(scaleAnimation);
             scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
-                public void onAnimationStart(Animation animation) {
-
-                }
-
+                public void onAnimationStart(Animation animation) {}
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     // animate activity
                     finish();
                     overridePendingTransition(R.anim.activity_hold, R.anim.activity_modal_down);
                 }
-
                 @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
+                public void onAnimationRepeat(Animation animation) {}
             });
         }
     }
+
     private void refreshUI() {
         // listView
         ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
@@ -266,12 +302,10 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     }
 
     /**
-     * Iab
+     * Google Iab
      */
     @Override
-    public void onIabSetupFinished(IabResult result) {
-
-    }
+    public void onIabSetupFinished(IabResult result) {}
 
     @Override
     public void onIabSetupFailed(IabResult result) {
@@ -279,9 +313,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     }
 
     @Override
-    public void onQueryFinished(Inventory inventory) {
-
-    }
+    public void onQueryFinished(Inventory inventory) {}
 
     @Override
     public void onQueryFailed(IabResult result) {
@@ -315,30 +347,5 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         bld.setMessage(string);
         bld.setNeutralButton(getString(R.string.ok), null);
         bld.create().show();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            if (MNSound.isSoundOn(this)) {
-                MNSoundEffectsPlayer.play(R.raw.effect_view_close, this);
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // Catch the back button and make fragment animate
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
-            if (MNSound.isSoundOn(this)) {
-                MNSoundEffectsPlayer.play(R.raw.effect_view_close, this);
-            }
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

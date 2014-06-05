@@ -80,8 +80,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @InjectView(R.id.setting_store_debug_button) Button debugButton;
 
     // For Naver
-    protected static final boolean IS_STORE_FOR_NAVER = true;
-    private static final int RC_NAVER_IAB = 8374;
+    public static final boolean IS_STORE_FOR_NAVER = true;
+    public static final int RC_NAVER_IAB = 8374;
 
     // setActivity 반드시 해줘야함
     public MNStoreFragment(){}
@@ -419,17 +419,6 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         initUI();
     }
 
-    @Override
-    public void onItemClickedForNaver(String sku) {
-        showLoadingViews();
-
-        Intent intent = new Intent(getActivity(), NaverIabActivity.class);
-        intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
-        intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
-                NaverIabProductUtils.naverSkuMap.get(sku));
-        startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
-    }
-
     private void initFullVersionUIDebug() {
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
         if (ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
@@ -471,6 +460,17 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     /**
      *  Naver App Store
      */
+    @Override
+    public void onItemClickedForNaver(String sku) {
+        showLoadingViews();
+
+        Intent intent = new Intent(getActivity(), NaverIabActivity.class);
+        intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
+        intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
+                NaverIabProductUtils.naverSkuMap.get(sku));
+        startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
