@@ -14,6 +14,7 @@ import com.yooiistudios.morningkit.common.log.MNLog;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import lombok.Getter;
@@ -104,16 +105,14 @@ public class MNPhotoAlbumDisplayHelper {
             }
         }
         else {
+            Collections.shuffle(mFileList, new Random(System.nanoTime()));
             String fileName;
             if (mSelectedFile != null && mFileList.contains(mSelectedFile)) {
-                fileName = mSelectedFile;
+                mFileList.remove(mSelectedFile);
+                mFileList.add(0, mSelectedFile);
             }
-            else {
-                mPhotoIdx = 0;
-
-                //show first image
-                fileName = mFileList.get(mPhotoIdx);
-            }
+            mPhotoIdx = 0;
+            fileName = mFileList.get(mPhotoIdx);
 
             if (mOnStartListener != null) {
                 mOnStartListener.onStartLoadingBitmap();
@@ -221,14 +220,14 @@ public class MNPhotoAlbumDisplayHelper {
         }
     }
 
-    private int getRandomIndex() {
-        int fileCount = mFileList.size();
-        if (fileCount == 0) {
-            return INVALID_INDEX;
-        }
-        Random random = new Random(System.currentTimeMillis());
-        return random.nextInt(mFileList.size());
-    }
+//    private int getRandomIndex() {
+//        int fileCount = mFileList.size();
+//        if (fileCount == 0) {
+//            return INVALID_INDEX;
+//        }
+//        Random random = new Random(System.currentTimeMillis());
+//        return random.nextInt(mFileList.size());
+//    }
 
     private Animation.AnimationListener mAnimListener =
             new Animation.AnimationListener() {
@@ -259,8 +258,7 @@ public class MNPhotoAlbumDisplayHelper {
         public void handleMessage( Message msg ){
             if (isRunning){
                 // UI갱신
-                mPhotoIdx = getRandomIndex();
-                if (mPhotoIdx == INVALID_INDEX) {
+                if (mFileList.size() == 0) {
                     stop();
                     if (mOnStartListener != null) {
                         mOnStartListener.onError(R.string.photo_album_no_image);
@@ -268,6 +266,12 @@ public class MNPhotoAlbumDisplayHelper {
 
                     return;
                 }
+
+                mPhotoIdx++;
+                if (mPhotoIdx == mFileList.size()) {
+                    mPhotoIdx = 0;
+                }
+
                 String fileName = mFileList.get(mPhotoIdx);
                 new MNPhotoAlbumBitmapLoader(mActivity,
                         new File(mRootDir, fileName).getAbsolutePath(),
