@@ -115,7 +115,7 @@ public class MNPhotoAlbumRefreshTimeDialogFragment extends DialogFragment {
                             }
                         }
                 )
-                .setNeutralButton(R.string.photo_album_dialog_transition_off,
+                .setNeutralButton(R.string.setting_effect_sound_off,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 Fragment parentFragment = getTargetFragment();

@@ -166,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/panel_detail_default_font_size"
                 android:textColor="@color/pastel_green_sub_font_color"
-                android:text="@string/photo_album_label_grayscale" />
+                android:text="@string/flickr_use_gray_scale" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
