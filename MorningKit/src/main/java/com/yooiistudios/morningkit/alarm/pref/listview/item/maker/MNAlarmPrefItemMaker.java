@@ -69,7 +69,8 @@ public class MNAlarmPrefItemMaker {
         } else {
             viewHolder.snoozeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
         }
-        viewHolder.snoozeCheckImageButton.setOnClickListener(new View.OnClickListener() {
+        viewHolder.snoozeCheckImageButton.setClickable(false);
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alarm.setSnoozeOn(!alarm.isSnoozeOn());
