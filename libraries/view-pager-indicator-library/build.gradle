@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+' // 0.7.+ 로 해서 0.7.2 버전에 버그가 있음
+        classpath 'com.android.tools.build:gradle:0.11.+' // 0.7.+ 로 해서 0.7.2 버전에 버그가 있음
     }
 }
 
@@ -15,7 +15,7 @@ repositories {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.3"
+    buildToolsVersion "19.1.0"
 
     defaultConfig {
         minSdkVersion 10
