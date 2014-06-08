@@ -82,16 +82,19 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     // For Naver
     public static final boolean IS_STORE_FOR_NAVER = true;
     public static final int RC_NAVER_IAB = 8374;
+    public boolean isNaverStoreStartLoading = false;
+    @Setter boolean isFragmentForActivity = false;
+    @Getter List<NaverIabInventoryItem> productList;
 
     // setActivity 반드시 해줘야함
     public MNStoreFragment(){}
 
     // 이전에 생성된 프래그먼트를 유지
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+//        setRetainInstance(true); // 2탭 멀리 있을 때 새로 생성해 주어야 제대로 초기화가 진행
+        setRetainInstance(false);
     }
 
     @Override
@@ -99,26 +102,30 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         View rootView = inflater.inflate(R.layout.setting_store_fragment, container, false);
         if (rootView != null) {
             ButterKnife.inject(this, rootView);
-
-            showLoadingViews();
-
-            onTabClicked(functionTabLayout);
-
-            initIab();
-            initUI();
-            checkDebug();
         }
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        showLoadingViews();
+
+        onTabClicked(functionTabLayout);
+
+        initIab();
+        initUI();
+        checkDebug();
     }
 
     private void initIab() {
         // 이 부분 때문에 크래시가 나서 일단 null 체크를 해줌
         if (IS_STORE_FOR_NAVER) {
-            showLoadingViews();
-
-            Intent intent = new Intent(getActivity(), NaverIabActivity.class);
-            intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_QUERY_PURCHASE);
-            startActivityForResult(intent, RC_NAVER_IAB);
+            // 네이버는 로딩을 탭 클릭 시로 미룸, 단 상점 액티비티는 처음에 로딩
+            if (isFragmentForActivity) {
+                onFirstStoreLoading();
+            }
         } else {
             if (activity != null) {
                 iabManager = new SKIabManager(activity, this);
@@ -227,6 +234,15 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
     }
 
+    public void onFirstStoreLoading() {
+        showLoadingViews();
+
+        Intent intent = new Intent(getActivity(), NaverIabActivity.class);
+        intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_QUERY_PURCHASE);
+        startActivityForResult(intent, RC_NAVER_IAB);
+        isNaverStoreStartLoading = true;
+    }
+
     public void onRefreshPurchases() {
         // 구매된 아이템들 UI 다시 확인
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
@@ -239,6 +255,12 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setOwnedSkus(ownedSkus);
         ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
         ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setOwnedSkus(ownedSkus);
+
+        if (productList != null) {
+            ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setNaverIabInventoryItemList(productList);
+            ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setNaverIabInventoryItemList(productList);
+            ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setNaverIabInventoryItemList(productList);
+        }
 
         ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
         ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
@@ -257,13 +279,21 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
      * Loading
      */
     private void showLoadingViews() {
-        progressBar.setVisibility(ProgressBar.VISIBLE);
-        loadingView.setVisibility(View.VISIBLE);
+        if (progressBar != null) {
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+        if (loadingView != null) {
+            loadingView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void hideLoadingViews() {
-        progressBar.setVisibility(ProgressBar.INVISIBLE);
-        loadingView.setVisibility(View.GONE);
+        if (progressBar != null) {
+            progressBar.setVisibility(ProgressBar.INVISIBLE);
+        }
+        if (loadingView != null) {
+            loadingView.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -513,6 +543,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
 
                         // 구매 목록 SKIabProducts에 적용
                         SKIabProducts.saveIabProducts(productList, getActivity());
+                        this.productList = productList;
 
                         // 이후 UI 로딩
                         initUIAfterLoading(productList);
@@ -524,7 +555,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         }
     }
 
-    private void initUIAfterLoading(List<NaverIabInventoryItem> productList) {
+    public void initUIAfterLoading(List<NaverIabInventoryItem> productList) {
         NaverIabInventoryItem fullversionNaverIabItem = null;
         for (NaverIabInventoryItem naverIabInventoryItem : productList) {
             if (naverIabInventoryItem.getKey().equals(
@@ -582,6 +613,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
         }
+        hideLoadingViews();
     }
 
     private void updateUIAfterPurchase(String ownedSku) {
