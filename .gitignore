@@ -31,6 +31,7 @@ local.properties
 /*/out
 /*/*/build/
 /*/build/
+build
 /*/*/production/
 /*/production/
 *.iml
