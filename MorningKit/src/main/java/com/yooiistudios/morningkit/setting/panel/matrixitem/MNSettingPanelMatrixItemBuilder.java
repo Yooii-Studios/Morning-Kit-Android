@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
@@ -33,7 +32,7 @@ public class MNSettingPanelMatrixItemBuilder {
             ImageView panelImageView = panelMatrixItem.getPanelImageView();
 
             // recycle resources
-            MNLog.i("MNSettingPanelMatrixItemBuilder", "recycle panelImageView");
+//            MNLog.i("MNSettingPanelMatrixItemBuilder", "recycle panelImageView");
             MNBitmapUtils.recycleImageView(panelImageView);
 
             // new resources
