@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -155,9 +154,10 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         super.processLoading();
 
         // recycle image views
-        if (MNBitmapUtils.recycleImageView(baseCurrencyImageView)) {
-            MNLog.i(TAG, "flag imageview recycled");
-        }
+//        if (MNBitmapUtils.recycleImageView(baseCurrencyImageView)) {
+//            MNLog.i(TAG, "flag imageview recycled");
+//        }
+        MNBitmapUtils.recycleImageView(baseCurrencyImageView)
         MNBitmapUtils.recycleImageView(targetCurrencyImageView);
 
         // get info from panelDataObject
