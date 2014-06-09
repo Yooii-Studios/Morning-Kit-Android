@@ -165,7 +165,7 @@ public class MNAnalogClockView extends RelativeLayout {
         imageView.startAnimation(anim);
     }
 
-    private void applyTheme() {
+    public void applyTheme() {
 
         // recycle before alloc new image resource
 //        MNLog.i(TAG, "recycle image views");
@@ -176,55 +176,54 @@ public class MNAnalogClockView extends RelativeLayout {
 
         // use BitmapFactory instead of setImageResource because of OOM
         MNThemeType currentType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
+        Context context = getContext().getApplicationContext();
         BitmapFactory.Options options = MNBitmapUtils.getDefaultOptions();
         if (isTimeAm) {
-//            MNLog.i(TAG, "isTimeAM");
             Bitmap clockBaseBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockAMBase(currentType), options);
+                    MNMainResources.getWorldClockAMBase(currentType, context), options);
             clockBaseImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), clockBaseBitmap));
 
             Bitmap hourHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockAMHourHand(currentType), options);
+                    MNMainResources.getWorldClockAMHourHand(currentType, context), options);
             hourHandImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), hourHandBitmap));
 
             Bitmap minuteHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockAMMinuteHand(currentType), options);
+                    MNMainResources.getWorldClockAMMinuteHand(currentType, context), options);
             minuteHandImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), minuteHandBitmap));
 
             Bitmap secondHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockAMSecondHand(currentType), options);
+                    MNMainResources.getWorldClockAMSecondHand(currentType, context), options);
             secondHandImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), secondHandBitmap));
         } else {
-//            MNLog.i(TAG, "isTimePM");
             Bitmap clockBaseBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockPMBase(currentType), options);
+                    MNMainResources.getWorldClockPMBase(currentType, context), options);
             clockBaseImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), clockBaseBitmap));
 
             Bitmap hourHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockPMHourHand(currentType), options);
+                    MNMainResources.getWorldClockPMHourHand(currentType, context), options);
             hourHandImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), hourHandBitmap));
 
             Bitmap minuteHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockPMMinuteHand(currentType), options);
+                    MNMainResources.getWorldClockPMMinuteHand(currentType, context), options);
             minuteHandImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), minuteHandBitmap));
 
             Bitmap secondHandBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
-                    MNMainResources.getWorldClockPMSecondHand(currentType), options);
+                    MNMainResources.getWorldClockPMSecondHand(currentType, context), options);
             secondHandImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), secondHandBitmap));
         }

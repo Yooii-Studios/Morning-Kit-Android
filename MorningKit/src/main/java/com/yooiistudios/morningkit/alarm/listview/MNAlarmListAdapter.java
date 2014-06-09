@@ -112,11 +112,11 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
                 // divider
                 alarmCreateItemViewHolder.dividingBarImageView.setImageResource(
-                        MNMainResources.getAddAlarmDividingBarResourceId(currentThemeType));
+                        MNMainResources.getAddAlarmDividingBarResourceId(currentThemeType, context));
 
                 // plus
                 alarmCreateItemViewHolder.plusImageView.setImageResource(
-                        MNMainResources.getAlarmPlusResourceId(currentThemeType));
+                        MNMainResources.getAlarmPlusResourceId(currentThemeType, context));
             }
             return convertView;
         }
@@ -202,7 +202,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
         // 알람 스위치 셀렉터
         alarmItemViewHolder.switchImageButton.setImageResource(
-                MNMainResources.getAlarmSwitchButtonSelectorResourceId(currentThemeType));
+                MNMainResources.getAlarmSwitchButtonSelectorResourceId(currentThemeType, context));
 
         // 그외 나머지
         if (alarm.isAlarmOn()) {
@@ -211,13 +211,13 @@ public class MNAlarmListAdapter extends BaseAdapter {
             alarmItemViewHolder.repeatTextView.setText(
                     MNAlarmRepeatString.makeShortRepeatString(alarm.getAlarmRepeatList(), context));
             alarmItemViewHolder.dividingBarImageView.setImageResource(
-                    MNMainResources.getAlarmDividingBarOnResourceId(currentThemeType));
+                    MNMainResources.getAlarmDividingBarOnResourceId(currentThemeType, context));
         } else {
             alarmItemViewHolder.timeTextView.setTextColor(MNMainColors.getAlarmSubFontColor(currentThemeType, context));
             alarmItemViewHolder.ampmTextView.setTextColor(MNMainColors.getAlarmSubFontColor(currentThemeType, context));
             alarmItemViewHolder.repeatTextView.setText("");
             alarmItemViewHolder.dividingBarImageView.setImageResource(
-                    MNMainResources.getAlarmDividingBarOffResourceId(currentThemeType));
+                    MNMainResources.getAlarmDividingBarOffResourceId(currentThemeType, context));
         }
     }
 

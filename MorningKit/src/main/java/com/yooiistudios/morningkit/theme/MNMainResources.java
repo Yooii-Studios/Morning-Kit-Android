@@ -1,7 +1,11 @@
 package com.yooiistudios.morningkit.theme;
 
+import android.content.Context;
+
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.font.MNTranslucentFont;
+import com.yooiistudios.morningkit.theme.font.MNTranslucentFontType;
 
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2014. 4. 24.
@@ -72,13 +76,19 @@ public class MNMainResources {
     }
 
     // World Clock
-    public static int getWorldClockAMBase(MNThemeType themeType) {
+    public static int getWorldClockAMBase(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.clock_base_am_gray;
+                } else {
+                    return R.drawable.clock_base_pm_white;
+                }
+
+            case SLATE_GRAY:
                 return R.drawable.clock_base_am_gray;
 
             case WATER_LILY:
@@ -92,13 +102,19 @@ public class MNMainResources {
         }
     }
 
-    public static int getWorldClockPMBase(MNThemeType themeType) {
+    public static int getWorldClockPMBase(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.clock_base_am_gray;
+                } else {
+                    return R.drawable.clock_base_pm_white;
+                }
+
+            case SLATE_GRAY:
                 return R.drawable.clock_base_pm_gray;
 
             case WATER_LILY:
@@ -112,13 +128,19 @@ public class MNMainResources {
         }
     }
 
-    public static int getWorldClockAMHourHand(MNThemeType themeType) {
+    public static int getWorldClockAMHourHand(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.clock_hand_hour_gray;
+                } else {
+                    return R.drawable.clock_hand_hour_white;
+                }
+
+            case SLATE_GRAY:
                 return R.drawable.clock_hand_hour_gray;
 
             case WATER_LILY:
@@ -132,13 +154,19 @@ public class MNMainResources {
         }
     }
 
-    public static int getWorldClockPMHourHand(MNThemeType themeType) {
+    public static int getWorldClockPMHourHand(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.clock_hand_hour_gray;
+                } else {
+                    return R.drawable.clock_hand_hour_white;
+                }
+
+            case SLATE_GRAY:
                 return R.drawable.clock_hand_hour_gray;
 
             case WATER_LILY:
@@ -152,13 +180,19 @@ public class MNMainResources {
         }
     }
 
-    public static int getWorldClockAMMinuteHand(MNThemeType themeType) {
+    public static int getWorldClockAMMinuteHand(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.clock_hand_minute_gray;
+                } else {
+                    return R.drawable.clock_hand_minute_white;
+                }
+
+            case SLATE_GRAY:
                 return R.drawable.clock_hand_minute_gray;
 
             case WATER_LILY:
@@ -172,13 +206,19 @@ public class MNMainResources {
         }
     }
 
-    public static int getWorldClockPMMinuteHand(MNThemeType themeType) {
+    public static int getWorldClockPMMinuteHand(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.clock_hand_minute_gray;
+                } else {
+                    return R.drawable.clock_hand_minute_white;
+                }
+
+            case SLATE_GRAY:
                 return R.drawable.clock_hand_minute_gray;
 
             case WATER_LILY:
@@ -192,13 +232,19 @@ public class MNMainResources {
         }
     }
 
-    public static int getWorldClockAMSecondHand(MNThemeType themeType) {
+    public static int getWorldClockAMSecondHand(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.clock_hand_second_gray;
+                } else {
+                    return R.drawable.clock_hand_second_white;
+                }
+
+            case SLATE_GRAY:
                 return R.drawable.clock_hand_second_gray;
 
             case WATER_LILY:
@@ -212,13 +258,19 @@ public class MNMainResources {
         }
     }
 
-    public static int getWorldClockPMSecondHand(MNThemeType themeType) {
+    public static int getWorldClockPMSecondHand(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-            case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.clock_hand_second_gray;
+                } else {
+                    return R.drawable.clock_hand_second_white;
+                }
+
+            case SLATE_GRAY:
                 return R.drawable.clock_hand_second_gray;
 
             case WATER_LILY:
@@ -235,12 +287,16 @@ public class MNMainResources {
     /**
      * Alarm
      */
-    public static int getAddAlarmDividingBarResourceId(MNThemeType themeType) {
+    public static int getAddAlarmDividingBarResourceId(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.alarm_dividing_bar_off_translucent_black;
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.alarm_dividing_bar_on_skyblue;
+                } else {
+                    return R.drawable.alarm_dividing_bar_on_translucent_black;
+                }
 
             case WATER_LILY:
                 return R.drawable.alarm_dividing_bar_off_translucent_black;
@@ -261,12 +317,16 @@ public class MNMainResources {
         }
     }
 
-    public static int getAlarmDividingBarOnResourceId(MNThemeType themeType) {
+    public static int getAlarmDividingBarOnResourceId(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.alarm_dividing_bar_on_translucent_black;
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.alarm_dividing_bar_on_skyblue;
+                } else {
+                    return R.drawable.alarm_dividing_bar_on_translucent_black;
+                }
 
             case WATER_LILY:
                 return R.drawable.alarm_dividing_bar_on_translucent_black;
@@ -287,12 +347,16 @@ public class MNMainResources {
         }
     }
 
-    public static int getAlarmDividingBarOffResourceId(MNThemeType themeType) {
+    public static int getAlarmDividingBarOffResourceId(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.alarm_dividing_bar_off_translucent_black;
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.alarm_dividing_bar_off_classic_white;
+                } else {
+                    return R.drawable.alarm_dividing_bar_off_translucent_black;
+                }
 
             case WATER_LILY:
                 return R.drawable.alarm_dividing_bar_off_translucent_black;
@@ -313,12 +377,16 @@ public class MNMainResources {
         }
     }
 
-    public static int getAlarmPlusResourceId(MNThemeType themeType) {
+    public static int getAlarmPlusResourceId(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.alarm_plus_classic_gray;
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.alarm_plus_classic_gray;
+                } else {
+                    return R.drawable.alarm_plus_translucent_black;
+                }
 
             case WATER_LILY:
                 return R.drawable.alarm_plus_classic_white;
@@ -339,12 +407,16 @@ public class MNMainResources {
         }
     }
 
-    public static int getAlarmSwitchButtonSelectorResourceId(MNThemeType themeType) {
+    public static int getAlarmSwitchButtonSelectorResourceId(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.alarm_switch_button_selector_translucent_black;
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.alarm_switch_button_selector_translucent_white;
+                } else {
+                    return R.drawable.alarm_switch_button_selector_translucent_black;
+                }
 
             case WATER_LILY:
                 return R.drawable.alarm_switch_button_selector_translucent_black;

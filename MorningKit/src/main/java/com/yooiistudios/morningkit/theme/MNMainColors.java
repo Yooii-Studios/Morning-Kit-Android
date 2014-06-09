@@ -153,9 +153,11 @@ public class MNMainColors {
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
                 if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
-                    return Color.parseColor("#cccccc");
+//                    return Color.parseColor("#cccccc");
+                    return Color.parseColor("#ffffff");
                 } else {
-                    return Color.parseColor("#666666");
+//                    return Color.parseColor("#666666");
+                    return Color.parseColor("#333333");
                 }
 
             case WATER_LILY:
@@ -222,6 +224,15 @@ public class MNMainColors {
 
     public static int getAlarmSubFontColor(MNThemeType themeType, Context context) {
         switch (themeType) {
+            case TRANQUILITY_BACK_CAMERA:
+            case REFLECTION_FRONT_CAMERA:
+            case PHOTO:
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return Color.parseColor("#cccccc");
+                } else {
+                    return Color.parseColor("#666666");
+                }
+
             case PASTEL_GREEN:
                 return Color.parseColor("#c1c1c1");
 
