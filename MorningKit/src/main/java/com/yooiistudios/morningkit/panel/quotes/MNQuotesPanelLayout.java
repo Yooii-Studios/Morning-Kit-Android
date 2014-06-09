@@ -73,6 +73,22 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
         quoteTextViewLayoutParams.setMargins(margin, margin, margin, margin);
         quoteTextView.setLayoutParams(quoteTextViewLayoutParams);
         quoteTextView.setGravity(Gravity.CENTER);
+        quoteTextView.setOnResizeListener(new AutoResizeTextView.OnTextResizeListener() {
+            @Override public void onTextResize(TextView textView, float oldSize,
+                                     float newSize) {}
+
+            @Override
+            public void onEllipsisAdded(TextView textView) {
+                MNThemeType currentThemeType = MNTheme.getCurrentThemeType(
+                        getContext().getApplicationContext());
+                int textColor = MNMainColors.getQuoteContentTextColor
+                        (currentThemeType,
+                        getContext().getApplicationContext());
+
+                quoteTextView.setTextColor(textColor);
+            }
+        });
+
         getContentLayout().addView(quoteTextView);
 
         if (DEBUG_UI) {
@@ -173,6 +189,8 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     @Override
     public void applyTheme() {
         super.applyTheme();
+
+        MNLog.i("Quote test", "applyTheme");
 
         if (quote != null) {
             MNThemeType currentThemeType = MNTheme.getCurrentThemeType(
