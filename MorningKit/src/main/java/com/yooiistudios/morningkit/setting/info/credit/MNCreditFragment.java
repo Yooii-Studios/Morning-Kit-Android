@@ -34,7 +34,7 @@ public class MNCreditFragment extends Fragment implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 1) {
             MNTutorialManager.resetTutorial(getActivity().getApplicationContext());
-            Toast.makeText(getActivity().getApplicationContext(), "Tutorial Rest", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), "Tutorial Reset", Toast.LENGTH_SHORT).show();
         }
     }
 }
