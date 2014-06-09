@@ -417,7 +417,6 @@ public class MNMainResources {
                 } else {
                     return R.drawable.alarm_switch_button_selector_translucent_black;
                 }
-
             case WATER_LILY:
                 return R.drawable.alarm_switch_button_selector_translucent_black;
 
