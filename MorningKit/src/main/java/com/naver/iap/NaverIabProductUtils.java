@@ -46,7 +46,7 @@ public class NaverIabProductUtils {
         googleSkuMap.put(NAVER_IAB_PANEL_MATRIX_2X3, SKIabProducts.SKU_PANEL_MATRIX_2X3);
         googleSkuMap.put(NAVER_IAB_DATE_COUNTDOWN, SKIabProducts.SKU_DATE_COUNTDOWN);
         googleSkuMap.put(NAVER_IAB_MEMO, SKIabProducts.SKU_MEMO);
-        naverSkuMap.put(NAVER_IAB_PHOTO_FRAME, SKIabProducts.SKU_PHOTO_FRAME);
+        googleSkuMap.put(NAVER_IAB_PHOTO_FRAME, SKIabProducts.SKU_PHOTO_FRAME);
         googleSkuMap.put(NAVER_IAB_MODERNITY, SKIabProducts.SKU_MODERNITY);
         googleSkuMap.put(NAVER_IAB_CELESTIAL, SKIabProducts.SKU_CELESTIAL);
     }
