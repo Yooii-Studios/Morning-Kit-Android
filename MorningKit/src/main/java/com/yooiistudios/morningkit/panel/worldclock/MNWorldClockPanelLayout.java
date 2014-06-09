@@ -261,6 +261,9 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             timeZone = new Gson().fromJson(timeZoneJsonString, type);
         } else {
             timeZone = MNTimeZoneLoader.getDefaultZone(getContext());
+            String selectedTimeZoneJsonString = new Gson().toJson(timeZone);
+            // 버그 수정: defaultZone을 읽었으면, panelDataObject에 저장해주기
+            getPanelDataObject().put(WORLD_CLOCK_DATA_TIME_ZONE, selectedTimeZoneJsonString);
         }
 
         // 세계 시계 정보를 가지고 시간 정보를 다시 계산
