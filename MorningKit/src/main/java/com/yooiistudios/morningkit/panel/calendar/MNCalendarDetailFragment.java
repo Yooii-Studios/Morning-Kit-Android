@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -48,7 +49,8 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.panel_calendar_detail_fragment, container, false);
+        final View rootView = inflater.inflate(R.layout
+                .panel_calendar_detail_fragment, container, false);
         if (rootView != null) {
             ButterKnife.inject(this, rootView);
 
@@ -74,6 +76,18 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
                 selectedArr = MNCalendarUtils.loadCalendarModels(getActivity());
                 refreshUI();
             }
+
+            eventsListView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    // Disallow the touch request for parent scroll on touch of child view
+                    if (rootView instanceof ViewGroup) {
+                        ((ViewGroup)rootView)
+                                .requestDisallowInterceptTouchEvent(true);
+                    }
+                    return false;
+                }
+            });
         }
         return rootView;
     }
