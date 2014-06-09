@@ -64,6 +64,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
 
     @InjectView(R.id.panel_selector_page2_2_lock_imageview) ImageView lockImageView2_2;
     @InjectView(R.id.panel_selector_page2_3_lock_imageview) ImageView lockImageView2_3;
+    @InjectView(R.id.panel_selector_page2_4_lock_imageview) ImageView lockImageView2_4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -198,6 +199,23 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
             lockImageView2_3.setVisibility(View.INVISIBLE);
             textView2_3.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
             selectItemLayout_2_3.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
+        }
+        if (ownedSkus.indexOf(SKIabProducts.SKU_PHOTO_FRAME) == -1) {
+            lockImageView2_4.setVisibility(View.VISIBLE);
+            lockImageView2_4.setImageResource(MNSettingResources.getPanelSelectPagerLockResourceId(currentThemeType));
+            textView2_4.setTextColor(MNSettingColors.getLockedFontColor(currentThemeType));
+            selectItemLayout_2_4.setBackgroundResource(MNSettingResources.getLockItemResourcesId(currentThemeType));
+            selectItemLayout_2_4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    panelSelectPagerInterface.onPanelSelectPagerUnlockItemClick((Integer) v.getTag());
+                    startUnlockActivity(SKIabProducts.SKU_PHOTO_FRAME, v.getContext());
+                }
+            });
+        } else {
+            lockImageView2_4.setVisibility(View.INVISIBLE);
+            textView2_4.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
+            selectItemLayout_2_4.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
         }
     }
 
