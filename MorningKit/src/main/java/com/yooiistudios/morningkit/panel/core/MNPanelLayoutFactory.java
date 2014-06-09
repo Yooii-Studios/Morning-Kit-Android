@@ -77,9 +77,9 @@ public class MNPanelLayoutFactory {
                 newPanelLayout.setPanelType(MNPanelType.DATE_COUNTDOWN);
                 break;
 
-            case PHOTO_ALBUM:
+            case PHOTO_FRAME:
                 newPanelLayout = new MNPhotoAlbumPanelLayout(context);
-                newPanelLayout.setPanelType(MNPanelType.PHOTO_ALBUM);
+                newPanelLayout.setPanelType(MNPanelType.PHOTO_FRAME);
                 newPanelLayout.initNetworkPanel();
                 newPanelLayout.setUsingNetwork(false);
                 break;

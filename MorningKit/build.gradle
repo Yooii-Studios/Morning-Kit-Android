@@ -87,7 +87,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:+'
 
     // 위치 서비스 관련
-    compile 'com.google.android.gms:play-services:4.3.+' // 4.0.+ 에서 버전업
+    compile 'com.google.android.gms:play-services:4.4.+' // 4.0.+ 에서 버전업
 
     // 모든 jar 파일 로딩
     compile fileTree(dir: 'libs', include: '*.jar')

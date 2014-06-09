@@ -24,7 +24,7 @@ public enum MNPanelType {
     EXCHANGE_RATES(6, 6),
     MEMO(7, 7),
     DATE_COUNTDOWN(8, 8),
-    PHOTO_ALBUM(9, 9),
+    PHOTO_FRAME(9, 9),
     STORE(10, 9999); // 특수 타입, 패널은 아니나 상점을 위한 구분자
 
     @Getter private final int index; // 리스트뷰에 표시할 용도의 index
@@ -46,7 +46,7 @@ public enum MNPanelType {
             case 6: return EXCHANGE_RATES;
             case 7: return MEMO;
             case 8: return DATE_COUNTDOWN;
-            case 9: return PHOTO_ALBUM;
+            case 9: return PHOTO_FRAME;
             default: throw new IndexOutOfBoundsException("Undefined Panel Type");
         }
     }
@@ -62,7 +62,7 @@ public enum MNPanelType {
             case 6: return EXCHANGE_RATES;
             case 7: return MEMO;
             case 8: return DATE_COUNTDOWN;
-            case 9: return PHOTO_ALBUM;
+            case 9: return PHOTO_FRAME;
             default: throw new IndexOutOfBoundsException("Undefined Panel Type");
         }
     }

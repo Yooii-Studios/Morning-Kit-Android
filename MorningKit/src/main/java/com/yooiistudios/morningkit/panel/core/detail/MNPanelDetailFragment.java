@@ -78,7 +78,7 @@ public abstract class MNPanelDetailFragment extends Fragment {
                 newPanelDetailFragment = new MNDateCountdownDetailFragment();
                 break;
 
-            case PHOTO_ALBUM:
+            case PHOTO_FRAME:
                 newPanelDetailFragment = new MNPhotoAlbumDetailFragment();
                 break;
 

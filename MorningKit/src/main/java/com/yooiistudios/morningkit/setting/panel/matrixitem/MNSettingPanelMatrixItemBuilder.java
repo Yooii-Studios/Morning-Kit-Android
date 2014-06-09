@@ -66,6 +66,8 @@ public class MNSettingPanelMatrixItemBuilder {
                 case DATE_COUNTDOWN:
                     panelImageResourceId = MNSettingResources.getDateCountdownResourceId();
                     break;
+                case PHOTO_FRAME:
+                    panelImageResourceId = MNSettingResources.getPhotoFrameResourceId();
             }
 
             // pastel green 컬러 필터, 예외적인 아트는 은실이 따로 제작
