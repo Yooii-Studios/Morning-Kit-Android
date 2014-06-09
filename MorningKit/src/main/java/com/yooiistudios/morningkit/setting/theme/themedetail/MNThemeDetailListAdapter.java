@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,15 @@ import java.util.List;
  */
 public class MNThemeDetailListAdapter extends BaseAdapter {
     private Activity activity;
+    private Fragment fragment;
     private boolean hasFrontCamera = true;
     private boolean hasBackCamera = true;
     private int totalNumberOfThemes;
 
     private MNThemeDetailListAdapter() {}
-    public MNThemeDetailListAdapter(Activity activity) {
+    public MNThemeDetailListAdapter(Activity activity, Fragment fragment) {
         this.activity = activity;
+        this.fragment = fragment;
 
         // theme check(Camera)
         totalNumberOfThemes = MNThemeType.values().length;
@@ -159,8 +162,10 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
                     MNTheme.setThemeType(MNThemeType.valueOf(convertedPosition), activity);
 
                     if (MNTheme.getCurrentThemeType(activity) == MNThemeType.PHOTO) {
-                        activity.startActivity(new Intent(activity, MNThemePhotoActivity.class));
+                        fragment.startActivityForResult(new Intent(activity, MNThemePhotoActivity.class),
+                                MNThemeDetailFragment.REQ_THEME_DETAIL_PHOTO);
                     } else {
+                        activity.setResult(Activity.RESULT_OK);
                         activity.finish();
                     }
                 }

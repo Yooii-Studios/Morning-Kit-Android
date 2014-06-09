@@ -83,41 +83,6 @@ public class MNThemeListAdapter extends BaseAdapter {
 //                    }
 //                    break;
             }
-
-            // theme
-//            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
-//            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-//            viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-//            viewHolder.getDetailTextView().setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
-//            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
-
-            // onClick
-            viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (MNSound.isSoundOn(context)) {
-                        MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
-                    }
-                    MNThemeItemType themeItemType = MNThemeItemType.valueOf(position);
-                    switch (themeItemType) {
-                        case THEME:
-                            context.startActivity(new Intent(context, MNThemeDetailActivity.class));
-                            break;
-
-                        case LANGUAGE:
-                            context.startActivity(new Intent(context, MNLanguageActivity.class));
-                            break;
-
-                        case PANEL_MATRIX:
-                            context.startActivity(new Intent(context, MNPanelMatrixActivity.class));
-                            break;
-
-//                            case SOUND_EFFECTS:
-//                                context.startActivity(new Intent(context, MNSoundEffectActivity.class));
-//                                break;
-                    }
-                }
-            });
         }
         return convertView;
     }
