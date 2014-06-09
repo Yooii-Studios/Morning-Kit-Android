@@ -30,8 +30,8 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 public class MNAnalogClockView extends RelativeLayout {
     private static final String TAG = "MNAnalogClockView";
 
-    private static final float OVERSHOOT_VALUE = 3.0f;
-    private static final long OVERSHOOT_DURATION = 180;
+    private static final float OVERSHOOT_VALUE = 4.4f;
+    private static final long OVERSHOOT_DURATION = 120;
 
     private static final int INVALID_ANGLE = -1;
     private static final int DEGREE_MINUTE = 6;
