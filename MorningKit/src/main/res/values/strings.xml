@@ -161,7 +161,7 @@
     <!-- Tab -->
     <string name="tab_widget">PANEL</string>
     <string name="tab_alarm">ALARM</string>
-    <string name="tab_setting">SETTING</string>
+    <string name="tab_setting">Setting</string>
     <string name="tab_theme">THEME</string>
     <string name="tab_info">INFO</string>
 
