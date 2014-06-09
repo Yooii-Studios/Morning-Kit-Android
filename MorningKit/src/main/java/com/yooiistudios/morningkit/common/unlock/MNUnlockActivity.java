@@ -175,6 +175,14 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                                 String ownedSku = NaverIabProductUtils.googleSkuMap.get(purchasedIabItemKey);
                                 SKIabProducts.saveIabProduct(ownedSku, this);
 
+                                // 풀버전 구매를 대비해 전체 로딩을 한번 진행함 - 읽을 때 전부 추가
+                                SKIabProducts.loadOwnedIabProducts(getApplicationContext());
+
+                                // 풀버전 구매시는 풀버전을 구매했다고 표시
+                                if (ownedSku.equals(SKIabProducts.SKU_FULL_VERSION)) {
+                                    productSku = SKIabProducts.SKU_FULL_VERSION;
+                                }
+
                                 // 구매 후 UI 재로딩
                                 refreshUI();
                             }
@@ -266,7 +274,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                     pointedStringIndex, pointedStringIndex + productString.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-            descriptionTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.unlock_description_textsize_scale_up));
+            descriptionTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    getResources().getDimension(R.dimen.unlock_description_textsize_scale_up));
             descriptionTextView.setGravity(Gravity.CENTER);
             descriptionTextView.setText(spannableString);
         }
