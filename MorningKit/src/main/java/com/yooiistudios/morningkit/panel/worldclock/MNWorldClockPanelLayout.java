@@ -425,13 +425,17 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         Context applicationContext = getContext().getApplicationContext();
         int subFontColor = MNMainColors.getSubFontColor(currentThemeType, applicationContext);
         int mainFontColor = MNMainColors.getMainFontColor(currentThemeType, applicationContext);
-        analogAmpmTextView.setTextColor(subFontColor);
-        analogDayDifferenceTextView.setTextColor(subFontColor);
-        analogCityNameTextView.setTextColor(subFontColor);
+        if (isClockAnalog) {
+            analogAmpmTextView.setTextColor(subFontColor);
+            analogDayDifferenceTextView.setTextColor(subFontColor);
+            analogCityNameTextView.setTextColor(subFontColor);
+            analogClockView.applyTheme();
+        } else {
+            digitalAmpmTextView.setTextColor(subFontColor);
+            digitalTimeTextView.setTextColor(mainFontColor);
+            digitalDayDifferenceTextView.setTextColor(subFontColor);
+            digitalCityNameTextView.setTextColor(subFontColor);
+        }
 
-        digitalAmpmTextView.setTextColor(subFontColor);
-        digitalTimeTextView.setTextColor(mainFontColor);
-        digitalDayDifferenceTextView.setTextColor(subFontColor);
-        digitalCityNameTextView.setTextColor(subFontColor);
     }
 }
