@@ -35,6 +35,7 @@ import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesInfo
 import org.json.JSONException;
 
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -50,7 +51,7 @@ import static com.yooiistudios.morningkit.panel.exchangerates.currencydialog.MNE
  * <p/>
  * MNExchangeRatesDetailFragment
  */
-public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment implements MNExchangeRatesAsyncTask.OnExchangeRatesAsyncTaskListener, MNExchangeRatesSelectDialog.OnExchangeRatesSelectDialogListener {
+public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment implements MNExchangeRatesAsyncTask.OnExchangeRatesAsyncTaskListener, MNExchangeRatesSelectDialog.OnExchangeRatesSelectDialogListener, TextWatcher {
 
     private static final String TAG = "MNExchangeRatesDetailFragment";
 
@@ -67,6 +68,10 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
     @InjectView(R.id.panel_exchange_rates_swap_textview)        TextView swapTextView;
 
     MNExchangeRatesAsyncTask exchangeRatesAsyncTask;
+
+    // baseEditText 콤마를 찍을 때 StackOverflow를 막기 위한 변수
+    String result = "";
+    DecimalFormat decimalFormat = new DecimalFormat("###,###.####");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -167,20 +172,7 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
             }
         });
         // 숫자가 입력될 때마다
-        baseEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                calculate(false);
-            }
-        });
+        baseEditText.addTextChangedListener(this);
 
         // .을 한번만 찍을 수 있게 구현
         baseEditText.setOnKeyListener(new View.OnKeyListener() {
@@ -200,6 +192,17 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
         // target - 누르면 base 에 포커스를 주기
         targetEditText.setText(null);
         targetEditText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                baseEditText.requestFocus();
+                InputMethodManager inputManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.showSoftInput(baseEditText, 0);   //mPwd는 EditText의 변수 - 내리기
+                return false;
+            }
+        });
+
+        // editText 전체 layout 터치시도 포커스를 주기
+        editTextsLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 baseEditText.requestFocus();
@@ -234,7 +237,8 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
     private void calculate(boolean shouldRevising) {
         String baseString = baseEditText.getText().toString();
 
-        if( baseString.length() > 0 ) {
+        // 기존 코드 !baseString.equals(".") 대신 마지막 부분이 . 경우를 캐치
+        if(baseString.length() > 0 && !baseString.equals("") && !baseString.substring(baseString.length()-1).equals(".")) {
 
             double base = MNExchangeRatesInfo.getDoubleMoney(baseString);
             double target = base * exchangeRatesInfo.getExchangeRate();
@@ -341,5 +345,37 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
         targetInfoLayout.loadExchangeCountry(exchangeRatesInfo.getTargetCurrencyCode());
 
         getExchangeRatesFromServer();
+    }
+
+    /**
+     * Base EditText TextWatcher
+     */
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+        // base 숫자에 3자리마다 콤마 찍어주기
+        if (!charSequence.toString().equals(result)) {
+            String cleanString = charSequence.toString().replaceAll(",", "");
+
+            // "" 이거나 마지막 부분이 . 이라면 진행하지 않기
+            if (cleanString != null && !cleanString.equals("") && !cleanString.substring(cleanString.length()-1).equals(".")) {
+                baseEditText.removeTextChangedListener(this);
+                result = decimalFormat.format(Double.parseDouble(charSequence.toString().replace(",", "")));
+                baseEditText.setText(result);
+                baseEditText.setSelection(result.length());
+                baseEditText.addTextChangedListener(this);
+
+                calculate(false);
+            }
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
     }
 }
