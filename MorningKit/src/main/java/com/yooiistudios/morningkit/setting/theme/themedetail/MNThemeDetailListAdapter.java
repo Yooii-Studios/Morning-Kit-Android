@@ -38,7 +38,7 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
         this.fragment = fragment;
 
         // theme check(Camera)
-        totalNumberOfThemes = MNThemeType.values().length;
+        totalNumberOfThemes = MNThemeType.values().length - 1;
         switch (Camera.getNumberOfCameras()) {
             // 0일 경우는 getNumberOfCameras에 대응을 안하는 안드로이드 기기도 있기에(Htc 등) 다시 한번 체크를 해 주어야만 한다
             case 0:
