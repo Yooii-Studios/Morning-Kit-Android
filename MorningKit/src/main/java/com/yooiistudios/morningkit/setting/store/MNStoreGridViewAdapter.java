@@ -76,7 +76,7 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
             case PANELS:
                 return 3;
             case THEMES:
-                return 2;
+                return 1;
             default:
                 return 0;
         }
@@ -148,11 +148,11 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                             viewHolder.getIconImageView().setImageResource(R.drawable.shop_theme_white_icon_ipad);
                             viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_MODERNITY);
                             break;
-                        case 1:
-                            viewHolder.getItemNameTextView().setText(R.string.store_item_skyblue);
-                            viewHolder.getIconImageView().setImageResource(R.drawable.shop_theme_skyblue_icon_ipad);
-                            viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_CELESTIAL);
-                            break;
+//                        case 1:
+//                            viewHolder.getItemNameTextView().setText(R.string.store_item_skyblue);
+//                            viewHolder.getIconImageView().setImageResource(R.drawable.shop_theme_skyblue_icon_ipad);
+//                            viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_CELESTIAL);
+//                            break;
                     }
                     break;
             }
