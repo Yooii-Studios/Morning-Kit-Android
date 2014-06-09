@@ -44,7 +44,7 @@ public class MNMainAlarmListView extends ListView
 
     public void initWithListAdapter() {
         alarmItemClickListener = MNAlarmItemClickListener.newInstance(this);
-        setAdapter(new MNAlarmListAdapter(getContext(), alarmItemClickListener));
+        setAdapter(new MNAlarmListAdapter(getContext().getApplicationContext(), alarmItemClickListener));
     }
 
     public void refreshListView() {

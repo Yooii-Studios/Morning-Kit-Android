@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.theme;
 
 import android.content.Context;
-import android.graphics.Color;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -288,12 +287,16 @@ public class MNMainResources {
     /**
      * Alarm
      */
-    public static int getAddAlarmDividingBarResourceId(MNThemeType themeType) {
+    public static int getAddAlarmDividingBarResourceId(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.alarm_dividing_bar_off_translucent_black;
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.alarm_dividing_bar_on_skyblue;
+                } else {
+                    return R.drawable.alarm_dividing_bar_on_translucent_black;
+                }
 
             case WATER_LILY:
                 return R.drawable.alarm_dividing_bar_off_translucent_black;
@@ -314,12 +317,16 @@ public class MNMainResources {
         }
     }
 
-    public static int getAlarmDividingBarOnResourceId(MNThemeType themeType) {
+    public static int getAlarmDividingBarOnResourceId(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.alarm_dividing_bar_on_translucent_black;
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.alarm_dividing_bar_on_skyblue;
+                } else {
+                    return R.drawable.alarm_dividing_bar_on_translucent_black;
+                }
 
             case WATER_LILY:
                 return R.drawable.alarm_dividing_bar_on_translucent_black;
@@ -340,12 +347,16 @@ public class MNMainResources {
         }
     }
 
-    public static int getAlarmDividingBarOffResourceId(MNThemeType themeType) {
+    public static int getAlarmDividingBarOffResourceId(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.alarm_dividing_bar_off_translucent_black;
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.alarm_dividing_bar_off_classic_white;
+                } else {
+                    return R.drawable.alarm_dividing_bar_off_translucent_black;
+                }
 
             case WATER_LILY:
                 return R.drawable.alarm_dividing_bar_off_translucent_black;
@@ -366,12 +377,16 @@ public class MNMainResources {
         }
     }
 
-    public static int getAlarmPlusResourceId(MNThemeType themeType) {
+    public static int getAlarmPlusResourceId(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.alarm_plus_classic_gray;
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.alarm_plus_classic_gray;
+                } else {
+                    return R.drawable.alarm_plus_translucent_black;
+                }
 
             case WATER_LILY:
                 return R.drawable.alarm_plus_classic_white;
@@ -392,12 +407,16 @@ public class MNMainResources {
         }
     }
 
-    public static int getAlarmSwitchButtonSelectorResourceId(MNThemeType themeType) {
+    public static int getAlarmSwitchButtonSelectorResourceId(MNThemeType themeType, Context context) {
         switch (themeType) {
             case TRANQUILITY_BACK_CAMERA:
             case REFLECTION_FRONT_CAMERA:
             case PHOTO:
-                return R.drawable.alarm_switch_button_selector_translucent_black;
+                if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
+                    return R.drawable.alarm_switch_button_selector_translucent_white;
+                } else {
+                    return R.drawable.alarm_switch_button_selector_translucent_black;
+                }
 
             case WATER_LILY:
                 return R.drawable.alarm_switch_button_selector_translucent_black;
