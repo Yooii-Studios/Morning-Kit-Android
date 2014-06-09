@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
-import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
+import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.MNSettingThemeDetailItemViewHolder;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
@@ -71,12 +71,6 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
             // theme
             MNThemeType currentThemeType = MNTheme.getCurrentThemeType(activity);
 
-//            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-//            viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-//            viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
-//            viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
-//            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
-
             // onClick
             viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,11 +100,16 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
                     viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            // 2*3은 Unlock이 아니라 상점에서 구매할 수 있게 한다
+                            activity.startActivity(new Intent(activity, MNStoreActivity.class));
+                            activity.overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
+                            /*
                             Intent intent = new Intent(activity, MNUnlockActivity.class);
                             intent.putExtra(MNUnlockActivity.PRODUCT_SKU_KEY,
                                     SKIabProducts.SKU_PANEL_MATRIX_2X3);
                             activity.startActivity(intent);
                             activity.overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
+                            */
                         }
                     });
                 }
