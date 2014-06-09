@@ -1,11 +1,17 @@
 package com.yooiistudios.morningkit.alarm.listview.item;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
+import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
+import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
 import com.yooiistudios.morningkit.main.MNMainAlarmListView;
+import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
+
+import java.util.List;
 
 import lombok.Getter;
 
@@ -32,16 +38,26 @@ public class MNAlarmItemClickListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        Intent i = new Intent(alarmListView.getContext(), MNAlarmPreferenceActivity.class);
-
         MNAlarm alarm = null;
         if (v.getTag().getClass() == MNAlarm.class) {
             // Edit alarm: alarmId
             alarm = (MNAlarm)v.getTag();
         } else {
             // Add an alarm : -1
+            // 알람이 4개째 추가될 때 알람 추가 아이템 구매가 안되어 있다면 언락 화면 표시
+            Activity activityContext = (Activity) alarmListView.getContext();
+            List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(activityContext);
+            if (alarmListView.getCount() > 3 && !ownedSkus.contains(SKIabProducts.SKU_MORE_ALARM_SLOTS)) {
+                Intent intent = new Intent(activityContext, MNUnlockActivity.class);
+                intent.putExtra(MNUnlockActivity.PRODUCT_SKU_KEY,
+                        SKIabProducts.SKU_MORE_ALARM_SLOTS);
+                activityContext.startActivity(intent);
+                activityContext.overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
+                return;
+            }
         }
 
+        Intent i = new Intent(alarmListView.getContext(), MNAlarmPreferenceActivity.class);
         if (alarmListView.getContext() != null) {
             // Start activity with extra(alarmId)
             if (alarm != null) {
