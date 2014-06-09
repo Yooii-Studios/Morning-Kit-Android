@@ -157,7 +157,7 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 //        if (MNBitmapUtils.recycleImageView(baseCurrencyImageView)) {
 //            MNLog.i(TAG, "flag imageview recycled");
 //        }
-        MNBitmapUtils.recycleImageView(baseCurrencyImageView)
+        MNBitmapUtils.recycleImageView(baseCurrencyImageView);
         MNBitmapUtils.recycleImageView(targetCurrencyImageView);
 
         // get info from panelDataObject
