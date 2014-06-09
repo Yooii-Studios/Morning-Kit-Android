@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- General -->
+	<string name="app_name">早安工具</string>
+	<string name="ok">确认</string>
+	<string name="cancel">取消</string>
+	<string name="no_image">无图像</string>
+	<string name="loading">载入中…</string>
+	<string name="default_string">默认</string>
+	<string name="yes">是</string>
+	<string name="no">否</string>
+	<string name="no_network_connection">现在没有网络连接</string>
+	<string name="searching">搜索中…</string>
+	<string name="done">完成</string>
+	<string name="open">打开</string>
+
+	<!-- Alarm -->
+	<string name="add_an_alarm">添加闹钟</string>
+	<string name="edit_alarm">编辑闹钟</string>
+	<string name="alarm_default_label">闹钟</string>
+	<string name="alarm_am">上午</string>
+	<string name="alarm_pm">下午</string>
+	<string name="alarm_snooze_stirng">9分钟后闹钟重新启动</string>
+
+	<!-- Alarm Toaster -->
+	<string name="alarm_set_toast_part1">现在距离您设定的时间还有</string>
+	<string name="alarm_set_toast_part2"></string>
+	<string name="alarm_day">天</string>
+	<string name="alarm_days">天</string>
+	<string name="alarm_hour">小时</string>
+	<string name="alarm_hours">小时</string>
+	<string name="alarm_minute">分钟</string>
+	<string name="alarm_minutes">分钟</string>
+
+	<!-- Alarm Preference -->
+	<string name="alarm_pref_repeat">重复</string>
+	<string name="alarm_pref_sound_type">声音</string>
+	<string name="alarm_pref_label">标签</string>
+	<string name="alarm_pref_repeat_never">永不</string>
+	<string name="alarm_pref_repeat_weekdays">工作日</string>
+	<string name="alarm_pref_repeat_weekends">周末</string>
+	<string name="alarm_pref_repeat_everyday">每天</string>
+	<string name="alarm_pref_pick_your_favorite_sond">选取一首歌曲</string>
+
+	<!-- Repeat -->
+	<string name="every_monday">每周一</string>
+	<string name="every_tuesday">每周二</string>
+	<string name="every_wednesday">每周三</string>
+	<string name="every_thursday">每周四</string>
+	<string name="every_friday">每周五</string>
+	<string name="every_saturday">每周六</string>
+	<string name="every_sunday">每周日</string>
+	<string name="monday">周一</string>
+	<string name="tuesday">周二</string>
+	<string name="wednesday">周三</string>
+	<string name="thursday">周四</string>
+	<string name="friday">周五</string>
+	<string name="saturday">周六</string>
+	<string name="sunday">周日</string>
+	<string name="monday_short">一</string>
+	<string name="tuesday_short">二</string>
+	<string name="wednesday_short">三</string>
+	<string name="thursday_short">四</string>
+	<string name="friday_short">五</string>
+	<string name="saturday_short">六</string>
+	<string name="sunday_short">日</string>
+
+	<!-- Alarm Wake -->
+	<string name="alarm_wake_snooze">小睡</string>
+	<string name="alarm_wake_dismiss">好</string>
+
+	<!-- Alarm Sound -->
+	<string name="alarm_sound_string_none">静音</string>
+	<string name="alarm_sound_string_vibrate">振动</string>
+	<string name="alarm_sound_string_ringtones">铃声</string>
+	<string name="alarm_sound_string_music">音乐</string>
+	<string name="alarm_ocean_short">Ocean</string>
+	<string name="alarm_ride">Ride</string>
+
+	<!-- Widget -->
+	<string name="world_clock">世界时钟</string>
+	<string name="flickr">Flickr</string>
+	<string name="memo">备忘录</string>
+	<string name="date_calculator">日期倒数</string>
+	<string name="weather">天气</string>
+	<string name="calendar">日历</string>
+	<string name="exchange_rate">汇率</string>
+	<string name="saying">语录</string>
+	<string name="reminder">日程管理</string>
+
+	<!-- Calendar -->
+	<string name="calendar_lunar_calendar">农历</string>
+	<string name="calendar_monday">星期一</string>
+	<string name="calendar_tuesday">星期二</string>
+	<string name="calendar_wednesday">星期三</string>
+	<string name="calendar_thursday">星期四</string>
+	<string name="calendar_friday">星期五</string>
+	<string name="calendar_saturday">星期六</string>
+	<string name="calendar_sunday">星期日</string>
+
+	<!-- Flickr -->
+	<string name="flickr_not_available_flickr_url">无此关键词</string>
+	<string name="flickr_search_images">搜索图片</string>
+	<string name="flickr_use_gray_scale">使用灰度</string>
+	<string name="flickr_save_to_library_guide">照片将会保存于相册</string>
+	<string name="flickr_photo_saved">照片已保存</string>
+	<string name="flickr_normal_quality">普通</string>
+	<string name="flickr_high_quality">高清晰</string>
+	<string name="flickr_error_access_server">在Flickr上无法连接到服务器</string>
+
+	<!-- Date Countdown -->
+	<string name="date_countdown_date">日期</string>
+	<string name="date_countdown_countdown">倒数</string>
+	<string name="date_countdown_new_year">元旦</string>
+	<string name="date_countdown_write_a_title">标签</string>
+	<string name="date_countdown_create_countdown">创建倒数日</string>
+
+	<!-- Weather -->
+	<string name="weather_temperature_unit">温度单位</string>
+	<string name="weather_use_current_location">使用您的当前位置</string>
+	<string name="weather_search_city">城市搜索(英文)</string>
+	<string name="weather_current_location">当前位置</string>
+	<string name="display_local_time">显示本地时间</string>
+	<string name="weather_choose_your_city">选择一个城市</string>
+
+	<!-- World Time -->
+	<string name="world_clock_clock_type_text">时钟显示</string>
+	<string name="world_clock_digital">数字</string>
+	<string name="world_clock_analog">指针</string>
+	<string name="world_clock_use_24_hour_format">用24小时制</string>
+	<string name="world_clock_today">今天</string>
+	<string name="world_clock_tomorrow">明天</string>
+	<string name="world_clock_yesterday">昨天</string>
+
+	<!-- Exchange Rate -->
+	<string name="exchange_rate_switch_countries">交换货币</string>
+	<string name="exchange_rate_main_currencies">常用货币</string>
+	<string name="exchange_rate_all_currencies">所有货币</string>
+
+	<!-- Quotes -->
+	<string name="quotes_copy">拷贝</string>
+
+	<!-- Reminder -->
+	<string name="reminder_no_schedule">无事件</string>
+	<string name="reminder_birthday">生日</string>
+	<string name="reminder_event">事件</string>
+	<string name="reminder_all_day">全天</string>
+
+	<!-- Memo -->
+	<string name="memo_write_here">输入备忘录</string>
+	<string name="memo_write_here_modal">由此输入</string>
+	<string name="memo_end_of_page_halt">结尾</string>
+
+	<!-- Configure_Info -->
+	<string name="info_store">商店</string>
+	<string name="info_help">帮助</string>
+	<string name="info_credit">制作团队</string>
+	<string name="info_yooii_connector">Yooii Connector</string>
+
+	<!-- Tab -->
+	<string name="tab_widget">面板</string>
+	<string name="tab_alarm">闹钟</string>
+	<string name="tab_setting">设置</string>
+	<string name="tab_theme">主题</string>
+	<string name="tab_info">信息</string>
+
+	<!-- Setting (General) -->
+	<string name="setting_language">语言</string>
+	<string name="setting_widgettable">面板方阵</string>
+	<string name="setting_theme_color">主题背景</string>
+	<string name="setting_theme_color_skyblue">天上（天空蓝）</string>
+	<string name="setting_theme_color_classic_gray">石板（岩石灰)</string>
+	<string name="setting_theme_color_classic_white">摩登（典雅白）</string>
+	<string name="setting_theme_mirror">投影（镜子）</string>
+	<string name="setting_theme_scenery">宁静（透明）</string>
+	<string name="setting_theme_photo">照片</string>
+	<string name="setting_theme_photo_portrait">照片（纵向）</string>
+	<string name="setting_theme_photo_landscape">照片（横向）</string>
+
+	<!-- Setting (Language) -->
+	<string name="setting_language_korean">한국어</string>
+	<string name="setting_language_english">English</string>
+	<string name="setting_language_japanese">日本語</string>
+	<string name="setting_language_simplified_chinese">简体中文</string>
+	<string name="setting_language_traditional_chinese">繁體中文</string>
+	<string name="setting_language_russian">Русский</string>
+
+	<!-- Setting (Effect sound) -->
+	<string name="setting_effect_sound">声音特效</string>
+	<string name="setting_effect_sound_on">开</string>
+	<string name="setting_effect_sound_off">关</string>
+
+	<!-- Tutorial -->
+	<string name="tutorial_select_theme">请选择一个主题背景</string>
+	<string name="tutorial1_skip_tutorial">跳过教程</string>
+
+	<!-- Tutorial1 - Description -->
+	<string name="tutorial1_label1">您可以重新安排面板</string>
+	<string name="tutorial1_label2">您可以添加或编辑闹钟</string>
+	<string name="tutorial1_label3">滑动删除闹钟</string>
+	<string name="tutorial1_label4">刷新</string>
+	<string name="tutorial1_label5">设置</string>
+	<string name="tutorial1_label6">您可以添加或编辑面板、闹钟、和主题背景。</string>
+	<string name="tutorial1_tap_screen">点击屏幕</string>
+
+	<!-- Unlock -->
+	<string name="unlock_notice">公告</string>
+	<string name="unlock_unlocked">解锁</string>
+	<string name="unlock_description">找到更多方法免费解锁并享受新功能!</string>
+	<string name="unlock_description_highlight">免费解锁</string>
+	<string name="unlock_everything">全部解锁只要$1.99</string>
+	<string name="unlock_everything_highlight">全部</string>
+	<string name="unlock_only_this">解锁只要$0.99</string>
+	<string name="unlock_review">为此APP评价以获得此项功能免费解锁。我们将继续提供好用新功能!请给我们5颗星!</string>
+	<string name="unlock_review_highlight">评价</string>
+	<string name="unlock_connector">注册Yooii Connector并获得此项功能免费解锁</string>
+	<string name="unlock_connector_highlight">Yooii Connector</string>
+	<string name="unlock_use_morning">使用早安工具10次并获得此项功能免费解锁</string>
+	<string name="unlock_use_morning_highlight">10</string>
+	<string name="unlock_facebook">在Facebook点赞并获得此项功能免费解锁</string>
+	<string name="unlock_facebook_highlight">赞</string>
+	<string name="unlock_twitter">在Twitter追踪我们并获得此项功能免费解锁</string>
+	<string name="unlock_twitter_highlight">追踪</string>
+
+	<!-- Store -->
+	<string name="store_no_purchase_records">无购买纪录</string>
+	<string name="store_restore_purchases">恢复购买</string>
+	<string name="store_purchased">购买完了</string>
+	<string name="store_restore">恢复</string>
+	<string name="store_restore_success_message">恢复购买成功</string>
+	<string name="store_buy_full_version">￼购买完整版!</string>
+	<string name="store_buy_full_version_description">可以使用无限制闹铃数量、完整面板、全部功能和主题背景</string>
+	<string name="store_tab_functions">功能</string>
+	<string name="store_tab_widgets">面板</string>
+	<string name="store_tab_themes">主题背景</string>
+	<string name="store_item_more_alarm_slots">增加闹铃数量</string>
+	<string name="store_item_no_ads">不显示广告</string>
+	<string name="store_item_matrix">2X1工具栏</string>
+	<string name="store_item_widget_date_countdown">日期倒数</string>
+	<string name="store_item_widget_memo">备忘录</string>
+	<string name="store_item_photo_portrait">照片\n纵向</string>
+	<string name="store_item_photo_landscape">照片\n横向</string>
+	<string name="store_item_skyblue">天上\n（天空蓝）</string>
+	<string name="store_item_classic_white">摩登\n（典雅白）</string>
+	<string name="store_item_water_lily">睡莲\n（设计模式）</string>
+	<string name="store_item_popsicle">冰淇淋\n（设计模式）</string>
+
+	<!-- Rate it -->
+	<string name="rate_it_contents">评价早安工具使它更好！谢谢！</string>
+	<string name="rate_it_rate">评论</string>
+	<string name="rate_it_no_thanks">不要</string>
+	<string name="rate_morning_kit">评分早安工具</string>
+
+	<!-- More Information -->
+	<string name="more_information">早安工具信息</string>
+	<string name="more_information_yooii_studios">Yooii Studios</string>
+	<string name="more_information_morning_kit_help">早安工具帮助</string>
+	<string name="more_information_version_info">软件版本</string>
+	<string name="more_information_morning_kit_license">早安工具许可证</string>
+	<string name="more_information_license">许可证</string>
+
+	<!-- Alarm First On Notice -->
+	<string name="alarm_first_on_notice">[设置-> 通知-> 早安工具]\n\n请设置您的提醒样式为“提醒”，并打开\"声音\"。\n\n在震动模式下，闹钟铃声不工作 。使用闹钟时，请先解除振动模式。</string>
+
+	<!-- Photo Theme -->
+	<string name="photo_theme_move_and_scale">移动和缩放</string>
+	<string name="photo_theme_choose">选择</string>
+	<string name="photo_theme_first_open_notice">请修改图片尺寸以适应屏幕大小。</string>
+
+    <!-- Android Only -->
+    <!-- General -->
+    <string name="action_bar_up_button_main">Main</string>
+    <string name="store_item_full_version">Full Version</string>
+
+    <!-- Alarm -->
+    <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
+
+    <!-- Panel -->
+        <!-- Flickr -->
+    <string name="saving">Saving…</string>
+
+        <!-- World Clock -->
+    <string name="no_search_result">No Results Found</string>
+
+        <!-- Calendar -->
+    <string name="calendar_select_calendars">Select Calendars</string>
+
+        <!-- Photo Album -->
+    <string name="photo_album">Photo Frame</string>
+    <string name="photo_album_no_image">No image available</string>
+    <string name="photo_album_error_getting_photo">Error occurred while getting photo</string>
+    <string name="photo_album_label_refresh_time">Refresh Time</string>
+    <string name="photo_album_label_transition_type">Transition Type</string>
+    <string name="photo_album_minute_hint">min</string>
+    <string name="photo_album_minute">min</string>
+    <string name="photo_album_second_hint">sec</string>
+    <string name="photo_album_second">sec</string>
+    <string name="photo_album_transition_none">None</string>
+    <string name="photo_album_transition_alpha">Alpha</string>
+    <string name="photo_album_load">Load</string>
+
+</resources>

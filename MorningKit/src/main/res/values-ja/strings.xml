@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- General -->
+	<string name="app_name">モーニング</string>
+	<string name="ok">確認</string>
+	<string name="cancel">キャンセル</string>
+	<string name="no_image">イメージなし</string>
+	<string name="loading">読み込み中…</string>
+	<string name="default_string">基本設定</string>
+	<string name="yes">はい</string>
+	<string name="no">いいえ</string>
+	<string name="no_network_connection">ネットワークに接続できません</string>
+	<string name="searching">保存中…</string>
+	<string name="done">完了</string>
+	<string name="open">オープン</string>
+
+	<!-- Alarm -->
+	<string name="add_an_alarm">アラームを追加</string>
+	<string name="edit_alarm">アラームを編集</string>
+	<string name="alarm_default_label">アラーム</string>
+	<string name="alarm_am">午前</string>
+	<string name="alarm_pm">午後</string>
+	<string name="alarm_snooze_stirng">9分後、 アラームが再び鳴り響きます。</string>
+
+	<!-- Alarm Toaster -->
+	<string name="alarm_set_toast_part1"></string>
+	<string name="alarm_set_toast_part2">あとでアラームが鳴り響きます。</string>
+	<string name="alarm_day">日</string>
+	<string name="alarm_days">日</string>
+	<string name="alarm_hour">時間</string>
+	<string name="alarm_hours">時間</string>
+	<string name="alarm_minute">分</string>
+	<string name="alarm_minutes">分</string>
+
+	<!-- Alarm Preference -->
+	<string name="alarm_pref_repeat">繰り返し</string>
+	<string name="alarm_pref_sound_type">サウンド</string>
+	<string name="alarm_pref_label">ラベル(名)</string>
+	<string name="alarm_pref_repeat_never">しない</string>
+	<string name="alarm_pref_repeat_weekdays">平日</string>
+	<string name="alarm_pref_repeat_weekends">週末</string>
+	<string name="alarm_pref_repeat_everyday">毎日</string>
+	<string name="alarm_pref_pick_your_favorite_sond">音楽を選択</string>
+
+	<!-- Repeat -->
+	<string name="every_monday">毎月曜日</string>
+	<string name="every_tuesday">毎火曜日</string>
+	<string name="every_wednesday">毎水曜日</string>
+	<string name="every_thursday">毎木曜日</string>
+	<string name="every_friday">毎金曜日</string>
+	<string name="every_saturday">毎土曜日</string>
+	<string name="every_sunday">毎日曜日</string>
+	<string name="monday">月</string>
+	<string name="tuesday">火</string>
+	<string name="wednesday">水</string>
+	<string name="thursday">木</string>
+	<string name="friday">金</string>
+	<string name="saturday">土</string>
+	<string name="sunday">日</string>
+	<string name="monday_short">月</string>
+	<string name="tuesday_short">火</string>
+	<string name="wednesday_short">水</string>
+	<string name="thursday_short">木</string>
+	<string name="friday_short">金</string>
+	<string name="saturday_short">土</string>
+	<string name="sunday_short">日</string>
+
+	<!-- Alarm Wake -->
+	<string name="alarm_wake_snooze">スヌーズ</string>
+	<string name="alarm_wake_dismiss">アラームオフ</string>
+
+	<!-- Alarm Sound -->
+	<string name="alarm_sound_string_none">無音</string>
+	<string name="alarm_sound_string_vibrate">振動</string>
+	<string name="alarm_sound_string_ringtones">べル</string>
+	<string name="alarm_sound_string_music">音樂</string>
+	<string name="alarm_ocean_short">Ocean</string>
+	<string name="alarm_ride">Ride</string>
+
+	<!-- Widget -->
+	<string name="world_clock">世界時計</string>
+	<string name="flickr">Flickr</string>
+	<string name="memo">メモ</string>
+	<string name="date_calculator">日付計算</string>
+	<string name="weather">天気</string>
+	<string name="calendar">カレンダー</string>
+	<string name="exchange_rate">為替レート</string>
+	<string name="saying">名言</string>
+	<string name="reminder">日程</string>
+
+	<!-- Calendar -->
+	<string name="calendar_lunar_calendar">陰曆</string>
+	<string name="calendar_monday">月曜日</string>
+	<string name="calendar_tuesday">火曜日</string>
+	<string name="calendar_wednesday">水曜日</string>
+	<string name="calendar_thursday">木曜日</string>
+	<string name="calendar_friday">金曜日</string>
+	<string name="calendar_saturday">金曜日</string>
+	<string name="calendar_sunday">日曜日</string>
+
+	<!-- Flickr -->
+	<string name="flickr_not_available_flickr_url">このキーワードに一致する結果がありません。</string>
+	<string name="flickr_search_images">イメージを検索</string>
+	<string name="flickr_use_gray_scale">グレースケールを使用</string>
+	<string name="flickr_save_to_library_guide">写真をライブラリに保存します。</string>
+	<string name="flickr_photo_saved">写真を保存しました。</string>
+	<string name="flickr_normal_quality">標準画質</string>
+	<string name="flickr_high_quality">高画質</string>
+	<string name="flickr_error_access_server">Flickrのサーバーに接続できません</string>
+
+	<!-- Date Countdown -->
+	<string name="date_countdown_date">日付</string>
+	<string name="date_countdown_countdown">計算</string>
+	<string name="date_countdown_new_year">元日</string>
+	<string name="date_countdown_write_a_title">ラベル(名)</string>
+	<string name="date_countdown_create_countdown">基準日設定</string>
+
+	<!-- Weather -->
+	<string name="weather_temperature_unit">温度単位</string>
+	<string name="weather_use_current_location">現在の位置情報を利用します。</string>
+	<string name="weather_current_location">現存地</string>
+	<string name="weather_search_city">都市検索(英語で)</string>
+	<string name="display_local_time">現地時間を表示する</string>
+	<string name="weather_choose_your_city">都市をご選択ください。</string>
+
+	<!-- World Clock -->
+	<string name="world_clock_clock_type_text">時計タイプ</string>
+	<string name="world_clock_digital">デジタル</string>
+	<string name="world_clock_analog">アナログ</string>
+	<string name="world_clock_use_24_hour_format">24時間形式を使用</string>
+	<string name="world_clock_today">今日</string>
+	<string name="world_clock_tomorrow">明日</string>
+	<string name="world_clock_yesterday">昨日</string>
+
+	<!-- Exchange Rate -->
+	<string name="exchange_rate_switch_countries">基準為替レートを変更</string>
+	<string name="exchange_rate_main_currencies">主な為替レート</string>
+	<string name="exchange_rate_all_currencies">すべての為替レート</string>
+
+	<!-- Memo -->
+	<string name="memo_write_here">ここにメモを書いてください。</string>
+	<string name="memo_write_here_modal">ここに書いてください。</string>
+	<string name="memo_end_of_page_halt">入力範囲を超え</string>
+
+	<!-- Quotes -->
+	<string name="quotes_copy">コピー</string>
+
+	<!-- Reminder -->
+	<string name="reminder_no_schedule">本日のイベントはありません</string>
+	<string name="reminder_birthday">誕生日</string>
+	<string name="reminder_event">イベント</string>
+	<string name="reminder_all_day">終日</string>
+
+	<!-- Configure_Info -->
+	<string name="info_store">ストア</string>
+	<string name="info_help">ヘルプ</string>
+	<string name="info_credit">クレジット</string>
+	<string name="info_yooii_connector">ユーイのコネクタ</string>
+
+	<!-- Tab -->
+	<string name="tab_widget">パネル</string>
+	<string name="tab_alarm">アラーム</string>
+	<string name="tab_setting">設定</string>
+	<string name="tab_theme">テーマ</string>
+	<string name="tab_info">情報</string>
+
+	<!-- Setting (General) -->
+	<string name="setting_language">言語</string>
+	<string name="setting_widgettable">パネル配列</string>
+	<string name="setting_theme_color">背景テーマ</string>
+	<string name="setting_theme_color_skyblue">空 （空色）</string>
+	<string name="setting_theme_color_classic_gray">スレート （灰色）</string>
+	<string name="setting_theme_color_classic_white">モダニティ （白）</string>
+	<string name="setting_theme_mirror">投影 （ミラーモード）</string>
+	<string name="setting_theme_scenery">穏やか （透過モード）</string>
+	<string name="setting_theme_photo">写真</string>
+	<string name="setting_theme_photo_portrait">写真（縦画面モード）</string>
+	<string name="setting_theme_photo_landscape">写真（横画面モード）</string>
+
+	<!-- Setting (Language) -->
+	<string name="setting_language_korean">한국어</string>
+	<string name="setting_language_english">English</string>
+	<string name="setting_language_japanese">日本語</string>
+	<string name="setting_language_simplified_chinese">简体中文</string>
+	<string name="setting_language_traditional_chinese">繁體中文</string>
+	<string name="setting_language_russian">Русский</string>
+
+	<!-- Setting (Effect sound) -->
+	<string name="setting_effect_sound">効果音</string>
+	<string name="setting_effect_sound_on">オン</string>
+	<string name="setting_effect_sound_off">オフ</string>
+
+	<!-- Tutorial -->
+	<string name="tutorial_select_theme">壁紙を選択</string>
+
+	<!-- Tutorial1 - Description -->
+	<string name="tutorial1_label1">パネルを編集したり、再配置されます</string>
+	<string name="tutorial1_label2">アラームを追加したり、編集されます</string>
+	<string name="tutorial1_label3">アラームをスワイプで削除</string>
+	<string name="tutorial1_label4">更新</string>
+	<string name="tutorial1_label5">設定</string>
+	<string name="tutorial1_label6">環境設定</string>
+	<string name="tutorial1_tap_screen">画面をタップ</string>
+	<string name="tutorial1_skip_tutorial">チュートリアルをスキップ</string>
+
+	<!-- Unlock -->
+	<string name="unlock_notice">お知らせ</string>
+	<string name="unlock_unlocked">使用可能</string>
+	<string name="unlock_description">機能を追加するさまざまな方法がありますが無料でできます。</string>
+	<string name="unlock_description_highlight">機能を追加</string>
+	<string name="unlock_everything">$1.99をお支払いいただくとモーニングキットのすべての機能を使用できます！</string>
+	<string name="unlock_everything_highlight">すべて</string>
+	<string name="unlock_only_this">$0.99をお支払いいただくと,この機能を使用できます。</string>
+	<string name="unlock_review">あなたの評価は貴重なご意見です。レビューを残せば,この機能を使用できます。</string>
+	<string name="unlock_review_highlight">レビュー</string>
+	<string name="unlock_connector">コネクタに登録していただくと, この機能を使用できます。</string>
+	<string name="unlock_connector_highlight">コネクタ</string>
+	<string name="unlock_use_morning">モーニングキットを10回使用すると,この機能を使用できます。</string>
+	<string name="unlock_use_morning_highlight">10回</string>
+	<string name="unlock_facebook">いいねボタンを押していただくと,この機能を使用できます。</string>
+	<string name="unlock_facebook_highlight">いいねボタン</string>
+	<string name="unlock_twitter">フォローボタンを押していただくと,この機能を使用できます。</string>
+	<string name="unlock_twitter_highlight">フォローボタン</string>
+
+	<!-- Store -->
+	<string name="store_no_purchase_records">購入履歴がありません。</string>
+	<string name="store_restore_purchases">購入した機能の復元</string>
+	<string name="store_purchased">購入完了</string>
+	<string name="store_restore">復元</string>
+	<string name="store_restore_success_message">機能が復元されました。</string>
+	<string name="store_buy_full_version">完全版購入</string>
+	<string name="store_buy_full_version_description">すべてのパネル、機能や特徴のロックを解除！</string>
+	<string name="store_tab_functions">機能</string>
+	<string name="store_tab_widgets">パネル</string>
+	<string name="store_tab_themes">テーマ</string>
+	<string name="store_item_more_alarm_slots">アラーム設定数の増加</string>
+	<string name="store_item_no_ads">広告削除</string>
+	<string name="store_item_matrix">2 X 1 配列</string>
+	<string name="store_item_widget_date_countdown">日付\n計算</string>
+	<string name="store_item_widget_memo">メモ</string>
+	<string name="store_item_photo_portrait">写真\n縦画面モード </string>
+	<string name="store_item_photo_landscape">写真\n横画面モード</string>
+	<string name="store_item_skyblue">空\n(空色)</string>
+	<string name="store_item_classic_white">モダニティ\n（白）</string>
+	<string name="store_item_water_lily">睡蓮（デザイン）</string>
+	<string name="store_item_popsicle">Popsicle</string>
+
+	<!-- Rate it -->
+	<string name="rate_it_contents">あなたの評価は、より良いモーニングキットを作るのに役立ちます！ありがとうございます。</string>
+	<string name="rate_it_rate">評価する</string>
+	<string name="rate_it_no_thanks">後で</string>
+	<string name="rate_morning_kit">モーニングキットを評価する</string>
+
+	<!-- More Information -->
+	<string name="more_information">モーニングキットの情報</string>
+	<string name="more_information_yooii_studios">ユーイスタジオ</string>
+	<string name="more_information_morning_kit_help">モーニングキットのヘルプ</string>
+	<string name="more_information_version_info">バージョン</string>
+	<string name="more_information_morning_kit_license">モーニングキットのライセンス</string>
+	<string name="more_information_license">ライセンス</string>
+
+	<!-- Alarm First On Notice -->
+	<string name="alarm_first_on_notice">[設定 -> 通知 -> モーニングキット]\n\n通知スタイルをダイアログに,サウンドをオンにしてご利用ください。\n\n振動モードではアラームが鳴りません。アラームを使用する時は、振動モードを解除してご利用ください。</string>
+
+	<!-- Photo Theme -->
+	<string name="photo_theme_move_and_scale">移動と拡大</string>
+	<string name="photo_theme_choose">選択</string>
+	<string name="photo_theme_first_open_notice">写真を移動し、拡大して写真をフレームよりも大きく合わせください。\nフレームよりも小さく設定すると、写真が画面に合わせて表示されないことがあります      </string>
+
+    <!-- Android Only -->
+    <!-- General -->
+    <string name="action_bar_up_button_main">Main</string>
+    <string name="store_item_full_version">Full Version</string>
+
+    <!-- Alarm -->
+    <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
+
+    <!-- Panel -->
+        <!-- Flickr -->
+    <string name="saving">Saving…</string>
+
+        <!-- World Clock -->
+    <string name="no_search_result">No Results Found</string>
+
+        <!-- Calendar -->
+    <string name="calendar_select_calendars">Select Calendars</string>
+
+        <!-- Photo Album -->
+    <string name="photo_album">Photo Frame</string>
+    <string name="photo_album_no_image">No image available</string>
+    <string name="photo_album_error_getting_photo">Error occurred while getting photo</string>
+    <string name="photo_album_label_refresh_time">Refresh Time</string>
+    <string name="photo_album_label_transition_type">Transition Type</string>
+    <string name="photo_album_minute_hint">min</string>
+    <string name="photo_album_minute">min</string>
+    <string name="photo_album_second_hint">sec</string>
+    <string name="photo_album_second">sec</string>
+    <string name="photo_album_transition_none">None</string>
+    <string name="photo_album_transition_alpha">Alpha</string>
+    <string name="photo_album_load">Load</string>
+
+</resources>
