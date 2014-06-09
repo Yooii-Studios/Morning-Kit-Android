@@ -279,8 +279,14 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
      * OnClick
      */
     @OnClick(R.id.main_refresh_imageview) void refreshButtonClicked() {
-        // 투명 테마 사용 시 폰트 색을 토글시켜줌
+        // 투명 테마 사용 시 폰트 색을 토글시키고 모든 패널 theme 적용
         MNTranslucentFont.toggleFontType(getApplicationContext());
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getApplicationContext());
+        if (currentThemeType == MNThemeType.TRANQUILITY_BACK_CAMERA ||
+                currentThemeType == MNThemeType.REFLECTION_FRONT_CAMERA ||
+                currentThemeType == MNThemeType.PHOTO) {
+            panelWindowLayout.applyTheme();
+        }
 
         // 패널 & 알람 리프레시
         panelWindowLayout.refreshAllPanels();
