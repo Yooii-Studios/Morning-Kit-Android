@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuote;
@@ -103,7 +102,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
         //// Logic part ////
         if (getPanelDataObject().has(QUOTES_LANGUAGES)) {
             // 설정된 언어 불러오기
-            MNLog.i(TAG, "not first loading");
+//            MNLog.i(TAG, "not first loading");
             try {
                 String selectedLanguagesJsonString = getPanelDataObject().getString(QUOTES_LANGUAGES);
                 Type type = new TypeToken<List<Boolean>>(){}.getType();
@@ -113,7 +112,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
             }
         } else {
             // 명언 첫 로딩, 현재 언어 체크해서 명언 초기화해주기
-            MNLog.i(TAG, "first loading");
+//            MNLog.i(TAG, "first loading");
             initFirstLanguages();
         }
 
