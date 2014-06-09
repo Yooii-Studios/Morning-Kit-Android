@@ -49,8 +49,6 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
     public static final String EXCHANGE_RATES_PREFS = "EXCHANGE_RATES_PREFS";
     public static final String EXCHANGE_RATES_DATA_EXCHANGE_INFO = "EXCHANGE_RATES_DATA_EXCHANGE_INFO";
 
-    private RelativeLayout innerContentLayout;
-    private LinearLayout imageViewLayout;
     private ImageView baseCurrencyImageView;
     private ImageView targetCurrencyImageView;
     private AutoResizeTextView baseToTargetCurrecyTextView;
@@ -72,14 +70,14 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         super.init();
 
         // inner content layout - 회전 대응
-        innerContentLayout = new RelativeLayout(getContext());
+        RelativeLayout innerContentLayout = new RelativeLayout(getContext());
         LayoutParams innerContentLayoutParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
         innerContentLayoutParams.addRule(CENTER_IN_PARENT);
         innerContentLayout.setLayoutParams(innerContentLayoutParams);
         getContentLayout().addView(innerContentLayout);
 
         // image layout
-        imageViewLayout = new LinearLayout(getContext());
+        LinearLayout imageViewLayout = new LinearLayout(getContext());
         imageViewLayout.setId(12312515);
         LayoutParams imageLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         imageLayoutParams.addRule(CENTER_HORIZONTAL);
