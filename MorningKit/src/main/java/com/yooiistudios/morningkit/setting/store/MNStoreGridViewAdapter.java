@@ -74,7 +74,7 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
             case FUNCTIONS:
                 return 3;
             case PANELS:
-                return 2;
+                return 3;
             case THEMES:
                 return 2;
             default:
@@ -132,6 +132,11 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                             viewHolder.getItemNameTextView().setText(R.string.store_item_widget_memo);
                             viewHolder.getIconImageView().setImageResource(R.drawable.shop_widget_memo_icon_ipad);
                             viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_MEMO);
+                            break;
+                        case 2:
+                            viewHolder.getItemNameTextView().setText(R.string.photo_album);
+                            viewHolder.getIconImageView().setImageResource(R.drawable.shop_photo_ipad);
+                            viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_PHOTO_FRAME);
                             break;
                     }
                     break;

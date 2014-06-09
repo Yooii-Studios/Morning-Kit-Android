@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 
 import com.naver.iap.NaverIabInventoryItem;
 import com.naver.iap.NaverIabProductUtils;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreDebugChecker;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
@@ -110,7 +109,7 @@ public class SKIabProducts {
                 ownedSkus.add(SKU_MEMO);
             }
             if (prefs.getBoolean(SKU_PHOTO_FRAME, false)) {
-                ownedSkus.add(SKU_MEMO);
+                ownedSkus.add(SKU_PHOTO_FRAME);
             }
             if (prefs.getBoolean(SKU_MODERNITY, false)) {
                 ownedSkus.add(SKU_MODERNITY);
