@@ -35,7 +35,7 @@ public class NaverIabProductUtils {
         naverSkuMap.put(SKIabProducts.SKU_PANEL_MATRIX_2X3, NAVER_IAB_PANEL_MATRIX_2X3);
         naverSkuMap.put(SKIabProducts.SKU_DATE_COUNTDOWN, NAVER_IAB_DATE_COUNTDOWN);
         naverSkuMap.put(SKIabProducts.SKU_MEMO, NAVER_IAB_MEMO);
-        naverSkuMap.put(SKIabProducts.SKU_PHOTO_FRAME, NAVER_IAB_MEMO);
+        naverSkuMap.put(SKIabProducts.SKU_PHOTO_FRAME, NAVER_IAB_PHOTO_FRAME);
         naverSkuMap.put(SKIabProducts.SKU_MODERNITY, NAVER_IAB_MODERNITY);
         naverSkuMap.put(SKIabProducts.SKU_CELESTIAL, NAVER_IAB_CELESTIAL);
 

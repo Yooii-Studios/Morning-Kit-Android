@@ -78,7 +78,7 @@ public enum MNPanelType {
             case 6: return context.getString(R.string.exchange_rate);
             case 7: return context.getString(R.string.memo);
             case 8: return context.getString(R.string.date_calculator);
-            case 9: return "Photo Alubm_Test";
+            case 9: return context.getString(R.string.photo_album);
             default: throw new IndexOutOfBoundsException("Undefined Panel Type");
         }
     }
