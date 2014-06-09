@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginBottom="@dimen/panel_detail_padding"
+            android:layout_marginBottom="@dimen/panel_detail_bigger_padding"
             android:orientation="horizontal"
             android:gravity="center_vertical|right">
             <ImageView
@@ -32,6 +32,7 @@
                 android:text="@string/photo_album_load"/>
         </LinearLayout>
         <FrameLayout
+            android:id="@+id/preview_wrapper"
             android:layout_width="@dimen/panel_photo_album_detail_preview_width"
             android:layout_height="@dimen/panel_photo_album_detail_preview_height"
             android:background="@drawable/shape_rounded_view_pastel_green_normal"
@@ -62,7 +63,7 @@
                     android:layout_height="@dimen/panel_photo_album_detail_preview_unavailable_size"
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/panel_detail_padding_inner"
-                    android:src="@drawable/panel_photo_album_detail_noimage"/>
+                    android:src="@drawable/widget_cover_photo_frame"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

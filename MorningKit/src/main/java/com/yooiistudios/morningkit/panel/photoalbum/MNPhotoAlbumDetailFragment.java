@@ -133,26 +133,10 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                 useGrayscale = false;
             }
 
-            rootView.findViewById(R.id.load).setOnClickListener(new View
-                    .OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent;
-                    intent = new Intent(Intent.ACTION_PICK);
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-//                        intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    }
-                    else {
-//                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-//                        intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    }
-                    intent.setType("image/*");
-                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-                        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                    }
-                    startActivityForResult(intent, RC_LOAD_PHOTO);
-                }
-            });
+            rootView.findViewById(R.id.load)
+                    .setOnClickListener(onLoadBtnClickListener);
+            rootView.findViewById(R.id.preview_wrapper)
+                    .setOnClickListener(onLoadBtnClickListener);
 
             // UI
             initUI();
@@ -194,6 +178,26 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
 
         return rootView;
     }
+    private View.OnClickListener onLoadBtnClickListener =
+            new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent;
+            intent = new Intent(Intent.ACTION_PICK);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+//                        intent = new Intent(Intent.ACTION_GET_CONTENT);
+            }
+            else {
+//                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//                        intent.addCategory(Intent.CATEGORY_OPENABLE);
+            }
+            intent.setType("image/*");
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+            }
+            startActivityForResult(intent, RC_LOAD_PHOTO);
+        }
+    };
 
     private void loadFileList() {
         if (listFetcher != null) {
