@@ -247,7 +247,7 @@
     <string name="store_item_popsicle">Popsicle</string>
 
     <!-- Rate it -->
-    <string name="rate_it_contents">Rate Morning Kit and make it better! Thank you!</string>
+    <string name="rate_it_contents">Please rate us 5 stars\nWithout your support, we don\'t exist</string>
     <string name="rate_it_rate">Rate</string>
     <string name="rate_it_no_thanks">Rate later</string>
     <string name="rate_morning_kit">Rate Morning Kit</string>

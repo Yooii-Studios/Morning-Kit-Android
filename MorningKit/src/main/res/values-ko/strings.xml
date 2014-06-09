@@ -248,7 +248,7 @@
 	<string name="store_item_popsicle">Popsicle</string>
 
 	<!-- Rate it -->
-	<string name="rate_it_contents">모닝키트를 평가해주세요!</string>
+	<string name="rate_it_contents">%1$s 리뷰 부탁 드립니다.\n소중한 리뷰가 더 좋은 제품을 만드는데 도움이 됩니다! ^^</string>
 	<string name="rate_it_rate">평가하기</string>
 	<string name="rate_it_no_thanks">나중에 하기</string>
 	<string name="rate_morning_kit">모닝키트 평가하기</string>
