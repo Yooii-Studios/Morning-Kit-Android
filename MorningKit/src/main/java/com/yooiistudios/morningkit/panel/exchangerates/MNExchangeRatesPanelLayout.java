@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -49,8 +48,6 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
     public static final String EXCHANGE_RATES_PREFS = "EXCHANGE_RATES_PREFS";
     public static final String EXCHANGE_RATES_DATA_EXCHANGE_INFO = "EXCHANGE_RATES_DATA_EXCHANGE_INFO";
 
-    private RelativeLayout innerContentLayout;
-    private LinearLayout imageViewLayout;
     private ImageView baseCurrencyImageView;
     private ImageView targetCurrencyImageView;
     private AutoResizeTextView baseToTargetCurrecyTextView;
@@ -62,7 +59,6 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
     public MNExchangeRatesPanelLayout(Context context) {
         super(context);
     }
-
     public MNExchangeRatesPanelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -72,14 +68,14 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         super.init();
 
         // inner content layout - 회전 대응
-        innerContentLayout = new RelativeLayout(getContext());
+        RelativeLayout innerContentLayout = new RelativeLayout(getContext());
         LayoutParams innerContentLayoutParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
         innerContentLayoutParams.addRule(CENTER_IN_PARENT);
         innerContentLayout.setLayoutParams(innerContentLayoutParams);
         getContentLayout().addView(innerContentLayout);
 
         // image layout
-        imageViewLayout = new LinearLayout(getContext());
+        LinearLayout imageViewLayout = new LinearLayout(getContext());
         imageViewLayout.setId(12312515);
         LayoutParams imageLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         imageLayoutParams.addRule(CENTER_HORIZONTAL);
@@ -157,9 +153,7 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         super.processLoading();
 
         // recycle image views
-        if (MNBitmapUtils.recycleImageView(baseCurrencyImageView)) {
-            MNLog.i(TAG, "flag imageview recycled");
-        }
+        MNBitmapUtils.recycleImageView(baseCurrencyImageView);
         MNBitmapUtils.recycleImageView(targetCurrencyImageView);
 
         // get info from panelDataObject
@@ -231,6 +225,7 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         String targetCurrencyString = exchangeRatesInfo.getTargetCurrencySymbol() +
                 MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getTargetCurrencyMoney());
 
+        // Base To Target
         // 기본 폰트 크기로 설정하면 자동으로 리사이징 진행
         SpannableStringBuilder baseToTargetStringBuilder = new SpannableStringBuilder();
         baseToTargetStringBuilder.append(baseCurrencyString).append(" = ").append(targetCurrencyString);
@@ -238,9 +233,25 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
                 getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_main_font_size));
         baseToTargetCurrecyTextView.setText(baseToTargetStringBuilder, TextView.BufferType.SPANNABLE);
 
+        // Target To Base
+        MNExchangeRatesInfo reverseExchangeRatesInfo = exchangeRatesInfo.getReverseExchangeInfo();
+
+        // reverseTargetMoney가 너무 작을 경우 일정 이상의 값으로 환산해줌 - 적어도 10번 이상은 하지 않게 방어하자
+        int limit = 0;
+        while (reverseExchangeRatesInfo.getBaseCurrencyMoney() != 0 &&
+                reverseExchangeRatesInfo.getTargetCurrencyMoney() < 0.1 && limit < 10) {
+            limit ++;
+            reverseExchangeRatesInfo.setBaseCurrencyMoney(reverseExchangeRatesInfo.getBaseCurrencyMoney() * 10);
+        }
+
+        String reverseBaseCurrencyString = reverseExchangeRatesInfo.getBaseCurrencySymbol() +
+                MNExchangeRatesInfo.getMoneyString(reverseExchangeRatesInfo.getBaseCurrencyMoney());
+        String reverseTargetCurrencyString = reverseExchangeRatesInfo.getTargetCurrencySymbol() +
+                MNExchangeRatesInfo.getMoneyString(reverseExchangeRatesInfo.getTargetCurrencyMoney());
+
         // 기본 폰트 크기로 설정하면 자동으로 리사이징 진행
         SpannableStringBuilder targetToBaseStringBuilder = new SpannableStringBuilder();
-        targetToBaseStringBuilder.append(targetCurrencyString).append(" = ").append(baseCurrencyString);
+        targetToBaseStringBuilder.append(reverseBaseCurrencyString).append(" = ").append(reverseTargetCurrencyString);
         targetToBaseCurrecyTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_sub_font_size));
         targetToBaseCurrecyTextView.setText(targetToBaseStringBuilder, TextView.BufferType.SPANNABLE);
