@@ -179,7 +179,6 @@ public class MNAnalogClockView extends RelativeLayout {
         Context context = getContext().getApplicationContext();
         BitmapFactory.Options options = MNBitmapUtils.getDefaultOptions();
         if (isTimeAm) {
-//            MNLog.i(TAG, "isTimeAM");
             Bitmap clockBaseBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
                     MNMainResources.getWorldClockAMBase(currentType, context), options);
@@ -204,7 +203,6 @@ public class MNAnalogClockView extends RelativeLayout {
             secondHandImageView.setImageDrawable(
                     new BitmapDrawable(getContext().getApplicationContext().getResources(), secondHandBitmap));
         } else {
-//            MNLog.i(TAG, "isTimePM");
             Bitmap clockBaseBitmap = BitmapFactory.decodeResource(
                     getContext().getApplicationContext().getResources(),
                     MNMainResources.getWorldClockPMBase(currentType, context), options);
