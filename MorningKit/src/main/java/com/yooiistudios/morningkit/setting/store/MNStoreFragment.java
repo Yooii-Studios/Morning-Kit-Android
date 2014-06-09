@@ -556,6 +556,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     }
 
     public void initUIAfterLoading(List<NaverIabInventoryItem> productList) {
+        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
+
         NaverIabInventoryItem fullversionNaverIabItem = null;
         for (NaverIabInventoryItem naverIabInventoryItem : productList) {
             if (naverIabInventoryItem.getKey().equals(
@@ -565,7 +567,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         }
 
         if (fullversionNaverIabItem != null) {
-            if (fullversionNaverIabItem.isAvailable()) {
+            // 네이버에서 구매했거나, 다른 곳에서 구매해서 ownedSkus 에 있는지 둘 다 확인 필요
+            if (fullversionNaverIabItem.isAvailable() || ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
                 fullVersionButtonTextView.setText(R.string.store_purchased);
                 fullVersionImageView.setClickable(false);
                 fullVersionButtonImageView.setClickable(false);
@@ -599,8 +602,6 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 }
             }
             // Other
-            List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
-
             ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setNaverIabInventoryItemList(productList);
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setNaverIabInventoryItemList(productList);
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setNaverIabInventoryItemList(productList);
