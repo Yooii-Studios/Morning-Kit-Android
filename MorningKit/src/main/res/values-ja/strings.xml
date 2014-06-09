@@ -247,7 +247,7 @@
 	<string name="store_item_popsicle">Popsicle</string>
 
 	<!-- Rate it -->
-	<string name="rate_it_contents">あなたの評価は、より良いモーニングキットを作るのに役立ちます！ありがとうございます。</string>
+	<string name="rate_it_contents">%1$s レビューをお願いします。\nお客様のレビューは、より良い製品を作るのに役立ちます！^^</string>
 	<string name="rate_it_rate">評価する</string>
 	<string name="rate_it_no_thanks">後で</string>
 	<string name="rate_morning_kit">モーニングキットを評価する</string>

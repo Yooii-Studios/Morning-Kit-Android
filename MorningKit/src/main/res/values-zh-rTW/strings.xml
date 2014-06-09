@@ -247,7 +247,7 @@
 	<string name="store_item_popsicle">冰淇淋 （設計模式）</string>
 
 	<!-- Rate it -->
-	<string name="rate_it_contents"> 評價早安工具使它更好！謝謝！</string>
+	<string name="rate_it_contents">給個好評吧！\n您的鼓勵會讓我們做出更好的產品！</string>
 	<string name="rate_it_rate">評論</string>
 	<string name="rate_it_no_thanks">不要</string>
 	<string name="rate_morning_kit">評分早安工具</string>
