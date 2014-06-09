@@ -71,12 +71,6 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
             // theme
             MNThemeType currentThemeType = MNTheme.getCurrentThemeType(activity);
 
-//            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-//            viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-//            viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
-//            viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
-//            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
-
             // onClick
             viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
                 @Override
