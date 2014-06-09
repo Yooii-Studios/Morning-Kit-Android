@@ -26,7 +26,7 @@ public class MNStoreDebugChecker {
                 if (instance == null) {
                     instance = new MNStoreDebugChecker();
                     SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-                    instance.isUsingStore = prefs.getBoolean(IS_USING_STORE, false);
+                    instance.isUsingStore = prefs.getBoolean(IS_USING_STORE, true);
                 }
             }
         }
