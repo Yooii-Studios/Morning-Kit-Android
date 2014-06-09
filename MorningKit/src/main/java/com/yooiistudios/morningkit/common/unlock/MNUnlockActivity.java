@@ -253,6 +253,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
             return productString;
         } else if (productSku.equals(SKIabProducts.SKU_MEMO)) {
             return this.getString(R.string.memo);
+        } else if (productSku.equals(SKIabProducts.SKU_PHOTO_FRAME)) {
+            return this.getString(R.string.photo_album);
         } else if (productSku.equals(SKIabProducts.SKU_MODERNITY)) {
             return this.getString(R.string.setting_theme_color_classic_white);
         } else if (productSku.equals(SKIabProducts.SKU_CELESTIAL)) {

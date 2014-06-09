@@ -95,6 +95,7 @@ public class NaverIabHelper {
         mProductList.add(new NaverIabProductInfo("1000007653", SKIabProducts.SKU_PANEL_MATRIX_2X3));
         mProductList.add(new NaverIabProductInfo("1000007651", SKIabProducts.SKU_DATE_COUNTDOWN));
         mProductList.add(new NaverIabProductInfo("1000007652", SKIabProducts.SKU_MEMO));
+        mProductList.add(new NaverIabProductInfo("1000007725", SKIabProducts.SKU_PHOTO_FRAME));
         mProductList.add(new NaverIabProductInfo("1000007650", SKIabProducts.SKU_MODERNITY));
         mProductList.add(new NaverIabProductInfo("1000007655", SKIabProducts.SKU_CELESTIAL));
 

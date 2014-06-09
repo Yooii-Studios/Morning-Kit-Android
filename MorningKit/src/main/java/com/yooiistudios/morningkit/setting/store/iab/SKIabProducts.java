@@ -25,6 +25,7 @@ public class SKIabProducts {
     public static final String SKU_PANEL_MATRIX_2X3 = "panel_matrix_2_3_test"; // panel_matrix_2_3
     public static final String SKU_DATE_COUNTDOWN = "date_countdown_test"; // "panels.date_countdown";
     public static final String SKU_MEMO = "memo_test"; // "panels.memo";
+    public static final String SKU_PHOTO_FRAME = "photo_frame_test"; // "panel.photo_frame";
     public static final String SKU_MODERNITY = "modernity_test"; // "themes.modernity";
     public static final String SKU_CELESTIAL = "celestial_test"; // "themes.celestial";
 
@@ -39,6 +40,7 @@ public class SKIabProducts {
         iabKeyList.add(SKU_PANEL_MATRIX_2X3);
         iabKeyList.add(SKU_DATE_COUNTDOWN);
         iabKeyList.add(SKU_MEMO);
+        iabKeyList.add(SKU_PHOTO_FRAME);
         iabKeyList.add(SKU_MODERNITY);
         iabKeyList.add(SKU_CELESTIAL);
         return iabKeyList;
@@ -88,6 +90,7 @@ public class SKIabProducts {
             ownedSkus.add(SKU_PANEL_MATRIX_2X3);
             ownedSkus.add(SKU_DATE_COUNTDOWN);
             ownedSkus.add(SKU_MEMO);
+            ownedSkus.add(SKU_PHOTO_FRAME);
             ownedSkus.add(SKU_MODERNITY);
             ownedSkus.add(SKU_CELESTIAL);
         } else {
@@ -104,6 +107,9 @@ public class SKIabProducts {
                 ownedSkus.add(SKU_DATE_COUNTDOWN);
             }
             if (prefs.getBoolean(SKU_MEMO, false)) {
+                ownedSkus.add(SKU_MEMO);
+            }
+            if (prefs.getBoolean(SKU_PHOTO_FRAME, false)) {
                 ownedSkus.add(SKU_MEMO);
             }
             if (prefs.getBoolean(SKU_MODERNITY, false)) {
