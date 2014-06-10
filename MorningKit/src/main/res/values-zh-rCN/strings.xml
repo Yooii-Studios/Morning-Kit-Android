@@ -201,7 +201,6 @@
 	<string name="tutorial1_label3">滑动删除闹钟</string>
 	<string name="tutorial1_label4">刷新</string>
 	<string name="tutorial1_label5">设置</string>
-	<string name="tutorial1_label6">您可以添加或编辑面板、闹钟、和主题背景。</string>
 	<string name="tutorial1_tap_screen">点击屏幕</string>
 
 	<!-- Unlock -->
@@ -299,5 +298,8 @@
     <string name="photo_album_transition_none">None</string>
     <string name="photo_album_transition_alpha">Alpha</string>
     <string name="photo_album_load">Load</string>
+
+    <!-- Theme -->
+    <string name="setting_theme_color_pastel_green">Pastel Green</string>
 
 </resources>

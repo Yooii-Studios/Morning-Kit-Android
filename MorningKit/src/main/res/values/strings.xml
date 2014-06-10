@@ -10,7 +10,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="no_network_connection">No Network Connection</string>
-    <string name="no_location_detected">Location Not Available</string>
     <string name="searching">Searching…</string>
     <string name="done">Done</string>
     <string name="open">open</string>
@@ -172,7 +171,6 @@
     <string name="setting_theme_color_skyblue">Celestial (Sky blue)</string>
     <string name="setting_theme_color_classic_gray">Slate (Gray)</string>
     <string name="setting_theme_color_classic_white">Modernity (Chic white)</string>
-    <string name="setting_theme_color_pastel_green">Pastel Green</string>
     <string name="setting_theme_mirror">Reflection (Mirror)</string>
     <string name="setting_theme_scenery">Tranquility (Transparent)</string>
     <string name="setting_theme_photo">Photo</string>
@@ -299,5 +297,8 @@
     <string name="photo_album_transition_none">None</string>
     <string name="photo_album_transition_alpha">Alpha</string>
     <string name="photo_album_load">Load</string>
+
+    <!-- Theme -->
+    <string name="setting_theme_color_pastel_green">Pastel Green</string>
 
 </resources>

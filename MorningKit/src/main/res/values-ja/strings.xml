@@ -5,7 +5,6 @@
 	<string name="app_name">モーニング</string>
 	<string name="ok">確認</string>
 	<string name="cancel">キャンセル</string>
-	<string name="no_image">イメージなし</string>
 	<string name="loading">読み込み中…</string>
 	<string name="default_string">基本設定</string>
 	<string name="yes">はい</string>
@@ -200,7 +199,6 @@
 	<string name="tutorial1_label3">アラームをスワイプで削除</string>
 	<string name="tutorial1_label4">更新</string>
 	<string name="tutorial1_label5">設定</string>
-	<string name="tutorial1_label6">環境設定</string>
 	<string name="tutorial1_tap_screen">画面をタップ</string>
 	<string name="tutorial1_skip_tutorial">チュートリアルをスキップ</string>
 
@@ -299,5 +297,8 @@
     <string name="photo_album_transition_none">None</string>
     <string name="photo_album_transition_alpha">Alpha</string>
     <string name="photo_album_load">Load</string>
+
+    <!-- Theme -->
+    <string name="setting_theme_color_pastel_green">Pastel Green</string>
 
 </resources>

@@ -5,13 +5,11 @@
 	<string name="app_name">모닝키트</string>
 	<string name="ok">확인</string>
 	<string name="cancel">취소</string>
-	<string name="no_image">이미지 없음</string>
 	<string name="loading">로딩 중&#8230;</string>
 	<string name="default_string">기본</string>
 	<string name="yes">예</string>
 	<string name="no">아니오</string>
 	<string name="no_network_connection">네트워크 접속불가</string>
-	<string name="no_location_detected">위치 실패</string>
 	<string name="searching">검색 중&#8230;</string>
 	<string name="done">완료</string>
 	<string name="open">열기</string>
@@ -173,7 +171,6 @@
 	<string name="setting_theme_color_skyblue">하늘 (하늘색)</string>
 	<string name="setting_theme_color_classic_gray">슬레이트 (회색)</string>
 	<string name="setting_theme_color_classic_white">모던 (흰색)</string>
-    <string name="setting_theme_color_pastel_green">파스텔 그린</string>
     <string name="setting_theme_mirror">투영 (미러모드)</string>
     <string name="setting_theme_scenery">고요함 (투명모드)</string>
     <string name="setting_theme_photo">사진</string>
@@ -278,13 +275,30 @@
     <string name="alarm_set_for_less_than_1_minute">알람이 1분 내에 울립니다</string>
 
     <!-- Panel -->
-      <!-- Flickr -->
+        <!-- Flickr -->
     <string name="saving">저장 중…</string>
 
-       <!-- World Clock -->
+        <!-- World Clock -->
     <string name="no_search_result">검색결과 없음</string>
 
-     <!-- Calendar -->
+        <!-- Calendar -->
     <string name="calendar_select_calendars">캘린더 선택</string>
+
+        <!-- Photo Album -->
+    <string name="photo_album">Photo Frame</string>
+    <string name="photo_album_no_image">No image available</string>
+    <string name="photo_album_error_getting_photo">Error occurred while getting photo</string>
+    <string name="photo_album_label_refresh_time">Refresh Time</string>
+    <string name="photo_album_label_transition_type">Transition Type</string>
+    <string name="photo_album_minute_hint">min</string>
+    <string name="photo_album_minute">min</string>
+    <string name="photo_album_second_hint">sec</string>
+    <string name="photo_album_second">sec</string>
+    <string name="photo_album_transition_none">None</string>
+    <string name="photo_album_transition_alpha">Alpha</string>
+    <string name="photo_album_load">Load</string>
+
+    <!-- Theme -->
+    <string name="setting_theme_color_pastel_green">Pastel Green</string>
 
 </resources>

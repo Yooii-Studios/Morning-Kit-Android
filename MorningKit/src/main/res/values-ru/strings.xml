@@ -10,7 +10,6 @@
 	<string name="yes">Да</string>
 	<string name="no">Нет</string>
 	<string name="no_network_connection">Нет связи</string>
-	<string name="no_location_detected">Местоположение недоступно</string>
 	<string name="searching">Поиск…</string>
 	<string name="done">Готово</string>
 	<string name="open">Открыть</string>
@@ -300,5 +299,8 @@
     <string name="photo_album_transition_none">None</string>
     <string name="photo_album_transition_alpha">Alpha</string>
     <string name="photo_album_load">Load</string>
+
+    <!-- Theme -->
+    <string name="setting_theme_color_pastel_green">Pastel Green</string>
 
 </resources>

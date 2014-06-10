@@ -5,7 +5,6 @@
 	<string name="app_name">早安工具</string>
 	<string name="ok">確認</string>
 	<string name="cancel">取消</string>
-	<string name="no_image">無圖像</string>
 	<string name="loading">載入中…</string>
 	<string name="default_string">預設</string>
 	<string name="yes">是</string>
@@ -200,7 +199,6 @@
 	<string name="tutorial1_label3">滑動刪除鬧鐘</string>
 	<string name="tutorial1_label4">刷新</string>
 	<string name="tutorial1_label5">設定</string>
-	<string name="tutorial1_label6">您可以添加或編輯面板、鬧鐘、和主題背景</string>
 	<string name="tutorial1_tap_screen">點擊屏幕</string>
 	<string name="tutorial1_skip_tutorial">跳過教程</string>
 
@@ -299,5 +297,8 @@
     <string name="photo_album_transition_none">None</string>
     <string name="photo_album_transition_alpha">Alpha</string>
     <string name="photo_album_load">Load</string>
+
+    <!-- Theme -->
+    <string name="setting_theme_color_pastel_green">Pastel Green</string>
 
 </resources>
