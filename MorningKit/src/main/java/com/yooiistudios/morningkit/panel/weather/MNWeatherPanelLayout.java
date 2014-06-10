@@ -419,7 +419,13 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
                 // tick(계산)
                 String timeString = "";
                 if (weatherData != null) {
-                    LocalDateTime localDateTime = LocalDateTime.now(DateTimeZone.forOffsetMillis((int)weatherData.timeOffsetInMillis));
+                    LocalDateTime localDateTime;
+                    try {
+                        localDateTime = LocalDateTime.now(DateTimeZone.forOffsetMillis((int) weatherData.timeOffsetInMillis));
+                    } catch (IllegalArgumentException e) {
+                        // Millis out of range 에러 방지: 허니콤에서 발생. 최소한 죽지는 않게 조치
+                        localDateTime = LocalDateTime.now();
+                    }
                     timeString = localDateTime.toString("HH:mm:ss");
                 }
 
