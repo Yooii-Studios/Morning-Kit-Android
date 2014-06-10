@@ -189,8 +189,6 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     public void applyTheme() {
         super.applyTheme();
 
-        MNLog.i("Quote test", "applyTheme");
-
         if (quote != null) {
             MNThemeType currentThemeType = MNTheme.getCurrentThemeType(
                     getContext().getApplicationContext());
