@@ -167,10 +167,6 @@ public class MNMainColors {
                 return Color.parseColor("#a5a5a5");
 
             case SLATE_GRAY:
-//                return Color.parseColor("#666666");
-//                return Color.parseColor("#b3b3b3");
-//                return Color.parseColor("#c1c1c1");
-//                return Color.parseColor("#a5a5a5");
                 return Color.parseColor("#979797");
 
             case CELESTIAL_SKY_BLUE:
