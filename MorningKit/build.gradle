@@ -34,9 +34,13 @@ android {
     signingConfigs {
         release {
             storeFile file("/Development/Android/keystore/morningkit.jks")
-            storePassword "1q2w3e" // System.console().readLine("Enter keystore password: ")
             keyAlias "morningkit_key"
-            keyPassword "1q2w3e" // System.console().readLine("Enter key password: ")
+
+            // These two lines make gradle believe that the signingConfigs
+            // section is complete. Without them, tasks like installRelease
+            // will not be available!
+            storePassword "tempPassword"
+            keyPassword "tempPassword"
         }
     }
 
@@ -46,6 +50,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             signingConfig signingConfigs.release
         }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 
     sourceSets {
@@ -66,13 +77,6 @@ android {
 }
 
 apply plugin: 'android-unit-test'
-
-//ext.androidAnnotationsVersion = '2.7.1';
-//ext.androidAnnotationsVersion = '3.0-SNAPSHOT';
-//
-//configurations {
-//    apt
-//}
 
 dependencies {
     // 내가 만든 모듈
@@ -152,5 +156,22 @@ tasks.withType(Compile) {
 tasks.withType(Test) {
     testLogging {
         events 'started', 'passed'
+    }
+}
+
+// release시 비밀번호를 직접 입력하기 위한 코드
+task askForPasswords << {
+    // Must create String because System.readPassword() returns char[]
+    // (and assigning that below fails silently)
+    def storePw = new String(System.console().readPassword("Keystore password: "))
+    def keyPw  = new String(System.console().readPassword("Key password: "))
+
+    android.signingConfigs.release.storePassword = storePw
+    android.signingConfigs.release.keyPassword = keyPw
+}
+
+tasks.whenTaskAdded { theTask ->
+    if (theTask.name.equals("packageRelease")) {
+        theTask.dependsOn "askForPasswords"
     }
 }
