@@ -47,7 +47,7 @@ public class MNSettingResources {
     }
 
     public static int getCheckResourceId(MNThemeType themeType) {
-        return R.drawable.setting_theme_check_classic_white;
+        return R.drawable.setting_theme_check_pastel_green;
 
 //        switch (themeType) {
 //            case WATER_LILY:
@@ -67,7 +67,7 @@ public class MNSettingResources {
     }
 
     public static int getLockResourceId(MNThemeType themeType) {
-        return R.drawable.setting_theme_lock_classic_white;
+        return R.drawable.setting_theme_lock_pastel_green;
 
 //        switch (themeType) {
 //            case WATER_LILY:
