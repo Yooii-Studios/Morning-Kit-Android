@@ -303,12 +303,21 @@ public class MNPanelWindowLayout extends LinearLayout
                 break;
 
             case Configuration.ORIENTATION_LANDSCAPE:
-                for (MNPanelLayout panelLayout : panelLayouts) {
-                    LinearLayout.LayoutParams layoutParams = (LayoutParams) panelLayout.getLayoutParams();
-                    // 패널윈도우 높이의 절반 - inner 마진
-                    layoutParams.height = getHeight() / 2
-                            - getResources().getDimensionPixelSize(R.dimen.margin_inner) * 2;
-                }
+                // getHeight()가 제대로 된 높이를 반환하지 않는 현상때문에 아래처럼 변경.
+                MNViewSizeMeasure.setViewSizeObserver(this, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+                    @Override
+                    public void onLayoutLoad() {
+                        for (MNPanelLayout panelLayout : panelLayouts) {
+                            LinearLayout.LayoutParams layoutParams = (LayoutParams) panelLayout.getLayoutParams();
+                            // 패널윈도우 높이의 절반 - inner 마진
+                            layoutParams.height = getHeight() / 2
+                                    - getResources().getDimensionPixelSize(R.dimen.margin_inner) * 2;
+
+                            panelLayout.setLayoutParams(layoutParams);
+                            panelLayout.invalidate();
+                        }
+                    }
+                });
                 break;
         }
     }
