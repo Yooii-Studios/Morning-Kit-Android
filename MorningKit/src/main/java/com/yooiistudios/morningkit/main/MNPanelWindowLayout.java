@@ -299,11 +299,14 @@ public class MNPanelWindowLayout extends LinearLayout
                 for (MNPanelLayout panelLayout : panelLayouts) {
                     LinearLayout.LayoutParams layoutParams = (LayoutParams) panelLayout.getLayoutParams();
                     layoutParams.height = getResources().getDimensionPixelSize(R.dimen.panel_height);
+
+                    panelLayout.setLayoutParams(layoutParams);
+                    panelLayout.invalidate();
                 }
                 break;
 
             case Configuration.ORIENTATION_LANDSCAPE:
-                // getHeight()가 제대로 된 높이를 반환하지 않는 현상때문에 아래처럼 변경.
+                // getHeight()에서 제대로 된 높이를 구하기 위해서
                 MNViewSizeMeasure.setViewSizeObserver(this, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
                     @Override
                     public void onLayoutLoad() {
