@@ -228,6 +228,10 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
      */
     @Override
     public void onConfigurationChanged(final Configuration newConfig) {
+        if (MNTutorialManager.isTutorialShown(getApplicationContext())) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        }
+
         super.onConfigurationChanged(newConfig);
         MNLog.i(TAG, "onConfigurationChanged");
         // 스크롤뷰
