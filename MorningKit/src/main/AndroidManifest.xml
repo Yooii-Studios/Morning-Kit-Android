@@ -26,14 +26,14 @@
         android:xlargeScreens="true" />
 
     <!-- android:name=".MNApplication" -->
-    <!-- 출시시 아래 코드를 추가할 필요가 있음 -->
-    <!--android:debuggable="false"-->
+    <!-- Need to insert this code when making 'Release build' -->
+    <!-- android:debuggable="false" -->
     <application
         android:name=".MNApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
