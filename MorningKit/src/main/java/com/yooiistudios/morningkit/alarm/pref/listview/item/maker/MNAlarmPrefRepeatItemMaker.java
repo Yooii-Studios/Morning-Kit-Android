@@ -4,18 +4,19 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.string.MNAlarmRepeatString;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import lombok.Getter;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 16.
@@ -27,29 +28,52 @@ public class MNAlarmPrefRepeatItemMaker {
     private MNAlarmPrefRepeatItemMaker() { throw new AssertionError("You MUST NOT create this class"); }
 
     public static View makeRepeatItem(final Context context, ViewGroup parent, final MNAlarm alarm) {
-        final View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_default_item, parent, false);
-        RepeatItemViewHolder viewHolder = new RepeatItemViewHolder(convertView);
+        final View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_repeat_item, parent, false);
+        final MNAlarmPrefRepeatItemViewHolder viewHolder = new MNAlarmPrefRepeatItemViewHolder(convertView);
         convertView.setTag(viewHolder);
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context.getApplicationContext());
         viewHolder.titleTextView.setText(R.string.alarm_pref_repeat);
-        viewHolder.titleTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-        viewHolder.detailTextView.setText(MNAlarmRepeatString.makeRepeatDetailString(alarm.getAlarmRepeatList(), context));
-        viewHolder.detailTextView.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
-        viewHolder.detailTextView.setSelected(true);
 
         // ClickListener
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // ActionBar Menu
-                MNAlarmPrefBusProvider.getInstance().post(convertView);
+//        convertView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // ActionBar Menu
+//                MNAlarmPrefBusProvider.getInstance().post(convertView);
+//
+//                // AlertDialog
+//                AlertDialog alertDialog = makeRepeatAlertDialog(context, alarm);
+//                alertDialog.show();
+//            }
+//        });
 
-                // AlertDialog
-                AlertDialog alertDialog = makeRepeatAlertDialog(context, alarm);
-                alertDialog.show();
+        viewHolder.mondayButton.setTag(0);
+        viewHolder.tuesdayButton.setTag(1);
+        viewHolder.wednesdayButton.setTag(2);
+        viewHolder.thursdayButton.setTag(3);
+        viewHolder.fridayButton.setTag(4);
+        viewHolder.saturdayButton.setTag(5);
+        viewHolder.sundayButton.setTag(6);
+
+        initRepeatButtonOnClickListener(viewHolder.mondayButton, alarm);
+        initRepeatButtonOnClickListener(viewHolder.tuesdayButton, alarm);
+        initRepeatButtonOnClickListener(viewHolder.wednesdayButton, alarm);
+        initRepeatButtonOnClickListener(viewHolder.thursdayButton, alarm);
+        initRepeatButtonOnClickListener(viewHolder.fridayButton, alarm);
+        initRepeatButtonOnClickListener(viewHolder.saturdayButton, alarm);
+        initRepeatButtonOnClickListener(viewHolder.sundayButton, alarm);
+        return convertView;
+    }
+
+    private static void initRepeatButtonOnClickListener(final Button button, final MNAlarm alarm) {
+        final int index = (Integer) button.getTag();
+        button.setSelected(alarm.getAlarmRepeatList().get(index));
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                button.setSelected(!button.isSelected());
+                alarm.getAlarmRepeatList().set(index, button.isSelected());
             }
         });
-        return convertView;
     }
 
     public static AlertDialog makeRepeatAlertDialog(final Context context, final MNAlarm alarm) {
@@ -111,9 +135,18 @@ public class MNAlarmPrefRepeatItemMaker {
         return alertDialog;
     }
 
-    public static class RepeatItemViewHolder extends MNAlarmPrefItemMaker.MNAlarmPrefDefaultItemViewHolder {
-        public RepeatItemViewHolder(View view) {
-            super(view);
+    public static class MNAlarmPrefRepeatItemViewHolder {
+        @Getter @InjectView(R.id.alarm_pref_list_repeat_item_title_textview)    TextView titleTextView;
+        @Getter @InjectView(R.id.alarm_pref_list_repeat_item_monday_button)     Button mondayButton;
+        @Getter @InjectView(R.id.alarm_pref_list_repeat_item_tuesday_button)    Button tuesdayButton;
+        @Getter @InjectView(R.id.alarm_pref_list_repeat_item_wednesday_button)  Button wednesdayButton;
+        @Getter @InjectView(R.id.alarm_pref_list_repeat_item_thursday_button)   Button thursdayButton;
+        @Getter @InjectView(R.id.alarm_pref_list_repeat_item_friday_button)     Button fridayButton;
+        @Getter @InjectView(R.id.alarm_pref_list_repeat_item_saturday_button)   Button saturdayButton;
+        @Getter @InjectView(R.id.alarm_pref_list_repeat_item_sunday_button)     Button sundayButton;
+
+        public MNAlarmPrefRepeatItemViewHolder(View view) {
+            ButterKnife.inject(this, view);
         }
     }
 }
