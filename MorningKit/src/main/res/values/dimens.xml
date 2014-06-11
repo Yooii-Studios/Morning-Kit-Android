@@ -113,6 +113,10 @@
     <dimen name="panel_weather_condition_image_size">57dp</dimen>
 
     <!-- World Clock -->
+        <!-- Main -->
+    <dimen name="panel_world_clock_digital_time_text_size">37sp</dimen>
+    <dimen name="panel_world_clock_digital_text_size">12sp</dimen>
+    <dimen name="panel_world_clock_analog_clock_size">60dp</dimen>
         <!-- Detail -->
     <dimen name="panel_world_clock_detail_magnifier_size">18dp</dimen>
     <dimen name="panel_world_clock_detail_edit_text_height">35dp</dimen>
