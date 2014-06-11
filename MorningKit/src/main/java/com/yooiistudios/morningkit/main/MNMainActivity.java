@@ -244,12 +244,18 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 break;
             case Configuration.ORIENTATION_LANDSCAPE:
                 // 가로로 돌아갈 경우 스테이터스바 높이를 잘못 읽어 뷰가 잘못 그려지던 현상 때문에 수정
-                MNViewSizeMeasure.setViewSizeObserver(containerLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+                containerLayout.post(new Runnable() {
                     @Override
-                    public void onLayoutLoad() {
+                    public void run() {
                         MNMainLayoutSetter.adjustPanelLayoutParamsAtOrientation(MNMainActivity.this, newConfig.orientation);
                     }
                 });
+//                MNViewSizeMeasure.setViewSizeObserver(containerLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+//                    @Override
+//                    public void onLayoutLoad() {
+//                        MNMainLayoutSetter.adjustPanelLayoutParamsAtOrientation(MNMainActivity.this, newConfig.orientation);
+//                    }
+//                });
                 break;
         }
         // 버튼 레이아웃
