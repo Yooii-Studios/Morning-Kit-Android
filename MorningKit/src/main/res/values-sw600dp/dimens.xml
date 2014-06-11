@@ -105,11 +105,11 @@
 
     <!-- Weather -->
     <!-- Main -->
-    <dimen name="panel_weather_current_temp_text_size">26sp</dimen>
-    <dimen name="panel_weather_low_high_temp_text_size">14sp</dimen>
-    <dimen name="panel_weather_city_name_local_time_text_size">12sp</dimen>
-    <dimen name="panel_weather_local_time_text_size">12sp</dimen>
-    <dimen name="panel_weather_condition_image_size">57dp</dimen>
+    <dimen name="panel_weather_current_temp_text_size">36.4sp</dimen>           <!--Done-->
+    <dimen name="panel_weather_low_high_temp_text_size">19.6sp</dimen>          <!--Done-->
+    <dimen name="panel_weather_city_name_local_time_text_size">16.8sp</dimen>   <!--Done-->
+    <dimen name="panel_weather_local_time_text_size">16.8sp</dimen>             <!--Done-->
+    <dimen name="panel_weather_condition_image_size">79.8dp</dimen>             <!--Done-->
 
     <!-- World Clock -->
     <!-- Detail -->
@@ -176,15 +176,15 @@
     <dimen name="panel_quotes_detail_rounded_corner_radius">15dp</dimen>
 
     <!-- Date -->
-    <dimen name="panel_date_month_text_size">16sp</dimen>
-    <dimen name="panel_date_day_text_size">42sp</dimen>
-    <dimen name="panel_date_day_of_week_text_size">16sp</dimen>
-    <dimen name="panel_date_minus_margin">-6dp</dimen>
+    <dimen name="panel_date_month_text_size">22.4sp</dimen>             <!--Done-->
+    <dimen name="panel_date_day_text_size">58.8sp</dimen>               <!--Done-->
+    <dimen name="panel_date_day_of_week_text_size">22.4sp</dimen>       <!--Done-->
+    <dimen name="panel_date_minus_margin">-8.4dp</dimen>                <!--Done-->
 
-    <dimen name="panel_date_lunar_month_text_size">11sp</dimen>
-    <dimen name="panel_date_lunar_day_text_size">32sp</dimen>
-    <dimen name="panel_date_lunar_day_of_week_text_size">11sp</dimen>
-    <dimen name="panel_date_lunar_minus_margin">-1dp</dimen>
+    <dimen name="panel_date_lunar_month_text_size">15.4sp</dimen>       <!--Done-->
+    <dimen name="panel_date_lunar_day_text_size">44.8sp</dimen>         <!--Done-->
+    <dimen name="panel_date_lunar_day_of_week_text_size">15.4sp</dimen> <!--Done-->
+    <dimen name="panel_date_lunar_minus_margin">-1.4dp</dimen>          <!--Done-->
 
     <!-- Photo Album -->
     <!-- Detail -->
