@@ -77,7 +77,8 @@ public class MNPanelLayout extends RelativeLayout {
 //        setPadding(padding, padding, padding, padding);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.panel_height));
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
+                .MATCH_PARENT);
         layoutParams.weight = 1;
         layoutParams.setMargins(padding, padding,padding, padding);
         setLayoutParams(layoutParams);

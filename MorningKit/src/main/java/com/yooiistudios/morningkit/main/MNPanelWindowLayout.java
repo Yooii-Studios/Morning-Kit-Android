@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -68,7 +67,7 @@ public class MNPanelWindowLayout extends LinearLayout
 
             LayoutParams layoutParams =
                     new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                            ViewGroup.LayoutParams.MATCH_PARENT, 1);
             panelLineLayouts[i].setLayoutParams(layoutParams);
             this.addView(panelLineLayouts[i]);
 
@@ -294,35 +293,31 @@ public class MNPanelWindowLayout extends LinearLayout
             return;
         }
 
-        switch (getResources().getConfiguration().orientation) {
-            case Configuration.ORIENTATION_PORTRAIT:
-                for (MNPanelLayout panelLayout : panelLayouts) {
-                    LinearLayout.LayoutParams layoutParams = (LayoutParams) panelLayout.getLayoutParams();
-                    layoutParams.height = getResources().getDimensionPixelSize(R.dimen.panel_height);
-
-                    panelLayout.setLayoutParams(layoutParams);
-                    panelLayout.invalidate();
-                }
-                break;
-
-            case Configuration.ORIENTATION_LANDSCAPE:
-                // getHeight()에서 제대로 된 높이를 구하기 위해서
-                MNViewSizeMeasure.setViewSizeObserver(this, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
-                    @Override
-                    public void onLayoutLoad() {
-                        for (MNPanelLayout panelLayout : panelLayouts) {
-                            LinearLayout.LayoutParams layoutParams = (LayoutParams) panelLayout.getLayoutParams();
-                            // 패널윈도우 높이의 절반 - inner 마진
-                            layoutParams.height = getHeight() / 2
-                                    - getResources().getDimensionPixelSize(R.dimen.margin_inner) * 2;
-
-                            panelLayout.setLayoutParams(layoutParams);
-                            panelLayout.invalidate();
-                        }
-                    }
-                });
-                break;
-        }
+//        switch (getResources().getConfiguration().orientation) {
+//            case Configuration.ORIENTATION_PORTRAIT:
+//                for (MNPanelLayout panelLayout : panelLayouts) {
+//                    LinearLayout.LayoutParams layoutParams = (LayoutParams) panelLayout.getLayoutParams();
+////                    layoutParams.height = getResources().getDimensionPixelSize(R.dimen.panel_height);
+//                    layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+//
+//                    panelLayout.setLayoutParams(layoutParams);
+//                    panelLayout.invalidate();
+//                }
+//                break;
+//
+//            case Configuration.ORIENTATION_LANDSCAPE:
+//                // getHeight()에서 제대로 된 높이를 구하기 위해서
+//                for (MNPanelLayout panelLayout : panelLayouts) {
+//                    LinearLayout.LayoutParams layoutParams = (LayoutParams) panelLayout.getLayoutParams();
+//                    // 패널윈도우 높이의 절반 - inner 마진
+//                    layoutParams.height = getHeight() / 2
+//                            - getResources().getDimensionPixelSize(R.dimen.margin_inner) * 2;
+//
+//                    panelLayout.setLayoutParams(layoutParams);
+//                    panelLayout.invalidate();
+//                }
+//                break;
+//        }
     }
 
     /**
