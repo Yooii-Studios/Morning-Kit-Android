@@ -57,13 +57,15 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="gone"
+                tools:ignore="useCompoundDrawables">
                 <ImageView
                     android:layout_width="@dimen/panel_photo_album_detail_preview_unavailable_size"
                     android:layout_height="@dimen/panel_photo_album_detail_preview_unavailable_size"
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/panel_detail_padding_inner"
-                    android:src="@drawable/widget_cover_photo_frame"/>
+                    android:src="@drawable/widget_cover_photo_frame"
+                    tools:ignore="ContentDescription"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,43 +119,6 @@
                     android:textSize="@dimen/panel_detail_default_font_size"
                     android:textColor="@color/pastel_green_sub_font_color"
                     android:text="asdf"/>
-                <!--<include-->
-                    <!--android:id="@+id/toggleRefresh"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--layout="@layout/common_switch"/>-->
-                <!--<LinearLayout-->
-                    <!--android:id="@+id/time_wrapper"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_toLeftOf="@id/toggleRefresh"-->
-                    <!--android:gravity="right"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:visibility="visible">-->
-                    <!--<EditText-->
-                        <!--android:id="@+id/edittext_min"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:inputType="numberSigned"-->
-                        <!--android:hint="@string/photo_album_minute_hint"/>-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/label_min"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="@string/photo_album_minute_postfix"/>-->
-                    <!--<EditText-->
-                        <!--android:id="@+id/edittext_sec"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:inputType="numberSigned"-->
-                        <!--android:hint="@string/photo_album_second_hint"/>-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/label_sec"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="@string/photo_album_second_postfix"/>-->
-                <!--</LinearLayout>-->
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout

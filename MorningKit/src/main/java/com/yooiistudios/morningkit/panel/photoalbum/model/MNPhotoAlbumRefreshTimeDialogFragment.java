@@ -56,6 +56,7 @@ public class MNPhotoAlbumRefreshTimeDialogFragment extends DialogFragment {
         mMinuteEditText.setText(String.valueOf(args.getInt(KEY_MINUTE)));
         mSecondEditText.setText(String.valueOf(args.getInt(KEY_SECOND)));
 
+        mSecondEditText.requestFocus();
 
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
