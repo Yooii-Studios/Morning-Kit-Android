@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval" >
+
+    <solid
+        android:color="@color/pastel_green_main_font_color"/>
+
+    <size
+        android:height="@dimen/alarm_pref_list_repeat_item_circle_size"
+        android:width="@dimen/alarm_pref_list_repeat_item_circle_size" />
+
+</shape>

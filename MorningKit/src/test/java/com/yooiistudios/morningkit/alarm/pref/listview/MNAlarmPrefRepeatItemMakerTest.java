@@ -108,9 +108,9 @@ public class MNAlarmPrefRepeatItemMakerTest {
         View convertView = MNAlarmPrefRepeatItemMaker.makeRepeatItem(alarmPrefActivity, null, alarm);
         assertThat(convertView, notNullValue());
 
-        MNAlarmPrefRepeatItemMaker.RepeatItemViewHolder viewHolder = (MNAlarmPrefRepeatItemMaker.RepeatItemViewHolder) convertView.getTag();
+        MNAlarmPrefRepeatItemMaker.MNAlarmPrefRepeatItemViewHolder viewHolder = (MNAlarmPrefRepeatItemMaker.MNAlarmPrefRepeatItemViewHolder) convertView.getTag();
         assertThat(viewHolder, notNullValue());
-        assertThat(viewHolder, is(MNAlarmPrefRepeatItemMaker.RepeatItemViewHolder.class));
+        assertThat(viewHolder, is(MNAlarmPrefRepeatItemMaker.MNAlarmPrefRepeatItemViewHolder.class));
         assertThat(viewHolder.getTitleTextView().getText().toString(), is(alarmPrefActivity.getString(R.string.alarm_pref_repeat)));
         assertThat(viewHolder.getDetailTextView().getText().toString(), is(MNAlarmRepeatString.makeRepeatDetailString(alarm.getAlarmRepeatList(), alarmPrefActivity)));
     }

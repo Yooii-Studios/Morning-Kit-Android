@@ -55,6 +55,7 @@
 
             <!-- Repeat Dialog -->
     <dimen name="alarm_pref_list_repeat_item_height">80dp</dimen>
+    <dimen name="alarm_pref_list_repeat_item_circle_size">32dp</dimen>
 
             <!-- Label Dialog -->
     <dimen name="alarm_pref_list_label_item_dialog_padding_button">5dp</dimen>
