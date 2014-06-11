@@ -275,6 +275,9 @@
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
 
+        <!-- Prefs -->
+    <string name="alarm_pref_volume">Volume</string>
+
     <!-- Panel -->
         <!-- Flickr -->
     <string name="saving">Saving…</string>

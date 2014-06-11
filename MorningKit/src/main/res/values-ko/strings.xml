@@ -274,6 +274,9 @@
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">알람이 1분 내에 울립니다</string>
 
+        <!-- Prefs -->
+    <string name="alarm_pref_volume">Volume</string>
+
     <!-- Panel -->
         <!-- Flickr -->
     <string name="saving">저장 중…</string>
