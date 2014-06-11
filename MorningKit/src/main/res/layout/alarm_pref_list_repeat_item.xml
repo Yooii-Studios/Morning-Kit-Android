@@ -139,14 +139,14 @@
                 android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
                 android:background="@drawable/alarm_pref_repeat_circle_selector"
                 android:text="@string/sunday_short"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/alarm_pref_list_time_divider_height"
         android:background="@color/pastel_green_stroke_color"
         android:layout_alignParentBottom="true"
         android:textColor="@android:color/white"/>
