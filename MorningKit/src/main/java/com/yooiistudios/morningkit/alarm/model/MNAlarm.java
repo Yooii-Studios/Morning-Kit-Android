@@ -44,6 +44,8 @@ public class MNAlarm implements Serializable, Cloneable {
 
     @Getter @Setter private SKAlarmSound        alarmSound;
 
+    @Getter @Setter private int                 alarmVolume;
+
     /**
      * Methods
      */

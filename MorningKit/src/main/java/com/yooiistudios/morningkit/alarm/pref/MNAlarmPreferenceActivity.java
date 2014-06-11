@@ -40,6 +40,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     public static final String ALARM_PREFERENCE_ALARM_ID = "ALARM_PREFERENCE_ALARM_ID";
     public static final String ALARM_SHARED_PREFS = "ALARM_SHARED_PREFS";
     public static final String ALARM_SHARED_PREFS_ALARM_SNOOZE_ON = "ALARM_SHARED_PREFS_ALARM_SNOOZE_ON";
+    public static final String ALARM_SHARED_PREFS_ALARM_VOLUME = "ALARM_SHARED_PREFS_ALARM_VOLUME";
     private static final String TAG = "MNAlarmPreferenceActivity";
 
     @Getter private int alarmId;
@@ -76,6 +77,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
                 // 알람 추가일 경우에는 최근 스누즈 사용 여부를 적용
                 SharedPreferences prefs = getSharedPreferences(ALARM_SHARED_PREFS, MODE_PRIVATE);
                 alarm.setSnoozeOn(prefs.getBoolean(ALARM_SHARED_PREFS_ALARM_SNOOZE_ON, true));
+                alarm.setAlarmVolume(prefs.getInt(ALARM_SHARED_PREFS_ALARM_VOLUME, 70));
             }
             if ((alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.MUSIC ||
                     alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.RINGTONE) &&
@@ -159,9 +161,10 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     private void applyAlarmPreferneces() {
         alarm.startAlarm(this);
 
-        // 알람 저장하기 전에 스누즈 여부를 저장
+        // 알람 저장하기 전에 스누즈 여부, 볼륨을 저장
         SharedPreferences prefs = getSharedPreferences(ALARM_SHARED_PREFS, MODE_PRIVATE);
         prefs.edit().putBoolean(ALARM_SHARED_PREFS_ALARM_SNOOZE_ON, alarm.isSnoozeOn()).commit();
+        prefs.edit().putInt(ALARM_SHARED_PREFS_ALARM_VOLUME, alarm.getAlarmVolume()).commit();
 
         // 알람 저장
         switch (alarmPreferenceType) {

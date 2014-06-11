@@ -54,11 +54,17 @@
     <dimen name="alarm_pref_list_item_padding">14dp</dimen>                 <!--Done-->
     <dimen name="alarm_pref_list_item_textview_font_size">25.2sp</dimen>    <!--Done-->
 
-    <!-- Label Dialog -->
+            <!-- Label Dialog -->
     <dimen name="alarm_pref_list_label_item_dialog_padding_button">7dp</dimen>              <!--Done-->
     <dimen name="alarm_pref_list_label_item_dialog_font_size">25.2sp</dimen>                <!--Done-->
     <dimen name="alarm_pref_list_label_item_dialog_button_size">42dp</dimen>                <!--Done-->
     <dimen name="alarm_pref_list_label_item_dialog_edit_remove_button_padding">56dp</dimen> <!--Done-->
+
+            <!-- Volume Item -->
+    <dimen name="alarm_pref_list_volume_item_seekbar_margin_left">56dp</dimen>              <!--Done-->
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_size">28dp</dimen>               <!--Done-->
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_stroke_size">0.7dp</dimen>       <!--Done-->
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_offset">14dp</dimen>             <!--Done-->
 
     <!-- Alarm Custom Dialog -->
     <dimen name="alarm_custom_dialog_label_font_size">35sp</dimen>              <!--Done-->

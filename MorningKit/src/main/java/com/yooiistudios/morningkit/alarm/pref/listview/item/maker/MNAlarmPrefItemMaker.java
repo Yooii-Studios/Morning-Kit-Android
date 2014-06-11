@@ -6,11 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 
@@ -35,7 +35,7 @@ public class MNAlarmPrefItemMaker {
     // REPEAT, LABEL, SOUND_TYPE, SOUND_NAME, SNOOZE, TIME;
     private MNAlarmPrefItemMaker() { throw new AssertionError("You MUST NOT create this class"); }
 
-    public static View makeTimeItem(Context context, ViewGroup parent, final MNAlarm alarm, MNAlarmPreferenceType alarmPreferenceType) {
+    public static View makeTimeItem(Context context, ViewGroup parent, final MNAlarm alarm) {
         View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_time_item, parent, false);
         MNAlarmPrefTimeItemViewHolder viewHolder = new MNAlarmPrefTimeItemViewHolder(convertView);
         convertView.setTag(viewHolder);
@@ -84,6 +84,26 @@ public class MNAlarmPrefItemMaker {
         return convertView;
     }
 
+    public static View makeVolumeItem(Context context, ViewGroup parent, final MNAlarm alarm) {
+        View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_volume_item, parent, false);
+        final MNAlarmPrefVolumeItemViewHolder viewHolder = new MNAlarmPrefVolumeItemViewHolder(convertView);
+
+        viewHolder.volumeSeekBar.setMax(100);
+        viewHolder.volumeSeekBar.incrementProgressBy(1);
+        viewHolder.volumeSeekBar.setProgress(alarm.getAlarmVolume());
+        viewHolder.volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                alarm.setAlarmVolume(i);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+        return convertView;
+    }
+
     /**
      * ViewHolder
      */
@@ -104,11 +124,17 @@ public class MNAlarmPrefItemMaker {
     }
 
     static class MNAlarmPrefTimeItemViewHolder {
-        @InjectView(R.id.alarm_pref_list_time_item_picker)
-        net.simonvt.timepicker.TimePicker alarmTimePicker;
+        @InjectView(R.id.alarm_pref_list_time_item_picker) net.simonvt.timepicker.TimePicker alarmTimePicker;
 
         public MNAlarmPrefTimeItemViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
+    }
+
+    static class MNAlarmPrefVolumeItemViewHolder {
+        @InjectView(R.id.alarm_pref_list_volume_item_title_textview) TextView titleTextView;
+        @InjectView(R.id.alarm_pref_list_volume_item_seek_bar) SeekBar volumeSeekBar;
+
+        public MNAlarmPrefVolumeItemViewHolder(View view) { ButterKnife.inject(this, view); }
     }
 }

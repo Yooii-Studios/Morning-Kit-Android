@@ -32,7 +32,7 @@ public class MNAlarmWake {
             if (alarm != null) {
 //                MNAlarmWakeDialog.show(alarm, context);
                 MNAlarmWakeCustomDialog.show(alarm, context);
-                SKAlarmSoundPlayer.playAlarmSound(alarm.getAlarmSound(), context);
+                SKAlarmSoundPlayer.playAlarmSound(alarm.getAlarmSound(), alarm.getAlarmVolume(), context);
             } else {
                 throw new AssertionError("The target alarm must exist in the list.");
             }
