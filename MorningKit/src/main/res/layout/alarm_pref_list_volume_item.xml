@@ -46,6 +46,7 @@
             android:layout_marginLeft="@dimen/alarm_pref_list_volume_item_seekbar_margin_left"
             android:progressDrawable="@drawable/alarm_pref_volume_seek_bar_progress"
             android:thumb="@drawable/alarm_pref_volume_seek_bar_thumb"
+            android:thumbOffset="10dp"
             android:maxHeight="10dp" />
 
     </RelativeLayout>
