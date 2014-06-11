@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 
@@ -91,23 +90,17 @@ public class MNAlarmPrefItemMaker {
 
         viewHolder.volumeSeekBar.setMax(100);
         viewHolder.volumeSeekBar.incrementProgressBy(1);
+        viewHolder.volumeSeekBar.setProgress(alarm.getAlarmVolume());
         viewHolder.volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                MNLog.now("onProgressChanged: " + i);
+                alarm.setAlarmVolume(i);
             }
-
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
+            public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
-
         return convertView;
     }
 
