@@ -60,6 +60,9 @@
 
             <!-- Volume Item -->
     <dimen name="alarm_pref_list_volume_item_seekbar_margin_left">40dp</dimen>
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_size">20dp</dimen>
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_stroke_size">0.5dp</dimen>
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_offset">10dp</dimen>
 
         <!-- Alarm Custom Dialog -->
     <dimen name="alarm_custom_dialog_label_font_size">25sp</dimen>

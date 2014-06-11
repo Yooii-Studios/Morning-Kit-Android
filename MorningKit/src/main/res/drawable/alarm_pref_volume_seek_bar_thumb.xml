@@ -6,11 +6,11 @@
         android:color="@color/white"/>
 
     <size
-        android:height="20dp"
-        android:width="20dp" />
+        android:height="@dimen/alarm_pref_list_volume_item_seekbar_thumb_size"
+        android:width="@dimen/alarm_pref_list_volume_item_seekbar_thumb_size" />
 
     <stroke
-        android:width="0.5dp"
+        android:width="@dimen/alarm_pref_list_volume_item_seekbar_thumb_stroke_size"
         android:color="@color/pastel_green_sub_font_color"/>
 
 </shape>
