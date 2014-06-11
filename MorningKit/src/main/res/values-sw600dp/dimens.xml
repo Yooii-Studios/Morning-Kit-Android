@@ -98,7 +98,7 @@
     <dimen name="panel_detail_padding_inner">7dp</dimen>                <!--Done-->
     <dimen name="panel_detail_bigger_padding">28dp</dimen>              <!--Done-->
     <dimen name="panel_detail_bigger_padding_inner">14dp</dimen>        <!--Done-->
-    <dimen name="panel_detail_check_image_button_size">29.4dp</dimen>   <!--Done-->
+    <dimen name="panel_detail_check_image_button_size">35dp</dimen>     <!--Done-->
     <dimen name="panel_detail_remove_all_button_size">35dp</dimen>      <!--Done-->
     <dimen name="panel_detail_remove_all_button_padding">42dp</dimen>   <!--Done-->
     <dimen name="panel_detail_default_font_size">23.8sp</dimen>         <!--Done-->
