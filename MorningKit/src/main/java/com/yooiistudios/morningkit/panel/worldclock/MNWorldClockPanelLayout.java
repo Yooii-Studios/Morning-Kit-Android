@@ -161,6 +161,16 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
                 getResources().getDimension(R.dimen.panel_weather_city_name_local_time_text_size));
         analogClockLayout.addView(analogCityNameTextView);
 
+        // 초기에 테마가 적용되지 않는 문제 때문에 초기 1회 테마 세팅함
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
+        Context applicationContext = getContext().getApplicationContext();
+        int subFontColor = MNMainColors.getSubFontColor(currentThemeType, applicationContext);
+
+        analogAmpmTextView.setTextColor(subFontColor);
+        analogDayDifferenceTextView.setTextColor(subFontColor);
+        analogCityNameTextView.setTextColor(subFontColor);
+        analogClockView.applyTheme();
+
         // test
         if (DEBUG_UI) {
             analogClockLayout.setBackgroundColor(Color.BLUE);
@@ -228,6 +238,17 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         cityNameLayoutParams.addRule(BELOW, digitalDayDifferenceTextView.getId());
         digitalCityNameTextView.setLayoutParams(cityNameLayoutParams);
         digitalClockLayout.addView(digitalCityNameTextView);
+
+        // 초기에 테마가 적용되지 않는 문제 때문에 초기 1회 테마 세팅함
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
+        Context applicationContext = getContext().getApplicationContext();
+        int subFontColor = MNMainColors.getSubFontColor(currentThemeType, applicationContext);
+        int mainFontColor = MNMainColors.getMainFontColor(currentThemeType, applicationContext);
+
+        digitalAmpmTextView.setTextColor(subFontColor);
+        digitalTimeTextView.setTextColor(mainFontColor);
+        digitalDayDifferenceTextView.setTextColor(subFontColor);
+        digitalCityNameTextView.setTextColor(subFontColor);
 
         // test
         if (DEBUG_UI) {
