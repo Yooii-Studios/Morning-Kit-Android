@@ -128,7 +128,9 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         getContentLayout().addView(analogAmpmTextView);
 
         // analog clock
-        int analogViewSize = DipToPixel.dpToPixel(getContext(), 60);
+        int analogViewSize = getResources().getDimensionPixelSize(
+                R.dimen.panel_world_clock_analog_clock_size);//DipToPixel.dpToPixel
+        // (getContext(), 60);
         analogClockView = new MNAnalogClockView(getContext());
         analogClockView.setId(9173751);
         LayoutParams analogViewParams = new LayoutParams(analogViewSize, analogViewSize);
@@ -206,7 +208,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         digitalTimeTextView.setGravity(Gravity.BOTTOM);
         LayoutParams timeLayoutParms = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         digitalTimeTextView.setLayoutParams(timeLayoutParms);
-        digitalTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, DipToPixel.dpToPixel(getContext(), 40));
+        digitalTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_world_clock_digital_time_text_size));
         digitalTimeLayout.addView(digitalTimeTextView);
 
         // ampm
@@ -217,6 +220,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         ampmLayoutParms.addRule(RIGHT_OF, digitalTimeTextView.getId());
         ampmLayoutParms.leftMargin = getResources().getDimensionPixelOffset(R.dimen.margin_inner);
         digitalAmpmTextView.setLayoutParams(ampmLayoutParms);
+        digitalAmpmTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_world_clock_digital_text_size));
         digitalTimeLayout.addView(digitalAmpmTextView);
 
         // day differences
@@ -227,6 +232,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         dayDiffLayoutParams.addRule(CENTER_HORIZONTAL);
         dayDiffLayoutParams.addRule(BELOW, digitalTimeLayout.getId());
         digitalDayDifferenceTextView.setLayoutParams(dayDiffLayoutParams);
+        digitalDayDifferenceTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_world_clock_digital_text_size));
         digitalClockLayout.addView(digitalDayDifferenceTextView);
 
         // city name
@@ -237,6 +244,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         cityNameLayoutParams.addRule(CENTER_HORIZONTAL);
         cityNameLayoutParams.addRule(BELOW, digitalDayDifferenceTextView.getId());
         digitalCityNameTextView.setLayoutParams(cityNameLayoutParams);
+        digitalCityNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_world_clock_digital_text_size));
         digitalClockLayout.addView(digitalCityNameTextView);
 
         // 초기에 테마가 적용되지 않는 문제 때문에 초기 1회 테마 세팅함
