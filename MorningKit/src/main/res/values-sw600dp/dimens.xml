@@ -112,68 +112,71 @@
     <dimen name="panel_weather_condition_image_size">79.8dp</dimen>             <!--Done-->
 
     <!-- World Clock -->
+    <!-- Main -->
+    <dimen name="panel_world_clock_digital_text_size">19.6sp</dimen>            <!--Done-->
+    <dimen name="panel_world_clock_analog_clock_size">84dp</dimen>              <!--Done-->
     <!-- Detail -->
-    <dimen name="panel_world_clock_detail_magnifier_size">18dp</dimen>
-    <dimen name="panel_world_clock_detail_edit_text_height">35dp</dimen>
-    <dimen name="panel_world_clock_detail_edit_text_font_size">17sp</dimen>
-    <dimen name="panel_world_clock_detail_checkbox_font_size">15sp</dimen>
-    <dimen name="panel_world_clock_detail_font_size">17sp</dimen>
+    <dimen name="panel_world_clock_detail_magnifier_size">25.2dp</dimen>        <!--Done-->
+    <dimen name="panel_world_clock_detail_edit_text_height">49dp</dimen>        <!--Done-->
+    <dimen name="panel_world_clock_detail_edit_text_font_size">23.8sp</dimen>   <!--Done-->
+    <dimen name="panel_world_clock_detail_checkbox_font_size">21sp</dimen>      <!--Done-->
+    <dimen name="panel_world_clock_detail_font_size">23.8sp</dimen>             <!--Done-->
 
-    <dimen name="panel_world_clock_detail_list_item_main_font_size">22sp</dimen>
-    <dimen name="panel_world_clock_detail_list_item_sub_font_size">11sp</dimen>
+    <dimen name="panel_world_clock_detail_list_item_main_font_size">30.8sp</dimen>  <!--Done-->
+    <dimen name="panel_world_clock_detail_list_item_sub_font_size">15.4sp</dimen>   <!--Done-->
 
     <!-- Flickr -->
     <dimen name="panel_flickr_image_view_height">180dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
 
     <!-- Calendar -->
-    <dimen name="panel_calendar_item_time_textview_width">55dp</dimen>
-    <dimen name="panel_calendar_item_textview_font_size">10sp</dimen>
-    <dimen name="panel_calendar_item_divider_textview_font_size">7sp</dimen>
-    <dimen name="panel_calendar_item_margin_inner">2dp</dimen>
-    <dimen name="panel_calendar_item_margin_outer">4dp</dimen>
+    <dimen name="panel_calendar_item_time_textview_width">77dp</dimen>          <!--Done-->
+    <dimen name="panel_calendar_item_textview_font_size">14sp</dimen>           <!--Done-->
+    <dimen name="panel_calendar_item_divider_textview_font_size">9.8sp</dimen>  <!--Done-->
+    <dimen name="panel_calendar_item_margin_inner">2.8dp</dimen>                <!--Done-->
+    <dimen name="panel_calendar_item_margin_outer">5.6dp</dimen>                <!--Done-->
     <!-- Detail -->
-    <dimen name="panel_calendar_detail_list_view_height">200dp</dimen>
-    <dimen name="panel_calendar_detail_no_events_today_top_margin">15dp</dimen>
-    <dimen name="panel_calendar_detail_no_events_today_left_margin">20dp</dimen>
-    <dimen name="panel_calendar_detail_item_time_layout_width">90dp</dimen>
-    <dimen name="panel_calendar_detail_item_time_textview_width">45dp</dimen>
-    <dimen name="panel_calendar_detail_item_textview_font_size">14sp</dimen>
-    <dimen name="panel_calendar_detail_item_ampm_textview_font_size">8sp</dimen>
-    <dimen name="panel_calendar_detail_item_ampm_rounded_corner_radius">17dp</dimen>
-    <dimen name="panel_calendar_detail_item_textview_padding">10dp</dimen>
-    <dimen name="panel_calendar_detail_item_indicator_textview_font_size">15sp</dimen>
-    <dimen name="panel_calendar_detail_select_calendars_top_margin">40dp</dimen>
-    <dimen name="panel_calendar_detail_select_calendars_right_margin">7dp</dimen>
-    <dimen name="panel_calendar_detail_select_calendars_icon_size">40dp</dimen>
-    <dimen name="panel_calendar_detail_select_calendars_font_size">20sp</dimen>
+    <dimen name="panel_calendar_detail_list_view_height">280dp</dimen>                  <!--Done-->
+    <dimen name="panel_calendar_detail_no_events_today_top_margin">21dp</dimen>         <!--Done-->
+    <dimen name="panel_calendar_detail_no_events_today_left_margin">28dp</dimen>        <!--Done-->
+    <dimen name="panel_calendar_detail_item_time_layout_width">126dp</dimen>            <!--Done-->
+    <dimen name="panel_calendar_detail_item_time_textview_width">63dp</dimen>           <!--Done-->
+    <dimen name="panel_calendar_detail_item_textview_font_size">19.6sp</dimen>          <!--Done-->
+    <dimen name="panel_calendar_detail_item_ampm_textview_font_size">11.2sp</dimen>     <!--Done-->
+    <dimen name="panel_calendar_detail_item_ampm_rounded_corner_radius">23.8dp</dimen>  <!--Done-->
+    <dimen name="panel_calendar_detail_item_textview_padding">14dp</dimen>              <!--Done-->
+    <dimen name="panel_calendar_detail_item_indicator_textview_font_size">21sp</dimen>  <!--Done-->
+    <dimen name="panel_calendar_detail_select_calendars_top_margin">56dp</dimen>        <!--Done-->
+    <dimen name="panel_calendar_detail_select_calendars_right_margin">9.8dp</dimen>     <!--Done-->
+    <dimen name="panel_calendar_detail_select_calendars_icon_size">56dp</dimen>         <!--Done-->
+    <dimen name="panel_calendar_detail_select_calendars_font_size">28sp</dimen>         <!--Done-->
 
     <!-- Exchange Rates -->
     <!-- Main -->
-    <dimen name="panel_exchange_rates_flag_width">55dp</dimen>
-    <dimen name="panel_exchange_rates_flag_height">36dp</dimen>
-    <dimen name="panel_exchange_rates_main_font_size">15sp</dimen>
-    <dimen name="panel_exchange_rates_sub_font_size">12sp</dimen>
-    <dimen name="panel_exchange_rates_minimum_font_size">9sp</dimen>
+    <dimen name="panel_exchange_rates_flag_width">77dp</dimen>          <!--Done-->
+    <dimen name="panel_exchange_rates_flag_height">50.4dp</dimen>       <!--Done-->
+    <dimen name="panel_exchange_rates_main_font_size">21sp</dimen>      <!--Done-->
+    <dimen name="panel_exchange_rates_sub_font_size">16.8sp</dimen>     <!--Done-->
+    <dimen name="panel_exchange_rates_minimum_font_size">12.6sp</dimen> <!--Done-->
 
     <!-- Detail -->
-    <dimen name="panel_exchange_rates_detail_info_height">56dp</dimen>
-    <dimen name="panel_exchange_rates_detail_flag_width">50dp</dimen>
-    <dimen name="panel_exchange_rates_detail_flag_height">30dp</dimen>
-    <dimen name="panel_exchange_rates_detail_swap_image_size">30dp</dimen>
-    <dimen name="panel_exchange_rates_detail_currency_code_text_size">17sp</dimen>
-    <dimen name="panel_exchange_rates_detail_edit_text_size">15sp</dimen>
+    <dimen name="panel_exchange_rates_detail_info_height">78.4dp</dimen>            <!--Done-->
+    <dimen name="panel_exchange_rates_detail_flag_width">70dp</dimen>               <!--Done-->
+    <dimen name="panel_exchange_rates_detail_flag_height">42dp</dimen>              <!--Done-->
+    <dimen name="panel_exchange_rates_detail_swap_image_size">42dp</dimen>          <!--Done-->
+    <dimen name="panel_exchange_rates_detail_currency_code_text_size">23.8sp</dimen><!--Done-->
+    <dimen name="panel_exchange_rates_detail_edit_text_size">21sp</dimen>           <!--Done-->
 
     <!-- Quotes -->
     <!-- Main -->
-    <dimen name="panel_quotes_padding">13dp</dimen>
-    <dimen name="panel_quotes_default_font_size_port">15sp</dimen>
-    <dimen name="panel_quotes_default_font_size_land">16sp</dimen>
+    <dimen name="panel_quotes_padding">18.2dp</dimen>                   <!--Done-->
+    <dimen name="panel_quotes_default_font_size_port">21sp</dimen>      <!--Done-->
+    <dimen name="panel_quotes_default_font_size_land">22.4sp</dimen>    <!--Done-->
     <!-- Detail -->
-    <dimen name="panel_quotes_detail_quote_text_size">18sp</dimen>
-    <dimen name="panel_quotes_detail_language_text_size">17sp</dimen>
-    <dimen name="panel_quotes_detail_padding">20dp</dimen>
-    <dimen name="panel_quotes_detail_text_padding">25dp</dimen>
-    <dimen name="panel_quotes_detail_rounded_corner_radius">15dp</dimen>
+    <dimen name="panel_quotes_detail_quote_text_size">25.2sp</dimen>        <!--Done-->
+    <dimen name="panel_quotes_detail_language_text_size">23.8sp</dimen>     <!--Done-->
+    <dimen name="panel_quotes_detail_padding">28dp</dimen>                  <!--Done-->
+    <dimen name="panel_quotes_detail_text_padding">35dp</dimen>             <!--Done-->
+    <dimen name="panel_quotes_detail_rounded_corner_radius">21dp</dimen>    <!--Done-->
 
     <!-- Date -->
     <dimen name="panel_date_month_text_size">22.4sp</dimen>             <!--Done-->
@@ -188,21 +191,21 @@
 
     <!-- Photo Album -->
     <!-- Detail -->
-    <dimen name="panel_photo_album_detail_load_icon_size">30dp</dimen>
-    <dimen name="panel_photo_album_detail_load_text_size">25sp</dimen>
-    <dimen name="panel_photo_album_detail_preview_width">330dp</dimen>
-    <dimen name="panel_photo_album_detail_preview_height">240dp</dimen>
-    <dimen name="panel_photo_album_detail_preview_unavailable_size">120dp</dimen>
-    <dimen name="panel_photo_album_detail_row_height">45dp</dimen>
-    <dimen name="panel_photo_album_dropdown_minHeight">37dp</dimen>
-    <dimen name="panel_photo_album_dialog_refresh_vertical_padding">40dp</dimen>
-    <dimen name="panel_photo_album_dialog_refresh_item_horizontal_margin">8dp</dimen>
-    <dimen name="panel_photo_album_dialog_refresh_textSize">17sp</dimen>
+    <dimen name="panel_photo_album_detail_load_icon_size">42dp</dimen>                      <!--Done-->
+    <dimen name="panel_photo_album_detail_load_text_size">35sp</dimen>                      <!--Done-->
+    <dimen name="panel_photo_album_detail_preview_width">300dp</dimen>                      <!--Done-->
+    <dimen name="panel_photo_album_detail_preview_height">220dp</dimen>                     <!--Done-->
+    <dimen name="panel_photo_album_detail_preview_unavailable_size">168dp</dimen>           <!--Done-->
+    <dimen name="panel_photo_album_detail_row_height">63dp</dimen>                          <!--Done-->
+    <dimen name="panel_photo_album_dropdown_minHeight">51.8dp</dimen>                       <!--Done-->
+    <dimen name="panel_photo_album_dialog_refresh_vertical_padding">56dp</dimen>            <!--Done-->
+    <dimen name="panel_photo_album_dialog_refresh_item_horizontal_margin">11.2dp</dimen>    <!--Done-->
+    <dimen name="panel_photo_album_dialog_refresh_textSize">23.8sp</dimen>                  <!--Done-->
 
     <!-- Date Countdown -->
-    <dimen name="panel_date_countdown_title_font_size">16sp</dimen>
-    <dimen name="panel_date_countdown_count_font_size">30sp</dimen>
-    <dimen name="panel_date_countdown_date_font_size">16sp</dimen>
+    <dimen name="panel_date_countdown_title_font_size">22.4sp</dimen>   <!--Done-->
+    <dimen name="panel_date_countdown_count_font_size">42sp</dimen>     <!--Done-->
+    <dimen name="panel_date_countdown_date_font_size">22.4sp</dimen>    <!--Done-->
 
     <!-- Setting -->
     <dimen name="setting_actionbar_title_font_size">23sp</dimen>    <!--Done-->
