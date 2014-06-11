@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 
 import java.util.Calendar;
 
@@ -61,8 +59,6 @@ public class MNAlarmPrefItemMaker {
         convertView.setTag(viewHolder);
 
         viewHolder.titleTextView.setText(R.string.alarm_wake_snooze);
-        viewHolder.titleTextView.setTextColor(MNSettingColors.getMainFontColor(
-                MNTheme.getCurrentThemeType(context.getApplicationContext())));
 
         if (alarm.isSnoozeOn()) {
             viewHolder.snoozeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);

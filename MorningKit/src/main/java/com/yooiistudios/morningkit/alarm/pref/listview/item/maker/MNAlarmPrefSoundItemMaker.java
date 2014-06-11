@@ -1,13 +1,6 @@
 package com.yooiistudios.morningkit.alarm.pref.listview.item.maker;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +8,6 @@ import android.view.ViewGroup;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.stevenkim.alarmsound.OnAlarmSoundClickListener;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundDialog;
 
@@ -40,12 +30,9 @@ public class MNAlarmPrefSoundItemMaker {
         SoundItemViewHolder viewHolder = new SoundItemViewHolder(convertView);
         convertView.setTag(viewHolder);
 
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context.getApplicationContext());
         viewHolder.titleTextView.setText(R.string.alarm_pref_sound_type);
-        viewHolder.titleTextView.setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
         viewHolder.detailTextView.setText(alarm.getAlarmSound().getSoundTitle());
         viewHolder.detailTextView.setSelected(true);
-        viewHolder.detailTextView.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
 
         // ClickListener
         convertView.setOnClickListener(new View.OnClickListener() {
