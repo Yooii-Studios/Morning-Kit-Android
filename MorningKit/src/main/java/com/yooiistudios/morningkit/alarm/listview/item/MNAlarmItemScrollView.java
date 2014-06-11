@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.alarm.listview.item;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -12,7 +11,6 @@ import android.widget.ListView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 
 import java.util.ArrayList;
@@ -172,7 +170,7 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
                             activeFeature = 0;
                             activeContainerType = MNHorizontalScrollViewContainerType.LEFT;
                         }
-                        MNLog.i(TAG, "dragged more than 30% : should remove");
+//                        MNLog.i(TAG, "dragged more than 30% : should remove");
 
                         // mActiveFeature를 구하는 부분이 잘 안되어서 그냥 방향을 정해줌.
 //						int scrollX = getScrollX();
@@ -258,8 +256,6 @@ public class MNAlarmItemScrollView extends HorizontalScrollView {
 
         if (destinationContainerType != activeContainerType) {
             destinationContainerType = activeContainerType;
-
-            MNLog.i(TAG, "onScrollChanged: " + destinationContainerType.toString());
             MNAlarmScrollViewBusProvider.getInstance().post((alarmView.getTag()));
         }
     }
