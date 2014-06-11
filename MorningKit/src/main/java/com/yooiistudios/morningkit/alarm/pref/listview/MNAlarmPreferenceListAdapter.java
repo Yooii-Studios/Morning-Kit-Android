@@ -56,8 +56,10 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
                 convertView = MNAlarmPrefItemMaker.makeSnoozeItem(context, parent, alarm);
                 break;
             case TIME:
-                convertView = MNAlarmPrefItemMaker.makeTimeItem(context, parent, alarm, alarmPreferenceType);
+                convertView = MNAlarmPrefItemMaker.makeTimeItem(context, parent, alarm);
                 break;
+            case VOLUME:
+                convertView = MNAlarmPrefItemMaker.makeVolumeItem(context, parent, alarm);
         }
         convertView.setBackgroundColor(Color.WHITE);
         return convertView;

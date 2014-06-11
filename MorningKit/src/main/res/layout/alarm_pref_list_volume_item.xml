@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
-            android:text="LabelLabel"
+            android:text="@string/alarm_pref_volume"
             android:textColor="@color/pastel_green_sub_font_color"
             android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
             android:layout_centerInParent="true"/>
@@ -43,8 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/alarm_pref_list_volume_item_title_textview"
-            android:layout_marginLeft="@dimen/alarm_pref_list_volume_item_seekbar_margin_left"/>
-
+            android:layout_marginLeft="@dimen/alarm_pref_list_volume_item_seekbar_margin_left"
+            android:progressDrawable="@drawable/alarm_pref_volume_seek_bar_progress"
+            android:thumb="@drawable/alarm_pref_volume_seek_bar_thumb"
+            android:maxHeight="10dp" />
 
     </RelativeLayout>
 </RelativeLayout>
