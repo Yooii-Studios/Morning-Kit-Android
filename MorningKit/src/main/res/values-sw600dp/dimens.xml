@@ -113,7 +113,8 @@
 
     <!-- World Clock -->
     <!-- Main -->
-    <dimen name="panel_world_clock_digital_text_size">19.6sp</dimen>            <!--Done-->
+    <dimen name="panel_world_clock_digital_time_text_size">48sp</dimen>         <!--Done-->
+    <dimen name="panel_world_clock_digital_text_size">18sp</dimen>              <!--Done-->
     <dimen name="panel_world_clock_analog_clock_size">84dp</dimen>              <!--Done-->
     <!-- Detail -->
     <dimen name="panel_world_clock_detail_magnifier_size">25.2dp</dimen>        <!--Done-->
