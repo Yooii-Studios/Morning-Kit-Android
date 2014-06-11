@@ -175,36 +175,39 @@ public class MNAlarmWakeCustomDialog {
         @Override
         public void handleMessage(Message msg) {
             MNLog.i("MNAlarmWakeDialogHandler", "alarmId: " + msg.what);
+            MNLog.i("MNAlarmWakeDialogHandler", "(AlertDialog) msg.obj: " + msg.obj);
 
             // get values
             int alarmId = msg.what;
             AlertDialog wakeDialog = (AlertDialog) msg.obj;
 
-            Context context = wakeDialog.getContext().getApplicationContext();
+            if (wakeDialog != null) {
+                Context context = wakeDialog.getContext().getApplicationContext();
 
-            // clear animation
-            ImageView alarmImageView =
-                    (ImageView) wakeDialog.findViewById(R.id.alarm_wake_custom_dialog_image_view);
-            alarmImageView.clearAnimation();
-            wakeDialog.dismiss();
+                // clear animation
+                ImageView alarmImageView =
+                        (ImageView) wakeDialog.findViewById(R.id.alarm_wake_custom_dialog_image_view);
+                alarmImageView.clearAnimation();
+                wakeDialog.dismiss();
 
-            // stop alarm sound
-            SKAlarmSoundPlayer.stop();
+                // stop alarm sound
+                SKAlarmSoundPlayer.stop();
 
-            // manipulate target alarm
-            MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarmId, context);
-            targetAlarm.stopAlarm(context);
-            if (targetAlarm.isRepeatOn()) {
-                targetAlarm.startAlarm(context);
+                // manipulate target alarm
+                MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarmId, context);
+                targetAlarm.stopAlarm(context);
+                if (targetAlarm.isRepeatOn()) {
+                    targetAlarm.startAlarm(context);
+                }
+
+                // save alarm
+                try {
+                    MNAlarmListManager.saveAlarmList(context);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                MNAlarmScrollViewBusProvider.getInstance().post(context);
             }
-
-            // save alarm
-            try {
-                MNAlarmListManager.saveAlarmList(context);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            MNAlarmScrollViewBusProvider.getInstance().post(context);
         }
     }
 }
