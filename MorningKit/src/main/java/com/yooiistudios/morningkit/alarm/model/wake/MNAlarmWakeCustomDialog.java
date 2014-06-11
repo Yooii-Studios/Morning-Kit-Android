@@ -93,6 +93,9 @@ public class MNAlarmWakeCustomDialog {
             alarmWakeCustomView.dismissTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    // 5분 후 자동으로 꺼지는 핸들러 취소
+                    alarmWakeDialogHandler.removeMessages(alarm.getAlarmId());
+
                     wakeDialog.dismiss();
                     alarmWakeCustomView.alarmImageView.clearAnimation();
                     SKAlarmSoundPlayer.stop();
@@ -117,6 +120,9 @@ public class MNAlarmWakeCustomDialog {
                 alarmWakeCustomView.snoozeTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        // 5분 후 자동으로 꺼지는 핸들러 취소
+                        alarmWakeDialogHandler.removeMessages(alarm.getAlarmId());
+
                         wakeDialog.dismiss();
                         alarmWakeCustomView.alarmImageView.clearAnimation();
                         SKAlarmSoundPlayer.stop();
@@ -173,6 +179,7 @@ public class MNAlarmWakeCustomDialog {
             // get values
             int alarmId = msg.what;
             AlertDialog wakeDialog = (AlertDialog) msg.obj;
+
             Context context = wakeDialog.getContext().getApplicationContext();
 
             // clear animation
