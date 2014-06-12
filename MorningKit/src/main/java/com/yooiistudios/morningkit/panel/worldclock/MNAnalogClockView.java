@@ -38,6 +38,8 @@ public class MNAnalogClockView extends RelativeLayout {
     private static final int MINUTE_TO_HOUR_DEGREE = 12;
     private static final int HOUR_TO_HOUR_DEGREE = 30;
 
+    private int previousHourAndgle = 0;
+
     private ImageView clockBaseImageView;
     private ImageView hourHandImageView;
     private ImageView minuteHandImageView;
@@ -104,33 +106,34 @@ public class MNAnalogClockView extends RelativeLayout {
         int newMinuteAngle = minute * DEGREE_MINUTE;
         int newSecondAngle = second * DEGREE_MINUTE;
 
-        if (isFirstTick) {
-            checkAmPm(hour);
-            isFirstTick = false;
-            rotate(hourHandImageView, 0, newHourAngle);
-            rotate(minuteHandImageView, 0, newMinuteAngle);
-            rotate(secondHandImageView, 0, newSecondAngle);
-
-            applyTheme();
-        } else {
-            if (minute == 0 && second == 0) {
-                rotate(hourHandImageView, newHourAngle - DEGREE_MINUTE, newHourAngle);
-            }
-            if (second == 0) {
-                rotate(minuteHandImageView, newMinuteAngle - DEGREE_MINUTE, newMinuteAngle);
-            }
-            rotate(secondHandImageView, newSecondAngle - DEGREE_MINUTE, newSecondAngle);
-        }
-
-        // test: 리소스가 제대로 교체되는지
-//        isTimeAm = !isTimeAm;
-//        applyTheme();
-
         // when hour changed - check art resources(clock base for AM/PM)
         if (minute == 0 && second == 0) {
             checkAmPm(hour);
             applyTheme();
         }
+
+        if (isFirstTick) {
+            checkAmPm(hour);
+            applyTheme();
+
+            rotate(hourHandImageView, newHourAngle, newHourAngle);
+            rotate(minuteHandImageView, newMinuteAngle, newMinuteAngle);
+            rotate(secondHandImageView, newSecondAngle, newSecondAngle);
+
+            isFirstTick = false;
+        } else {
+            if (minute == 0 && second == 0) {
+//                rotate(hourHandImageView, newHourAngle - DEGREE_MINUTE, newHourAngle);
+                rotate(hourHandImageView, previousHourAndgle, newHourAngle);
+            }
+            if (second == 0) {
+                // 수정: 시침도 1분마다 조금씩 움직이게 구현.
+                rotate(hourHandImageView, previousHourAndgle, newHourAngle);
+                rotate(minuteHandImageView, newMinuteAngle - DEGREE_MINUTE, newMinuteAngle);
+            }
+            rotate(secondHandImageView, newSecondAngle - DEGREE_MINUTE, newSecondAngle);
+        }
+        previousHourAndgle = newHourAngle;
     }
 
     private void checkAmPm(int hour) {
@@ -148,13 +151,11 @@ public class MNAnalogClockView extends RelativeLayout {
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
         // animation persist after it has been done
-//        anim.setFillEnabled(true);
-//        anim.setFillAfter(true);
-
-        int gap = Math.abs(toAngle - fromAngle);
+//        int gap = Math.abs(toAngle - fromAngle);
 
         // 최초 시계 설정시에는 애니메이션 없이, 그 이후에는 애니메이션 작용
-        if (gap != DEGREE_MINUTE) {
+//        if (gap != DEGREE_MINUTE) {
+        if (isFirstTick) {
             anim.setDuration(0);
         } else {
             anim.setDuration(OVERSHOOT_DURATION);
