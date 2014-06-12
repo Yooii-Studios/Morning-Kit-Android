@@ -482,6 +482,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         // Location Fail 메시지 보여주기
+        showCoverLayout(getResources().getString(R.string.weather_choose_your_city));
     }
 
     /**
@@ -490,7 +491,6 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
      */
     @Override
     public void onDisconnected() {
-        // Location Fail 메시지 보여주기
     }
 
     @Override
