@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
@@ -74,6 +75,8 @@ public class MNAlarmWakeCustomDialog {
                 Animation vibrateAnimation = AnimationUtils.loadAnimation(context.getApplicationContext(),
                         R.anim.alarm_vibrate);
                 if (vibrateAnimation != null) {
+                    alarmWakeCustomView.layout.setAnimationCacheEnabled(true);
+                    alarmWakeCustomView.layout.setDrawingCacheEnabled(true);
                     alarmWakeCustomView.alarmImageView.startAnimation(vibrateAnimation);
                 }
             }
@@ -146,18 +149,13 @@ public class MNAlarmWakeCustomDialog {
     }
 
     static class MNAlarmWakeCustomView {
-        @InjectView(R.id.alarm_wake_custom_dialog_image_view)
-        ImageView alarmImageView;
-        @InjectView(R.id.alarm_wake_custom_dialog_label_text_view)
-        TextView labelTextView;
-        @InjectView(R.id.alarm_wake_custom_dialog_time_text_view)
-        TextView timeTextView;
-        @InjectView(R.id.alarm_wake_custom_dialog_dismiss_textview)
-        TextView dismissTextView;
-        @InjectView(R.id.alarm_wake_custom_dialog_button_middle_divider)
-        View buttonMiddleDivider;
-        @InjectView(R.id.alarm_wake_custom_dialog_snooze_textview)
-        TextView snoozeTextView;
+        @InjectView(R.id.alarm_wake_custom_dialog_layout)                   RelativeLayout layout;
+        @InjectView(R.id.alarm_wake_custom_dialog_image_view)               ImageView alarmImageView;
+        @InjectView(R.id.alarm_wake_custom_dialog_label_text_view)          TextView labelTextView;
+        @InjectView(R.id.alarm_wake_custom_dialog_time_text_view)           TextView timeTextView;
+        @InjectView(R.id.alarm_wake_custom_dialog_dismiss_textview)         TextView dismissTextView;
+        @InjectView(R.id.alarm_wake_custom_dialog_button_middle_divider)    View buttonMiddleDivider;
+        @InjectView(R.id.alarm_wake_custom_dialog_snooze_textview)          TextView snoozeTextView;
 
         public MNAlarmWakeCustomView(View view) {
             ButterKnife.inject(this, view);
