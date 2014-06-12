@@ -20,7 +20,10 @@ public class MNReviewApp {
     public static void showReviewActivity(Context context) {
         Uri uri;
         if (MNStoreFragment.IS_STORE_FOR_NAVER) {
-            uri = (Uri.parse("http://nstore.naver.com/appstore/web/detail.nhn?productNo=1500436#"));
+            // 1500436# 은 여행의신(productNo)
+            // 출시전이면 originalProductId, 후면 productNo
+            // 모닝은 37676
+            uri = (Uri.parse("http://nstore.naver.com/appstore/web/detail.nhn?originalProductId=37676"));
         } else {
             uri = Uri.parse("market://details?id=" + context.getPackageName());
         }
