@@ -86,7 +86,7 @@ public class MNDatePanelLayout extends MNPanelLayout {
         final LayoutParams lunarCalendarLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         lunarCalendarLayoutParams.addRule(CENTER_VERTICAL);
         lunarCalendarLayoutParams.addRule(RIGHT_OF, calendarLayout.getId());
-        lunarCalendarLayoutParams.leftMargin = getResources().getDimensionPixelSize(R.dimen.panel_layout_padding);
+        lunarCalendarLayoutParams.leftMargin = getResources().getDimensionPixelSize(R.dimen.panel_date_margin_between_dates);
         lunarCalendarLayout.setLayoutParams(lunarCalendarLayoutParams);
         innerContentLayout.addView(lunarCalendarLayout);
 
@@ -243,7 +243,13 @@ public class MNDatePanelLayout extends MNPanelLayout {
                 if (lunarCalendarLayoutParams != null) {
                     lunarCalendarLayoutParams.leftMargin =
                             (int) ((getWidth() - lunarCalendarLayout.getWidth() - calendarLayout.getWidth()) / 3 * 0.8);
-                    requestLayout();
+//                    requestLayout();
+
+//                    lunarCalendarLayout.requestLayout();
+//                    lunarCalendarLayout.invalidate();
+
+                    innerContentLayout.requestLayout();
+                    innerContentLayout.invalidate();
                 }
             }
         });
