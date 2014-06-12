@@ -51,6 +51,10 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     @Getter private SKIabManager iabManager;
 
+
+    private boolean isReviewScreenCalled = false;
+    private int resumeCount = 0;
+
     @InjectView(R.id.unlock_container)              RelativeLayout          containerLayout;
     @InjectView(R.id.unlock_listview_layout)        RelativeLayout          listViewLayout;
     @InjectView(R.id.unlock_description_textview)   TextView                descriptionTextView;
@@ -145,6 +149,17 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (isReviewScreenCalled) {
+            resumeCount ++;
+            if (resumeCount == 2) {
+                onAfterReviewItemClicked();
+            }
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (iabManager != null) {
             if (iabManager.getHelper() == null) return;
@@ -192,7 +207,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
             }
             // 리뷰 달기
             if (requestCode == MNReviewApp.REQ_REVIEW_APP) {
-                onAfterReviewItemClicked();
+                isReviewScreenCalled = true;
             }
         }
     }

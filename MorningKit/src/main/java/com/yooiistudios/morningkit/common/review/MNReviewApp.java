@@ -28,6 +28,7 @@ public class MNReviewApp {
             uri = Uri.parse("market://details?id=" + context.getPackageName());
         }
         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+//        goToMarket.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         try {
             ((Activity)context).startActivityForResult(goToMarket, REQ_REVIEW_APP);
 //            context.startActivity(goToMarket);
