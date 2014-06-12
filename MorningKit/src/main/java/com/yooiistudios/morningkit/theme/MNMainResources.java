@@ -385,7 +385,7 @@ public class MNMainResources {
                 if (MNTranslucentFont.getCurrentFontType(context) == MNTranslucentFontType.WHITE) {
                     return R.drawable.alarm_plus_classic_gray;
                 } else {
-                    return R.drawable.alarm_plus_translucent_black;
+                    return R.drawable.alarm_plus_classic_white;
                 }
 
             case WATER_LILY:
