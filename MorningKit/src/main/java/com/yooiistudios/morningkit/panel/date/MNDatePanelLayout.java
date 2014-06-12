@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.panel.date;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -233,7 +234,7 @@ public class MNDatePanelLayout extends MNPanelLayout {
     protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        post(new Runnable() {
+        lunarCalendarLayout.post(new Runnable() {
             @Override
             public void run() {
                 final LayoutParams lunarCalendarLayoutParams
@@ -241,12 +242,20 @@ public class MNDatePanelLayout extends MNPanelLayout {
 
                 // 적당한 너비로 맞추어주자. 나중에 아티스트와 함께 다시 맞출 것.
                 if (lunarCalendarLayoutParams != null) {
-                    lunarCalendarLayoutParams.leftMargin =
-                            (int) ((getWidth() - lunarCalendarLayout.getWidth() - calendarLayout.getWidth()) / 3 * 0.8);
-//                    requestLayout();
+                    if (Build.VERSION.SDK_INT > 10) {
+                        lunarCalendarLayoutParams.leftMargin =
+                                (int) ((getWidth() - lunarCalendarLayout.getWidth() - calendarLayout.getWidth()) / 3 * 0.8);
+                        requestLayout();
+//                    invalidate();
 
 //                    lunarCalendarLayout.requestLayout();
 //                    lunarCalendarLayout.invalidate();
+
+                    } else {
+                        // 2.3.3 버전에서는 getWidth()를 제외한 값은 제대로 들어오지 않기에 적절히 조절해줌
+                        lunarCalendarLayoutParams.leftMargin = getWidth() / 11;
+                    }
+                    requestLayout();
 
                     innerContentLayout.requestLayout();
                     innerContentLayout.invalidate();
@@ -256,10 +265,10 @@ public class MNDatePanelLayout extends MNPanelLayout {
 
         // View.post 방식은 한박자 늦은 느낌이라 이것을 사용
         // 이것은 아예 제대로 안될 경우가 있다(갤노트 2에서)
-//        MNViewSizeMeasure.setViewSizeObserver(this, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+//        MNViewSizeMeasure.setViewSizeObserver(lunarCalendarLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
 //            @Override
 //            public void onLayoutLoad() {
-//                final LayoutParams lunarCalendarLayoutParams
+//                LayoutParams lunarCalendarLayoutParams
 //                        = (LayoutParams) lunarCalendarLayout.getLayoutParams();
 //
 //                // 적당한 너비로 맞추어주자. 나중에 아티스트와 함께 다시 맞출 것.
@@ -267,6 +276,13 @@ public class MNDatePanelLayout extends MNPanelLayout {
 //                    lunarCalendarLayoutParams.leftMargin =
 //                            (int) ((getWidth() - lunarCalendarLayout.getWidth() - calendarLayout.getWidth()) / 3 * 0.8);
 //                    requestLayout();
+//                    invalidate();
+//
+//                    lunarCalendarLayout.requestLayout();
+//                    lunarCalendarLayout.invalidate();
+//
+//                    innerContentLayout.requestLayout();
+//                    innerContentLayout.invalidate();
 //                }
 //            }
 //        });
