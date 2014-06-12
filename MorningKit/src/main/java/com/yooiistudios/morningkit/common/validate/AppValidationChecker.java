@@ -9,8 +9,8 @@ import android.widget.Toast;
 public class AppValidationChecker
 {
     private static final int VALIDATE_YEAR = 2014;
-    private static final int VALIDATE_MONTH = Calendar.JULY;
-    private static final int VALIDATE_DAY = 30;
+    private static final int VALIDATE_MONTH = Calendar.AUGUST;
+    private static final int VALIDATE_DAY = 15;
 
     private AppValidationChecker() { throw new AssertionError(); } // You must not create instance
 
