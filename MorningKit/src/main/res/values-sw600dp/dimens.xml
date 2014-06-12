@@ -49,29 +49,33 @@
     <dimen name="alarm_create_item_title_font_size">30.8sp</dimen>  <!--Done-->
 
         <!-- Alarm Preferences -->
-    <dimen name="alarm_pref_list_item_height">77dp</dimen> <!-- inner + margin_inner * 2  --> <!--Done-->
-    <dimen name="alarm_pref_list_item_title_textview_width">154dp</dimen>   <!--Done-->
+    <dimen name="alarm_pref_list_item_height">66dp</dimen>                  <!--Done--> <!-- inner + margin_inner * 2  -->
+    <dimen name="alarm_pref_list_item_title_textview_width">110dp</dimen>   <!--Done-->
     <dimen name="alarm_pref_list_item_padding">14dp</dimen>                 <!--Done-->
-    <dimen name="alarm_pref_list_item_textview_font_size">25.2sp</dimen>    <!--Done-->
-    <dimen name="alarm_pref_list_time_item_margin_bottom">49dp</dimen>      <!--Done-->
-    <dimen name="alarm_pref_list_time_divider_height">1.4dp</dimen>         <!--Done-->
+    <dimen name="alarm_pref_list_item_textview_font_size">20sp</dimen>      <!--Done-->
 
-            <!-- Repeat Dialog -->
-    <dimen name="alarm_pref_list_repeat_item_height">112dp</dimen>          <!--Done-->
-    <dimen name="alarm_pref_list_repeat_item_circle_size">45dp</dimen>      <!--Done-->
+            <!-- Time Item -->
+    <dimen name="alarm_pref_list_time_item_margin_top">20dp</dimen>         <!--Done-->
+    <dimen name="alarm_pref_list_time_item_margin_bottom">50dp</dimen>      <!--Done-->
+    <dimen name="alarm_pref_list_time_divider_height">1.4dp</dimen>         <!--Done-->
+    <dimen name="alarm_pref_list_time_left_right_padding">40dp</dimen>      <!--Done-->
+
+            <!-- Repeat Item -->
+    <dimen name="alarm_pref_list_repeat_item_height">96dp</dimen>           <!--Done-->
+    <dimen name="alarm_pref_list_repeat_item_circle_size">40dp</dimen>      <!--Done-->
 
             <!-- Label Dialog -->
-    <dimen name="alarm_pref_list_label_item_dialog_padding_button">7dp</dimen>              <!--Done-->
-    <dimen name="alarm_pref_list_label_item_dialog_font_size">25.2sp</dimen>                <!--Done-->
-    <dimen name="alarm_pref_list_label_item_dialog_button_size">42dp</dimen>                <!--Done-->
-    <dimen name="alarm_pref_list_label_item_dialog_edit_remove_button_padding">56dp</dimen> <!--Done-->
+    <dimen name="alarm_pref_list_label_item_dialog_padding_button">5dp</dimen>              <!--Done-->
+    <dimen name="alarm_pref_list_label_item_dialog_font_size">20sp</dimen>                  <!--Done-->
+    <dimen name="alarm_pref_list_label_item_dialog_button_size">30dp</dimen>                <!--Done-->
+    <dimen name="alarm_pref_list_label_item_dialog_edit_remove_button_padding">40dp</dimen> <!--Done-->
 
             <!-- Volume Item -->
-    <dimen name="alarm_pref_list_volume_item_seekbar_height">12.6dp</dimen>                 <!--Done-->
-    <dimen name="alarm_pref_list_volume_item_seekbar_margin_left">56dp</dimen>              <!--Done-->
-    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_size">30.8dp</dimen>             <!--Done-->
-    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_stroke_size">0.7dp</dimen>       <!--Done-->
-    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_offset">15.4dp</dimen>           <!--Done-->
+    <dimen name="alarm_pref_list_volume_item_seekbar_height">9dp</dimen>                <!--Done-->
+    <dimen name="alarm_pref_list_volume_item_seekbar_margin_left">90dp</dimen>          <!--Done-->
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_size">26dp</dimen>           <!--Done-->
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_stroke_size">0.7dp</dimen>   <!--Done-->
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_offset">13dp</dimen>         <!--Done-->
 
     <!-- Alarm Custom Dialog -->
     <dimen name="alarm_custom_dialog_label_font_size">35sp</dimen>              <!--Done-->
