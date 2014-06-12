@@ -7,8 +7,8 @@
     android:background="@color/white"
     android:clickable="false"
     android:focusable="false"
-    android:paddingLeft="@dimen/panel_cover_padding"
-    android:paddingRight="@dimen/panel_cover_padding"
+    android:paddingLeft="@dimen/alarm_pref_list_time_left_right_padding"
+    android:paddingRight="@dimen/alarm_pref_list_time_left_right_padding"
     android:orientation="vertical" >
 
     <TextView

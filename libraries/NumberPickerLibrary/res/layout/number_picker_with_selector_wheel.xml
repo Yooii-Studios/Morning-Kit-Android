@@ -22,6 +22,7 @@
     <view class="net.simonvt.numberpicker.NumberPicker$CustomEditText"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#797979"
+        android:textSize="@dimen/number_picker_text_size"
         android:id="@+id/np__numberpicker_input"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

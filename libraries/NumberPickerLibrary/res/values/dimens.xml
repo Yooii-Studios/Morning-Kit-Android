@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="internalMinWidth">64dp</dimen>
+    <dimen name="internalMaxHeight">200dp</dimen>
+    <dimen name="number_picker_text_size">17sp</dimen>
+</resources>

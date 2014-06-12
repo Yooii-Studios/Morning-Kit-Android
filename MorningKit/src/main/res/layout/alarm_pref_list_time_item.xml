@@ -8,10 +8,17 @@
     android:clickable="false"
     android:focusable="false" >
 
+    <View
+        android:id="@+id/alarm_pref_list_time_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/alarm_pref_list_time_item_margin_top"
+        android:background="@android:color/white"/>
+
     <net.simonvt.timepicker.TimePicker
         android:id="@+id/alarm_pref_list_time_item_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/alarm_pref_list_time_top_view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"/>
