@@ -46,8 +46,8 @@
         <item name="selectionDivider">@drawable/np_numberpicker_selection_divider_pastel_green</item>
         <item name="selectionDividerHeight">2dip</item>
         <item name="internalLayout">@layout/number_picker_with_selector_wheel</item>
-        <item name="internalMinWidth">64dip</item>
-        <item name="internalMaxHeight">200dip</item>
+        <item name="internalMinWidth">@dimen/internalMinWidth</item>
+        <item name="internalMaxHeight">@dimen/internalMaxHeight</item>
         <item name="virtualButtonPressedDrawable">@drawable/item_background_holo_dark</item>
     </style>
 
