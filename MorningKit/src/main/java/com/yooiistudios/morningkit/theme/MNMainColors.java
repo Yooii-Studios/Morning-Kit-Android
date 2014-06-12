@@ -164,7 +164,8 @@ public class MNMainColors {
                 return Color.parseColor("#918f8f");
 
             case MODERNITY_WHITE:
-                return Color.parseColor("#a5a5a5");
+//                return Color.parseColor("#a5a5a5");
+                return Color.parseColor("#767676");
 
             case SLATE_GRAY:
                 return Color.parseColor("#979797");
