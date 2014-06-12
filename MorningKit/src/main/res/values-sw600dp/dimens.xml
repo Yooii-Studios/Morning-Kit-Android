@@ -36,17 +36,17 @@
     <dimen name="alarm_create_item_plus_size">84dp</dimen>          <!--Done-->
     <dimen name="alarm_item_switch_size">84dp</dimen>               <!--Done-->
 
-    <dimen name="alarm_item_time_font_size">40.6sp</dimen>          <!--Done-->
+    <dimen name="alarm_item_time_font_size">38.6sp</dimen>          <!--Done-->
     <dimen name="alarm_item_ampm_font_size">23.8sp</dimen>          <!--Done-->
     <dimen name="alarm_item_repeat_font_size">19.6sp</dimen>        <!--Done-->
-    <dimen name="alarm_item_label_font_size">23.8sp</dimen>         <!--Done-->
+    <dimen name="alarm_item_label_font_size">21.8sp</dimen>         <!--Done-->
 
     <dimen name="alarm_item_time_margin_top">1.4dp</dimen>          <!--Done-->
     <dimen name="alarm_item_time_margin_left">15.4dp</dimen>        <!--Done-->
     <dimen name="alarm_item_ampm_margin_left">5.6dp</dimen>         <!--Done-->
     <dimen name="alarm_item_label_margin_bottom">9.8dp</dimen>      <!--Done-->
 
-    <dimen name="alarm_create_item_title_font_size">30.8sp</dimen>  <!--Done-->
+    <dimen name="alarm_create_item_title_font_size">26.8sp</dimen>  <!--Done-->
 
         <!-- Alarm Preferences -->
     <dimen name="alarm_pref_list_item_height">66dp</dimen>                  <!--Done--> <!-- inner + margin_inner * 2  -->
