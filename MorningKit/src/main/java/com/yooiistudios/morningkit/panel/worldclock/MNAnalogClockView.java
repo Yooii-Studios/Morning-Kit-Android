@@ -122,12 +122,8 @@ public class MNAnalogClockView extends RelativeLayout {
 
             isFirstTick = false;
         } else {
-            if (minute == 0 && second == 0) {
-//                rotate(hourHandImageView, newHourAngle - DEGREE_MINUTE, newHourAngle);
-                rotate(hourHandImageView, previousHourAndgle, newHourAngle);
-            }
             if (second == 0) {
-                // 수정: 시침도 1분마다 조금씩 움직이게 구현.
+                // 수정: 시침도 1분마다 조금씩 움직이게 구현
                 rotate(hourHandImageView, previousHourAndgle, newHourAngle);
                 rotate(minuteHandImageView, newMinuteAngle - DEGREE_MINUTE, newMinuteAngle);
             }

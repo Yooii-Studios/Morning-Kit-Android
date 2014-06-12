@@ -54,6 +54,12 @@ public class MNWorldClock {
         worldClockCalendar.setTimeZone(TimeZone.getTimeZone(offset));
     }
 
+      // 빠르게 시계가 잘 돌아가는지 테스트할 때 사용
+//    public void testTick() {
+//        worldClockCalendar.set(Calendar.SECOND, 0);
+//        worldClockCalendar.add(Calendar.MINUTE, 13);
+//    }
+
     public void setTimeZone(MNTimeZone timeZone) {
         // cityName
         if (timeZone.getSearchedLocalizedName()  != null) {
