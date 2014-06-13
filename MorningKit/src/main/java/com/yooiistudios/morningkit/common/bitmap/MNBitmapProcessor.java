@@ -130,6 +130,18 @@ public class MNBitmapProcessor {
                     croppedBitmap = Bitmap.createBitmap(bitmap, 0, (int) offset15PercentFromTop,
                             newBitmapSize.x, newBitmapSize.y);
                 } else {
+                    // 2014년 6월 13일 버그 발견. 아직 수정 못함. 아마 bitmap이 newBitmapSize보다 작은 경우가 아닐까 추정 중
+                    if (Math.abs(bitmap.getHeight() - newBitmapSize.y) + newBitmapSize.y > bitmap.getHeight()) {
+                        MNLog.now("위에서 15% + 높이가 넘칠 경우 중앙을 자름");
+                        MNLog.now("bitmap.getHeight() - newBitmapSize.y: " + (bitmap.getHeight() - newBitmapSize.y));
+                        MNLog.now("targetWidth: " + targetWidth);
+                        MNLog.now("targetHeight: " + targetHeight);
+                        MNLog.now("newBitmapSize.x: " + newBitmapSize.x);
+                        MNLog.now("newBitmapSize.y: " + newBitmapSize.y);
+                        MNLog.now("bitmap.getWidth(): " + bitmap.getWidth());
+                        MNLog.now("bitmap.getHeight(): " + bitmap.getHeight());
+                        return null;
+                    }
                     // 15%해서 넘어가버리는 경우는 중앙을 잘라서 보여주게 구현
                     croppedBitmap = Bitmap.createBitmap(bitmap,
                             0, Math.abs(bitmap.getHeight() - newBitmapSize.y) / 2,
