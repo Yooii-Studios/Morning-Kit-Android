@@ -306,4 +306,9 @@
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">Pastel Green</string>
 
+    <!-- Recommend -->
+    <string name="recommend_to_friends">Рекомендовать Утренний Kомплект друзьям</string>
+    <string name="recommend_title">Настоятельно рекомендуем!</string>
+    <string name="recommend_description">Просто нажмите кнопку и скачать :-)</string>
+
 </resources>

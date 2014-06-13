@@ -304,4 +304,9 @@
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">Pastel Green</string>
 
+    <!-- Recommend -->
+    <string name="recommend_to_friends">向朋友推薦早安工具</string>
+    <string name="recommend_title">強烈推薦！</string>
+    <string name="recommend_description">點擊下載 :-)</string>
+
 </resources>
