@@ -44,6 +44,7 @@ import com.yooiistudios.morningkit.theme.font.MNTranslucentFont;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -93,6 +94,14 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                     WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                     WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
                     WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        } else {
+            // 켜진 알람이 없을 경우에는 항상 알람이 제대로 동작함을 보장하기 위해서 켜진 알람들은 다시 켜주기
+            ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(getApplicationContext());
+            for (MNAlarm alarm : alarmList) {
+                if (alarm.isAlarmOn()) {
+                    alarm.startAlarmWithNoToast(getApplicationContext());
+                }
+            }
         }
 
         setContentView(R.layout.activity_main);
