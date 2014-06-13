@@ -256,7 +256,10 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         startLoadingAnimation();
 
         if (allAbsoluteImageFileList != null) {
-            if (displayHelper == null) {
+            if (displayHelper != null) {
+                displayHelper.stop();
+            }
+            else {
                 displayHelper =
                         new MNPhotoAlbumDisplayHelper(
                                 (Activity) getContext(),viewSwitcher,
@@ -279,7 +282,6 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                                     }
                                 });
             }
-            displayHelper.stop();
             startTimer(viewSwitcher.getWidth(), viewSwitcher.getHeight());
         }
     }
