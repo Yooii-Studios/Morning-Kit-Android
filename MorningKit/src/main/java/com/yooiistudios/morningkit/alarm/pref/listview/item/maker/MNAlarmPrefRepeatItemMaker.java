@@ -72,6 +72,18 @@ public class MNAlarmPrefRepeatItemMaker {
             public void onClick(View view) {
                 button.setSelected(!button.isSelected());
                 alarm.getAlarmRepeatList().set(index, button.isSelected());
+
+                // 하나라도 켜져 있으면 반복 알람이라고 설정해주기
+                if (alarm != null && alarm.getAlarmRepeatList() != null) {
+                    alarm.setRepeatOn(false);
+                    for (int i = 0; i < alarm.getAlarmRepeatList().size(); i++) {
+                        if (alarm.getAlarmRepeatList().get(i)) {
+                            alarm.setRepeatOn(true);
+                        }
+                    }
+                } else {
+                    throw new AssertionError("alarm must not be null!");
+                }
             }
         });
     }
