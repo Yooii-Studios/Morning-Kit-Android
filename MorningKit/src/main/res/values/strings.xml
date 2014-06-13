@@ -304,4 +304,9 @@
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">Pastel Green</string>
 
+    <!-- Recommend -->
+    <string name="recommend_to_friends">Recommend Morning Kit to your friends</string>
+    <string name="recommend_title">Strongly recommend!</string>
+    <string name="recommend_description">Just click and download :- )</string>
+
 </resources>

@@ -304,4 +304,9 @@
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">Pastel Green</string>
 
+    <!-- Recommend -->
+    <string name="recommend_to_friends">友達にこのアプリを薦める</string>
+    <string name="recommend_title">強くおススメめ！</string>
+    <string name="recommend_description">簡単にワンクリックでダウンロード！</string>
+
 </resources>
