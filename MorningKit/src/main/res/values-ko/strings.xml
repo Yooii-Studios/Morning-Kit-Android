@@ -302,7 +302,7 @@
     <string name="photo_album_load">Load</string>
 
     <!-- Theme -->
-    <string name="setting_theme_color_pastel_green">Pastel Green</string>
+    <string name="setting_theme_color_pastel_green">파스텔 그린</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">친구에게 추천하기</string>
