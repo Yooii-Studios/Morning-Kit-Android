@@ -199,6 +199,11 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             photoThemeImageView.setReadyForRecycle(true);
         }
 
+        // 새로 알람이 켜질 때 카메라 자원을 쓰고 있으면 crash가 나기에 보기에는 안좋아도 이렇게 처리.
+        if (cameraThemeView != null) {
+            cameraThemeView.setVisibility(View.INVISIBLE);
+        }
+
         // 액티비티가 pause될 경우 패널에서 필요한 처리 수행
         panelWindowLayout.onActivityPause();
 

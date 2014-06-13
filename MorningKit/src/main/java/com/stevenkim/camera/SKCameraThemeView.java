@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.os.Build;
-import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -33,7 +32,11 @@ public class SKCameraThemeView extends SurfaceView implements
 	int mCameraFacingInfo;
 	Context m_context;
 
-	public SKCameraThemeView(Context context, int cameraFacingInfo) {
+    private SKCameraThemeView(Context context) {
+        super(context);
+    }
+
+    public SKCameraThemeView(Context context, int cameraFacingInfo) {
 		super(context);
 		// SurfaceHolder.Callback 을 설정함으로써 Surface 가 생성/소멸되었음을 알 수 있습니다.
 		mHolder = getHolder();
@@ -173,4 +176,15 @@ public class SKCameraThemeView extends SurfaceView implements
 	public void setCameraFacingInfo(int cameraFacingInfo) {
 		mCameraFacingInfo = cameraFacingInfo;
 	}
+
+//    @Override
+//    protected void onWindowVisibilityChanged(int visibility) {
+//        super.onWindowVisibilityChanged(visibility);
+//        MNLog.i(TAG, "onWindowVisibilityChanged");
+//        if (mCamera != null) {
+//            mCamera.stopPreview();
+//            mCamera.release();
+//            mCamera = null;
+//        }
+//    }
 }
