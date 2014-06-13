@@ -103,7 +103,7 @@ public class SKAlarmManager {
 //        Log.i("SKAlarmManager", "alarmCalendar: " + dateFormat.format(calendar.getTime()));
 
         // 같은 날의 시간을 비교해서 시간이 더 앞이라면 1일을 더해주기
-        if (calendar.before(todayCalendar)) {
+        if (calendar.before(todayCalendar) || calendar.equals(todayCalendar)) {
 //            Log.i("SKAlarmManager", "plus 1 day");
             Calendar newCalendar = Calendar.getInstance();
             newCalendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY));
