@@ -55,6 +55,9 @@ public class MNInfoListAdapter extends BaseAdapter {
                 case CREDITS:
                     viewHolder.getTextView().setText(R.string.info_credit);
                     break;
+                case RECOMMEND:
+                    viewHolder.getTextView().setText(R.string.recommend_to_friends);
+                    break;
             }
 
             // theme
