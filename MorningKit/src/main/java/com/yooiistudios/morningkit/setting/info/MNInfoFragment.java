@@ -139,7 +139,7 @@ public class MNInfoFragment extends Fragment implements MNInfoItemClickListener 
                 }
                 String message = title + "\n" + getString(R.string.recommend_description) + "\n" + link;
                 intent.putExtra(Intent.EXTRA_TEXT, message);
-                startActivity(Intent.createChooser(intent, title));
+                getActivity().startActivity(Intent.createChooser(intent, title));
                 break;
         }
     }
