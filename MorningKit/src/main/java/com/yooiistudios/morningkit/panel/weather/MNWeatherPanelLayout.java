@@ -34,6 +34,7 @@ import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.weather.model.LocationUtils;
 import com.yooiistudios.morningkit.panel.weather.model.cache.MNWeatherDataCurrentLocationCache;
@@ -430,7 +431,11 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
                 }
 
                 // UI갱신
-                localTimeTextView.setText(timeString);
+                // 튜토리얼때는 updateUI가 메인 쓰레드가 끊기지 않게 하기 위해 사용하지 않음
+                if (MNTutorialManager.isTutorialShown(getContext().getApplicationContext())
+                        || localTimeTextView.length() == 0) {
+                    localTimeTextView.setText(timeString);
+                }
 
                 // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
                 long endMilli = System.currentTimeMillis();
