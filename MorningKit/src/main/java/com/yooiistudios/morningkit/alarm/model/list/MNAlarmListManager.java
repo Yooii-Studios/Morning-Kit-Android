@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
+import com.yooiistudios.morningkit.alarm.model.notification.MNAlarmNotificationChecker;
 import com.yooiistudios.morningkit.common.serialize.ObjectSerializer;
 import com.yooiistudios.morningkit.common.sharedpreferences.MNSharedPreferences;
 
@@ -121,6 +122,10 @@ public class MNAlarmListManager {
         if (editor != null) {
             if (MNAlarmListManager.getInstance().alarmList != null) {
                 editor.putString(ALARM_LIST, ObjectSerializer.serialize(MNAlarmListManager.getInstance().alarmList));
+
+                // 노티피케이션 체크해서 모든 알람이 꺼졌으면 노티도 꺼줄 것
+                MNAlarmNotificationChecker.checkNotificationState(
+                        MNAlarmListManager.getInstance().alarmList, context);
             } else {
                 editor.remove(ALARM_LIST);
             }

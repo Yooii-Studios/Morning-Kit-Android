@@ -2,6 +2,8 @@ package com.yooiistudios.morningkit.alarm.model;
 
 import android.content.Context;
 
+import com.yooiistudios.morningkit.alarm.model.notification.MNAlarmNotificationChecker;
+import com.yooiistudios.morningkit.alarm.model.notification.MNAlarmOngoingNotificationMaker;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmToast;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.stevenkim.alarmmanager.SKAlarmManager;
@@ -84,6 +86,8 @@ public class MNAlarm implements Serializable, Cloneable {
         } else {
             startNonRepeatAlarm(context, true);
         }
+
+        MNAlarmOngoingNotificationMaker.make(this, context);
     }
 
     public void startAlarmWithNoToast(Context context) {
@@ -96,6 +100,8 @@ public class MNAlarm implements Serializable, Cloneable {
         } else {
             startNonRepeatAlarm(context, false);
         }
+
+        MNAlarmOngoingNotificationMaker.make(this, context);
     }
 
     private void startNonRepeatAlarm(Context context, boolean isToastOn) {
