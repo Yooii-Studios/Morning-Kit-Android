@@ -74,6 +74,10 @@ public class MNPhotoAlbumDisplayHelper {
     }
     public void stop() {
         displayHandler.removeMessages(HANDLER_WHAT);
+
+        mViewSwitcher.setInAnimation(null);
+        mViewSwitcher.setOutAnimation(null);
+
         if (mBitmapLoader != null) {
             mBitmapLoader.cancel(true);
         }
@@ -135,15 +139,6 @@ public class MNPhotoAlbumDisplayHelper {
 
                     //init view switcher
                     mViewSwitcher.setDisplayedChild(0);
-                    Animation[] animArr = MNPhotoAlbumTransitionFactory.
-                            makeTransitionAnimation(mTransitionType);
-
-                    Animation inAnimation = animArr[0];
-                    Animation outAnimation = animArr[1];
-                    inAnimation.setAnimationListener(mAnimListener);
-                    outAnimation.setAnimationListener(mAnimListener);
-                    mViewSwitcher.setInAnimation(inAnimation);
-                    mViewSwitcher.setOutAnimation(outAnimation);
 
                     if (mFileList.size() > 1 && mInterval > 0) {
                         //prepare for timer
@@ -257,6 +252,19 @@ public class MNPhotoAlbumDisplayHelper {
         @Override
         public void handleMessage( Message msg ){
             if (isRunning){
+                if (mViewSwitcher.getInAnimation() == null ||
+                        mViewSwitcher.getOutAnimation() == null) {
+                    Animation[] animArr = MNPhotoAlbumTransitionFactory.
+                            makeTransitionAnimation(mTransitionType);
+
+                    Animation inAnimation = animArr[0];
+                    Animation outAnimation = animArr[1];
+                    inAnimation.setAnimationListener(mAnimListener);
+                    outAnimation.setAnimationListener(mAnimListener);
+                    mViewSwitcher.setInAnimation(inAnimation);
+                    mViewSwitcher.setOutAnimation(outAnimation);
+                }
+
                 // UI갱신
                 if (mFileList.size() == 0) {
                     stop();
