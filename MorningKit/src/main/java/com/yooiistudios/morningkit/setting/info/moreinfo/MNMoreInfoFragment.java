@@ -68,7 +68,7 @@ public class MNMoreInfoFragment extends Fragment implements MNMoreInfoItemClickL
 
                 // animate - (upstack)incoming enterAnim, (backstack)outgoing exitAnim /
                 // in reverse - (backstack)incoming enterAnim, (upstack)outgoing exitAnim
-                transaction.setCustomAnimations(R.anim.fragment_enter, 0);
+//                transaction.setCustomAnimations(R.anim.fragment_enter, 0);
 
                 // Replace whatever is in the fragment_container view with this fragment,
                 // and add the transaction to the back stack
