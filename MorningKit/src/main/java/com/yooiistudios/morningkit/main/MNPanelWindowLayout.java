@@ -63,6 +63,9 @@ public class MNPanelWindowLayout extends LinearLayout
         panelLayouts = new MNPanelLayout[NUMBER_OF_PANELS];
         MNPanelMatrixType panelMatrixType = MNPanelMatrix.getCurrentPanelMatrixType(getContext());
 
+        // 패널 데이터 리스트 로드
+        List<JSONObject> panelDataObjects = MNPanel.getPanelDataList(getContext());
+
         // 패널들이 있는 레이아웃을 추가
         for (int i = 0; i < PANEL_ROWS; i++) {
             panelLineLayouts[i] = new LinearLayout(getContext());
@@ -74,9 +77,6 @@ public class MNPanelWindowLayout extends LinearLayout
                             ViewGroup.LayoutParams.MATCH_PARENT, 1);
             panelLineLayouts[i].setLayoutParams(layoutParams);
             this.addView(panelLineLayouts[i]);
-
-            // 패널 데이터 리스트 로드
-            List<JSONObject> panelDataObjects = MNPanel.getPanelDataList(getContext());
 
             // 각 패널 레이아웃을 추가
             for (int j = 0; j < 2; j++) {
@@ -110,6 +110,35 @@ public class MNPanelWindowLayout extends LinearLayout
                         }
                     });
                 }
+            }
+        }
+
+        if (panelDataObjects != null) {
+            try {
+                if (panelMatrixType == MNPanelMatrixType.PANEL_MATRIX_2X3) {
+                    for (JSONObject panelObject : panelDataObjects) {
+                        int uniquePanelId = panelObject.getInt(MNPanel.PANEL_UNIQUE_ID);
+                        MNPanelType panelType = MNPanelType.valueOfUniqueId(uniquePanelId);
+
+                        // 플러리
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put(MNFlurry.PANEL_USAGE, panelType.toString());
+                        FlurryAgent.logEvent(MNFlurry.PANEL, params);
+                    }
+                } else {
+                    for (int i = 0; i < 4; i++) {
+                        JSONObject panelObject = panelDataObjects.get(i);
+                        int uniquePanelId = panelObject.getInt(MNPanel.PANEL_UNIQUE_ID);
+                        MNPanelType panelType = MNPanelType.valueOfUniqueId(uniquePanelId);
+
+                        // 플러리
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put(MNFlurry.PANEL_USAGE, panelType.toString());
+                        FlurryAgent.logEvent(MNFlurry.PANEL, params);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     }
