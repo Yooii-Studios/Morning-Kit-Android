@@ -38,8 +38,11 @@ public class MNFlurry {
     public static final String DATE = "Date";
     public static final String LUNAR_CALENDAR = "Lunar Calendar";
 
+    public static final String CHANGE_PANEL = "Panel";
+
     // 테마 안에서의 선택을 로그
     public static final String ON_SETTING_THEME = "On Setting - Theme";
+    public static final String PANEL_MATRIX = "Panel Matrix";
 
     // 어디서 상점이 불렸는지 로그
     public static final String STORE = "Store";
