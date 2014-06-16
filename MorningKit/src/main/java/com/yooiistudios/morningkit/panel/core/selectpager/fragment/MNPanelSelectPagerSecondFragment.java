@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
@@ -25,7 +27,9 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -238,5 +242,10 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
         Intent intent = new Intent(getActivity().getApplicationContext(), MNStoreActivity.class);
         getActivity().startActivity(intent);
         getActivity().overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
+
+        // 플러리
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(MNFlurry.CALLED_FROM, "Select Pager - Second Fragment");
+        FlurryAgent.logEvent(MNFlurry.STORE, params);
     }
 }

@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
@@ -17,7 +19,9 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by StevenKim in MNSettingActivityProject from Yooii Studios Co., LTD. on 2014. 1. 15.
@@ -103,13 +107,11 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
                             // 2*3은 Unlock이 아니라 상점에서 구매할 수 있게 한다
                             activity.startActivity(new Intent(activity, MNStoreActivity.class));
                             activity.overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
-                            /*
-                            Intent intent = new Intent(activity, MNUnlockActivity.class);
-                            intent.putExtra(MNUnlockActivity.PRODUCT_SKU_KEY,
-                                    SKIabProducts.SKU_PANEL_MATRIX_2X3);
-                            activity.startActivity(intent);
-                            activity.overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
-                            */
+
+                            // 플러리
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put(MNFlurry.CALLED_FROM, "Setting - Theme - 2X3");
+                            FlurryAgent.logEvent(MNFlurry.STORE, params);
                         }
                     });
                 }

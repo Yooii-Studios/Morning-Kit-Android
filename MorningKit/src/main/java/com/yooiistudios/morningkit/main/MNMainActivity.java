@@ -348,6 +348,11 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     @OnClick(R.id.main_dog_ear_image_view) void dogEarImageViewClicked() {
         startActivity(new Intent(MNMainActivity.this, MNStoreActivity.class));
         overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
+
+        // 플러리
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(MNFlurry.CALLED_FROM, "Main - Dog Ear");
+        FlurryAgent.logEvent(MNFlurry.STORE, params);
     }
 
     /**

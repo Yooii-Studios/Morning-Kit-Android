@@ -8,9 +8,10 @@ package com.yooiistudios.morningkit.common.log;
  */
 public class MNFlurry {
     public static final String KEY = "RJWQJ2639RQP9PH65WCR";
+    public static final String CALLED_FROM = "Called From";
 
     // 메인
-    public static final String ON_LAUNCH = "ON LAUNCH";
+    public static final String ON_LAUNCH = "On Launch";
 
     // 풀버전 체크
     public static final String VERSION = "Free/Full Version";
@@ -25,4 +26,24 @@ public class MNFlurry {
 
     // 알람 갯수 체크
     public static final String NUM_OF_ALARMS = "Number of Alarms";
+
+    // 패널
+    public static final String PANEL = "Panel";
+
+    public static final String PANELS = "Panels";
+
+    public static final String WEATHER = "Weather";
+    public static final String LOCATION_MODE = "Location Mode";
+
+    public static final String DATE = "Date";
+    public static final String LUNAR_CALENDAR = "Lunar Calendar";
+
+    // 테마 안에서의 선택을 로그
+    public static final String ON_SETTING_THEME = "On Setting - Theme";
+
+    // 어디서 상점이 불렸는지 로그
+    public static final String STORE = "Store";
+
+    // 어디서 언락이 불렸는지 로그
+    public static final String UNLOCK = "Unlock";
 }
