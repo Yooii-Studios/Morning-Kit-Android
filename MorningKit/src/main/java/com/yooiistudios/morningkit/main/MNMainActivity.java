@@ -337,6 +337,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     @OnClick(R.id.main_dog_ear_image_view) void dogEarImageViewClicked() {
         startActivity(new Intent(MNMainActivity.this, MNStoreActivity.class));
+        overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
     }
 
     /**
