@@ -5,7 +5,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
@@ -23,8 +22,8 @@ public class MNSettingDetailActivity extends ActionBarActivity {
         setContentView(R.layout.activity_setting_detail);
 
         // 반짝임을 없애기 위해 프래그먼트와 같은 배경을 사용해야함
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.setting_detail_container);
-        layout.setBackgroundColor(0xff4444dd);
+//        RelativeLayout layout = (RelativeLayout) findViewById(R.id.setting_detail_container);
+//        layout.setBackgroundColor(0xff4444dd);
 
         // Force no anim for entering activity, hold for exiting activity
         this.overridePendingTransition(0, R.anim.activity_hold);
