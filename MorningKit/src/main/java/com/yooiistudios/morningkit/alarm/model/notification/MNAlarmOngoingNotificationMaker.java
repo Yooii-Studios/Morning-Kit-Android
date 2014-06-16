@@ -43,7 +43,7 @@ public class MNAlarmOngoingNotificationMaker {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-                intent, PendingIntent.FLAG_ONE_SHOT);
+                intent, 0);
 
         Notification notification = new NotificationCompat.Builder(context)
                 .setContentTitle(title)
