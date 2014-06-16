@@ -12,7 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.date.model.DateUtil;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
@@ -24,6 +26,8 @@ import org.json.JSONException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -202,6 +206,11 @@ public class MNDatePanelLayout extends MNPanelLayout {
                 e.printStackTrace();
             }
         }
+
+        // 플러리
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(MNFlurry.DATE, isLunarCalendarOn ? "Using lunar calendar" : "Not using lunar calendar");
+        FlurryAgent.logEvent(MNFlurry.PANEL, params);
     }
 
     @Override

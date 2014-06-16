@@ -30,7 +30,7 @@ public class MNFlurry {
     // 패널
     public static final String PANEL = "Panel";
 
-    public static final String PANELS = "Panels";
+    public static final String PANEL_USAGE = "Panels";
 
     public static final String WEATHER = "Weather";
     public static final String LOCATION_MODE = "Location Mode";
