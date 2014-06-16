@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
-import com.yooiistudios.morningkit.common.log.MNLog;
 
 /**
  * Created by Dongheyon Jeong on in morning-kit from Yooii Studios Co., LTD. on 2014. 5. 20.
@@ -38,10 +37,10 @@ public class MNPhotoAlbumImageView extends ImageView {
     protected void onWindowVisibilityChanged(int visibility) {
         super.onWindowVisibilityChanged(visibility);
 
-        MNLog.i(TAG, "onWindowVisibilityChanged. visibility : " + visibility);
+//        MNLog.i(TAG, "onWindowVisibilityChanged. visibility : " + visibility);
         if (visibility == View.GONE && mIsReadyForRecycle) {
             MNBitmapUtils.recycleImageView(this);
-            MNLog.i(TAG, "onWindowVisibilityChanged. recycled");
+//            MNLog.i(TAG, "onWindowVisibilityChanged. recycled");
         }
     }
 }
