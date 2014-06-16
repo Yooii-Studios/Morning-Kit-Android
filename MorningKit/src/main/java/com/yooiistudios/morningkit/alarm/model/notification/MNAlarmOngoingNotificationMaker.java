@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 import android.text.format.DateFormat;
 
@@ -48,8 +49,8 @@ public class MNAlarmOngoingNotificationMaker {
                 .setContentTitle(title)
                 .setContentText(text)
                 .setSmallIcon(R.drawable.status_bar_icon)
-//                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-//                        R.drawable.status_bar_icon))
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
+                        R.drawable.status_bar_large_icon))
                 .setWhen(0)
                 .setContentIntent(pendingIntent)
                 .build();
