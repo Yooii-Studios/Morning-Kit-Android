@@ -180,6 +180,10 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
                 public void onClick(View v) {
                     panelSelectPagerInterface.onPanelSelectPagerUnlockItemClick((Integer) v.getTag());
                     startUnlockActivity(SKIabProducts.SKU_MEMO, v.getContext());
+                    // 플러리
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put(MNFlurry.CALLED_FROM, "Memo");
+                    FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
                 }
             });
         } else {
@@ -197,6 +201,10 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
                 public void onClick(View v) {
                     panelSelectPagerInterface.onPanelSelectPagerUnlockItemClick((Integer) v.getTag());
                     startUnlockActivity(SKIabProducts.SKU_DATE_COUNTDOWN, v.getContext());
+                    // 플러리
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put(MNFlurry.CALLED_FROM, "Date Countdown");
+                    FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
                 }
             });
         } else {
