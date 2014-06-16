@@ -13,9 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.flurry.android.FlurryAgent;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
@@ -38,7 +40,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -581,6 +585,11 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
         // 변경된 위젯 타입 아카이빙
         MNPanel.changeToEmptyDataPanel(getActivity(), panelTypeToBeChanged.getUniqueId(), panelMatrixItemIndex);
+        
+        // 플러리 - 세팅 패널 탭에서 패널 변경
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(MNFlurry.CHANGE_PANEL_FROM, "Setting - Panel Tab");
+        FlurryAgent.logEvent(MNFlurry.PANEL, params);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class MNFlurry {
     public static final String DATE = "Date";
     public static final String LUNAR_CALENDAR = "Lunar Calendar";
 
-    public static final String CHANGE_PANEL = "Panel";
+    public static final String CHANGE_PANEL_FROM = "Change Panel From";
 
     // 테마 안에서의 선택을 로그
     public static final String ON_SETTING_THEME = "On Setting - Theme";

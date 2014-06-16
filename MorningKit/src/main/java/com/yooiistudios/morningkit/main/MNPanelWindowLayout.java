@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.flurry.android.FlurryAgent;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -19,7 +21,9 @@ import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixType;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 
@@ -196,6 +200,10 @@ public class MNPanelWindowLayout extends LinearLayout
                 } else {
                     throw new AssertionError("index must be > 0 and <= panelLayouts.length");
                 }
+                // 플러리 - 패널 디테일 액티비티에서 패널 변경
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(MNFlurry.CHANGE_PANEL_FROM, "Panel Detail Activity");
+                FlurryAgent.logEvent(MNFlurry.PANEL, params);
             } else {
                 throw new AssertionError("panelDataObject must not be null");
             }
