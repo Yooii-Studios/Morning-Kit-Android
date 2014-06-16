@@ -12,8 +12,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
 import com.stevenkim.photo.SKBitmapLoader;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
 
@@ -148,5 +150,19 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
         } else {
             Toast.makeText(this, "Can't load an image", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }

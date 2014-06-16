@@ -38,6 +38,8 @@ import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
@@ -47,6 +49,8 @@ import com.yooiistudios.morningkit.theme.font.MNTranslucentFont;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -120,6 +124,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         }
 
         MNReviewUtil.checkRate(this);
+
+        // 플러리
+        sendFlurryAnalytics();
     }
 
     void initMainActivity() {
@@ -148,13 +155,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    protected void onStart() {
-        // Activity visible to user
-        super.onStart();
-        FlurryAgent.onStartSession(this, MNFlurry.key);
     }
 
     @Override
@@ -221,6 +221,13 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // Partially visible
         adView.pause();
         super.onPause();
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
     }
 
     @Override
@@ -518,5 +525,37 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         MNTutorialManager.setTutorialShown(getApplicationContext());
         // 튜토리얼 후 회전 가능하게 방향 설정
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+    }
+
+    private void sendFlurryAnalytics() {
+        // 풀 버전 체크
+        Map<String, String> versionParams = new HashMap<String, String>();
+        if (SKIabProducts.loadOwnedIabProducts(this).contains(SKIabProducts.SKU_FULL_VERSION)) {
+            versionParams.put(MNFlurry.VERSION, MNFlurry.FULL_VERSION);
+        } else {
+            versionParams.put(MNFlurry.VERSION, MNFlurry.FREE_VERSION);
+        }
+        FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, versionParams);
+
+        // 언어 체크
+        MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(this);
+        Map<String, String> languageParams = new HashMap<String, String>();
+        languageParams.put(MNFlurry.LANGUAGE,
+                MNLanguageType.toEnglishString(currentLanguageType.getIndex(), this));
+        FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, languageParams);
+
+        // 테마 체크
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
+        Map<String, String> themeParams = new HashMap<String, String>();
+        themeParams.put(MNFlurry.THEME, currentThemeType.toString());
+        FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, themeParams);
+
+        // 알람 갯수 체크
+        ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(getApplicationContext());
+        if (alarmList != null) {
+            Map<String, String> alarmParams = new HashMap<String, String>();
+            alarmParams.put(MNFlurry.NUM_OF_ALARMS, String.valueOf(alarmList.size()));
+            FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, alarmParams);
+        }
     }
 }
