@@ -123,7 +123,7 @@ public class MNPanelWindowLayout extends LinearLayout
                         // 플러리
                         Map<String, String> params = new HashMap<String, String>();
                         params.put(MNFlurry.PANEL_USAGE, panelType.toString());
-                        FlurryAgent.logEvent(MNFlurry.PANEL, params);
+                        FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, params);
                     }
                 } else {
                     for (int i = 0; i < 4; i++) {
@@ -134,7 +134,7 @@ public class MNPanelWindowLayout extends LinearLayout
                         // 플러리
                         Map<String, String> params = new HashMap<String, String>();
                         params.put(MNFlurry.PANEL_USAGE, panelType.toString());
-                        FlurryAgent.logEvent(MNFlurry.PANEL, params);
+                        FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, params);
                     }
                 }
             } catch (JSONException e) {

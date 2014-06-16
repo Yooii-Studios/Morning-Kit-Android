@@ -29,14 +29,11 @@ public class MNFlurry {
 
     // 패널
     public static final String PANEL = "Panel";
-
     public static final String PANEL_USAGE = "Panels";
+    public static final String CHANGE_PANEL_FROM = "Change Panel From";
 
     public static final String WEATHER = "Weather";
-
     public static final String DATE = "Date";
-
-    public static final String CHANGE_PANEL_FROM = "Change Panel From";
 
     // 테마 안에서의 선택을 로그
     public static final String ON_SETTING_THEME = "On Setting - Theme";
