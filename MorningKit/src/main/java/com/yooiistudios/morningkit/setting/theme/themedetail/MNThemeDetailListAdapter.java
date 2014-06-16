@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
@@ -18,7 +20,9 @@ import com.yooiistudios.morningkit.setting.theme.MNSettingThemeDetailItemViewHol
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 import com.yooiistudios.morningkit.setting.theme.themedetail.photo.MNThemePhotoActivity;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by StevenKim in Morning Kit from Yooii Studios Co., LTD. on 2014. 1. 15.
@@ -191,8 +195,20 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
                             Intent intent = new Intent(activity, MNUnlockActivity.class);
                             if (selectedThemeType == MNThemeType.CELESTIAL_SKY_BLUE) {
                                 intent.putExtra(MNUnlockActivity.PRODUCT_SKU_KEY, SKIabProducts.SKU_CELESTIAL);
+
+                                // 플러리
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put(MNFlurry.CALLED_FROM, "Sky Blue");
+                                FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
+
                             } else if (selectedThemeType == MNThemeType.MODERNITY_WHITE) {
+
                                 intent.putExtra(MNUnlockActivity.PRODUCT_SKU_KEY, SKIabProducts.SKU_MODERNITY);
+
+                                // 플러리
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put(MNFlurry.CALLED_FROM, "Classic White");
+                                FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
                             } else {
                                 throw new AssertionError("ProductId is not included");
                             }

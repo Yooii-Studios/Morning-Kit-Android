@@ -17,10 +17,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
 import com.naver.iap.NaverIabActivity;
 import com.naver.iap.NaverIabInventoryItem;
 import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.number.MNDecimalFormatUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
@@ -34,7 +36,9 @@ import com.yooiistudios.morningkit.setting.store.util.Purchase;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -117,6 +121,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         initIab();
         initUI();
         checkDebug();
+
+        // 플러리
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(MNFlurry.CALLED_FROM, "Setting - Store");
+        FlurryAgent.logEvent(MNFlurry.STORE, params);
     }
 
     private void initIab() {

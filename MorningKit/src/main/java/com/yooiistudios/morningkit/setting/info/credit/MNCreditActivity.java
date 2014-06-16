@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RelativeLayout;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
 
 import butterknife.ButterKnife;
@@ -37,5 +39,19 @@ public class MNCreditActivity extends  MNSettingDetailActivity {
             // Commit the transaction
             transaction.commit();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }

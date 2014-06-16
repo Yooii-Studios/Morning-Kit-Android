@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
@@ -21,6 +23,9 @@ import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -72,6 +77,11 @@ public class MNInfoFragment extends Fragment implements MNInfoItemClickListener 
                 Intent intent = new Intent(getActivity(), MNStoreActivity.class);
                 getActivity().startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
+
+                // 플러리
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(MNFlurry.CALLED_FROM, "Setting - Info - Store");
+                FlurryAgent.logEvent(MNFlurry.STORE, params);
                 break;
             }
 

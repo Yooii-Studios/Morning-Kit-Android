@@ -11,7 +11,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.panel.MNPanelSettingFragment;
@@ -235,5 +237,19 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         super.onDestroy();
 //        MNLog.i(TAG, "onDestroy");
         ViewUnbindHelper.unbindReferences(this, mViewPager.getId());
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }

@@ -6,12 +6,24 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.widget.RelativeLayout;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
+import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -96,5 +108,19 @@ public class MNStoreActivity extends MNSettingDetailActivity {
     protected void onDestroy() {
         super.onDestroy();
         ViewUnbindHelper.unbindReferences(this, storeFragment.getId());
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }

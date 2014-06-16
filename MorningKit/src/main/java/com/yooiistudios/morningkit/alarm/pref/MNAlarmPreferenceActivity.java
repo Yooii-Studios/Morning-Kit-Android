@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.flurry.android.FlurryAgent;
 import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
@@ -17,6 +18,7 @@ import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPreferenceListAdapter;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundFactory;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundManager;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundType;
@@ -196,5 +198,19 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     public void setActionBarMenuToInvisible(View view) {
         actionBarMenu.findItem(R.id.pref_action_ok).setVisible(false);
         actionBarMenu.findItem(R.id.pref_action_cancel).setVisible(false);
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }

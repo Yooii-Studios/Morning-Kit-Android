@@ -4,14 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
 import com.yooiistudios.morningkit.main.MNMainAlarmListView;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 
@@ -53,6 +57,11 @@ public class MNAlarmItemClickListener implements View.OnClickListener {
                         SKIabProducts.SKU_MORE_ALARM_SLOTS);
                 activityContext.startActivity(intent);
                 activityContext.overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
+
+                // 플러리
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(MNFlurry.CALLED_FROM, "More Alarm Slots");
+                FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
                 return;
             }
         }

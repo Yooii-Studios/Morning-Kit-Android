@@ -8,7 +8,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
@@ -207,5 +209,19 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
 
     @Override
     public void onPanelSelectPagerStoreItemClick(int position) {
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }
