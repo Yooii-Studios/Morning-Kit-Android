@@ -415,11 +415,9 @@ public class NaverIabActivity extends NIAPActivity {
 				errorCode = "ERS999";
 				errorMessage = "unknown error has occured";
 			}
-//			if (ConfigurationManager.SignatureConfig.getInstance(this).isDebugBuild()) {
-//				Toast.makeText(NaverIabActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-//			}
+            Toast.makeText(NaverIabActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
 		}
-		MNLog.i(TAG, "Request Type : " + requestDesc + ",\nError Code : " + errorCode + ",\nError Description " + errorMessage);
+//		MNLog.i(TAG, "Request Type : " + requestDesc + ",\nError Code : " + errorCode + ",\nError Description " + errorMessage);
 	}
 	
 	@Override
