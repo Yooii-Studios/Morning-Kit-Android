@@ -49,4 +49,5 @@ public class MNFlurry {
 
     // 어디서 언락이 불렸는지 로그
     public static final String UNLOCK = "Unlock";
+    public static final String UNLOCKED_PRODUCT = "Unlocked Product";
 }

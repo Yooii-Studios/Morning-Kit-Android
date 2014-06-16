@@ -21,9 +21,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.naver.iap.NaverIabActivity;
 import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
 import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
@@ -33,6 +35,9 @@ import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.store.util.IabResult;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.store.util.Purchase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -331,6 +336,31 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         edit.commit();
 
         refreshUI();
+
+        // 플러리 - 세팅 패널 탭에서 패널 변경
+        String unlockedProduct = null;
+        if (productSku.equals(SKIabProducts.SKU_FULL_VERSION)) {
+            unlockedProduct = "Full Version";
+        } else if (productSku.equals(SKIabProducts.SKU_MORE_ALARM_SLOTS)) {
+            unlockedProduct = "More Alarm Slots";
+        } else if (productSku.equals(SKIabProducts.SKU_NO_ADS)) {
+            unlockedProduct = "No Ads";
+        } else if (productSku.equals(SKIabProducts.SKU_PANEL_MATRIX_2X3)) {
+            unlockedProduct = "Matrix 2 X 3";
+        } else if (productSku.equals(SKIabProducts.SKU_DATE_COUNTDOWN)) {
+            unlockedProduct = "Date Countdown";
+        } else if (productSku.equals(SKIabProducts.SKU_MEMO)) {
+            unlockedProduct = "Memo";
+        } else if (productSku.equals(SKIabProducts.SKU_PHOTO_FRAME)) {
+            unlockedProduct = "Photo Frame";
+        } else if (productSku.equals(SKIabProducts.SKU_MODERNITY)) {
+            unlockedProduct = "Classic White";
+        } else if (productSku.equals(SKIabProducts.SKU_CELESTIAL)) {
+            unlockedProduct = "Sky Blue";
+        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(MNFlurry.UNLOCKED_PRODUCT, unlockedProduct);
+        FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
     }
 
     /**

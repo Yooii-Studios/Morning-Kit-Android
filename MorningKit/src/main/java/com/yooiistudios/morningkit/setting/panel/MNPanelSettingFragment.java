@@ -585,7 +585,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
         // 변경된 위젯 타입 아카이빙
         MNPanel.changeToEmptyDataPanel(getActivity(), panelTypeToBeChanged.getUniqueId(), panelMatrixItemIndex);
-        
+
         // 플러리 - 세팅 패널 탭에서 패널 변경
         Map<String, String> params = new HashMap<String, String>();
         params.put(MNFlurry.CHANGE_PANEL_FROM, "Setting - Panel Tab");
