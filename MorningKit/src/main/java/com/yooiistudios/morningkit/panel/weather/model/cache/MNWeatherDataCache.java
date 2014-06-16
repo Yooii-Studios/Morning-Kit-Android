@@ -20,7 +20,7 @@ public abstract class MNWeatherDataCache {
     protected  static final int WEATHER_REFRESH_LIMIT_DISTANCE = (35 * 1000);
     protected static final int WEATHER_REFRESH_LIMIT_TIME_IN_MILLIS = (60 * 60 * 4 * 1000); // second -> 4 hours;
 //    protected static final int WEATHER_REFRESH_LIMIT_TIME_IN_MILLIS = (30 * 1000); // test: 10 seconds
-    protected static final boolean DEBUG_MODE = true;
+    protected static final boolean DEBUG_MODE = false;
     protected List<MNWeatherData> weatherDataCacheList;
     protected Context context;
 
