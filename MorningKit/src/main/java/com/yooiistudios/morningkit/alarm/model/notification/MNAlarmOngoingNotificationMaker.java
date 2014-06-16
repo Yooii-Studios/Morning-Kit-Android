@@ -48,7 +48,7 @@ public class MNAlarmOngoingNotificationMaker {
         Notification notification = new NotificationCompat.Builder(context)
                 .setContentTitle(title)
                 .setContentText(text)
-                .setSmallIcon(R.drawable.status_bar_icon)
+                .setSmallIcon(R.drawable.status_bar_small_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
                         R.drawable.status_bar_large_icon))
                 .setWhen(0)
