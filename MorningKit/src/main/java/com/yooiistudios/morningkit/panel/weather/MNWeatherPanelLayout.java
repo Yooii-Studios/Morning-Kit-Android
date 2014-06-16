@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -33,6 +34,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -51,6 +53,8 @@ import org.joda.time.LocalDateTime;
 import org.json.JSONException;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -305,6 +309,11 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
                 weatherWWOAsyncTask.execute();
             }
         }
+
+        // 플러리
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(MNFlurry.WEATHER, isUsingCurrentLocation ? "Using current location" : "Not using current location");
+        FlurryAgent.logEvent(MNFlurry.PANEL, params);
     }
 
     private void loadPanelDataObject() throws JSONException {

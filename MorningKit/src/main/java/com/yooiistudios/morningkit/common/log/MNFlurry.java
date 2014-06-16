@@ -33,10 +33,8 @@ public class MNFlurry {
     public static final String PANEL_USAGE = "Panels";
 
     public static final String WEATHER = "Weather";
-    public static final String LOCATION_MODE = "Location Mode";
 
     public static final String DATE = "Date";
-    public static final String LUNAR_CALENDAR = "Lunar Calendar";
 
     public static final String CHANGE_PANEL_FROM = "Change Panel From";
 
