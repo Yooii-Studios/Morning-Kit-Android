@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.flurry.android.FlurryAgent;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.squareup.otto.Subscribe;
@@ -24,6 +25,7 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.review.MNReviewUtil;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
@@ -151,8 +153,8 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     @Override
     protected void onStart() {
         // Activity visible to user
-
         super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.key);
     }
 
     @Override
@@ -226,6 +228,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // Activity no longer visible
         MNAlarmScrollViewBusProvider.getInstance().unregister(this);
         super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 
     @Override
