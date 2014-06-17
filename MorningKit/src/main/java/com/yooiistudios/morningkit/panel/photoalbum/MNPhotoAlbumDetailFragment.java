@@ -1,7 +1,9 @@
 package com.yooiistudios.morningkit.panel.photoalbum;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -47,6 +49,7 @@ import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayo
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_USE_GRAYSCALE;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_USE_REFRESH;
 import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFileManager.DEFAULT_PARENT_DIR;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.PREF_PHOTO_ALBUM;
 
 //import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_FILELIST;
 //import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_PARENT_LIST;
@@ -71,7 +74,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
 
     // default constants
     public static final int DEFAULT_INTERVAL_MIN = 0;
-    public static final int DEFAULT_INTERVAL_SEC = 5;
+    public static final int DEFAULT_INTERVAL_SEC = 3;
 
     // request code
     public static final int RC_LOAD_PHOTO = 1;
@@ -125,8 +128,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                 intervalSecond = DEFAULT_INTERVAL_SEC;
                 recentIntervalMinute = DEFAULT_INTERVAL_MIN;
                 recentIntervalSecond = DEFAULT_INTERVAL_SEC;
-                useRefresh = false;
-                transitionType = MNPhotoAlbumTransitionType.NONE;
+                useRefresh = true;
+                transitionType = MNPhotoAlbumTransitionType.ALPHA;
 
                 selectedFileName = null;
                 rootDirForFiles = DEFAULT_PARENT_DIR.getAbsolutePath();
@@ -254,14 +257,17 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     }
 
     private void initPanelDataObject() throws JSONException {
+        SharedPreferences prefs = getActivity().getSharedPreferences(
+                PREF_PHOTO_ALBUM, Context.MODE_PRIVATE);
         if (getPanelDataObject().has(KEY_DATA_INTERVAL_MINUTE)) {
             intervalMinute = getPanelDataObject()
                     .getInt(KEY_DATA_INTERVAL_MINUTE);
             recentIntervalMinute = intervalMinute;
         }
         else {
-            intervalMinute = DEFAULT_INTERVAL_MIN;
-            recentIntervalMinute = DEFAULT_INTERVAL_MIN;
+            intervalMinute = prefs.getInt(KEY_DATA_INTERVAL_MINUTE,
+                    DEFAULT_INTERVAL_MIN);
+            recentIntervalMinute = intervalMinute;
         }
         if (getPanelDataObject().has(KEY_DATA_INTERVAL_SECOND)) {
             intervalSecond = getPanelDataObject()
@@ -269,14 +275,15 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
             recentIntervalSecond = intervalSecond;
         }
         else {
-            intervalSecond = DEFAULT_INTERVAL_SEC;
-            recentIntervalSecond = DEFAULT_INTERVAL_SEC;
+            intervalSecond = prefs.getInt(KEY_DATA_INTERVAL_SECOND,
+                    DEFAULT_INTERVAL_SEC);
+            recentIntervalSecond = intervalSecond;
         }
         if (getPanelDataObject().has(KEY_DATA_USE_REFRESH)) {
             useRefresh = getPanelDataObject().getBoolean(KEY_DATA_USE_REFRESH);
         }
         else {
-            useRefresh = true;
+            useRefresh = prefs.getBoolean(KEY_DATA_USE_REFRESH, true);
         }
         if (getPanelDataObject().has(KEY_DATA_TRANS_TYPE)) {
             String transitionTypeStr = getPanelDataObject().getString
@@ -285,27 +292,31 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                     transitionTypeStr);
         }
         else {
-            transitionType = MNPhotoAlbumTransitionType.NONE;
+            String previousTransTypeKey = prefs.getString(KEY_DATA_TRANS_TYPE,
+                    MNPhotoAlbumTransitionType.ALPHA.getKey());
+            transitionType = MNPhotoAlbumTransitionType.getTypeByKey(
+                    previousTransTypeKey);
         }
         if (getPanelDataObject().has(KEY_DATA_FILE_SELECTED)) {
             selectedFileName = getPanelDataObject().getString(
                     KEY_DATA_FILE_SELECTED);
         }
         else {
-            selectedFileName = null;
+            selectedFileName = prefs.getString(KEY_DATA_FILE_SELECTED, null);
         }
         if (getPanelDataObject().has(KEY_DATA_FILE_ROOT)) {
             rootDirForFiles = getPanelDataObject().getString(
                     KEY_DATA_FILE_ROOT);
         }
         else {
-            rootDirForFiles = DEFAULT_PARENT_DIR.getAbsolutePath();
+            rootDirForFiles = prefs.getString(KEY_DATA_FILE_ROOT,
+                    DEFAULT_PARENT_DIR.getAbsolutePath());
         }
         if (getPanelDataObject().has(KEY_DATA_USE_GRAYSCALE)) {
             useGrayscale = getPanelDataObject().getBoolean(KEY_DATA_USE_GRAYSCALE);
         }
         else {
-            useGrayscale = false;
+            useGrayscale = prefs.getBoolean(KEY_DATA_USE_GRAYSCALE, false);
         }
     }
 
@@ -443,6 +454,17 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         getPanelDataObject().put(KEY_DATA_FILE_SELECTED, selectedFileName);
         getPanelDataObject().put(KEY_DATA_FILE_ROOT, rootDirForFiles);
         getPanelDataObject().put(KEY_DATA_USE_GRAYSCALE, useGrayscale);
+
+        SharedPreferences prefs = getActivity().getSharedPreferences(
+                PREF_PHOTO_ALBUM, Context.MODE_PRIVATE);
+        prefs.edit().putInt(KEY_DATA_INTERVAL_MINUTE, intervalMinute)
+                .putInt(KEY_DATA_INTERVAL_SECOND, intervalSecond)
+                .putBoolean(KEY_DATA_USE_REFRESH, useRefresh)
+                .putString(KEY_DATA_TRANS_TYPE, transitionType.getKey())
+                .putString(KEY_DATA_FILE_SELECTED, selectedFileName)
+                .putString(KEY_DATA_FILE_ROOT, rootDirForFiles)
+                .putBoolean(KEY_DATA_USE_GRAYSCALE, useGrayscale)
+        .commit();
     }
 
     private void onTimeUpdated() {
@@ -605,8 +627,16 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     public void onConfirm(int minute, int second) {
         intervalMinute = minute;
         intervalSecond = second;
-        recentIntervalMinute = minute;
-        recentIntervalSecond = second;
+
+        if (intervalMinute < 0) {
+            intervalMinute = DEFAULT_INTERVAL_MIN;
+        }
+        if (intervalSecond < 0) {
+            intervalSecond = DEFAULT_INTERVAL_SEC;
+        }
+
+        recentIntervalMinute = intervalMinute;
+        recentIntervalSecond = intervalSecond;
         useRefresh = true;
 
         onTimeUpdated();
