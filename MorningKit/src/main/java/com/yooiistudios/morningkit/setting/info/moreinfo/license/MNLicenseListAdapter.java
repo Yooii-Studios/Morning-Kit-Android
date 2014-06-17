@@ -38,12 +38,10 @@ public class MNLicenseListAdapter extends BaseAdapter {
         // supertoast
         // joda-time
         // commons-io
+        // ViewPagerIndicator
         // Flickr
         // WWO
-        return 12;
-
-        // volley
-        //
+        return 13;
     }
 
     @Override
@@ -182,11 +180,20 @@ public class MNLicenseListAdapter extends BaseAdapter {
                         "All packages produced by the ASF are implicitly licensed under the Apache License, Version 2.0, unless otherwise explicitly stated. More developer documentation on how to apply the Apache License to your work can be found in * Applying the Apache License, Version 2.0 *.");
                 break;
             case 10:
+                viewHolder.getTitleTextView().setText("ViewPagerIndicator");
+                viewHolder.getLinkTextView().setText("http://viewpagerindicator.com/");
+                viewHolder.getDetailTextView().setText("© 2012 Jake Wharton — @JakeWharton · +JakeWharton\n" +
+                        "\n" +
+                        "Developed and distributed under the Apache License, Version 2.0.\n" +
+                        "\n" +
+                        "Originally based on widgets developed by Patrik Åkerfeldt.");
+                break;
+            case 11:
                 viewHolder.getTitleTextView().setText("Flickr APIs Terms of Use");
                 viewHolder.getLinkTextView().setText("http://www.flickr.com/services/api/tos/");
                 viewHolder.getInnerLayout().removeView(viewHolder.getDetailTextView());
                 break;
-            case 11:
+            case 12:
                 viewHolder.getTitleTextView().setText("World Weather Online API Terms and Conditions");
                 viewHolder.getLinkTextView().setText("http://www.worldweatheronline.com/api-t-and-c.aspx");
                 viewHolder.getInnerLayout().removeView(viewHolder.getDetailTextView());
