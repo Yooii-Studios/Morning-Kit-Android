@@ -44,7 +44,7 @@ public class MNAdUtils {
         if (!owndedSkus.contains(SKIabProducts.SKU_FULL_VERSION) &&
         !owndedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
             // 10회 이상 실행, 5회 카운트 계산
-            SharedPreferences prefs = activity.getSharedPreferences("MNAdUtils", Context.MODE_PRIVATE);
+            SharedPreferences prefs = activity.getSharedPreferences(KEY, Context.MODE_PRIVATE);
             int launchCount = prefs.getInt(LAUNCH_COUNT, 0);
             // 10회 이상 실행부터 계속 5배수 실행 카운트 체크
             if (launchCount >= 5) {
