@@ -24,6 +24,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
+import com.yooiistudios.morningkit.common.ad.MNAdUtils;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
@@ -108,6 +109,8 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                     alarm.startAlarmWithNoToast(getApplicationContext());
                 }
             }
+            // 알람 없이 켜질 경우 전면광고 카운트 체크
+            MNAdUtils.checkFullScreenAdCount(this);
         }
 
         setContentView(R.layout.activity_main);
