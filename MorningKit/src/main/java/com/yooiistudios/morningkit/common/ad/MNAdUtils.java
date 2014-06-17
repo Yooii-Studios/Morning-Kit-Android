@@ -10,11 +10,14 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.dp.DipToPixel;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
+import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 import jp.co.garage.onesdk.Constants;
 import jp.co.garage.onesdk.DGService;
@@ -35,61 +38,67 @@ public class MNAdUtils {
 
     public static void checkFullScreenAdCount(Activity activity, DGService dgService) {
 
-        // 10회 이상 실행, 5회 카운트 계산
-        SharedPreferences prefs = activity.getSharedPreferences("MNAdUtils", Context.MODE_PRIVATE);
-        int launchCount = prefs.getInt(LAUNCH_COUNT, 0);
-        // 10회 이상 실행부터 계속 5배수 실행 카운트 체크
-        if (launchCount >= 5) {
-            int eachLaunchCount = prefs.getInt(EACH_LAUNCH_COUNT, 0);
-            if (eachLaunchCount == 5) {
-                // 5회 실행시마다 초기화
-                prefs.edit().remove(EACH_LAUNCH_COUNT).commit();
+        List<String> owndedSkus =  SKIabProducts.loadOwnedIabProducts(activity);
 
-                // 광고 실행
-                MNLanguageType currentLagunageType = MNLanguage.getCurrentLanguageType(activity);
-                if (currentLagunageType != MNLanguageType.JAPANESE) {
-                    // Admob
-                    final InterstitialAd fullScreenAdView = new InterstitialAd(activity);
-                    fullScreenAdView.setAdUnitId("a15278abca8d8ec");
-                    fullScreenAdView.setAdListener(new AdListener() {
-                        @Override
-                        public void onAdLoaded() {
-                            super.onAdLoaded();
-                            fullScreenAdView.show();
-                        }
-                    });
-                    AdRequest fullAdRequest = new AdRequest.Builder().build();
-                    fullScreenAdView.loadAd(fullAdRequest);
-                } else {
-                    // 일본어 = Digital Garage
-                    OneSDK sdk = OneSDK.getInstance(activity);
+        // 풀버전이나 광고 구매를 하지 않았을 경우만 진행
+        if (!owndedSkus.contains(SKIabProducts.SKU_FULL_VERSION) &&
+        !owndedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
+            // 10회 이상 실행, 5회 카운트 계산
+            SharedPreferences prefs = activity.getSharedPreferences("MNAdUtils", Context.MODE_PRIVATE);
+            int launchCount = prefs.getInt(LAUNCH_COUNT, 0);
+            // 10회 이상 실행부터 계속 5배수 실행 카운트 체크
+            if (launchCount >= 5) {
+                int eachLaunchCount = prefs.getInt(EACH_LAUNCH_COUNT, 0);
+                if (eachLaunchCount == 5) {
+                    // 5회 실행시마다 초기화
+                    prefs.edit().remove(EACH_LAUNCH_COUNT).commit();
 
-                    // Open service
-                    dgService = sdk.OpenService(4820, 8, 2, Constants.ServiceCategories.INTERSTITIAL, activity);
+                    // 광고 실행
+                    MNLanguageType currentLagunageType = MNLanguage.getCurrentLanguageType(activity);
+                    if (currentLagunageType != MNLanguageType.JAPANESE) {
+                        // Admob
+                        final InterstitialAd fullScreenAdView = new InterstitialAd(activity);
+                        fullScreenAdView.setAdUnitId("a15278abca8d8ec");
+                        fullScreenAdView.setAdListener(new AdListener() {
+                            @Override
+                            public void onAdLoaded() {
+                                super.onAdLoaded();
+                                fullScreenAdView.show();
+                            }
+                        });
+                        AdRequest fullAdRequest = new AdRequest.Builder().build();
+                        fullScreenAdView.loadAd(fullAdRequest);
+                    } else {
+                        // 일본어 = Digital Garage
+                        OneSDK sdk = OneSDK.getInstance(activity);
 
-                    // 중앙 계산
-                    int x = (MNDeviceSizeInfo.getDeviceWidth(activity) - DipToPixel.getPixel(activity, 320)) / 2;
-                    int y = (MNDeviceSizeInfo.getDeviceHeight(activity) - DipToPixel.getPixel(activity, 250)) / 2 -
-                            activity.getResources().getDimensionPixelSize(R.dimen.main_button_layout_height);
+                        // Open service
+                        dgService = sdk.OpenService(4820, 8, 2, Constants.ServiceCategories.INTERSTITIAL, activity);
 
-                    // Show
-                    if (dgService != null) {
-                        String paramstr = "{ \"x\" : \"" + x + "\",\"y\" : \"" + y + "\"}";
-                        try {
-                            JSONObject json = new JSONObject(paramstr);
-                            dgService.Request(json);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        // 중앙 계산
+                        int x = (MNDeviceSizeInfo.getDeviceWidth(activity) - DipToPixel.getPixel(activity, 320)) / 2;
+                        int y = (MNDeviceSizeInfo.getDeviceHeight(activity) - DipToPixel.getPixel(activity, 250)) / 2 -
+                                activity.getResources().getDimensionPixelSize(R.dimen.main_button_layout_height);
+
+                        // Show
+                        if (dgService != null) {
+                            String paramstr = "{ \"x\" : \"" + x + "\",\"y\" : \"" + y + "\"}";
+                            try {
+                                JSONObject json = new JSONObject(paramstr);
+                                dgService.Request(json);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
+                } else {
+                    eachLaunchCount++;
+                    prefs.edit().putInt(EACH_LAUNCH_COUNT, eachLaunchCount).commit();
                 }
             } else {
-                eachLaunchCount++;
-                prefs.edit().putInt(EACH_LAUNCH_COUNT, eachLaunchCount).commit();
+                launchCount++;
+                prefs.edit().putInt(LAUNCH_COUNT, launchCount).commit();
             }
-        } else {
-            launchCount++;
-            prefs.edit().putInt(LAUNCH_COUNT, launchCount).commit();
         }
     }
 }
