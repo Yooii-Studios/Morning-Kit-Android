@@ -176,6 +176,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         else {
             rootDir = prefs.getString(KEY_DATA_FILE_ROOT,
                     DEFAULT_PARENT_DIR.getAbsolutePath());
+            getPanelDataObject().put(KEY_DATA_FILE_ROOT, rootDir);
         }
 
         if (getPanelDataObject().has(KEY_DATA_FILE_SELECTED)) {
@@ -185,6 +186,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         }
         else {
             selectedFile = prefs.getString(KEY_DATA_FILE_SELECTED, null);
+            getPanelDataObject().put(KEY_DATA_FILE_SELECTED, selectedFile);
         }
         refreshDisplayingFile();
         previousSelectedFile = selectedFile;
@@ -197,6 +199,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
             String key = prefs.getString(KEY_DATA_TRANS_TYPE,
                     MNPhotoAlbumTransitionType.ALPHA.getKey());
             transitionType = MNPhotoAlbumTransitionType.getTypeByKey(key);
+            getPanelDataObject().put(KEY_DATA_TRANS_TYPE, key);
         }
         if (getPanelDataObject().has(KEY_DATA_INTERVAL_SECOND) &&
                 getPanelDataObject().has(KEY_DATA_INTERVAL_MINUTE)) {
@@ -219,6 +222,11 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                         prefs.getInt(KEY_DATA_INTERVAL_SECOND,
                                 DEFAULT_INTERVAL_SEC)
                 );
+
+            getPanelDataObject().put(KEY_DATA_INTERVAL_MINUTE,
+                    DEFAULT_INTERVAL_MIN);
+            getPanelDataObject().put(KEY_DATA_INTERVAL_SECOND,
+                    DEFAULT_INTERVAL_SEC);
         }
 
         if (getPanelDataObject().has(KEY_DATA_USE_GRAYSCALE)) {
@@ -227,6 +235,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         }
         else {
             useGrayscale = prefs.getBoolean(KEY_DATA_USE_GRAYSCALE, false);
+            getPanelDataObject().put(KEY_DATA_USE_GRAYSCALE, false);
         }
 
         allAbsoluteImageFileList = null;
