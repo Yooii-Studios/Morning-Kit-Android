@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
+import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuote;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLanguage;
@@ -59,11 +60,13 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     private class MNQuotesHandler extends Handler {
         @Override
         public void handleMessage( Message msg ){
-            // UI갱신
-            try {
-                refreshPanel();
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if (MNTutorialManager.isTutorialShown(getContext().getApplicationContext())) {
+                // UI갱신
+                try {
+                    refreshPanel();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
