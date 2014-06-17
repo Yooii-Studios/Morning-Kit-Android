@@ -3,6 +3,8 @@ package com.yooiistudios.morningkit.panel.quotes;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -47,10 +49,30 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     public static final String QUOTES_STRING = "QUOTES_STRING";
     public static final String QUOTES_LANGUAGES = "QUOTES_LANGUAGES";
 
-    AutoResizeTextView quoteTextView;
+    private AutoResizeTextView quoteTextView;
 
-    List<Boolean> selectedLanguages;
-    MNQuote quote;
+    private List<Boolean> selectedLanguages;
+    private MNQuote quote;
+
+    private boolean isHandlerRunning = false;
+    private MNQuotesHandler quotesHandler = new MNQuotesHandler();
+    private class MNQuotesHandler extends Handler {
+        @Override
+        public void handleMessage( Message msg ){
+            // UI갱신
+            try {
+                refreshPanel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
+            long endMilli = System.currentTimeMillis();
+            long delay = endMilli % 1000;
+
+            quotesHandler.sendEmptyMessageDelayed(0, 9000 - delay);
+        }
+    }
 
     public MNQuotesPanelLayout(Context context) {
         super(context);
@@ -232,5 +254,35 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
             }
             quoteTextView.setText(stringBuilder, TextView.BufferType.SPANNABLE);
         }
+    }
+
+    private void startHandler() {
+        if (isHandlerRunning) {
+            return;
+        }
+        isHandlerRunning = true;
+        quotesHandler.sendEmptyMessageDelayed(0, 0);
+    }
+
+    private void stopHandler() {
+        if (!isHandlerRunning) {
+            return;
+        }
+        isHandlerRunning = false;
+        quotesHandler.removeMessages(0);
+    }
+
+    // 뷰가 붙을 때 아날로그 시계뷰 재가동
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        startHandler();
+    }
+
+    // 뷰가 사라질 때 아날로그 시계뷰 핸들러 중지
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        stopHandler();
     }
 }
