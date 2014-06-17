@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel.photoalbum;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -22,6 +23,8 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFragment.DEFAULT_INTERVAL_MIN;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFragment.DEFAULT_INTERVAL_SEC;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFragment.INVALID_INTERVAL;
 import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFileManager.DEFAULT_PARENT_DIR;
 
@@ -33,6 +36,8 @@ import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFil
  */
 public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     private static final String TAG = "MNPhotoAlbumPanelLayout";
+
+    public static final String PREF_PHOTO_ALBUM = "photo album setting";
 
     public static final String KEY_DATA_INTERVAL_MINUTE = "minute";
     public static final String KEY_DATA_INTERVAL_SECOND = "second";
@@ -47,7 +52,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     private long intervalInMillisec;
     private String rootDir;
     private String selectedFile;
-    private String displayingFile;
+    private String fileToDisplay;
     private String previousSelectedFile;
     private ArrayList<String> allAbsoluteImageFileList;
     private boolean useGrayscale;
@@ -90,13 +95,13 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     }
 
     private void refreshDisplayingFile() {
-        if (displayingFile == null || selectedFile != previousSelectedFile) {
-            displayingFile = selectedFile;
+        if (fileToDisplay == null || selectedFile != previousSelectedFile) {
+            fileToDisplay = selectedFile;
         }
         else {
             if (allAbsoluteImageFileList != null) {
                 Random random = new Random(System.currentTimeMillis());
-                displayingFile = allAbsoluteImageFileList.get(
+                fileToDisplay = allAbsoluteImageFileList.get(
                         random.nextInt(allAbsoluteImageFileList.size()));
             }
         }
@@ -131,10 +136,10 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         MNLog.i("Timer", "start called");
         if (displayHelper != null && !displayHelper.isRunning()) {
             ArrayList<String> list;
-            if (displayingFile != null) {
+            if (fileToDisplay != null) {
                 if (intervalInMillisec == INVALID_INTERVAL) {
                     list = new ArrayList<String>();
-                    list.add(displayingFile);
+                    list.add(fileToDisplay);
                 }
                 else {
                     list = allAbsoluteImageFileList;
@@ -162,36 +167,43 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         super.processLoading();
         startLoadingAnimation();
 
+        SharedPreferences prefs = getContext().getSharedPreferences(
+                PREF_PHOTO_ALBUM, Context.MODE_PRIVATE);
         if (getPanelDataObject().has(KEY_DATA_FILE_ROOT)) {
             rootDir = getPanelDataObject().getString(KEY_DATA_FILE_ROOT);
             MNLog.i(TAG, "root : " + rootDir);
         }
         else {
-            rootDir = DEFAULT_PARENT_DIR.getAbsolutePath();
+            rootDir = prefs.getString(KEY_DATA_FILE_ROOT,
+                    DEFAULT_PARENT_DIR.getAbsolutePath());
         }
 
         if (getPanelDataObject().has(KEY_DATA_FILE_SELECTED)) {
             selectedFile = getPanelDataObject().getString(KEY_DATA_FILE_SELECTED);
-            refreshDisplayingFile();
-            previousSelectedFile = selectedFile;
+//            refreshDisplayingFile();
+//            previousSelectedFile = selectedFile;
         }
         else {
-            selectedFile = null;
+            selectedFile = prefs.getString(KEY_DATA_FILE_SELECTED, null);
         }
+        refreshDisplayingFile();
+        previousSelectedFile = selectedFile;
 
         if (getPanelDataObject().has(KEY_DATA_TRANS_TYPE)) {
             String key = getPanelDataObject().getString(KEY_DATA_TRANS_TYPE);
             transitionType = MNPhotoAlbumTransitionType.getTypeByKey(key);
         }
         else {
-            transitionType = MNPhotoAlbumTransitionType.NONE;
+            String key = prefs.getString(KEY_DATA_TRANS_TYPE,
+                    MNPhotoAlbumTransitionType.ALPHA.getKey());
+            transitionType = MNPhotoAlbumTransitionType.getTypeByKey(key);
         }
         if (getPanelDataObject().has(KEY_DATA_INTERVAL_SECOND) &&
                 getPanelDataObject().has(KEY_DATA_INTERVAL_MINUTE)) {
-            int intervalSecond = getPanelDataObject()
-                    .getInt(KEY_DATA_INTERVAL_SECOND);
             int intervalMinute = getPanelDataObject()
                     .getInt(KEY_DATA_INTERVAL_MINUTE);
+            int intervalSecond = getPanelDataObject()
+                    .getInt(KEY_DATA_INTERVAL_SECOND);
 
 
             intervalInMillisec = MNPhotoAlbumCommonUtil
@@ -200,7 +212,13 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                             intervalSecond);
         }
         else {
-            intervalInMillisec = INVALID_INTERVAL;
+            intervalInMillisec =
+                MNPhotoAlbumCommonUtil.getTransitionInterval(
+                        prefs.getInt(KEY_DATA_INTERVAL_MINUTE,
+                                DEFAULT_INTERVAL_MIN),
+                        prefs.getInt(KEY_DATA_INTERVAL_SECOND,
+                                DEFAULT_INTERVAL_SEC)
+                );
         }
 
         if (getPanelDataObject().has(KEY_DATA_USE_GRAYSCALE)) {
@@ -208,7 +226,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                     getPanelDataObject().getBoolean(KEY_DATA_USE_GRAYSCALE);
         }
         else {
-            useGrayscale = false;
+            useGrayscale = prefs.getBoolean(KEY_DATA_USE_GRAYSCALE, false);
         }
 
         allAbsoluteImageFileList = null;
