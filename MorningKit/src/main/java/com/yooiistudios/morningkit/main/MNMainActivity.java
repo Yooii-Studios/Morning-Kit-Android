@@ -56,6 +56,7 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import jp.co.garage.onesdk.DGService;
 import lombok.Getter;
 
 /**
@@ -86,6 +87,8 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
+    private DGService dgService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,8 +112,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                     alarm.startAlarmWithNoToast(getApplicationContext());
                 }
             }
-            // 알람 없이 켜질 경우 전면광고 카운트 체크
-            MNAdUtils.checkFullScreenAdCount(this);
         }
 
         setContentView(R.layout.activity_main);
@@ -130,6 +131,11 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         // 플러리
         sendFlurryAnalytics();
+
+        // 알람 없이 켜질 경우 전면광고 카운트 체크
+        if (!MNAlarmWake.isAlarmReserved(getIntent())) {
+            MNAdUtils.checkFullScreenAdCount(this, dgService);
+        }
     }
 
     void initMainActivity() {
@@ -223,6 +229,11 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         // Partially visible
         adView.pause();
+
+        // 디지털 가라지 광고를 사용하고 있을 경우는 close 시켜주기(일본어)
+        if (dgService != null) {
+            dgService.close();
+        }
         super.onPause();
     }
 
