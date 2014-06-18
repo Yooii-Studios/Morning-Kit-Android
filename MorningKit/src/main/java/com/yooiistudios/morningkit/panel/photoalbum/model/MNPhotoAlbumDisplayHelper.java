@@ -111,10 +111,15 @@ public class MNPhotoAlbumDisplayHelper {
         else {
             Collections.shuffle(mFileList, new Random(System.nanoTime()));
             String fileName;
-            if (mSelectedFile != null && mFileList.contains(mSelectedFile)) {
-                mFileList.remove(mSelectedFile);
-                mFileList.add(0, mSelectedFile);
+
+            if (interval < 0) {
+                // If slideshow turned off, show selected file.
+                if (mSelectedFile != null && mFileList.contains(mSelectedFile)) {
+                    mFileList.remove(mSelectedFile);
+                    mFileList.add(0, mSelectedFile);
+                }
             }
+
             mPhotoIdx = 0;
             fileName = mFileList.get(mPhotoIdx);
 
