@@ -282,7 +282,7 @@
     <string name="saving">Saving…</string>
 
         <!-- World Clock -->
-    <string name="no_search_result">No Results Found</string>
+    <string name="no_search_result">查無搜尋結果</string>
 
         <!-- Calendar -->
     <string name="calendar_select_calendars">Select Calendars</string>
