@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/alarm_wake_custom_dialog_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <com.yooiistudios.morningkit.common.textview.AutoResizeTextView
+        android:id="@+id/alarm_wake_custom_dialog_label_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/alarm_custom_dialog_label_left_right_padding"
+        android:paddingRight="@dimen/alarm_custom_dialog_label_left_right_padding"
+        android:paddingTop="@dimen/alarm_custom_dialog_label_top_bottom_padding"
+        android:paddingBottom="@dimen/alarm_custom_dialog_label_top_bottom_padding"
+        android:text="@string/alarm_default_label"
+        android:textColor="@color/pastel_green_main_font_color"
+        android:textStyle="bold"
+        android:textSize="@dimen/alarm_custom_dialog_label_font_size"
+        android:singleLine="true"
+        android:ellipsize="end"/>
+
+    <View
+        android:id="@+id/alarm_wake_custom_dialog_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/alarm_custom_dialog_divider_padding"
+        android:layout_marginRight="@dimen/alarm_custom_dialog_divider_padding"
+        android:background="@color/pastel_green_main_font_color"
+        android:layout_below="@id/alarm_wake_custom_dialog_label_text_view" />
+
+    <ImageView
+        android:id="@+id/alarm_wake_custom_dialog_image_view"
+        android:layout_width="@dimen/alarm_custom_dialog_image_view_size"
+        android:layout_height="@dimen/alarm_custom_dialog_image_view_size"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/alarm_wake_custom_dialog_divider"
+        android:layout_marginTop="@dimen/alarm_custom_dialog_image_view_top_margin"
+        android:src="@drawable/alarm_custom_dialog_icon" />
+
+    <TextView
+        android:id="@+id/alarm_wake_custom_dialog_time_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alarm_wake_custom_dialog_image_view"
+        android:paddingTop="@dimen/alarm_custom_dialog_time_text_top_margin"
+        android:paddingBottom="@dimen/alarm_custom_dialog_time_text_bottom_margin"
+        android:layout_centerHorizontal="true"
+        android:text="6:40 AM"
+        android:textColor="@color/pastel_green_main_font_color"
+        android:textStyle="bold"
+        android:textSize="@dimen/alarm_custom_dialog_time_text_font_size"
+        android:ellipsize="end"/>
+
+    <View
+        android:id="@+id/alarm_wake_custom_dialog_button_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/alarm_wake_custom_dialog_time_text_view"
+        android:background="@color/pastel_green_sub_font_color" />
+
+    <LinearLayout
+        android:id="@+id/alarm_wake_custom_dialog_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alarm_wake_custom_dialog_button_divider"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/alarm_wake_custom_dialog_dismiss_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="@dimen/alarm_custom_dialog_time_text_top_margin"
+            android:paddingBottom="@dimen/alarm_custom_dialog_time_text_top_margin"
+            android:gravity="center"
+            android:background="@drawable/shape_alarm_wake_custom_view_pastel_green"
+            android:text="@string/alarm_wake_dismiss"
+            android:textColor="@color/pastel_green_sub_font_color"
+            android:textStyle="bold"
+            android:textSize="@dimen/alarm_custom_dialog_button_text_font_size"/>
+
+        <View
+            android:id="@+id/alarm_wake_custom_dialog_button_middle_divider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/pastel_green_sub_font_color" />
+
+        <TextView
+            android:id="@+id/alarm_wake_custom_dialog_snooze_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="@dimen/alarm_custom_dialog_time_text_top_margin"
+            android:paddingBottom="@dimen/alarm_custom_dialog_time_text_top_margin"
+            android:gravity="center"
+            android:background="@drawable/shape_alarm_wake_custom_view_pastel_green"
+            android:text="@string/alarm_wake_snooze"
+            android:textColor="@color/pastel_green_sub_font_color"
+            android:textStyle="bold"
+            android:textSize="@dimen/alarm_custom_dialog_button_text_font_size"/>
+
+    </LinearLayout>
+</RelativeLayout>

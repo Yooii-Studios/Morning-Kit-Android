@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- General -->
+	<string name="app_name">Утренний Kомплект</string>
+	<string name="ok">OK</string>
+	<string name="cancel">Отменить</string>
+	<string name="loading">Загрузка…</string>
+	<string name="default_string">По умолчанию</string>
+	<string name="yes">Да</string>
+	<string name="no">Нет</string>
+	<string name="no_network_connection">Нет связи</string>
+	<string name="searching">Поиск…</string>
+	<string name="done">Готово</string>
+	<string name="open">Открыть</string>
+
+	<!-- Alarm -->
+	<string name="add_an_alarm">Добавить будильник</string>
+	<string name="edit_alarm">Изменить будильник</string>
+	<string name="alarm_default_label">Будильник</string>
+	<string name="alarm_am">AM</string>
+	<string name="alarm_pm">PM</string>
+	<string name="alarm_snooze_stirng">Ваш будильник возобновит работy через 9 минут</string>
+
+	<!-- Alarm Toaster -->
+	<string name="alarm_set_toast_part1">Установка будильника для </string>
+	<string name="alarm_set_toast_part2">с этого времени</string>
+	<string name="alarm_day"> день </string>
+	<string name="alarm_days"> дни </string>
+	<string name="alarm_hour"> час </string>
+	<string name="alarm_hours"> часы </string>
+	<string name="alarm_minute"> минута </string>
+	<string name="alarm_minutes"> минуты </string>
+
+	<!-- Alarm Preference -->
+	<string name="alarm_pref_repeat">Повторить</string>
+	<string name="alarm_pref_sound_type">Звук</string>
+	<string name="alarm_pref_label">Пометка</string>
+	<string name="alarm_pref_repeat_never">Никогда</string>
+	<string name="alarm_pref_repeat_weekdays">Будни</string>
+	<string name="alarm_pref_repeat_weekends">Выходные</string>
+	<string name="alarm_pref_repeat_everyday">Каждый день</string>
+	<string name="alarm_pref_pick_your_favorite_sond">Выбрать песню</string>
+
+	<!-- Repeat -->
+	<string name="every_monday">Каждый Понедельник</string>
+	<string name="every_tuesday">Каждый Вторник</string>
+	<string name="every_wednesday">Каждую Среду</string>
+	<string name="every_thursday">Каждый Четверг</string>
+	<string name="every_friday">Каждую Пятницу</string>
+	<string name="every_saturday">Каждую Субботу</string>
+	<string name="every_sunday">Каждое Воскресенье</string>
+	<string name="monday">По</string>
+	<string name="tuesday">Вт</string>
+	<string name="wednesday">Ср</string>
+	<string name="thursday">Чт</string>
+	<string name="friday">Пт</string>
+	<string name="saturday">Сб</string>
+	<string name="sunday">Вc</string>
+	<string name="monday_short">П</string>
+	<string name="tuesday_short">В</string>
+	<string name="wednesday_short">С</string>
+	<string name="thursday_short">Ч</string>
+	<string name="friday_short">П</string>
+	<string name="saturday_short">С</string>
+	<string name="sunday_short">В</string>
+
+	<!-- Alarm Wake -->
+	<string name="alarm_wake_snooze">Позже</string>
+	<string name="alarm_wake_dismiss">Отклонить</string>
+
+	<!-- Alarm Sound -->
+	<string name="alarm_sound_string_none">Oтключение</string>
+	<string name="alarm_sound_string_vibrate">Вибрация</string>
+	<string name="alarm_sound_string_ringtones">Рингтон</string>
+	<string name="alarm_sound_string_music">Музыка</string>
+	<string name="alarm_ocean_short">Oкеан</string>
+	<string name="alarm_ride">Езда</string>
+
+	<!-- Widget -->
+	<string name="world_clock">Мировые\nчасы</string>
+	<string name="flickr">Фликр</string>
+	<string name="memo">Заметка</string>
+
+	"date_calculator" = "дата\nобратного отсчета"; <!-- 카운트 다운\n타이머 -->
+	<string name="date_calculator">дата\nобратного отсчета</string>
+	<string name="weather">Погода</string>
+	<string name="calendar">Календарь</string>
+	<string name="exchange_rate">Oбменный\nкурс</string>
+	<string name="saying">Фразы</string>
+	<string name="reminder">Напоминание</string>
+
+	<!-- Calendar -->
+	<string name="calendar_lunar_calendar">Лунный календарь</string>
+	<string name="calendar_monday">ПОНЕДЕЛЬНИК</string>
+	<string name="calendar_tuesday">ВТОРНИК</string>
+	<string name="calendar_wednesday">СРЕДА</string>
+	<string name="calendar_thursday">ЧЕТВЕРГ</string>
+	<string name="calendar_friday">ПЯТНИЦА</string>
+	<string name="calendar_saturday">СУББОТА</string>
+	<string name="calendar_sunday">ВОСКРЕСЕНЬЕ</string>
+
+	<!-- Flickr -->
+	<string name="flickr_not_available_flickr_url">Результаты не найдены</string>
+	<string name="flickr_search_images">Поиск изображений</string>
+	<string name="flickr_use_gray_scale">Использовать серый оттенок</string>
+	<string name="flickr_save_to_library_guide">Это фото будет сохранена в вашей библиотеке</string>
+	<string name="flickr_photo_saved">Это фото сохранено</string>
+	<string name="flickr_normal_quality">Стандартный</string>
+	<string name="flickr_high_quality">Высокое качество</string>
+	<string name="flickr_error_access_server">Error in access to flickr server</string>
+
+	<!-- Date Countdown -->
+	<string name="date_countdown_date">дата</string>
+	<string name="date_countdown_countdown">обратного отсчета</string>
+	<string name="date_countdown_new_year">Новый год</string>
+	<string name="date_countdown_write_a_title">Пометка</string>
+	<string name="date_countdown_create_countdown">Создать обратный отсчет</string>
+
+	<!-- Weather -->
+	<string name="weather_temperature_unit">Единицы измерения температуры</string>
+	<string name="weather_use_current_location">Использовать текущее местоположение</string>
+	<string name="weather_current_location">Текущее местоположение</string>
+	<string name="weather_search_city">Поиск города (по-английски)</string>
+	<string name="display_local_time">Отображения местного времени</string>
+	<string name="weather_choose_your_city">Выбор города</string>
+
+	<!-- World Clock -->
+	<string name="world_clock_clock_type_text">Тип часов</string>
+	<string name="world_clock_digital">Цифровой</string>
+	<string name="world_clock_analog">Аналоговый</string>
+	<string name="world_clock_use_24_hour_format">Использовать 24-часовой формат</string>
+	<string name="world_clock_today">Сегодня</string>
+	<string name="world_clock_tomorrow">Завтра</string>
+	<string name="world_clock_yesterday">Вчера</string>
+
+	<!-- Exchange Rate -->
+	<string name="exchange_rate_switch_countries">Обменять валюту</string>
+	<string name="exchange_rate_main_currencies">Основные валюты</string>
+	<string name="exchange_rate_all_currencies">Все валюты</string>
+
+	<!-- Memo -->
+	<string name="memo_write_here">Написать записку</string>
+	<string name="memo_write_here_modal">Писать здесь</string>
+	<string name="memo_end_of_page_halt">Страницы</string>
+
+	<!-- Quotes -->
+	<string name="quotes_copy">Скопировать</string>
+
+	<!-- Reminder -->
+	<string name="reminder_no_schedule">Нет сегодня событий</string>
+	<string name="reminder_birthday">День рождения</string>
+	<string name="reminder_event">Событие</string>
+	<string name="reminder_all_day">Весь День</string>
+
+	<!-- Configure_Info -->
+	<string name="info_store">Хранить</string>
+	<string name="info_help">Помощь</string>
+	<string name="info_credit">Благодарность</string>
+	<string name="info_yooii_connector">Yooii Connector</string>
+
+	<!-- Tab -->
+	<string name="tab_widget">Панель</string>
+	<string name="tab_alarm">Будильник</string>
+	<string name="tab_setting">Настройка</string>
+	<string name="tab_theme">Тема</string>
+	<string name="tab_info">Информация</string>
+
+	<!-- Setting (General) -->
+	<string name="setting_language">Язык</string>
+	<string name="setting_widgettable">Матрица панели</string>
+	<string name="setting_theme_color">Тема</string>
+	<string name="setting_theme_color_skyblue">Небесный (Голубой)</string>
+	<string name="setting_theme_color_classic_gray">Шиферний (Серый)</string>
+	<string name="setting_theme_color_classic_white">Модерний (Шикарний белые)</string>
+	<string name="setting_theme_mirror">Oтражений (Зеркальный)</string>
+	<string name="setting_theme_scenery">Спокойствие (Прозрачный)</string>
+	<string name="setting_theme_photo">Фото</string>
+	<string name="setting_theme_photo_portrait">Фото (Портрет)</string>
+	<string name="setting_theme_photo_landscape">Фото (Пейзаж)</string>
+
+	<!-- Setting (Language) -->
+	<string name="setting_language_korean">한국어</string>
+	<string name="setting_language_english">English</string>
+	<string name="setting_language_japanese">日本語</string>
+	<string name="setting_language_simplified_chinese">简体中文</string>
+	<string name="setting_language_traditional_chinese">繁體中文</string>
+	<string name="setting_language_russian">Русский</string>
+
+	<!-- Setting (Effect sound) -->
+	<string name="setting_effect_sound">Звуковой эффект</string>
+	<string name="setting_effect_sound_on">Включенный</string>
+	<string name="setting_effect_sound_off">Выключенный</string>
+
+	<!-- Tutorial -->
+	<string name="tutorial_select_theme">Выбрать утренний комплект</string>
+
+	<!-- Tutorial1 - Description -->
+	<string name="tutorial1_label1">Вы можете настроить панель</string>
+	<string name="tutorial1_label2">Вы можете добавить или изменить будильник</string>
+	<string name="tutorial1_label3">Проведите пальцем по экрану чтобы удалить будильники</string>
+	<string name="tutorial1_label4">Обновить</string>
+	<string name="tutorial1_label5">Настройка</string>
+	<string name="tutorial1_tap_screen">Коснитесь экрана</string>
+	<string name="tutorial1_skip_tutorial">Пропустить учебник</string>
+
+	<!-- Unlock -->
+	<string name="unlock_notice">ВНИМАНИЕ</string>
+	<string name="unlock_unlocked">Разблокирован</string>
+	<string name="unlock_description">Есть много способов для разблокировкий это функции. найди способ насладиться егю бесплатно!</string>
+	<string name="unlock_description_highlight">разблокировкий</string>
+	<string name="unlock_everything">Разблокировать всё всего за 1.99$</string>
+	<string name="unlock_everything_highlight">всё</string>
+	<string name="unlock_only_this">Разблокировать за 0.99$</string>
+	<string name="unlock_review">Написать отзыв и разблокировать бесплатно!</string>
+	<string name="unlock_review_highlight">отзыв</string>
+	<string name="unlock_connector">Активизировать Yooii Connector и разблакировка бесплатная!</string>
+	<string name="unlock_connector_highlight">Yooii Connector</string>
+	<string name="unlock_use_morning">Используйте Утренний комплект 10 раз и разблакировка бесплатная!</string>
+	<string name="unlock_use_morning_highlight">10 раз</string>
+	<string name="unlock_facebook">Отметьте значком \“Мне нравится\” нашу страницу на Фейсбуке и разблокируйте программу б есплатно</string>
+	<string name="unlock_facebook_highlight">\“Мне нравится\”</string>
+	<string name="unlock_twitter">Следите за нами в Твиттере и  разблакировка бесплатная!</string>
+	<string name="unlock_twitter_highlight">Следите</string>
+
+	<!-- Store -->
+	<string name="store_no_purchase_records">Нет данных о покупках</string>
+	<string name="store_restore_purchases">Восстановить покупки</string>
+	<string name="store_restore">Восстановить</string>
+	<string name="store_purchased">Купленные</string>
+	<string name="store_restore_success_message">Все покупки были восстановлены</string>
+	<string name="store_buy_full_version">Купить полную версию!</string>
+	<string name="store_buy_full_version_description">Обновить чтобы разблокировать все Функции, Панели и Темы</string>
+	<string name="store_tab_functions">Функции</string>
+	<string name="store_tab_widgets">Панели</string>
+	<string name="store_tab_themes">Темы</string>
+	<string name="store_item_more_alarm_slots">Дополнительные будиляники</string>
+	<string name="store_item_no_ads">Никакой\nрекламы</string>
+	<string name="store_item_matrix">2 X 1 Matrix</string>
+	<string name="store_item_widget_date_countdown">дата\nобратного отсчета</string>
+	<string name="store_item_widget_memo">Заметка</string>
+	<string name="store_item_photo_portrait">Фото\nПортрет</string>
+	<string name="store_item_photo_landscape">Фото\nПейзаж</string>
+	<string name="store_item_skyblue">Небесный\n(Голубой)</string>
+	<string name="store_item_classic_white">Модерний\n(Шикарний белые)</string>
+	<string name="store_item_water_lily">Водяная лилия</string>
+	<string name="store_item_popsicle">Popsicle</string>
+
+	<!-- Rate it -->
+	<string name="rate_it_contents">Оценить Утренний комплект сделать его лучше! Спасибо</string>
+	<string name="rate_it_rate">Оценка</string>
+	<string name="rate_it_no_thanks">Оценить позже</string>
+	<string name="rate_morning_kit">Оценить Утренний комплект</string>
+
+	<!-- More Information -->
+	<string name="more_information">Утренний комплект Инфо</string>
+	<string name="more_information_yooii_studios">Yooii Studios</string>
+	<string name="more_information_morning_kit_help">Помощь с Утренним комплектом</string>
+	<string name="more_information_version_info">Версия</string>
+	<string name="more_information_morning_kit_license">Лицензия Утреннего комплекта</string>
+	<string name="more_information_license">Лицензия </string>
+
+    <!-- Alarm First On Notice -->
+    <string name="alarm_first_on_notice">[Настройки -> Центр уведомлений -> Утренний Комплект] Пожалуйста, установите стиль оповещения на \"Оповещения\" и включите \"Звуки\". Звуковой сигнал не звучит в режиме вибрации. Пожалуйста, отключите вибрацию.</string>
+
+	<!-- Photo Theme -->
+	<string name="photo_theme_move_and_scale">Перемещать и масштабировать</string>
+	<string name="photo_theme_choose">Выбрать</string>
+	<string name="photo_theme_first_open_notice">Чтобы заполнил весь экран, пожалуйста, измените размер изображения в соответствии с кадром</string>
+
+    <!-- Android Only -->
+    <!-- General -->
+    <string name="action_bar_up_button_main">Main</string>
+    <string name="store_item_full_version">Full Version</string>
+
+    <!-- Alarm -->
+    <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
+
+        <!-- Prefs -->
+    <string name="alarm_pref_volume">Volume</string>
+
+    <!-- Panel -->
+        <!-- Flickr -->
+    <string name="saving">Saving…</string>
+
+        <!-- World Clock -->
+    <string name="no_search_result">No Results Found</string>
+
+        <!-- Calendar -->
+    <string name="calendar_select_calendars">Select Calendars</string>
+
+        <!-- Photo Album -->
+    <string name="photo_album">Photo Frame</string>
+    <string name="photo_album_no_image">No image available</string>
+    <string name="photo_album_error_getting_photo">Error occurred while getting photo</string>
+    <string name="photo_album_label_refresh_time">Refresh Time</string>
+    <string name="photo_album_label_transition_type">Transition Type</string>
+    <string name="photo_album_minute_hint">min</string>
+    <string name="photo_album_minute">min</string>
+    <string name="photo_album_second_hint">sec</string>
+    <string name="photo_album_second">sec</string>
+    <string name="photo_album_transition_none">None</string>
+    <string name="photo_album_transition_alpha">Alpha</string>
+    <string name="photo_album_load">Load</string>
+
+    <!-- Theme -->
+    <string name="setting_theme_color_pastel_green">Pastel Green</string>
+
+    <!-- Recommend -->
+    <string name="recommend_to_friends">Рекомендовать Утренний Kомплект друзьям</string>
+    <string name="recommend_title">Настоятельно рекомендуем!</string>
+    <string name="recommend_description">Просто нажмите кнопку и скачать :-)</string>
+
+</resources>

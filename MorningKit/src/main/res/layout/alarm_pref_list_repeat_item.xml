@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/alarm_pref_list_repeat_item_outer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/alarm_pref_list_repeat_item_height"
+    android:background="@color/white"
+    android:clickable="false"
+    android:focusable="false"
+    android:paddingLeft="@dimen/alarm_pref_list_time_left_right_padding"
+    android:paddingRight="@dimen/alarm_pref_list_time_left_right_padding" >
+
+    <TextView
+        android:id="@+id/alarm_pref_list_repeat_item_title_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/panel_layout_padding"
+        android:gravity="center_vertical"
+        android:text="@string/alarm_pref_repeat"
+        android:textColor="@color/pastel_green_sub_font_color"
+        android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
+        android:layout_centerInParent="true"
+        android:singleLine="true"
+        android:ellipsize="end"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false"
+        android:weightSum="7"
+        android:orientation="horizontal"
+        android:layout_below="@id/alarm_pref_list_repeat_item_title_textview">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/alarm_pref_list_repeat_item_monday_button"
+                android:layout_width="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:background="@drawable/alarm_pref_repeat_circle_selector"
+                android:text="@string/monday_short"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/alarm_pref_list_repeat_item_tuesday_button"
+                android:layout_width="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:background="@drawable/alarm_pref_repeat_circle_selector"
+                android:text="@string/tuesday_short"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/alarm_pref_list_repeat_item_wednesday_button"
+                android:layout_width="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:background="@drawable/alarm_pref_repeat_circle_selector"
+                android:text="@string/wednesday_short"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/alarm_pref_list_repeat_item_thursday_button"
+                android:layout_width="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:background="@drawable/alarm_pref_repeat_circle_selector"
+                android:text="@string/thursday_short"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/alarm_pref_list_repeat_item_friday_button"
+                android:layout_width="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:background="@drawable/alarm_pref_repeat_circle_selector"
+                android:text="@string/friday_short"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/alarm_pref_list_repeat_item_saturday_button"
+                android:layout_width="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:background="@drawable/alarm_pref_repeat_circle_selector"
+                android:text="@string/saturday_short"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/alarm_pref_list_repeat_item_sunday_button"
+                android:layout_width="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
+                android:background="@drawable/alarm_pref_repeat_circle_selector"
+                android:text="@string/sunday_short"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/alarm_pref_list_time_divider_height"
+        android:background="@color/pastel_green_stroke_color"
+        android:layout_alignParentBottom="true"
+        android:textColor="@android:color/white"/>
+
+</RelativeLayout>

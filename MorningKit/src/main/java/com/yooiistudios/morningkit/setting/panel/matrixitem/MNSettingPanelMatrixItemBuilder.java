@@ -1,13 +1,17 @@
 package com.yooiistudios.morningkit.setting.panel.matrixitem;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 /**
@@ -27,59 +31,72 @@ public class MNSettingPanelMatrixItemBuilder {
             // panelImageView
             ImageView panelImageView = panelMatrixItem.getPanelImageView();
 
-            /*
             // recycle resources
-            Drawable drawable = panelImageView.getDrawable();
-            if (drawable instanceof BitmapDrawable) {
-                Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-                if (bitmap != null && !bitmap.isRecycled()) {
-                    bitmap.recycle();
-                    Log.i("MNSettingPanelMatrixItemBuilder", "bitmap recycled");
-                } else {
-                    Log.i("MNSettingPanelMatrixItemBuilder", "bitmap is null");
-                }
-                panelImageView.setImageDrawable(null);
-            }
-            */
+//            MNLog.i("MNSettingPanelMatrixItemBuilder", "recycle panelImageView");
+            MNBitmapUtils.recycleImageView(panelImageView);
 
             // new resources
-            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
+            int panelImageResourceId = 0;
+
             switch (panelType) {
                 case WEATHER:
-                    panelImageView.setImageResource(MNSettingResources.getWeatherResourceId(currentThemeType));
+                    panelImageResourceId = MNSettingResources.getWeatherResourceId();
                     break;
                 case DATE:
-                    panelImageView.setImageResource(MNSettingResources.getDateResourceId(currentThemeType));
+                    panelImageResourceId = MNSettingResources.getDateResourceId();
                     break;
                 case CALENDAR:
-                    panelImageView.setImageResource(MNSettingResources.getCalendarResourceId(currentThemeType));
+                    panelImageResourceId = MNSettingResources.getCalendarResourceId();
                     break;
                 case WORLD_CLOCK:
-                    panelImageView.setImageResource(MNSettingResources.getWorldClockResourceId(currentThemeType));
+                    panelImageResourceId = MNSettingResources.getWorldClockResourceId();
                     break;
                 case QUOTES:
-                    panelImageView.setImageResource(MNSettingResources.getQuotesResourceId(currentThemeType));
+                    panelImageResourceId = MNSettingResources.getQuotesResourceId();
                     break;
                 case FLICKR:
-                    panelImageView.setImageResource(MNSettingResources.getFlickrResourceId(currentThemeType));
+                    panelImageResourceId = MNSettingResources.getFlickrResourceId();
                     break;
                 case EXCHANGE_RATES:
-                    panelImageView.setImageResource(MNSettingResources.getExchangeRatesResourceId(currentThemeType));
+                    panelImageResourceId = MNSettingResources.getExchangeRatesResourceId();
                     break;
                 case MEMO:
-                    panelImageView.setImageResource(MNSettingResources.getMemoResourceId(currentThemeType));
+                    panelImageResourceId = MNSettingResources.getMemoResourceId();
                     break;
                 case DATE_COUNTDOWN:
-                    panelImageView.setImageResource(MNSettingResources.getDateCountdownResourceId(currentThemeType));
+                    panelImageResourceId = MNSettingResources.getDateCountdownResourceId();
+                    break;
+                case PHOTO_FRAME:
+                    panelImageResourceId = MNSettingResources.getPhotoFrameResourceId();
+            }
+
+            // pastel green 컬러 필터, 예외적인 아트는 은실이 따로 제작
+            switch (panelType) {
+                case EXCHANGE_RATES:
+                case WORLD_CLOCK:
+                case FLICKR:
+                    panelMatrixItem.getPanelImageView().setColorFilter(null);
+                    break;
+
+                default:
+                    int highlightColor = MNSettingColors.getSubFontColor(MNThemeType.PASTEL_GREEN);
+                    PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(highlightColor,
+                            PorterDuff.Mode.SRC_ATOP);
+                    panelMatrixItem.getPanelImageView().setColorFilter(colorFilter);
                     break;
             }
+
+            Bitmap panelImageBitmap = BitmapFactory.decodeResource(
+                    context.getApplicationContext().getResources(),
+                    panelImageResourceId, MNBitmapUtils.getDefaultOptions());
+            panelImageView.setImageBitmap(panelImageBitmap);
 
             // text
             panelMatrixItem.getPanelNameTextView().setText(MNPanelType.toString(panelType.getIndex(), context));
-            panelMatrixItem.getPanelNameTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+            panelMatrixItem.getPanelNameTextView().setTextColor(MNSettingColors.getSubFontColor(MNThemeType.PASTEL_GREEN));
 
-            // shadowLayout onclick
-            panelMatrixItem.getShadowLayout().setOnClickListener(new View.OnClickListener() {
+            // onclick
+            panelMatrixItem.getContainerLayout().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onClickListener.onPanelItemClick(position);

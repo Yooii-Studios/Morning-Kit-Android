@@ -14,11 +14,14 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.dp.DipToPixel;
+import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZone;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNTimeZoneLoader;
 import com.yooiistudios.morningkit.panel.worldclock.model.MNWorldClock;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import org.json.JSONException;
 
@@ -59,13 +62,17 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
     private boolean isUsing24Hours = false;
     private MNWorldClock worldClock;
 
-    private Handler clockHandler = new Handler() {
+    private MNWorldClockHandler clockHandler = new MNWorldClockHandler();
+    private class MNWorldClockHandler extends Handler {
         @Override
         public void handleMessage( Message msg ){
             if (isClockRunning){
                 // UI갱신
                 worldClock.tick();
-                updateUI();
+                // 튜토리얼때는 updateUI가 메인 쓰레드가 끊기지 않게 하기 위해 사용하지 않음
+                if (MNTutorialManager.isTutorialShown(getContext().getApplicationContext())) {
+                    updateUI();
+                }
 
                 // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
                 long endMilli = System.currentTimeMillis();
@@ -74,7 +81,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
                 clockHandler.sendEmptyMessageDelayed(0, 1000 - delay);
             }
         }
-    };
+    }
 
     public MNWorldClockPanelLayout(Context context) {
         super(context);
@@ -115,14 +122,18 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         analogAmpmTextView.setGravity(Gravity.CENTER);
         LayoutParams ampmLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         ampmLayoutParams.addRule(ALIGN_PARENT_RIGHT);
-        ampmLayoutParams.rightMargin = getResources().getDimensionPixelSize(R.dimen.margin_outer);
         ampmLayoutParams.addRule(ALIGN_PARENT_TOP);
+        ampmLayoutParams.rightMargin = getResources().getDimensionPixelSize(R.dimen.panel_detail_padding);
         ampmLayoutParams.topMargin = getResources().getDimensionPixelSize(R.dimen.margin_outer);
         analogAmpmTextView.setLayoutParams(ampmLayoutParams);
+        analogAmpmTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_weather_city_name_local_time_text_size));
         getContentLayout().addView(analogAmpmTextView);
 
         // analog clock
-        int analogViewSize = DipToPixel.dpToPixel(getContext(), 60);
+        int analogViewSize = getResources().getDimensionPixelSize(
+                R.dimen.panel_world_clock_analog_clock_size);//DipToPixel.dpToPixel
+        // (getContext(), 60);
         analogClockView = new MNAnalogClockView(getContext());
         analogClockView.setId(9173751);
         LayoutParams analogViewParams = new LayoutParams(analogViewSize, analogViewSize);
@@ -137,7 +148,10 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         LayoutParams dayDiffLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         dayDiffLayoutParams.addRule(CENTER_HORIZONTAL);
         dayDiffLayoutParams.addRule(BELOW, analogClockView.getId());
+        dayDiffLayoutParams.setMargins(0, getResources().getDimensionPixelSize(R.dimen.margin_inner), 0, 0);
         analogDayDifferenceTextView.setLayoutParams(dayDiffLayoutParams);
+        analogDayDifferenceTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_weather_city_name_local_time_text_size));
         analogClockLayout.addView(analogDayDifferenceTextView);
 
         // city name
@@ -148,17 +162,31 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         cityNameLayoutParams.addRule(CENTER_HORIZONTAL);
         cityNameLayoutParams.addRule(BELOW, analogDayDifferenceTextView.getId());
         analogCityNameTextView.setLayoutParams(cityNameLayoutParams);
+        analogCityNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_weather_city_name_local_time_text_size));
         analogClockLayout.addView(analogCityNameTextView);
 
+        // 초기에 테마가 적용되지 않는 문제 때문에 초기 1회 테마 세팅함
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
+        Context applicationContext = getContext().getApplicationContext();
+        int subFontColor = MNMainColors.getSubFontColor(currentThemeType, applicationContext);
+
+        analogAmpmTextView.setTextColor(subFontColor);
+        analogDayDifferenceTextView.setTextColor(subFontColor);
+        analogCityNameTextView.setTextColor(subFontColor);
+        analogClockView.applyTheme();
+
         // test
-        analogClockLayout.setBackgroundColor(Color.BLUE);
-        analogAmpmTextView.setBackgroundColor(Color.CYAN);
-        analogAmpmTextView.setText("AM");
-        analogClockView.setBackgroundColor(Color.RED);
-        analogDayDifferenceTextView.setBackgroundColor(Color.MAGENTA);
-        analogDayDifferenceTextView.setText("Today");
-        analogCityNameTextView.setBackgroundColor(Color.GREEN);
-        analogCityNameTextView.setText("Milwaukee, WI");
+        if (DEBUG_UI) {
+            analogClockLayout.setBackgroundColor(Color.BLUE);
+            analogAmpmTextView.setBackgroundColor(Color.CYAN);
+            analogAmpmTextView.setText("AM");
+            analogClockView.setBackgroundColor(Color.RED);
+            analogDayDifferenceTextView.setBackgroundColor(Color.MAGENTA);
+            analogDayDifferenceTextView.setText("Today");
+            analogCityNameTextView.setBackgroundColor(Color.GREEN);
+            analogCityNameTextView.setText("Milwaukee, WI");
+        }
     }
 
     private void initDigitalClockUI() {
@@ -183,6 +211,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         digitalTimeTextView.setGravity(Gravity.BOTTOM);
         LayoutParams timeLayoutParms = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         digitalTimeTextView.setLayoutParams(timeLayoutParms);
+        digitalTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_world_clock_digital_time_text_size));
         digitalTimeLayout.addView(digitalTimeTextView);
 
         // ampm
@@ -191,7 +221,10 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         LayoutParams ampmLayoutParms = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         ampmLayoutParms.addRule(ALIGN_BASELINE, digitalTimeTextView.getId());
         ampmLayoutParms.addRule(RIGHT_OF, digitalTimeTextView.getId());
+        ampmLayoutParms.leftMargin = getResources().getDimensionPixelOffset(R.dimen.margin_inner);
         digitalAmpmTextView.setLayoutParams(ampmLayoutParms);
+        digitalAmpmTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_world_clock_digital_text_size));
         digitalTimeLayout.addView(digitalAmpmTextView);
 
         // day differences
@@ -202,6 +235,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         dayDiffLayoutParams.addRule(CENTER_HORIZONTAL);
         dayDiffLayoutParams.addRule(BELOW, digitalTimeLayout.getId());
         digitalDayDifferenceTextView.setLayoutParams(dayDiffLayoutParams);
+        digitalDayDifferenceTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_world_clock_digital_text_size));
         digitalClockLayout.addView(digitalDayDifferenceTextView);
 
         // city name
@@ -212,20 +247,34 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         cityNameLayoutParams.addRule(CENTER_HORIZONTAL);
         cityNameLayoutParams.addRule(BELOW, digitalDayDifferenceTextView.getId());
         digitalCityNameTextView.setLayoutParams(cityNameLayoutParams);
+        digitalCityNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_world_clock_digital_text_size));
         digitalClockLayout.addView(digitalCityNameTextView);
 
+        // 초기에 테마가 적용되지 않는 문제 때문에 초기 1회 테마 세팅함
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
+        Context applicationContext = getContext().getApplicationContext();
+        int subFontColor = MNMainColors.getSubFontColor(currentThemeType, applicationContext);
+        int mainFontColor = MNMainColors.getMainFontColor(currentThemeType, applicationContext);
+
+        digitalAmpmTextView.setTextColor(subFontColor);
+        digitalTimeTextView.setTextColor(mainFontColor);
+        digitalDayDifferenceTextView.setTextColor(subFontColor);
+        digitalCityNameTextView.setTextColor(subFontColor);
+
         // test
-        digitalClockLayout.setBackgroundColor(Color.BLUE);
-        digitalTimeLayout.setBackgroundColor(Color.RED);
-        digitalTimeTextView.setBackgroundColor(Color.YELLOW);
-        digitalTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, DipToPixel.dpToPixel(getContext(), 40));
-        digitalTimeTextView.setText("3:41");
-        digitalAmpmTextView.setBackgroundColor(Color.CYAN);
-        digitalAmpmTextView.setText("AM");
-        digitalDayDifferenceTextView.setBackgroundColor(Color.MAGENTA);
-        digitalDayDifferenceTextView.setText("Today");
-        digitalCityNameTextView.setBackgroundColor(Color.GREEN);
-        digitalCityNameTextView.setText("Milwaukee, WI");
+        if (DEBUG_UI) {
+            digitalClockLayout.setBackgroundColor(Color.BLUE);
+            digitalTimeLayout.setBackgroundColor(Color.RED);
+            digitalTimeTextView.setBackgroundColor(Color.YELLOW);
+            digitalTimeTextView.setText("3:41");
+            digitalAmpmTextView.setBackgroundColor(Color.CYAN);
+            digitalAmpmTextView.setText("AM");
+            digitalDayDifferenceTextView.setBackgroundColor(Color.MAGENTA);
+            digitalDayDifferenceTextView.setText("Today");
+            digitalCityNameTextView.setBackgroundColor(Color.GREEN);
+            digitalCityNameTextView.setText("Milwaukee, WI");
+        }
     }
 
     @Override
@@ -245,6 +294,9 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             timeZone = new Gson().fromJson(timeZoneJsonString, type);
         } else {
             timeZone = MNTimeZoneLoader.getDefaultZone(getContext());
+            String selectedTimeZoneJsonString = new Gson().toJson(timeZone);
+            // 버그 수정: defaultZone을 읽었으면, panelDataObject에 저장해주기
+            getPanelDataObject().put(WORLD_CLOCK_DATA_TIME_ZONE, selectedTimeZoneJsonString);
         }
 
         // 세계 시계 정보를 가지고 시간 정보를 다시 계산
@@ -309,13 +361,17 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             }
         }
 
+        String hourString = String.valueOf(hour);
+        if (hour < 10 && isUsing24Hours) {
+            hourString = "0" + hourString;
+        }
         String minuteString = String.valueOf(minute);
         if (minute < 10) {
             minuteString = "0" + minuteString;
         }
 
         String colonString = second % 2 == 0 ? ":" : " ";
-        String timeString = String.valueOf(hour) + colonString + minuteString;
+        String timeString = hourString + colonString + minuteString;
         digitalTimeTextView.setText(timeString);
 
         // am/pm
@@ -362,9 +418,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             return;
         }
         isClockRunning = true;
-
-        int diffInMilli = (int) System.currentTimeMillis() % 1000;
-        clockHandler.sendEmptyMessageDelayed(0, 1000 - diffInMilli);
+        clockHandler.sendEmptyMessageDelayed(0, 0);
     }
 
     private void stopClock() {
@@ -372,12 +426,52 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             return;
         }
         isClockRunning = false;
+        clockHandler.removeMessages(0);
     }
 
-    // 패널이 없어질 때 핸들러 중지
+    // 뷰가 붙을 때 아날로그 시계뷰 재가동
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (analogClockView != null && isClockAnalog) {
+            analogClockView.setFirstTick(true);     // 다시 붙을 때는 first tick rotate 를 실행
+            try {
+                // startClock으로도 시계가 맞추어지지만 가능하지만 tick을 기다려야 해서
+                // 회전이 끝난 후에 UI갱신이 되는 경우가 있어 refreshPanel을 호출
+                refreshPanel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        startClock();
+    }
+
+    // 뷰가 사라질 때 아날로그 시계뷰 핸들러 중지
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         stopClock();
+    }
+
+    @Override
+    public void applyTheme() {
+        super.applyTheme();
+
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
+        Context applicationContext = getContext().getApplicationContext();
+        int subFontColor = MNMainColors.getSubFontColor(currentThemeType, applicationContext);
+        int mainFontColor = MNMainColors.getMainFontColor(currentThemeType, applicationContext);
+        if (isClockAnalog) {
+            analogAmpmTextView.setTextColor(subFontColor);
+            analogDayDifferenceTextView.setTextColor(subFontColor);
+            analogCityNameTextView.setTextColor(subFontColor);
+            analogClockView.applyTheme();
+        } else {
+            digitalAmpmTextView.setTextColor(subFontColor);
+            digitalTimeTextView.setTextColor(mainFontColor);
+            digitalDayDifferenceTextView.setTextColor(subFontColor);
+            digitalCityNameTextView.setTextColor(subFontColor);
+        }
+
     }
 }

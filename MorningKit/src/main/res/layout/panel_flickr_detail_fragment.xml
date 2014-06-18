@@ -1,46 +1,94 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/panel_detail_padding"
-    tools:context="com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment">
-
-    <com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView
-        android:id="@+id/flickr_detail_imageview"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/panel_flickr_image_view_height"
-        android:scaleType="center"/>
-
-    <EditText
-        android:id="@+id/flickr_detail_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/flickr_detail_imageview"
-        android:layout_marginTop="@dimen/margin_outer"
-        android:hint="@string/flickr_search_images"
-        android:inputType="text"/>
+    tools:context="com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment"
+    android:background="@android:color/white">
 
     <RelativeLayout
-        android:layout_marginTop="@dimen/margin_outer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/flickr_detail_edittext">
+        android:padding="@dimen/panel_detail_bigger_padding">
+        <ImageView
+            android:id="@+id/panel_detail_flickr_imageview"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/panel_flickr_image_view_height"
+            android:scaleType="center"/>
 
-        <CheckBox
-            android:id="@+id/flickr_detail_grayscale_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
-
-        <TextView
-            android:id="@+id/flickr_detail_grayscale_textview"
+        <FrameLayout
+            android:id="@+id/panel_detail_flickr_edit_text_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/flickr_use_gray_scale"
-            android:textStyle="bold"
-            android:layout_toLeftOf="@id/flickr_detail_grayscale_checkbox"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"/>
+            android:layout_gravity="center_vertical"
+            android:layout_below="@id/panel_detail_flickr_imageview"
+            android:layout_marginTop="@dimen/panel_detail_padding" >
+
+            <ImageView
+                android:layout_width="@dimen/panel_world_clock_detail_magnifier_size"
+                android:layout_height="@dimen/panel_world_clock_detail_magnifier_size"
+                android:layout_gravity="center_vertical|left"
+                android:background="@drawable/icon_magnifier"/>
+
+            <EditText
+                android:id="@+id/panel_detail_flickr_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/panel_world_clock_detail_edit_text_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/panel_world_clock_detail_magnifier_size"
+                android:ems="5"
+                android:hint="@string/flickr_search_images"
+                android:singleLine="true"
+                android:background="@android:color/transparent"
+                android:textSize="@dimen/panel_world_clock_detail_edit_text_font_size"
+                android:textColor="@color/pastel_green_sub_font_color"
+                android:textColorHint="@color/pastel_green_stroke_color"
+                android:paddingLeft="@dimen/panel_detail_padding"
+                android:paddingRight="@dimen/panel_detail_remove_all_button_padding"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/pastel_green_main_font_color"/>
+
+            <View
+                android:id="@+id/panel_detail_flickr_removeAllButton"
+                android:layout_width="@dimen/panel_detail_remove_all_button_size"
+                android:layout_height="@dimen/panel_detail_remove_all_button_size"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginBottom="@dimen/margin_inner"
+                android:layout_marginTop="@dimen/margin_inner"
+                android:background="@drawable/ic_action_cancel_pastel_green" />
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_marginLeft="@dimen/panel_detail_padding_inner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/panel_detail_flickr_edit_text_layout"
+            android:layout_marginTop="@dimen/panel_detail_bigger_padding">
+
+            <ImageButton
+                android:id="@+id/panel_detail_flickr_grayscale_image_button"
+                android:layout_width="@dimen/panel_detail_check_image_button_size"
+                android:layout_height="@dimen/panel_detail_check_image_button_size"
+                android:layout_marginRight="@dimen/panel_detail_padding_inner"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:background="@android:color/transparent"
+                android:src="@drawable/icon_panel_detail_checkbox"/>
+
+            <TextView
+                android:id="@+id/panel_detail_flickr_grayscale_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/flickr_use_gray_scale"
+                android:textColor="@color/pastel_green_sub_font_color"
+                android:textSize="@dimen/panel_world_clock_detail_font_size"
+                android:layout_toLeftOf="@id/panel_detail_flickr_grayscale_image_button"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
+</ScrollView>

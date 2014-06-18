@@ -3,7 +3,6 @@ package com.yooiistudios.morningkit;
 import android.app.Application;
 import android.content.res.Configuration;
 
-import com.testflightapp.lib.TestFlight;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
@@ -19,35 +18,31 @@ public class MNApplication extends Application {
     private Locale locale = null;
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (locale != null)
-        {
+        if (locale != null) {
             newConfig.locale = locale;
             Locale.setDefault(locale);
-            getBaseContext().getResources().updateConfiguration(newConfig, getBaseContext().getResources().getDisplayMetrics());
+            getApplicationContext().getResources().updateConfiguration(newConfig,
+                    getApplicationContext().getResources().getDisplayMetrics());
         }
     }
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
 
-        //Initialize TestFlight with your app token.
-//        TestFlight.takeOff(this, "2d9ad656-0548-41d6-a963-7cab9b0b352e");
-
-        Configuration config = getBaseContext().getResources().getConfiguration();
+        Configuration config = getApplicationContext().getResources().getConfiguration();
 
         // load language from MNLanguage
-        MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(getBaseContext());
+        MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(getApplicationContext());
 
         // update locale to current language
         locale = new Locale(currentLanguageType.getCode(), currentLanguageType.getRegion());
         Locale.setDefault(locale);
         config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        getApplicationContext().getResources().updateConfiguration(config,
+                getApplicationContext().getResources().getDisplayMetrics());
 
         // https://gist.github.com/benelog/5954649
         // Activity나 Application 등 UI스레드 아래와 같이 AsyncTask를 한번 호출합니다.

@@ -2,8 +2,8 @@
 <selector  xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_pressed="true"
-        android:drawable="@drawable/icon_setting_on_s3" />
+        android:drawable="@drawable/button_setting_pastel_green_normal" />
     <item
         android:state_pressed="false"
-        android:drawable="@drawable/icon_setting_off_s3" />
+        android:drawable="@drawable/button_setting_gray" />
 </selector>

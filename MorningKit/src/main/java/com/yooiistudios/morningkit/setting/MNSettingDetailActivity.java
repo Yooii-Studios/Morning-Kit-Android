@@ -1,31 +1,31 @@
 package com.yooiistudios.morningkit.setting;
 
-import android.content.Context;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
 // 반복작업을 피하기 위한 액티비티
 public class MNSettingDetailActivity extends ActionBarActivity {
+    private static final String TAG = "MNSettingDetailActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Theme
-        setTheme(R.style.MNSettingActionBarTheme_Light);
+//        setTheme(R.style.MNSettingActionBarTheme_PastelGreen);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_detail);
 
         // 반짝임을 없애기 위해 프래그먼트와 같은 배경을 사용해야함
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.setting_detail_container);
-        layout.setBackgroundColor(0xff4444dd);
+//        RelativeLayout layout = (RelativeLayout) findViewById(R.id.setting_detail_container);
+//        layout.setBackgroundColor(0xff4444dd);
 
         // Force no anim for entering activity, hold for exiting activity
         this.overridePendingTransition(0, R.anim.activity_hold);
@@ -33,9 +33,9 @@ public class MNSettingDetailActivity extends ActionBarActivity {
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setTitle("Setting");
+        actionBar.setTitle(R.string.tab_setting);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.icon_setting_on_s3);
+        actionBar.setIcon(R.drawable.icon_actionbar_setting);
     }
 
     @Override
@@ -70,18 +70,22 @@ public class MNSettingDetailActivity extends ActionBarActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    // 시스템 사운드 오프 처리
     @Override
-    protected void onResume() {
-        super.onResume();
-        AudioManager mgr = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        mgr.setStreamMute(AudioManager.STREAM_SYSTEM, true);
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        AudioManager mgr = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        mgr.setStreamMute(AudioManager.STREAM_SYSTEM, false);
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }

@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/panel_weather_detail_list_item_container"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="50dp"
     android:orientation="horizontal"
-    android:background="#000000">
+    android:background="#00ffffff">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -14,7 +14,7 @@
 
         <com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView
             android:id="@+id/panel_weather_detail_list_item_image_view"
-            android:layout_width="70dp"
+            android:layout_width="55dp"
             android:layout_height="match_parent"
             android:padding="@dimen/margin_inner"
             android:src="@drawable/icon_144"/>
@@ -24,7 +24,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/margin_outer"
+        android:layout_marginLeft="@dimen/panel_detail_padding"
         android:orientation="vertical"
         android:gravity="center_vertical">
 
@@ -34,8 +34,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical|left"
             android:singleLine="true"
-            android:textSize="21dp"
-            android:textColor="#ffffffff"
+            android:textSize="@dimen/panel_world_clock_detail_list_item_main_font_size"
+            android:textColor="@color/pastel_green_sub_font_color"
             android:text="Seoul"/>
 
         <TextView
@@ -45,8 +45,8 @@
             android:layout_below="@id/panel_weather_detail_list_item_city_text_view"
             android:gravity="center_vertical|left"
             android:singleLine="true"
-            android:textSize="13dp"
-            android:textColor="#ffffffff"
+            android:textSize="@dimen/panel_world_clock_detail_list_item_sub_font_size"
+            android:textColor="@color/pastel_green_sub_font_color"
             android:text="Korea"/>
     </LinearLayout>
 </LinearLayout>

@@ -41,6 +41,7 @@ public class AutoResizeTextView extends TextView {
     // Interface for resize notifications
     public interface OnTextResizeListener {
         public void onTextResize(TextView textView, float oldSize, float newSize);
+        public void onEllipsisAdded(TextView textView);
     }
 
     // Our ellipse string
@@ -256,6 +257,8 @@ public class AutoResizeTextView extends TextView {
             textHeight = getTextHeight(text, textPaint, width, targetTextSize);
         }
 
+        boolean ellipsisAdded = false;
+
         // If we had reached our minimum text size and still don't fit, append an ellipsis
         if (mAddEllipsis && targetTextSize == mMinTextSize && textHeight > height) {
             // Draw using a static layout
@@ -284,6 +287,8 @@ public class AutoResizeTextView extends TextView {
                         lineWidth = textPaint.measureText(text.subSequence(start, --end + 1).toString());
                     }
                     setText(text.subSequence(0, end) + mEllipsis);
+
+                    ellipsisAdded = true;
                 }
             }
         }
@@ -296,6 +301,10 @@ public class AutoResizeTextView extends TextView {
         // Notify the listener if registered
         if (mTextResizeListener != null) {
             mTextResizeListener.onTextResize(this, oldTextSize, targetTextSize);
+
+            if (ellipsisAdded) {
+                mTextResizeListener.onEllipsisAdded(this);
+            }
         }
 
         // Reset force resize flag

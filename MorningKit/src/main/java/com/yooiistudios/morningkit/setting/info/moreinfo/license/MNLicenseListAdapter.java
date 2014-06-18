@@ -34,9 +34,14 @@ public class MNLicenseListAdapter extends BaseAdapter {
         // otto
         // butterknife
         // robolectric
+        // nineoldandroids
+        // supertoast
+        // joda-time
+        // commons-io
+        // ViewPagerIndicator
         // Flickr
         // WWO
-        return 8;
+        return 13;
     }
 
     @Override
@@ -131,11 +136,64 @@ public class MNLicenseListAdapter extends BaseAdapter {
                         "THE SOFTWARE.");
                 break;
             case 6:
+                viewHolder.getTitleTextView().setText("NineOldAndroids");
+                viewHolder.getLinkTextView().setText("http://nineoldandroids.com");
+                viewHolder.getDetailTextView().setText("© 2012 Jake Wharton — @JakeWharton · +JakeWharton\n" +
+                        "Developed and distributed under the Apache License, Version 2.0.");
+                break;
+            case 7:
+                viewHolder.getTitleTextView().setText("SuperToasts");
+                viewHolder.getLinkTextView().setText("https://github.com/JohnPersano/SuperToasts");
+                viewHolder.getDetailTextView().setText("Copyright 2014 John Persano\n" +
+                        "\n" +
+                        "Licensed under the Apache License, Version 2.0 (the \"License\");\n" +
+                        "you may not use this file except in compliance with the License.\n" +
+                        "You may obtain a copy of the License at\n" +
+                        "\n" +
+                        "   http://www.apache.org/licenses/LICENSE-2.0\n" +
+                        "\n" +
+                        "Unless required by applicable law or agreed to in writing, software\n" +
+                        "distributed under the License is distributed on an \"AS IS\" BASIS,\n" +
+                        "WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n" +
+                        "See the License for the specific language governing permissions and\n" +
+                        "limitations under the License.");
+                break;
+            case 8:
+                viewHolder.getTitleTextView().setText("Joda-Time - Java date and time API");
+                viewHolder.getLinkTextView().setText("http://www.joda.org/joda-time/");
+                viewHolder.getDetailTextView().setText("Apache License\n" +
+                        "                           Version 2.0, January 2004\n" +
+                        "                        http://www.apache.org/licenses/\n" +
+                        "\n" +
+                        "   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION");
+                break;
+            case 9:
+                viewHolder.getTitleTextView().setText("Commons IO");
+                viewHolder.getLinkTextView().setText("http://commons.apache.org/proper/commons-io/");
+                viewHolder.getDetailTextView().setText("Apache License, Version 2.0 (current)\n" +
+                        "http://www.apache.org/licenses/LICENSE-2.0 ( TXT or HTML )\n" +
+                        "\n" +
+                        "The 2.0 version of the Apache License was approved by the ASF in 2004. The goals of this license revision have been to reduce the number of frequently asked questions, to allow the license to be reusable without modification by any project (including non-ASF projects), to allow the license to be included by reference instead of listed in every file, to clarify the license on submission of contributions, to require a patent license on contributions that necessarily infringe the contributor's own patents, and to move comments regarding Apache and other inherited attribution notices to a location outside the license terms (the NOTICE file ).\n" +
+                        "\n" +
+                        "The result is a license that is supposed to be compatible with other open source licenses, while remaining true to the original goals of the Apache Group and supportive of collaborative development across both nonprofit and commercial organizations. The Apache Software Foundation is still trying to determine if this version of the Apache License is compatible with the GPL.\n" +
+                        "\n" +
+                        "All packages produced by the ASF are implicitly licensed under the Apache License, Version 2.0, unless otherwise explicitly stated. More developer documentation on how to apply the Apache License to your work can be found in * Applying the Apache License, Version 2.0 *.");
+                break;
+            case 10:
+                viewHolder.getTitleTextView().setText("ViewPagerIndicator");
+                viewHolder.getLinkTextView().setText("http://viewpagerindicator.com/");
+                viewHolder.getDetailTextView().setText("© 2012 Jake Wharton — @JakeWharton · +JakeWharton\n" +
+                        "\n" +
+                        "Developed and distributed under the Apache License, Version 2.0.\n" +
+                        "\n" +
+                        "Originally based on widgets developed by Patrik Åkerfeldt.");
+                break;
+            case 11:
                 viewHolder.getTitleTextView().setText("Flickr APIs Terms of Use");
                 viewHolder.getLinkTextView().setText("http://www.flickr.com/services/api/tos/");
                 viewHolder.getInnerLayout().removeView(viewHolder.getDetailTextView());
                 break;
-            case 7:
+            case 12:
                 viewHolder.getTitleTextView().setText("World Weather Online API Terms and Conditions");
                 viewHolder.getLinkTextView().setText("http://www.worldweatheronline.com/api-t-and-c.aspx");
                 viewHolder.getInnerLayout().removeView(viewHolder.getDetailTextView());

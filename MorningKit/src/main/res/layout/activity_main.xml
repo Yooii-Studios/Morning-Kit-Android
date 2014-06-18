@@ -3,16 +3,27 @@
     android:id="@+id/main_container_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffdda2"
     tools:context=".MainActivity"
+    android:background="#ffdda2"
     tools:ignore="MergeRootFrame">
 
-    <com.yooiistudios.morningkit.main.MNMainScrollView
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_camera_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:context="com.yooiistudios.morningkit.MainActivity"
+        tools:ignore="MergeRootFrame"
+        android:background="@android:color/transparent" />
+
+    <ScrollView
         android:id="@+id/main_scroll_view"
-        android:fillViewport="true"
-        android:background="#ddff50">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <!--
+        android:background="#ddff50" -->
 
         <LinearLayout
             android:orientation="vertical"
@@ -26,21 +37,24 @@
                 android:id="@+id/main_widget_window_layout"
                 android:layout_marginTop="@dimen/margin_inner"
                 android:layout_marginLeft="@dimen/margin_inner"
-                android:layout_marginRight="@dimen/margin_inner"
-                android:background="#3f003f"/>
+                android:layout_marginRight="@dimen/margin_inner"/>
+            <!--
+                android:background="#3f003f" -->
 
             <com.yooiistudios.morningkit.main.MNMainAlarmListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#4444dd"
                 android:dividerHeight="0dp"
                 android:divider="#ffffff"
                 android:id="@+id/main_alarm_list_view" />
 
-        </LinearLayout>
-    </com.yooiistudios.morningkit.main.MNMainScrollView>
+            <!--
+                android:background="#5fd0f3" -->
 
-    <RelativeLayout
+        </LinearLayout>
+    </ScrollView>
+
+    <com.yooiistudios.morningkit.main.layout.MNMainButtonLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_button_layout_height"
         android:id="@+id/main_button_layout"
@@ -53,26 +67,27 @@
         android:background="@drawable/shape_main_bottom_bar">
 
         <ImageView
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="@dimen/main_button_refresh_setting_size"
+            android:layout_height="@dimen/main_button_refresh_setting_size"
+            android:paddingTop="2dp"
             android:id="@+id/main_refresh_imageview"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/main_refresh_button_selector_classic_gray"
+            android:src="@drawable/main_refresh_button_selector_pastel_green"
             android:scaleType="fitCenter"
-            android:layout_alignParentStart="false"
             android:contentDescription="@string/loading"/>
 
         <ImageView
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="@dimen/main_button_refresh_setting_size"
+            android:layout_height="@dimen/main_button_refresh_setting_size"
+            android:paddingTop="2dp"
             android:id="@+id/main_setting_imageview"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/main_setting_button_selector_classic_gray"
+            android:src="@drawable/main_setting_button_selector_pastel_green"
             android:scaleType="fitCenter"
             android:contentDescription="@string/loading"/>
-    </RelativeLayout>
+    </com.yooiistudios.morningkit.main.layout.MNMainButtonLayout>
 
     <RelativeLayout
         xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -92,4 +107,10 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/main_dog_ear_image_view"
+        android:layout_width="@dimen/pro_dog_ear_size"
+        android:layout_height="@dimen/pro_dog_ear_size"
+        android:background="@android:color/transparent"
+        android:src="@drawable/icon_pro_dog_ear_selector"/>
 </RelativeLayout>

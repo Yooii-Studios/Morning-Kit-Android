@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.alarm.pref;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -9,20 +10,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.flurry.android.FlurryAgent;
 import com.squareup.otto.Subscribe;
-import com.yooiistudios.morningkit.MN;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
+import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPreferenceListAdapter;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
-import com.yooiistudios.stevenkim.alarmsound.SKAlarmSound;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundFactory;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundManager;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundType;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -37,6 +39,10 @@ import lombok.Setter;
  */
 public class MNAlarmPreferenceActivity extends ActionBarActivity {
 
+    public static final String ALARM_PREFERENCE_ALARM_ID = "ALARM_PREFERENCE_ALARM_ID";
+    public static final String ALARM_SHARED_PREFS = "ALARM_SHARED_PREFS";
+    public static final String ALARM_SHARED_PREFS_ALARM_SNOOZE_ON = "ALARM_SHARED_PREFS_ALARM_SNOOZE_ON";
+    public static final String ALARM_SHARED_PREFS_ALARM_VOLUME = "ALARM_SHARED_PREFS_ALARM_VOLUME";
     private static final String TAG = "MNAlarmPreferenceActivity";
 
     @Getter private int alarmId;
@@ -61,13 +67,19 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         MNAlarmPrefBusProvider.getInstance().register(this);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            alarmId = extras.getInt(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
+            alarmId = extras.getInt(ALARM_PREFERENCE_ALARM_ID, -1);
             if (alarmId != -1) {
                 alarmPreferenceType = MNAlarmPreferenceType.EDIT;
                 alarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
             } else {
                 alarmPreferenceType = MNAlarmPreferenceType.ADD;
-                alarm = MNAlarmMaker.makeAlarm(this.getBaseContext());
+                alarm = MNAlarmMaker.makeAlarm(getApplicationContext());
+                alarm.getAlarmCalendar().add(Calendar.MINUTE, 1); // 추가시에는 1분을 추가해 주기
+
+                // 알람 추가일 경우에는 최근 스누즈 사용 여부를 적용
+                SharedPreferences prefs = getSharedPreferences(ALARM_SHARED_PREFS, MODE_PRIVATE);
+                alarm.setSnoozeOn(prefs.getBoolean(ALARM_SHARED_PREFS_ALARM_SNOOZE_ON, true));
+                alarm.setAlarmVolume(prefs.getInt(ALARM_SHARED_PREFS_ALARM_VOLUME, 70));
             }
             if ((alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.MUSIC ||
                     alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.RINGTONE) &&
@@ -151,6 +163,12 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     private void applyAlarmPreferneces() {
         alarm.startAlarm(this);
 
+        // 알람 저장하기 전에 스누즈 여부, 볼륨을 저장
+        SharedPreferences prefs = getSharedPreferences(ALARM_SHARED_PREFS, MODE_PRIVATE);
+        prefs.edit().putBoolean(ALARM_SHARED_PREFS_ALARM_SNOOZE_ON, alarm.isSnoozeOn()).commit();
+        prefs.edit().putInt(ALARM_SHARED_PREFS_ALARM_VOLUME, alarm.getAlarmVolume()).commit();
+
+        // 알람 저장
         switch (alarmPreferenceType) {
             case ADD:
                 MNAlarmListManager.addAlarmToAlarmList(alarm, this);
@@ -180,5 +198,19 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     public void setActionBarMenuToInvisible(View view) {
         actionBarMenu.findItem(R.id.pref_action_ok).setVisible(false);
         actionBarMenu.findItem(R.id.pref_action_cancel).setVisible(false);
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }

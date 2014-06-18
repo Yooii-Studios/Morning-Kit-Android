@@ -4,14 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
@@ -19,7 +20,9 @@ import com.yooiistudios.morningkit.setting.theme.MNSettingThemeDetailItemViewHol
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 import com.yooiistudios.morningkit.setting.theme.themedetail.photo.MNThemePhotoActivity;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by StevenKim in Morning Kit from Yooii Studios Co., LTD. on 2014. 1. 15.
@@ -28,16 +31,18 @@ import java.util.List;
  */
 public class MNThemeDetailListAdapter extends BaseAdapter {
     private Activity activity;
+    private Fragment fragment;
     private boolean hasFrontCamera = true;
     private boolean hasBackCamera = true;
     private int totalNumberOfThemes;
 
     private MNThemeDetailListAdapter() {}
-    public MNThemeDetailListAdapter(Activity activity) {
+    public MNThemeDetailListAdapter(Activity activity, Fragment fragment) {
         this.activity = activity;
+        this.fragment = fragment;
 
         // theme check(Camera)
-        totalNumberOfThemes = MNThemeType.values().length;
+        totalNumberOfThemes = MNThemeType.values().length - 1;
         switch (Camera.getNumberOfCameras()) {
             // 0일 경우는 getNumberOfCameras에 대응을 안하는 안드로이드 기기도 있기에(Htc 등) 다시 한번 체크를 해 주어야만 한다
             case 0:
@@ -141,38 +146,34 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
             // theme
             MNThemeType currentThemeType = MNTheme.getCurrentThemeType(activity);
 
-            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-            viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-            viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
-            viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
-
-            // theme - shadow
-            RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-
-            // 동적 생성 -> 색 변경 로직 변경
-//            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
-            MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, activity);
+//            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+//            viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//            try {
+//                viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
+//                viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
+//            } catch (OutOfMemoryError error) {
+//                error.printStackTrace();
+//            }
+//            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
             // onClick
-            if (roundShadowRelativeLayout != null) {
-                roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (MNSound.isSoundOn(activity)) {
-                            MNSoundEffectsPlayer.play(R.raw.effect_view_close, activity);
-                        }
-                        MNTheme.setThemeType(MNThemeType.valueOf(convertedPosition), activity);
-
-                        if (MNTheme.getCurrentThemeType(activity) == MNThemeType.PHOTO) {
-                            activity.startActivity(new Intent(activity, MNThemePhotoActivity.class));
-                        } else {
-                            activity.finish();
-                        }
+            viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (MNSound.isSoundOn(activity)) {
+                        MNSoundEffectsPlayer.play(R.raw.effect_view_close, activity);
                     }
-                });
-            } else {
-                throw new AssertionError("shadowRelativeLayout must not be null!");
-            }
+                    MNTheme.setThemeType(MNThemeType.valueOf(convertedPosition), activity);
+
+                    if (MNTheme.getCurrentThemeType(activity) == MNThemeType.PHOTO) {
+                        fragment.startActivityForResult(new Intent(activity, MNThemePhotoActivity.class),
+                                MNThemeDetailFragment.REQ_THEME_DETAIL_PHOTO);
+                    } else {
+                        activity.setResult(Activity.RESULT_OK);
+                        activity.finish();
+                    }
+                }
+            });
 
             // lock
             if (selectedThemeType != MNThemeType.CELESTIAL_SKY_BLUE && selectedThemeType != MNThemeType.MODERNITY_WHITE) {
@@ -185,18 +186,29 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
                     viewHolder.getLockImageView().setVisibility(View.GONE);
                 } else {
                     // 아이템 잠김
-                    roundShadowRelativeLayout.setSolidAreaColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
-                    roundShadowRelativeLayout.setPressedColor(MNSettingColors.getLockedBackgroundColor(currentThemeType));
+                    viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getLockItemResourcesId(currentThemeType));
 
                     // lock onClickListener
-                    roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
+                    viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(activity, MNUnlockActivity.class);
                             if (selectedThemeType == MNThemeType.CELESTIAL_SKY_BLUE) {
                                 intent.putExtra(MNUnlockActivity.PRODUCT_SKU_KEY, SKIabProducts.SKU_CELESTIAL);
+
+                                // 플러리
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put(MNFlurry.CALLED_FROM, "Sky Blue");
+                                FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
+
                             } else if (selectedThemeType == MNThemeType.MODERNITY_WHITE) {
+
                                 intent.putExtra(MNUnlockActivity.PRODUCT_SKU_KEY, SKIabProducts.SKU_MODERNITY);
+
+                                // 플러리
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put(MNFlurry.CALLED_FROM, "Classic White");
+                                FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
                             } else {
                                 throw new AssertionError("ProductId is not included");
                             }

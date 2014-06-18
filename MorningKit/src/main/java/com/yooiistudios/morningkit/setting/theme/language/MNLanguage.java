@@ -2,7 +2,12 @@ package com.yooiistudios.morningkit.setting.theme.language;
 
 import android.content.Context;
 
+import com.flurry.android.FlurryAgent;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
+
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by StevenKim in Morning Kit from Yooii Studios Co., LTD. on 2014. 1. 15.
@@ -54,5 +59,10 @@ public class MNLanguage {
         MNLanguage.getInstance(context).currentLanguageType = newNewLanguage;
         context.getSharedPreferences(LANGUAGE_SHARED_PREFERENCES, Context.MODE_PRIVATE)
                 .edit().putInt(LANGUAGE_MATRIX_KEY, newNewLanguage.getUniqueId()).commit();
+
+        // 플러리
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(MNFlurry.LANGUAGE, newNewLanguage.toString());
+        FlurryAgent.logEvent(MNFlurry.ON_SETTING_THEME, params);
     }
 }

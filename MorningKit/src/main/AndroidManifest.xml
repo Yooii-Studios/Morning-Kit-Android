@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <uses-permission android:name="com.android.vending.BILLING" />
 
@@ -26,12 +27,14 @@
         android:xlargeScreens="true" />
 
     <!-- android:name=".MNApplication" -->
+    <!-- Need to insert this code when making 'Release build' -->
+    <!-- android:debuggable="false" -->
     <application
+        android:name=".MNApplication"
         android:allowBackup="true"
-        android:debuggable="false"
-        android:icon="@drawable/ic_launcher_round"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
@@ -39,7 +42,7 @@
         <!-- Main -->
         <activity
             android:name="com.yooiistudios.morningkit.main.MNMainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection"
             android:label="@string/app_name"
             android:screenOrientation="sensor"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
@@ -51,13 +54,14 @@
         </activity>
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|locale|layoutDirection" />
 
         <!-- Alarm -->
         <activity
             android:name="com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity"
             android:screenOrientation="sensorPortrait"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+            android:configChanges="locale|layoutDirection"
+            android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
         </activity>
 
         <!-- Setting -->
@@ -65,7 +69,8 @@
             android:name="com.yooiistudios.morningkit.setting.MNSettingActivity"
             android:parentActivityName="com.yooiistudios.morningkit.main.MNMainActivity"
             android:screenOrientation="sensorPortrait"
-            android:theme="@style/MNSettingActionBarTheme.Default" >
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection"
+            android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -76,7 +81,8 @@
             android:name="com.yooiistudios.morningkit.setting.info.moreinfo.MNMoreInfoActivity"
             android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
             android:screenOrientation="sensorPortrait"
-            android:theme="@style/MNSettingActionBarTheme.Default" >
+            android:configChanges="locale|layoutDirection"
+            android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -86,7 +92,9 @@
         <activity
             android:name="com.yooiistudios.morningkit.setting.info.credit.MNCreditActivity"
             android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
-            android:screenOrientation="sensorPortrait" >
+            android:screenOrientation="sensorPortrait"
+            android:configChanges="locale|layoutDirection"
+            android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -96,7 +104,9 @@
         <activity
             android:name="com.yooiistudios.morningkit.setting.theme.soundeffect.MNSoundEffectActivity"
             android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
-            android:screenOrientation="sensorPortrait" >
+            android:screenOrientation="sensorPortrait"
+            android:configChanges="locale|layoutDirection"
+            android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -106,7 +116,9 @@
         <activity
             android:name="com.yooiistudios.morningkit.setting.MNSettingDetailActivity"
             android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
-            android:screenOrientation="sensorPortrait" >
+            android:screenOrientation="sensorPortrait"
+            android:configChanges="locale|layoutDirection"
+            android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -116,7 +128,9 @@
         <activity
             android:name="com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixActivity"
             android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
-            android:screenOrientation="sensorPortrait" >
+            android:screenOrientation="sensorPortrait"
+            android:configChanges="locale|layoutDirection"
+            android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -126,7 +140,9 @@
         <activity
             android:name="com.yooiistudios.morningkit.setting.theme.language.MNLanguageActivity"
             android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
-            android:screenOrientation="sensorPortrait" >
+            android:screenOrientation="sensorPortrait"
+            android:configChanges="locale|layoutDirection"
+            android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -136,7 +152,9 @@
         <activity
             android:name="com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeDetailActivity"
             android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
-            android:screenOrientation="sensorPortrait" >
+            android:screenOrientation="sensorPortrait"
+            android:configChanges="locale|layoutDirection"
+            android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -146,7 +164,9 @@
         <activity
             android:name="com.yooiistudios.morningkit.setting.theme.themedetail.photo.MNThemePhotoActivity"
             android:parentActivityName="com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeDetailActivity"
-            android:screenOrientation="sensorPortrait" >
+            android:screenOrientation="sensorPortrait"
+            android:configChanges="locale|layoutDirection"
+            android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -155,17 +175,33 @@
         </activity>
         <activity
             android:name="com.yooiistudios.morningkit.common.unlock.MNUnlockActivity"
-            android:screenOrientation="sensorPortrait" >
+            android:screenOrientation="sensorPortrait"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection" >
         </activity>
         <activity
             android:name="com.yooiistudios.morningkit.setting.store.MNStoreActivity"
-            android:screenOrientation="sensorPortrait" >
+            android:screenOrientation="sensorPortrait"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection" >
         </activity>
         <activity
             android:name=".panel.core.detail.MNPanelDetailActivity"
             android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="adjustPan">
+            android:configChanges="locale|layoutDirection"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen">
         </activity>
-    </application>
 
+        <!-- naver iab -->
+        <activity
+            android:name="com.naver.iap.NaverIabActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection"
+            android:theme="@style/Theme.Transparent" >
+        </activity>
+        <!-- <activity android:name="com.nhn.android.appstore.iap.sample.RestorePaymentActivity" >
+        </activity> -->
+        <activity
+            android:name="com.nhn.android.appstore.iap.cpa.NIAPCPAActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection" />
+
+    </application>
 </manifest>

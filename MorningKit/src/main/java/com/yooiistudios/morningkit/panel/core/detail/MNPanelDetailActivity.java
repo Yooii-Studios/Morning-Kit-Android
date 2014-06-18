@@ -8,7 +8,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
@@ -21,7 +23,8 @@ import org.json.JSONObject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelSelectPagerInterface, MNPanelDetailFragment.MNPanelDetailFragmentListener {
+public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelSelectPagerInterface,
+        MNPanelDetailFragment.MNPanelDetailFragmentListener {
 
     private static final String TAG = "MNPanelDetailActivity";
 
@@ -82,6 +85,7 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
             MNViewSizeMeasure.setViewSizeObserver(panelSelectPagerLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
                 @Override
                 public void onLayoutLoad() {
+                    panelSelectPagerLayout.applyTheme();
                     panelSelectPagerLayout.setColorOfPanelSelectPager(currentPanelTypeIndex, -1);
                 }
             });
@@ -205,5 +209,19 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
 
     @Override
     public void onPanelSelectPagerStoreItemClick(int position) {
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }

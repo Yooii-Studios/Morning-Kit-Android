@@ -11,6 +11,8 @@ import android.os.Environment;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.stevenkim.waterlily.bitmapfun.util.ImageResizer;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -83,14 +85,7 @@ public class SKBitmapLoader {
 	}
 
     @SuppressWarnings( "deprecation" )
-	public static Bitmap loadAutoScaledBitmapFromUri(Context context, Uri uri) throws FileNotFoundException {
-        // Error check
-        if (context == null || uri == null) {
-            return null;
-        }
-
-        Bitmap bitmap;
-
+     public static Bitmap loadAutoScaledBitmapFromUri(Context context, Uri uri) throws FileNotFoundException {
         // measure device size
         Display display = ((WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -107,48 +102,73 @@ public class SKBitmapLoader {
             displayWidth = display.getWidth(); // deprecated
             displayHeight = display.getHeight(); // deprecated
         }
+        return loadAutoScaledBitmapFromUri(context, uri, displayWidth, displayHeight);
+    }
 
+    @SuppressWarnings( "deprecation" )
+    public static Bitmap loadAutoScaledBitmapFromUri(Context context, Uri uri,
+                                                     int reqWidth, int reqHeight) throws FileNotFoundException {
+        // Error check
+        if (context == null || uri == null) {
+            return null;
+        }
+
+        Bitmap bitmap;
         BitmapFactory.Options options = new BitmapFactory.Options();
 
-        options.inPreferredConfig = Config.RGB_565;
-
+        // 565를 사용했더니 사진에 그라데이션이 조금 생기기에 퍼포먼스를 조금 포기하고 이것으로 사용
+        options.inPreferredConfig = Config.ARGB_8888;
+//        options.inPreferredConfig = Config.RGB_565;
         options.inJustDecodeBounds = true;
+        options.inDither = true;
 
         // bitmap 으로 반환을 받지 않아도 상관없을듯
 //		bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options);
-        BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options);
+        BitmapFactory.decodeStream(
+                context.getApplicationContext().getContentResolver().openInputStream(uri), null, options);
 
         // measure rescale size that nearly match the device size
         // rescale value is even for less image loss
+        options.inSampleSize = ImageResizer.calculateInSampleSize(options, reqWidth, reqHeight);
 
-        float widthScale = options.outWidth / displayWidth;
-        float heightScale = options.outHeight / displayHeight;
+        // 기존 소스
+        float widthScale = options.outWidth / reqWidth;
+        float heightScale = options.outHeight / reqHeight;
         float scale = widthScale > heightScale ? widthScale : heightScale;
 
-        if (scale >= 8) {
-            options.inSampleSize = 8;
-        } else if (scale >= 6) {
-            options.inSampleSize = 6;
-        } else if (scale >= 4) {
-            options.inSampleSize = 4;
-        } else if (scale >= 2) {
-            options.inSampleSize = 2;
-        } else {
-            options.inSampleSize = 1;
-        }
+//        MNLog.now("image size scale: " + scale);
+
+//        if (scale >= 12) {
+//            options.inSampleSize = 12;
+//        } else if (scale >= 10) {
+//            options.inSampleSize = 10;
+//        } else if (scale >= 8) {
+//            options.inSampleSize = 8;
+//        } else if (scale >= 6) {
+//            options.inSampleSize = 6;
+//        } else if (scale >= 4) {
+//            options.inSampleSize = 4;
+//        } else if (scale >= 2) {
+//            options.inSampleSize = 2;
+//        } else {
+//            options.inSampleSize = 1;
+//        }
+
+//        MNLog.now("inSampleSize: " + options.inSampleSize);
 
         options.inJustDecodeBounds = false;
 
-        bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options);
+        bitmap = BitmapFactory.decodeStream(
+                context.getApplicationContext().getContentResolver().openInputStream(uri), null, options);
 
         return bitmap;
     }
 
 	public static void saveBitmapToUri(Context context, Uri uri, Bitmap bitmap) throws FileNotFoundException {
 		try {
-			OutputStream outStream = context.getContentResolver().openOutputStream(uri);
+			OutputStream outStream = context.getApplicationContext().getContentResolver().openOutputStream(uri);
 //			bitmap.compress(Bitmap.CompressFormat.PNG, 100, context.getContentResolver().openOutputStream(uri));
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
             if (outStream != null) {
                 outStream.close();
             }

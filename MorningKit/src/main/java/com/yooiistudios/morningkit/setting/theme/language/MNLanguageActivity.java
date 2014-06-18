@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RelativeLayout;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -22,7 +22,7 @@ public class MNLanguageActivity extends MNSettingDetailActivity {
         ButterKnife.inject(this);
 
 //        backgroundLayout.setBackgroundColor(0xff4444dd);
-        backgroundLayout.setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(MNTheme.getCurrentThemeType(this)));
+//        backgroundLayout.setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(MNTheme.getCurrentThemeType(this)));
 
         if (savedInstanceState == null) {
             // http://developer.android.com/guide/components/fragments.html 참고
@@ -30,7 +30,7 @@ public class MNLanguageActivity extends MNSettingDetailActivity {
 
             // animate - (upstack)incoming enterAnim, (backstack)outgoing exitAnim /
             // in reverse - (backstack)incoming enterAnim, (upstack)outgoing exitAnim
-            transaction.setCustomAnimations(R.anim.fragment_enter, 0);
+//            transaction.setCustomAnimations(R.anim.fragment_enter, 0);
 
             // Replace whatever is in the fragment_container view with this fragment,
             // and add the transaction to the back stack
@@ -39,5 +39,19 @@ public class MNLanguageActivity extends MNSettingDetailActivity {
             // Commit the transaction
             transaction.commit();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }

@@ -10,6 +10,7 @@ import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownDetailFrag
 import com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesDetailFragment;
 import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
 import com.yooiistudios.morningkit.panel.memo.MNMemoDetailFragment;
+import com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFragment;
 import com.yooiistudios.morningkit.panel.quotes.detail.MNQuotesDetailFragment;
 import com.yooiistudios.morningkit.panel.weather.MNWeatherDetailFragment;
 import com.yooiistudios.morningkit.panel.worldclock.MNWorldClockDetailFragment;
@@ -27,6 +28,8 @@ import lombok.Setter;
  *  패널 디테일 프래그먼트의 핵심을 담고 있는 부모 클래스
  */
 public abstract class MNPanelDetailFragment extends Fragment {
+
+    protected boolean DEBUG_UI = false;
 
     @Getter @Setter JSONObject panelDataObject;
     @Setter MNPanelDetailFragmentListener fragmentListener;
@@ -73,6 +76,10 @@ public abstract class MNPanelDetailFragment extends Fragment {
 
             case DATE_COUNTDOWN:
                 newPanelDetailFragment = new MNDateCountdownDetailFragment();
+                break;
+
+            case PHOTO_FRAME:
+                newPanelDetailFragment = new MNPhotoAlbumDetailFragment();
                 break;
 
             default:

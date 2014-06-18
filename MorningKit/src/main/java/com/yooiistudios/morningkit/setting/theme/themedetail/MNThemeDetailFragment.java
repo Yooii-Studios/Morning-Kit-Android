@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.setting.theme.themedetail;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,7 +14,9 @@ import com.yooiistudios.morningkit.R;
 
 public class MNThemeDetailFragment extends Fragment {
 
+    public static final int REQ_THEME_DETAIL_PHOTO = 9385;
     ListView listView;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -34,7 +37,7 @@ public class MNThemeDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.setting_theme_detail_fragment, container, false);
         if (rootView != null) {
             listView = (ListView) rootView.findViewById(R.id.setting_theme_detail_listview);
-            listView.setAdapter(new MNThemeDetailListAdapter(getActivity()));
+            listView.setAdapter(new MNThemeDetailListAdapter(getActivity(), this));
         }
         return rootView;
     }
@@ -53,5 +56,14 @@ public class MNThemeDetailFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_THEME_DETAIL_PHOTO && resultCode == Activity.RESULT_OK) {
+            getActivity().setResult(Activity.RESULT_OK);
+            getActivity().finish();
+        }
     }
 }

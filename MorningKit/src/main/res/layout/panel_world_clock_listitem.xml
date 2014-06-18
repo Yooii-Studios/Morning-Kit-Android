@@ -10,12 +10,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Seoul"
-        android:textSize="25sp" />
+        android:textSize="@dimen/panel_world_clock_detail_list_item_main_font_size"
+        android:textColor="@color/pastel_green_sub_font_color"/>
 
     <TextView
         android:id="@+id/panel_detail_world_clock_list_item_timezone_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Korea Standard Time"/>
+        android:text="Korea Standard Time"
+        android:textSize="@dimen/panel_world_clock_detail_list_item_sub_font_size"
+        android:textColor="@color/pastel_green_sub_font_color"/>
 
 </LinearLayout>

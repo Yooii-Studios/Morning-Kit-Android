@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- File created by the Android Action Bar Style Generator
+
+     Copyright (C) 2011 The Android Open Source Project
+     Copyright (C) 2012 readyState Software Ltd
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+
+    <style name="Theme.MNSettingActionBarTheme.PastelGreen" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.PastelGreen</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.PastelGreen</item>
+        <!-- 탭 divider 변경이 제대로 되지 않아서 일단 보류 -->
+        <!-- <item name="android:actionBarTabBarStyle">@style/ActionBarTabBarStyle.PastelGreen</item> -->
+        <item name="android:actionBarTabTextStyle">@style/TabText.PastelGreen</item>
+        <item name="android:editTextStyle">@style/EditTextTheme.PastelGreen</item>
+
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/ActionBar.Solid.PastelGreen</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.PastelGreen</item>
+        <item name="actionBarTabTextStyle">@style/TabText.PastelGreen</item>
+
+        <!-- Date Picker -->
+        <item name="calendarViewStyle">@style/Widget.Holo.Light.CalendarView</item>
+        <item name="numberPickerStyle">@style/NPWidget.Holo.Light.NumberPicker</item>
+        <item name="datePickerStyle">@style/Widget.Holo.Light.DatePicker</item>
+    </style>
+
+    <style name="ActionBar.Solid.PastelGreen" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background">@drawable/theme_ab_solid_pastelgreen</item>
+        <item name="android:backgroundStacked">@drawable/theme_ab_stacked_solid_pastelgreen</item>
+        <item name="android:backgroundSplit">@drawable/theme_ab_bottom_solid_pastelgreen</item>
+        <item name="android:titleTextStyle">@style/TitleTextStyle.PastelGreen</item>
+
+        <!-- Support library compatibility -->
+        <item name="background">@drawable/theme_ab_solid_pastelgreen</item>
+        <item name="backgroundStacked">@drawable/theme_ab_stacked_solid_pastelgreen</item>
+        <item name="backgroundSplit">@drawable/theme_ab_bottom_solid_pastelgreen</item>
+        <item name="titleTextStyle">@style/TitleTextStyle.PastelGreen</item>
+    </style>
+
+    <style name="ActionBar.Transparent.PastelGreen" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">@drawable/theme_ab_transparent_pastelgreen</item>
+    </style>
+
+    <style name="ActionBarTabStyle.PastelGreen" parent="@style/Widget.AppCompat.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/theme_tab_indicator_ab_pastelgreen</item>
+    </style>
+
+    <!--
+    <style name="ActionBarTabBarStyle.PastelGreen" parent="@style/Widget.AppCompat.Light.ActionBar.TabBar">
+        <item name="android:actionBarDivider">@color/pastel_green_sub_font_color</item>
+        <item name="android:divider">@color/pastel_green_sub_font_color</item>
+        <item name="android:dividerPadding">3dip</item>
+        <item name="android:showDividers">middle</item>
+
+        <item name="actionBarDivider">@color/pastel_green_sub_font_color</item>
+        <item name="divider">@color/pastel_green_sub_font_color</item>
+        <item name="dividerPadding">3dip</item>
+        <item name="showDividers">middle</item>
+    </style>
+    -->
+
+    <style name="TabText.PastelGreen" parent="@style/Widget.AppCompat.ActionBar.TabText">
+        <item name="android:textColor">@color/pastel_green_sub_font_color</item>
+        <item name="android:textSize">@dimen/setting_actionbar_tab_text_font_size</item>
+    </style>
+
+    <style name="TitleTextStyle.PastelGreen" parent="@style/TextAppearance.AppCompat.Widget.Base.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/setting_actionbar_title_font_size</item>
+    </style>
+
+    <style name="EditTextTheme.PastelGreen" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/theme_edit_text_pastel_green</item>
+        <item name="android:textColor">@color/pastel_green_sub_font_color</item>
+        <item name="android:textColorHint">@color/pastel_green_stroke_color</item>
+        <item name="android:textColorHighlight">#995ab38c</item>
+    </style>
+
+</resources>

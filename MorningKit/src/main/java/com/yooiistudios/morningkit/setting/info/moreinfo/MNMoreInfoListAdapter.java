@@ -11,9 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
@@ -60,27 +57,17 @@ public class MNMoreInfoListAdapter extends BaseAdapter {
                 }
 
                 // theme
-                viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-                viewHolder.getTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-
-                // theme - shadow
-                RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-
-                // 동적 생성 -> 색 변경 로직 변경
-//            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
-                MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, context);
+//                viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+//                viewHolder.getTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//                viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
                 // onClick
-                if (roundShadowRelativeLayout != null) {
-                    roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            moreInfoItemClickListener.onItemClick(position);
-                        }
-                    });
-                } else {
-                    throw new AssertionError("shadowRelativeLayout must not be null!");
-                }
+                viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        moreInfoItemClickListener.onItemClick(position);
+                    }
+                });
             }
         } else {
             convertView = LayoutInflater.from(context).inflate(R.layout.setting_info_version_item, parent, false);
@@ -101,16 +88,10 @@ public class MNMoreInfoListAdapter extends BaseAdapter {
                 }
 
                 // theme
-                viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-                viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-                viewHolder.getDetailTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-
-                // theme - shadow
-                RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-
-                // 동적 생성 -> 색 변경 로직 변경
-//            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
-                MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, context);
+//                viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+//                viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//                viewHolder.getDetailTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
+//                viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
             }
         }
         return convertView;
@@ -137,8 +118,6 @@ public class MNMoreInfoListAdapter extends BaseAdapter {
     static class MNSettingInfoItemViewHolder {
         @Getter @InjectView(R.id.setting_info_item_outer_layout)     RelativeLayout outerLayout;
         @Getter @InjectView(R.id.setting_info_item_inner_layout)     RelativeLayout innerLayout;
-        @Getter @InjectView(R.id.setting_info_item_shadow_layout)
-        RoundShadowRelativeLayout shadowLayout;
         @Getter @InjectView(R.id.setting_info_item_textview)         TextView       textView;
 
         public MNSettingInfoItemViewHolder(View view) {
@@ -149,8 +128,6 @@ public class MNMoreInfoListAdapter extends BaseAdapter {
     static class MNSettingInfoVersionItemViewHolder {
         @Getter @InjectView(R.id.setting_info_item_outer_layout)            RelativeLayout outerLayout;
         @Getter @InjectView(R.id.setting_info_item_inner_layout)            RelativeLayout innerLayout;
-        @Getter @InjectView(R.id.setting_info_version_item_shadow_layout)
-        RoundShadowRelativeLayout shadowLayout;
         @Getter @InjectView(R.id.setting_info_version_title_textview)       TextView       titleTextView;
         @Getter @InjectView(R.id.setting_info_version_detail_textview)      TextView       detailTextView;
 

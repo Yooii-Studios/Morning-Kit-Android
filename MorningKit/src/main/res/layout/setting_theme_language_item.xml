@@ -6,12 +6,19 @@
     android:layout_alignParentLeft="true"
     android:clickable="false"
     android:focusable="false"
-    android:orientation="vertical" >
+    android:paddingTop="@dimen/margin_inner"
+    android:paddingBottom="@dimen/margin_inner"
+    android:paddingLeft="@dimen/margin_outer"
+    android:paddingRight="@dimen/margin_outer"
+    android:background="@android:color/white">
 
+    <!--
     <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
         android:id="@+id/setting_theme_language_item_shadow_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/alarm_item_outer_height" />
+
+    -->
 
     <RelativeLayout
         android:id="@+id/setting_theme_language_item_inner_layout"
@@ -20,10 +27,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
+        android:background="@drawable/shape_rounded_view_pastel_green"
         android:padding="@dimen/setting_theme_language_item_padding"
-        android:layout_margin="@dimen/margin_inner"
-        android:clickable="false"
-        android:focusable="false"
         android:orientation="vertical">
 
         <TextView
@@ -34,7 +39,7 @@
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/setting_theme_language_item_check_imageview"
             android:text="한국어"
-            android:textColor="#000000"
+            android:textColor="@color/pastel_green_main_font_color"
             android:textSize="@dimen/setting_item_title_font_size"
             android:textStyle="bold"
             android:layout_centerInParent="true"/>
@@ -49,7 +54,7 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="@dimen/setting_item_detail_textview_left_margin"
             android:text="Korean"
-            android:textColor="#000000"
+            android:textColor="@color/pastel_green_sub_font_color"
             android:textSize="@dimen/setting_item_detail_font_size"
             android:textStyle="bold"
             android:layout_centerInParent="true"/>
@@ -58,7 +63,7 @@
             android:id="@+id/setting_theme_language_item_check_imageview"
             android:layout_width="@dimen/setting_theme_detail_item_imageview_size"
             android:layout_height="@dimen/setting_theme_detail_item_imageview_size"
-            android:background="@drawable/setting_theme_check_classic_white"
+            android:background="@drawable/setting_theme_check_pastel_green"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/setting_theme_detail_item_imageview_right_margin"
             android:scaleType="fitStart"
@@ -69,7 +74,7 @@
             android:id="@+id/setting_theme_language_item_lock_imageview"
             android:layout_width="@dimen/setting_theme_detail_item_imageview_size"
             android:layout_height="@dimen/setting_theme_detail_item_imageview_size"
-            android:background="@drawable/setting_theme_lock_classic_white"
+            android:background="@drawable/setting_theme_lock_pastel_green"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/setting_theme_detail_item_imageview_right_margin"
             android:scaleType="fitStart"

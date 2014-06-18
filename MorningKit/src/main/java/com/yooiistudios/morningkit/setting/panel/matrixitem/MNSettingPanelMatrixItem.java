@@ -12,8 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
 
 import lombok.Getter;
@@ -28,7 +26,6 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
 
     @Getter @Setter TextView panelNameTextView;
     @Getter @Setter ImageView panelImageView;
-    @Getter @Setter RoundShadowRelativeLayout shadowLayout;
     @Getter @Setter RelativeLayout containerLayout;
     @Getter @Setter MNPanelType panelType;
 
@@ -56,25 +53,10 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
         Resources resources = getResources();
 
         if (resources != null) {
-            // shadow layout
-            if (attrs != null) {
-                shadowLayout = new RoundShadowRelativeLayout(context, attrs);
-            } else {
-                shadowLayout = new RoundShadowRelativeLayout(context);
-            }
-            LayoutParams shadowLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
-            shadowLayout.setLayoutParams(shadowLayoutParams);
-            addView(shadowLayout);
-
-            // 기존의 테마별 동적 생성이 아닌, 색만 교체하는 방식으로 로직 개선
-//            shadowLayout = MNShadowLayoutFactory.changeShadowLayout(MNTheme.getCurrentThemeType(getContext()), shadowLayout, this);
-            // 동적이 아닌 방식으로 처리
-            MNShadowLayoutFactory.changeThemeOfShadowLayout(shadowLayout, context);
-            //
-
-            // 터치 색은 forward색과 같게 처리
-            shadowLayout.setPressedColor(shadowLayout.getSolidAreaColor());
+            setLayoutParams(layoutParams);
+            setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_matrix);
 
             // container layout
             if (attrs != null) {
@@ -82,11 +64,11 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
             } else {
                 containerLayout = new RelativeLayout(context);
             }
-            containerLayout.setLayoutParams(shadowLayoutParams);
-            containerLayout.setPadding((int) resources.getDimension(R.dimen.setting_panel_item_margin),
-                    (int) resources.getDimension(R.dimen.setting_panel_item_margin),
-                    (int) resources.getDimension(R.dimen.setting_panel_item_margin),
-                    (int) resources.getDimension(R.dimen.setting_panel_item_margin));
+            LayoutParams containerLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            containerLayout.setLayoutParams(containerLayoutParams);
+            int panelItemPadding = resources.getDimensionPixelSize(R.dimen.setting_panel_item_margin);
+            containerLayout.setPadding(panelItemPadding, panelItemPadding, panelItemPadding, panelItemPadding);
             addView(containerLayout);
 
             // image
@@ -101,6 +83,7 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
             imageViewlayoutParams.addRule(CENTER_HORIZONTAL);
             imageViewlayoutParams.addRule(ALIGN_TOP);
             panelImageView.setLayoutParams(imageViewlayoutParams);
+            panelImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             containerLayout.addView(panelImageView);
 
             // text
@@ -109,19 +92,20 @@ public class MNSettingPanelMatrixItem extends RelativeLayout {
             } else {
                 panelNameTextView = new TextView(context);
             }
-            // text stype
+
+            // text type
             panelNameTextView.setGravity(Gravity.CENTER);
-            panelNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    resources.getDimension(R.dimen.setting_panel_item_text_font_size));
             panelNameTextView.setTypeface(panelNameTextView.getTypeface(), Typeface.BOLD);
             panelNameTextView.setSingleLine();
+            panelNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    resources.getDimension(R.dimen.setting_panel_item_text_font_size));
 
             // layout params
-            LayoutParams textViewlayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            LayoutParams textViewLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
-            textViewlayoutParams.addRule(ALIGN_PARENT_BOTTOM);
-            textViewlayoutParams.bottomMargin = (int) resources.getDimension(R.dimen.margin_inner);
-            panelNameTextView.setLayoutParams(textViewlayoutParams);
+            textViewLayoutParams.addRule(ALIGN_PARENT_BOTTOM);
+            textViewLayoutParams.bottomMargin = (int) resources.getDimension(R.dimen.margin_inner);
+            panelNameTextView.setLayoutParams(textViewLayoutParams);
             containerLayout.addView(panelNameTextView);
         }
     }

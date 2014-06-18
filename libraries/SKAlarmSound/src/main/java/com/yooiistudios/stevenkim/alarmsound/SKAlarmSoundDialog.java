@@ -9,7 +9,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.widget.ListView;
 
 import java.io.IOException;
@@ -51,7 +50,8 @@ public class SKAlarmSoundDialog {
         }
 
         // Build AlertDialog
-        AlertDialog alertDialog = builder.setSingleChoiceItems(soundTypes, -1, new DialogInterface.OnClickListener() {
+        int soundTypeIndex = alarmSound.getAlarmSoundType().getIndex();
+        AlertDialog alertDialog = builder.setSingleChoiceItems(soundTypes, soundTypeIndex, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {

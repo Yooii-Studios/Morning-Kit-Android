@@ -1,11 +1,19 @@
 package com.yooiistudios.morningkit.panel.quotes.detail;
 
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.AlignmentSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -41,7 +49,7 @@ import static com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout.QUOTE
  *
  * MNQuotesDetailFragment
  */
-public class MNQuotesDetailFragment extends MNPanelDetailFragment implements CompoundButton.OnCheckedChangeListener {
+public class MNQuotesDetailFragment extends MNPanelDetailFragment implements View.OnClickListener {
     private static final String TAG = "MNQuotesDetailFragment";
 
     @InjectView(R.id.panel_quotes_detail_quote_textview) TextView quoteTextView;
@@ -51,7 +59,7 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
     @InjectView(R.id.panel_quotes_detail_language_japanese_layout) RelativeLayout languageJapaneseLayout;
     @InjectView(R.id.panel_quotes_detail_language_simplified_chinese_layout) RelativeLayout languageSimplifiedChineseLayout;
     @InjectView(R.id.panel_quotes_detail_language_traditional_chinese_layout) RelativeLayout languageTraditionalChineseLayout;
-    List<CheckBox> languageCheckBoxes;
+    List<ImageButton> languageImageButtons;
 
     List<Boolean> selectedLanguages;
     MNQuote quote;
@@ -134,55 +142,109 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
     }
 
     private void initQuoteTextView() {
+        quoteTextView.setTextColor(MNSettingColors.getSubFontColor(MNTheme.getCurrentThemeType(
+                getActivity().getApplicationContext())));
+
         if (quote != null) {
             quoteTextView.setVisibility(View.VISIBLE);
-            quoteTextView.setText(quote.getQuote() + "\n" + quote.getAuthor());
+            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(
+                    getActivity().getApplicationContext());
+
+            SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+
+            // 명언 텍스트 조립
+            SpannableString contentString = new SpannableString(quote.getQuote());
+            // 폰트 색
+            contentString.setSpan(
+                    new ForegroundColorSpan(MNSettingColors.getSubFontColor(currentThemeType)),
+                    0, contentString.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            stringBuilder.append(contentString);
+
+            // 내용과 저자 텍스트 사이 간격 주기(텍스트 사이즈를 줄여서 한 줄의 높이를 적당히 조절)
+            SpannableString emptyString = new SpannableString("\n\n");
+            emptyString.setSpan(new RelativeSizeSpan(0.4f), 0, emptyString.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            stringBuilder.append(emptyString);
+
+            // 저자 텍스트 조립
+            SpannableString authorString = new SpannableString("- " + quote.getAuthor());
+            // 폰트 색
+            authorString.setSpan(
+                    new ForegroundColorSpan(MNSettingColors.getMainFontColor(currentThemeType)),
+                    0, authorString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            // 크기 좀 더 작게 표시
+            authorString.setSpan(new RelativeSizeSpan(0.85f), 0, authorString.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            // 오른정렬
+            authorString.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE),
+                    0, authorString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            stringBuilder.append(authorString);
+
+            // 기본 사이즈로 초기화 후 리사이징
+            quoteTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    getResources().getDimensionPixelSize(R.dimen.panel_quotes_detail_quote_text_size));
+            quoteTextView.setText(stringBuilder, TextView.BufferType.SPANNABLE);
         } else {
             quoteTextView.setVisibility(View.GONE);
         }
     }
 
     private void initLanguageLayouts() {
-        languageCheckBoxes = new ArrayList<CheckBox>();
-        languageCheckBoxes.add(getCheckBoxFromLayout(languageEnglishLayout));
-        languageCheckBoxes.add(getCheckBoxFromLayout(languageKoreanLayout));
-        languageCheckBoxes.add(getCheckBoxFromLayout(languageJapaneseLayout));
-        languageCheckBoxes.add(getCheckBoxFromLayout(languageSimplifiedChineseLayout));
-        languageCheckBoxes.add(getCheckBoxFromLayout(languageTraditionalChineseLayout));
+        languageImageButtons = new ArrayList<ImageButton>();
+        languageImageButtons.add(getImageButtonFromLayout(languageEnglishLayout));
+        languageImageButtons.add(getImageButtonFromLayout(languageKoreanLayout));
+        languageImageButtons.add(getImageButtonFromLayout(languageJapaneseLayout));
+        languageImageButtons.add(getImageButtonFromLayout(languageSimplifiedChineseLayout));
+        languageImageButtons.add(getImageButtonFromLayout(languageTraditionalChineseLayout));
 
         int i = 0;
         for (Boolean isLanguageSelected : selectedLanguages) {
-            CheckBox checkBox = languageCheckBoxes.get(i);
-            checkBox.setChecked(isLanguageSelected);
-            checkBox.setOnCheckedChangeListener(this);
+            ImageButton imageButton = languageImageButtons.get(i);
+            imageButton.setTag(i); // tag 를 index로 사용할 예정
+            if (isLanguageSelected) {
+                imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+            } else {
+                imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+            }
+            imageButton.setOnClickListener(this);
             i++;
         }
-
         checkCheckBoxStates();
     }
 
-    private CheckBox getCheckBoxFromLayout(RelativeLayout layout) {
-        return (CheckBox) layout.findViewById(R.id.panel_quotes_detail_language_checkbox);
+    private ImageButton getImageButtonFromLayout(RelativeLayout layout) {
+        return (ImageButton) layout.findViewById(R.id.panel_quotes_detail_language_image_button);
     }
 
     private void checkCheckBoxStates() {
         // 1개만 선택이 되어 있다면 해당 체크박스는 disable해서 무조건 하나는 선택되어 있게 만든다
         // 그렇지 않다면 모두 선택할 수 있게 해주기
         int counter = 0;
-        CheckBox lastCheckBoxWhichIsOn = null;
-        for (CheckBox checkBox : languageCheckBoxes) {
-            if (checkBox.isChecked()) {
+        ImageButton lastImageButtonWhichIsOn = null;
+        int index = 0;
+        for (Boolean selected : selectedLanguages) {
+            if (selected) {
+                lastImageButtonWhichIsOn = languageImageButtons.get(index);
                 counter += 1;
-                lastCheckBoxWhichIsOn = checkBox;
             }
+            index ++;
         }
         if (counter == 1) {
-            if (lastCheckBoxWhichIsOn != null) {
-                lastCheckBoxWhichIsOn.setEnabled(false);
+            if (lastImageButtonWhichIsOn != null) {
+                lastImageButtonWhichIsOn.setEnabled(false);
+                lastImageButtonWhichIsOn.setImageResource(R.drawable.icon_panel_detail_checkbox_on_disabled);
             }
         } else {
-            for (CheckBox checkBox : languageCheckBoxes) {
-                checkBox.setEnabled(true);
+            for (int i = 0; i < selectedLanguages.size(); i++) {
+                ImageButton imageButton = languageImageButtons.get(i);
+                imageButton.setEnabled(true);
+                if (selectedLanguages.get(i)) {
+                    imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+                } else {
+                    imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+                }
             }
         }
     }
@@ -194,29 +256,30 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Com
     }
 
     private void applyTheme() {
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
-        if (getView() != null) {
-            getView().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-            quoteTextView.setBackgroundColor(MNSettingColors.getExchangeRatesForwardColor(currentThemeType));
-        } else {
-            MNLog.e(TAG, "getView() is null!");
-        }
+//        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
+//        if (getView() != null) {
+//            getView().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
+//        } else {
+//            MNLog.e(TAG, "getView() is null!");
+//        }
     }
     @Override
     protected void archivePanelData() throws JSONException {
-        // 스위치를 가지고 List를 만듬
-        selectedLanguages.clear();
-        for (CheckBox checkBox: languageCheckBoxes) {
-            selectedLanguages.add(checkBox.isChecked());
-        }
-        MNLog.i(TAG, "selectedLanguages: " + selectedLanguages.toString());
         // 직렬화 해서 panelDataObject에 저장
         String selectedLanguagesJsonString = new Gson().toJson(selectedLanguages);
         getPanelDataObject().put(QUOTES_LANGUAGES, selectedLanguagesJsonString);
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+    public void onClick(View imageButton) {
+        int index = (Integer) imageButton.getTag();
+        // 해당 스위치 토글
+        selectedLanguages.set(index, !selectedLanguages.get(index));
+        if (selectedLanguages.get(index)) {
+            ((ImageButton) imageButton).setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+        } else {
+            ((ImageButton) imageButton).setImageResource(R.drawable.icon_panel_detail_checkbox);
+        }
         checkCheckBoxStates();
     }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- tutorail1_text_alpha_anim과 동일한 애니메이션 -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillAfter="true"
+    android:fillEnabled="true">
+
+    <alpha
+        android:startOffset="0"
+        android:duration="600"
+        android:fromAlpha="0"
+        android:toAlpha="1"/>
+
+</set>

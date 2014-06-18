@@ -10,7 +10,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="no_network_connection">No Network Connection</string>
-    <string name="no_location_detected">Location Not Available</string>
     <string name="searching">Searching…</string>
     <string name="done">Done</string>
     <string name="open">open</string>
@@ -161,7 +160,7 @@
     <!-- Tab -->
     <string name="tab_widget">PANEL</string>
     <string name="tab_alarm">ALARM</string>
-    <string name="tab_setting">SETTING</string>
+    <string name="tab_setting">Setting</string>
     <string name="tab_theme">THEME</string>
     <string name="tab_info">INFO</string>
 
@@ -235,18 +234,18 @@
     <string name="store_tab_themes">Themes</string>
     <string name="store_item_more_alarm_slots">More alarm slots</string>
     <string name="store_item_no_ads">No Ads</string>
-    <string name="store_item_matrix">2 X 1 Matrix</string>
+    <string name="store_item_matrix">2 X 3 Matrix</string>
     <string name="store_item_widget_date_countdown">Date\nCountdown</string>
     <string name="store_item_widget_memo">Memo</string>
     <string name="store_item_photo_portrait">Photo\nPortrait</string>
     <string name="store_item_photo_landscape">Photo\nLandscape</string>
     <string name="store_item_skyblue">Celestial\n(Sky blue)</string>
     <string name="store_item_classic_white">Modernity\n(Chic white)</string>
-    <string name="store_item_water_lily">Water lily</string>
+    <string name="store_item_water_lily">Water lily (Design)</string>
     <string name="store_item_popsicle">Popsicle</string>
 
     <!-- Rate it -->
-    <string name="rate_it_contents">Rate Morning Kit and make it better! Thank you!</string>
+    <string name="rate_it_contents">Please rate us 5 stars\nWithout your support, we don\'t exist</string>
     <string name="rate_it_rate">Rate</string>
     <string name="rate_it_no_thanks">Rate later</string>
     <string name="rate_morning_kit">Rate Morning Kit</string>
@@ -270,14 +269,13 @@
     <!-- Android Only -->
     <!-- General -->
     <string name="action_bar_up_button_main">Main</string>
+    <string name="store_item_full_version">Full Version</string>
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
-    <string name="store_item_full_version">Full Version</string>
 
-        <!-- Alarm Pref -->
-    <string name="alarm_sound_string_app_music">Morning Kit Music</string>
-    <string name="action_settings">Settings</string>
+        <!-- Prefs -->
+    <string name="alarm_pref_volume">Volume</string>
 
     <!-- Panel -->
         <!-- Flickr -->
@@ -288,5 +286,27 @@
 
         <!-- Calendar -->
     <string name="calendar_select_calendars">Select Calendars</string>
+
+        <!-- Photo Album -->
+    <string name="photo_album">Photo Frame</string>
+    <string name="photo_album_no_image">No image available</string>
+    <string name="photo_album_error_getting_photo">Error occurred while getting photo</string>
+    <string name="photo_album_label_refresh_time">Refresh Time</string>
+    <string name="photo_album_label_transition_type">Transition Type</string>
+    <string name="photo_album_minute_hint">min</string>
+    <string name="photo_album_minute">min</string>
+    <string name="photo_album_second_hint">sec</string>
+    <string name="photo_album_second">sec</string>
+    <string name="photo_album_transition_none">None</string>
+    <string name="photo_album_transition_alpha">Alpha</string>
+    <string name="photo_album_load">Load</string>
+
+    <!-- Theme -->
+    <string name="setting_theme_color_pastel_green">Pastel Green</string>
+
+    <!-- Recommend -->
+    <string name="recommend_to_friends">Recommend Morning Kit to your friends</string>
+    <string name="recommend_title">Strongly recommend!</string>
+    <string name="recommend_description">Just click and download :- )</string>
 
 </resources>

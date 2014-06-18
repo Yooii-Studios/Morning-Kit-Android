@@ -51,5 +51,9 @@ public class MNThemePhotoFragment extends Fragment {
 
     public void refresh() {
         ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+
+        // 추가: 사진을 선택하고 리프레시를 한 후에는 액티비티를 자동 종료한다
+        getActivity().setResult(Activity.RESULT_OK);
+        getActivity().finish();
     }
 }

@@ -5,13 +5,11 @@
 	<string name="app_name">모닝키트</string>
 	<string name="ok">확인</string>
 	<string name="cancel">취소</string>
-	<string name="no_image">이미지 없음</string>
 	<string name="loading">로딩 중&#8230;</string>
 	<string name="default_string">기본</string>
 	<string name="yes">예</string>
 	<string name="no">아니오</string>
 	<string name="no_network_connection">네트워크 접속불가</string>
-	<string name="no_location_detected">위치 실패</string>
 	<string name="searching">검색 중&#8230;</string>
 	<string name="done">완료</string>
 	<string name="open">열기</string>
@@ -173,11 +171,11 @@
 	<string name="setting_theme_color_skyblue">하늘 (하늘색)</string>
 	<string name="setting_theme_color_classic_gray">슬레이트 (회색)</string>
 	<string name="setting_theme_color_classic_white">모던 (흰색)</string>
-	<string name="setting_theme_mirror">투영 (미러모드)</string>
-	<string name="setting_theme_scenery">고요함 (투명모드)</string>
-	<string name="setting_theme_photo">사진</string>
-	<string name="setting_theme_photo_portrait">사진 (세로모드)</string>
-	<string name="setting_theme_photo_landscape">사진 (가로모드)</string>
+    <string name="setting_theme_mirror">투영 (미러모드)</string>
+    <string name="setting_theme_scenery">고요함 (투명모드)</string>
+    <string name="setting_theme_photo">사진</string>
+    <string name="setting_theme_photo_portrait">사진 (세로모드)</string>
+    <string name="setting_theme_photo_landscape">사진 (가로모드)</string>
 
 	<!-- Setting (Language) -->
 	<string name="setting_language_korean">한국어</string>
@@ -207,7 +205,7 @@
 	<!-- Unlock -->
 	<string name="unlock_notice">알림</string>
 	<string name="unlock_unlocked">사용가능</string>
-	<string name="unlock_description">기능을 추가하는 다양한 방법들이 있습니다.물론 무료로도 가능합니다</string>
+	<string name="unlock_description">기능을 추가하는 다양한 방법들이 있습니다.물론 무료로도 가능합니다!</string>
 	<string name="unlock_description_highlight">기능을 추가</string>
 	<string name="unlock_everything">$1.99면 모닝키트의 모든 기능을 사용하실 수 있습니다!</string>
 	<string name="unlock_everything_highlight">모든 기능</string>
@@ -236,7 +234,7 @@
 	<string name="store_tab_themes">테마</string>
 	<string name="store_item_more_alarm_slots">알람 개수 추가</string>
 	<string name="store_item_no_ads">광고 제거</string>
-	<string name="store_item_matrix">2 X 1 배열</string>
+	<string name="store_item_matrix">2 X 3 배열</string>
 	<string name="store_item_widget_date_countdown">날짜 계산</string>
 	<string name="store_item_widget_memo">메모</string>
 	<string name="store_item_photo_portrait">사진\n세로모드</string>
@@ -247,7 +245,7 @@
 	<string name="store_item_popsicle">Popsicle</string>
 
 	<!-- Rate it -->
-	<string name="rate_it_contents">모닝키트를 평가해주세요!</string>
+	<string name="rate_it_contents">%1$s 리뷰 부탁 드립니다.\n소중한 리뷰가 더 좋은 제품을 만드는데 도움이 됩니다! ^^</string>
 	<string name="rate_it_rate">평가하기</string>
 	<string name="rate_it_no_thanks">나중에 하기</string>
 	<string name="rate_morning_kit">모닝키트 평가하기</string>
@@ -271,16 +269,44 @@
     <!-- Android Only -->
     <!-- General -->
     <string name="action_bar_up_button_main">메인</string>
+    <string name="store_item_full_version">풀버전</string>
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">알람이 1분 내에 울립니다</string>
-    <string name="store_item_full_version">풀버전</string>
 
-    <!-- Alarm Pref -->
-    <string name="alarm_sound_string_app_music">모닝키트 음악</string>
+        <!-- Prefs -->
+    <string name="alarm_pref_volume">볼륨</string>
 
     <!-- Panel -->
-      <!-- Flickr -->
+        <!-- Flickr -->
     <string name="saving">저장 중…</string>
+
+        <!-- World Clock -->
+    <string name="no_search_result">검색결과 없음</string>
+
+        <!-- Calendar -->
+    <string name="calendar_select_calendars">캘린더 선택</string>
+
+        <!-- Photo Album -->
+    <string name="photo_album">사진 프레임</string>
+    <string name="photo_album_no_image">사용가능한 이미지 없음</string>
+    <string name="photo_album_error_getting_photo">사진을 가져올 때 문제가 생겼습니다</string>
+    <string name="photo_album_label_refresh_time">리프레시 시간</string>
+    <string name="photo_album_label_transition_type">애니메이션 타입</string>
+    <string name="photo_album_minute_hint">분</string>
+    <string name="photo_album_minute">분</string>
+    <string name="photo_album_second_hint">초</string>
+    <string name="photo_album_second">초</string>
+    <string name="photo_album_transition_none">없음</string>
+    <string name="photo_album_transition_alpha">투명도</string>
+    <string name="photo_album_load">로드</string>
+
+    <!-- Theme -->
+    <string name="setting_theme_color_pastel_green">파스텔 그린</string>
+
+    <!-- Recommend -->
+    <string name="recommend_to_friends">친구에게 추천하기</string>
+    <string name="recommend_title">강력 추천!!</string>
+    <string name="recommend_description">당황하지 않고 클릭해서 다운받으면~ 끝!</string>
 
 </resources>

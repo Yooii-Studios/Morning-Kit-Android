@@ -2,12 +2,16 @@ package com.yooiistudios.morningkit.panel.calendar;
 
 import android.app.AlertDialog;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -36,19 +40,23 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
 
     private static final String TAG = "MNCalendarDetailFragment";
 
-    @InjectView(R.id.calendar_detail_events_listview) ListView eventsListView;
-    @InjectView(R.id.calendar_detail_select_calendars_button) Button selectCalendarsButton;
+    @InjectView(R.id.panel_calendar_detail_events_listview) ListView eventsListView;
+    @InjectView(R.id.panel_calendar_detail_select_calendars_image_view) ImageView selectCalendarsImageView;
+    @InjectView(R.id.panel_calendar_detail_no_schedule_textview) TextView noScheduleTextView;
 
     boolean[] selectedArr;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.panel_calendar_detail_fragment, container, false);
+        final View rootView = inflater.inflate(R.layout
+                .panel_calendar_detail_fragment, container, false);
         if (rootView != null) {
             ButterKnife.inject(this, rootView);
 
-            eventsListView.setBackgroundColor(Color.MAGENTA);
+            if (DEBUG_UI) {
+                eventsListView.setBackgroundColor(Color.MAGENTA);
+            }
 
             // 패널 데이터 가져오기
             if (getPanelDataObject().has(CALENDAR_DATA_SELECTED_CALEDNDARS)) {
@@ -68,12 +76,41 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
                 selectedArr = MNCalendarUtils.loadCalendarModels(getActivity());
                 refreshUI();
             }
+
+            eventsListView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    // Disallow the touch request for parent scroll on touch of child view
+                    if (rootView instanceof ViewGroup) {
+                        ((ViewGroup)rootView)
+                                .requestDisallowInterceptTouchEvent(true);
+                    }
+                    return false;
+                }
+            });
         }
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // 아이콘 이미지뷰 색 필터 적용
+        int highlightColor = getResources().getColor(R.color.pastel_green_sub_font_color);
+        PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(highlightColor,
+                PorterDuff.Mode.SRC_ATOP);
+        selectCalendarsImageView.setColorFilter(colorFilter);
+    }
+
     private void refreshUI() {
         eventsListView.setAdapter(new MNCalendarListAdapter(getActivity(), selectedArr));
+
+        if (eventsListView.getCount() != 0) {
+            noScheduleTextView.setVisibility(View.GONE);
+        } else {
+            noScheduleTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -86,7 +123,7 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
         }
     }
 
-    @OnClick(R.id.calendar_detail_select_calendars_button)
+    @OnClick(R.id.panel_calendar_detail_select_calendars_layout)
     void selectCalendarButtonClicked() {
         AlertDialog calendarSelectDialog = MNCalendarSelectDialog.makeDialog(getActivity(), this,
                 MNCalendarUtils.loadCalendarModels(getActivity()));

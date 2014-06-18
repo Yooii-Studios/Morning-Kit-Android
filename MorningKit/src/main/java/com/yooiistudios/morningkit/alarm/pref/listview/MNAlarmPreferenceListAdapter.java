@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -55,9 +56,12 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
                 convertView = MNAlarmPrefItemMaker.makeSnoozeItem(context, parent, alarm);
                 break;
             case TIME:
-                convertView = MNAlarmPrefItemMaker.makeTimeItem(context, parent, alarm, alarmPreferenceType);
+                convertView = MNAlarmPrefItemMaker.makeTimeItem(context, parent, alarm);
                 break;
+            case VOLUME:
+                convertView = MNAlarmPrefItemMaker.makeVolumeItem(context, parent, alarm);
         }
+        convertView.setBackgroundColor(Color.WHITE);
         return convertView;
     }
 
@@ -82,7 +86,11 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
     @Subscribe
     public void onLabelChanged(String labelString) {
         if (labelString != null) {
-            alarm.setAlarmLabel(labelString);
+            if (labelString.length() != 0) {
+                alarm.setAlarmLabel(labelString);
+            } else {
+                alarm.setAlarmLabel("Alarm");
+            }
             notifyDataSetChanged();
         } else {
             throw new AssertionError("labelString must be null!");
@@ -91,16 +99,14 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
 
     @Subscribe
     public void onRepeatChanged(boolean[] repeats) {
-//        Log.i(TAG, "onRepeatChanged");
-        if (alarm != null) {
+        if (alarm != null && repeats.length == 7) {
             alarm.setRepeatOn(false);
-            for (int i = 0; i < alarm.getAlarmRepeatList().size(); i++) {
-                if (alarm.getAlarmRepeatList().get(i)) {
+            for (int i = 0; i < repeats.length; i++) {
+                if (repeats[i]) {
                     alarm.setRepeatOn(true);
                 }
                 alarm.getAlarmRepeatList().set(i, repeats[i]);
             }
-//            Log.i(TAG, "repeats: " + alarm.getAlarmRepeatList());
             notifyDataSetChanged();
         } else {
             throw new AssertionError("alarm must not be null!");

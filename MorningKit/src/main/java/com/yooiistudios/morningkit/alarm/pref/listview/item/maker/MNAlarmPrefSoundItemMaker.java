@@ -1,13 +1,6 @@
 package com.yooiistudios.morningkit.alarm.pref.listview.item.maker;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +29,7 @@ public class MNAlarmPrefSoundItemMaker {
 
         SoundItemViewHolder viewHolder = new SoundItemViewHolder(convertView);
         convertView.setTag(viewHolder);
+
         viewHolder.titleTextView.setText(R.string.alarm_pref_sound_type);
         viewHolder.detailTextView.setText(alarm.getAlarmSound().getSoundTitle());
         viewHolder.detailTextView.setSelected(true);

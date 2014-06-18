@@ -89,11 +89,28 @@ public class SKAlarmManager {
      * @return Calendar
      */
     public static Calendar adjustCalendar(Calendar calendar) {
-        if (calendar.before(Calendar.getInstance())) {
+
+        // 알람 캘린더의 날짜는 오늘(같은 날)로 맞추고 비교
+        Calendar todayCalendar = Calendar.getInstance();
+
+        calendar.set(Calendar.YEAR, todayCalendar.get(Calendar.YEAR));
+        calendar.set(Calendar.MONTH, todayCalendar.get(Calendar.MONTH));
+        calendar.set(Calendar.DAY_OF_MONTH, todayCalendar.get(Calendar.DAY_OF_MONTH));
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss");
+//        Log.i("SKAlarmManager", "todayCalendar: " + dateFormat.format(todayCalendar.getTime()) + "/" + todayCalendar.getTimeInMillis());
+//        Log.i("SKAlarmManager", "alarmCalendar: " + dateFormat.format(calendar.getTime()) + "/" + calendar.getTimeInMillis());
+
+        // 같은 날의 시간을 비교해서 시간이 더 앞이라면 1일을 더해주기
+        if (!calendar.after(todayCalendar)) {
+//            Log.i("SKAlarmManager", "plus 1 day");
             Calendar newCalendar = Calendar.getInstance();
             newCalendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY));
             newCalendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE));
             newCalendar.set(Calendar.SECOND, 0);
+            newCalendar.set(Calendar.MILLISECOND, 0);
             newCalendar.add(Calendar.DATE, 1);
             return newCalendar;
         } else {

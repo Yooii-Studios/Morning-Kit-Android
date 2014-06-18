@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.common.unlock;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,8 +13,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
@@ -21,14 +21,15 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
+import com.naver.iap.NaverIabActivity;
+import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.dp.DipToPixel;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
-import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
+import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManagerListener;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
@@ -36,8 +37,9 @@ import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.store.util.IabResult;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.store.util.Purchase;
-import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -54,19 +56,22 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     private String productSku;
 
+    @Getter private SKIabManager iabManager;
+
+
+    private boolean isReviewScreenCalled = false;
+    private int resumeCount = 0;
+
     @InjectView(R.id.unlock_container)              RelativeLayout          containerLayout;
-    @InjectView(R.id.unlock_shadow_layout)
-    RoundShadowRelativeLayout shadowLayout;
+    @InjectView(R.id.unlock_listview_layout)        RelativeLayout          listViewLayout;
     @InjectView(R.id.unlock_description_textview)   TextView                descriptionTextView;
     @InjectView(R.id.unlock_listview)               ListView                listView;
+    @InjectView(R.id.unlock_reset_button)           Button                  resetButton;
 
-    @Getter private SKIabManager iabManager;
+    private static final boolean IS_DEBUG = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Theme - 나중에 슬레이트 테마 나오면 그것으로 고정하자
-        setTheme(R.style.MNSettingActionBarTheme_Light);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unlock);
         ButterKnife.inject(this);
@@ -75,25 +80,30 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         initProductSku();
         initActionBar();
         initDescriptionTextView();
-        initShadow();
+        initListViewLayout();
 
         // listView
         listView.setAdapter(new MNUnlockListAdapter(this, this, productSku));
+
+        if (MNLog.isDebug) {
+            resetButton.setVisibility(View.VISIBLE);
+        } else {
+            resetButton.setVisibility(View.INVISIBLE);
+        }
     }
 
-    private void initShadow() {
+    private void initListViewLayout() {
         // shadow
-        MNShadowLayoutFactory.changeThemeOfShadowLayout(shadowLayout, this, MNThemeType.SLATE_GRAY);
-        shadowLayout.setBlurRadius((int) getResources().getDimension(R.dimen.unlock_listview_shadow_blur_radius));
-        shadowLayout.setRoundRectRadius(DipToPixel.dpToPixel(this, 14));
-        shadowLayout.setTouchEnabled(false);
+        listViewLayout.setClickable(false);
+        listViewLayout.setFocusable(false);
     }
 
     private void initDescriptionTextView() {
         // description - 0x00ccff 로 포인트 변경함
         descriptionTextView.setGravity(Gravity.NO_GRAVITY);
         descriptionTextView.setText(R.string.unlock_description);
-        descriptionTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.unlock_description_textsize));
+        descriptionTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.unlock_description_textsize));
 
         if (descriptionTextView.getText() != null) {
             String descriptionString = descriptionTextView.getText().toString();
@@ -117,7 +127,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setTitle(R.string.unlock_notice);
         actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setIcon(R.drawable.status_bar_icon);
+        actionBar.setIcon(R.drawable.icon_actionbar_morning);
     }
 
     private void initProductSku() {
@@ -131,13 +141,15 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     }
 
     private void initIab() {
-        iabManager = new SKIabManager(this, this);
-        iabManager.loadWithAllItems();
+        boolean isStoreForNaver = MNStoreFragment.IS_STORE_FOR_NAVER;
+        if (!isStoreForNaver) {
+            iabManager = new SKIabManager(this, this);
+            iabManager.loadWithAllItems();
+        }
     }
 
     @OnClick(R.id.unlock_reset_button)
     void onResetButtonClicked(Button button) {
-
         initDescriptionTextView();
 
         // 사용 이력을 전부 초기화해주자, 거의 리뷰에만 쓰일듯
@@ -153,18 +165,66 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (iabManager.getHelper() == null) return;
-
-        // Pass on the activity result to the helper for handling
-        if (!iabManager.getHelper().handleActivityResult(requestCode, resultCode, data)) {
-            // not handled, so handle it ourselves (here's where you'd
-            // perform any handling of activity results not related to in-app
-            // billing...
-            if (resultCode != MNReviewApp.REQ_REVIEW_APP) {
+    protected void onResume() {
+        super.onResume();
+        if (isReviewScreenCalled) {
+            resumeCount ++;
+            if (resumeCount == 2) {
                 onAfterReviewItemClicked();
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (iabManager != null) {
+            if (iabManager.getHelper() == null) return;
+
+            // Pass on the activity result to the helper for handling
+            if (!iabManager.getHelper().handleActivityResult(requestCode, resultCode, data)) {
+                // not handled, so handle it ourselves (here's where you'd
+                // perform any handling of activity results not related to in-app
+                // billing...
+                super.onActivityResult(requestCode, resultCode, data);
+                if (requestCode == MNReviewApp.REQ_REVIEW_APP) {
+                    onAfterReviewItemClicked();
+                }
+            }
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
+            // 네이버 구매
+            switch (requestCode) {
+                case MNStoreFragment.RC_NAVER_IAB:
+                    if (resultCode == Activity.RESULT_OK) {
+                        String action = data.getStringExtra(NaverIabActivity.KEY_ACTION);
+                        if (action.equals(NaverIabActivity.ACTION_PURCHASE)) {
+
+                            String purchasedIabItemKey = data.getStringExtra(NaverIabActivity.KEY_PRODUCT_KEY);
+
+                            if (purchasedIabItemKey != null) {
+                                // SKIabProducts에 적용
+                                String ownedSku = NaverIabProductUtils.googleSkuMap.get(purchasedIabItemKey);
+                                SKIabProducts.saveIabProduct(ownedSku, this);
+
+                                // 풀버전 구매를 대비해 전체 로딩을 한번 진행함 - 읽을 때 전부 추가
+                                SKIabProducts.loadOwnedIabProducts(getApplicationContext());
+
+                                // 풀버전 구매시는 풀버전을 구매했다고 표시
+                                if (ownedSku.equals(SKIabProducts.SKU_FULL_VERSION)) {
+                                    productSku = SKIabProducts.SKU_FULL_VERSION;
+                                }
+
+                                // 구매 후 UI 재로딩
+                                refreshUI();
+                            }
+                        }
+                    }
+                    break;
+            }
+            // 리뷰 달기
+            if (requestCode == MNReviewApp.REQ_REVIEW_APP) {
+                isReviewScreenCalled = true;
+            }
         }
     }
 
@@ -180,11 +240,27 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     public void onItemClick(int position) {
         switch (position) {
             case 0:
-                iabManager.processPurchase(SKIabProducts.SKU_FULL_VERSION, this);
+                if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+                    Intent intent = new Intent(this, NaverIabActivity.class);
+                    intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
+                    intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
+                            NaverIabProductUtils.naverSkuMap.get(SKIabProducts.SKU_FULL_VERSION));
+                    startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
+                } else {
+                    iabManager.processPurchase(SKIabProducts.SKU_FULL_VERSION, this);
+                }
                 break;
 
             case 1:
-                iabManager.processPurchase(productSku, this);
+                if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+                    Intent intent = new Intent(this, NaverIabActivity.class);
+                    intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
+                    intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
+                            NaverIabProductUtils.naverSkuMap.get(productSku));
+                    startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
+                } else {
+                    iabManager.processPurchase(productSku, this);
+                }
                 break;
 
             case 2:
@@ -196,19 +272,23 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     private String getProductString() {
         if (productSku.equals(SKIabProducts.SKU_FULL_VERSION)) {
             return this.getString(R.string.store_item_full_version);
-        }else if (productSku.equals(SKIabProducts.SKU_MORE_ALARM_SLOTS)) {
+        } else if (productSku.equals(SKIabProducts.SKU_MORE_ALARM_SLOTS)) {
             return this.getString(R.string.store_item_more_alarm_slots);
-        }else if (productSku.equals(SKIabProducts.SKU_NO_ADS)) {
+        } else if (productSku.equals(SKIabProducts.SKU_NO_ADS)) {
             return this.getString(R.string.store_item_no_ads);
-        }else if (productSku.equals(SKIabProducts.SKU_DATE_COUNTDOWN)) {
+        } else if (productSku.equals(SKIabProducts.SKU_PANEL_MATRIX_2X3)) {
+            return this.getString(R.string.store_item_matrix);
+        } else if (productSku.equals(SKIabProducts.SKU_DATE_COUNTDOWN)) {
             String productString = this.getString(R.string.store_item_widget_date_countdown);
             productString = productString.replace("\n", " ");
             return productString;
-        }else if (productSku.equals(SKIabProducts.SKU_MEMO)) {
+        } else if (productSku.equals(SKIabProducts.SKU_MEMO)) {
             return this.getString(R.string.memo);
-        }else if (productSku.equals(SKIabProducts.SKU_MODERNITY)) {
+        } else if (productSku.equals(SKIabProducts.SKU_PHOTO_FRAME)) {
+            return this.getString(R.string.photo_album);
+        } else if (productSku.equals(SKIabProducts.SKU_MODERNITY)) {
             return this.getString(R.string.setting_theme_color_classic_white);
-        }else if (productSku.equals(SKIabProducts.SKU_CELESTIAL)) {
+        } else if (productSku.equals(SKIabProducts.SKU_CELESTIAL)) {
             return this.getString(R.string.setting_theme_color_skyblue);
         }
         return null;
@@ -227,7 +307,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                     pointedStringIndex, pointedStringIndex + productString.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-            descriptionTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.unlock_description_textsize_scale_up));
+            descriptionTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    getResources().getDimension(R.dimen.unlock_description_textsize_scale_up));
             descriptionTextView.setGravity(Gravity.CENTER);
             descriptionTextView.setText(spannableString);
         }
@@ -238,24 +319,19 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
             descriptionTextView.startAnimation(scaleAnimation);
             scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
-                public void onAnimationStart(Animation animation) {
-
-                }
-
+                public void onAnimationStart(Animation animation) {}
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     // animate activity
                     finish();
                     overridePendingTransition(R.anim.activity_hold, R.anim.activity_modal_down);
                 }
-
                 @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
+                public void onAnimationRepeat(Animation animation) {}
             });
         }
     }
+
     private void refreshUI() {
         // listView
         ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
@@ -271,29 +347,52 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         edit.commit();
 
         refreshUI();
+
+        // 플러리 - 세팅 패널 탭에서 패널 변경
+        String unlockedProduct = null;
+        if (productSku.equals(SKIabProducts.SKU_FULL_VERSION)) {
+            unlockedProduct = "Full Version";
+        } else if (productSku.equals(SKIabProducts.SKU_MORE_ALARM_SLOTS)) {
+            unlockedProduct = "More Alarm Slots";
+        } else if (productSku.equals(SKIabProducts.SKU_NO_ADS)) {
+            unlockedProduct = "No Ads";
+        } else if (productSku.equals(SKIabProducts.SKU_PANEL_MATRIX_2X3)) {
+            unlockedProduct = "Matrix 2 X 3";
+        } else if (productSku.equals(SKIabProducts.SKU_DATE_COUNTDOWN)) {
+            unlockedProduct = "Date Countdown";
+        } else if (productSku.equals(SKIabProducts.SKU_MEMO)) {
+            unlockedProduct = "Memo";
+        } else if (productSku.equals(SKIabProducts.SKU_PHOTO_FRAME)) {
+            unlockedProduct = "Photo Frame";
+        } else if (productSku.equals(SKIabProducts.SKU_MODERNITY)) {
+            unlockedProduct = "Classic White";
+        } else if (productSku.equals(SKIabProducts.SKU_CELESTIAL)) {
+            unlockedProduct = "Sky Blue";
+        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(MNFlurry.UNLOCKED_PRODUCT, unlockedProduct);
+        FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
     }
 
     /**
-     * Iab
+     * Google Iab
      */
     @Override
-    public void onIabSetupFinished(IabResult result) {
-
-    }
+    public void onIabSetupFinished(IabResult result) {}
 
     @Override
     public void onIabSetupFailed(IabResult result) {
-        Toast.makeText(this, result.toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, result.toString(), Toast.LENGTH_SHORT).show();
+        showComplain("Setup Failed: " + result.getMessage());
     }
 
     @Override
-    public void onQueryFinished(Inventory inventory) {
-
-    }
+    public void onQueryFinished(Inventory inventory) {}
 
     @Override
     public void onQueryFailed(IabResult result) {
-        Toast.makeText(this, result.toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, result.toString(), Toast.LENGTH_SHORT).show();
+        showComplain("Query Failed: " + result.getMessage());
     }
 
     /**
@@ -303,7 +402,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     public void onIabPurchaseFinished(IabResult result, Purchase info) {
         // 구매된 리스트를 확인해 SharedPreferences에 적용하기
         if (result.isSuccess()) {
-            Toast.makeText(this, result.getMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, result.getMessage(), Toast.LENGTH_SHORT).show();
 
             if (info != null && info.getDeveloperPayload().equals(SKIabManager.DEVELOPER_PAYLOAD)) {
                 SKIabProducts.saveIabProduct(info.getSku(), this);
@@ -323,30 +422,5 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         bld.setMessage(string);
         bld.setNeutralButton(getString(R.string.ok), null);
         bld.create().show();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            if (MNSound.isSoundOn(this)) {
-                MNSoundEffectsPlayer.play(R.raw.effect_view_close, this);
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // Catch the back button and make fragment animate
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
-            if (MNSound.isSoundOn(this)) {
-                MNSoundEffectsPlayer.play(R.raw.effect_view_close, this);
-            }
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

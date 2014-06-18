@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Classic Gray -->
+    <color name="stroke_color">#50000000</color>
+
+    <color name="classic_gray_forward_normal_color">#434343</color>
+    <color name="classic_gray_forward_pressed_color">#a1a1a1</color>
+    <color name="classic_gray_forward_unlock_default_color">#5b5b5b</color>
+    <color name="classic_gray_forward_unlock_used_color">#454545</color>
+
+    <color name="classic_white_forward_normal_color">#e8e8e8</color>
+    <color name="classic_white_forward_pressed_color">#dcdcdc</color>
+    <color name="classic_white_forward_unlocked_color">#cfcfcf</color>
+    <color name="classic_white_forward_guided_color">#ffffff</color>
+
+    <color name="skyblue_forward_normal_color">#01afd2</color>
+    <color name="skyblue_forward_pressed_color">#03a3c3</color>
+
+    <color name="pastel_green_forward_normal_color">#ffffff</color>
+    <color name="pastel_green_forward_pressed_color">#e6e6e6</color>
+    <color name="pastel_green_stroke_color">#c1c1c1</color>
+    <color name="pastel_green_main_font_color">#5ab38c</color>
+    <color name="pastel_green_sub_font_color">#797979</color>
+
+    <color name="translucent_forward_normal_color">#1affffff</color>
+    <color name="translucent_forward_pressed_color">#7fffffff</color>
+
     <!-- Store -->
     <color name="setting_store_full_version_text_color">#000000</color>
     <color name="setting_store_full_version_button_text_color">#00ccff</color>

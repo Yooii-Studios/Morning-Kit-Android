@@ -2,58 +2,47 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/alarm_pref_list_default_item_outer_layout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/alarm_pref_list_item_outer_height"
-    android:layout_alignParentLeft="true"
-    android:background="#38aa38"
+    android:layout_height="@dimen/alarm_pref_list_item_height"
+    android:background="@color/white"
     android:clickable="false"
     android:focusable="false"
-    android:paddingTop="@dimen/margin_inner"
-    android:paddingBottom="@dimen/margin_inner"
-    android:paddingLeft="@dimen/margin_outer"
-    android:paddingRight="@dimen/margin_outer"
-    android:orientation="vertical" >
+    android:paddingLeft="@dimen/alarm_pref_list_time_left_right_padding"
+    android:paddingRight="@dimen/alarm_pref_list_time_left_right_padding" >
 
-    <RelativeLayout
-        android:id="@+id/alarm_pref_list_default_item_inner_layout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/alarm_pref_list_default_item_title_textview"
+        android:layout_width="@dimen/alarm_pref_list_item_title_textview_width"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:padding="@dimen/alarm_pref_list_item_padding"
-        android:clickable="false"
-        android:focusable="false"
-        android:background="@drawable/shape_rounded_view_classic_gray"
-        android:orientation="vertical">
+        android:layout_marginLeft="@dimen/panel_layout_padding"
+        android:gravity="center_vertical"
+        android:text="LabelLabel"
+        android:textColor="@color/pastel_green_sub_font_color"
+        android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
+        android:layout_centerInParent="true"
+        android:singleLine="true"
+        android:ellipsize="end"/>
 
-        <TextView
-            android:id="@+id/alarm_pref_list_default_item_title_textview"
-            android:layout_width="@dimen/alarm_pref_list_item_title_textview_width"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:gravity="center_vertical"
-            android:text="LabelLabel"
-            android:background="#33aa33"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
-            android:layout_centerInParent="true"
-            android:singleLine="true"
-            android:ellipsize="end"/>
+    <TextView
+        android:id="@+id/alarm_pref_list_default_item_detail_textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/alarm_pref_list_item_padding"
+        android:layout_marginRight="@dimen/panel_detail_bigger_padding"
+        android:gravity="center_vertical|right"
+        android:text="@string/alarm_default_label"
+        android:textColor="@color/pastel_green_sub_font_color"
+        android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
+        android:layout_toRightOf="@id/alarm_pref_list_default_item_title_textview"
+        android:layout_centerInParent="true"
+        android:singleLine="true"
+        android:ellipsize="marquee"/>
 
-        <TextView
-            android:id="@+id/alarm_pref_list_default_item_detail_textview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="@dimen/alarm_pref_list_item_padding"
-            android:gravity="center_vertical|right"
-            android:text="@string/alarm_default_label"
-            android:background="#aa33aa"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/alarm_pref_list_item_textview_font_size"
-            android:layout_toRightOf="@id/alarm_pref_list_default_item_title_textview"
-            android:layout_centerInParent="true"
-            android:singleLine="true"
-            android:ellipsize="marquee"/>
-    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/alarm_pref_list_time_divider_height"
+        android:background="@color/pastel_green_stroke_color"
+        android:layout_alignParentBottom="true"/>
+
 </RelativeLayout>

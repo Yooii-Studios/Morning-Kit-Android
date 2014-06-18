@@ -3,7 +3,8 @@
     android:id="@+id/panel_exchange_rates_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,16 +12,16 @@
         android:orientation="horizontal"
         android:weightSum="2"
         android:baselineAligned="false"
-        android:layout_margin="@dimen/panel_detail_padding">
+        android:layout_margin="@dimen/panel_detail_bigger_padding">
 
         <com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesInfoLayout
             android:id="@+id/panel_exchange_rates_info_layout_base"
             android:layout_width="0dp"
             android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
             android:layout_weight="1"
-            android:layout_marginRight="@dimen/panel_detail_padding_inner"
+            android:layout_marginRight="@dimen/panel_detail_bigger_padding_inner"
             android:gravity="center"
-            android:background="#cfcfcf">
+            android:background="@color/pastel_green_forward_pressed_color">
         </com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesInfoLayout>
 
         <com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesInfoLayout
@@ -28,9 +29,9 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
             android:layout_weight="1"
-            android:layout_marginLeft="@dimen/panel_detail_padding_inner"
+            android:layout_marginLeft="@dimen/panel_detail_bigger_padding_inner"
             android:layout_gravity="center"
-            android:background="#cfcfcf">
+            android:background="@color/pastel_green_forward_pressed_color">
         </com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesInfoLayout>
 
     </LinearLayout>
@@ -40,9 +41,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
         android:orientation="horizontal"
-        android:background="#cfcfcf"
-        android:layout_marginLeft="@dimen/panel_detail_padding"
-        android:layout_marginRight="@dimen/panel_detail_padding"
+        android:background="@color/pastel_green_forward_pressed_color"
+        android:layout_marginLeft="@dimen/panel_detail_bigger_padding"
+        android:layout_marginRight="@dimen/panel_detail_bigger_padding"
         android:weightSum="2"
         android:baselineAligned="false">
 
@@ -50,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="@dimen/panel_detail_padding">
+            android:padding="@dimen/panel_detail_bigger_padding">
 
             <EditText
                 android:id="@+id/panel_exchange_rates_edit_base_symbol"
@@ -59,7 +60,8 @@
                 android:editable="false"
                 android:gravity="right|center_vertical"
                 android:text="$"
-                android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                android:textSize="@dimen/panel_exchange_rates_detail_edit_text_size"
+                android:textColor="@color/pastel_green_sub_font_color"
                 android:background="#00000000"
                 android:focusable="false">
                 <requestFocus />
@@ -72,7 +74,8 @@
                 android:digits="0123456789.,"
                 android:inputType="numberDecimal"
                 android:padding="0dip"
-                android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                android:textSize="@dimen/panel_exchange_rates_detail_edit_text_size"
+                android:textColor="@color/pastel_green_sub_font_color"
                 android:singleLine="true"
                 android:background="#00000000"
                 android:gravity="left|center_vertical"
@@ -87,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="@dimen/panel_detail_padding">
+            android:padding="@dimen/panel_detail_bigger_padding">
 
             <EditText
                 android:id="@+id/panel_exchange_rates_edit_target"
@@ -99,7 +102,8 @@
                 android:inputType="numberDecimal"
                 android:padding="0dip"
                 android:text="$1.35"
-                android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+                android:textSize="@dimen/panel_exchange_rates_detail_edit_text_size"
+                android:textColor="@color/pastel_green_sub_font_color"
                 android:background="#00000000"
                 android:focusable="false"/>
 
@@ -146,15 +150,34 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/panel_exchange_rates_swap_textview"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/panel_exchange_rates_swap_layout"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
-        android:layout_margin="@dimen/panel_detail_padding"
-        android:gravity="center"
-        android:text="@string/exchange_rate_switch_countries"
-        android:textStyle="bold"
-        android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
-        android:background="#cfcfcf"/>
+        android:layout_gravity="right"
+        android:layout_marginTop="@dimen/margin_outer"
+        android:layout_marginRight="@dimen/panel_detail_bigger_padding"
+        android:paddingRight="@dimen/panel_detail_padding">
 
+        <ImageView
+            android:id="@+id/panel_exchange_rates_swap_imageview"
+            android:layout_width="@dimen/panel_exchange_rates_detail_swap_image_size"
+            android:layout_height="@dimen/panel_exchange_rates_detail_swap_image_size"
+            android:src="@drawable/button_refresh_pastel_green_normal"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_inner"/>
+
+        <TextView
+            android:id="@+id/panel_exchange_rates_swap_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/panel_exchange_rates_detail_info_height"
+            android:paddingRight="@dimen/margin_outer"
+            android:layout_marginRight="@dimen/panel_detail_bigger_padding"
+            android:gravity="center"
+            android:text="@string/exchange_rate_switch_countries"
+            android:textSize="@dimen/panel_exchange_rates_detail_currency_code_text_size"
+            android:layout_toRightOf="@+id/panel_exchange_rates_swap_imageview"
+            android:textColor="@color/pastel_green_sub_font_color"/>
+
+    </RelativeLayout>
 </LinearLayout>

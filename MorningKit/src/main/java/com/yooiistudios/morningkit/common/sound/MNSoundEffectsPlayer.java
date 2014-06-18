@@ -8,7 +8,8 @@ import android.media.MediaPlayer;
  * Created by StevenKim in Morning Kit from Yooii Studios Co., LTD. on 2014. 1. 20.
  *
  * MNSoundEffectsPlayer
- * 알람 사운드 재생을 담당
+ *  알람 사운드 재생을 담당
+ *  우성 요청으로 사운드 구현은 중지, 레거시 코드는 놔둔 채 내부 코드만 주석처리(나중에 사용할 가능성 있음)
  */
 public class MNSoundEffectsPlayer {
 
@@ -16,11 +17,11 @@ public class MNSoundEffectsPlayer {
      * Singleton
      */
     private volatile static MNSoundEffectsPlayer instance;
-    private volatile MediaPlayer mediaPlayer;
+//    private volatile MediaPlayer mediaPlayer;
 
-    public static MediaPlayer getMediaPlayer() {
-        return getInstance().mediaPlayer;
-    }
+//    public static MediaPlayer getMediaPlayer() {
+//        return getInstance().mediaPlayer;
+//    }
 
     private MNSoundEffectsPlayer() {
     }
@@ -30,7 +31,7 @@ public class MNSoundEffectsPlayer {
             synchronized (MNSoundEffectsPlayer.class) {
                 if (instance == null) {
                     instance = new MNSoundEffectsPlayer();
-                    instance.mediaPlayer = new MediaPlayer();
+//                    instance.mediaPlayer = new MediaPlayer();
                 }
             }
         }
@@ -38,6 +39,7 @@ public class MNSoundEffectsPlayer {
     }
 
     public static void play(final int rawInt, final Context context) {
+        /*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -55,13 +57,15 @@ public class MNSoundEffectsPlayer {
                 }
             }
         }).start();
+        */
     }
 
     public static void stop() {
-        getMediaPlayer().stop();
+//        getMediaPlayer().stop();
     }
 
     /*
+    안쓰는 코드
     public static void play(final Uri uri, final Context context) throws IOException {
         getMediaPlayer().reset();
         getMediaPlayer().setDataSource(context, uri);

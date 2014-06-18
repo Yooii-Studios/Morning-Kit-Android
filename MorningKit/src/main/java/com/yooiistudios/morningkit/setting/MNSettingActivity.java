@@ -1,10 +1,9 @@
 package com.yooiistudios.morningkit.setting;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -12,8 +11,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
+import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
+import com.yooiistudios.morningkit.setting.panel.MNPanelSettingFragment;
+import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
@@ -50,7 +54,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Theme
-        setTheme(R.style.MNSettingActionBarTheme_Light);
+//        setTheme(R.style.MNSettingActionBarTheme_PastelGreen);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
@@ -59,7 +63,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.status_bar_icon);
+        actionBar.setIcon(R.drawable.icon_actionbar_morning);
 
         int latestTabIndex;
         SharedPreferences prefs = getSharedPreferences(SETTING_PREFERENCES, MODE_PRIVATE);
@@ -83,6 +87,52 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                final String name = "android:switcher:" + mViewPager.getId() + ":" + position;
+                Fragment viewPagerFragment = getSupportFragmentManager().findFragmentByTag(name);
+
+                if (position == 0) {
+                    // 패널 탭일 경우 구매 확인을 한 번 더 해주자(락 아이템 구매 UI 처리용)
+                    if (viewPagerFragment != null &&
+                            viewPagerFragment instanceof MNPanelSettingFragment) {
+                        viewPagerFragment.onResume();
+                    }
+                } else if (position == 1) {
+                    // 상점 탭일 경우
+                    boolean isStoreForNaver = MNStoreFragment.IS_STORE_FOR_NAVER;
+                    // 1. 첫 진입인 경우에는 네이버 인앱 로딩
+                    // 2. 로딩 후 탭 클릭 시는 구매 재로딩(다른 탭에서 언락했을 경우 UI 처리용)
+                    // -> 2번 변경 -> 로딩 후 탭 클릭 시는 무조건 재로딩
+                    if (viewPagerFragment == null) {
+                        mViewPager.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Fragment viewPagerFragment = getSupportFragmentManager().findFragmentByTag(name);
+                                if (viewPagerFragment != null &&
+                                        viewPagerFragment instanceof MNStoreFragment) {
+                                    MNStoreFragment storeFragment = ((MNStoreFragment) viewPagerFragment);
+                                    boolean isStoreForNaver = MNStoreFragment.IS_STORE_FOR_NAVER;
+                                    if (isStoreForNaver && !storeFragment.isNaverStoreStartLoading) {
+                                        storeFragment.onFirstStoreLoading();
+                                    }
+                                }
+                            }
+                        });
+                    } else {
+                        if (viewPagerFragment instanceof MNStoreFragment) {
+                            MNStoreFragment storeFragment = ((MNStoreFragment)viewPagerFragment);
+                            if (isStoreForNaver && !storeFragment.isNaverStoreStartLoading) {
+                                storeFragment.onFirstStoreLoading();
+                            } else {
+                                // 2탭 너머 있는 상태에서 클릭할 경우에 onCreateView를 호출함
+                                if (storeFragment.getProductList() != null) {
+                                    storeFragment.initUIAfterLoading(storeFragment.getProductList());
+                                } else {
+                                    storeFragment.onFirstStoreLoading();
+                                }
+                            }
+                        }
+                    }
+                }
                 actionBar.setSelectedNavigationItem(position);
             }
         });
@@ -113,29 +163,24 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
     protected void onResume() {
         super.onResume();
         applyLocaledTabName();
-
-        // Sound
-        AudioManager mgr = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        mgr.setStreamMute(AudioManager.STREAM_SYSTEM, true);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        AudioManager mgr = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        mgr.setStreamMute(AudioManager.STREAM_SYSTEM, false);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        Log.d(TAG, "onActivityResult(" + requestCode + ", " + resultCode);
-
-        if (iabHelper == null) return;
-            // Pass on the activity result to the helper for handling
-        if (!iabHelper.handleActivityResult(requestCode, resultCode, data)) {
-            // not handled, so handle it ourselves (here's where you'd
-            // perform any handling of activity results not related to in-app
-            // billing...
+        if (!(iabHelper == null)) {
+            if (!iabHelper.handleActivityResult(requestCode, resultCode, data)) {
+                // not handled, so handle it ourselves (here's where you'd
+                // perform any handling of activity results not related to in-app
+                // billing...
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+        else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -185,5 +230,26 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        MNLog.i(TAG, "onDestroy");
+        ViewUnbindHelper.unbindReferences(this, mViewPager.getId());
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }

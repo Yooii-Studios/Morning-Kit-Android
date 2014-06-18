@@ -63,11 +63,8 @@ public class MNMemoDetailFragment extends MNPanelDetailFragment {
     protected void archivePanelData() throws JSONException {
         String memoString = memoEditText.getText().toString();
 
-        // SharedPreferences에 아카이빙
         SharedPreferences prefs = getActivity().getSharedPreferences(MEMO_PREFS, Context.MODE_PRIVATE);
-
-        // length가 0이 아니어야 저장함
-        if (memoString.length() != 0) {
+        if (memoString != null) {
             getPanelDataObject().put(MEMO_DATA_CONTENT, memoString);
             prefs.edit().putString(MEMO_PREFS_CONTENT, memoString).commit();
         } else {

@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 
 /**
  * Created by StevenKim in MNSettingActivityProject from Yooii Studios Co., LTD. on 2014. 1. 8.
@@ -30,6 +32,9 @@ public class MNCreditFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        if (position == 1) {
+            MNTutorialManager.resetTutorial(getActivity().getApplicationContext());
+            Toast.makeText(getActivity().getApplicationContext(), "Tutorial Reset", Toast.LENGTH_SHORT).show();
+        }
     }
 }

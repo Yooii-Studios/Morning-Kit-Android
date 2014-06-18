@@ -30,8 +30,9 @@ public class MNAlarmWake {
             int alarmUniqueId = intent.getIntExtra(SKAlarmManager.ALARM_UNIQUE_ID, -1);
             MNAlarm alarm = MNAlarmListManager.findAlarmById(alarmUniqueId, context);
             if (alarm != null) {
-                MNAlarmWakeDialog.show(alarm, context);
-                SKAlarmSoundPlayer.playAlarmSound(alarm.getAlarmSound(), context);
+//                MNAlarmWakeDialog.show(alarm, context);
+                MNAlarmWakeCustomDialog.show(alarm, context);
+                SKAlarmSoundPlayer.playAlarmSound(alarm.getAlarmSound(), alarm.getAlarmVolume(), context);
             } else {
                 throw new AssertionError("The target alarm must exist in the list.");
             }

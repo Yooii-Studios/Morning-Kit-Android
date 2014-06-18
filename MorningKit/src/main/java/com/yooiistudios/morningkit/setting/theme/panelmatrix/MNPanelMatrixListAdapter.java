@@ -1,21 +1,27 @@
 package com.yooiistudios.morningkit.setting.theme.panelmatrix;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
+import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
+import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.MNSettingThemeDetailItemViewHolder;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by StevenKim in MNSettingActivityProject from Yooii Studios Co., LTD. on 2014. 1. 15.
@@ -51,7 +57,6 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
 
         if (convertView != null) {
             MNSettingThemeDetailItemViewHolder viewHolder = new MNSettingThemeDetailItemViewHolder(convertView);
-            viewHolder.getLockImageView().setVisibility(View.GONE);
 
             MNPanelMatrixType panelMatrixType = MNPanelMatrixType.valueOf(position);
             switch (panelMatrixType) {
@@ -59,8 +64,8 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
                     viewHolder.getTitleTextView().setText("2 X 2");
                     break;
 
-                case PANEL_MATRIX_2X1:
-                    viewHolder.getTitleTextView().setText("2 X 1");
+                case PANEL_MATRIX_2X3:
+                    viewHolder.getTitleTextView().setText("2 X 3");
                     break;
             }
             if (panelMatrixType != MNPanelMatrix.getCurrentPanelMatrixType(activity)) {
@@ -70,32 +75,46 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
             // theme
             MNThemeType currentThemeType = MNTheme.getCurrentThemeType(activity);
 
-            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-            viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-            viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
-            viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
-
-            // theme - shadow
-            RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-
-            // 동적 생성 -> 색 변경 로직 변경
-//            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
-            MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, activity);
-
             // onClick
-            if (roundShadowRelativeLayout != null) {
-                roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (MNSound.isSoundOn(activity)) {
-                            MNSoundEffectsPlayer.play(R.raw.effect_view_close, activity);
-                        }
-                        MNPanelMatrix.setPanelMatrixType(MNPanelMatrixType.valueOf(position), activity);
-                        activity.finish();
+            viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (MNSound.isSoundOn(activity)) {
+                        MNSoundEffectsPlayer.play(R.raw.effect_view_close, activity);
                     }
-                });
+                    MNPanelMatrix.setPanelMatrixType(MNPanelMatrixType.valueOf(position), activity);
+                    activity.finish();
+                }
+            });
+
+            // lock
+            if (panelMatrixType == MNPanelMatrixType.PANEL_MATRIX_2X2) {
+                viewHolder.getLockImageView().setVisibility(View.GONE);
             } else {
-                throw new AssertionError("shadowRelativeLayout must not be null!");
+                List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(activity);
+                if (ownedSkus.contains(SKIabProducts.SKU_PANEL_MATRIX_2X3)) {
+                    // 아이템 구매완료
+                    viewHolder.getLockImageView().setVisibility(View.GONE);
+                } else {
+                    // 아이템 잠김
+                    viewHolder.getInnerLayout().setBackgroundResource(
+                            MNSettingResources.getLockItemResourcesId(currentThemeType));
+
+                    // lock onClickListener
+                    viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // 2*3은 Unlock이 아니라 상점에서 구매할 수 있게 한다
+                            activity.startActivity(new Intent(activity, MNStoreActivity.class));
+                            activity.overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
+
+                            // 플러리
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put(MNFlurry.CALLED_FROM, "Setting - Theme - 2X3");
+                            FlurryAgent.logEvent(MNFlurry.STORE, params);
+                        }
+                    });
+                }
             }
         }
         return convertView;

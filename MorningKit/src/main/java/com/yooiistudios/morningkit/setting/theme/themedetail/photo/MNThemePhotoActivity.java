@@ -9,16 +9,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
 import com.stevenkim.photo.SKBitmapLoader;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -36,7 +35,7 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
         setContentView(R.layout.activity_setting_theme_detail_photo);
         ButterKnife.inject(this);
 
-        backgroundLayout.setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(MNTheme.getCurrentThemeType(this)));
+//        backgroundLayout.setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(MNTheme.getCurrentThemeType(this)));
 
         if (savedInstanceState == null) {
             // http://developer.android.com/guide/components/fragments.html 참고
@@ -44,7 +43,7 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
 
             // animate - (upstack)incoming enterAnim, (backstack)outgoing exitAnim /
             // in reverse - (backstack)incoming enterAnim, (upstack)outgoing exitAnim
-            transaction.setCustomAnimations(R.anim.fragment_enter, 0);
+//            transaction.setCustomAnimations(R.anim.fragment_enter, 0);
 
             // Replace whatever is in the fragment_container view with this fragment,
             // and add the transaction to the back stack
@@ -151,5 +150,19 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
         } else {
             Toast.makeText(this, "Can't load an image", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }

@@ -2,6 +2,8 @@ package com.yooiistudios.morningkit.alarm.model;
 
 import android.content.Context;
 
+import com.yooiistudios.morningkit.alarm.model.notification.MNAlarmNotificationChecker;
+import com.yooiistudios.morningkit.alarm.model.notification.MNAlarmOngoingNotificationMaker;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmToast;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.stevenkim.alarmmanager.SKAlarmManager;
@@ -44,6 +46,8 @@ public class MNAlarm implements Serializable, Cloneable {
 
     @Getter @Setter private SKAlarmSound        alarmSound;
 
+    @Getter @Setter private int                 alarmVolume;
+
     /**
      * Methods
      */
@@ -66,11 +70,15 @@ public class MNAlarm implements Serializable, Cloneable {
         } else {
             SKAlarmManager.cancelAlarm(alarmId, context, MNMainActivity.class);
         }
+
+        // 스누즈 알람도 제거
+        SKAlarmManager.cancelAlarm(alarmId + 7, context, MNMainActivity.class);
     }
 
     public void startAlarm(Context context) {
         isAlarmOn = true;
 
+        // 캘린더 시간 보정
         alarmCalendar = SKAlarmManager.adjustCalendar(alarmCalendar);
 
         if (isRepeatOn) {

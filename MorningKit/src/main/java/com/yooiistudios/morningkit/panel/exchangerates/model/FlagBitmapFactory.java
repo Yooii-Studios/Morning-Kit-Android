@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,18 +47,20 @@ public class FlagBitmapFactory {
 		int id = _context.getResources().getIdentifier(fileName,  "raw", _context.getPackageName());
 
 //		if( grayscaledFlagMap.get(_countryCode) == null ) {
-			Bitmap bitmap = null;
+        Bitmap bitmap = null;
+        BitmapFactory.Options options = MNBitmapUtils.getDefaultOptions();
 
 			try {
 				InputStream io = _context.getResources().openRawResource(id);
 				byte raw[];
 				raw = new byte[io.available()];
 				io.read(raw);
-				bitmap = BitmapFactory.decodeByteArray(raw, 0, raw.length);
+				bitmap = BitmapFactory.decodeByteArray(raw, 0, raw.length, options);
 			} catch (IOException ignored) {} catch( NotFoundException ignored) {}
 			
 			if( bitmap == null ) {
-				bitmap = BitmapFactory.decodeResource(_context.getResources(), R.drawable.flag_blank);
+				bitmap = BitmapFactory.decodeResource(_context.getResources(), R.drawable.flag_blank,
+                        options);
             }
 
         return bitmap;

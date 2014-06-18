@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.os.Build;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -13,17 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.CheckBox;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
-import com.stevenkim.waterlily.bitmapfun.ui.RecyclingImageView;
-import com.stevenkim.waterlily.bitmapfun.util.RecyclingBitmapDrawable;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 
@@ -31,6 +31,7 @@ import org.json.JSONException;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import butterknife.Optional;
 
 import static com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout.FLICKR_DATA_GRAYSCALE;
@@ -48,11 +49,11 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
 
     private static final String TAG = "MNFlickrDetailFragment";
 
-    @InjectView(R.id.flickr_detail_imageview) RecyclingImageView imageView;
-    @InjectView(R.id.flickr_detail_edittext) EditText keywordEditText;
-    @InjectView(R.id.flickr_detail_grayscale_textview) TextView grayScaleTextView;
-    @Optional @InjectView(R.id.flickr_detail_grayscale_checkbox) CheckBox grayscaleCheckbox; // < V14
-    Switch grayscaleSwitch; // >= V14
+    @InjectView(R.id.panel_detail_flickr_imageview) ImageView imageView;
+    @InjectView(R.id.panel_detail_flickr_edit_text) EditText keywordEditText;
+    @InjectView(R.id.panel_detail_flickr_grayscale_textview) TextView grayScaleTextView;
+    @Optional @InjectView(R.id.panel_detail_flickr_grayscale_image_button) ImageButton grayscaleImageButton; // < V14
+//    Switch grayscaleSwitch; // >= V14
 
     private boolean isGrayScale;
     private MNFlickrBitmapSaveAsyncTask bitmapSaveAsyncTask;
@@ -73,12 +74,28 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
                     e.printStackTrace();
                 }
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                grayscaleSwitch = (Switch) rootView.findViewById(R.id.flickr_detail_grayscale_switch);
-                grayscaleSwitch.setChecked(isGrayScale);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+//                grayscaleSwitch = (Switch) rootView.findViewById(R.id.flickr_detail_grayscale_switch);
+//                grayscaleSwitch.setChecked(isGrayScale);
+//            } else {
+//                grayscaleCheckbox.setChecked(isGrayScale);
+//            }
+            if (isGrayScale) {
+                grayscaleImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
             } else {
-                grayscaleCheckbox.setChecked(isGrayScale);
+                grayscaleImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
             }
+            grayscaleImageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    isGrayScale = !isGrayScale;
+                    if (isGrayScale) {
+                        grayscaleImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+                    } else {
+                        grayscaleImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+                    }
+                }
+            });
 
             // 비트맵 로컬에서 읽어오기
             try {
@@ -94,7 +111,8 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
                             bitmapName + ".jpg", directory);
 
                     // 비트맵 세팅
-                    imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), bitmap));
+                    imageView.setImageDrawable(new BitmapDrawable(
+                            getActivity().getApplicationContext().getResources(), bitmap));
                     imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                     setImgViewOnClickListener();
                 } else {
@@ -133,11 +151,12 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
     @Override
     protected void archivePanelData() throws JSONException {
         // grayscale
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            getPanelDataObject().put(FLICKR_DATA_GRAYSCALE, grayscaleSwitch.isChecked());
-        } else {
-            getPanelDataObject().put(FLICKR_DATA_GRAYSCALE, grayscaleCheckbox.isChecked());
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+//            getPanelDataObject().put(FLICKR_DATA_GRAYSCALE, grayscaleSwitch.isChecked());
+//        } else {
+//            getPanelDataObject().put(FLICKR_DATA_GRAYSCALE, grayscaleCheckbox.isChecked());
+//        }
+        getPanelDataObject().put(FLICKR_DATA_GRAYSCALE, isGrayScale);
 
         // 키워드 길이가 0 이상일 경우에만 적용
         if (keywordEditText.getText().length() > 0) {
@@ -215,5 +234,23 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
 
         }
         return true;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (MNBitmapUtils.recycleImageView(imageView)) {
+            MNLog.i(TAG, "recycleImageView");
+        }
+    }
+
+    @OnClick(R.id.panel_detail_flickr_removeAllButton)
+    public void onRemoveAllButtonClicked() {
+        keywordEditText.setText("");
+
+        // 전체 삭제하며 키보드 보여줌
+        InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.showSoftInput(keywordEditText, InputMethodManager.SHOW_IMPLICIT);      // 보여줄때
+//        mgr.hideSoftInputFromWindow(search_key.getWindowToken(), 0);        // 숨길때
     }
 }

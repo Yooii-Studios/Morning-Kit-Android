@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel.datecountdown;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -11,6 +12,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import org.joda.time.Chronology;
 import org.joda.time.DateTime;
@@ -62,6 +66,8 @@ public class MNDateCountdownPanelLayout extends MNPanelLayout {
         titleLayoutParams.setMargins(margin, 0, margin, 0);
         titleTextView.setLayoutParams(titleLayoutParams);
         titleTextView.setGravity(Gravity.CENTER);
+        titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_date_countdown_title_font_size));
         getContentLayout().addView(titleTextView);
 
         // count
@@ -73,6 +79,8 @@ public class MNDateCountdownPanelLayout extends MNPanelLayout {
         countLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         countTextView.setLayoutParams(countLayoutParams);
         countTextView.setGravity(Gravity.CENTER);
+        countTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_date_countdown_count_font_size));
         getContentLayout().addView(countTextView);
 
         // date
@@ -82,6 +90,8 @@ public class MNDateCountdownPanelLayout extends MNPanelLayout {
         dateLayoutParams.setMargins(margin, 0, margin, 0);
         dateTextView.setLayoutParams(dateLayoutParams);
         dateTextView.setGravity(Gravity.CENTER);
+        dateTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.panel_date_countdown_date_font_size));
         getContentLayout().addView(dateTextView);
 
         // align layouts
@@ -149,5 +159,23 @@ public class MNDateCountdownPanelLayout extends MNPanelLayout {
         LocalDate todayDate = todayDateTime.toLocalDate();
 
         return Days.daysBetween(todayDate, targetLocalDate).getDays();
+    }
+
+    @Override
+    public void applyTheme() {
+        super.applyTheme();
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext());
+
+        // text views
+        titleTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, getContext()));
+        countTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, getContext()));
+        dateTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, getContext()));
+
+        // 언어 설정이 바뀔 경우를 대비
+        try {
+            refreshPanel();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

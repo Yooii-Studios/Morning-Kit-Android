@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.setting.theme.themedetail.photo;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +15,10 @@ import android.widget.TextView;
 
 import com.stevenkim.photo.SKBitmapLoader;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout;
-import com.yooiistudios.morningkit.common.shadow.factory.MNShadowLayoutFactory;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
@@ -63,66 +63,62 @@ public class MNThemePhotoListAdapter extends BaseAdapter {
             MNThemePhotoItemViewHolder viewHolder = new MNThemePhotoItemViewHolder(convertView);
 
             Bitmap bitmap = null;
+            // 원 사이즈로 하니까 사진이 너무 작아진다: xxhdpi가 3배니까 3배 정도로만 크게 줄이면 될듯
+            int imageViewSize = activity.getApplicationContext().getResources()
+                    .getDimensionPixelSize(R.dimen.setting_theme_detail_photo_item_crop_layout_width) * 3;
 
             // load a bitmap, adjust layoutParams to wrap/match
             if (position == 0) {
                 try {
-                    bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(activity, SKBitmapLoader.getPortraitImageUri());
+                    bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(activity,
+                            SKBitmapLoader.getPortraitImageUri(), imageViewSize, imageViewSize);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
                 viewHolder.getTextView().setText(R.string.setting_theme_photo_portrait);
             } else {
                 try {
-                    bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(activity, SKBitmapLoader.getLandscapeImageUri());
+                    bitmap = SKBitmapLoader.loadAutoScaledBitmapFromUri(activity,
+                            SKBitmapLoader.getLandscapeImageUri(), imageViewSize, imageViewSize);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
                 viewHolder.getTextView().setText(R.string.setting_theme_photo_landscape);
 
             }
-            viewHolder.getCropImageView().setImageBitmap(bitmap);
+            viewHolder.getCropImageView().setImageDrawable(
+                    new BitmapDrawable(activity.getApplicationContext().getResources(), bitmap));
 
             // theme
             MNThemeType currentThemeType = MNTheme.getCurrentThemeType(activity);
 
             viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
             viewHolder.getTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-
-            // theme - shadow
-            RoundShadowRelativeLayout roundShadowRelativeLayout = (RoundShadowRelativeLayout) convertView.findViewById(viewHolder.getShadowLayout().getId());
-
-            // 기존 동적 생성에서 색상 값만 바꾸어 주게 변경
-//            RoundShadowRelativeLayout newShadowRelativeLayout = MNShadowLayoutFactory.changeShadowLayout(currentThemeType, roundShadowRelativeLayout, viewHolder.getOuterLayout());
-            MNShadowLayoutFactory.changeThemeOfShadowLayout(roundShadowRelativeLayout, activity);
+            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
 
             // onClick
-            if (roundShadowRelativeLayout != null) {
-                roundShadowRelativeLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (MNSound.isSoundOn(activity)) {
-                            MNSoundEffectsPlayer.play(R.raw.effect_view_open, activity);
-                        }
-                        Intent intent = new Intent(Intent.ACTION_PICK);
-                        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                        intent.putExtra("outputformat", Bitmap.CompressFormat.PNG.name());
-                        intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-                        // 사진 선택 기능으로 간다
-                        // 기존에 로딩한 사진이 있다면 recycle 반드시 필요
-                        if (position == 0) {
-                            // Portrait
-                            activity.startActivityForResult(intent, SKBitmapLoader.REQ_CODE_PICK_IMAGE_PORTRAIT);
-                        } else {
-                            // Landscape
-                            activity.startActivityForResult(intent, SKBitmapLoader.REQ_CODE_PICK_IMAGE_LANDSCAPE);
-                        }
+            viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (MNSound.isSoundOn(activity)) {
+                        MNSoundEffectsPlayer.play(R.raw.effect_view_open, activity);
                     }
-                });
-            } else {
-                throw new AssertionError("shadowRelativeLayout must not be null!");
-            }
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                    intent.putExtra("outputformat", Bitmap.CompressFormat.JPEG.name());
+                    intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                    // 사진 선택 기능으로 간다
+                    // 기존에 로딩한 사진이 있다면 recycle 반드시 필요
+                    if (position == 0) {
+                        // Portrait
+                        activity.startActivityForResult(intent, SKBitmapLoader.REQ_CODE_PICK_IMAGE_PORTRAIT);
+                    } else {
+                        // Landscape
+                        activity.startActivityForResult(intent, SKBitmapLoader.REQ_CODE_PICK_IMAGE_LANDSCAPE);
+                    }
+                }
+            });
         }
         return convertView;
     }
@@ -132,10 +128,7 @@ public class MNThemePhotoListAdapter extends BaseAdapter {
      */
     static class MNThemePhotoItemViewHolder {
         @Getter @InjectView(R.id.setting_theme_detail_photo_item_outer_layout)      RelativeLayout outerLayout;
-        @Getter @InjectView(R.id.setting_theme_detail_photo_item_shadow_layout)
-        RoundShadowRelativeLayout shadowLayout;
         @Getter @InjectView(R.id.setting_theme_detail_photo_item_inner_layout)      RelativeLayout innerLayout;
-
         @Getter @InjectView(R.id.setting_theme_detail_photo_item_crop_imageview)    ImageView cropImageView;
         @Getter @InjectView(R.id.setting_theme_detail_photo_item_divider_imageview) ImageView dividerImageView;
         @Getter @InjectView(R.id.setting_theme_detail_photo_item_textview)          TextView textView;

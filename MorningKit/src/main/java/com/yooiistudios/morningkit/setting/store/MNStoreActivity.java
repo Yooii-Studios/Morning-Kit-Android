@@ -6,7 +6,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.widget.RelativeLayout;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
@@ -39,6 +41,7 @@ public class MNStoreActivity extends MNSettingDetailActivity {
             // Replace whatever is in the fragment_container view with this fragment,
             // and add the transaction to the back stack
             storeFragment = new MNStoreFragment();
+            storeFragment.setFragmentForActivity(true);
             transaction.replace(R.id.store_container, storeFragment);
 
             // Commit the transaction
@@ -55,24 +58,31 @@ public class MNStoreActivity extends MNSettingDetailActivity {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setTitle(R.string.info_store);
         actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setIcon(R.drawable.status_bar_icon);
+        actionBar.setIcon(R.drawable.icon_actionbar_morning);
     }
 
     private void initIab() {
-        iabManager = new SKIabManager(this, storeFragment);
-        iabManager.loadWithAllItems();
-        storeFragment.setIabManager(iabManager);
+        boolean isStoreForNaver = MNStoreFragment.IS_STORE_FOR_NAVER;
+        if (!isStoreForNaver) {
+            iabManager = new SKIabManager(this, storeFragment);
+            iabManager.loadWithAllItems();
+            storeFragment.setIabManager(iabManager);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (iabManager.getHelper() == null) return;
+        if (iabManager != null) {
+            if (iabManager.getHelper() == null) return;
 
-        // Pass on the activity result to the helper for handling
-        if (!iabManager.getHelper().handleActivityResult(requestCode, resultCode, data)) {
-            // not handled, so handle it ourselves (here's where you'd
-            // perform any handling of activity results not related to in-app
-            // billing...
+            // Pass on the activity result to the helper for handling
+            if (!iabManager.getHelper().handleActivityResult(requestCode, resultCode, data)) {
+                // not handled, so handle it ourselves (here's where you'd
+                // perform any handling of activity results not related to in-app
+                // billing...
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -81,5 +91,19 @@ public class MNStoreActivity extends MNSettingDetailActivity {
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0, R.anim.activity_modal_down);
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }

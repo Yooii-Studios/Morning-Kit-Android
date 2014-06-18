@@ -9,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.naver.iap.NaverIabInventoryItem;
+import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.shadow.StoreShadowLayout;
+import com.yooiistudios.morningkit.common.number.MNDecimalFormatUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
@@ -18,6 +20,7 @@ import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -36,31 +39,44 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
     private MNStoreTabType type;
     private SKIabManager iabManager;
     private IabHelper.OnIabPurchaseFinishedListener onIabPurchaseFinishedListener;
-    @Setter
-    Inventory inventory;
+    @Setter Inventory inventory;
     @Setter List<String> ownedSkus;
+
+    // For Naver Iab
+    @Setter List<NaverIabInventoryItem> naverIabInventoryItemList;
+
+    private MNStoreGridViewOnClickListener storeGridViewOnClickListener;
+
+    public interface MNStoreGridViewOnClickListener {
+        public void onItemClickedDebug(String sku);
+        public void onItemClickedForNaver(String sku);
+    }
 
     private MNStoreGridViewAdapter(){}
     public MNStoreGridViewAdapter(Context context, MNStoreTabType type, Inventory inventory,
                                   SKIabManager iabManager,
-                                  IabHelper.OnIabPurchaseFinishedListener onIabPurchaseFinishedListener) {
+                                  IabHelper.OnIabPurchaseFinishedListener onIabPurchaseFinishedListener,
+                                  MNStoreGridViewOnClickListener storeGridViewOnClickListener) {
         this.context = context;
         this.type = type;
         this.inventory = inventory;
         this.iabManager = iabManager;
         this.onIabPurchaseFinishedListener = onIabPurchaseFinishedListener;
         ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
+
+        // debug
+        this.storeGridViewOnClickListener = storeGridViewOnClickListener;
     }
 
     @Override
     public int getCount() {
         switch (type) {
             case FUNCTIONS:
-                return 2;
+                return 3;
             case PANELS:
-                return 2;
+                return 3;
             case THEMES:
-                return 2;
+                return 1;
             default:
                 return 0;
         }
@@ -82,7 +98,7 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
         if (convertView != null) {
             MNStoreGridViewItemViewHolder viewHolder = new MNStoreGridViewItemViewHolder(convertView);
 
-            initShadowLayout(viewHolder);
+            initInnerLayout(viewHolder);
 
             switch (type) {
                 case FUNCTIONS:
@@ -96,6 +112,11 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                             viewHolder.getItemNameTextView().setText(R.string.store_item_no_ads);
                             viewHolder.getIconImageView().setImageResource(R.drawable.shop_no_ad_icon_ipad);
                             viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_NO_ADS);
+                            break;
+                        case 2:
+                            viewHolder.getItemNameTextView().setText(R.string.store_item_matrix);
+                            viewHolder.getIconImageView().setImageResource(R.drawable.shop_more_matrix_icon_ipad);
+                            viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_PANEL_MATRIX_2X3);
                             break;
                     }
                     break;
@@ -112,6 +133,11 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                             viewHolder.getIconImageView().setImageResource(R.drawable.shop_widget_memo_icon_ipad);
                             viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_MEMO);
                             break;
+                        case 2:
+                            viewHolder.getItemNameTextView().setText(R.string.photo_album);
+                            viewHolder.getIconImageView().setImageResource(R.drawable.shop_photo_ipad);
+                            viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_PHOTO_FRAME);
+                            break;
                     }
                     break;
 
@@ -122,11 +148,11 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                             viewHolder.getIconImageView().setImageResource(R.drawable.shop_theme_white_icon_ipad);
                             viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_MODERNITY);
                             break;
-                        case 1:
-                            viewHolder.getItemNameTextView().setText(R.string.store_item_skyblue);
-                            viewHolder.getIconImageView().setImageResource(R.drawable.shop_theme_skyblue_icon_ipad);
-                            viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_CELESTIAL);
-                            break;
+//                        case 1:
+//                            viewHolder.getItemNameTextView().setText(R.string.store_item_skyblue);
+//                            viewHolder.getIconImageView().setImageResource(R.drawable.shop_theme_skyblue_icon_ipad);
+//                            viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_CELESTIAL);
+//                            break;
                     }
                     break;
             }
@@ -135,14 +161,24 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void initShadowLayout(final MNStoreGridViewItemViewHolder viewHolder) {
-        viewHolder.getShadowLayout().setOnClickListener(new View.OnClickListener() {
+    private void initInnerLayout(final MNStoreGridViewItemViewHolder viewHolder) {
+        viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MNSound.isSoundOn(context)) {
                     MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
                 }
-                iabManager.processPurchase((String) viewHolder.getPriceTextView().getTag(), onIabPurchaseFinishedListener);
+                if (MNStoreDebugChecker.isUsingStore(context)) {
+                    if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+                        storeGridViewOnClickListener.onItemClickedForNaver(
+                                (String) viewHolder.getPriceTextView().getTag());
+                    } else {
+                        iabManager.processPurchase((String) viewHolder.getPriceTextView().getTag(),
+                                onIabPurchaseFinishedListener);
+                    }
+                } else {
+                    storeGridViewOnClickListener.onItemClickedDebug((String) viewHolder.getPriceTextView().getTag());
+                }
             }
         });
     }
@@ -152,28 +188,54 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
 
         // price - check from inventory
         String sku = (String) viewHolder.getPriceTextView().getTag();
-        if (inventory != null) {
-            if (inventory.hasDetails(sku)) {
-                if (inventory.hasPurchase(sku)) {
-                    viewHolder.getPriceTextView().setText(R.string.store_purchased);
-                } else {
-                    viewHolder.getPriceTextView().setText(inventory.getSkuDetails(sku).getPrice());
+
+        if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+            // Naver
+            boolean hasDetails = false;
+            if (naverIabInventoryItemList != null) {
+                for (NaverIabInventoryItem naverIabInventoryItem : naverIabInventoryItemList) {
+                    if (naverIabInventoryItem.getKey().equals(
+                            NaverIabProductUtils.naverSkuMap.get(sku))) {
+                        hasDetails = true;
+
+                        if (naverIabInventoryItem.isAvailable()) {
+                            viewHolder.getPriceTextView().setText(R.string.store_purchased);
+                        } else {
+                            viewHolder.getPriceTextView().setText(
+                                    "₩" + MNDecimalFormatUtils.makeStringComma(naverIabInventoryItem.getPrice()));
+                        }
+                    }
+                }
+                if (!hasDetails) {
+                    viewHolder.getPriceTextView().setText(R.string.loading);
                 }
             } else {
                 viewHolder.getPriceTextView().setText(R.string.loading);
             }
         } else {
-            viewHolder.getPriceTextView().setText(R.string.loading);
+            // Google
+            if (inventory != null) {
+                if (inventory.hasDetails(sku)) {
+                    if (inventory.hasPurchase(sku)) {
+                        viewHolder.getPriceTextView().setText(R.string.store_purchased);
+                    } else {
+                        viewHolder.getPriceTextView().setText(inventory.getSkuDetails(sku).getPrice());
+                    }
+                } else {
+                    viewHolder.getPriceTextView().setText(R.string.loading);
+                }
+            } else {
+                viewHolder.getPriceTextView().setText(R.string.loading);
+            }
         }
 
-        // price - purchase check from ownedSkus
+        // price - purchase check from ownedSkus - 풀버전, 언락은 ownedSkus에서 체크
         if (ownedSkus != null && ownedSkus.contains(sku)) {
             viewHolder.getPriceTextView().setText(R.string.store_purchased);
-        }
-
-        if (viewHolder.getPriceTextView().getText() != null) {
-
-            String priceText = viewHolder.getPriceTextView().getText().toString();
+        } else {
+            if (!MNStoreDebugChecker.isUsingStore(context)) {
+                viewHolder.getPriceTextView().setText("$0.99");
+            }
         }
 
         // onClick
@@ -183,30 +245,47 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                 if (MNSound.isSoundOn(context)) {
                     MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
                 }
-                iabManager.processPurchase((String) v.getTag(), onIabPurchaseFinishedListener);
+                if (MNStoreDebugChecker.isUsingStore(context)) {
+                    if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+                        storeGridViewOnClickListener.onItemClickedForNaver((String) v.getTag());
+                    } else {
+                        iabManager.processPurchase((String) v.getTag(), onIabPurchaseFinishedListener);
+                    }
+                } else {
+                    storeGridViewOnClickListener.onItemClickedDebug((String) v.getTag());
+                }
             }
         });
 
         // set clickable
         if (viewHolder.getPriceTextView().getText().toString().equals(context.getResources().getText(R.string.store_purchased))) {
             viewHolder.getPriceTextView().setClickable(false);
-            viewHolder.getShadowLayout().setClickable(false);
-            viewHolder.getShadowLayout().setTouchEnabled(false);
+            viewHolder.getInnerLayout().setFocusable(false);
+            viewHolder.getInnerLayout().setClickable(false);
+            viewHolder.getInnerLayout().setBackgroundResource(
+                    R.drawable.shape_rounded_view_classic_gray_normal);
         } else {
             viewHolder.getPriceTextView().setClickable(true);
-            viewHolder.getShadowLayout().setClickable(true);
-            viewHolder.getShadowLayout().setTouchEnabled(true);
+            viewHolder.getInnerLayout().setFocusable(true);
+            viewHolder.getInnerLayout().setClickable(true);
+            viewHolder.getInnerLayout().setBackgroundResource(
+                    R.drawable.shape_rounded_view_classic_gray);
         }
+    }
+
+    protected String makeStringComma(String priceString) {
+        if (priceString == null || priceString.length() == 0)
+            return "";
+        long value = Long.parseLong(priceString);
+        DecimalFormat format = new DecimalFormat("###,###");
+        return format.format(value);
     }
 
     /**
      * ViewHolder
      */
     static class MNStoreGridViewItemViewHolder {
-        @Getter @InjectView(R.id.setting_store_grid_item_outer_layout)      RelativeLayout outerLayout;
         @Getter @InjectView(R.id.setting_store_grid_item_inner_layout)      RelativeLayout innerLayout;
-        @Getter @InjectView(R.id.setting_store_grid_item_shadow_layout)
-        StoreShadowLayout shadowLayout;
         @Getter @InjectView(R.id.setting_store_grid_item_name_textview)     TextView itemNameTextView;
         @Getter @InjectView(R.id.setting_store_grid_item_price_textview)    TextView priceTextView;
         @Getter @InjectView(R.id.setting_store_grid_item_imageview)         ImageView iconImageView;

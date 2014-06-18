@@ -1,25 +1,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/panel_detail_padding">
+    android:layout_height="match_parent"
+    android:padding="@dimen/panel_detail_bigger_padding"
+    android:background="@android:color/white">
 
-    <CheckBox
-        android:id="@+id/date_detail_lunar_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"/>
-
-    <TextView
-        android:id="@+id/date_detail_lunar_textview"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/calendar_lunar_calendar"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/date_detail_lunar_textview"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/panel_quotes_detail_language_text_size"
-        android:textStyle="bold"/>
+        android:gravity="center_vertical">
 
+        <ImageButton
+            android:id="@+id/panel_detail_date_lunar_check_image_button"
+            android:layout_width="@dimen/panel_detail_check_image_button_size"
+            android:layout_height="@dimen/panel_detail_check_image_button_size"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="centerInside"
+            android:background="@android:color/transparent"
+            android:src="@drawable/icon_panel_detail_checkbox"/>
+
+        <TextView
+            android:id="@+id/panel_detail_date_lunar_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/calendar_lunar_calendar"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/panel_detail_date_lunar_check_image_button"
+            android:layout_marginRight="@dimen/panel_detail_bigger_padding"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/panel_quotes_detail_language_text_size"
+            android:textColor="@color/pastel_green_sub_font_color"/>
+
+    </RelativeLayout>
 </RelativeLayout>

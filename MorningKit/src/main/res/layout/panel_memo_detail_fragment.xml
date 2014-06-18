@@ -2,15 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/panel_detail_padding"
-    tools:context="com.yooiistudios.morningkit.panel.memo.MNMemoDetailFragment">
+    android:padding="@dimen/panel_detail_bigger_padding"
+    tools:context="com.yooiistudios.morningkit.panel.memo.MNMemoDetailFragment"
+    android:background="@android:color/white">
 
     <EditText
         android:id="@+id/memo_detail_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_rounded_view_pastel_green_quote"
+        android:padding="@dimen/panel_detail_bigger_padding"
         android:gravity="top"
         android:hint="@string/memo_write_here_modal"
-        android:lines="7"/>
+        android:lines="7"
+        android:textColor="@color/pastel_green_sub_font_color"
+        android:textColorHint="@color/pastel_green_stroke_color"
+        android:scrollbars="vertical"/>
 
 </RelativeLayout>

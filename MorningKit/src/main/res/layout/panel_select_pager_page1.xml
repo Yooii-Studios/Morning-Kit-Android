@@ -1,115 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/widget_selector_page1_layout"
+    android:id="@+id/panel_selector_page1_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/margin_inner" >
 
     <LinearLayout
-        android:id="@+id/widget_selector_page1_line1_layout"
+        android:id="@+id/panel_selector_page1_line1_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3"
         android:orientation="horizontal"
         android:baselineAligned="false">
 
-        <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
-            android:id="@+id/widget_selector_page1_1_shadow_layout"
+        <RelativeLayout
+            android:id="@+id/panel_selector_page1_1_item_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/panel_select_pager_item_height"
+            android:layout_height="@dimen/panel_select_pager_item_height_no_shadow"
+            android:background="@drawable/shape_rounded_view_pastel_green_normal_panel_select_pager"
+            android:layout_margin="@dimen/margin_inner"
             android:layout_weight="1">
             <TextView
-                android:id="@+id/widget_selector_page1_1_textview"
+                android:id="@+id/panel_selector_page1_1_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/weather"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
-        </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+        </RelativeLayout>
 
-        <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
-            android:id="@+id/widget_selector_page1_2_shadow_layout"
+        <RelativeLayout
+            android:id="@+id/panel_selector_page1_2_item_layout"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/panel_select_pager_item_height_no_shadow"
+            android:background="@drawable/shape_rounded_view_pastel_green_normal_panel_select_pager"
+            android:layout_margin="@dimen/margin_inner"
             android:layout_weight="1">
             <TextView
-                android:id="@+id/widget_selector_page1_2_textview"
+                android:id="@+id/panel_selector_page1_2_textview"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/panel_select_pager_item_height"
+                android:layout_height="@dimen/panel_select_pager_item_height_no_shadow"
                 android:gravity="center"
                 android:text="@string/calendar"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
-        </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+        </RelativeLayout>
 
-        <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
-            android:id="@+id/widget_selector_page1_3_shadow_layout"
+        <RelativeLayout
+            android:id="@+id/panel_selector_page1_3_item_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/panel_select_pager_item_height"
+            android:layout_height="@dimen/panel_select_pager_item_height_no_shadow"
+            android:background="@drawable/shape_rounded_view_pastel_green_normal_panel_select_pager"
+            android:layout_margin="@dimen/margin_inner"
             android:layout_weight="1">
             <TextView
-                android:id="@+id/widget_selector_page1_3_textview"
+                android:id="@+id/panel_selector_page1_3_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/reminder"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
-        </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/widget_selector_page1_line2_layout"
+        android:id="@+id/panel_selector_page1_line2_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3"
         android:baselineAligned="false">
 
-        <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
-            android:id="@+id/widget_selector_page1_4_shadow_layout"
+        <RelativeLayout
+            android:id="@+id/panel_selector_page1_4_item_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/panel_select_pager_item_height"
+            android:layout_height="@dimen/panel_select_pager_item_height_no_shadow"
+            android:background="@drawable/shape_rounded_view_pastel_green_normal_panel_select_pager"
+            android:layout_margin="@dimen/margin_inner"
             android:layout_weight="1">
             <TextView
-                android:id="@+id/widget_selector_page1_4_textview"
+                android:id="@+id/panel_selector_page1_4_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/world_clock"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
-        </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+        </RelativeLayout>
 
-        <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
-            android:id="@+id/widget_selector_page1_5_shadow_layout"
+        <RelativeLayout
+            android:id="@+id/panel_selector_page1_5_item_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/panel_select_pager_item_height"
+            android:layout_height="@dimen/panel_select_pager_item_height_no_shadow"
+            android:background="@drawable/shape_rounded_view_pastel_green_normal_panel_select_pager"
+            android:layout_margin="@dimen/margin_inner"
             android:layout_weight="1">
             <TextView
-                android:id="@+id/widget_selector_page1_5_textview"
+                android:id="@+id/panel_selector_page1_5_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/saying"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
-        </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+        </RelativeLayout>
 
-        <com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout
-            android:id="@+id/widget_selector_page1_6_shadow_layout"
+        <RelativeLayout
+            android:id="@+id/panel_selector_page1_6_item_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/panel_select_pager_item_height"
+            android:layout_height="@dimen/panel_select_pager_item_height_no_shadow"
+            android:background="@drawable/shape_rounded_view_pastel_green_normal_panel_select_pager"
+            android:layout_margin="@dimen/margin_inner"
             android:layout_weight="1">
             <TextView
-                android:id="@+id/widget_selector_page1_6_textview"
+                android:id="@+id/panel_selector_page1_6_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/flickr"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
-        </com.yooiistudios.morningkit.common.shadow.RoundShadowRelativeLayout>
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

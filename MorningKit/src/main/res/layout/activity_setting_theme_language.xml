@@ -5,4 +5,4 @@
     android:layout_height="match_parent"
     tools:context="com.yooiistudios.morningkit.setting.theme.language.MNLanguageActivity"
     tools:ignore="MergeRootFrame"
-    android:background="@android:color/transparent" />
+    android:background="@android:color/white" />

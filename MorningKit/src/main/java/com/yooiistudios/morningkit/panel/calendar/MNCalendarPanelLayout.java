@@ -48,11 +48,15 @@ public class MNCalendarPanelLayout extends MNPanelLayout {
         LayoutParams eventsListViewLayoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
-        int marginInner = getResources().getDimensionPixelSize(R.dimen.margin_inner);
+        int marginInner = getResources().getDimensionPixelSize(R.dimen.panel_detail_padding);
         eventsListViewLayoutParams.setMargins(marginInner, marginInner, marginInner, marginInner);
         eventsListView.setLayoutParams(eventsListViewLayoutParams);
+        eventsListView.setVerticalFadingEdgeEnabled(false);
+        eventsListView.setHorizontalFadingEdgeEnabled(false);
         eventsListView.setFocusable(false);
         eventsListView.setClickable(false);
+        eventsListView.setVerticalScrollBarEnabled(false);
+        eventsListView.setHorizontalScrollBarEnabled(false);
         getContentLayout().addView(eventsListView);
     }
 
@@ -84,7 +88,26 @@ public class MNCalendarPanelLayout extends MNPanelLayout {
 
         eventsListView.setAdapter(new MNCalendarMainListAdapter(getContext(), selectedArr));
 
+        if (eventsListView.getCount() != 0) {
+            hideCoverLayout();
+        } else {
+            showCoverLayout(getResources().getString(R.string.reminder_no_schedule));
+        }
+
         // test
-        eventsListView.setBackgroundColor(Color.MAGENTA);
+        if (DEBUG_UI) {
+            eventsListView.setBackgroundColor(Color.MAGENTA);
+        }
+    }
+
+    @Override
+    public void applyTheme() {
+        super.applyTheme();
+        // 언어 변경을 대비
+        try {
+            refreshPanel();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

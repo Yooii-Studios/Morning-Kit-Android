@@ -61,13 +61,13 @@ public class MNAlarmPrefRepeatItemMakerTest {
 
         // 'Add alarm' Activity
         Intent intent_add_alarm = new Intent(mainActivity.getBaseContext(), MNAlarmPreferenceActivity.class);
-        intent_add_alarm.putExtra(MN.alarm.ALARM_PREFERENCE_ALARM_ID, -1);
+        intent_add_alarm.putExtra(MNAlarmPreferenceActivity.ALARM_PREFERENCE_ALARM_ID, -1);
         alarmPrefActivity_add = Robolectric.buildActivity(MNAlarmPreferenceActivity.class)
                 .withIntent(intent_add_alarm).create().visible().get();
 
         // 'Edit alarm' Activity
         Intent intent_edit_alarm = new Intent(mainActivity.getBaseContext(), MNAlarmPreferenceActivity.class);
-        intent_edit_alarm.putExtra(MN.alarm.ALARM_PREFERENCE_ALARM_ID, alarm.getAlarmId());
+        intent_edit_alarm.putExtra(MNAlarmPreferenceActivity.ALARM_PREFERENCE_ALARM_ID, alarm.getAlarmId());
         alarmPrefActivity_edit = Robolectric.buildActivity(MNAlarmPreferenceActivity.class)
                 .withIntent(intent_edit_alarm).create().visible().get();
     }
@@ -108,9 +108,9 @@ public class MNAlarmPrefRepeatItemMakerTest {
         View convertView = MNAlarmPrefRepeatItemMaker.makeRepeatItem(alarmPrefActivity, null, alarm);
         assertThat(convertView, notNullValue());
 
-        MNAlarmPrefRepeatItemMaker.RepeatItemViewHolder viewHolder = (MNAlarmPrefRepeatItemMaker.RepeatItemViewHolder) convertView.getTag();
+        MNAlarmPrefRepeatItemMaker.MNAlarmPrefRepeatItemViewHolder viewHolder = (MNAlarmPrefRepeatItemMaker.MNAlarmPrefRepeatItemViewHolder) convertView.getTag();
         assertThat(viewHolder, notNullValue());
-        assertThat(viewHolder, is(MNAlarmPrefRepeatItemMaker.RepeatItemViewHolder.class));
+        assertThat(viewHolder, is(MNAlarmPrefRepeatItemMaker.MNAlarmPrefRepeatItemViewHolder.class));
         assertThat(viewHolder.getTitleTextView().getText().toString(), is(alarmPrefActivity.getString(R.string.alarm_pref_repeat)));
         assertThat(viewHolder.getDetailTextView().getText().toString(), is(MNAlarmRepeatString.makeRepeatDetailString(alarm.getAlarmRepeatList(), alarmPrefActivity)));
     }

@@ -2,6 +2,8 @@ package com.yooiistudios.morningkit.panel.date;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -10,17 +12,22 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
-import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.date.model.DateUtil;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import org.json.JSONException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -84,17 +91,20 @@ public class MNDatePanelLayout extends MNPanelLayout {
         final LayoutParams lunarCalendarLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         lunarCalendarLayoutParams.addRule(CENTER_VERTICAL);
         lunarCalendarLayoutParams.addRule(RIGHT_OF, calendarLayout.getId());
-        lunarCalendarLayoutParams.leftMargin = getResources().getDimensionPixelSize(R.dimen.panel_layout_padding);
+        lunarCalendarLayoutParams.leftMargin = getResources().getDimensionPixelSize(R.dimen.panel_date_margin_between_dates);
         lunarCalendarLayout.setLayoutParams(lunarCalendarLayoutParams);
         innerContentLayout.addView(lunarCalendarLayout);
 
         // calendar
+        int minusMargin = getResources().getDimensionPixelSize(R.dimen.panel_date_minus_margin);
         monthTextView = new TextView(getContext());
         monthTextView.setGravity(Gravity.CENTER);
         monthTextView.setSingleLine();
         monthTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_date_month_text_size));
+//        monthTextView.setTypeface(monthTextView.getTypeface(), Typeface.BOLD);
         LinearLayout.LayoutParams monthTextViewParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        monthTextViewParams.setMargins(0, 0, 0, minusMargin);
         monthTextView.setLayoutParams(monthTextViewParams);
         calendarLayout.addView(monthTextView);
 
@@ -103,6 +113,7 @@ public class MNDatePanelLayout extends MNPanelLayout {
         dayTextView.setSingleLine();
         dayTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_date_day_text_size));
+        dayTextView.setTypeface(dayTextView.getTypeface(), Typeface.BOLD);
         LinearLayout.LayoutParams dayTextViewParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         dayTextView.setLayoutParams(dayTextViewParams);
         calendarLayout.addView(dayTextView);
@@ -112,17 +123,22 @@ public class MNDatePanelLayout extends MNPanelLayout {
         dayOfWeekTextView.setSingleLine();
         dayOfWeekTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_date_day_of_week_text_size));
+//        dayOfWeekTextView.setTypeface(dayOfWeekTextView.getTypeface(), Typeface.BOLD);
         LinearLayout.LayoutParams dayOfWeekTextViewParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        dayOfWeekTextViewParams.setMargins(0, minusMargin, 0, 0);
         dayOfWeekTextView.setLayoutParams(dayOfWeekTextViewParams);
         calendarLayout.addView(dayOfWeekTextView);
 
         // lunar
+        int lunarMinusMargin = getResources().getDimensionPixelSize(R.dimen.panel_date_lunar_minus_margin);
         lunarMonthTextView = new TextView(getContext());
         lunarMonthTextView.setGravity(Gravity.CENTER);
         lunarMonthTextView.setSingleLine();
         lunarMonthTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_date_lunar_month_text_size));
+//        lunarMonthTextView.setTypeface(lunarMonthTextView.getTypeface(), Typeface.BOLD);
         LinearLayout.LayoutParams lunarMonthTextViewParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        lunarMonthTextViewParams.setMargins(0, 0, 0, lunarMinusMargin);
         lunarMonthTextView.setLayoutParams(lunarMonthTextViewParams);
         lunarCalendarLayout.addView(lunarMonthTextView);
 
@@ -131,6 +147,7 @@ public class MNDatePanelLayout extends MNPanelLayout {
         lunarDayTextView.setSingleLine();
         lunarDayTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_date_lunar_day_text_size));
+        lunarDayTextView.setTypeface(lunarDayTextView.getTypeface(), Typeface.BOLD);
         LinearLayout.LayoutParams lunarDayTextViewParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         lunarDayTextView.setLayoutParams(lunarDayTextViewParams);
         lunarCalendarLayout.addView(lunarDayTextView);
@@ -140,28 +157,32 @@ public class MNDatePanelLayout extends MNPanelLayout {
         lunarDayOfWeekTextView.setSingleLine();
         lunarDayOfWeekTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_date_lunar_day_of_week_text_size));
+//        lunarDayOfWeekTextView.setTypeface(lunarDayOfWeekTextView.getTypeface(), Typeface.BOLD);
         LinearLayout.LayoutParams lunarDayOfWeekTextViewParams = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        lunarDayOfWeekTextViewParams.setMargins(0, lunarMinusMargin, 0, 0);
         lunarDayOfWeekTextView.setLayoutParams(lunarDayOfWeekTextViewParams);
         lunarCalendarLayout.addView(lunarDayOfWeekTextView);
 
         // test
-        innerContentLayout.setBackgroundColor(Color.YELLOW);
-        calendarLayout.setBackgroundColor(Color.GREEN);
-        lunarCalendarLayout.setBackgroundColor(Color.BLUE);
+        if (DEBUG_UI) {
+            innerContentLayout.setBackgroundColor(Color.YELLOW);
+            calendarLayout.setBackgroundColor(Color.GREEN);
+            lunarCalendarLayout.setBackgroundColor(Color.BLUE);
 
-        monthTextView.setBackgroundColor(Color.CYAN);
-        monthTextView.setText("March");
-        dayTextView.setBackgroundColor(Color.MAGENTA);
-        dayTextView.setText("12");
-        dayOfWeekTextView.setBackgroundColor(Color.RED);
-        dayOfWeekTextView.setText("WED");
+            monthTextView.setBackgroundColor(Color.CYAN);
+            monthTextView.setText("March");
+            dayTextView.setBackgroundColor(Color.MAGENTA);
+            dayTextView.setText("12");
+            dayOfWeekTextView.setBackgroundColor(Color.RED);
+            dayOfWeekTextView.setText("WED");
 
-        lunarMonthTextView.setBackgroundColor(Color.CYAN);
-        lunarMonthTextView.setText("Feb");
-        lunarDayTextView.setBackgroundColor(Color.MAGENTA);
-        lunarDayTextView.setText("12");
-        lunarDayOfWeekTextView.setBackgroundColor(Color.RED);
-        lunarDayOfWeekTextView.setText("WED");
+            lunarMonthTextView.setBackgroundColor(Color.CYAN);
+            lunarMonthTextView.setText("Feb");
+            lunarDayTextView.setBackgroundColor(Color.MAGENTA);
+            lunarDayTextView.setText("12");
+            lunarDayOfWeekTextView.setBackgroundColor(Color.RED);
+            lunarDayOfWeekTextView.setText("WED");
+        }
     }
 
     @Override
@@ -185,6 +206,11 @@ public class MNDatePanelLayout extends MNPanelLayout {
                 e.printStackTrace();
             }
         }
+
+        // 플러리
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(MNFlurry.DATE, isLunarCalendarOn ? "Using lunar calendar" : "Not using lunar calendar");
+        FlurryAgent.logEvent(MNFlurry.PANEL, params);
     }
 
     @Override
@@ -217,20 +243,83 @@ public class MNDatePanelLayout extends MNPanelLayout {
     protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        // View.post 방식은 한박자 늦은 느낌이라 이것을 사용
-        MNViewSizeMeasure.setViewSizeObserver(lunarCalendarLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+        lunarCalendarLayout.post(new Runnable() {
             @Override
-            public void onLayoutLoad() {
+            public void run() {
                 final LayoutParams lunarCalendarLayoutParams
                         = (LayoutParams) lunarCalendarLayout.getLayoutParams();
 
                 // 적당한 너비로 맞추어주자. 나중에 아티스트와 함께 다시 맞출 것.
                 if (lunarCalendarLayoutParams != null) {
-                    lunarCalendarLayoutParams.leftMargin =
-                            (int) ((getWidth() - lunarCalendarLayout.getWidth() - calendarLayout.getWidth()) / 3 * 0.8);
+                    if (Build.VERSION.SDK_INT > 10) {
+                        lunarCalendarLayoutParams.leftMargin =
+                                (int) ((getWidth() - lunarCalendarLayout.getWidth() - calendarLayout.getWidth()) / 3 * 0.8);
+                        requestLayout();
+//                    invalidate();
+
+//                    lunarCalendarLayout.requestLayout();
+//                    lunarCalendarLayout.invalidate();
+
+                    } else {
+                        // 2.3.3 버전에서는 getWidth()를 제외한 값은 제대로 들어오지 않기에 적절히 조절해줌
+                        lunarCalendarLayoutParams.leftMargin = getWidth() / 11;
+                    }
                     requestLayout();
+
+                    innerContentLayout.requestLayout();
+                    innerContentLayout.invalidate();
                 }
             }
         });
+
+        // View.post 방식은 한박자 늦은 느낌이라 이것을 사용
+        // 이것은 아예 제대로 안될 경우가 있다(갤노트 2에서)
+//        MNViewSizeMeasure.setViewSizeObserver(lunarCalendarLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+//            @Override
+//            public void onLayoutLoad() {
+//                LayoutParams lunarCalendarLayoutParams
+//                        = (LayoutParams) lunarCalendarLayout.getLayoutParams();
+//
+//                // 적당한 너비로 맞추어주자. 나중에 아티스트와 함께 다시 맞출 것.
+//                if (lunarCalendarLayoutParams != null) {
+//                    lunarCalendarLayoutParams.leftMargin =
+//                            (int) ((getWidth() - lunarCalendarLayout.getWidth() - calendarLayout.getWidth()) / 3 * 0.8);
+//                    requestLayout();
+//                    invalidate();
+//
+//                    lunarCalendarLayout.requestLayout();
+//                    lunarCalendarLayout.invalidate();
+//
+//                    innerContentLayout.requestLayout();
+//                    innerContentLayout.invalidate();
+//                }
+//            }
+//        });
+    }
+
+    @Override
+    public void applyTheme() {
+        super.applyTheme();
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext());
+
+        int mainFontColor = MNMainColors.getMainFontColor(currentThemeType,
+                getContext().getApplicationContext());
+        int subFontColor = MNMainColors.getSubFontColor(currentThemeType,
+                getContext().getApplicationContext());
+
+        monthTextView.setTextColor(subFontColor);
+        dayTextView.setTextColor(mainFontColor);
+        dayOfWeekTextView.setTextColor(subFontColor);
+
+        lunarMonthTextView.setTextColor(subFontColor);
+        lunarDayTextView.setTextColor(subFontColor);
+        lunarDayOfWeekTextView.setTextColor(subFontColor);
+
+        // 언어 변경을 대비
+        try {
+            refreshPanel();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

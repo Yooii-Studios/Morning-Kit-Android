@@ -2,6 +2,12 @@ package com.yooiistudios.morningkit.setting.theme.themedetail;
 
 import android.content.Context;
 
+import com.flurry.android.FlurryAgent;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 4.
  *
@@ -22,7 +28,7 @@ public class MNTheme {
     private MNTheme(Context context) {
         if (context != null) {
             int uniqueId = context.getSharedPreferences(THEME_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                    .getInt(THEME_KEY, MNThemeType.MODERNITY_WHITE.getUniqueId());
+                    .getInt(THEME_KEY, MNThemeType.PASTEL_GREEN.getUniqueId());
 
             currentThemeType = MNThemeType.valueOfUniqueId(uniqueId);
         }
@@ -49,5 +55,10 @@ public class MNTheme {
         MNTheme.getInstance(context).currentThemeType = newThemeType;
         context.getSharedPreferences(THEME_SHARED_PREFERENCES, Context.MODE_PRIVATE)
                 .edit().putInt(THEME_KEY, newThemeType.getUniqueId()).commit();
+
+        // 플러리
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(MNFlurry.THEME, newThemeType.toString());
+        FlurryAgent.logEvent(MNFlurry.ON_SETTING_THEME, params);
     }
 }

@@ -2,7 +2,6 @@ package com.yooiistudios.morningkit.alarm.listview;
 
 import android.content.Context;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,10 @@ import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmRepeatString;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmTimeString;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
-import com.yooiistudios.morningkit.theme.MNColor;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainColors;
+import com.yooiistudios.morningkit.theme.MNMainResources;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -48,7 +50,6 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         if (position < MNAlarmListManager.getAlarmList(context).size()) {
             MNAlarm alarm = null;
             try {
@@ -67,8 +68,6 @@ public class MNAlarmListAdapter extends BaseAdapter {
                 // MNAlarmItemViewHolder
                 MNAlarmItemViewHolder alarmItemViewHolder = new MNAlarmItemViewHolder(convertView);
 
-                // Background
-
                 // Alarm Time
                 initTimeTextView(alarm, alarmItemViewHolder);
 
@@ -81,8 +80,6 @@ public class MNAlarmListAdapter extends BaseAdapter {
                 // Label
                 initLabelTextView(alarm, alarmItemViewHolder);
 
-                // Dividing Bar
-
                 // Switch Button
                 initSwitchButton(alarm, alarmItemViewHolder);
 
@@ -91,7 +88,8 @@ public class MNAlarmListAdapter extends BaseAdapter {
             }
             return MNAlarmItemScrollView.newInstance(context, position, convertView);
 
-        }else{
+        } else {
+
             // change to 'Butter Knife' code
             convertView = LayoutInflater.from(context).inflate(R.layout.alarm_create_item, parent, false);
             if (convertView != null) {
@@ -101,6 +99,24 @@ public class MNAlarmListAdapter extends BaseAdapter {
 
                 // MNAlarmCreateItemViewHolder
                 MNAlarmCreateItemViewHolder alarmCreateItemViewHolder = new MNAlarmCreateItemViewHolder(convertView);
+
+                MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
+
+                // inner layout selector
+                alarmCreateItemViewHolder.innerLayout.setBackgroundResource(
+                        MNMainResources.getAlarmItemSelectorResourceId(currentThemeType));
+
+                // title
+                alarmCreateItemViewHolder.createAlarmTextView.setTextColor(
+                        MNMainColors.getAlarmAddTextFontColor(currentThemeType, context));
+
+                // divider
+                alarmCreateItemViewHolder.dividingBarImageView.setImageResource(
+                        MNMainResources.getAddAlarmDividingBarResourceId(currentThemeType, context));
+
+                // plus
+                alarmCreateItemViewHolder.plusImageView.setImageResource(
+                        MNMainResources.getAlarmPlusResourceId(currentThemeType, context));
             }
             return convertView;
         }
@@ -135,9 +151,14 @@ public class MNAlarmListAdapter extends BaseAdapter {
     }
 
     private void initLabelTextView(MNAlarm alarm, MNAlarmItemViewHolder alarmItemViewHolder) {
-        alarmItemViewHolder.labelTextView.setText(alarm.getAlarmLabel());
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
+        if (alarm.getAlarmLabel() != null && alarm.getAlarmLabel().equals("Alarm")) {
+            alarmItemViewHolder.labelTextView.setText(R.string.alarm_default_label);
+        } else {
+            alarmItemViewHolder.labelTextView.setText(alarm.getAlarmLabel());
+        }
         alarmItemViewHolder.labelTextView.setSelected(true);
-        alarmItemViewHolder.labelTextView.setTextColor(MNColor.getAlarmSubFontColor());
+        alarmItemViewHolder.labelTextView.setTextColor(MNMainColors.getAlarmSubFontColor(currentThemeType, context));
     }
 
     private void initSwitchButton(final MNAlarm alarm, final MNAlarmItemViewHolder alarmItemViewHolder) {
@@ -173,14 +194,30 @@ public class MNAlarmListAdapter extends BaseAdapter {
     }
 
     private void initThemeOfAlarmViewHolder(final MNAlarm alarm, MNAlarmItemViewHolder alarmItemViewHolder) {
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(context);
+
+        // inner layout 셀렉터
+        alarmItemViewHolder.innerLayout.setBackgroundResource(
+                MNMainResources.getAlarmItemSelectorResourceId(currentThemeType));
+
+        // 알람 스위치 셀렉터
+        alarmItemViewHolder.switchImageButton.setImageResource(
+                MNMainResources.getAlarmSwitchButtonSelectorResourceId(currentThemeType, context));
+
+        // 그외 나머지
         if (alarm.isAlarmOn()) {
-            alarmItemViewHolder.timeTextView.setTextColor(MNColor.getAlarmMainFontColor());
-            alarmItemViewHolder.ampmTextView.setTextColor(MNColor.getAlarmMainFontColor());
-            alarmItemViewHolder.repeatTextView.setText(MNAlarmRepeatString.makeShortRepeatString(alarm.getAlarmRepeatList(), context));
+            alarmItemViewHolder.timeTextView.setTextColor(MNMainColors.getAlarmMainFontColor(currentThemeType, context));
+            alarmItemViewHolder.ampmTextView.setTextColor(MNMainColors.getAlarmMainFontColor(currentThemeType, context));
+            alarmItemViewHolder.repeatTextView.setText(
+                    MNAlarmRepeatString.makeShortRepeatString(alarm.getAlarmRepeatList(), context));
+            alarmItemViewHolder.dividingBarImageView.setImageResource(
+                    MNMainResources.getAlarmDividingBarOnResourceId(currentThemeType, context));
         } else {
-            alarmItemViewHolder.timeTextView.setTextColor(MNColor.getAlarmSubFontColor());
-            alarmItemViewHolder.ampmTextView.setTextColor(MNColor.getAlarmSubFontColor());
+            alarmItemViewHolder.timeTextView.setTextColor(MNMainColors.getAlarmSubFontColor(currentThemeType, context));
+            alarmItemViewHolder.ampmTextView.setTextColor(MNMainColors.getAlarmSubFontColor(currentThemeType, context));
             alarmItemViewHolder.repeatTextView.setText("");
+            alarmItemViewHolder.dividingBarImageView.setImageResource(
+                    MNMainResources.getAlarmDividingBarOffResourceId(currentThemeType, context));
         }
     }
 
@@ -226,7 +263,7 @@ public class MNAlarmListAdapter extends BaseAdapter {
         @InjectView(R.id.alarm_item_time_textview)          TextView        timeTextView;
         @InjectView(R.id.alarm_item_ampm_textview)          TextView        ampmTextView;
         @InjectView(R.id.alarm_item_repeat_textview)        TextView        repeatTextView;
-        @InjectView(R.id.alarm_item_label_textview)   TextView        labelTextView;
+        @InjectView(R.id.alarm_item_label_textview)         TextView        labelTextView;
         @InjectView(R.id.alarm_item_dividing_bar_imageview) ImageView       dividingBarImageView;
         @InjectView(R.id.alarm_item_switch_imagebutton)     ImageButton     switchImageButton;
 
