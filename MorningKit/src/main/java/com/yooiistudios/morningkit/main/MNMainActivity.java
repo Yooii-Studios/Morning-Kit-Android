@@ -27,9 +27,11 @@ import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.ad.MNAdUtils;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
+import com.yooiistudios.morningkit.common.dp.DipToPixel;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.review.MNReviewUtil;
+import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialLayout;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
@@ -48,16 +50,23 @@ import com.yooiistudios.morningkit.theme.MNMainColors;
 import com.yooiistudios.morningkit.theme.MNMainResources;
 import com.yooiistudios.morningkit.theme.font.MNTranslucentFont;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import jp.co.garage.onesdk.Constants;
 import jp.co.garage.onesdk.DGService;
+import jp.co.garage.onesdk.OneSDK;
+import jp.co.garage.onesdk.OneSDKListeners;
 import lombok.Getter;
 
 /**
@@ -136,7 +145,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             // 리뷰 카운트 체크
             MNReviewUtil.checkRate(this);
             // 전면광고 카운트 체크
-            MNAdUtils.checkFullScreenAdCount(this, dgService);
+            MNAdUtils.checkFullScreenAdCount(this);
         }
     }
 
@@ -165,6 +174,60 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             MNAlarmWake.checkReservedAlarm(getIntent(), this);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void checkDGAd(int orientation) {
+        if (dgService != null) {
+            dgService.close();
+            adView.setVisibility(View.VISIBLE);
+        }
+        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(this);
+        MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(this.getApplicationContext());
+        // 일본어를 사용하고 광고나 풀버전 구매가 없을 경우
+        if (currentLanguageType == MNLanguageType.JAPANESE &&
+                (!ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION) && !ownedSkus.contains(SKIabProducts.SKU_NO_ADS))) {
+            // Open service
+            // 4820 = publisher ID = Yooii Studios
+            // 19 = App ID = Morning Kit
+            // 8 = Sketch Kit, 테스트용
+            OneSDK sdk = OneSDK.getInstance(this);
+
+            if (dgService == null) {
+                dgService = sdk.OpenService(4820, 8, 1, Constants.ServiceCategories.SSP, this);
+                dgService.setOneSDKListeners(new OneSDKListeners() {
+                    @Override
+                    public void startLoad(int i) {
+                        MNLog.now("DG Ad startLoad");
+                        adView.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void finishLoad(int i) {
+                        MNLog.now("DG Ad finishLoad");
+                        adView.setVisibility(View.INVISIBLE);
+                    }
+                });
+            }
+
+            // 중앙 계산
+            int y;
+            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+                y = MNDeviceSizeInfo.getDeviceHeight(this) - DipToPixel.getPixel(this, 50);
+            } else {
+                y = MNDeviceSizeInfo.getDeviceHeight(this) - DipToPixel.getPixel(this, 50) -
+                        getResources().getDimensionPixelSize(R.dimen.margin_inner);
+            }
+
+            if (dgService != null) {
+                String paramstr = "{ \"y\" : \"" + y + "\"}";
+                try {
+                    JSONObject json = new JSONObject(paramstr);
+                    dgService.Request(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -337,6 +400,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 }
                 break;
         }
+
+        // 일본어 사용 체크해서 DG 광고 사용하기
+        checkDGAd(newConfig.orientation);
     }
 
     /**
