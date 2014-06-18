@@ -76,7 +76,7 @@ public class MNAdUtils {
                         // 4820 = publisher ID = Yooii Studios
                         // 19 = App ID = Morning Kit
                         // 8 = Sketch Kit, 테스트용
-                        dgService = sdk.OpenService(4820, 8, 2, Constants.ServiceCategories.INTERSTITIAL, activity);
+                        dgService = sdk.OpenService(4820, 19, 2, Constants.ServiceCategories.INTERSTITIAL, activity);
 
                         // 중앙 계산
                         int x = (MNDeviceSizeInfo.getDeviceWidth(activity) - DipToPixel.getPixel(activity, 320)) / 2;
