@@ -314,5 +314,12 @@ public class MNDatePanelLayout extends MNPanelLayout {
         lunarMonthTextView.setTextColor(subFontColor);
         lunarDayTextView.setTextColor(subFontColor);
         lunarDayOfWeekTextView.setTextColor(subFontColor);
+
+        // 언어 변경을 대비
+        try {
+            refreshPanel();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

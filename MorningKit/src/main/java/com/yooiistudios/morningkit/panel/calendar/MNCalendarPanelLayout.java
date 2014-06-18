@@ -99,4 +99,15 @@ public class MNCalendarPanelLayout extends MNPanelLayout {
             eventsListView.setBackgroundColor(Color.MAGENTA);
         }
     }
+
+    @Override
+    public void applyTheme() {
+        super.applyTheme();
+        // 언어 변경을 대비
+        try {
+            refreshPanel();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -170,5 +170,12 @@ public class MNDateCountdownPanelLayout extends MNPanelLayout {
         titleTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, getContext()));
         countTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, getContext()));
         dateTextView.setTextColor(MNMainColors.getSubFontColor(currentThemeType, getContext()));
+
+        // 언어 설정이 바뀔 경우를 대비
+        try {
+            refreshPanel();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

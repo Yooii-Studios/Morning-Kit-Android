@@ -99,6 +99,13 @@ public class MNMemoPanelLayout extends MNPanelLayout {
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
         memoTextView.setTextColor(
                 MNMainColors.getQuoteContentTextColor(currentThemeType, getContext().getApplicationContext()));
+
+        // 언어 변경을 대비
+        try {
+            refreshPanel();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
