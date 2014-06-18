@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/reminder_no_schedule"
-            android:textSize="@dimen/panel_calendar_detail_select_calendars_font_size"
+            android:textSize="@dimen/panel_calendar_detail_no_events_today_font_size"
             android:textColor="@color/pastel_green_sub_font_color"
             android:layout_marginLeft="@dimen/panel_calendar_detail_no_events_today_left_margin"
             android:layout_marginRight="@dimen/panel_calendar_detail_no_events_today_left_margin"

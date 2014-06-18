@@ -39,20 +39,6 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
     }
 
     @Override
-    public int getCount() {
-        if (calendarEventList != null) {
-            return calendarEventList.getSize(false);
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
-    protected MNCalendarEventItemInfo initCalendarEventItemInfo(int index) {
-        return calendarEventList.getCalendarEventItemInfo(index, false);
-    }
-
-    @Override
     protected View initEventItem(int position, MNCalendarEvent calendarModel,
                                  MNCalendarEventItemInfo calendarEventItemInfo, ViewGroup viewGroup) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -112,7 +98,7 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
                     }
 
                     // 제일 마지막 아이템 Divider 숨기기
-                    if (position == calendarEventList.getSize(false) - 1) {
+                    if (position == calendarEventList.getSize() - 1) {
                         dividerView.setVisibility(View.GONE);
                     } else {
                         dividerView.setVisibility(View.VISIBLE);
