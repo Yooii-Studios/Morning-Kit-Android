@@ -13,6 +13,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
@@ -26,6 +27,7 @@ import com.naver.iap.NaverIabActivity;
 import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
 import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
@@ -64,6 +66,9 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     @InjectView(R.id.unlock_listview_layout)        RelativeLayout          listViewLayout;
     @InjectView(R.id.unlock_description_textview)   TextView                descriptionTextView;
     @InjectView(R.id.unlock_listview)               ListView                listView;
+    @InjectView(R.id.unlock_reset_button)           Button                  resetButton;
+
+    private static final boolean IS_DEBUG = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +84,12 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
         // listView
         listView.setAdapter(new MNUnlockListAdapter(this, this, productSku));
+
+        if (MNLog.isDebug) {
+            resetButton.setVisibility(View.VISIBLE);
+        } else {
+            resetButton.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void initListViewLayout() {
