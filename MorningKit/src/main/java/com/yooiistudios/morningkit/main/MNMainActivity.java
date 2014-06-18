@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.main;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -105,7 +106,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                     WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
                     WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         } else {
-            // 켜진 알람이 없을 경우에는 항상 알람이 제대로 동작함을 보장하기 위해서 켜진 알람들은 다시 켜주기
+            // 알람 없이 정상 실행시 항상 알람이 제대로 동작함을 보장하기 위해서 켜진 알람들은 다시 켜주기
             ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(getApplicationContext());
             for (MNAlarm alarm : alarmList) {
                 if (alarm.isAlarmOn()) {
@@ -127,13 +128,14 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             containerLayout.addView(tutorialLayout);
         }
 
-        MNReviewUtil.checkRate(this);
-
         // 플러리
         sendFlurryAnalytics();
 
-        // 알람 없이 켜질 경우 전면광고 카운트 체크
+        // 알람 없이 켜질 경우
         if (!MNAlarmWake.isAlarmReserved(getIntent())) {
+            // 리뷰 카운트 체크
+            MNReviewUtil.checkRate(this);
+            // 전면광고 카운트 체크
             MNAdUtils.checkFullScreenAdCount(this, dgService);
         }
     }
@@ -439,6 +441,17 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 }
             }
         }).start();
+    }
+
+    /**
+     * WakeDialog
+     */
+    @Subscribe
+    public void onDismissAlarmWakeDialog(AlertDialog alertDialog) {
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
     }
 
     /**

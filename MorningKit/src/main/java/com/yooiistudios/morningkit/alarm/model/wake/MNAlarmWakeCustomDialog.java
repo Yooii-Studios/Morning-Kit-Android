@@ -18,7 +18,6 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundPlayer;
 
 import org.joda.time.DateTime;
@@ -47,7 +46,7 @@ public class MNAlarmWakeCustomDialog {
 
             // 5분 후 dismiss 자동으로 되게 구현
             Message msg = Message.obtain(alarmWakeDialogHandler, alarm.getAlarmId(), wakeDialog);
-//            alarmTimerHandler.sendMessageDelayed(msg, 10 * 1000); // for test
+//            alarmWakeDialogHandler.sendMessageDelayed(msg, 5 * 1 * 1000); // for test
             alarmWakeDialogHandler.sendEmptyMessageDelayed(0, 5 * 60 * 1000);
         }
     }
@@ -113,7 +112,8 @@ public class MNAlarmWakeCustomDialog {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    MNAlarmScrollViewBusProvider.getInstance().post(context);
+                    MNAlarmScrollViewBusProvider.getInstance().post(context);       // 리스트 어댑터, UI 갱신
+                    MNAlarmScrollViewBusProvider.getInstance().post(wakeDialog);    // 메인, SCREEN_ON 해제
                 }
             });
             // 다시 알림 옵션이 켜져 있으면 보여 주고, 없으면 알람 끄기 버튼만 보여주기
@@ -132,6 +132,9 @@ public class MNAlarmWakeCustomDialog {
 
                         MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), context);
                         targetAlarm.snoozeAlarm(context);
+
+                        MNAlarmScrollViewBusProvider.getInstance().post(context);
+                        MNAlarmScrollViewBusProvider.getInstance().post(wakeDialog);
                     }
                 });
             } else {
@@ -172,9 +175,6 @@ public class MNAlarmWakeCustomDialog {
     private static class MNAlarmWakeDialogHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
-            MNLog.i("MNAlarmWakeDialogHandler", "alarmId: " + msg.what);
-            MNLog.i("MNAlarmWakeDialogHandler", "(AlertDialog) msg.obj: " + msg.obj);
-
             // get values
             int alarmId = msg.what;
             AlertDialog wakeDialog = (AlertDialog) msg.obj;
@@ -204,7 +204,10 @@ public class MNAlarmWakeCustomDialog {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                // bus message
                 MNAlarmScrollViewBusProvider.getInstance().post(context);
+                MNAlarmScrollViewBusProvider.getInstance().post(wakeDialog);
             }
         }
     }
