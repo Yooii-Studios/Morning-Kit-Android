@@ -48,6 +48,7 @@ import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayo
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_TRANS_TYPE;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_USE_GRAYSCALE;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_USE_REFRESH;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_IS_FIRST_LOADING;
 import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFileManager.DEFAULT_PARENT_DIR;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.PREF_PHOTO_ALBUM;
 
@@ -456,6 +457,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         getPanelDataObject().put(KEY_DATA_FILE_SELECTED, selectedFileName);
         getPanelDataObject().put(KEY_DATA_FILE_ROOT, rootDirForFiles);
         getPanelDataObject().put(KEY_DATA_USE_GRAYSCALE, useGrayscale);
+        getPanelDataObject().put(KEY_DATA_IS_FIRST_LOADING, true);
 
         SharedPreferences prefs = getActivity().getSharedPreferences(
                 PREF_PHOTO_ALBUM, Context.MODE_PRIVATE);
@@ -497,11 +499,11 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                     intervalSecond == INVALID_INTERVAL) {
                 displayHelper.setInterval(INVALID_INTERVAL);
                 if (restart || displayHelper.isRunning()) {
-                    displayHelper.restart();
+                    displayHelper.restart(true);
                 }
             }
             else {
-                displayHelper.restart();
+                displayHelper.restart(true);
             }
         }
     }

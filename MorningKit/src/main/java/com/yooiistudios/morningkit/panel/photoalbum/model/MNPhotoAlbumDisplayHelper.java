@@ -2,12 +2,14 @@ package com.yooiistudios.morningkit.panel.photoalbum.model;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ViewSwitcher;
 
+import com.stevenkim.waterlily.bitmapfun.util.AsyncTask;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.common.log.MNLog;
@@ -37,11 +39,14 @@ public class MNPhotoAlbumDisplayHelper {
     private int mPhotoIdx;
     private boolean mUseGrayscale;
 
+    private long mFirstLoadedTimeInMilli = INVALID_TIME;
+
     private MNPhotoAlbumBitmapLoader mBitmapLoader;
     private OnStartListener mOnStartListener;
 
     private static final int HANDLER_WHAT = 100;
     private static final int INVALID_INDEX = -1;
+    private static final long INVALID_TIME = -1;
 
     @Getter private boolean isRunning;
 
@@ -82,12 +87,16 @@ public class MNPhotoAlbumDisplayHelper {
             mBitmapLoader.cancel(true);
         }
         isRunning = false;
+        mFirstLoadedTimeInMilli = INVALID_TIME;
     }
 
     public synchronized void start(String rootDir,
             ArrayList<String> fileList, String selectedFile,
             MNPhotoAlbumTransitionType transitionType, long interval,
-            boolean useGrayscale, int photoWidth, int photoHeight) {
+            boolean useGrayscale, int photoWidth, int photoHeight,
+            boolean startFromSelection) {
+
+        mFirstLoadedTimeInMilli = System.currentTimeMillis();
         stop();
 
         mRootDir = rootDir;
@@ -112,7 +121,7 @@ public class MNPhotoAlbumDisplayHelper {
             Collections.shuffle(mFileList, new Random(System.nanoTime()));
             String fileName;
 
-            if (interval < 0) {
+            if (interval < 0 || startFromSelection) {
                 // If slideshow turned off, show selected file.
                 if (mSelectedFile != null && mFileList.contains(mSelectedFile)) {
                     mFileList.remove(mSelectedFile);
@@ -126,6 +135,7 @@ public class MNPhotoAlbumDisplayHelper {
             if (mOnStartListener != null) {
                 mOnStartListener.onStartLoadingBitmap();
             }
+
             mBitmapLoader = new MNPhotoAlbumBitmapLoader(mActivity,
                     new File(mRootDir, fileName).getAbsolutePath(),
                     mPhotoWidth, mPhotoHeight, mUseGrayscale,
@@ -147,9 +157,16 @@ public class MNPhotoAlbumDisplayHelper {
 
                     if (mFileList.size() > 1 && mInterval > 0) {
                         //prepare for timer
+
+                        long timePassedSinceStart = System.currentTimeMillis() -
+                                mFirstLoadedTimeInMilli;
+                        long actualInterval = mInterval +
+                                mTransitionType.getDurationInMillisec();
+                        long delay = timePassedSinceStart % actualInterval;
+
+
                         displayHandler.sendEmptyMessageDelayed(HANDLER_WHAT,
-                                mInterval + mTransitionType
-                                        .getDurationInMillisec());
+                                actualInterval - delay);
                     }
                     else {
                         isRunning = false;
@@ -166,7 +183,13 @@ public class MNPhotoAlbumDisplayHelper {
                     }
                 }
             });
-            mBitmapLoader.execute();
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                mBitmapLoader.executeOnExecutor(AsyncTask
+                        .THREAD_POOL_EXECUTOR);
+            }
+            else {
+                mBitmapLoader.execute();
+            }
         }
     }
 
@@ -188,10 +211,10 @@ public class MNPhotoAlbumDisplayHelper {
     public synchronized void setPhotoHeight(int height) {
         mPhotoHeight = height;
     }
-    public void restart() {
+    public void restart(boolean startFromSelection) {
         stop();
         start(mRootDir, mFileList, mSelectedFile, mTransitionType, mInterval,
-                mUseGrayscale, mPhotoWidth, mPhotoHeight);
+                mUseGrayscale, mPhotoWidth, mPhotoHeight, startFromSelection);
     }
     public synchronized void setTransitionType(MNPhotoAlbumTransitionType type) {
         mTransitionType = type;
@@ -254,8 +277,23 @@ public class MNPhotoAlbumDisplayHelper {
             };
 
     private Handler displayHandler = new Handler() {
+
         @Override
         public void handleMessage( Message msg ){
+            if (mFirstLoadedTimeInMilli == INVALID_TIME) {
+                mFirstLoadedTimeInMilli = System.currentTimeMillis();
+            }
+
+            long timePassedSinceStart = System.currentTimeMillis() -
+                    mFirstLoadedTimeInMilli;
+            long actualInterval = mInterval +
+                    mTransitionType.getDurationInMillisec();
+            long delay = timePassedSinceStart % actualInterval;
+//            long delay = mInterval + animationDuration;
+
+            displayHandler.sendEmptyMessageDelayed(HANDLER_WHAT,
+                    actualInterval - delay);
+
             if (isRunning){
                 if (mViewSwitcher.getInAnimation() == null ||
                         mViewSwitcher.getOutAnimation() == null) {
@@ -286,16 +324,17 @@ public class MNPhotoAlbumDisplayHelper {
                 }
 
                 String fileName = mFileList.get(mPhotoIdx);
-                new MNPhotoAlbumBitmapLoader(mActivity,
+                mBitmapLoader = new MNPhotoAlbumBitmapLoader(mActivity,
                         new File(mRootDir, fileName).getAbsolutePath(),
                         mPhotoWidth, mPhotoHeight, mUseGrayscale,
                         new MNPhotoAlbumBitmapLoader.OnBitmapLoadListener() {
                             @Override
                             public void onLoadBitmap(Bitmap bitmap) {
+                                if (mBitmapLoader.isCancelled()) {
+                                    bitmap.recycle();
+                                    return;
+                                }
                                 showNext(bitmap);
-
-                                displayHandler.sendEmptyMessageDelayed(HANDLER_WHAT,
-                                        mInterval + mTransitionType.getDurationInMillisec());
                             }
 
                             @Override
@@ -304,7 +343,14 @@ public class MNPhotoAlbumDisplayHelper {
 
                                 displayHandler.sendEmptyMessage(HANDLER_WHAT);
                             }
-                        }).execute();
+                        });
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    mBitmapLoader.executeOnExecutor(AsyncTask
+                            .THREAD_POOL_EXECUTOR);
+                }
+                else {
+                    mBitmapLoader.execute();
+                }
             }
         }
     };

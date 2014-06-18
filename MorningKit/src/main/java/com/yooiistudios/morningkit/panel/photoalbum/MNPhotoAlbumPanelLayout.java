@@ -48,6 +48,8 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     public static final String KEY_DATA_FILE_ROOT = "selected file's root dir";
     public static final String KEY_DATA_USE_GRAYSCALE = "use grayscale";
 
+    public static final String KEY_DATA_IS_FIRST_LOADING = "is first loading";
+
     private ViewSwitcher viewSwitcher;
     private MNPhotoAlbumTransitionType transitionType;
     private long intervalInMillisec;
@@ -57,6 +59,8 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     private String previousSelectedFile;
     private ArrayList<String> allAbsoluteImageFileList;
     private boolean useGrayscale;
+
+    private boolean isFirstLoading;
 
     private MNPhotoAlbumDisplayHelper displayHelper;
     private MNPhotoAlbumListFetcher listFetcher;
@@ -134,6 +138,24 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
     }
 
     private void startTimer(int photoWidth, int photoHeight) {
+
+        boolean isFirstLoading;
+
+        try {
+            if (getPanelDataObject().has(KEY_DATA_IS_FIRST_LOADING)) {
+                isFirstLoading = getPanelDataObject().getBoolean(
+                        KEY_DATA_IS_FIRST_LOADING);
+            }
+            else {
+                isFirstLoading = true;
+            }
+            getPanelDataObject().put(KEY_DATA_IS_FIRST_LOADING, false);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            isFirstLoading = true;
+        }
+        this.isFirstLoading = isFirstLoading;
+
         MNLog.i("Timer", "start called");
         if (displayHelper != null && !displayHelper.isRunning()) {
             ArrayList<String> list;
@@ -151,7 +173,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
             }
             displayHelper.start(rootDir, list, selectedFile,
                     transitionType, intervalInMillisec, useGrayscale,
-                    photoWidth, photoHeight);
+                    photoWidth, photoHeight, isFirstLoading);
             MNLog.i("Timer", "started. isRunning : " + displayHelper.isRunning());
         }
     }

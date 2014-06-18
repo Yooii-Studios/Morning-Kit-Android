@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel.photoalbum.model;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.yooiistudios.morningkit.R;
@@ -56,8 +58,6 @@ public class MNPhotoAlbumRefreshTimeDialogFragment extends DialogFragment {
         mMinuteEditText.setText(String.valueOf(args.getInt(KEY_MINUTE)));
         mSecondEditText.setText(String.valueOf(args.getInt(KEY_SECOND)));
 
-        mSecondEditText.requestFocus();
-
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             builder = new AlertDialog.Builder(getActivity(),
@@ -66,7 +66,7 @@ public class MNPhotoAlbumRefreshTimeDialogFragment extends DialogFragment {
             builder = new AlertDialog.Builder(getActivity());
         }
 
-        return builder
+        AlertDialog dialog = builder
                 .setTitle(R.string.photo_album_label_refresh_time)
                 .setView(root)
                 .setPositiveButton(R.string.ok,
@@ -128,8 +128,20 @@ public class MNPhotoAlbumRefreshTimeDialogFragment extends DialogFragment {
                                 }
                             }
                         }
-                )
-                .create();
+                ).create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                mSecondEditText.requestFocus();
+                InputMethodManager imm =
+                        (InputMethodManager)getActivity().getSystemService(
+                                Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(mSecondEditText, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+
+
+        return dialog;
     }
 
     public interface OnClickListener {
