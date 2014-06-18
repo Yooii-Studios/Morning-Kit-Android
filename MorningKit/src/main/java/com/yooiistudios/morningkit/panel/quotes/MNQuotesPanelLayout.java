@@ -15,6 +15,8 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -55,25 +57,45 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     private List<Boolean> selectedLanguages;
     private MNQuote quote;
 
+    private static final int QUOTES_HANDLER_DELAY = 8000;
     private boolean isHandlerRunning = false;
     private MNQuotesHandler quotesHandler = new MNQuotesHandler();
     private class MNQuotesHandler extends Handler {
         @Override
         public void handleMessage( Message msg ){
             if (MNTutorialManager.isTutorialShown(getContext().getApplicationContext())) {
-                // UI갱신
-                try {
-                    refreshPanel();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                // 숨기기
+                Animation hideAnimation = AnimationUtils.loadAnimation(
+                        getContext().getApplicationContext(), R.anim.quotes_hide);
+                if (hideAnimation != null && quoteTextView != null) {
+                    hideAnimation.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {}
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            // 명언 갱신
+                            try {
+                                refreshPanel();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            // 다시 보여주기
+                            Animation showAnimation = AnimationUtils.loadAnimation(
+                                    getContext().getApplicationContext(), R.anim.quotes_show);
+
+                            if (showAnimation != null) {
+                                quoteTextView.startAnimation(showAnimation);
+                            }
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {}
+                    });
+                    quoteTextView.startAnimation(hideAnimation);
                 }
             }
 
             // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
-            long endMilli = System.currentTimeMillis();
-            long delay = endMilli % 1000;
-
-            quotesHandler.sendEmptyMessageDelayed(0, 9000 - delay);
+            quotesHandler.sendEmptyMessageDelayed(0, QUOTES_HANDLER_DELAY);
         }
     }
 
@@ -264,7 +286,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
             return;
         }
         isHandlerRunning = true;
-        quotesHandler.sendEmptyMessageDelayed(0, 0);
+        quotesHandler.sendEmptyMessageDelayed(0, QUOTES_HANDLER_DELAY);
     }
 
     private void stopHandler() {
