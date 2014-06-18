@@ -112,7 +112,7 @@ public class MNCalendarListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    protected MNCalendarEventItemInfo initCalendarEventItemInfo(int index) {
+    private MNCalendarEventItemInfo initCalendarEventItemInfo(int index) {
         return calendarEventList.getCalendarEventItemInfo(index);
     }
 

@@ -39,20 +39,6 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
     }
 
     @Override
-    public int getCount() {
-        if (calendarEventList != null) {
-            return calendarEventList.getSize();
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
-    protected MNCalendarEventItemInfo initCalendarEventItemInfo(int index) {
-        return calendarEventList.getCalendarEventItemInfo(index);
-    }
-
-    @Override
     protected View initEventItem(int position, MNCalendarEvent calendarModel,
                                  MNCalendarEventItemInfo calendarEventItemInfo, ViewGroup viewGroup) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
