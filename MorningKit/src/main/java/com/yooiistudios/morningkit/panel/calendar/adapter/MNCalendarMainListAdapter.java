@@ -41,7 +41,7 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
     @Override
     public int getCount() {
         if (calendarEventList != null) {
-            return calendarEventList.getSize(false);
+            return calendarEventList.getSize();
         } else {
             return 0;
         }
@@ -49,7 +49,7 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
 
     @Override
     protected MNCalendarEventItemInfo initCalendarEventItemInfo(int index) {
-        return calendarEventList.getCalendarEventItemInfo(index, false);
+        return calendarEventList.getCalendarEventItemInfo(index);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
                     }
 
                     // 제일 마지막 아이템 Divider 숨기기
-                    if (position == calendarEventList.getSize(false) - 1) {
+                    if (position == calendarEventList.getSize() - 1) {
                         dividerView.setVisibility(View.GONE);
                     } else {
                         dividerView.setVisibility(View.VISIBLE);
