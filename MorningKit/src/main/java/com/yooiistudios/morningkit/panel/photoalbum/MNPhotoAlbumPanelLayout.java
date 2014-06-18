@@ -25,6 +25,7 @@ import java.util.Random;
 
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFragment.DEFAULT_INTERVAL_MIN;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFragment.DEFAULT_INTERVAL_SEC;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFragment.DEFAULT_TRANSITION_TYPE;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFragment.INVALID_INTERVAL;
 import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFileManager.DEFAULT_PARENT_DIR;
 
@@ -197,7 +198,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         }
         else {
             String key = prefs.getString(KEY_DATA_TRANS_TYPE,
-                    MNPhotoAlbumTransitionType.ALPHA.getKey());
+                    DEFAULT_TRANSITION_TYPE.getKey());
             transitionType = MNPhotoAlbumTransitionType.getTypeByKey(key);
             getPanelDataObject().put(KEY_DATA_TRANS_TYPE, key);
         }
@@ -215,18 +216,18 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                             intervalSecond);
         }
         else {
+            int intervalMin = prefs.getInt(KEY_DATA_INTERVAL_MINUTE,
+                    DEFAULT_INTERVAL_MIN);
+            int intervalSec = prefs.getInt(KEY_DATA_INTERVAL_SECOND,
+                    DEFAULT_INTERVAL_SEC);
             intervalInMillisec =
-                MNPhotoAlbumCommonUtil.getTransitionInterval(
-                        prefs.getInt(KEY_DATA_INTERVAL_MINUTE,
-                                DEFAULT_INTERVAL_MIN),
-                        prefs.getInt(KEY_DATA_INTERVAL_SECOND,
-                                DEFAULT_INTERVAL_SEC)
-                );
+                MNPhotoAlbumCommonUtil.getTransitionInterval(intervalMin,
+                        intervalSec);
 
             getPanelDataObject().put(KEY_DATA_INTERVAL_MINUTE,
-                    DEFAULT_INTERVAL_MIN);
+                    intervalMin);
             getPanelDataObject().put(KEY_DATA_INTERVAL_SECOND,
-                    DEFAULT_INTERVAL_SEC);
+                    intervalSec);
         }
 
         if (getPanelDataObject().has(KEY_DATA_USE_GRAYSCALE)) {
@@ -235,7 +236,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         }
         else {
             useGrayscale = prefs.getBoolean(KEY_DATA_USE_GRAYSCALE, false);
-            getPanelDataObject().put(KEY_DATA_USE_GRAYSCALE, false);
+            getPanelDataObject().put(KEY_DATA_USE_GRAYSCALE, useGrayscale);
         }
 
         allAbsoluteImageFileList = null;

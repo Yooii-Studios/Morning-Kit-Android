@@ -75,6 +75,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     // default constants
     public static final int DEFAULT_INTERVAL_MIN = 0;
     public static final int DEFAULT_INTERVAL_SEC = 3;
+    public static final MNPhotoAlbumTransitionType DEFAULT_TRANSITION_TYPE =
+            MNPhotoAlbumTransitionType.ALPHA;
 
     // request code
     public static final int RC_LOAD_PHOTO = 1;
@@ -129,7 +131,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                 recentIntervalMinute = DEFAULT_INTERVAL_MIN;
                 recentIntervalSecond = DEFAULT_INTERVAL_SEC;
                 useRefresh = true;
-                transitionType = MNPhotoAlbumTransitionType.ALPHA;
+                transitionType = DEFAULT_TRANSITION_TYPE;
 
                 selectedFileName = null;
                 rootDirForFiles = DEFAULT_PARENT_DIR.getAbsolutePath();
@@ -293,7 +295,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         }
         else {
             String previousTransTypeKey = prefs.getString(KEY_DATA_TRANS_TYPE,
-                    MNPhotoAlbumTransitionType.ALPHA.getKey());
+                    DEFAULT_TRANSITION_TYPE.getKey());
             transitionType = MNPhotoAlbumTransitionType.getTypeByKey(
                     previousTransTypeKey);
         }
