@@ -77,6 +77,19 @@ public class MNAdUtils {
                         // 19 = App ID = Morning Kit
                         // 8 = Sketch Kit, 테스트용
                         DGService dgService = sdk.OpenService(4820, 8, 2, Constants.ServiceCategories.INTERSTITIAL, activity);
+//                        dgService.setOneSDKListeners(new OneSDKListeners() {
+//                            @Override
+//                            public void startLoad(int i) {
+//                                MNLog.now("DG Ad startLoad");
+////                                adView.setVisibility(View.VISIBLE);
+//                            }
+//
+//                            @Override
+//                            public void finishLoad(int i) {
+//                                MNLog.now("DG Ad finishLoad");
+////                                adView.setVisibility(View.INVISIBLE);
+//                            }
+//                        });
 
                         // 중앙 계산
                         int x = (MNDeviceSizeInfo.getDeviceWidth(activity) - DipToPixel.getPixel(activity, 320)) / 2;
