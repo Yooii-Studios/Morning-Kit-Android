@@ -96,9 +96,14 @@ public class MNPhotoAlbumRefreshTimeDialogFragment extends DialogFragment {
                                         second = DEFAULT_INTERVAL_SEC;
                                     }
 
-                                    ((OnClickListener) parentFragment).onConfirm(
-                                            minute, second
-                                    );
+                                    if (minute <= 0 && second <= 0) {
+                                        ((OnClickListener)parentFragment)
+                                                .onCancel();
+                                    }
+                                    else {
+                                        ((OnClickListener) parentFragment)
+                                                .onConfirm(minute, second);
+                                    }
                                 }
                             }
                         }
@@ -110,7 +115,7 @@ public class MNPhotoAlbumRefreshTimeDialogFragment extends DialogFragment {
                                 if (parentFragment != null &&
                                         parentFragment
                                                 instanceof OnClickListener) {
-                                    ((OnClickListener)parentFragment)
+                                    ((OnClickListener) parentFragment)
                                             .onCancel();
                                 }
                             }
@@ -123,7 +128,7 @@ public class MNPhotoAlbumRefreshTimeDialogFragment extends DialogFragment {
                                 if (parentFragment != null &&
                                         parentFragment
                                                 instanceof OnClickListener) {
-                                    ((OnClickListener)parentFragment)
+                                    ((OnClickListener) parentFragment)
                                             .onTurnOff();
                                 }
                             }
