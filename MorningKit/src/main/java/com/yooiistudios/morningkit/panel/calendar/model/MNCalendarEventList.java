@@ -48,6 +48,7 @@ public class MNCalendarEventList {
 
         if (tomorrowAllDayEventSize == 0 && tomorrowScheduledEventSize == 0 &&
                 todayAllDayEventSize + todayScheduledEventSize > 0) {
+            // 내일 일정이 없고 오늘 일정만 있는 경우
             if (index == 0) {
                 calendarEventItemInfo.calendarEventType = MNCalendarEventType.TODAY_INDICATOR;
             } else if (index < todayAllDayEventSize + 1) {
@@ -93,7 +94,6 @@ public class MNCalendarEventList {
                 // 내일 아이템들
                 // 오늘 아이템들 갯수를 빼주자
                 int convertedItemIndex = index - allTodayEventItems;
-//                convertedItemIndex -= allTodayEventItems;
                 if (convertedItemIndex == 0) {
                     calendarEventItemInfo.calendarEventType = MNCalendarEventType.TOMORROW_INDICATOR;
                 } else if (convertedItemIndex < tomorrowAllDayEventSize + 1) {
