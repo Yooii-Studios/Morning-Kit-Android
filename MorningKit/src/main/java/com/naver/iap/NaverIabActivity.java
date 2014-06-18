@@ -51,8 +51,8 @@ public class NaverIabActivity extends NIAPActivity {
 		/**
 		 * naver appstore iap initialization
 		 */
-        initialize(APP_CODE, IAP_KEY_TEST);
-//		initialize(APP_CODE, IAP_KEY_RELEASE);
+//        initialize(APP_CODE, IAP_KEY_TEST);
+		initialize(APP_CODE, IAP_KEY_RELEASE);
 		
 		mAction = getIntent().getStringExtra(KEY_ACTION);
 		mProductKey = getIntent().getStringExtra(KEY_PRODUCT_KEY);
