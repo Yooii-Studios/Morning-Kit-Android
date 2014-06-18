@@ -36,7 +36,7 @@ public class MNAdUtils {
     private static final String LAUNCH_COUNT = "LAUNCH_COUNT";
     private static final String EACH_LAUNCH_COUNT = "EACH_LAUNCH_COUNT";
 
-    public static void checkFullScreenAdCount(Activity activity, DGService dgService) {
+    public static void checkFullScreenAdCount(Activity activity) {
 
         List<String> owndedSkus =  SKIabProducts.loadOwnedIabProducts(activity);
 
@@ -76,7 +76,7 @@ public class MNAdUtils {
                         // 4820 = publisher ID = Yooii Studios
                         // 19 = App ID = Morning Kit
                         // 8 = Sketch Kit, 테스트용
-                        dgService = sdk.OpenService(4820, 19, 2, Constants.ServiceCategories.INTERSTITIAL, activity);
+                        DGService dgService = sdk.OpenService(4820, 8, 2, Constants.ServiceCategories.INTERSTITIAL, activity);
 
                         // 중앙 계산
                         int x = (MNDeviceSizeInfo.getDeviceWidth(activity) - DipToPixel.getPixel(activity, 320)) / 2;
