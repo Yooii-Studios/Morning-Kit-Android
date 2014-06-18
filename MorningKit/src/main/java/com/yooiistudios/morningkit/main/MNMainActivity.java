@@ -27,11 +27,9 @@ import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.ad.MNAdUtils;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
-import com.yooiistudios.morningkit.common.dp.DipToPixel;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.review.MNReviewUtil;
-import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialLayout;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
@@ -50,23 +48,15 @@ import com.yooiistudios.morningkit.theme.MNMainColors;
 import com.yooiistudios.morningkit.theme.MNMainResources;
 import com.yooiistudios.morningkit.theme.font.MNTranslucentFont;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import jp.co.garage.onesdk.Constants;
-import jp.co.garage.onesdk.DGService;
-import jp.co.garage.onesdk.OneSDK;
-import jp.co.garage.onesdk.OneSDKListeners;
 import lombok.Getter;
 
 /**
@@ -97,7 +87,8 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
-    private DGService dgService;
+    // 디지털 가라지 - 한국 출시에는 일단 빼기
+//    private DGService dgService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,6 +169,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     }
 
     private void checkDGAd(int orientation) {
+        /*
         if (dgService != null) {
             dgService.close();
             adView.setVisibility(View.VISIBLE);
@@ -229,6 +221,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 }
             }
         }
+        */
     }
 
     @Override
@@ -295,10 +288,10 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // Partially visible
         adView.pause();
 
-        // 디지털 가라지 광고를 사용하고 있을 경우는 close 시켜주기(일본어)
-        if (dgService != null) {
-            dgService.close();
-        }
+        // 디지털 가라지 광고를 사용하고 있을 경우는 close 시켜주기(일본어) - 한국 출시에는 일단 빼기
+//        if (dgService != null) {
+//            dgService.close();
+//        }
         super.onPause();
     }
 
@@ -401,8 +394,8 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 break;
         }
 
-        // 일본어 사용 체크해서 DG 광고 사용하기
-        checkDGAd(newConfig.orientation);
+        // 일본어 사용 체크해서 DG 광고 사용하기 - 한국 출시에는 일단 빼기
+//        checkDGAd(newConfig.orientation);
     }
 
     /**

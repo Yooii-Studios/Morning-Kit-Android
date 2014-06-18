@@ -47,9 +47,9 @@ public class MNAdUtils {
             SharedPreferences prefs = activity.getSharedPreferences(KEY, Context.MODE_PRIVATE);
             int launchCount = prefs.getInt(LAUNCH_COUNT, 0);
             // 10회 이상 실행부터 계속 5배수 실행 카운트 체크
-            if (launchCount >= 5) {
+            if (launchCount >= 4) {
                 int eachLaunchCount = prefs.getInt(EACH_LAUNCH_COUNT, 0);
-                if (eachLaunchCount == 5) {
+                if (eachLaunchCount == 4) {
                     // 5회 실행시마다 초기화
                     prefs.edit().remove(EACH_LAUNCH_COUNT).commit();
 
