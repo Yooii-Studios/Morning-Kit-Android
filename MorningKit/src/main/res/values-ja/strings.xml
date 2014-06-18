@@ -268,41 +268,41 @@
 
     <!-- Android Only -->
     <!-- General -->
-    <string name="action_bar_up_button_main">Main</string>
-    <string name="store_item_full_version">Full Version</string>
+    <string name="action_bar_up_button_main">メイン</string>
+    <string name="store_item_full_version">フルバージョン</string>
 
     <!-- Alarm -->
-    <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
+    <string name="alarm_set_for_less_than_1_minute">1分以内にアラームが鳴ります</string>
 
         <!-- Prefs -->
-    <string name="alarm_pref_volume">Volume</string>
+    <string name="alarm_pref_volume">ボリューム</string>
 
     <!-- Panel -->
         <!-- Flickr -->
-    <string name="saving">Saving…</string>
+    <string name="saving">保存中…</string>
 
         <!-- World Clock -->
-    <string name="no_search_result">No Results Found</string>
+    <string name="no_search_result">検索結果なし</string>
 
         <!-- Calendar -->
-    <string name="calendar_select_calendars">Select Calendars</string>
+    <string name="calendar_select_calendars">カレンダー選択</string>
 
         <!-- Photo Album -->
-    <string name="photo_album">Photo Frame</string>
-    <string name="photo_album_no_image">No image available</string>
-    <string name="photo_album_error_getting_photo">Error occurred while getting photo</string>
-    <string name="photo_album_label_refresh_time">Refresh Time</string>
-    <string name="photo_album_label_transition_type">Transition Type</string>
-    <string name="photo_album_minute_hint">min</string>
-    <string name="photo_album_minute">min</string>
-    <string name="photo_album_second_hint">sec</string>
-    <string name="photo_album_second">sec</string>
-    <string name="photo_album_transition_none">None</string>
-    <string name="photo_album_transition_alpha">Alpha</string>
-    <string name="photo_album_load">Load</string>
+    <string name="photo_album">フォトフレーム</string>
+    <string name="photo_album_no_image">使用できるイメージなし</string>
+    <string name="photo_album_error_getting_photo">写真を読み込む中に問題が生じました</string>
+    <string name="photo_album_label_refresh_time">リフレッシュ時間</string>
+    <string name="photo_album_label_transition_type">アニメーションタイプ</string>
+    <string name="photo_album_minute_hint">分</string>
+    <string name="photo_album_minute">分</string>
+    <string name="photo_album_second_hint">秒</string>
+    <string name="photo_album_second">秒</string>
+    <string name="photo_album_transition_none">なし</string>
+    <string name="photo_album_transition_alpha">透明度</string>
+    <string name="photo_album_load">読み込む</string>
 
     <!-- Theme -->
-    <string name="setting_theme_color_pastel_green">Pastel Green</string>
+    <string name="setting_theme_color_pastel_green">パステルグリーン</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">友達にこのアプリを薦める</string>
