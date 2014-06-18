@@ -87,6 +87,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     public static final boolean IS_STORE_FOR_NAVER = true;
     public static final int RC_NAVER_IAB = 8374;
     public boolean isNaverStoreStartLoading = false;
+//    public boolean isNaverStoreFinishLoading = false;
     @Setter boolean isFragmentForActivity = false;
     @Getter List<NaverIabInventoryItem> productList;
 
@@ -624,6 +625,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
         }
         hideLoadingViews();
+//        isNaverStoreFinishLoading = true;
     }
 
     private void updateUIAfterPurchase(String ownedSku) {
@@ -642,5 +644,10 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
         ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
         ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
+
+        // 만약 로그인이나 로딩이 잘못되어 구매했을 때 까지 정보가 뜨지 않았다면 다시 가격 정보 로딩을 해 줄것
+//        if (!isNaverStoreFinishLoading) {
+//            onFirstStoreLoading();
+//        }
     }
 }
