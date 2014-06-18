@@ -77,6 +77,8 @@ public class MNAdUtils {
                         // 19 = App ID = Morning Kit
                         // 8 = Sketch Kit, 테스트용
                         DGService dgService = sdk.OpenService(4820, 8, 2, Constants.ServiceCategories.INTERSTITIAL, activity);
+
+                        // 리스너 테스트용, 나중에 배너에서 활용
 //                        dgService.setOneSDKListeners(new OneSDKListeners() {
 //                            @Override
 //                            public void startLoad(int i) {
