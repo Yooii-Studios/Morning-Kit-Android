@@ -275,7 +275,7 @@
     <string name="alarm_set_for_less_than_1_minute">알람이 1분 내에 울립니다</string>
 
         <!-- Prefs -->
-    <string name="alarm_pref_volume">Volume</string>
+    <string name="alarm_pref_volume">볼륨</string>
 
     <!-- Panel -->
         <!-- Flickr -->
@@ -288,18 +288,18 @@
     <string name="calendar_select_calendars">캘린더 선택</string>
 
         <!-- Photo Album -->
-    <string name="photo_album">Photo Frame</string>
-    <string name="photo_album_no_image">No image available</string>
-    <string name="photo_album_error_getting_photo">Error occurred while getting photo</string>
-    <string name="photo_album_label_refresh_time">Refresh Time</string>
-    <string name="photo_album_label_transition_type">Transition Type</string>
-    <string name="photo_album_minute_hint">min</string>
-    <string name="photo_album_minute">min</string>
-    <string name="photo_album_second_hint">sec</string>
-    <string name="photo_album_second">sec</string>
-    <string name="photo_album_transition_none">None</string>
-    <string name="photo_album_transition_alpha">Alpha</string>
-    <string name="photo_album_load">Load</string>
+    <string name="photo_album">사진 프레임</string>
+    <string name="photo_album_no_image">사용가능한 이미지 없음</string>
+    <string name="photo_album_error_getting_photo">사진을 가져올 때 문제가 생겼습니다</string>
+    <string name="photo_album_label_refresh_time">리프레시 시간</string>
+    <string name="photo_album_label_transition_type">애니메이션 타입</string>
+    <string name="photo_album_minute_hint">분</string>
+    <string name="photo_album_minute">분</string>
+    <string name="photo_album_second_hint">초</string>
+    <string name="photo_album_second">초</string>
+    <string name="photo_album_transition_none">없음</string>
+    <string name="photo_album_transition_alpha">투명도</string>
+    <string name="photo_album_load">로드</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">파스텔 그린</string>
