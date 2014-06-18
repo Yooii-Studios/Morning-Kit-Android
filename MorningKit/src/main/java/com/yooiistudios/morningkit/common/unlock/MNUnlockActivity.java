@@ -27,6 +27,7 @@ import com.naver.iap.NaverIabActivity;
 import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
 import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
@@ -84,7 +85,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         // listView
         listView.setAdapter(new MNUnlockListAdapter(this, this, productSku));
 
-        if (IS_DEBUG) {
+        if (MNLog.isDebug) {
             resetButton.setVisibility(View.VISIBLE);
         } else {
             resetButton.setVisibility(View.INVISIBLE);
