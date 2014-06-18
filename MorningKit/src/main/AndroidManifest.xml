@@ -69,7 +69,7 @@
             android:name="com.yooiistudios.morningkit.setting.MNSettingActivity"
             android:parentActivityName="com.yooiistudios.morningkit.main.MNMainActivity"
             android:screenOrientation="sensorPortrait"
-            android:configChanges="locale|layoutDirection"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection"
             android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -176,12 +176,12 @@
         <activity
             android:name="com.yooiistudios.morningkit.common.unlock.MNUnlockActivity"
             android:screenOrientation="sensorPortrait"
-            android:configChanges="locale|layoutDirection" >
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection" >
         </activity>
         <activity
             android:name="com.yooiistudios.morningkit.setting.store.MNStoreActivity"
             android:screenOrientation="sensorPortrait"
-            android:configChanges="locale|layoutDirection" >
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection" >
         </activity>
         <activity
             android:name=".panel.core.detail.MNPanelDetailActivity"
@@ -194,13 +194,14 @@
         <!-- naver iab -->
         <activity
             android:name="com.naver.iap.NaverIabActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection"
             android:theme="@style/Theme.Transparent" >
         </activity>
         <!-- <activity android:name="com.nhn.android.appstore.iap.sample.RestorePaymentActivity" >
         </activity> -->
         <activity
             android:name="com.nhn.android.appstore.iap.cpa.NIAPCPAActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection" />
 
     </application>
 </manifest>
