@@ -560,34 +560,40 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     }
 
     private void sendFlurryAnalytics() {
-        // 풀 버전 체크
-        Map<String, String> versionParams = new HashMap<String, String>();
-        if (SKIabProducts.loadOwnedIabProducts(this).contains(SKIabProducts.SKU_FULL_VERSION)) {
-            versionParams.put(MNFlurry.VERSION, MNFlurry.FULL_VERSION);
-        } else {
-            versionParams.put(MNFlurry.VERSION, MNFlurry.FREE_VERSION);
-        }
-        FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, versionParams);
+        // 쓰레드로 돌려서 UI쓰레드 방해하지 않게 구현
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // 풀 버전 체크
+                Map<String, String> versionParams = new HashMap<String, String>();
+                if (SKIabProducts.loadOwnedIabProducts(MNMainActivity.this).contains(SKIabProducts.SKU_FULL_VERSION)) {
+                    versionParams.put(MNFlurry.VERSION, MNFlurry.FULL_VERSION);
+                } else {
+                    versionParams.put(MNFlurry.VERSION, MNFlurry.FREE_VERSION);
+                }
+                FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, versionParams);
 
-        // 언어 체크
-        MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(this);
-        Map<String, String> languageParams = new HashMap<String, String>();
-        languageParams.put(MNFlurry.LANGUAGE,
-                MNLanguageType.toEnglishString(currentLanguageType.getIndex(), this));
-        FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, languageParams);
+                // 언어 체크
+                MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(MNMainActivity.this);
+                Map<String, String> languageParams = new HashMap<String, String>();
+                languageParams.put(MNFlurry.LANGUAGE,
+                        MNLanguageType.toEnglishString(currentLanguageType.getIndex(), MNMainActivity.this));
+                FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, languageParams);
 
-        // 테마 체크
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
-        Map<String, String> themeParams = new HashMap<String, String>();
-        themeParams.put(MNFlurry.THEME, currentThemeType.toString());
-        FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, themeParams);
+                // 테마 체크
+                MNThemeType currentThemeType = MNTheme.getCurrentThemeType(MNMainActivity.this);
+                Map<String, String> themeParams = new HashMap<String, String>();
+                themeParams.put(MNFlurry.THEME, currentThemeType.toString());
+                FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, themeParams);
 
-        // 알람 갯수 체크
-        ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(getApplicationContext());
-        if (alarmList != null) {
-            Map<String, String> alarmParams = new HashMap<String, String>();
-            alarmParams.put(MNFlurry.NUM_OF_ALARMS, String.valueOf(alarmList.size()));
-            FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, alarmParams);
-        }
+                // 알람 갯수 체크
+                ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(getApplicationContext());
+                if (alarmList != null) {
+                    Map<String, String> alarmParams = new HashMap<String, String>();
+                    alarmParams.put(MNFlurry.NUM_OF_ALARMS, String.valueOf(alarmList.size()));
+                    FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, alarmParams);
+                }
+            }
+        }).start();
     }
 }
