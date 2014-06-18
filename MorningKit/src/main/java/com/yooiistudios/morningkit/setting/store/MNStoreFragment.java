@@ -79,7 +79,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @InjectView(R.id.setting_store_theme_gridview) GridView themeGridView;
 
     // For Test
-    private static final boolean IS_DEBUG = true; // 출시 시 false로 변경할 것
+    private static final boolean IS_DEBUG = false; // 출시 시 false로 변경할 것
     @InjectView(R.id.setting_store_reset_button) Button resetButton;
     @InjectView(R.id.setting_store_debug_button) Button debugButton;
 
