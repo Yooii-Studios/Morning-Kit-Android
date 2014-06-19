@@ -233,13 +233,6 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        MNLog.i(TAG, "onDestroy");
-        ViewUnbindHelper.unbindReferences(this, mViewPager.getId());
-    }
-
-    @Override
     protected void onStart() {
         // Activity visible to user
         super.onStart();
