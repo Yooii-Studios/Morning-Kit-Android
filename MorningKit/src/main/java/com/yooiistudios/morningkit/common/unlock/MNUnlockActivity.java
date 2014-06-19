@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.flurry.android.FlurryAgent;
 import com.naver.iap.NaverIabActivity;
 import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.encryption.MNMd5Utils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
@@ -403,14 +405,22 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         // 구매된 리스트를 확인해 SharedPreferences에 적용하기
         if (result.isSuccess()) {
 //            Toast.makeText(this, result.getMessage(), Toast.LENGTH_SHORT).show();
-
-            if (info != null && info.getDeveloperPayload().equals(SKIabManager.DEVELOPER_PAYLOAD)) {
+            
+            // 창하님 조언으로 수정: payload는 sku의 md5해시값으로 비교해 해킹을 방지
+            // 또한 orderId는 무조건 37자리여야 한다고 함. 프리덤같은 가짜 결제는 자릿수가 짧게 온다고 하심
+            if (info != null && info.getDeveloperPayload().equals(MNMd5Utils.getMd5String(info.getSku())) &&
+                    info.getOrderId().length() == 37) {
                 SKIabProducts.saveIabProduct(info.getSku(), this);
                 refreshUI();
             } else if (info != null) {
-                showComplain("No purchase info: " + result.getMessage());
+                showComplain("No purchase info");
             } else {
-                showComplain("Payload problem: " + result.getMessage());
+                showComplain("Payload problem");
+                if (!info.getDeveloperPayload().equals(MNMd5Utils.getMd5String(info.getSku()))) {
+                    Log.e("MNStoreFragment", "payload not equals to md5 hash of sku");
+                } else if (info.getOrderId().length() != 37) {
+                    Log.e("MNStoreFragment", "length of orderId is not 37");
+                }
             }
         } else {
             showComplain("Purchase Failed: " + result.getMessage());
