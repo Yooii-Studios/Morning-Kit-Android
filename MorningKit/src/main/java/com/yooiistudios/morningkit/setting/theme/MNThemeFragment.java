@@ -46,8 +46,7 @@ public class MNThemeFragment extends Fragment implements AdapterView.OnItemClick
 
     // 이전에 생성된 프래그먼트를 유지
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
     }
@@ -64,8 +63,6 @@ public class MNThemeFragment extends Fragment implements AdapterView.OnItemClick
 
             listView.setAdapter(new MNThemeListAdapter(getActivity()));
             listView.setOnItemClickListener(this);
-
-            initAdView();
         }
         return rootView;
     }
@@ -92,6 +89,9 @@ public class MNThemeFragment extends Fragment implements AdapterView.OnItemClick
         // FooterView 를 넣어줘서 Wrapping 이 됨
 //        ((BaseAdapter)listView.getAdapter()).notifyDataSetChanged();
         ((BaseAdapter)((HeaderViewListAdapter)listView.getAdapter()).getWrappedAdapter()).notifyDataSetChanged();
+        // 상점 탭에서 구매하고 올 경우를 대비
+        initAdView();
+
         listView.setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(MNTheme.getCurrentThemeType(getActivity())));
         getView().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(MNTheme.getCurrentThemeType(getActivity())));
     }
