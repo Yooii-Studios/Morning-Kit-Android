@@ -13,7 +13,10 @@ import android.widget.ImageView;
  * Utility class to help unbinding resources consumed by Views in Activity.
  *
  * @author Hwan Jo(nimbusob@gmail.com)
- */
+ *
+ *  최대한 메모리 문제를 해결해 보고자 사용하려 했으나, 이것이 문제가 아니고 다른 데에 문제가 있었기에
+ *  더이상 사용하지 않음
+ **/
 public class ViewUnbindHelper {
     /**
      * Removes the reference to the activity from every view in a view hierarchy
