@@ -4,6 +4,7 @@
     <dimen name="rounded_corner_radius_unlock">5dp</dimen>
     <dimen name="rounded_corner_radius_unlock_listview">14dp</dimen>
     <dimen name="pro_dog_ear_size">32dp</dimen>
+    <dimen name="admob_smart_banner_height">50dp</dimen>
 
     <!-- 앱 전체적으로 쓰이는 패딩 -->
     <dimen name="margin_outer">6dp</dimen>

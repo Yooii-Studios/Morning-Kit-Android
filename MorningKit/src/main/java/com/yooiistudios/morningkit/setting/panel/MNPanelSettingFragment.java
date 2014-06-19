@@ -87,8 +87,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
     // 이전에 생성된 프래그먼트를 유지
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
     }
