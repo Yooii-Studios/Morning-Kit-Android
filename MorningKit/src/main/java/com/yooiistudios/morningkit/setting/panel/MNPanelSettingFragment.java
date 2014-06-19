@@ -354,13 +354,16 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
             // 언락 체크해 색을 따로 적용함
             ValueAnimator twinkleAnimation;
             if ((Integer) selectItemLayout.getTag() == MNPanelType.MEMO.getIndex() ||
-                    (Integer) selectItemLayout.getTag() == MNPanelType.DATE_COUNTDOWN.getIndex()) {
+                    (Integer) selectItemLayout.getTag() == MNPanelType.DATE_COUNTDOWN.getIndex() ||
+                    (Integer) selectItemLayout.getTag() == MNPanelType.PHOTO_FRAME.getIndex()) {
 
                 List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
                 if ((ownedSkus.indexOf(SKIabProducts.SKU_MEMO) == -1 &&
                         (Integer) selectItemLayout.getTag() == MNPanelType.MEMO.getIndex()) ||
                         (ownedSkus.indexOf(SKIabProducts.SKU_DATE_COUNTDOWN) == -1 &&
-                                (Integer) selectItemLayout.getTag() == MNPanelType.DATE_COUNTDOWN.getIndex())) {
+                                (Integer) selectItemLayout.getTag() == MNPanelType.DATE_COUNTDOWN.getIndex()) ||
+                        (ownedSkus.indexOf(SKIabProducts.SKU_PHOTO_FRAME) == -1 &&
+                                (Integer) selectItemLayout.getTag() == MNPanelType.PHOTO_FRAME.getIndex())) {
                     twinkleAnimation = MNTwinkleAnimator.makeLockPanelTwinkleAnimation(getActivity());
                 } else {
                     twinkleAnimation = MNTwinkleAnimator.makeTwinkleAnimation(getActivity());
@@ -374,7 +377,6 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
 
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
-//                    selectItemLayout.setSolidAreaColor((Integer) animator.getAnimatedValue());
                     ((GradientDrawable) selectItemLayout.getBackground()).setColor(
                             (Integer) animator.getAnimatedValue());
                 }
@@ -390,7 +392,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                     viewIndexToBeAnimatied++;
 
                     // 상점, 빈 두칸은 애니메이션을 넣지 않음
-                    if (viewIndexToBeAnimatied < secondFragment.getSelectItemLayouts().size() - 3) {
+                    if (viewIndexToBeAnimatied < secondFragment.getSelectItemLayouts().size() - 2) {
                         startRecursivePanelSelectSecondPagerGuideAnimation(secondFragment);
                     } else {
                         if (animationRemainingCount > 0) {

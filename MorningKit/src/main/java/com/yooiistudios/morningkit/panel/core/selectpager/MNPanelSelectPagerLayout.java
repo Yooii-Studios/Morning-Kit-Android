@@ -62,6 +62,11 @@ public class MNPanelSelectPagerLayout extends RelativeLayout {
                 ButterKnife.inject(this, v);
             }
         }
+
+        // 마이너스 패딩을 통해 다음 페이지를 바짝 땡겨 줌
+        int outerMargin = getResources().getDimensionPixelSize(R.dimen.margin_outer);
+        panelSelectPager.setClipToPadding(false);
+        panelSelectPager.setPageMargin(-1 * outerMargin);
     }
 
     public void loadPanelSelectPager(FragmentManager fragmentManager, MNPanelSelectPagerInterface panelSelectPagerInterface) {
