@@ -5,12 +5,15 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
 import com.flurry.android.FlurryAgent;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
@@ -19,12 +22,14 @@ import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPreferenceListAdapter;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
+import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundFactory;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundManager;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundType;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -49,8 +54,11 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     @Getter @Setter private MNAlarm alarm;
     @Getter private MNAlarmPreferenceType alarmPreferenceType;
     @Getter @InjectView(R.id.alarm_pref_listview) ListView listView;
-
     @Getter Menu actionBarMenu;
+
+    // Admob
+    @InjectView(R.id.alarm_pref_adview) AdView adView;
+    private View footerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +99,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         }
         initTitle();
         initListView();
+        initAdView();
     }
 
     // getSupportActionBar로 충분하나 테스트를 위해서 이렇게 작성
@@ -126,8 +135,28 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     }
 
     protected void initListView() {
+        // 애드몹 대응을 위한 FooterView, setAdapter 전에 호출 필요
+        footerView = LayoutInflater.from(this).inflate(R.layout.alarm_pref_list_footer_view, null, false);
+        listView.addFooterView(footerView);
+
         listView.setAdapter(new MNAlarmPreferenceListAdapter(this, alarm, alarmPreferenceType));
 //        MNAlarmPrefActivityBusProvider.getInstance().register(this);
+    }
+
+    private void initAdView() {
+        List<String> owndedSkus = SKIabProducts.loadOwnedIabProducts(this.getApplicationContext());
+        // 풀버전은 NO_ADS 포함
+        if (owndedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
+            adView.setVisibility(View.GONE);
+            if (footerView != null) {
+                listView.removeFooterView(footerView);
+            }
+        } else {
+            adView.setVisibility(View.VISIBLE);
+            AdRequest adRequest = new AdRequest.Builder()
+                    .build();
+            adView.loadAd(adRequest);
+        }
     }
 
     /**
