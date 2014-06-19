@@ -308,5 +308,6 @@
     <string name="recommend_to_friends">Recommend Morning Kit to your friends</string>
     <string name="recommend_title">Strongly recommend!</string>
     <string name="recommend_description">Just click and download :- )</string>
+    <string name="recommend_app_full_name">Morning Kit</string>
 
 </resources>

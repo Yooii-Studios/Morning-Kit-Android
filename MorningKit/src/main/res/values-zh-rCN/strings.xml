@@ -309,5 +309,6 @@
     <string name="recommend_to_friends">向朋友推荐早安工具</string>
     <string name="recommend_title">强烈推荐！</string>
     <string name="recommend_description">点击下载 :-)</string>
+    <string name="recommend_app_full_name">早安工具</string>
 
 </resources>
