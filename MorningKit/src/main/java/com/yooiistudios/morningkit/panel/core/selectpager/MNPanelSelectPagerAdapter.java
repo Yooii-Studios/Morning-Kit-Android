@@ -52,4 +52,10 @@ public class MNPanelSelectPagerAdapter extends FragmentPagerAdapter {
     private static String makeFragmentName(int viewId, int index) {
         return "android:switcher:" + viewId + ":" + index;
     }
+
+    // 중요!! 오른쪽만 패딩을 주되 작게 다음 페이지가 보일 수 있게 하는 방법. 퍼센트로 활용하나봄.
+    @Override
+    public float getPageWidth(int position) {
+        return 0.93f;
+    }
 }

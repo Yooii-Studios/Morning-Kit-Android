@@ -108,6 +108,7 @@
 
     <!-- Select Pager -->
     <dimen name="panel_select_pager_height">166dp</dimen>
+    <dimen name="panel_select_pager_padding">13dp</dimen>
     <dimen name="panel_select_pager_item_height">68dp</dimen>
     <dimen name="panel_select_pager_item_height_no_shadow">62dp</dimen>
     <dimen name="panel_select_pager_page_control_height">20dp</dimen>
