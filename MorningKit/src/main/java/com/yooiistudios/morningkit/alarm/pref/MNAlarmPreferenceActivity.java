@@ -135,9 +135,10 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     }
 
     protected void initListView() {
-        // 애드몹 대응을 위한 FooterView
+        // 애드몹 대응을 위한 FooterView, setAdapter 전에 호출 필요
         footerView = LayoutInflater.from(this).inflate(R.layout.alarm_pref_list_footer_view, null, false);
         listView.addFooterView(footerView);
+
         listView.setAdapter(new MNAlarmPreferenceListAdapter(this, alarm, alarmPreferenceType));
 //        MNAlarmPrefActivityBusProvider.getInstance().register(this);
     }
@@ -153,8 +154,6 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         } else {
             adView.setVisibility(View.VISIBLE);
             AdRequest adRequest = new AdRequest.Builder()
-//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-//                .addTestDevice("TEST_DEVICE_ID")
                     .build();
             adView.loadAd(adRequest);
         }
