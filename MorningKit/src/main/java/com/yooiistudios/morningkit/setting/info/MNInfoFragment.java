@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.setting.info;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -14,8 +15,6 @@ import android.widget.ListView;
 import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
-import com.yooiistudios.morningkit.common.log.MNLog;
-import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
 import com.yooiistudios.morningkit.setting.info.credit.MNCreditActivity;
 import com.yooiistudios.morningkit.setting.info.moreinfo.MNMoreInfoActivity;
@@ -143,15 +142,21 @@ public class MNInfoFragment extends Fragment implements MNInfoItemClickListener 
                 }
                 String message = title + "\n" + getString(R.string.recommend_description) + "\n" + link;
                 intent.putExtra(Intent.EXTRA_TEXT, message);
-                getActivity().startActivity(Intent.createChooser(intent, title));
+
+                // createChooser Intent
+                Intent createChooser = Intent.createChooser(intent, title);
+
+                // PendingIntent 가 완벽한 해법
+                // (가로 모드에서 설정으로 와서 친구 추천하기를 누를 때 계속 반복 호출되는 상황을 막기 위함)
+                PendingIntent pendingIntent =
+                        PendingIntent.getActivity(getActivity(), 0, createChooser, 0);
+
+                try {
+                    pendingIntent.send();
+                } catch(PendingIntent.CanceledException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        MNLog.i(TAG, "onDestroy");
-        ViewUnbindHelper.unbindReferences(listView);
     }
 }
