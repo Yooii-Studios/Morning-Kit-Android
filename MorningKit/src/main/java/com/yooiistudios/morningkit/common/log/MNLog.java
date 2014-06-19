@@ -10,7 +10,7 @@ import android.util.Log;
  */
 public class MNLog {
     private MNLog() { throw new AssertionError("You MUST not create this class!"); }
-    public static final boolean isDebug = false;
+    public static final boolean isDebug = true;
 
     public static void now(String message) {
         if (isDebug) {
