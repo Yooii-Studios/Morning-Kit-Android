@@ -308,5 +308,6 @@
     <string name="recommend_to_friends">친구에게 추천하기</string>
     <string name="recommend_title">강력 추천!!</string>
     <string name="recommend_description">당황하지 않고 클릭해서 다운받으면~ 끝!</string>
+    <string name="recommend_app_full_name">모닝키트</string>
 
 </resources>

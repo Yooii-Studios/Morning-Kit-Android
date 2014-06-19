@@ -268,45 +268,46 @@
 
     <!-- Android Only -->
     <!-- General -->
-    <string name="action_bar_up_button_main">Main</string>
-    <string name="store_item_full_version">Full Version</string>
+    <string name="action_bar_up_button_main">主選單</string>
+    <string name="store_item_full_version">完整版</string>
 
     <!-- Alarm -->
-    <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
+    <string name="alarm_set_for_less_than_1_minute">鬧鈴不超過1分鐘</string>
 
         <!-- Prefs -->
-    <string name="alarm_pref_volume">Volume</string>
+    <string name="alarm_pref_volume">音量</string>
 
     <!-- Panel -->
         <!-- Flickr -->
-    <string name="saving">Saving…</string>
+    <string name="saving">儲存中…</string>
 
         <!-- World Clock -->
     <string name="no_search_result">查無搜尋結果</string>
 
         <!-- Calendar -->
-    <string name="calendar_select_calendars">Select Calendars</string>
+    <string name="calendar_select_calendars">選擇日曆</string>
 
         <!-- Photo Album -->
-    <string name="photo_album">Photo Frame</string>
-    <string name="photo_album_no_image">No image available</string>
-    <string name="photo_album_error_getting_photo">Error occurred while getting photo</string>
-    <string name="photo_album_label_refresh_time">Refresh Time</string>
-    <string name="photo_album_label_transition_type">Transition Type</string>
-    <string name="photo_album_minute_hint">min</string>
-    <string name="photo_album_minute">min</string>
-    <string name="photo_album_second_hint">sec</string>
-    <string name="photo_album_second">sec</string>
-    <string name="photo_album_transition_none">None</string>
+    <string name="photo_album">相框</string>
+    <string name="photo_album_no_image">無照片</string>
+    <string name="photo_album_error_getting_photo">獲取相片失敗</string>
+    <string name="photo_album_label_refresh_time">刷新時間</string>
+    <string name="photo_album_label_transition_type">切換方式</string>
+    <string name="photo_album_minute_hint">分</string>
+    <string name="photo_album_minute">分</string>
+    <string name="photo_album_second_hint">秒</string>
+    <string name="photo_album_second">秒</string>
+    <string name="photo_album_transition_none">無</string>
     <string name="photo_album_transition_alpha">Alpha</string>
-    <string name="photo_album_load">Load</string>
+    <string name="photo_album_load">載入</string>
 
     <!-- Theme -->
-    <string name="setting_theme_color_pastel_green">Pastel Green</string>
+    <string name="setting_theme_color_pastel_green">淺綠</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">向朋友推薦早安工具</string>
     <string name="recommend_title">強烈推薦！</string>
     <string name="recommend_description">點擊下載 :-)</string>
+    <string name="recommend_app_full_name">早安工具</string>
 
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
@@ -98,6 +99,14 @@ public class MNAnalogClockView extends RelativeLayout {
         secondHandLayoutParams.addRule(CENTER_IN_PARENT);
         secondHandImageView.setLayoutParams(secondHandLayoutParams);
         addView(secondHandImageView);
+
+        // 4.4.3 최신 OS에 회전시 깨지는 현상이 있어 이를 해결
+        // https://code.google.com/p/android/issues/detail?id=70914
+        if (Build.VERSION.SDK_INT >= 11) {
+            hourHandImageView.setLayerType(LAYER_TYPE_HARDWARE, null);
+            minuteHandImageView.setLayerType(LAYER_TYPE_HARDWARE, null);
+            secondHandImageView.setLayerType(LAYER_TYPE_HARDWARE, null);
+        }
     }
 
     // 시, 분, 초를 대입해서 애니메이션 작동이 되게 한다

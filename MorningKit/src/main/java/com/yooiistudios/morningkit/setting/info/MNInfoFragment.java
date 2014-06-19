@@ -125,19 +125,13 @@ public class MNInfoFragment extends Fragment implements MNInfoItemClickListener 
             }
 
             case RECOMMEND:
-                String appName = getString(R.string.app_name);
+                String appName = getString(R.string.recommend_app_full_name);
                 String title = getString(R.string.recommend_title) + " [" + appName + "]";
 
-//            String link = "<a href=\"" + "market://details?id=" + act.getPackageName() + "\">" + act.getString(R.string.action_share_message_link, appName) + "</a>";
-//            String shareMessage = act.getString(R.string.action_share_message, appName, link);
-
                 Intent intent = new Intent(Intent.ACTION_SEND);
-//            intent.setType("text/html");
-//            intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(shareMessage));
-
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_SUBJECT, title);
-//                String link = "https://play.google.com/store/apps/details?id=" + getActivity().getPackageName();
+
                 String link;
                 if (MNStoreFragment.IS_STORE_FOR_NAVER) {
                     // 1500436# 은 여행의신(productNo)
