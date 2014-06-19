@@ -113,6 +113,7 @@
     <!-- innerMargin + innerMargin + NoShadowHeight + -->
     <!-- innerMargin + innerMargin + NoShadowHeight + innerMargin + innerMargin + pageControlHeight + innerMargin -->
     <dimen name="panel_select_pager_height">233dp</dimen>                   <!--Done-->
+    <dimen name="panel_select_pager_padding">18.2dp</dimen>                 <!--Done-->
     <dimen name="panel_select_pager_item_height">68dp</dimen>               <!--UnDone, 사용안함-->
     <dimen name="panel_select_pager_item_height_no_shadow">90dp</dimen>     <!--Done-->
     <dimen name="panel_select_pager_page_control_height">25dp</dimen>       <!--Done-->
