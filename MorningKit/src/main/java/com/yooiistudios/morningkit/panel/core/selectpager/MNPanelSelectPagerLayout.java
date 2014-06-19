@@ -63,12 +63,10 @@ public class MNPanelSelectPagerLayout extends RelativeLayout {
             }
         }
 
-        // 오른쪽 패딩을 줌
-        int padding = getResources().getDimensionPixelSize(R.dimen.panel_select_pager_padding);
+        // 마이너스 패딩을 통해 다음 페이지를 바짝 땡겨 줌
         int outerMargin = getResources().getDimensionPixelSize(R.dimen.margin_outer);
-        panelSelectPager.setPadding(0, 0, padding, 0);
-        panelSelectPager.setPageMargin(-1 * outerMargin);
         panelSelectPager.setClipToPadding(false);
+        panelSelectPager.setPageMargin(-1 * outerMargin);
     }
 
     public void loadPanelSelectPager(FragmentManager fragmentManager, MNPanelSelectPagerInterface panelSelectPagerInterface) {
