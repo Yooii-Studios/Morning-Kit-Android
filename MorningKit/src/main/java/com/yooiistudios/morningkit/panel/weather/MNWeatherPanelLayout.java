@@ -72,7 +72,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 
     private static final String TAG = "MNWeatherPanelLayout";
 
-    protected static final String WEATHER_DATA_IS_USING_CURRENT_LOCATION = "WEATHER_IS_USING_CURRENT_LOCATION";
+    public static final String WEATHER_DATA_IS_USING_CURRENT_LOCATION = "WEATHER_IS_USING_CURRENT_LOCATION";
     protected static final String WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME = "WEATHER_INDICATE_LOCAL_TIME";
     protected static final String WEATHER_DATA_TEMP_CELSIUS = "WEATHER_TEMP_CELSIUS";
     protected static final String WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO = "WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO";
@@ -295,18 +295,23 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             // 현재 위치는 locationClient에서 위치를 받아와 콜백 메서드에서 로직을 진행
             locationClient.connect();
         } else {
-            // find previous data from cache
-            MNWeatherData cachedWeatherData = searchCityWeatherDataCache.findWeatherCache(
-                    selectedLocationInfo.getLatitude(), selectedLocationInfo.getLongitude());
+            if (selectedLocationInfo != null) {
+                // find previous data from cache
+                MNWeatherData cachedWeatherData = searchCityWeatherDataCache.findWeatherCache(
+                        selectedLocationInfo.getLatitude(), selectedLocationInfo.getLongitude());
 
-            if (cachedWeatherData != null) {
-                // use cache if exist
-                weatherData = cachedWeatherData;
-                updateUI();
+                if (cachedWeatherData != null) {
+                    // use cache if exist
+                    weatherData = cachedWeatherData;
+                    updateUI();
+                } else {
+                    // get weather data from server if cache doesn't exist
+                    weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), true, this);
+                    weatherWWOAsyncTask.execute();
+                }
             } else {
-                // get weather data from server if cache doesn't exist
-                weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), true, this);
-                weatherWWOAsyncTask.execute();
+                // 네이버 인앱 현재위치 사용 안함시 도시 선택을 요청
+                showCoverLayout(getResources().getString(R.string.weather_choose_your_city));
             }
         }
 
