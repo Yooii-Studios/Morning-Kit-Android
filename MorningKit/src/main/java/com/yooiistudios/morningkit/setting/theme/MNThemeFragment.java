@@ -97,12 +97,6 @@ public class MNThemeFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        ViewUnbindHelper.unbindReferences(listView);
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         MNThemeItemType themeItemType = MNThemeItemType.valueOf(i);
         switch (themeItemType) {

@@ -2,12 +2,14 @@ package com.yooiistudios.morningkit.main;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -37,8 +39,12 @@ import com.yooiistudios.morningkit.common.validate.AppValidationChecker;
 import com.yooiistudios.morningkit.main.layout.MNMainButtonLayout;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
+import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
+import com.yooiistudios.morningkit.panel.core.MNPanelType;
+import com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
+import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
@@ -47,6 +53,8 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
 import com.yooiistudios.morningkit.theme.MNMainResources;
 import com.yooiistudios.morningkit.theme.font.MNTranslucentFont;
+
+import org.json.JSONException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -122,10 +130,12 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         // 튜토리얼 체크
         if (!MNTutorialManager.isTutorialShown(getApplicationContext())) {
-            // 튜토리얼 전 세로고정 설정
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-            MNTutorialLayout tutorialLayout = new MNTutorialLayout(getApplicationContext(), this);
-            containerLayout.addView(tutorialLayout);
+            // 네이버 앱스토어에서는 현재 날씨 사용부터 먼저 묻기(반려 사유)
+            if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+                askUsingCurrentLocationDialog(); // 확인/취소하고 튜토리얼 시작
+            } else {
+                showTutorialLayout();
+            }
         }
 
         // 플러리
@@ -654,5 +664,52 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 }
             }
         }).start();
+    }
+
+    private void askUsingCurrentLocationDialog() {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_DARK);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
+        builder.setPositiveButton("사용", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // 사용시엔 특별히 할 것이 없음
+                showTutorialLayout();
+            }
+        }).setNegativeButton("사용 안함", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // 사용 안함 시에는 날씨 패널 오브젝트 설정해주고 리프레시
+                MNPanelLayout weatherPanelLayout = panelWindowLayout.getPanelLayouts()[0];
+                if (weatherPanelLayout != null && weatherPanelLayout.getPanelType() == MNPanelType.WEATHER &&
+                        weatherPanelLayout.getPanelDataObject() != null) {
+                    try {
+                        weatherPanelLayout.getPanelDataObject().put(
+                                MNWeatherPanelLayout.WEATHER_DATA_IS_USING_CURRENT_LOCATION, false);
+                        weatherPanelLayout.refreshPanel();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                showTutorialLayout();
+            }
+        });
+        AlertDialog wakeDialog = builder.create();
+        wakeDialog.setCancelable(false);
+        wakeDialog.setCanceledOnTouchOutside(false);
+        wakeDialog.setTitle(R.string.app_name);
+        wakeDialog.setMessage("현재 위치를 사용하시겠습니까?");
+        wakeDialog.show();
+    }
+
+    private void showTutorialLayout() {
+
+        // 튜토리얼 전 세로고정 설정
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        MNTutorialLayout tutorialLayout = new MNTutorialLayout(getApplicationContext(), this);
+        containerLayout.addView(tutorialLayout);
     }
 }
