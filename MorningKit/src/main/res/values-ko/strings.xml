@@ -161,7 +161,7 @@
 	<string name="tab_widget">패널</string>
 	<string name="tab_alarm">알람</string>
 	<string name="tab_setting">설정</string>
-	<string name="tab_theme">테마</string>
+	<string name="tab_theme">테마/언어</string>
 	<string name="tab_info">정보</string>
 
 	<!-- Setting (General) -->
