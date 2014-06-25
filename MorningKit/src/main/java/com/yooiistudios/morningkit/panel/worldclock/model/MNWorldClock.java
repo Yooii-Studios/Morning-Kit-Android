@@ -68,13 +68,12 @@ public class MNWorldClock {
             cityName = timeZone.getName();
         }
         this.timeZone = timeZone;
-        tick();
 
         // tick을 진행한 후에 daylight saving time을 다시 확인해야 함. GMT+-X 때문(날짜)
-        if (MNTimeZoneUtils.isDaylightSavingTime(timeZone, worldClockCalendar)) {
-            isDaylightSavingTime = true;
-            tick();
-        }
+        // -> 버그 발견. DST 적용 후에 tick을 진행해야만 함. 수정(1.0.1)
+//        tick();
+        isDaylightSavingTime = MNTimeZoneUtils.isDaylightSavingTime(timeZone, worldClockCalendar);
+        tick();
     }
 
     public String getUpperCasedTimeZoneString() {
