@@ -222,6 +222,11 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
                 public void onClick(View v) {
                     panelSelectPagerInterface.onPanelSelectPagerUnlockItemClick((Integer) v.getTag());
                     startUnlockActivity(SKIabProducts.SKU_PHOTO_FRAME, v.getContext());
+
+                    // 플러리
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put(MNFlurry.CALLED_FROM, "Photo Frame");
+                    FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
                 }
             });
         } else {
