@@ -161,11 +161,11 @@
 	<string name="tab_widget">パネル</string>
 	<string name="tab_alarm">アラーム</string>
 	<string name="tab_setting">設定</string>
-	<string name="tab_theme">テーマ</string>
+	<string name="tab_theme">テーマ/言語</string>
 	<string name="tab_info">情報</string>
 
 	<!-- Setting (General) -->
-	<string name="setting_language">言語</string>
+	<string name="setting_language">言語 / Language</string>
 	<string name="setting_widgettable">パネル配列</string>
 	<string name="setting_theme_color">背景テーマ</string>
 	<string name="setting_theme_color_skyblue">空 （空色）</string>
@@ -273,6 +273,7 @@
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">1分以内にアラームが鳴ります</string>
+    <string name="alarm_status_bar_icon">アラームアイコンを表示</string>
 
         <!-- Prefs -->
     <string name="alarm_pref_volume">ボリューム</string>

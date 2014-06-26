@@ -80,6 +80,33 @@ public class MNAlarmPrefItemMaker {
         return convertView;
     }
 
+    public static View makeVibrateItem(Context context, ViewGroup parent, final MNAlarm alarm) {
+        View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_snooze_item, parent, false);
+        final MNAlarmPrefSnoozeItemViewHolder viewHolder = new MNAlarmPrefSnoozeItemViewHolder(convertView);
+        convertView.setTag(viewHolder);
+
+        viewHolder.titleTextView.setText(R.string.alarm_sound_string_vibrate);
+
+        if (alarm.isVibrateOn()) {
+            viewHolder.snoozeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+        } else {
+            viewHolder.snoozeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+        }
+        viewHolder.snoozeCheckImageButton.setClickable(false);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alarm.setVibrateOn(!alarm.isVibrateOn());
+                if (alarm.isVibrateOn()) {
+                    viewHolder.snoozeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+                } else {
+                    viewHolder.snoozeCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+                }
+            }
+        });
+        return convertView;
+    }
+
     public static View makeVolumeItem(Context context, ViewGroup parent, final MNAlarm alarm) {
         View convertView = LayoutInflater.from(context).inflate(R.layout.alarm_pref_list_volume_item, parent, false);
         final MNAlarmPrefVolumeItemViewHolder viewHolder = new MNAlarmPrefVolumeItemViewHolder(convertView);

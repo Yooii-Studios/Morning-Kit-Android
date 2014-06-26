@@ -17,6 +17,7 @@ import com.google.android.gms.ads.AdView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
+import com.yooiistudios.morningkit.setting.theme.alarmstatusbar.MNAlarmStatusBarIconActivity;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageActivity;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixActivity;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
@@ -110,6 +111,10 @@ public class MNThemeFragment extends Fragment implements AdapterView.OnItemClick
 
             case PANEL_MATRIX:
                 startActivity(new Intent(getActivity(), MNPanelMatrixActivity.class));
+                break;
+
+            case ALARM_STATUS_BAR:
+                startActivity(new Intent(getActivity(), MNAlarmStatusBarIconActivity.class));
                 break;
         }
     }

@@ -47,6 +47,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     public static final String ALARM_PREFERENCE_ALARM_ID = "ALARM_PREFERENCE_ALARM_ID";
     public static final String ALARM_SHARED_PREFS = "ALARM_SHARED_PREFS";
     public static final String ALARM_SHARED_PREFS_ALARM_SNOOZE_ON = "ALARM_SHARED_PREFS_ALARM_SNOOZE_ON";
+    public static final String ALARM_SHARED_PREFS_ALARM_VIBRATE_ON = "ALARM_SHARED_PREFS_ALARM_VIBRATE_ON";
     public static final String ALARM_SHARED_PREFS_ALARM_VOLUME = "ALARM_SHARED_PREFS_ALARM_VOLUME";
     private static final String TAG = "MNAlarmPreferenceActivity";
 
@@ -84,10 +85,11 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
                 alarm = MNAlarmMaker.makeAlarm(getApplicationContext());
                 alarm.getAlarmCalendar().add(Calendar.MINUTE, 1); // 추가시에는 1분을 추가해 주기
 
-                // 알람 추가일 경우에는 최근 스누즈 사용 여부를 적용
+                // 알람 추가일 경우에는 최근 스누즈 사용 여부를 적용, 볼륨, 진동 사용 여부도.
                 SharedPreferences prefs = getSharedPreferences(ALARM_SHARED_PREFS, MODE_PRIVATE);
                 alarm.setSnoozeOn(prefs.getBoolean(ALARM_SHARED_PREFS_ALARM_SNOOZE_ON, true));
                 alarm.setAlarmVolume(prefs.getInt(ALARM_SHARED_PREFS_ALARM_VOLUME, 70));
+                alarm.setVibrateOn(prefs.getBoolean(ALARM_SHARED_PREFS_ALARM_VIBRATE_ON, true));
             }
             if ((alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.MUSIC ||
                     alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.RINGTONE) &&
@@ -139,7 +141,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         footerView = LayoutInflater.from(this).inflate(R.layout.alarm_pref_list_footer_view, null, false);
         listView.addFooterView(footerView);
 
-        listView.setAdapter(new MNAlarmPreferenceListAdapter(this, alarm, alarmPreferenceType));
+        listView.setAdapter(new MNAlarmPreferenceListAdapter(this, alarm));
 //        MNAlarmPrefActivityBusProvider.getInstance().register(this);
     }
 
@@ -192,10 +194,11 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     private void applyAlarmPreferneces() {
         alarm.startAlarm(this);
 
-        // 알람 저장하기 전에 스누즈 여부, 볼륨을 저장
+        // 알람 저장하기 전에 스누즈 여부, 볼륨, 진동을 저장
         SharedPreferences prefs = getSharedPreferences(ALARM_SHARED_PREFS, MODE_PRIVATE);
         prefs.edit().putBoolean(ALARM_SHARED_PREFS_ALARM_SNOOZE_ON, alarm.isSnoozeOn()).commit();
         prefs.edit().putInt(ALARM_SHARED_PREFS_ALARM_VOLUME, alarm.getAlarmVolume()).commit();
+        prefs.edit().putBoolean(ALARM_SHARED_PREFS_ALARM_VIBRATE_ON, alarm.isVibrateOn()).commit();
 
         // 알람 저장
         switch (alarmPreferenceType) {

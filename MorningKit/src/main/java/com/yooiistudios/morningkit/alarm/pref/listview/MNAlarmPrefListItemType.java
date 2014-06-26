@@ -7,7 +7,7 @@ package com.yooiistudios.morningkit.alarm.pref.listview;
  *  순서의 수정의 용이성을 위해 enum으로 선언
  */
 public enum MNAlarmPrefListItemType {
-    TIME, REPEAT, LABEL, SOUND, SNOOZE, VOLUME; // SOUND_NAME,
+    TIME, REPEAT, LABEL, SOUND, SNOOZE, VIBRATE, VOLUME; // SOUND_NAME,
 
 //    @Getter private final int index;
 //    MNAlarmPrefListItemType(int index) {
@@ -23,7 +23,8 @@ public enum MNAlarmPrefListItemType {
     private static final int SOUND_INDEX = 3;
 //    private static final int SOUND_NAME_INDEX = 3;
     private static final int SNOOZE_INDEX = 4;
-    private static final int VOLUME_INDEX = 5;
+    private static final int VIBRATE_INDEX = 5;
+    private static final int VOLUME_INDEX = 6;
 
     /**
      * Methods
@@ -39,6 +40,7 @@ public enum MNAlarmPrefListItemType {
             case SOUND_INDEX: return SOUND;
 //            case SOUND_NAME_INDEX: return SOUND_NAME;
             case SNOOZE_INDEX: return SNOOZE;
+            case VIBRATE_INDEX: return VIBRATE;
             case VOLUME_INDEX: return VOLUME;
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }

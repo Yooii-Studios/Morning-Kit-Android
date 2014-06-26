@@ -161,11 +161,11 @@
 	<string name="tab_widget">面板</string>
 	<string name="tab_alarm">鬧鐘</string>
 	<string name="tab_setting">設定</string>
-	<string name="tab_theme">主題</string>
+	<string name="tab_theme">主題/語言</string>
 	<string name="tab_info">資訊</string>
 
 	<!-- Setting (General) -->
-	<string name="setting_language">語言</string>
+	<string name="setting_language">語言 / Language</string>
 	<string name="setting_widgettable">面板方陣</string>
 	<string name="setting_theme_color">主題背景</string>
 	<string name="setting_theme_color_skyblue">天上 (天空藍)</string>
@@ -273,6 +273,7 @@
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">鬧鈴不超過1分鐘</string>
+    <string name="alarm_status_bar_icon">顯示鬧鐘圖標</string>
 
         <!-- Prefs -->
     <string name="alarm_pref_volume">音量</string>

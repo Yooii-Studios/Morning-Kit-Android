@@ -65,6 +65,7 @@ public class MNFlurry {
     // 테마 안에서의 선택을 로그
     public static final String ON_SETTING_THEME = "On Setting - Theme";
     public static final String PANEL_MATRIX = "Panel Matrix";
+    public static final String ALARM_STATUS_BAR_ICON_TYPE = "Alarm Status Bar Icon Type";
 
     // 어디서 상점이 불렸는지 로그
     public static final String STORE = "Store";

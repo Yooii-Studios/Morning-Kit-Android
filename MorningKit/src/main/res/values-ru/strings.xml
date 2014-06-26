@@ -167,7 +167,7 @@
 	<string name="tab_info">Информация</string>
 
 	<!-- Setting (General) -->
-	<string name="setting_language">Язык</string>
+	<string name="setting_language">Язык / Language</string>
 	<string name="setting_widgettable">Матрица панели</string>
 	<string name="setting_theme_color">Тема</string>
 	<string name="setting_theme_color_skyblue">Небесный (Голубой)</string>
@@ -275,6 +275,7 @@
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">Сигнализация установлена ​​менее чем за 1 минуту</string>
+    <string name="alarm_status_bar_icon">"Показать Пиктограмма тревоги"</string>
 
         <!-- Prefs -->
     <string name="alarm_pref_volume">громкость</string>
