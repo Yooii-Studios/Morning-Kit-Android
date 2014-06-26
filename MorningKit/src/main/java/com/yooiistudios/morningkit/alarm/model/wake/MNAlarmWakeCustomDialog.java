@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,6 +103,10 @@ public class MNAlarmWakeCustomDialog {
                     alarmWakeCustomView.alarmImageView.clearAnimation();
                     SKAlarmSoundPlayer.stop();
 
+                    // stop vibrator
+                    Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.cancel();
+
                     MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), context);
                     targetAlarm.stopAlarm(context);
                     if (targetAlarm.isRepeatOn()) {
@@ -129,6 +134,10 @@ public class MNAlarmWakeCustomDialog {
                         wakeDialog.dismiss();
                         alarmWakeCustomView.alarmImageView.clearAnimation();
                         SKAlarmSoundPlayer.stop();
+
+                        // stop vibrator
+                        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                        vibrator.cancel();
 
                         MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), context);
                         targetAlarm.snoozeAlarm(context);
@@ -190,6 +199,10 @@ public class MNAlarmWakeCustomDialog {
 
                 // stop alarm sound
                 SKAlarmSoundPlayer.stop();
+
+                // stop vibrator
+                Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.cancel();
 
                 // manipulate target alarm
                 MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarmId, context);
