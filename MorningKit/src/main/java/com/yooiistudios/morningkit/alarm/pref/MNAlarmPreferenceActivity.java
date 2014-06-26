@@ -141,7 +141,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         footerView = LayoutInflater.from(this).inflate(R.layout.alarm_pref_list_footer_view, null, false);
         listView.addFooterView(footerView);
 
-        listView.setAdapter(new MNAlarmPreferenceListAdapter(this, alarm, alarmPreferenceType));
+        listView.setAdapter(new MNAlarmPreferenceListAdapter(this, alarm));
 //        MNAlarmPrefActivityBusProvider.getInstance().register(this);
     }
 

@@ -2,6 +2,8 @@ package com.yooiistudios.morningkit.alarm.pref.listview;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,7 +11,6 @@ import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceType;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefLabelItemMaker;
 import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefRepeatItemMaker;
@@ -29,19 +30,26 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
     private static final String TAG = "MNAlarmPreferenceListAdapter";
     private Context context;
     private MNAlarm alarm;
-    private MNAlarmPreferenceType alarmPreferenceType;
 
     private MNAlarmPreferenceListAdapter() {}
-    public MNAlarmPreferenceListAdapter(Context context, MNAlarm alarm, MNAlarmPreferenceType alarmPreferenceType) {
+    public MNAlarmPreferenceListAdapter(Context context, MNAlarm alarm) {
         this.context = context;
         this.alarm = alarm;
-        this.alarmPreferenceType = alarmPreferenceType;
         MNAlarmPrefBusProvider.getInstance().register(this);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        boolean hasVibrator = true;
+        if (Build.VERSION.SDK_INT > 10) {
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            hasVibrator = vibrator.hasVibrator();
+        }
+        // 바이브레이터가 없을 때는 표시하지 않게 구현
         MNAlarmPrefListItemType indexType = MNAlarmPrefListItemType.valueOf(position);
+        if (indexType == MNAlarmPrefListItemType.VIBRATE && !hasVibrator) {
+            indexType = MNAlarmPrefListItemType.valueOf(position + 1);
+        }
         switch (indexType) {
             case REPEAT:
                 convertView = MNAlarmPrefRepeatItemMaker.makeRepeatItem(context, parent, alarm);
@@ -80,7 +88,14 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
 
     @Override
     public int getCount() {
-        return MNAlarmPrefListItemType.values().length;
+        int vibratorOffset = 0;
+        if (Build.VERSION.SDK_INT > 10) {
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            if (!vibrator.hasVibrator()) {
+                vibratorOffset = 1;
+            }
+        }
+        return MNAlarmPrefListItemType.values().length - vibratorOffset;
     }
 
     /**
