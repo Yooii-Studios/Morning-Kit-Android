@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.alarm.model.wake;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
@@ -33,6 +34,13 @@ public class MNAlarmWake {
 //                MNAlarmWakeDialog.show(alarm, context);
                 MNAlarmWakeCustomDialog.show(alarm, context);
                 SKAlarmSoundPlayer.playAlarmSound(alarm.getAlarmSound(), alarm.getAlarmVolume(), context);
+
+                // 진동 추가 구현
+                if (alarm.isVibrateOn()) {
+                    Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                    long[] pattern = { 500, 1000, 500, 1000, 500 };         // 진동, 무진동, 진동 무진동 숫으로 시간을 설정한다.
+                    vibrator.vibrate(pattern, 0);                           // 패턴을 지정하고 반복횟수를 지정
+                }
             } else {
                 throw new AssertionError("The target alarm must exist in the list.");
             }

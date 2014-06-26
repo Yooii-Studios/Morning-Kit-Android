@@ -55,6 +55,9 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
             case SNOOZE:
                 convertView = MNAlarmPrefItemMaker.makeSnoozeItem(context, parent, alarm);
                 break;
+            case VIBRATE:
+                convertView = MNAlarmPrefItemMaker.makeVibrateItem(context, parent, alarm);
+                break;
             case TIME:
                 convertView = MNAlarmPrefItemMaker.makeTimeItem(context, parent, alarm);
                 break;

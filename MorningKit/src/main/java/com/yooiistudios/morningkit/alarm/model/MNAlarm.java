@@ -34,6 +34,7 @@ public class MNAlarm implements Serializable, Cloneable {
     @Getter @Setter private boolean             isAlarmOn;
     @Getter @Setter private boolean             isSnoozeOn;
     @Getter @Setter private boolean             isRepeatOn;
+    @Getter @Setter private boolean             isVibrateOn;
 
     @Getter @Setter private ArrayList<Boolean>  alarmRepeatList;
 
