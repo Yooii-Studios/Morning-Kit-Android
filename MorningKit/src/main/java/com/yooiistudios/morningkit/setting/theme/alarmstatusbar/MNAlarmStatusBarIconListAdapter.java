@@ -7,8 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.alarm.model.MNAlarm;
+import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
+import com.yooiistudios.morningkit.alarm.model.notification.MNAlarmNotificationChecker;
 import com.yooiistudios.morningkit.setting.theme.MNSettingThemeDetailItemViewHolder;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSoundType;
+
+import java.util.ArrayList;
 
 /**
  * Created by StevenKim in MNSettingActivityProject from Yooii Studios Co., LTD. on 2014. 1. 15.
@@ -60,20 +65,16 @@ public class MNAlarmStatusBarIconListAdapter extends BaseAdapter {
                 viewHolder.getCheckImageView().setVisibility(View.GONE);
             }
 
-            // theme
-//            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(activity);
-//
-//            viewHolder.getOuterLayout().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-//            viewHolder.getTitleTextView().setTextColor(MNSettingColors.getMainFontColor(currentThemeType));
-//            viewHolder.getCheckImageView().setImageResource(MNSettingResources.getCheckResourceId(currentThemeType));
-//            viewHolder.getLockImageView().setImageResource(MNSettingResources.getLockResourceId(currentThemeType));
-//            viewHolder.getInnerLayout().setBackgroundResource(MNSettingResources.getItemSelectorResourcesId(currentThemeType));
-
             // onClick
             viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // 선택 적용
                     MNAlarmStatusBarIcon.setAlarmStatusBarIconType(MNAlarmStatusBarIconType.valueOf(position), activity);
+                    ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(activity);
+
+                    // 다시 노티피케이션 체크
+                    MNAlarmNotificationChecker.checkNotificationState(alarmList, activity);
                     activity.finish();
                 }
             });
