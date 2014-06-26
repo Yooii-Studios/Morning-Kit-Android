@@ -273,6 +273,7 @@
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">알람이 1분 내에 울립니다</string>
+    <string name="alarm_status_bar_icon">상태바에 알람 아이콘 표시</string>
 
         <!-- Prefs -->
     <string name="alarm_pref_volume">볼륨</string>

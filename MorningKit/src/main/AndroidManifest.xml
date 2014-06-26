@@ -150,6 +150,18 @@
                 android:value="com.yooiistudios.morningkit.setting.MNSettingActivity" />
         </activity>
         <activity
+            android:name="com.yooiistudios.morningkit.setting.theme.alarmstatusbar.MNAlarmStatusBarIconActivity"
+            android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
+            android:screenOrientation="sensorPortrait"
+            android:configChanges="locale|layoutDirection"
+            android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yooiistudios.morningkit.setting.MNSettingActivity" />
+        </activity>
+        <activity
             android:name="com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeDetailActivity"
             android:parentActivityName="com.yooiistudios.morningkit.setting.MNSettingActivity"
             android:screenOrientation="sensorPortrait"

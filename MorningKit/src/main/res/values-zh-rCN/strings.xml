@@ -274,6 +274,7 @@
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">闹铃短于1分钟</string>
+    <string name="alarm_status_bar_icon">显示闹钟图标</string>
 
         <!-- Prefs -->
     <string name="alarm_pref_volume">音量</string>

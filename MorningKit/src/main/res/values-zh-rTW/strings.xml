@@ -273,6 +273,7 @@
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">鬧鈴不超過1分鐘</string>
+    <string name="alarm_status_bar_icon">顯示鬧鐘圖標</string>
 
         <!-- Prefs -->
     <string name="alarm_pref_volume">音量</string>

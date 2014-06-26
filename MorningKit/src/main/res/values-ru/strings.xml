@@ -275,6 +275,7 @@
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">Сигнализация установлена ​​менее чем за 1 минуту</string>
+    <string name="alarm_status_bar_icon">"Показать Пиктограмма тревоги"</string>
 
         <!-- Prefs -->
     <string name="alarm_pref_volume">громкость</string>

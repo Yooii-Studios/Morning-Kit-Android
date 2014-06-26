@@ -273,6 +273,7 @@
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">1分以内にアラームが鳴ります</string>
+    <string name="alarm_status_bar_icon">アラームアイコンを表示</string>
 
         <!-- Prefs -->
     <string name="alarm_pref_volume">ボリューム</string>

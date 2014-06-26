@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.setting.theme;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +9,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
+import com.yooiistudios.morningkit.setting.theme.alarmstatusbar.MNAlarmStatusBarIcon;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
-import com.yooiistudios.morningkit.setting.theme.language.MNLanguageActivity;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
-import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixActivity;
-import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeDetailActivity;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import butterknife.ButterKnife;
@@ -67,6 +62,18 @@ public class MNThemeListAdapter extends BaseAdapter {
                             break;
                         case PANEL_MATRIX_2X3:
                             viewHolder.getDetailTextView().setText("2 X 3");
+                            break;
+                    }
+                    break;
+
+                case ALARM_STATUS_BAR:
+                    viewHolder.getTitleTextView().setText(R.string.alarm_status_bar_icon);
+                    switch (MNAlarmStatusBarIcon.getCurrentAlarmStatusBarIconType(context)) {
+                        case ON:
+                            viewHolder.getDetailTextView().setText(R.string.setting_effect_sound_on);
+                            break;
+                        case OFF:
+                            viewHolder.getDetailTextView().setText(R.string.setting_effect_sound_off);
                             break;
                     }
                     break;
