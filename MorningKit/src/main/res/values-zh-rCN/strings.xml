@@ -162,11 +162,11 @@
 	<string name="tab_widget">面板</string>
 	<string name="tab_alarm">闹钟</string>
 	<string name="tab_setting">设置</string>
-	<string name="tab_theme">主题</string>
+	<string name="tab_theme">主题/语言</string>
 	<string name="tab_info">信息</string>
 
 	<!-- Setting (General) -->
-	<string name="setting_language">语言</string>
+	<string name="setting_language">语言 / Language</string>
 	<string name="setting_widgettable">面板方阵</string>
 	<string name="setting_theme_color">主题背景</string>
 	<string name="setting_theme_color_skyblue">天上（天空蓝）</string>

@@ -165,7 +165,7 @@
 	<string name="tab_info">정보</string>
 
 	<!-- Setting (General) -->
-	<string name="setting_language">언어</string>
+	<string name="setting_language">언어 / Language</string>
 	<string name="setting_widgettable">패널 배열</string>
 	<string name="setting_theme_color">배경 테마</string>
 	<string name="setting_theme_color_skyblue">하늘 (하늘색)</string>
