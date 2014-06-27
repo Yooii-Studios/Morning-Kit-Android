@@ -119,6 +119,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
         if (displayHelper != null) {
             displayHelper.notifyContainingActivityWillBeShown();
         }
+        startLoadingAnimation();
         loadFileList();
 //        updateUI();
     }
