@@ -209,8 +209,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         digitalTimeTextView = new TextView(getContext());
         digitalTimeTextView.setId(4193752);
         digitalTimeTextView.setGravity(Gravity.BOTTOM);
-        LayoutParams timeLayoutParms = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
-        digitalTimeTextView.setLayoutParams(timeLayoutParms);
+        LayoutParams timeLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        digitalTimeTextView.setLayoutParams(timeLayoutParams);
         digitalTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimension(R.dimen.panel_world_clock_digital_time_text_size));
         digitalTimeLayout.addView(digitalTimeTextView);
