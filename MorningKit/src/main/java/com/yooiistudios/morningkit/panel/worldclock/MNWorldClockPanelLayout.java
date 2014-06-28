@@ -370,7 +370,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             minuteString = "0" + minuteString;
         }
 
-        String colonString = second % 2 == 0 ? ":" : " ";
+//        String colonString = second % 2 == 0 ? ":" : " ";
+        String colonString = ":";
         String timeString = hourString + colonString + minuteString;
         digitalTimeTextView.setText(timeString);
 
@@ -471,6 +472,18 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             digitalTimeTextView.setTextColor(mainFontColor);
             digitalDayDifferenceTextView.setTextColor(subFontColor);
             digitalCityNameTextView.setTextColor(subFontColor);
+
+            // 콤바는 초 판단해서 색 변경시켜주기
+            Calendar worldClockCalendar = worldClock.getWorldClockCalendar();
+            int second = worldClockCalendar.get(Calendar.SECOND);
+            if (second % 2 == 0) {
+
+            } else {
+
+            }
+//        String colonString = second % 2 == 0 ? ":" : " ";
+//            String colonString = ":";
+//            String timeString = hourString + colonString + minuteString;
         }
 
     }
