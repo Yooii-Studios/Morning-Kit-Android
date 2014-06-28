@@ -125,6 +125,9 @@
     <dimen name="panel_weather_local_time_text_size">12sp</dimen>
     <dimen name="panel_weather_condition_image_size">57dp</dimen>
 
+    <dimen name="panel_weather_city_list_item_height">50dp</dimen>
+    <dimen name="panel_weather_city_list_item_flag_width">55dp</dimen>
+
     <!-- World Clock -->
         <!-- Main -->
     <dimen name="panel_world_clock_digital_time_text_size">37sp</dimen>
