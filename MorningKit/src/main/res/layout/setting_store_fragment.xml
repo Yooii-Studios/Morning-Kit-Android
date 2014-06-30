@@ -70,6 +70,7 @@
             android:layout_below="@+id/setting_store_full_version_title"
             android:text="@string/store_buy_full_version_description"
             android:textColor="@color/setting_store_full_version_text_color"
+            android:ellipsize="marquee"
             android:singleLine="true"
             android:textSize="@dimen/setting_store_full_version_description_textsize"
             android:textStyle="bold"

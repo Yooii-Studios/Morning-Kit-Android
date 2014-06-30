@@ -235,7 +235,7 @@
 	<string name="store_tab_themes">主题背景</string>
 	<string name="store_item_more_alarm_slots">增加闹铃数量</string>
 	<string name="store_item_no_ads">不显示广告</string>
-	<string name="store_item_matrix">2X1工具栏</string>
+	<string name="store_item_matrix">2X3工具栏</string>
 	<string name="store_item_widget_date_countdown">日期倒数</string>
 	<string name="store_item_widget_memo">备忘录</string>
 	<string name="store_item_photo_portrait">照片\n纵向</string>

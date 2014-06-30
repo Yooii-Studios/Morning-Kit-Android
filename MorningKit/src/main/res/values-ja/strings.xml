@@ -234,7 +234,7 @@
 	<string name="store_tab_themes">テーマ</string>
 	<string name="store_item_more_alarm_slots">アラーム設定数の増加</string>
 	<string name="store_item_no_ads">広告削除</string>
-	<string name="store_item_matrix">2 X 1 配列</string>
+	<string name="store_item_matrix">2 X 3 配列</string>
 	<string name="store_item_widget_date_countdown">日付\n計算</string>
 	<string name="store_item_widget_memo">メモ</string>
 	<string name="store_item_photo_portrait">写真\n縦画面モード </string>

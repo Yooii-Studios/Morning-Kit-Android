@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:padding="@dimen/margin_inner"
                 android:text="@string/exchange_rate"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
@@ -43,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:padding="@dimen/margin_inner"
                 android:text="@string/memo"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
@@ -69,6 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:padding="@dimen/margin_inner"
                 android:text="@string/date_calculator"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
@@ -103,6 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:padding="@dimen/margin_inner"
                 android:text="@string/photo_album"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
@@ -129,6 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:padding="@dimen/margin_inner"
                 android:text="@string/info_store"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
@@ -146,6 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:padding="@dimen/margin_inner"
                 android:text=""
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
