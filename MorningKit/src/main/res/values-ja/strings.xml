@@ -312,6 +312,6 @@
     <string name="recommend_app_full_name">モーニングキット</string>
 
     <!-- Unlock -->
-    <string name="unlock_should_come_back_to_morningkit">Google Playにレビューを書いた後は、この機能のロックを解除するために戻ってモーニングキットに来る必要があります。</string>
+    <string name="unlock_should_come_back_to_morningkit">この機能のロックを解除するためには、レビューを書いた後、必ずモーニングキットに戻ってください。</string>
 
 </resources>
