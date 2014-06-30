@@ -118,7 +118,6 @@ public class MNPhotoInfoFetcher extends AsyncTask<Void, Void, MNFlickrPhotoInfo>
                             flickrPhotoInfo.setPhotoUrlString(
                                     String.format("http://farm%s.staticflickr.com/%s/%s_%s_z.jpg",
                                             farmString, serverString, idString, secretString));
-
                             return flickrPhotoInfo;
                         } else {
                             isError = true;
@@ -155,7 +154,7 @@ public class MNPhotoInfoFetcher extends AsyncTask<Void, Void, MNFlickrPhotoInfo>
     private static String makeQueryUrlString(String keyword, int perPage, int pageNum) {
         String escapedKeyword = MNUtf.getConverted_UTF_8_String(keyword);
 
-        return "http://api.flickr.com/services/rest/?sort=random"
+        return "https://api.flickr.com/services/rest/?sort=random"
                 + "&method=flickr.photos.search"
                 + "&tags=" + escapedKeyword + "&tag_mode=any"
                 + "&per_page=" + perPage + "&page=" + pageNum

@@ -106,6 +106,7 @@ public class MNTimeZoneSearchAsyncTask extends AsyncTask<String, Object, ArrayLi
                     }
 
                     // 다국어 검색 알고리즘 - for 문을 돌리는데 하나만 검색이 되어야 한다.
+                    boolean isLocalizedNameFound = false;
                     currentTimeZone.setSearchedLocalizedName(null);
                     if (!isEnglishNameFound) {
                         ArrayList<String> localizedNames = currentTimeZone.getLocalizedNames();
@@ -120,6 +121,7 @@ public class MNTimeZoneSearchAsyncTask extends AsyncTask<String, Object, ArrayLi
 //											currentTimeZone.setPriority(-1000 + i);
 //											currentTimeZone.setName(localizedCampareString);
                                         currentTimeZone.setSearchedLocalizedName(localizedCampareString);
+                                        isLocalizedNameFound = true;
                                         break;
                                     }
                                 } else {
@@ -135,12 +137,26 @@ public class MNTimeZoneSearchAsyncTask extends AsyncTask<String, Object, ArrayLi
 //											currentTimeZone.setPriority(i);
 //											currentTimeZone.setName(localizedCampareString);
                                         currentTimeZone.setSearchedLocalizedName(localizedCampareString);
+                                        isLocalizedNameFound = true;
                                         break;
                                     }
                                 } else {
                                     break;
                                 }
                             }
+                        }
+                    }
+                    // TimeZone 도 검색 대상에 포함 - 영어, 다국어 모두 검색이 되지 않았을 경우만
+                    if (!isEnglishNameFound && !isLocalizedNameFound) {
+                        String compareTimeZoneString = currentTimeZone.getTimeZoneName().toLowerCase();
+                        String compareTimeZoneStringWitNoBlank = currentTimeZone.getTimeZoneName()
+                                .toLowerCase().replaceAll(" ", "");
+                        if (compareTimeZoneString.startsWith(searchingString)
+                                || compareTimeZoneStringWitNoBlank
+                                .startsWith(searchingString)) {
+                            sameTimeZoneStartWith.add(currentTimeZone);
+                        } else if (compareString.contains(searchingString)) {
+                            sameTimeZoneContains.add(currentTimeZone);
                         }
                     }
                 }
@@ -227,5 +243,4 @@ public class MNTimeZoneSearchAsyncTask extends AsyncTask<String, Object, ArrayLi
 		}
 		*/
 	}
-
 }

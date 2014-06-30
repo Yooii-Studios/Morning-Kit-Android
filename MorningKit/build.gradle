@@ -26,8 +26,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 19
-        versionCode 16
-        versionName "1.1.0"
+        versionCode 17
+        versionName "1.2.0"
         applicationId "com.yooiistudios.morningkit"
     }
 
@@ -98,7 +98,7 @@ dependencies {
 
     // 필요한 오픈소스 라이브러리들
     compile 'com.google.code.gson:gson:2.2.4'
-    compile 'com.squareup:otto:1.3.4'
+    compile 'com.squareup:otto:1.3.5'
     compile 'com.jakewharton:butterknife:4.0.1'
 
     // Getter & Setter를 annotation으로 해결

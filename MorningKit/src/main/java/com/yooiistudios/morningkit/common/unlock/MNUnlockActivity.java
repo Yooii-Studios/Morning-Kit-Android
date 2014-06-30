@@ -2,9 +2,11 @@ package com.yooiistudios.morningkit.common.unlock;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -266,9 +268,30 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                 break;
 
             case 2:
-                MNReviewApp.showReviewActivity(this);
+                makeReviewGuideDialog().show();
                 break;
         }
+    }
+
+    private AlertDialog makeReviewGuideDialog() {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_DARK);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MNReviewApp.showReviewActivity(MNUnlockActivity.this);
+            }
+        });
+        AlertDialog reviewGuideDialog = builder.create();
+        reviewGuideDialog.setCancelable(false);
+        reviewGuideDialog.setCanceledOnTouchOutside(false);
+        reviewGuideDialog.setTitle(R.string.app_name);
+        reviewGuideDialog.setMessage(getString(R.string.unlock_should_come_back_to_morningkit));
+        return reviewGuideDialog;
     }
 
     private String getProductString() {

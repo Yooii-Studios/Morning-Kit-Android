@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.SpannableStringBuilder;
-import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.ImageView;
@@ -43,7 +42,7 @@ import static android.widget.RelativeLayout.LayoutParams.MATCH_PARENT;
  */
 public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExchangeRatesAsyncTask.OnExchangeRatesAsyncTaskListener {
 
-    private static final String TAG = "MNExchangeRatesPanelLayout";
+//    private static final String TAG = "MNExchangeRatesPanelLayout";
 
     public static final String EXCHANGE_RATES_PREFS = "EXCHANGE_RATES_PREFS";
     public static final String EXCHANGE_RATES_DATA_EXCHANGE_INFO = "EXCHANGE_RATES_DATA_EXCHANGE_INFO";
@@ -59,9 +58,9 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
     public MNExchangeRatesPanelLayout(Context context) {
         super(context);
     }
-    public MNExchangeRatesPanelLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+//    public MNExchangeRatesPanelLayout(Context context, AttributeSet attrs) {
+//        super(context, attrs);
+//    }
 
     @Override
     protected void init() {
@@ -221,9 +220,9 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
 
     private void updateTextViews() {
         String baseCurrencyString = exchangeRatesInfo.getBaseCurrencySymbol() +
-                MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getBaseCurrencyMoney());
+                MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getBaseCurrencyMoney(), getContext());
         String targetCurrencyString = exchangeRatesInfo.getTargetCurrencySymbol() +
-                MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getTargetCurrencyMoney());
+                MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getTargetCurrencyMoney(), getContext());
 
         // Base To Target
         // 기본 폰트 크기로 설정하면 자동으로 리사이징 진행
@@ -245,9 +244,9 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         }
 
         String reverseBaseCurrencyString = reverseExchangeRatesInfo.getBaseCurrencySymbol() +
-                MNExchangeRatesInfo.getMoneyString(reverseExchangeRatesInfo.getBaseCurrencyMoney());
+                MNExchangeRatesInfo.getMoneyString(reverseExchangeRatesInfo.getBaseCurrencyMoney(), getContext());
         String reverseTargetCurrencyString = reverseExchangeRatesInfo.getTargetCurrencySymbol() +
-                MNExchangeRatesInfo.getMoneyString(reverseExchangeRatesInfo.getTargetCurrencyMoney());
+                MNExchangeRatesInfo.getMoneyString(reverseExchangeRatesInfo.getTargetCurrencyMoney(), getContext());
 
         // 기본 폰트 크기로 설정하면 자동으로 리사이징 진행
         SpannableStringBuilder targetToBaseStringBuilder = new SpannableStringBuilder();
