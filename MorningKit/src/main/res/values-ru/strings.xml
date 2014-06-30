@@ -313,4 +313,7 @@
     <string name="recommend_description">Просто нажмите кнопку и скачать :-)</string>
     <string name="recommend_app_full_name">Утренний Kомплект</string>
 
+    <!-- Unlock -->
+    <string name="unlock_should_come_back_to_morningkit">После написания мнение о Google Play, вы должны вернуться к Утренний Kомплект чтобы разблокировать эту функцию</string>
+
 </resources>
