@@ -63,6 +63,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @InjectView(R.id.setting_store_loading_view) View loadingView;
 
     @InjectView(R.id.setting_store_full_version_description) TextView fullVersionDescriptionTextView;
+    
     @InjectView(R.id.setting_store_full_version_image_view) ImageView fullVersionImageView;
     @InjectView(R.id.setting_store_full_version_button_imageview) ImageView fullVersionButtonImageView;
     @InjectView(R.id.setting_store_full_version_button_textview) TextView fullVersionButtonTextView;
