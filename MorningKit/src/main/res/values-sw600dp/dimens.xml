@@ -124,7 +124,7 @@
 
     <!-- Weather -->
     <!-- Main -->
-    <dimen name="panel_weather_current_temp_text_size">36.4sp</dimen>           <!--Done-->
+    <dimen name="panel_weather_current_temp_text_size">36.4dp</dimen>           <!--Done-->
     <dimen name="panel_weather_low_high_temp_text_size">19.6sp</dimen>          <!--Done-->
     <dimen name="panel_weather_city_name_local_time_text_size">16.8sp</dimen>   <!--Done-->
     <dimen name="panel_weather_local_time_text_size">16.8sp</dimen>             <!--Done-->
