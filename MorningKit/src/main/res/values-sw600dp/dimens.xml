@@ -30,22 +30,22 @@
     <dimen name="panel_height">180dp</dimen>                        <!--Done-->
 
     <!-- Alarm -->
-    <dimen name="alarm_item_outer_height">96dp</dimen>              <!--Done--> <!-- inner + shadow_inner * 2  -->
-    <dimen name="alarm_item_inner_height">90dp</dimen>              <!--Done-->
-    <dimen name="alarm_item_divider_with">3dp</dimen>               <!--Done-->
-    <dimen name="alarm_item_divider_height">36.4dp</dimen>          <!--Done-->
-    <dimen name="alarm_create_item_plus_size">84dp</dimen>          <!--Done-->
-    <dimen name="alarm_item_switch_size">84dp</dimen>               <!--Done-->
+    <dimen name="alarm_item_outer_height">96sp</dimen>              <!--Done--> <!-- inner + shadow_inner * 2  -->
+    <dimen name="alarm_item_inner_height">90sp</dimen>              <!--Done-->
+    <dimen name="alarm_item_divider_with">3sp</dimen>               <!--Done-->
+    <dimen name="alarm_item_divider_height">36.4sp</dimen>          <!--Done-->
+    <dimen name="alarm_create_item_plus_size">84sp</dimen>          <!--Done-->
+    <dimen name="alarm_item_switch_size">84sp</dimen>               <!--Done-->
 
     <dimen name="alarm_item_time_font_size">38.6sp</dimen>          <!--Done-->
     <dimen name="alarm_item_ampm_font_size">23.8sp</dimen>          <!--Done-->
     <dimen name="alarm_item_repeat_font_size">19.6sp</dimen>        <!--Done-->
     <dimen name="alarm_item_label_font_size">21.8sp</dimen>         <!--Done-->
 
-    <dimen name="alarm_item_time_margin_top">1.4dp</dimen>          <!--Done-->
-    <dimen name="alarm_item_time_margin_left">15.4dp</dimen>        <!--Done-->
-    <dimen name="alarm_item_ampm_margin_left">5.6dp</dimen>         <!--Done-->
-    <dimen name="alarm_item_label_margin_bottom">9.8dp</dimen>      <!--Done-->
+    <dimen name="alarm_item_time_margin_top">1.4sp</dimen>          <!--Done-->
+    <dimen name="alarm_item_time_margin_left">15.4sp</dimen>        <!--Done-->
+    <dimen name="alarm_item_ampm_margin_left">5.6sp</dimen>         <!--Done-->
+    <dimen name="alarm_item_label_margin_bottom">9.8sp</dimen>      <!--Done-->
 
     <dimen name="alarm_create_item_title_font_size">26.8sp</dimen>  <!--Done-->
 
@@ -205,12 +205,12 @@
     <!-- Date -->
     <dimen name="panel_date_margin_between_dates">45dp</dimen>          <!--Done-->
     <dimen name="panel_date_month_text_size">22.4sp</dimen>             <!--Done-->
-    <dimen name="panel_date_day_text_size">58.8sp</dimen>               <!--Done-->
+    <dimen name="panel_date_day_text_size">58.8dp</dimen>               <!--Done-->
     <dimen name="panel_date_day_of_week_text_size">22.4sp</dimen>       <!--Done-->
     <dimen name="panel_date_minus_margin">-8.4dp</dimen>                <!--Done-->
 
     <dimen name="panel_date_lunar_month_text_size">15.4sp</dimen>       <!--Done-->
-    <dimen name="panel_date_lunar_day_text_size">44.8sp</dimen>         <!--Done-->
+    <dimen name="panel_date_lunar_day_text_size">44.8dp</dimen>         <!--Done-->
     <dimen name="panel_date_lunar_day_of_week_text_size">15.4sp</dimen> <!--Done-->
     <dimen name="panel_date_lunar_minus_margin">-1.4dp</dimen>          <!--Done-->
 

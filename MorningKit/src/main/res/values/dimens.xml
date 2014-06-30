@@ -28,22 +28,22 @@
     <dimen name="panel_height">121dp</dimen> <!-- 115dp + 6dp(inner_margin)는 스샷에서 위젯 크기 직접 잼 -->
 
     <!-- Alarm -->
-    <dimen name="alarm_item_outer_height">71dp</dimen> <!-- inner + shadow_inner * 2  -->
-    <dimen name="alarm_item_inner_height">65dp</dimen>
-    <dimen name="alarm_item_divider_with">2dp</dimen>
-    <dimen name="alarm_item_divider_height">26dp</dimen>
-    <dimen name="alarm_create_item_plus_size">60dp</dimen>
-    <dimen name="alarm_item_switch_size">60dp</dimen>
+    <dimen name="alarm_item_outer_height">71sp</dimen> <!-- inner + shadow_inner * 2  -->
+    <dimen name="alarm_item_inner_height">65sp</dimen>
+    <dimen name="alarm_item_divider_with">2sp</dimen>
+    <dimen name="alarm_item_divider_height">26sp</dimen>
+    <dimen name="alarm_create_item_plus_size">60sp</dimen>
+    <dimen name="alarm_item_switch_size">60sp</dimen>
 
     <dimen name="alarm_item_time_font_size">29sp</dimen>
     <dimen name="alarm_item_ampm_font_size">17sp</dimen>
     <dimen name="alarm_item_repeat_font_size">14sp</dimen>
     <dimen name="alarm_item_label_font_size">17sp</dimen>
 
-    <dimen name="alarm_item_time_margin_top">1dp</dimen>
-    <dimen name="alarm_item_time_margin_left">11dp</dimen>
-    <dimen name="alarm_item_ampm_margin_left">4dp</dimen>
-    <dimen name="alarm_item_label_margin_bottom">7dp</dimen>
+    <dimen name="alarm_item_time_margin_top">1sp</dimen>
+    <dimen name="alarm_item_time_margin_left">11sp</dimen>
+    <dimen name="alarm_item_ampm_margin_left">4sp</dimen>
+    <dimen name="alarm_item_label_margin_bottom">7sp</dimen>
 
     <dimen name="alarm_create_item_title_font_size">22sp</dimen>
 
@@ -200,12 +200,12 @@
     <!-- Date -->
     <dimen name="panel_date_margin_between_dates">23dp</dimen>
     <dimen name="panel_date_month_text_size">16sp</dimen>
-    <dimen name="panel_date_day_text_size">42sp</dimen>
+    <dimen name="panel_date_day_text_size">42dp</dimen>
     <dimen name="panel_date_day_of_week_text_size">16sp</dimen>
     <dimen name="panel_date_minus_margin">-6dp</dimen>
 
     <dimen name="panel_date_lunar_month_text_size">11sp</dimen>
-    <dimen name="panel_date_lunar_day_text_size">32sp</dimen>
+    <dimen name="panel_date_lunar_day_text_size">32dp</dimen>
     <dimen name="panel_date_lunar_day_of_week_text_size">11sp</dimen>
     <dimen name="panel_date_lunar_minus_margin">-1dp</dimen>
     
