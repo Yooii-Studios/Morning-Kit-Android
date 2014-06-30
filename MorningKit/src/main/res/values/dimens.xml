@@ -240,7 +240,7 @@
 
     <!-- Theme -->
     <dimen name="setting_item_padding">8dp</dimen>
-    <dimen name="setting_item_title_textview_height">26dp</dimen>
+    <dimen name="setting_item_title_textview_height">26sp</dimen>
     <dimen name="setting_item_title_font_size">20sp</dimen>
     <dimen name="setting_item_detail_font_size">16sp</dimen>
     <dimen name="setting_item_detail_textview_left_margin">12dp</dimen>
@@ -251,7 +251,7 @@
 
     <!-- Theme - detail - photo item -->
     <dimen name="setting_theme_detail_photo_item_padding">5dp</dimen>
-    <dimen name="setting_theme_detail_photo_item_crop_layout_width">55dp</dimen>
+    <dimen name="setting_theme_detail_photo_item_crop_layout_width">55sp</dimen>
     <dimen name="setting_theme_detail_photo_item_divider_height">30dp</dimen>
     <dimen name="setting_theme_detail_photo_item_divider_width">2dp</dimen>
     <dimen name="setting_theme_detail_photo_item_textview_left_margin">10dp</dimen>
@@ -275,7 +275,7 @@
     <dimen name="setting_store_full_version_button_left_margin">15dp</dimen>
     <dimen name="setting_store_full_version_button_bottom_margin">20dp</dimen>
     <dimen name="setting_store_full_version_button_size">80dp</dimen>
-    <dimen name="setting_store_full_version_button_textsize">14sp</dimen>
+    <dimen name="setting_store_full_version_button_textsize">14dp</dimen>
 
     <dimen name="setting_store_tab_height">40dp</dimen>
     <dimen name="setting_store_tab_textsize">13sp</dimen>

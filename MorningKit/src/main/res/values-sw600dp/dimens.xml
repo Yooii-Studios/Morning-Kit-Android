@@ -245,7 +245,7 @@
 
     <!-- Theme -->
     <dimen name="setting_item_padding">11.2dp</dimen>                       <!--Done-->
-    <dimen name="setting_item_title_textview_height">36.4dp</dimen>         <!--Done-->
+    <dimen name="setting_item_title_textview_height">36.4sp</dimen>         <!--Done-->
     <dimen name="setting_item_title_font_size">24sp</dimen>                 <!--Done-->
     <dimen name="setting_item_detail_font_size">20sp</dimen>                <!--Done-->
     <dimen name="setting_item_detail_textview_left_margin">15dp</dimen>     <!--Done-->
@@ -256,7 +256,7 @@
 
     <!-- Theme - detail - photo item -->
     <dimen name="setting_theme_detail_photo_item_padding">7dp</dimen>               <!--Done-->
-    <dimen name="setting_theme_detail_photo_item_crop_layout_width">77dp</dimen>    <!--Done-->
+    <dimen name="setting_theme_detail_photo_item_crop_layout_width">77sp</dimen>    <!--Done-->
     <dimen name="setting_theme_detail_photo_item_divider_height">42dp</dimen>       <!--Done-->
     <dimen name="setting_theme_detail_photo_item_divider_width">2.8dp</dimen>       <!--Done-->
     <dimen name="setting_theme_detail_photo_item_textview_left_margin">14dp</dimen> <!--Done-->
@@ -280,7 +280,7 @@
     <dimen name="setting_store_full_version_button_left_margin">45dp</dimen>        <!--Done-->
     <dimen name="setting_store_full_version_button_bottom_margin">50dp</dimen>      <!--Done-->
     <dimen name="setting_store_full_version_button_size">112dp</dimen>              <!--Done-->
-    <dimen name="setting_store_full_version_button_textsize">19.6sp</dimen>         <!--Done-->
+    <dimen name="setting_store_full_version_button_textsize">19.6dp</dimen>         <!--Done-->
 
     <dimen name="setting_store_tab_height">56dp</dimen>                             <!--Done-->
     <dimen name="setting_store_tab_textsize">18.2sp</dimen>                         <!--Done-->
