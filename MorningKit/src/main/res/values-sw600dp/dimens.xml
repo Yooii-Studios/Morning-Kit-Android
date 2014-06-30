@@ -130,8 +130,8 @@
     <dimen name="panel_weather_local_time_text_size">16.8sp</dimen>             <!--Done-->
     <dimen name="panel_weather_condition_image_size">79.8dp</dimen>             <!--Done-->
 
-    <dimen name="panel_weather_city_list_item_height">70dp</dimen>              <!--Done-->
-    <dimen name="panel_weather_city_list_item_flag_width">77dp</dimen>          <!--Done-->
+    <dimen name="panel_weather_city_list_item_height">70sp</dimen>              <!--Done-->
+    <dimen name="panel_weather_city_list_item_flag_width">77sp</dimen>          <!--Done-->
 
     <!-- World Clock -->
     <!-- Main -->
@@ -183,10 +183,10 @@
     <dimen name="panel_exchange_rates_minimum_font_size">12.6sp</dimen> <!--Done-->
 
     <!-- Detail -->
-    <dimen name="panel_exchange_rates_detail_info_height">78.4dp</dimen>            <!--Done-->
-    <dimen name="panel_exchange_rates_detail_flag_width">70dp</dimen>               <!--Done-->
-    <dimen name="panel_exchange_rates_detail_flag_height">42dp</dimen>              <!--Done-->
-    <dimen name="panel_exchange_rates_detail_swap_image_size">42dp</dimen>          <!--Done-->
+    <dimen name="panel_exchange_rates_detail_info_height">78.4sp</dimen>            <!--Done-->
+    <dimen name="panel_exchange_rates_detail_flag_width">70sp</dimen>               <!--Done-->
+    <dimen name="panel_exchange_rates_detail_flag_height">42sp</dimen>              <!--Done-->
+    <dimen name="panel_exchange_rates_detail_swap_image_size">42sp</dimen>          <!--Done-->
     <dimen name="panel_exchange_rates_detail_currency_code_text_size">23.8sp</dimen><!--Done-->
     <dimen name="panel_exchange_rates_detail_edit_text_size">21sp</dimen>           <!--Done-->
 
