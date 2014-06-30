@@ -282,6 +282,12 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     @Override
     protected void onPause() {
+        // onPause 맨 뒤에서 맨 앞으로 보냄 - 시스템이 먼저 잘 처리했으면 함
+        super.onPause();
+
+        // onStop에서 onPause로 옮겨옴 - onResume에서 register하는 것과 발을 맞추자
+        MNAlarmScrollViewBusProvider.getInstance().unregister(this);
+
         // check photoImageView for preventing OOM
         if (photoThemeImageView != null) {
             photoThemeImageView.setReadyForRecycle(true);
@@ -302,7 +308,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 //        if (dgService != null) {
 //            dgService.close();
 //        }
-        super.onPause();
     }
 
     @Override
@@ -315,7 +320,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     @Override
     protected void onStop() {
         // Activity no longer visible
-        MNAlarmScrollViewBusProvider.getInstance().unregister(this);
         super.onStop();
         FlurryAgent.onEndSession(this);
     }
