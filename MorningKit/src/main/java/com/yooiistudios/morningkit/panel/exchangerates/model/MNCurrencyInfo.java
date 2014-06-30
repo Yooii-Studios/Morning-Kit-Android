@@ -1,13 +1,13 @@
 package com.yooiistudios.morningkit.panel.exchangerates.model;
 
+import android.content.Context;
+
+import com.yooiistudios.morningkit.R;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-
-import android.content.Context;
-
-import com.yooiistudios.morningkit.R;
 
 public class MNCurrencyInfo {
 
@@ -81,21 +81,21 @@ public class MNCurrencyInfo {
 		}
 	}
 	
-	public static MNCurrencyInfo getCurrencyInfo(String _currencyCode)
-	{
-		for(int i=0; i<frequentCurrency.length; ++i)
-		{
-			if( frequentCurrency[i].currencyCode.compareToIgnoreCase(_currencyCode) == 0 )
-				return frequentCurrency[i];
-		}
-
-		for(int i=0; i<allCurrency.size(); ++i)
-		{
-			if( allCurrency.get(i).currencyCode.compareToIgnoreCase(_currencyCode) == 0 )
-				return allCurrency.get(i);
-		}
-		return frequentCurrency[0];
-	}
+	public static MNCurrencyInfo getCurrencyInfo(String _currencyCode) {
+        if (frequentCurrency != null) {
+            for (MNCurrencyInfo aFrequentCurrency : frequentCurrency) {
+                if (aFrequentCurrency.currencyCode.compareToIgnoreCase(_currencyCode) == 0)
+                    return aFrequentCurrency;
+            }
+        }
+        if (allCurrency != null) {
+            for (MNCurrencyInfo anAllCurrency : allCurrency) {
+                if (anAllCurrency.currencyCode.compareToIgnoreCase(_currencyCode) == 0)
+                    return anAllCurrency;
+            }
+        }
+        return frequentCurrency[0];
+    }
 
 
 }
