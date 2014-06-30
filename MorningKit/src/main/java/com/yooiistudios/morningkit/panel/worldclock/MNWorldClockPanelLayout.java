@@ -4,6 +4,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -370,10 +373,27 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             minuteString = "0" + minuteString;
         }
 
+        // 콤마는 초 판단해서 색 변경시켜주는 것으로 로직 변경: 2.3.3에서 :와 ' '의 간격 차이 때문
 //        String colonString = second % 2 == 0 ? ":" : " ";
         String colonString = ":";
         String timeString = hourString + colonString + minuteString;
-        digitalTimeTextView.setText(timeString);
+
+        // spannableString 활용, 콤마 색 변경
+        if (second % 2 == 0) {
+            Context applicationContext = getContext().getApplicationContext();
+            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(applicationContext);
+            digitalTimeTextView.setTextColor(MNMainColors.getMainFontColor(currentThemeType, applicationContext));
+            digitalTimeTextView.setText(timeString);
+        } else {
+            SpannableString spannableString = new SpannableString(timeString);
+            int pointedStringIndex = timeString.indexOf(colonString);
+            // 항상 예외처리는 확실하게
+            if (pointedStringIndex != -1 && pointedStringIndex + 1 <= timeString.length()) {
+                spannableString.setSpan(new ForegroundColorSpan(Color.TRANSPARENT),
+                        pointedStringIndex, pointedStringIndex + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                digitalTimeTextView.setText(spannableString);
+            }
+        }
 
         // am/pm
         if (isUsing24Hours) {
@@ -458,8 +478,8 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
     public void applyTheme() {
         super.applyTheme();
 
-        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
         Context applicationContext = getContext().getApplicationContext();
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(applicationContext);
         int subFontColor = MNMainColors.getSubFontColor(currentThemeType, applicationContext);
         int mainFontColor = MNMainColors.getMainFontColor(currentThemeType, applicationContext);
         if (isClockAnalog) {
@@ -472,15 +492,6 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
             digitalTimeTextView.setTextColor(mainFontColor);
             digitalDayDifferenceTextView.setTextColor(subFontColor);
             digitalCityNameTextView.setTextColor(subFontColor);
-
-            // 콤바는 초 판단해서 색 변경시켜주기
-            Calendar worldClockCalendar = worldClock.getWorldClockCalendar();
-            int second = worldClockCalendar.get(Calendar.SECOND);
-            if (second % 2 == 0) {
-
-            } else {
-
-            }
 //        String colonString = second % 2 == 0 ? ":" : " ";
 //            String colonString = ":";
 //            String timeString = hourString + colonString + minuteString;
