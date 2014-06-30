@@ -127,7 +127,7 @@ public class SKAlarmSoundPlayer {
                 // 천천히 음량을 높임
                 while (currentVolume < targetVolume) {
                     try {
-                        Thread.sleep(1200);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
