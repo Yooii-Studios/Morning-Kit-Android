@@ -28,6 +28,7 @@
 
     <!-- android:name=".MNApplication" -->
     <!-- Need to insert this code when making 'Release build' -->
+    <!-- Especially for Google Play -->
     <!-- android:debuggable="false" -->
     <application
         android:name=".MNApplication"
