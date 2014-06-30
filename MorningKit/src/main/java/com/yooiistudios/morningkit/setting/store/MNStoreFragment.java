@@ -62,6 +62,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @InjectView(R.id.setting_store_progressBar) ProgressBar progressBar;
     @InjectView(R.id.setting_store_loading_view) View loadingView;
 
+    @InjectView(R.id.setting_store_full_version_description) TextView fullVersionDescriptionTextView;
     @InjectView(R.id.setting_store_full_version_image_view) ImageView fullVersionImageView;
     @InjectView(R.id.setting_store_full_version_button_imageview) ImageView fullVersionButtonImageView;
     @InjectView(R.id.setting_store_full_version_button_textview) TextView fullVersionButtonTextView;
@@ -148,6 +149,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     }
 
     private void initUI() {
+        fullVersionDescriptionTextView.setSelected(true); // 넘칠 경우를 대비
         functionGridView.setAdapter(new MNStoreGridViewAdapter(getActivity(), MNStoreTabType.FUNCTIONS,
                 null, iabManager, this, this));
         panelGridView.setAdapter(new MNStoreGridViewAdapter(getActivity(), MNStoreTabType.PANELS,
