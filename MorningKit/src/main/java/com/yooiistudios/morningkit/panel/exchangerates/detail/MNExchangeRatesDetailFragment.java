@@ -35,7 +35,6 @@ import com.yooiistudios.morningkit.panel.exchangerates.model.MNExchangeRatesInfo
 import org.json.JSONException;
 
 import java.lang.reflect.Type;
-import java.text.DecimalFormat;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -70,8 +69,9 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
     MNExchangeRatesAsyncTask exchangeRatesAsyncTask;
 
     // baseEditText 콤마를 찍을 때 StackOverflow를 막기 위한 변수
-    String result = "";
-    DecimalFormat decimalFormat = new DecimalFormat("###,###.####");
+    // 러시아어 때문에 문제가 생겨서 주석처리
+//    String result = "";
+//    DecimalFormat decimalFormat = new DecimalFormat("###,###.####");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -162,7 +162,7 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
                     double base = 0;
                     if (input.length() != 0) {
                         base = MNExchangeRatesInfo.getDoubleMoney(input);
-                        input = MNExchangeRatesInfo.getMoneyString(base);
+                        input = MNExchangeRatesInfo.getMoneyString(base, getActivity());
                         baseEditText.setText(input);
                     } else {
                         baseEditText.setText("0");
@@ -178,15 +178,15 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
         baseEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if( keyCode == KeyEvent.KEYCODE_NUMPAD_DOT || keyCode == KeyEvent.KEYCODE_PERIOD ) {
+                if (keyCode == KeyEvent.KEYCODE_NUMPAD_DOT || keyCode == KeyEvent.KEYCODE_PERIOD) {
                     return baseEditText.getText().toString().contains(".");
                 }
                 return false;
             }
         });
 
-        baseEditText.setFilters(new InputFilter[] { newBaseEditTextFilterInstance() });
-        baseEditText.setText(MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getBaseCurrencyMoney()));
+        baseEditText.setFilters(new InputFilter[]{newBaseEditTextFilterInstance()});
+        baseEditText.setText(MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getBaseCurrencyMoney(), getActivity()));
         baseEditText.setSelection(baseEditText.length());
 
         // target - 누르면 base 에 포커스를 주기
@@ -251,12 +251,12 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
                         base *= 10;
                         target *= 10;
                     }
-                    baseEditText.setText(MNExchangeRatesInfo.getMoneyString(base));
+                    baseEditText.setText(MNExchangeRatesInfo.getMoneyString(base, getActivity()));
                 }
             }
             exchangeRatesInfo.setBaseCurrencyMoney(base);
             targetEditText.setText(exchangeRatesInfo.getTargetCurrencySymbol() + " "
-                    + MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getTargetCurrencyMoney()));
+                    + MNExchangeRatesInfo.getMoneyString(exchangeRatesInfo.getTargetCurrencyMoney(), getActivity()));
         } else {
             exchangeRatesInfo.setBaseCurrencyMoney(0);
             targetEditText.setText(exchangeRatesInfo.getTargetCurrencySymbol() + " 0");
@@ -357,21 +357,39 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
 
     @Override
     public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-        // base 숫자에 3자리마다 콤마 찍어주기
-        if (!charSequence.toString().equals(result)) {
-            String cleanString = charSequence.toString().replaceAll(",", "");
 
-            // "" 이거나 마지막 부분이 . 이라면 진행하지 않기
-            if (cleanString != null && !cleanString.equals("") && !cleanString.substring(cleanString.length()-1).equals(".")) {
-                baseEditText.removeTextChangedListener(this);
-                result = decimalFormat.format(Double.parseDouble(charSequence.toString().replace(",", "")));
-                baseEditText.setText(result);
-                baseEditText.setSelection(result.length());
-                baseEditText.addTextChangedListener(this);
+        // 3자리마다 콤마를 자동으로 찍어주려고 했는데, 러시아어를 제대로 지원하지 않는 것으로 보아 다른 여러 언어들에도
+        // 문제가 생길 가능성이 있다.
+        calculate(false);
 
-                calculate(false);
+        /*
+        try {
+            // 러시아어는 이것 때문에 죽음
+            double test = Double.parseDouble(charSequence.toString().replace(",", ""));
+
+            // base 숫자에 3자리마다 콤마 찍어주기
+            if (!charSequence.toString().equals(result)) {
+                String cleanString = charSequence.toString().replaceAll(",", "");
+
+                // "" 이거나 마지막 부분이 . 이라면 진행하지 않기
+                if (cleanString != null && !cleanString.equals("") && !cleanString.substring(cleanString.length() - 1).equals(".")) {
+                    baseEditText.removeTextChangedListener(this);
+                    try {
+                        result = decimalFormat.format(Double.parseDouble(charSequence.toString().replace(",", "")));
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                    baseEditText.setText(result);
+                    baseEditText.setSelection(result.length());
+                    baseEditText.addTextChangedListener(this);
+
+                    calculate(false);
+                }
             }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
+        */
     }
 
     @Override
