@@ -114,6 +114,9 @@ public class MNAlarmPrefItemMaker {
         viewHolder.volumeSeekBar.setMax(100);
         viewHolder.volumeSeekBar.incrementProgressBy(1);
         viewHolder.volumeSeekBar.setProgress(alarm.getAlarmVolume());
+        // 2.3.3은 runtime에 설정해 주어야 제대로 설정됨
+        viewHolder.volumeSeekBar.setThumbOffset(context.getResources().getDimensionPixelSize(
+                        R.dimen.alarm_pref_list_volume_item_seekbar_thumb_offset));
         viewHolder.volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
