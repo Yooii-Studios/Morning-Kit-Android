@@ -28,6 +28,7 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/alarm_pref_list_volume_item_title_textview"
         android:layout_marginLeft="@dimen/alarm_pref_list_volume_item_seekbar_margin_left"
+        android:layout_marginRight="@dimen/panel_layout_padding"
         android:progressDrawable="@drawable/alarm_pref_volume_seek_bar_progress"
         android:thumb="@drawable/alarm_pref_volume_seek_bar_thumb"
         android:thumbOffset="@dimen/alarm_pref_list_volume_item_seekbar_thumb_offset"
