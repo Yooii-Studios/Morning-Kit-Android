@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * MNAlarmBroadCastReceiverService
  *  재부팅이 될 때 알람을 다시 켜주는 서비스
  */
-public class MNAlarmBroadCastReceiverService extends BroadcastReceiver {
+public class MNAlarmBroadcastReceiverService extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals("android.intent.action.BOOT_COMPLETED")){
