@@ -2,11 +2,9 @@ package com.yooiistudios.morningkit.common.unlock;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -191,6 +189,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                 // billing...
                 super.onActivityResult(requestCode, resultCode, data);
                 if (requestCode == MNReviewApp.REQ_REVIEW_APP) {
+                    saveUnlockedItem();
                     onAfterReviewItemClicked();
                 }
             }
@@ -227,6 +226,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
             }
             // 리뷰 달기
             if (requestCode == MNReviewApp.REQ_REVIEW_APP) {
+                saveUnlockedItem();
                 isReviewScreenCalled = true;
             }
         }
@@ -268,11 +268,15 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                 break;
 
             case 2:
-                makeReviewGuideDialog().show();
+//                makeReviewGuideDialog().show();
+                MNReviewApp.showReviewActivity(MNUnlockActivity.this);
                 break;
         }
     }
 
+    // 유저들이 리뷰후 해제가 안된다는 불평이 많아 안내 메시지를 사용하려고 했으나,
+    // 아이템을 먼저 잠금해제 해 주고 UI만 나중에 바꾸는 식으로 변경해서 해결함
+    /*
     private AlertDialog makeReviewGuideDialog() {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -293,6 +297,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         reviewGuideDialog.setMessage(getString(R.string.unlock_should_come_back_to_morningkit));
         return reviewGuideDialog;
     }
+    */
 
     private String getProductString() {
         if (productSku.equals(SKIabProducts.SKU_FULL_VERSION)) {
@@ -365,12 +370,14 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         refreshUnlockedDescriptionTextView();
     }
 
-    private void onAfterReviewItemClicked() {
+    private void saveUnlockedItem() {
         SharedPreferences.Editor edit = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit();
         edit.putBoolean(REVIEW_USED, true);
         edit.putString(REVIEW_USED_PRODUCT_SKU, productSku);
         edit.commit();
+    }
 
+    private void onAfterReviewItemClicked() {
         refreshUI();
 
         // 플러리 - 세팅 패널 탭에서 패널 변경

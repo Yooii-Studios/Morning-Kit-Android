@@ -218,7 +218,7 @@
 
         <!-- alarm reset on reboot -->
         <receiver
-            android:name=".alarm.model.broadcast.MNAlarmBroadcastReceiverService"
+            android:name=".alarm.model.braodcast.MNAlarmBroadcastReceiverService"
             android:enabled="true"
             android:exported="false"
             android:label="MNAlarmBroadcastReceiverService" >
