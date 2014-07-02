@@ -10,6 +10,7 @@ import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownDetailFrag
 import com.yooiistudios.morningkit.panel.exchangerates.detail.MNExchangeRatesDetailFragment;
 import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
 import com.yooiistudios.morningkit.panel.memo.MNMemoDetailFragment;
+import com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedDetailFragment;
 import com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFragment;
 import com.yooiistudios.morningkit.panel.quotes.detail.MNQuotesDetailFragment;
 import com.yooiistudios.morningkit.panel.weather.MNWeatherDetailFragment;
@@ -80,6 +81,10 @@ public abstract class MNPanelDetailFragment extends Fragment {
 
             case PHOTO_FRAME:
                 newPanelDetailFragment = new MNPhotoAlbumDetailFragment();
+                break;
+
+            case NEWS_FEED:
+                newPanelDetailFragment = new MNNewsFeedDetailFragment();
                 break;
 
             default:
