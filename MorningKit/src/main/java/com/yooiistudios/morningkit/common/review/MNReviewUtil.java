@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
 
 /**
  * Created by Dongheyon Jeong on in morning-kit from Yooii Studios Co., LTD. on 2014. 6. 5.
@@ -28,6 +29,12 @@ public class MNReviewUtil {
         NEVER_ASK;
     }
     public static void checkRate(final Activity activity) {
+        if (activity.getSharedPreferences(MNUnlockActivity.SHARED_PREFS,
+                Context.MODE_PRIVATE).getBoolean(
+                MNUnlockActivity.REVIEW_USED, false)) {
+            return;
+        }
+
         SharedPreferences sharedPreferences = activity.getSharedPreferences
                 (SPNAME_REVIEW, Context.MODE_PRIVATE);
 

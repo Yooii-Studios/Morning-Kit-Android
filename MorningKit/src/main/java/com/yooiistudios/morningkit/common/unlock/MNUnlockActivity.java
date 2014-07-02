@@ -55,7 +55,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     public static final String SHARED_PREFS = "UNLOCK_SHARED_PREFS";
     public static final String PRODUCT_SKU_KEY = "PRODUCT_SKU_KEY";
-    protected static final String REVIEW_USED = "REVIEW_USED";
+    public static final String REVIEW_USED = "REVIEW_USED";
     public static final String REVIEW_USED_PRODUCT_SKU = "REVIEW_USED_PRODUCT_SKU";
 
     private String productSku;
