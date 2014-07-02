@@ -46,10 +46,16 @@ public class MNFlickrBitmapAsyncTask extends AsyncTask<Void, Void, Bitmap> {
         } else {
             // 크롭, 라운딩, 그레이스케일 등등 처리하기
             Bitmap croppedBitmap = MNBitmapProcessor.getCroppedBitmap(originalBitmap, width, height);
-            Bitmap polishedBitmap = MNBitmapProcessor.getRoundedCornerBitmap(croppedBitmap, width, height, isGrayScale,
-                    (int) context.getResources().getDimension(R.dimen.panel_round_radius));
-            croppedBitmap.recycle();
-
+            Bitmap polishedBitmap;
+            try {
+                polishedBitmap = MNBitmapProcessor.getRoundedCornerBitmap(croppedBitmap, width, height, isGrayScale,
+                        (int) context.getResources().getDimension(R.dimen.panel_round_radius));
+            } catch (OutOfMemoryError error) {
+                polishedBitmap = null;
+            }
+            if (croppedBitmap != null) {
+                croppedBitmap.recycle();
+            }
             return polishedBitmap;
         }
     }
