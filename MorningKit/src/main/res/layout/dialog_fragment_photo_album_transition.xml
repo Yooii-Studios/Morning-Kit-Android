@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/panel_photo_album_dialog_refresh_item_horizontal_margin"
             android:textSize="@dimen/panel_photo_album_dialog_refresh_textSize"
-            android:hint="@string/photo_album_minute_hint"
+            android:minEms="@integer/panel_photo_album_dialog_editText_minEms"
             android:gravity="center_horizontal"
             android:inputType="numberSigned"/>
         <TextView
@@ -32,9 +32,10 @@
             android:id="@+id/secondEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="@dimen/panel_photo_album_dialog_editText_minWidth"
             android:layout_marginRight="@dimen/panel_photo_album_dialog_refresh_item_horizontal_margin"
             android:textSize="@dimen/panel_photo_album_dialog_refresh_textSize"
-            android:hint="@string/photo_album_second_hint"
+            android:minEms="@integer/panel_photo_album_dialog_editText_minEms"
             android:gravity="center_horizontal"
             android:inputType="numberSigned"/>
         <TextView
