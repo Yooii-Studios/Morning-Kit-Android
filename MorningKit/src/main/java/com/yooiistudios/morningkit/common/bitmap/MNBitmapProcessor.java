@@ -83,9 +83,14 @@ public class MNBitmapProcessor {
                         MNLog.now("bitmap.getHeight(): " + bitmap.getHeight());
                         return null;
                     }
-                    croppedBitmap = Bitmap.createBitmap(bitmap,
-                            Math.abs(bitmap.getWidth() - newBitmapSize.x) / 2, 0,
-                            newBitmapSize.x, newBitmapSize.y);
+                    try {
+                        croppedBitmap = Bitmap.createBitmap(bitmap,
+                                Math.abs(bitmap.getWidth() - newBitmapSize.x) / 2, 0,
+                                newBitmapSize.x, newBitmapSize.y);
+                    } catch (OutOfMemoryError error) {
+                        error.printStackTrace();
+                        croppedBitmap = null;
+                    }
                 } else {
                     // 이미지의 세로가 가로보다 같거나 김
 
@@ -112,9 +117,14 @@ public class MNBitmapProcessor {
                         MNLog.now("bitmap.getHeight(): " + bitmap.getHeight());
                         return null;
                     }
-                    croppedBitmap = Bitmap.createBitmap(bitmap,
-                            0, Math.abs(bitmap.getHeight() - newBitmapSize.y) / 2,
-                            newBitmapSize.x, newBitmapSize.y);
+                    try {
+                        croppedBitmap = Bitmap.createBitmap(bitmap,
+                                0, Math.abs(bitmap.getHeight() - newBitmapSize.y) / 2,
+                                newBitmapSize.x, newBitmapSize.y);
+                    } catch (OutOfMemoryError error) {
+                        error.printStackTrace();
+                        croppedBitmap = null;
+                    }
                 }
             } else {
                 // 이미지의 가로가 세로보다 짧음
@@ -143,9 +153,14 @@ public class MNBitmapProcessor {
                         return null;
                     }
                     // 15%해서 넘어가버리는 경우는 중앙을 잘라서 보여주게 구현
-                    croppedBitmap = Bitmap.createBitmap(bitmap,
-                            0, Math.abs(bitmap.getHeight() - newBitmapSize.y) / 2,
-                            newBitmapSize.x, newBitmapSize.y);
+                    try {
+                        croppedBitmap = Bitmap.createBitmap(bitmap,
+                                0, Math.abs(bitmap.getHeight() - newBitmapSize.y) / 2,
+                                newBitmapSize.x, newBitmapSize.y);
+                    } catch (OutOfMemoryError error) {
+                        error.printStackTrace();
+                        croppedBitmap = null;
+                    }
                 }
             }
             return croppedBitmap;
@@ -155,7 +170,7 @@ public class MNBitmapProcessor {
 
     // 크롭 이후 패널 크기에 맞게 축소 & 가공을 진행
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int targetWidth, int targetHeight,
-                                                boolean isGrayScale, int radius) {
+                                                boolean isGrayScale, int radius) throws OutOfMemoryError {
         if(bitmap != null) {
             // 프레임에 맞게 비트맵 scaling
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true);

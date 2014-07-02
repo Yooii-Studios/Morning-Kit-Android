@@ -9,7 +9,7 @@ import com.yooiistudios.morningkit.R;
  */
 public enum MNPhotoAlbumTransitionType {
     NONE("NONE", R.string.photo_album_transition_none, 0),
-    ALPHA("ALPHA", R.string.photo_album_transition_alpha, 300);
+    ALPHA("ALPHA", R.string.photo_album_transition_alpha, 1000);
 
     private String mKey;
     private int mNameResId;
