@@ -20,9 +20,10 @@ public enum MNThemeItemType {
             case 0: return THEME;
             case 1: return LANGUAGE;
             case 2: return PANEL_MATRIX;
-//            case 3: return SOUND_EFFECTS;
             case 3: return ALARM_STATUS_BAR;
-            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+            // 여기서 IndexOutOfBoundsException이 나서 죽음, 기본으로 다른 것을 불러 주게 변경해주자
+//            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+            default: return ALARM_STATUS_BAR;
         }
     }
 }
