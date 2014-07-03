@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.alarm.model.broadcast;
+package com.yooiistudios.morningkit.alarm.model.braodcast;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

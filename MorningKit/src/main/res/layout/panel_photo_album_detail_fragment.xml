@@ -116,6 +116,7 @@
                     android:layout_toLeftOf="@id/toggleRefresh"
                     android:gravity="right|center_vertical"
                     android:layout_marginRight="@dimen/panel_detail_padding_inner"
+                    android:paddingRight="@dimen/margin_inner"
                     android:textSize="@dimen/panel_detail_default_font_size"
                     android:textColor="@color/pastel_green_sub_font_color"
                     android:text="asdf"/>

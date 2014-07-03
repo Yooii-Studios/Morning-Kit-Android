@@ -17,8 +17,8 @@ public class MNExchangeRatesAsyncTask extends AsyncTask<Void, Void, Double> {
 
     private static final String TAG = "MNExchangeRatesAsyncTask";
 
-    String base;
-    String target;
+    String baseCountry;
+    String targetCountry;
     OnExchangeRatesAsyncTaskListener listener;
 
     public interface OnExchangeRatesAsyncTaskListener {
@@ -26,20 +26,43 @@ public class MNExchangeRatesAsyncTask extends AsyncTask<Void, Void, Double> {
     }
 
     public MNExchangeRatesAsyncTask(String base, String target, OnExchangeRatesAsyncTaskListener listener) {
-        this.base = base;
-        this.target = target;
+        this.baseCountry = base;
+        this.targetCountry = target;
         this.listener = listener;
     }
 
     @Override
     protected Double doInBackground(Void... params) {
 
+        double rates = getExchangeRates(baseCountry, targetCountry);
+
+        // 여기서 문제가 있음. 만약 0.001 이하의 값이라면 제대로 환율이 적용된 것이라 보기 힘듬.
+        // 이경우에는 reversed된 환율을 얻어와서 1/반대환율 을 통해 값을 얻어야 할 것.
+        if (rates <= 0.001) {
+            double reversedRates = getExchangeRates(targetCountry, baseCountry);
+            rates = 1.0f / reversedRates;
+        }
+        return rates;
+    }
+
+    @Override
+    protected void onPostExecute(Double rates) {
+        super.onPostExecute(rates);
+
+        if (listener != null) {
+            listener.onExchangeRatesLoad(rates);
+        } else {
+            throw new AssertionError("OnExchangeRatesAsyncTaskListener is null!");
+        }
+    }
+
+    private double getExchangeRates(String baseCountry, String targetCountry) {
         double rates = -1;
 
         String queryUrlString = String.format("http://query.yahooapis.com/v1/public/" +
-                "yql?q=select * from yahoo.finance.xchange where pair in (\"%s%s\")" +
-                "&format=json&env=store://datatables.org/alltableswithkeys&callback=",
-                base, target);
+                        "yql?q=select * from yahoo.finance.xchange where pair in (\"%s%s\")" +
+                        "&format=json&env=store://datatables.org/alltableswithkeys&callback=",
+                baseCountry, targetCountry);
 
         // 아래 두 가지 변경을 하지 않으면 제대로 된 URL로 인식을 하지 못함
         queryUrlString = queryUrlString.replace(" ", "%20");
@@ -86,14 +109,4 @@ public class MNExchangeRatesAsyncTask extends AsyncTask<Void, Void, Double> {
         return rates;
     }
 
-    @Override
-    protected void onPostExecute(Double rates) {
-        super.onPostExecute(rates);
-
-        if (listener != null) {
-            listener.onExchangeRatesLoad(rates);
-        } else {
-            throw new AssertionError("OnExchangeRatesAsyncTaskListener is null!");
-        }
-    }
 }

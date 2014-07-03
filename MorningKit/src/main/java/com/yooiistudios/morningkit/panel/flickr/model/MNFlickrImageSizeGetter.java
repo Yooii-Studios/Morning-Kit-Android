@@ -53,7 +53,7 @@ public class MNFlickrImageSizeGetter {
     }
 
     private static String makeQueryUrlString(String photoId) {
-        return "http://api.flickr.com/services/rest/?"
+        return "https://api.flickr.com/services/rest/?"
                 + "method=flickr.photos.getSizes"
                 + "&api_key=" + MNPhotoInfoFetcher.FLICKR_API_KEY
                 + "&photo_id=" + photoId

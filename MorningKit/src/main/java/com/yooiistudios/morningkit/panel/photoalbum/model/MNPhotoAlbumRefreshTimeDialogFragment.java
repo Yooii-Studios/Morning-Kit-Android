@@ -58,6 +58,7 @@ public class MNPhotoAlbumRefreshTimeDialogFragment extends DialogFragment {
         mMinuteEditText.setText(String.valueOf(args.getInt(KEY_MINUTE)));
         mSecondEditText.setText(String.valueOf(args.getInt(KEY_SECOND)));
 
+
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             builder = new AlertDialog.Builder(getActivity(),
@@ -138,6 +139,7 @@ public class MNPhotoAlbumRefreshTimeDialogFragment extends DialogFragment {
             @Override
             public void onShow(DialogInterface dialogInterface) {
                 mSecondEditText.requestFocus();
+                mSecondEditText.setSelection(mSecondEditText.length());
                 InputMethodManager imm =
                         (InputMethodManager)getActivity().getSystemService(
                                 Context.INPUT_METHOD_SERVICE);
