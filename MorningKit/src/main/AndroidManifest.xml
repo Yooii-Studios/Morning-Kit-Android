@@ -196,10 +196,11 @@
             android:screenOrientation="sensorPortrait"
             android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection" >
         </activity>
+
         <activity
             android:name=".panel.core.detail.MNPanelDetailActivity"
             android:screenOrientation="sensorPortrait"
-            android:configChanges="locale|layoutDirection"
+            android:configChanges="locale|layoutDirection|orientation|screenSize|screenLayout"
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen">
         </activity>
