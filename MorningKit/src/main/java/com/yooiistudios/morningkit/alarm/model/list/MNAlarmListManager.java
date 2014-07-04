@@ -81,6 +81,8 @@ public class MNAlarmListManager {
                     throw new NullPointerException("AlarmList should not be null");
                 }
             }
+            // 알람 노티피케이션 체크
+            MNAlarmNotificationChecker.checkNotificationState(MNAlarmListManager.getInstance().alarmList, context);
         } catch (Exception e) {
             e.printStackTrace();
 
