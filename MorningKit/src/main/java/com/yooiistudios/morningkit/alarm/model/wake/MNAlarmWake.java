@@ -41,9 +41,11 @@ public class MNAlarmWake {
                     long[] pattern = { 500, 1000, 500, 1000, 500 };         // 진동, 무진동, 진동 무진동 숫으로 시간을 설정한다.
                     vibrator.vibrate(pattern, 0);                           // 패턴을 지정하고 반복횟수를 지정
                 }
-            } else {
-                throw new AssertionError("The target alarm must exist in the list.");
             }
+            // 이 상황은 있어서는 안되는 상황이지만 이것 때문에 크래시가 나는 경우가 있기에 주석처리해둠
+//            else {
+//                throw new AssertionError("The target alarm must exist in the list.");
+//            }
         }
     }
 }
