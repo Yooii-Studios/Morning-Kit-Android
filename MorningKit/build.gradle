@@ -85,6 +85,7 @@ dependencies {
     compile project(':libraries:view-pager-indicator-library') // MNSettingActivityProject에 필요
     compile project(':libraries:DatePickerLibrary')
     compile project(':libraries:TimePickerLibrary')
+    compile project(':libraries:sAXRSSReader')
 
     // 안드로이드 기본
     compile 'com.android.support:support-v4:+'

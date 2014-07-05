@@ -222,6 +222,11 @@
     <dimen name="panel_photo_album_dialog_refresh_item_horizontal_margin">8dp</dimen>
     <dimen name="panel_photo_album_dialog_refresh_textSize">17sp</dimen>
 
+    <!-- News Feed -->
+    <!-- Detail -->
+    <dimen name="panel_news_feed_detail_list_item_title_size">17sp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_indent">10dp</dimen>
+
     <!-- Date Countdown -->
     <dimen name="panel_date_countdown_title_font_size">16sp</dimen>
     <dimen name="panel_date_countdown_count_font_size">30sp</dimen>
