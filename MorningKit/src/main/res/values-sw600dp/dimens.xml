@@ -229,6 +229,7 @@
 
     <!-- News Feed -->
     <!-- Detail -->
+    <dimen name="panel_news_feed_detail_title_textSize">28sp</dimen>                        <!--Done-->
     <dimen name="panel_news_feed_detail_list_item_title_size">23.8sp</dimen>                <!--Done-->
     <dimen name="panel_news_feed_detail_list_item_indent">14dp</dimen>                      <!--Done-->
 

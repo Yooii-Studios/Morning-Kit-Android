@@ -54,7 +54,9 @@ public class MNNewsFeedAdapter extends BaseAdapter {
         titleView.setText(item.getTitle());
 
         TextView contentView = (TextView)view.findViewById(R.id.content);
-        contentView.setText(Html.fromHtml(item.getDescription()));
+        //TODO 퍼포먼스 개선을 위해 우선 200글자만 읽어서 보여줌(어차피 2줄 밖에 안보임)
+        contentView.setText(Html.fromHtml(item.getDescription().substring(0, 200
+                )));
 
         return view;
     }

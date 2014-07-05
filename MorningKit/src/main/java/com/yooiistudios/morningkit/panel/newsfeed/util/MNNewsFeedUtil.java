@@ -23,6 +23,7 @@ public class MNNewsFeedUtil {
 
         String feedUrl;
 
+        //TODO 언어별 기본 RSS피드 주소 입력해야함.
         switch(type) {
             case ENGLISH:
                 feedUrl = "";
@@ -46,7 +47,9 @@ public class MNNewsFeedUtil {
                 feedUrl = "";
                 break;
         }
-        feedUrl = "http://sweetpjy.tistory.com/rss";
+//        feedUrl = "http://sweetpjy.tistory.com/rss";
+        feedUrl = "http://www.cnet.com/rss/iphone-update/";
+
 
         return feedUrl;
     }

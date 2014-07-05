@@ -3,18 +3,22 @@ package com.yooiistudios.morningkit.panel.newsfeed;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.newsfeed.adapter.MNNewsFeedAdapter;
+import com.yooiistudios.morningkit.panel.newsfeed.ui.MNNewsFeedSelectDialogFragment;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNRssFetchTask;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
@@ -38,13 +42,17 @@ import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.P
 /**
  * Created by Dongheyon Jeong on in morning-kit from Yooii Studios Co., LTD. on 2014. 7. 2.
  */
-public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
+public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
+            implements MNNewsFeedSelectDialogFragment.OnClickListener{
 
     private static final String TAG = "MNNewsFeedDetailFragment";
+    public static final String TAG_FEED_SELECT_DIALOG = "feed select dialog";
 
-    @InjectView(R.id.feedTitle)
-    TextView feedTitleTextView;
+    @InjectView(R.id.feedTitle) TextView feedTitleTextView;
     @InjectView(R.id.newsList) ListView newsListView;
+    @InjectView(R.id.result) LinearLayout newsResult;
+    @InjectView(R.id.loadingImageView) ImageView loadingImageView;
+
 
     // object data
     private String feedUrl;
@@ -110,10 +118,25 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
     }
 
     private void initUI() {
+        feedTitleTextView.setOnClickListener(onSelectFeedClickedListener);
 
         // theme
         initTheme();
     }
+    private View.OnClickListener
+            onSelectFeedClickedListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            DialogFragment newFragment =
+                    MNNewsFeedSelectDialogFragment.
+                            newInstance(feedUrl);
+            newFragment.setTargetFragment(
+                    MNNewsFeedDetailFragment.this, -1);
+            newFragment.show(getFragmentManager(), TAG_FEED_SELECT_DIALOG);
+
+        }
+    };
 
     private void initTheme() {
         MNThemeType currentThemeType =
@@ -133,39 +156,53 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
                 PREF_NEWS_FEED, Context.MODE_PRIVATE);
         prefs.edit().putString(KEY_FEED_URL, feedUrl).commit();
     }
+    private void showResultView() {
+        loadingImageView.setVisibility(View.GONE);
+        newsResult.setVisibility(View.VISIBLE);
+    }
+    private void showLoadingImageView() {
+        loadingImageView.setVisibility(View.VISIBLE);
+        newsResult.setVisibility(View.GONE);
+    }
 
     private void update(RssFeed feed) {
-        feedTitleTextView.setText(feed.getTitle());
+        this.feed = feed;
+        if (feed != null && feed.getRssItems().size() > 0) {
+            feedTitleTextView.setText(feed.getTitle());
 
-        MNNewsFeedAdapter adapter = new MNNewsFeedAdapter(getActivity(), feed);
-        newsListView.setAdapter(adapter);
+            MNNewsFeedAdapter adapter = new MNNewsFeedAdapter(getActivity(), feed);
+            newsListView.setAdapter(adapter);
+            newsListView.setVisibility(View.VISIBLE);
+        }
+        else {
+            feedTitleTextView.setText("blah...feed unavailable");
+            newsListView.setVisibility(View.GONE);
+        }
+        showResultView();
     }
 
     private void loadNewsFeed(String url) {
+        showLoadingImageView();
+        feedUrl = url;
         rssFetchTask = new MNRssFetchTask(new MNRssFetchTask.OnFetchListener() {
             @Override
             public void onFetch(RssFeed rssFeed) {
-//                ArrayList<RssItem> rssItems = rssFeed.getRssItems();
-//                StringBuilder content = new StringBuilder();
-//                for (RssItem rssItem : rssItems) {
-//                    Log.i("RSS Reader", rssItem.getTitle());
-//
-//                    content.append(rssItem.getTitle()).append("\n")
-//                            .append(rssItem.getDescription()).append("\n");
-//                }
-                feed = rssFeed;
-
                 update(rssFeed);
             }
 
             @Override
             public void onCancel() {
-                Log.i("RSS Reader", "task cancelled.");
+                MNLog.i("RSS Reader", "task cancelled.");
+
+                update(null);
             }
 
             @Override
             public void onError() {
-                Log.i("RSS Reader", "error occurred while fetching rss feed.");
+                MNLog.i("RSS Reader", "error occurred while fetching rss feed" +
+                        ".");
+
+                update(null);
             }
         });
         rssFetchTask.execute(url);
@@ -187,10 +224,17 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
     public void onPause() {
         super.onPause();
 
-        //TODO stop handler
         if (rssFetchTask != null) {
             rssFetchTask.cancel(true);
         }
     }
 
+
+    @Override
+    public void onConfirm(String url) {
+        loadNewsFeed(url);
+    }
+
+    @Override
+    public void onCancel() {}
 }

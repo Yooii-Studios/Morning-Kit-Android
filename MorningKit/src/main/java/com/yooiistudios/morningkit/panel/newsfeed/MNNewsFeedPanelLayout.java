@@ -11,8 +11,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
@@ -26,11 +24,7 @@ import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import org.json.JSONException;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-
 import nl.matshofman.saxrssreader.RssFeed;
-import nl.matshofman.saxrssreader.RssItem;
 
 /**
  * Created by Dongheyon Jeong on in morning-kit from Yooii Studios Co., LTD. on 2014. 7. 2.
@@ -111,27 +105,28 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                     MNNewsFeedUtil.getDefaultFeedUrl(getContext()));
             getPanelDataObject().put(KEY_FEED_URL, feedUrl);
         }
-        if (getPanelDataObject().has(KEY_RSS_FEED)
-                && getPanelDataObject().has(KEY_RSS_ITEMS)) {
-            String feedStr = getPanelDataObject().getString(KEY_RSS_FEED);
-            String newsListStr = getPanelDataObject().getString(KEY_RSS_ITEMS);
-
-            if (feedStr != null && newsListStr != null) {
-                Type type = new TypeToken<RssFeed>() {}.getType();
-                RssFeed rssFeed = new Gson().fromJson(feedStr, type);
-                type = new TypeToken<ArrayList<RssItem>>() {}.getType();
-                rssFeed.setRssItems(
-                        (ArrayList<RssItem>)new Gson().fromJson(newsListStr, type));
-
-                setNewRssFeed(rssFeed);
-            }
-            else {
-                feed = null;
-            }
-        }
-        else {
-            feed = null;
-        }
+        //메인에서 이전 피드 캐싱해서 보여주던 루틴 없엠.(피드 url이 바뀐 경우 의미 없음)
+//        if (getPanelDataObject().has(KEY_RSS_FEED)
+//                && getPanelDataObject().has(KEY_RSS_ITEMS)) {
+//            String feedStr = getPanelDataObject().getString(KEY_RSS_FEED);
+//            String newsListStr = getPanelDataObject().getString(KEY_RSS_ITEMS);
+//
+//            if (feedStr != null && newsListStr != null) {
+//                Type type = new TypeToken<RssFeed>() {}.getType();
+//                RssFeed rssFeed = new Gson().fromJson(feedStr, type);
+//                type = new TypeToken<ArrayList<RssItem>>() {}.getType();
+//                rssFeed.setRssItems(
+//                        (ArrayList<RssItem>)new Gson().fromJson(newsListStr, type));
+//
+//                setNewRssFeed(rssFeed);
+//            }
+//            else {
+//                feed = null;
+//            }
+//        }
+//        else {
+//            feed = null;
+//        }
 
         loadNewsFeed(feedUrl);
     }
@@ -153,6 +148,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
             public void onCancel() {
                 Log.i("RSS Reader", "task cancelled.");
 
+                feed = null;
                 updateUI();
             }
 
@@ -160,6 +156,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
             public void onError() {
                 Log.i("RSS Reader", "error occurred while fetching rss feed.");
 
+                feed = null;
                 updateUI();
             }
         });
@@ -182,7 +179,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
             startHandler();
         }
         else {
-            // TODO show unavailable.
+            newsFeedTextView.setText("blah...news feed unavailable.");
         }
     }
 
@@ -224,6 +221,10 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     public void onActivityPause() {
         super.onActivityPause();
         stopHandler();
+
+        if (rssFetchTask != null) {
+            rssFetchTask.cancel(true);
+        }
     }
 
     private void startHandler() {
