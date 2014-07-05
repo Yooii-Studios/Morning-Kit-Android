@@ -304,6 +304,7 @@
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">淺綠</string>
+    <string name="setting_theme_color_cool_navy">Cool Navy</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">向朋友推薦早安工具</string>

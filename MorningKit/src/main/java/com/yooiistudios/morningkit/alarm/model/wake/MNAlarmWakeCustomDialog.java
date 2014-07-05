@@ -191,12 +191,9 @@ public class MNAlarmWakeCustomDialog {
             if (wakeDialog != null) {
                 Context context = wakeDialog.getContext().getApplicationContext();
 
-                // clear animation
-                ImageView alarmImageView =
-                        (ImageView) wakeDialog.findViewById(R.id.alarm_wake_custom_dialog_image_view);
-                alarmImageView.clearAnimation();
-                wakeDialog.dismiss();
+                // wakeDialog.dismiss 에 크래시가 났음
 
+                // 따라서 모델부터 처리 후 UI를 제일 마지막에 처리
                 // stop alarm sound
                 SKAlarmSoundPlayer.stop();
 
@@ -221,6 +218,18 @@ public class MNAlarmWakeCustomDialog {
                 // bus message
                 MNAlarmScrollViewBusProvider.getInstance().post(context);
                 MNAlarmScrollViewBusProvider.getInstance().post(wakeDialog);
+
+                // clear animation and wakeDialog
+                if (wakeDialog != null && wakeDialog.isShowing()) {
+                    try {
+                        ImageView alarmImageView =
+                                (ImageView) wakeDialog.findViewById(R.id.alarm_wake_custom_dialog_image_view);
+                        alarmImageView.clearAnimation();
+                        wakeDialog.dismiss();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }

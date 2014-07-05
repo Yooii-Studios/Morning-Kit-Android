@@ -19,7 +19,7 @@ public class MNAlarmBroadcastReceiverService extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals("android.intent.action.BOOT_COMPLETED")){
-            // 리부팅이 될 때 켜진 알람들은 다시 켜주기
+            // 리부팅이 될 때 켜진 알람들은 다시 켜주기 - 노티도 같이 체크
             ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(context);
             for (MNAlarm alarm : alarmList) {
                 if (alarm.isAlarmOn()) {
