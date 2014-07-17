@@ -64,7 +64,7 @@ public class MNMainColors {
                 return Color.parseColor("#E55ab38c"); // 아직 더 조정할 필요가 있음
 
             case COOL_NAVY:
-                return Color.parseColor("#30acea");
+                return Color.parseColor("#E52c85b3");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -137,7 +137,7 @@ public class MNMainColors {
                 return Color.parseColor("#797979");
 
             case COOL_NAVY:
-                return Color.parseColor("#797979"); // same with PASTEL_GREEN
+                return Color.parseColor("#ffffff"); // same with PASTEL_GREEN
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
