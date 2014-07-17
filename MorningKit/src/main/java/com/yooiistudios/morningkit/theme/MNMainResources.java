@@ -163,7 +163,7 @@ public class MNMainResources {
                 return R.drawable.clock_hand_hour_am_pastel_green;
 
             case COOL_NAVY:
-                return R.drawable.clock_hand_hour_cool_navy;
+                return R.drawable.clock_hand_hour_pm_cool_navy;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -192,7 +192,7 @@ public class MNMainResources {
                 return R.drawable.clock_hand_hour_pm_pastel_green;
 
             case COOL_NAVY:
-                return R.drawable.clock_hand_hour_cool_navy;
+                return R.drawable.clock_hand_hour_pm_cool_navy;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -221,7 +221,7 @@ public class MNMainResources {
                 return R.drawable.clock_hand_minute_am_pastel_green;
 
             case COOL_NAVY:
-                return R.drawable.clock_hand_minute_cool_navy;
+                return R.drawable.clock_hand_minute_pm_cool_navy;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -250,7 +250,7 @@ public class MNMainResources {
                 return R.drawable.clock_hand_minute_pm_pastel_green;
 
             case COOL_NAVY:
-                return R.drawable.clock_hand_minute_cool_navy;
+                return R.drawable.clock_hand_minute_pm_cool_navy;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -279,7 +279,7 @@ public class MNMainResources {
                 return R.drawable.clock_hand_second_am_pastel_green;
 
             case COOL_NAVY:
-                return R.drawable.clock_hand_second_cool_navy;
+                return R.drawable.clock_hand_second_pm_cool_navy;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -308,7 +308,7 @@ public class MNMainResources {
                 return R.drawable.clock_hand_second_pm_pastel_green;
 
             case COOL_NAVY:
-                return R.drawable.clock_hand_second_cool_navy;
+                return R.drawable.clock_hand_second_pm_cool_navy;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
