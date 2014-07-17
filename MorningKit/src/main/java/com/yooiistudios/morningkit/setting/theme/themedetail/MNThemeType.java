@@ -22,7 +22,8 @@ public enum MNThemeType {
     MODERNITY_WHITE(4, 4),
     SLATE_GRAY(5, 5),
     CELESTIAL_SKY_BLUE(8888, 8888),
-    PASTEL_GREEN(6, 7);
+    PASTEL_GREEN(6, 7),
+    COOL_NAVY(7, 8);
 
     @Getter private final int index;
     @Getter private final int uniqueId;
@@ -42,6 +43,7 @@ public enum MNThemeType {
             case 5: return SLATE_GRAY;
 //            case 6: return CELESTIAL_SKY_BLUE;
             case 6: return PASTEL_GREEN;
+            case 7: return COOL_NAVY;
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -56,6 +58,8 @@ public enum MNThemeType {
             case 5: return SLATE_GRAY;
 //            case 6: return CELESTIAL_SKY_BLUE;
             case 7: return PASTEL_GREEN;
+            case 8:
+                return COOL_NAVY;
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -70,6 +74,7 @@ public enum MNThemeType {
             case 5: return context.getString(R.string.setting_theme_color_classic_gray);
 //            case 6: return context.getString(R.string.setting_theme_color_skyblue);
             case 6: return context.getString(R.string.setting_theme_color_pastel_green);
+            case 7: return context.getString(R.string.setting_theme_color_cool_navy);
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
