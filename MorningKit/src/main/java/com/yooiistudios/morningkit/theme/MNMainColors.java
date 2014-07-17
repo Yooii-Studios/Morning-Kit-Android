@@ -43,6 +43,9 @@ public class MNMainColors {
             case COOL_NAVY:
                 return Color.parseColor("#212931");
 
+            case MINT_PINK:
+                return Color.parseColor("#d7ede0");
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -65,6 +68,9 @@ public class MNMainColors {
 
             case COOL_NAVY:
                 return Color.parseColor("#E52c85b3");
+
+            case MINT_PINK:
+                return Color.parseColor("#E5f59599");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -102,6 +108,9 @@ public class MNMainColors {
             case COOL_NAVY:
                 return Color.parseColor("#30acea");
 
+            case MINT_PINK:
+                return Color.parseColor("#f59599");
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -138,6 +147,9 @@ public class MNMainColors {
 
             case COOL_NAVY:
                 return Color.parseColor("#ffffff"); // same with PASTEL_GREEN
+
+            case MINT_PINK:
+                return Color.parseColor("#b49e93");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -184,6 +196,9 @@ public class MNMainColors {
             case COOL_NAVY:
                 return Color.parseColor("#c1c1c1"); // same with PASTEL_GREEN
 
+            case MINT_PINK:
+                return Color.parseColor("#c1c1c1");
+
             default:
                 return getSubFontColor(themeType, context);
         }
@@ -205,6 +220,7 @@ public class MNMainColors {
 
             case PASTEL_GREEN:
             case COOL_NAVY:
+            case MINT_PINK:
                 return getSubFontColor(themeType, context);
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
@@ -224,6 +240,7 @@ public class MNMainColors {
 
             case PASTEL_GREEN:
             case COOL_NAVY:
+            case MINT_PINK:
                 return getSubFontColor(themeType, context);
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
@@ -243,6 +260,7 @@ public class MNMainColors {
 
             case PASTEL_GREEN:
             case COOL_NAVY:
+            case MINT_PINK:
                 return Color.parseColor("#c1c1c1");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
@@ -260,6 +278,7 @@ public class MNMainColors {
             case CELESTIAL_SKY_BLUE:
             case PASTEL_GREEN:
             case COOL_NAVY:
+            case MINT_PINK:
                 return getMainFontColor(themeType, context);
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
@@ -279,6 +298,7 @@ public class MNMainColors {
 
             case PASTEL_GREEN:
             case COOL_NAVY:
+            case MINT_PINK:
                 return getSubFontColor(themeType, context);
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
@@ -298,6 +318,7 @@ public class MNMainColors {
 
             case PASTEL_GREEN:
             case COOL_NAVY:
+            case MINT_PINK:
                 return getMainFontColor(themeType, context);
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
