@@ -305,6 +305,7 @@
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">Pastel Green</string>
     <string name="setting_theme_color_cool_navy">Cool Navy</string>
+    <string name="setting_theme_color_mint_pink">Mint Pink</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">Recommend Morning Kit to your friends</string>

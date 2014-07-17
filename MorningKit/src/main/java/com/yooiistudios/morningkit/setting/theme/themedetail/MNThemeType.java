@@ -23,7 +23,8 @@ public enum MNThemeType {
     SLATE_GRAY(5, 5),
     CELESTIAL_SKY_BLUE(8888, 8888),
     PASTEL_GREEN(6, 7),
-    COOL_NAVY(7, 8);
+    COOL_NAVY(7, 8),
+    MINT_PINK(8, 9);
 
     @Getter private final int index;
     @Getter private final int uniqueId;
