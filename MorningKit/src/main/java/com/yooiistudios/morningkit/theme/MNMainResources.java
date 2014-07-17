@@ -41,7 +41,7 @@ public class MNMainResources {
                 return R.drawable.main_refresh_button_selector_pastel_green;
 
             case COOL_NAVY:
-                return R.drawable.main_refresh_button_selector_pastel_green;
+                return R.drawable.main_refresh_button_selector_cool_navy;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -68,7 +68,7 @@ public class MNMainResources {
                 return R.drawable.main_setting_button_selector_pastel_green;
 
             case COOL_NAVY:
-                return R.drawable.main_setting_button_selector_pastel_green;
+                return R.drawable.main_setting_button_selector_cool_navy;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
