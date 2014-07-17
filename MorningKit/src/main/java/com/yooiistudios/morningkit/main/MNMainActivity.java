@@ -599,6 +599,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
             case PASTEL_GREEN:
+            case COOL_NAVY:
                 containerLayout.removeView(photoThemeImageView);
                 if (photoThemeImageView != null) {
                     photoThemeImageView.clear();

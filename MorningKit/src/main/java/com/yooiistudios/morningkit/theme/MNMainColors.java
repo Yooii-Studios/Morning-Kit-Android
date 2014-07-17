@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.theme;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.font.MNTranslucentFont;
@@ -39,6 +40,9 @@ public class MNMainColors {
             case PASTEL_GREEN:
                 return Color.parseColor("#ffffff");
 
+            case COOL_NAVY:
+                return Color.parseColor("#212931");
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -53,11 +57,14 @@ public class MNMainColors {
             case SLATE_GRAY:
                 return Color.parseColor("#CC000000");
 
+            case CELESTIAL_SKY_BLUE:
+                return Color.parseColor("#E5043f4b");
+
             case PASTEL_GREEN:
                 return Color.parseColor("#E55ab38c"); // 아직 더 조정할 필요가 있음
 
-            case CELESTIAL_SKY_BLUE:
-                return Color.parseColor("#E5043f4b");
+            case COOL_NAVY:
+                return Color.parseColor("#E52c85b3");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -91,6 +98,9 @@ public class MNMainColors {
 
             case PASTEL_GREEN:
                 return Color.parseColor("#5ab38c");
+
+            case COOL_NAVY:
+                return Color.parseColor("#30acea");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -126,6 +136,9 @@ public class MNMainColors {
             case PASTEL_GREEN:
                 return Color.parseColor("#797979");
 
+            case COOL_NAVY:
+                return Color.parseColor("#ffffff"); // same with PASTEL_GREEN
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -144,6 +157,8 @@ public class MNMainColors {
             return Color.parseColor("#043f4b");
         } else if (themeType == MNThemeType.PASTEL_GREEN) {
             return Color.parseColor("#797979");
+        } else if (themeType == MNThemeType.COOL_NAVY) {
+            return getMainFontColor(MNThemeType.SLATE_GRAY, context);
         } else {
             return getAlarmMainFontColor(themeType, context);
         }
@@ -166,6 +181,9 @@ public class MNMainColors {
             case PASTEL_GREEN:
                 return Color.parseColor("#c1c1c1");
 
+            case COOL_NAVY:
+                return Color.parseColor("#c1c1c1"); // same with PASTEL_GREEN
+
             default:
                 return getSubFontColor(themeType, context);
         }
@@ -186,6 +204,7 @@ public class MNMainColors {
                 return getMainFontColor(themeType, context);
 
             case PASTEL_GREEN:
+            case COOL_NAVY:
                 return getSubFontColor(themeType, context);
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
@@ -204,6 +223,7 @@ public class MNMainColors {
                 return getMainFontColor(themeType, context);
 
             case PASTEL_GREEN:
+            case COOL_NAVY:
                 return getSubFontColor(themeType, context);
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
@@ -222,6 +242,7 @@ public class MNMainColors {
                 return getSubFontColor(themeType, context);
 
             case PASTEL_GREEN:
+            case COOL_NAVY:
                 return Color.parseColor("#c1c1c1");
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
@@ -238,6 +259,7 @@ public class MNMainColors {
             case SLATE_GRAY:
             case CELESTIAL_SKY_BLUE:
             case PASTEL_GREEN:
+            case COOL_NAVY:
                 return getMainFontColor(themeType, context);
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
@@ -256,6 +278,7 @@ public class MNMainColors {
                 return getMainFontColor(themeType, context);
 
             case PASTEL_GREEN:
+            case COOL_NAVY:
                 return getSubFontColor(themeType, context);
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
@@ -274,6 +297,7 @@ public class MNMainColors {
                 return getSubFontColor(themeType, context);
 
             case PASTEL_GREEN:
+            case COOL_NAVY:
                 return getMainFontColor(themeType, context);
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
