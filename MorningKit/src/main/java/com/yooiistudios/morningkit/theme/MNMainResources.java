@@ -114,7 +114,7 @@ public class MNMainResources {
                 return R.drawable.clock_base_am_cool_navy;
 
             case MINT_PINK:
-                return R.drawable.clock_base_am_cool_navy;
+                return R.drawable.clock_base_am_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -146,7 +146,7 @@ public class MNMainResources {
                 return R.drawable.clock_base_pm_cool_navy;
 
             case MINT_PINK:
-                return R.drawable.clock_base_pm_cool_navy;
+                return R.drawable.clock_base_pm_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -178,7 +178,7 @@ public class MNMainResources {
                 return R.drawable.clock_hand_hour_am_cool_navy;
 
             case MINT_PINK:
-                return R.drawable.clock_hand_hour_am_cool_navy;
+                return R.drawable.clock_hand_hour_am_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -210,7 +210,7 @@ public class MNMainResources {
                 return R.drawable.clock_hand_hour_pm_cool_navy;
 
             case MINT_PINK:
-                return R.drawable.clock_hand_hour_pm_cool_navy;
+                return R.drawable.clock_hand_hour_pm_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -242,7 +242,7 @@ public class MNMainResources {
                 return R.drawable.clock_hand_minute_am_cool_navy;
 
             case MINT_PINK:
-                return R.drawable.clock_hand_minute_am_cool_navy;
+                return R.drawable.clock_hand_minute_am_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -274,7 +274,7 @@ public class MNMainResources {
                 return R.drawable.clock_hand_minute_pm_cool_navy;
 
             case MINT_PINK:
-                return R.drawable.clock_hand_minute_pm_cool_navy;
+                return R.drawable.clock_hand_minute_pm_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -306,7 +306,7 @@ public class MNMainResources {
                 return R.drawable.clock_hand_second_am_cool_navy;
 
             case MINT_PINK:
-                return R.drawable.clock_hand_second_am_cool_navy;
+                return R.drawable.clock_hand_second_am_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -338,7 +338,7 @@ public class MNMainResources {
                 return R.drawable.clock_hand_second_pm_cool_navy;
 
             case MINT_PINK:
-                return R.drawable.clock_hand_second_pm_cool_navy;
+                return R.drawable.clock_hand_second_pm_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
