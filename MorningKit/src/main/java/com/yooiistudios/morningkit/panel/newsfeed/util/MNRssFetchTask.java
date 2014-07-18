@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.panel.newsfeed.util;
 
 import android.os.AsyncTask;
+import android.text.Html;
 
 import org.xml.sax.SAXException;
 
@@ -10,6 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import nl.matshofman.saxrssreader.RssFeed;
+import nl.matshofman.saxrssreader.RssItem;
 import nl.matshofman.saxrssreader.RssReader;
 
 /**
@@ -18,6 +20,8 @@ import nl.matshofman.saxrssreader.RssReader;
 public class MNRssFetchTask extends AsyncTask<String, Void, RssFeed> {
 //    private String mRssUrl;
     private OnFetchListener mOnFetchListener;
+
+    private static final int MAX_DESCRIPTION_LENGTH = 200;
 
     public MNRssFetchTask(OnFetchListener onFetchListener) {
 //        mRssUrl = rssUrl;
@@ -38,9 +42,19 @@ public class MNRssFetchTask extends AsyncTask<String, Void, RssFeed> {
             URL url = new URL(urlStr);
 //            InputStream is = url.openStream();
             URLConnection conn = url.openConnection();
-            String encoding = conn.getContentEncoding();
 
             feed = RssReader.read(conn.getInputStream());
+
+            for (RssItem item : feed.getRssItems()) {
+                String desc = item.getDescription();
+                String strippedDesc = Html.fromHtml(desc.substring(0,
+                        desc.length())).toString();
+
+                int length = strippedDesc.length() > MAX_DESCRIPTION_LENGTH ?
+                        MAX_DESCRIPTION_LENGTH : strippedDesc.length();
+                item.setDescription(
+                        Html.fromHtml(strippedDesc.substring(0, length)).toString());
+            }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (SAXException e) {

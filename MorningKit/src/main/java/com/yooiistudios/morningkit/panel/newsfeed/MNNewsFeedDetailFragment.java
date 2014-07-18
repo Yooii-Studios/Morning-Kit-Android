@@ -154,7 +154,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
 
         SharedPreferences prefs = getActivity().getSharedPreferences(
                 PREF_NEWS_FEED, Context.MODE_PRIVATE);
-        prefs.edit().putString(KEY_FEED_URL, feedUrl).commit();
+        prefs.edit().putString(KEY_FEED_URL, feedUrl).apply();
     }
     private void showResultView() {
         loadingImageView.setVisibility(View.GONE);

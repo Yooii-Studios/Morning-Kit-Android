@@ -5,22 +5,30 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/urlEditText"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+        <AutoCompleteTextView
+            android:id="@+id/urlEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:longClickable="false"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:textSize="@dimen/alarm_pref_list_item_textview_font_size"/>
+        <Button
+            android:id="@+id/clear"
+            android:layout_width="@dimen/alarm_pref_list_label_item_dialog_button_size"
+            android:layout_height="@dimen/alarm_pref_list_label_item_dialog_button_size"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/alarm_pref_list_label_item_dialog_padding_button"
+            android:background="@drawable/ic_action_cancel" />
+    </RelativeLayout>
     <Button
-        android:id="@+id/cnet"
+        android:id="@+id/reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="cnet"/>
-    <Button
-        android:id="@+id/twoch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2chan"/>
-    <ListView
-        android:id="@+id/historyListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:text="blah...reset"/>
 </LinearLayout>

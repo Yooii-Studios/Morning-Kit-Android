@@ -11,10 +11,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 
 /**
  * Created by Dongheyon Jeong on in morning-kit from Yooii Studios Co., LTD. on 2014. 7. 5.
@@ -22,8 +23,7 @@ import com.yooiistudios.morningkit.R;
 public class MNNewsFeedSelectDialogFragment extends DialogFragment {
     private static final String KEY_URL = "url";
 
-    private EditText mFeedUrlEditText;
-    private ListView mHistoryListView;
+    private AutoCompleteTextView mFeedUrlEditText;
 
     public static MNNewsFeedSelectDialogFragment newInstance(
             String feedUrl) {
@@ -46,28 +46,30 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
 
         View root = inflater.inflate(R.layout
                 .dialog_fragment_news_feed_select, null, false);
-        mFeedUrlEditText = (EditText)root.findViewById(R.id.urlEditText);
+        mFeedUrlEditText = (AutoCompleteTextView)root.findViewById(R.id.urlEditText);
         mFeedUrlEditText.setText(args.getString(KEY_URL));
 
+        // config adapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_dropdown_item_1line,
+                MNNewsFeedUtil.getUrlHistory(getActivity()));
+        mFeedUrlEditText.setAdapter(adapter);
+
         //test code
-        root.findViewById(R.id.cnet).setOnClickListener(new View
+        root.findViewById(R.id.reset).setOnClickListener(new View
                 .OnClickListener() {
             @Override
             public void onClick(View view) {
-                mFeedUrlEditText.setText("http://www.cnet.com/rss/iphone-update/");
+                mFeedUrlEditText.setText(MNNewsFeedUtil.getDefaultFeedUrl(getActivity()));
             }
         });
-        root.findViewById(R.id.twoch).setOnClickListener(new View
+        root.findViewById(R.id.clear).setOnClickListener(new View
                 .OnClickListener() {
             @Override
-            public void onClick(View view) {
-                mFeedUrlEditText.setText("http://sweetpjy.tistory.com/rss");
+            public void onClick(View v) {
+                mFeedUrlEditText.setText("");
             }
         });
-
-
-        mHistoryListView = (ListView)root.findViewById(R.id.historyListView);
-        mHistoryListView.setVisibility(View.INVISIBLE);
 
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -89,6 +91,14 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
                                                 instanceof OnClickListener) {
                                     String url = mFeedUrlEditText.getText()
                                             .toString();
+
+                                    // add "http://" if it's not entered.
+                                    if (!url.toLowerCase().matches("^\\w+://.*")) {
+                                        url = "http://" + url;
+                                    }
+
+                                    MNNewsFeedUtil.addUrlToHistory(
+                                            getActivity(), url);
 
                                     ((OnClickListener) parentFragment)
                                             .onConfirm(url);
