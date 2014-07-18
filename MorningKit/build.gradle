@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.12.+' // 0.12.+ 버전은 안드로이드 스튜디오 0.8.+ 버전부터
-        // JaKe Wharton 것을 쓰다가 jcandksolutions가 문제를 해결해서 여기의 것을 사용
+        // JaKe Wharton 것을 쓰다가 jcandksolutions 가 문제를 해결해서 여기의 것을 사용
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
         classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.2.+'
     }
@@ -82,16 +82,16 @@ dependencies {
     // 내가 만든 모듈
     compile project(':libraries:SKAlarmManager')
     compile project(':libraries:SKAlarmSound')
-    compile project(':libraries:view-pager-indicator-library') // MNSettingActivityProject에 필요
+    compile project(':libraries:view-pager-indicator-library') // MNSettingActivityProject 에 필요
     compile project(':libraries:DatePickerLibrary')
     compile project(':libraries:TimePickerLibrary')
 
     // 안드로이드 기본
-    compile 'com.android.support:support-v4:20.+' // 21.+ 버전부터 안드로이드 L이라서 막아둠
+    compile 'com.android.support:support-v4:20.+' // 21.+ 버전부터 안드로이드 L 이라서 막아둠
     compile 'com.android.support:appcompat-v7:20.+'
 
     // 위치 서비스 관련
-    compile 'com.google.android.gms:play-services:5.0.+' // 4.0.+ 에서 버전업
+    compile 'com.google.android.gms:play-services:4.+' // 4.0.+ 에서 버전업
 
     // 모든 jar 파일 로딩
     compile fileTree(dir: 'libs', include: '*.jar')
@@ -102,7 +102,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:4.0.1'
 
     // Getter & Setter를 annotation으로 해결
-    // (Android Studio용 플러그인용 jar 파일을 웹에서 받아서 <설정 -> plugin -> disk에서 설치> 필요)
+    // (Android Studio용 플러그인용 jar 파일을 웹에서 받아서 <설정 -> plugin -> disk 에서 설치> 필요)
     compile 'org.projectlombok:lombok:1.12.2'
 
     // 설정앱에서 사용된 라이브러리
@@ -121,7 +121,7 @@ dependencies {
     // TEST //
     //////////
     testCompile 'junit:junit:4.10'
-    testCompile 'org.robolectric:robolectric:2.4-SNAPSHOT' // ActionBarActivity의 문제를 해결하고자 2.2에서 변경
+    testCompile 'org.robolectric:robolectric:2.4-SNAPSHOT' // ActionBarActivity 의 문제를 해결하고자 2.2에서 변경
     testCompile 'com.squareup:fest-android:1.0.+'
 
     androidTestCompile 'junit:junit:4.10'
@@ -155,6 +155,7 @@ task askForPasswords << {
 
 tasks.whenTaskAdded { theTask ->
     if (theTask.name.equals("packageRelease")) {
+        // 커맨드에서 직접 빌드를 만들 경우에만 사용하자
         theTask.dependsOn "askForPasswords"
     }
 }
