@@ -22,6 +22,14 @@
     <color name="pastel_green_main_font_color">#5ab38c</color>
     <color name="pastel_green_sub_font_color">#797979</color>
 
+    <color name="cool_navy_forward_normal_color">#2b3845</color>
+    <color name="cool_navy_forward_pressed_color">#2c85b3</color>
+    <color name="cool_navy_stroke_color">#2b3845</color>
+
+    <color name="mint_pink_forward_normal_color">#ffffff</color>
+    <color name="mint_pink_forward_pressed_color">#ffe0df</color>
+    <color name="mint_pink_stroke_color">#ffffff</color>
+
     <color name="translucent_forward_normal_color">#1affffff</color>
     <color name="translucent_forward_pressed_color">#7fffffff</color>
 
