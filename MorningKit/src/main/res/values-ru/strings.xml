@@ -307,6 +307,7 @@
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">Зеленый пастельный</string>
     <string name="setting_theme_color_cool_navy">Прохладный темно-синий</string>
+    <string name="setting_theme_color_mint_pink">Монетный двор Розовый</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">Рекомендовать Утренний Kомплект друзьям</string>

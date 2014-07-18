@@ -305,6 +305,7 @@
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">파스텔 그린</string>
     <string name="setting_theme_color_cool_navy">쿨 네이비</string>
+    <string name="setting_theme_color_mint_pink">민트 핑크</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">친구에게 추천하기</string>
