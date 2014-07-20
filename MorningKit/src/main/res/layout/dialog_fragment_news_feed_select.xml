@@ -12,6 +12,7 @@
             android:id="@+id/urlEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingRight="@dimen/alarm_pref_list_label_item_dialog_button_size"
             android:longClickable="false"
             android:singleLine="true"
             android:gravity="center_vertical"

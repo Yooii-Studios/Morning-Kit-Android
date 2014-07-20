@@ -9,13 +9,27 @@
         android:id="@+id/result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="invisible">
-        <TextView
-            android:id="@+id/feedTitle"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/titleMagnifierWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/panel_news_feed_detail_title_textSize"/>
+            android:padding="@dimen/panel_news_feed_detail_title_content_padding">
+            <ImageView
+                android:id="@+id/search"
+                android:layout_width="@dimen/panel_world_clock_detail_magnifier_size"
+                android:layout_height="@dimen/panel_world_clock_detail_magnifier_size"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="8dp"
+                android:background="@drawable/icon_magnifier"/>
+            <TextView
+                android:id="@+id/feedTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/search"
+                android:textSize="@dimen/panel_news_feed_detail_title_textSize"/>
+        </RelativeLayout>
         <ListView
             android:id="@+id/newsList"
             android:layout_width="match_parent"

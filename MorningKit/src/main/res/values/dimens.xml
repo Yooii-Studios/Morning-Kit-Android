@@ -225,6 +225,7 @@
     <!-- News Feed -->
     <!-- Detail -->
     <dimen name="panel_news_feed_detail_title_textSize">20sp</dimen>
+    <dimen name="panel_news_feed_detail_title_content_padding">6dp</dimen>
     <dimen name="panel_news_feed_detail_list_item_title_size">17sp</dimen>
     <dimen name="panel_news_feed_detail_list_item_indent">10dp</dimen>
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -35,6 +36,7 @@ import nl.matshofman.saxrssreader.RssFeed;
 import nl.matshofman.saxrssreader.RssItem;
 
 import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.KEY_FEED_URL;
+import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.KEY_LOADING_FEED_URL;
 import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.KEY_RSS_FEED;
 import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.KEY_RSS_ITEMS;
 import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.PREF_NEWS_FEED;
@@ -52,10 +54,11 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
     @InjectView(R.id.newsList) ListView newsListView;
     @InjectView(R.id.result) LinearLayout newsResult;
     @InjectView(R.id.loadingImageView) ImageView loadingImageView;
-
+    @InjectView(R.id.titleMagnifierWrapper) RelativeLayout titleMagnifierWrapper;
 
     // object data
     private String feedUrl;
+    private String loadingFeedUrl;
     private RssFeed feed;
 
     private MNRssFetchTask rssFetchTask;
@@ -76,6 +79,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
 
                 // init with default setting
                 feedUrl = MNNewsFeedUtil.getDefaultFeedUrl(getActivity());
+                loadingFeedUrl = null;
                 feed = null;
             }
 
@@ -95,6 +99,12 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
         else {
             feedUrl = prefs.getString(KEY_FEED_URL,
                     MNNewsFeedUtil.getDefaultFeedUrl(getActivity()));
+        }
+        if (getPanelDataObject().has(KEY_LOADING_FEED_URL)) {
+            loadingFeedUrl = getPanelDataObject().getString(KEY_LOADING_FEED_URL);
+        }
+        else {
+            loadingFeedUrl = null;
         }
         if (getPanelDataObject().has(KEY_RSS_FEED)
                 && getPanelDataObject().has(KEY_RSS_ITEMS)) {
@@ -118,7 +128,9 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
     }
 
     private void initUI() {
-        feedTitleTextView.setOnClickListener(onSelectFeedClickedListener);
+        titleMagnifierWrapper.setOnClickListener(onSelectFeedClickedListener);
+        loadingImageView.setVisibility(View.GONE);
+        newsResult.setVisibility(View.GONE);
 
         // theme
         initTheme();
@@ -127,7 +139,6 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
             onSelectFeedClickedListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
             DialogFragment newFragment =
                     MNNewsFeedSelectDialogFragment.
                             newInstance(feedUrl);
@@ -145,12 +156,26 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
 
     @Override
     protected void archivePanelData() throws JSONException {
+        if (loadingFeedUrl != null) {
+            getPanelDataObject().put(KEY_LOADING_FEED_URL, loadingFeedUrl);
+            feedUrl = loadingFeedUrl;
+            feed = null;
+        }
+        else {
+            getPanelDataObject().remove(KEY_LOADING_FEED_URL);
+        }
         getPanelDataObject().put(KEY_FEED_URL, feedUrl);
 
-        getPanelDataObject().put(KEY_RSS_FEED,
-                MNNewsFeedUtil.getRssFeedJsonString(feed));
-        getPanelDataObject().put(KEY_RSS_ITEMS,
-                MNNewsFeedUtil.getRssItemArrayListString(feed.getRssItems()));
+        if (feed == null || feed.getRssItems().size() == 0) {
+            getPanelDataObject().remove(KEY_RSS_FEED);
+            getPanelDataObject().remove(KEY_RSS_ITEMS);
+        }
+        else {
+            getPanelDataObject().put(KEY_RSS_FEED,
+                    MNNewsFeedUtil.getRssFeedJsonString(feed));
+            getPanelDataObject().put(KEY_RSS_ITEMS,
+                    MNNewsFeedUtil.getRssItemArrayListString(feed.getRssItems()));
+        }
 
         SharedPreferences prefs = getActivity().getSharedPreferences(
                 PREF_NEWS_FEED, Context.MODE_PRIVATE);
@@ -165,36 +190,36 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
         newsResult.setVisibility(View.GONE);
     }
 
-    private void update(RssFeed feed) {
-        this.feed = feed;
+    private void update(String url, RssFeed feed) {
         if (feed != null && feed.getRssItems().size() > 0) {
+            this.feedUrl = url;
+            this.loadingFeedUrl = null;
+            this.feed = feed;
+
             feedTitleTextView.setText(feed.getTitle());
 
             MNNewsFeedAdapter adapter = new MNNewsFeedAdapter(getActivity(), feed);
             newsListView.setAdapter(adapter);
             newsListView.setVisibility(View.VISIBLE);
         }
-        else {
-            feedTitleTextView.setText("blah...feed unavailable");
-            newsListView.setVisibility(View.GONE);
-        }
         showResultView();
     }
 
     private void loadNewsFeed(String url) {
         showLoadingImageView();
-        feedUrl = url;
+        loadingFeedUrl = url;
         rssFetchTask = new MNRssFetchTask(new MNRssFetchTask.OnFetchListener() {
             @Override
             public void onFetch(RssFeed rssFeed) {
-                update(rssFeed);
+                update(loadingFeedUrl, rssFeed);
             }
 
             @Override
             public void onCancel() {
                 MNLog.i("RSS Reader", "task cancelled.");
 
-                update(null);
+                loadingFeedUrl = null;
+                showUnavailabeMessage();
             }
 
             @Override
@@ -202,21 +227,31 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
                 MNLog.i("RSS Reader", "error occurred while fetching rss feed" +
                         ".");
 
-                update(null);
+                loadingFeedUrl = null;
+                showUnavailabeMessage();
             }
         });
         rssFetchTask.execute(url);
+    }
+    private void showUnavailabeMessage() {
+        feedTitleTextView.setText("blah...feed unavailable");
+        newsListView.setVisibility(View.GONE);
+        showResultView();
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        if (feed != null) {
-            update(feed);
+        if (loadingFeedUrl != null) {
+            loadNewsFeed(loadingFeedUrl);
         }
         else {
-            loadNewsFeed(feedUrl);
+            if (feed != null) {
+                update(feedUrl, feed);
+            } else {
+                loadNewsFeed(feedUrl);
+            }
         }
     }
 
