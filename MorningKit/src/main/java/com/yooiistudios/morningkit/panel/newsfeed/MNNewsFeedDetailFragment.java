@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -201,6 +202,15 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
             MNNewsFeedAdapter adapter = new MNNewsFeedAdapter(getActivity(), feed);
             newsListView.setAdapter(adapter);
             newsListView.setVisibility(View.VISIBLE);
+            newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String content = ((TextView)view.findViewById(R.id.content))
+                            .getText().toString();
+
+                    MNLog.i("", content);
+                }
+            });
         }
         showResultView();
     }
@@ -234,7 +244,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
         rssFetchTask.execute(url);
     }
     private void showUnavailabeMessage() {
-        feedTitleTextView.setText("blah...feed unavailable");
+        feedTitleTextView.setText(R.string.news_feed_invalid_url);
         newsListView.setVisibility(View.GONE);
         showResultView();
     }

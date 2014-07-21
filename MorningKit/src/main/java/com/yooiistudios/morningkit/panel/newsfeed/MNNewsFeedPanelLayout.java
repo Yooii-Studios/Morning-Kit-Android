@@ -92,14 +92,13 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
 
             @Override
             public void onEllipsisAdded(TextView textView) {
-                //TODO apply theme when ellipsis added.
-//                MNThemeType currentThemeType = MNTheme.getCurrentThemeType(
-//                        getContext().getApplicationContext());
-//                int textColor = MNMainColors.getQuoteContentTextColor
-//                        (currentThemeType,
-//                                getContext().getApplicationContext());
-//
-//                newsFeedTextView.setTextColor(textColor);
+                MNThemeType currentThemeType = MNTheme.getCurrentThemeType(
+                        getContext().getApplicationContext());
+                int textColor = MNMainColors.getQuoteContentTextColor
+                        (currentThemeType,
+                                getContext().getApplicationContext());
+
+                newsFeedTextView.setTextColor(textColor);
             }
         });
 
@@ -216,6 +215,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     }
     private void showCurrentFeed() {
         if (feed != null && feed.getRssItems().size() > 0) {
+            hideCoverLayout();
             if (!isHandlerRunning) {
                 // if handler is not running, news won't be shown. So show
                 // next news forcefully.
@@ -224,7 +224,9 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
             startHandler();
         }
         else {
-            newsFeedTextView.setText("blah...news feed unavailable.");
+            showCoverLayout(getContext().getString(
+                    R.string.news_feed_feed_unavailable));
+//            newsFeedTextView.setText("blah...news feed unavailable.");
         }
     }
 
@@ -253,7 +255,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
 
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(
                 getContext().getApplicationContext());
-        int subFontColor = MNMainColors.getSubFontColor(currentThemeType,
+        int subFontColor = MNMainColors.getQuoteContentTextColor(currentThemeType,
                 getContext().getApplicationContext());
 
         newsFeedTextView.setTextColor(subFontColor);

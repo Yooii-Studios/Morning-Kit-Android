@@ -80,7 +80,7 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
         }
 
         AlertDialog dialog = builder
-                .setTitle("blah...url dialog")
+                .setTitle(R.string.news_feed_url_dialog_title)
                 .setView(root)
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {

@@ -224,10 +224,14 @@
 
     <!-- News Feed -->
     <!-- Detail -->
-    <dimen name="panel_news_feed_detail_title_textSize">20sp</dimen>
-    <dimen name="panel_news_feed_detail_title_content_padding">6dp</dimen>
+    <dimen name="panel_news_feed_detail_title_textSize">25sp</dimen>
+    <dimen name="panel_news_feed_detail_title_content_padding">2dp</dimen>
     <dimen name="panel_news_feed_detail_list_item_title_size">17sp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_content_size">11sp</dimen>
     <dimen name="panel_news_feed_detail_list_item_indent">10dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_titleContent_margin">2dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_divider_height">1dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_divider_margin">3dp</dimen>
 
     <!-- Date Countdown -->
     <dimen name="panel_date_countdown_title_font_size">16sp</dimen>

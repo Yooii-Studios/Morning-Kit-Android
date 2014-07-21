@@ -22,6 +22,7 @@ public class MNRssFetchTask extends AsyncTask<String, Void, RssFeed> {
     private OnFetchListener mOnFetchListener;
 
     private static final int MAX_DESCRIPTION_LENGTH = 200;
+    private static final String ILLEGAL_CHARACTER_OBJ = Character.toString((char)65532);
 
     public MNRssFetchTask(OnFetchListener onFetchListener) {
 //        mRssUrl = rssUrl;
@@ -52,8 +53,9 @@ public class MNRssFetchTask extends AsyncTask<String, Void, RssFeed> {
 
                 int length = strippedDesc.length() > MAX_DESCRIPTION_LENGTH ?
                         MAX_DESCRIPTION_LENGTH : strippedDesc.length();
-                item.setDescription(
-                        Html.fromHtml(strippedDesc.substring(0, length)).toString());
+                String refinedDesc = new StringBuilder(strippedDesc).substring
+                        (0, length).replaceAll(ILLEGAL_CHARACTER_OBJ, "");
+                item.setDescription(refinedDesc);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

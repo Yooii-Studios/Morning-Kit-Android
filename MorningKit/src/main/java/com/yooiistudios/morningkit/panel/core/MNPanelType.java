@@ -82,7 +82,7 @@ public enum MNPanelType {
             case 7: return context.getString(R.string.memo);
             case 8: return context.getString(R.string.date_calculator);
             case 9: return context.getString(R.string.photo_album);
-            case 10: return "blah...News Feed";
+            case 10: return context.getString(R.string.news_feed);
             default: throw new IndexOutOfBoundsException("Undefined Panel Type");
         }
     }
