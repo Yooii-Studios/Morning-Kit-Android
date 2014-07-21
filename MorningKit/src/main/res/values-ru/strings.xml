@@ -81,8 +81,6 @@
 	<string name="world_clock">Мировые\nчасы</string>
 	<string name="flickr">Фликр</string>
 	<string name="memo">Заметка</string>
-
-	"date_calculator" = "дата\nобратного отсчета"; <!-- 카운트 다운\n타이머 -->
 	<string name="date_calculator">дата\nобратного отсчета</string>
 	<string name="weather">Погода</string>
 	<string name="calendar">Календарь</string>
@@ -314,8 +312,5 @@
     <string name="recommend_title">Настоятельно рекомендуем!</string>
     <string name="recommend_description">Просто нажмите кнопку и скачать :-)</string>
     <string name="recommend_app_full_name">Утренний Kомплект</string>
-
-    <!-- Unlock -->
-    <string name="unlock_should_come_back_to_morningkit">После написания мнение о Google Play, вы должны вернуться к Утренний Kомплект чтобы разблокировать эту функцию</string>
 
 </resources>
