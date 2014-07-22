@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.dp.DipToPixel;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import nl.matshofman.saxrssreader.RssFeed;
 import nl.matshofman.saxrssreader.RssItem;
@@ -51,11 +54,17 @@ public class MNNewsFeedAdapter extends BaseAdapter {
         }
         RssItem item = mFeed.getRssItems().get(i);
 
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(mContext
+                .getApplicationContext());
+        int textColor = MNSettingColors.getSubFontColor(currentThemeType);
+
         TextView titleView = (TextView)view.findViewById(R.id.title);
         titleView.setText(item.getTitle());
+        titleView.setTextColor(textColor);
 
         TextView contentView = (TextView)view.findViewById(R.id.content);
-        //TODO 퍼포먼스 개선을 위해 우선 200글자만 읽어서 보여줌(어차피 2줄 밖에 안보임)
+        contentView.setTextColor(textColor);
+        // 퍼포먼스 개선을 위해 우선 200글자만 읽어서 보여줌(어차피 2줄 밖에 안보임)
         RelativeLayout.LayoutParams titleLp = (RelativeLayout.LayoutParams)
                 titleView.getLayoutParams();
         String desc = item.getDescription();
