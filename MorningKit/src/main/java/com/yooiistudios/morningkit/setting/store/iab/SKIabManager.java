@@ -72,8 +72,8 @@ public class SKIabManager {
     }
 
     private void queryAllItemsInformation() {
-        List<String> iabProducsSkuList = SKIabProducts.makeProductKeyList();
-        helper.queryInventoryAsync(true, iabProducsSkuList, new IabHelper.QueryInventoryFinishedListener() {
+        List<String> iabProductsSkuList = SKIabProducts.makeProductKeyList();
+        helper.queryInventoryAsync(true, iabProductsSkuList, new IabHelper.QueryInventoryFinishedListener() {
             @Override
             public void onQueryInventoryFinished(IabResult result, Inventory inv) {
                 // Have we been disposed of in the meantime? If so, quit.
