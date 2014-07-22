@@ -48,14 +48,17 @@ public class MNRssFetchTask extends AsyncTask<String, Void, RssFeed> {
 
             for (RssItem item : feed.getRssItems()) {
                 String desc = item.getDescription();
-                String strippedDesc = Html.fromHtml(desc.substring(0,
-                        desc.length())).toString();
+                if (desc != null) {
+                    String strippedDesc = Html.fromHtml(desc.substring(0,
+                            desc.length())).toString();
 
-                int length = strippedDesc.length() > MAX_DESCRIPTION_LENGTH ?
-                        MAX_DESCRIPTION_LENGTH : strippedDesc.length();
-                String refinedDesc = new StringBuilder(strippedDesc).substring
-                        (0, length).replaceAll(ILLEGAL_CHARACTER_OBJ, "");
-                item.setDescription(refinedDesc);
+                    int length = strippedDesc.length() > MAX_DESCRIPTION_LENGTH ?
+                            MAX_DESCRIPTION_LENGTH : strippedDesc.length();
+                    String refinedDesc = new StringBuilder(strippedDesc).substring
+                            (0, length).replaceAll(ILLEGAL_CHARACTER_OBJ, "")
+                            .replaceAll("\n", " ");
+                    item.setDescription(refinedDesc);
+                }
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

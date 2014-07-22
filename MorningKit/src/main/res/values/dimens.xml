@@ -98,7 +98,7 @@
     <dimen name="panel_round_radius">7.5dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
 
     <!-- Detail Activity -->
-    <dimen name="panel_detail_padding">10dp</dimen>
+    <dimen name="panel_detail_padding">5dp</dimen>
     <dimen name="panel_detail_padding_inner">5dp</dimen>
     <dimen name="panel_detail_bigger_padding">20dp</dimen>
     <dimen name="panel_detail_bigger_padding_inner">10dp</dimen>
@@ -224,14 +224,20 @@
 
     <!-- News Feed -->
     <!-- Detail -->
-    <dimen name="panel_news_feed_detail_title_textSize">25sp</dimen>
+    <dimen name="panel_news_feed_detail_title_magnifier_size">30dp</dimen>
+    <dimen name="panel_news_feed_detail_title_textSize">20sp</dimen>
     <dimen name="panel_news_feed_detail_title_content_padding">2dp</dimen>
+    <dimen name="panel_news_feed_detail_title_magnifier_margin">3dp</dimen>
+    <dimen name="panel_news_feed_detail_dialog_clearBtn_leftMargin">33dp</dimen>
     <dimen name="panel_news_feed_detail_list_item_title_size">17sp</dimen>
     <dimen name="panel_news_feed_detail_list_item_content_size">11sp</dimen>
     <dimen name="panel_news_feed_detail_list_item_indent">10dp</dimen>
-    <dimen name="panel_news_feed_detail_list_item_titleContent_margin">2dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_titleContent_margin">3.5dp</dimen>
     <dimen name="panel_news_feed_detail_list_item_divider_height">1dp</dimen>
     <dimen name="panel_news_feed_detail_list_item_divider_margin">3dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_min_height">22dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_padding">6dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_paddingTop">13dp</dimen>
 
     <!-- Date Countdown -->
     <dimen name="panel_date_countdown_title_font_size">16sp</dimen>

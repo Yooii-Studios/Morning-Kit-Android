@@ -8,16 +8,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <AutoCompleteTextView
-            android:id="@+id/urlEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingRight="@dimen/alarm_pref_list_label_item_dialog_button_size"
-            android:longClickable="false"
-            android:singleLine="true"
-            android:gravity="center_vertical"
-            android:textColor="@color/white"
-            android:textSize="@dimen/alarm_pref_list_item_textview_font_size"/>
         <Button
             android:id="@+id/clear"
             android:layout_width="@dimen/alarm_pref_list_label_item_dialog_button_size"
@@ -26,6 +16,16 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/alarm_pref_list_label_item_dialog_padding_button"
             android:background="@drawable/ic_action_cancel" />
+        <AutoCompleteTextView
+            android:id="@+id/urlEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/panel_news_feed_detail_dialog_clearBtn_leftMargin"
+            android:longClickable="false"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:textSize="@dimen/alarm_pref_list_item_textview_font_size"/>
     </RelativeLayout>
     <Button
         android:id="@+id/reset"

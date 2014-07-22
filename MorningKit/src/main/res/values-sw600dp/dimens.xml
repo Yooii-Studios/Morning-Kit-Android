@@ -100,7 +100,7 @@
     <dimen name="panel_round_radius">11dp</dimen>               <!--Done--> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
 
     <!-- Detail Activity -->
-    <dimen name="panel_detail_padding">14dp</dimen>                     <!--Done-->
+    <dimen name="panel_detail_padding">7dp</dimen>                      <!--Done-->
     <dimen name="panel_detail_padding_inner">7dp</dimen>                <!--Done-->
     <dimen name="panel_detail_bigger_padding">28dp</dimen>              <!--Done-->
     <dimen name="panel_detail_bigger_padding_inner">14dp</dimen>        <!--Done-->
@@ -229,14 +229,20 @@
 
     <!-- News Feed -->
     <!-- Detail -->
-    <dimen name="panel_news_feed_detail_title_textSize">35sp</dimen>                        <!--Done-->
+    <dimen name="panel_news_feed_detail_title_magnifier_size">42dp</dimen>                  <!--Done-->
+    <dimen name="panel_news_feed_detail_title_textSize">28sp</dimen>                        <!--Done-->
     <dimen name="panel_news_feed_detail_title_content_padding">2.8dp</dimen>                <!--Done-->
+    <dimen name="panel_news_feed_detail_title_magnifier_margin">4.2dp</dimen>               <!--Done-->
+    <dimen name="panel_news_feed_detail_dialog_clearBtn_leftMargin">46.2dp</dimen>          <!--Done-->
     <dimen name="panel_news_feed_detail_list_item_title_size">23.8sp</dimen>                <!--Done-->
     <dimen name="panel_news_feed_detail_list_item_content_size">15.4sp</dimen>              <!--Done-->
     <dimen name="panel_news_feed_detail_list_item_indent">14dp</dimen>                      <!--Done-->
-    <dimen name="panel_news_feed_detail_list_item_titleContent_margin">2.8dp</dimen>        <!--Done-->
+    <dimen name="panel_news_feed_detail_list_item_titleContent_margin">4.9dp</dimen>        <!--Done-->
     <dimen name="panel_news_feed_detail_list_item_divider_height">1.4dp</dimen>             <!--Done-->
     <dimen name="panel_news_feed_detail_list_item_divider_margin">4.2dp</dimen>             <!--Done-->
+    <dimen name="panel_news_feed_detail_list_item_min_height">42dp</dimen>                  <!--Done-->
+    <dimen name="panel_news_feed_detail_list_item_padding">8.4dp</dimen>                    <!--Done-->
+    <dimen name="panel_news_feed_detail_list_item_paddingTop">18.2dp</dimen>                <!--Done-->
 
     <!-- Date Countdown -->
     <dimen name="panel_date_countdown_title_font_size">22.4sp</dimen>   <!--Done-->

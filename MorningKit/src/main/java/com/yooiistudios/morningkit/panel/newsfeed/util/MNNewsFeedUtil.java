@@ -8,6 +8,8 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
+import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
@@ -28,40 +30,48 @@ public class MNNewsFeedUtil {
 
     private static final String HISTORY_DELIM = "|";
 
-    public static String getDefaultFeedUrl(Context context) {
+    public static MNNewsFeedUrl getDefaultFeedUrl(Context context) {
         MNLanguageType type = MNLanguage.getCurrentLanguageType(context);
 
         String feedUrl;
+        MNNewsFeedUrlType urlType;
 
         //TODO 언어별 기본 RSS피드 주소 입력해야함.
         switch(type) {
             case ENGLISH:
-                feedUrl = "";
+                feedUrl = "http://news.google.com/news?cf=all&ned=us&hl=en&output=rss";
+                urlType = MNNewsFeedUrlType.GOOGLE;
                 break;
             case KOREAN:
-                feedUrl = "";
+                feedUrl = "http://news.google.com/news?cf=all&ned=kr&hl=ko&output=rss";
+                urlType = MNNewsFeedUrlType.GOOGLE;
                 break;
             case JAPANESE:
-                feedUrl = "";
+                feedUrl = "http://rss.dailynews.yahoo.co.jp/fc/rss.xml";
+                urlType = MNNewsFeedUrlType.YAHOO;
                 break;
             case TRADITIONAL_CHINESE:
-                feedUrl = "";
+                feedUrl = "http://news.google.com/news?cf=all&ned=cn&hl=zh-CN&output=rss";
+                urlType = MNNewsFeedUrlType.GOOGLE;
                 break;
             case SIMPLIFIED_CHINESE:
-                feedUrl = "";
+                feedUrl = "http://news.google.com/news?cf=all&ned=cn&hl=zh-CN&output=rss";
+                urlType = MNNewsFeedUrlType.GOOGLE;
                 break;
             case RUSSIAN:
-                feedUrl = "";
+                feedUrl = "http://news.google.com/news?cf=all&ned=ru_ru&hl=ru&output=rss";
+                urlType = MNNewsFeedUrlType.GOOGLE;
                 break;
             default:
                 feedUrl = "";
+                urlType = MNNewsFeedUrlType.GOOGLE;
                 break;
         }
 //        feedUrl = "http://sweetpjy.tistory.com/rss";
-        feedUrl = "http://www.cnet.com/rss/iphone-update/";
+//        feedUrl = "http://www.cnet.com/rss/iphone-update/";
 
 
-        return feedUrl;
+        return new MNNewsFeedUrl(feedUrl, urlType);
     }
 
     public static String getRssFeedJsonString(RssFeed feed) {
@@ -127,5 +137,56 @@ public class MNNewsFeedUtil {
         else {
             return new ArrayList<String>();
         }
+    }
+
+    /**
+     *
+     * @param news
+     * @param type
+     * @return retval
+     * retval[0] : title.
+     * retval[1] : publisher or null if there's no publisher info.
+     *
+     */
+    public static String[] getTitleAndPublisherName(RssItem news,
+                                          MNNewsFeedUrlType type) {
+        String title = news.getTitle();
+        String newTitle;
+        String publisher;
+        switch (type) {
+            case GOOGLE:
+                final String delim = " - ";
+                int idx = title.lastIndexOf(delim);
+
+                int titleStartIdx = 0;
+                int titleEndIdx = idx;
+                int pubStartIdx = idx+delim.length();
+                int pubEndIdx = title.length();
+
+                if (idx >= 0 &&
+                        titleEndIdx >= titleStartIdx &&
+                        pubEndIdx >= pubStartIdx) {
+                // title.length() >= delim.length()
+                    newTitle = title.substring(titleStartIdx, titleEndIdx);
+                    publisher = title.substring(pubStartIdx, pubEndIdx);
+                }
+                else {
+                    newTitle = title;
+                    publisher = null;
+                }
+
+                break;
+            case YAHOO:
+                newTitle = title;
+                publisher = null;
+                break;
+            case CUSTOM:
+            default:
+                newTitle = title;
+                publisher = null;
+                break;
+        }
+
+        return new String[]{newTitle, publisher};
     }
 }

@@ -5,6 +5,13 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.AlignmentSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -22,6 +29,7 @@ import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
+import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNRssFetchTask;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
@@ -54,9 +62,10 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     private AutoResizeTextView newsFeedTextView;
 
     // object data
-    private String feedUrl;
-    private String loadingFeedUrl;
+    private MNNewsFeedUrl feedUrl;
+    private MNNewsFeedUrl loadingFeedUrl;
     private RssFeed feed;
+    private RssItem currentDisplayingItem;
     private int newsIdx;
 
     private MNRssFetchTask rssFetchTask;
@@ -118,9 +127,12 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
 
         SharedPreferences prefs = getContext().getSharedPreferences(
                 PREF_NEWS_FEED, Context.MODE_PRIVATE);
+        Type urlType = new TypeToken<MNNewsFeedUrl>(){}.getType();
 
         if (getPanelDataObject().has(KEY_LOADING_FEED_URL)) {
-            loadingFeedUrl = getPanelDataObject().getString(KEY_LOADING_FEED_URL);
+//            loadingFeedUrl = getPanelDataObject().getString(KEY_LOADING_FEED_URL);
+            loadingFeedUrl = new Gson().fromJson(getPanelDataObject().getString
+                    (KEY_LOADING_FEED_URL), urlType);
         }
         else {
             loadingFeedUrl = null;
@@ -130,10 +142,19 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         }
         else {
             if (getPanelDataObject().has(KEY_FEED_URL)) {
-                feedUrl = getPanelDataObject().getString(KEY_FEED_URL);
+//                feedUrl = getPanelDataObject().getString(KEY_FEED_URL);
+                feedUrl = new Gson().fromJson(
+                        getPanelDataObject().getString(KEY_FEED_URL), urlType);
             } else {
-                feedUrl = prefs.getString(KEY_FEED_URL,
-                        MNNewsFeedUtil.getDefaultFeedUrl(getContext()));
+                String savedUrl = prefs.getString(KEY_FEED_URL, null);
+                if (savedUrl != null) {
+                    feedUrl = new Gson().fromJson(savedUrl, urlType);
+                }
+                else {
+                    feedUrl = MNNewsFeedUtil.getDefaultFeedUrl(getContext());
+                }
+//                feedUrl = prefs.getString(KEY_FEED_URL,
+//                        MNNewsFeedUtil.getDefaultFeedUrl(getContext()));
                 getPanelDataObject().put(KEY_FEED_URL, feedUrl);
             }
             //메인에서 이전 피드 캐싱해서 보여주던 루틴 없엠.(피드 url이 바뀐 경우 의미 없음)
@@ -162,10 +183,15 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
             loadNewsFeed(feedUrl);
         }
     }
-    private void loadNewsFeed(String url) {
+    private void loadNewsFeed(MNNewsFeedUrl url) {
         startLoadingAnimation();
         stopHandler();
         loadingFeedUrl = url;
+
+        if (rssFetchTask != null) {
+            rssFetchTask.cancel(false);
+        }
+
         rssFetchTask = new MNRssFetchTask(new MNRssFetchTask.OnFetchListener() {
             @Override
             public void onFetch(RssFeed rssFeed) {
@@ -196,11 +222,11 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 updateUI();
             }
         });
-        rssFetchTask.execute(url);
+        rssFetchTask.execute(url.getUrl());
         startLoadingAnimation();
     }
 
-    private void setNewRssFeed(String url, RssFeed feed) {
+    private void setNewRssFeed(MNNewsFeedUrl url, RssFeed feed) {
         this.feedUrl = url;
         this.loadingFeedUrl = null;
         this.feed = feed;
@@ -255,10 +281,58 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
 
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(
                 getContext().getApplicationContext());
-        int subFontColor = MNMainColors.getQuoteContentTextColor(currentThemeType,
-                getContext().getApplicationContext());
 
-        newsFeedTextView.setTextColor(subFontColor);
+        if (currentDisplayingItem != null) {
+            String[] result = MNNewsFeedUtil.getTitleAndPublisherName(
+                    currentDisplayingItem, feedUrl.getType());
+//            if (result[1] != null) {
+//                newsFeedTextView.setText(result[0] + "\n\n" + result[1]);
+//            } else {
+//                newsFeedTextView.setText(currentDisplayingItem.getTitle());
+//            }
+
+
+            SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+
+            SpannableString contentString = new SpannableString(result[0]);
+            contentString.setSpan(
+                    new ForegroundColorSpan(MNMainColors.getQuoteContentTextColor(currentThemeType, getContext().getApplicationContext())),
+                    0, contentString.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            stringBuilder.append(contentString);
+
+            // if publisher available
+            String publisher = result[1] != null ? result[1] : feed.getTitle();
+            if (publisher != null) {
+                SpannableString emptyString = new SpannableString("\n\n");
+                emptyString.setSpan(new RelativeSizeSpan(0.4f), 0, emptyString.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                stringBuilder.append(emptyString);
+                emptyString = new SpannableString("\n");
+                emptyString.setSpan(new RelativeSizeSpan(0.6f), 0,
+                        emptyString.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                stringBuilder.insert(0, emptyString);
+
+                SpannableString publisherString = new SpannableString(publisher);
+
+                publisherString.setSpan(
+                        new ForegroundColorSpan(MNMainColors.getQuoteAuthorTextColor(currentThemeType, getContext().getApplicationContext())),
+                        0, publisherString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                // 크기 좀 더 작게 표시
+                publisherString.setSpan(new RelativeSizeSpan(0.65f),
+                        0, publisherString.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                publisherString.setSpan(new AlignmentSpan.Standard(
+                        Layout.Alignment.ALIGN_OPPOSITE),
+                        0, publisherString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                stringBuilder.append(publisherString);
+//                newsFeedTextView.setText(result[0] + "\n\n" + result[1]);
+            }
+
+            newsFeedTextView.setText(stringBuilder, TextView.BufferType.SPANNABLE);
+        }
     }
 
     @Override
@@ -284,9 +358,9 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         if (getPanelDataObject().has(KEY_LOADING_FEED_URL)) {
             needToLoad = true;
         }
-        if (rssFetchTask != null) {
-            rssFetchTask.cancel(false);
-        }
+//        if (rssFetchTask != null) {
+//            rssFetchTask.cancel(false);
+//        }
     }
 
     private void startHandler() {
@@ -308,8 +382,10 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         if (newsIdx >= feed.getRssItems().size()) {
             newsIdx = 0;
         }
-        newsFeedTextView.setText(
-                feed.getRssItems().get(newsIdx++).getTitle());
+        currentDisplayingItem = feed.getRssItems().get(newsIdx++);
+
+        applyTheme();
+//        newsFeedTextView.setText(currentDisplayingItem.getTitle());
     }
 
     private MNQuotesHandler newsHandler = new MNQuotesHandler();

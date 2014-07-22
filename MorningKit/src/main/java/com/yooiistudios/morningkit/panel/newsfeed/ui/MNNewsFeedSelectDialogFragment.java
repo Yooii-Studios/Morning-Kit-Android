@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,6 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
+import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 
 /**
@@ -24,14 +28,16 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
     private static final String KEY_URL = "url";
 
     private AutoCompleteTextView mFeedUrlEditText;
+    private MNNewsFeedUrl mFeedUrl;
+    private boolean mHasReset;
 
     public static MNNewsFeedSelectDialogFragment newInstance(
-            String feedUrl) {
+            MNNewsFeedUrl feedUrl) {
         MNNewsFeedSelectDialogFragment fragment =
                 new MNNewsFeedSelectDialogFragment();
 
         Bundle args = new Bundle();
-        args.putString(KEY_URL, feedUrl);
+        args.putSerializable(KEY_URL, new MNNewsFeedUrl(feedUrl));
 
         fragment.setArguments(args);
 
@@ -41,13 +47,24 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
+        mFeedUrl = (MNNewsFeedUrl)args.getSerializable(KEY_URL);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View root = inflater.inflate(R.layout
                 .dialog_fragment_news_feed_select, null, false);
         mFeedUrlEditText = (AutoCompleteTextView)root.findViewById(R.id.urlEditText);
-        mFeedUrlEditText.setText(args.getString(KEY_URL));
+        mFeedUrlEditText.setText(mFeedUrl.getUrl());
+        mFeedUrlEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mHasReset = false;
+            }
+        });
 
         // config adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
@@ -60,7 +77,9 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
                 .OnClickListener() {
             @Override
             public void onClick(View view) {
-                mFeedUrlEditText.setText(MNNewsFeedUtil.getDefaultFeedUrl(getActivity()));
+                mFeedUrl = MNNewsFeedUtil.getDefaultFeedUrl(getActivity());
+                mFeedUrlEditText.setText(mFeedUrl.getUrl());
+                mHasReset = true;
             }
         });
         root.findViewById(R.id.clear).setOnClickListener(new View
@@ -100,8 +119,19 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
                                     MNNewsFeedUtil.addUrlToHistory(
                                             getActivity(), url);
 
+                                    MNNewsFeedUrl defUrl = MNNewsFeedUtil.
+                                            getDefaultFeedUrl(getActivity());
+
+                                    if (url.equalsIgnoreCase(defUrl.getUrl())
+                                            || mHasReset) {
+                                        mFeedUrl = defUrl;
+                                    } else {
+                                        mFeedUrl = new MNNewsFeedUrl(url,
+                                                MNNewsFeedUrlType.CUSTOM);
+                                    }
+
                                     ((OnClickListener) parentFragment)
-                                            .onConfirm(url);
+                                            .onConfirm(mFeedUrl);
                                 }
                             }
                         }
@@ -136,7 +166,7 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
     }
 
     public interface OnClickListener {
-        public void onConfirm(String url);
+        public void onConfirm(MNNewsFeedUrl feedUrl);
         public void onCancel();
     }
 }

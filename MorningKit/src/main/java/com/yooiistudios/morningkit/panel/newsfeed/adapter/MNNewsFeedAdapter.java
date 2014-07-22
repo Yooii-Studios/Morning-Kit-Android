@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.dp.DipToPixel;
 
 import nl.matshofman.saxrssreader.RssFeed;
 import nl.matshofman.saxrssreader.RssItem;
@@ -54,7 +56,22 @@ public class MNNewsFeedAdapter extends BaseAdapter {
 
         TextView contentView = (TextView)view.findViewById(R.id.content);
         //TODO 퍼포먼스 개선을 위해 우선 200글자만 읽어서 보여줌(어차피 2줄 밖에 안보임)
-        contentView.setText(item.getDescription());
+        RelativeLayout.LayoutParams titleLp = (RelativeLayout.LayoutParams)
+                titleView.getLayoutParams();
+        String desc = item.getDescription();
+        if (desc != null) {
+            contentView.setText(item.getDescription());
+            contentView.setVisibility(View.VISIBLE);
+            view.setMinimumHeight(0);
+            titleLp.addRule(RelativeLayout.CENTER_VERTICAL, 0);
+        }
+        else {
+            contentView.setVisibility(View.GONE);
+            view.setMinimumHeight(DipToPixel.dpToPixel(mContext,
+                    mContext.getResources().getDimension(
+                            R.dimen.panel_news_feed_detail_list_item_min_height)));
+            titleLp.addRule(RelativeLayout.CENTER_VERTICAL);
+        }
 
         return view;
     }
