@@ -134,7 +134,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="@dimen/margin_inner"
-                android:text="@string/info_store"
+                android:text="@string/news_feed"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
         </RelativeLayout>
@@ -152,7 +152,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="@dimen/margin_inner"
-                android:text=""
+                android:text="@string/info_store"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
         </RelativeLayout>

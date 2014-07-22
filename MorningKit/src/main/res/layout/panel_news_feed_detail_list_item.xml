@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/panel_news_feed_detail_list_item_padding"
+    android:paddingTop="@dimen/panel_news_feed_detail_list_item_paddingTop"
+    android:paddingRight="@dimen/panel_news_feed_detail_list_item_padding"
+    android:paddingBottom="@dimen/panel_news_feed_detail_list_item_paddingTop">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/panel_news_feed_detail_list_item_title_size"/>
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginTop="@dimen/panel_news_feed_detail_list_item_titleContent_margin"
+        android:maxLines="2"
+        android:textSize="@dimen/panel_news_feed_detail_list_item_content_size"
+        android:ellipsize="end"/>
+    <!--<View-->
+        <!--android:id="@+id/divider"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/panel_news_feed_detail_list_item_divider_height"-->
+        <!--android:layout_below="@id/content"-->
+        <!--android:background="@color/pastel_green_main_font_color"/>-->
+
+
+</RelativeLayout>
