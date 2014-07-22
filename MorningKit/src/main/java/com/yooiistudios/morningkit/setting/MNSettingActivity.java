@@ -97,37 +97,39 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
                         viewPagerFragment.onResume();
                     }
                 } else if (position == 1) {
-                    // 상점 탭일 경우
+                    // 상점 탭이고 네이버일 경우
                     boolean isStoreForNaver = MNStoreFragment.IS_STORE_FOR_NAVER;
-                    // 1. 첫 진입인 경우에는 네이버 인앱 로딩
-                    // 2. 로딩 후 탭 클릭 시는 구매 재로딩(다른 탭에서 언락했을 경우 UI 처리용)
-                    // -> 2번 변경 -> 로딩 후 탭 클릭 시는 무조건 재로딩
-                    if (viewPagerFragment == null) {
-                        mViewPager.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Fragment viewPagerFragment = getSupportFragmentManager().findFragmentByTag(name);
-                                if (viewPagerFragment != null &&
-                                        viewPagerFragment instanceof MNStoreFragment) {
-                                    MNStoreFragment storeFragment = ((MNStoreFragment) viewPagerFragment);
-                                    boolean isStoreForNaver = MNStoreFragment.IS_STORE_FOR_NAVER;
-                                    if (isStoreForNaver && !storeFragment.isNaverStoreStartLoading) {
-                                        storeFragment.onFirstStoreLoading();
+                    if (isStoreForNaver) {
+                        // 1. 첫 진입인 경우에는 네이버 인앱 로딩
+                        // 2. 로딩 후 탭 클릭 시는 구매 재로딩(다른 탭에서 언락했을 경우 UI 처리용)
+                        // -> 2번 변경 -> 로딩 후 탭 클릭 시는 무조건 재로딩
+                        if (viewPagerFragment == null) {
+                            mViewPager.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Fragment viewPagerFragment = getSupportFragmentManager().findFragmentByTag(name);
+                                    if (viewPagerFragment != null &&
+                                            viewPagerFragment instanceof MNStoreFragment) {
+                                        MNStoreFragment storeFragment = ((MNStoreFragment) viewPagerFragment);
+                                        boolean isStoreForNaver = MNStoreFragment.IS_STORE_FOR_NAVER;
+                                        if (isStoreForNaver && !storeFragment.isNaverStoreStartLoading) {
+                                            storeFragment.onFirstStoreLoading();
+                                        }
                                     }
                                 }
-                            }
-                        });
-                    } else {
-                        if (viewPagerFragment instanceof MNStoreFragment) {
-                            MNStoreFragment storeFragment = ((MNStoreFragment)viewPagerFragment);
-                            if (isStoreForNaver && !storeFragment.isNaverStoreStartLoading) {
-                                storeFragment.onFirstStoreLoading();
-                            } else {
-                                // 2탭 너머 있는 상태에서 클릭할 경우에 onCreateView를 호출함
-                                if (storeFragment.getProductList() != null) {
-                                    storeFragment.initUIAfterLoading(storeFragment.getProductList());
-                                } else {
+                            });
+                        } else {
+                            if (viewPagerFragment instanceof MNStoreFragment) {
+                                MNStoreFragment storeFragment = ((MNStoreFragment)viewPagerFragment);
+                                if (isStoreForNaver && !storeFragment.isNaverStoreStartLoading) {
                                     storeFragment.onFirstStoreLoading();
+                                } else {
+                                    // 2탭 너머 있는 상태에서 클릭할 경우에 onCreateView를 호출함
+                                    if (storeFragment.getProductList() != null) {
+                                        storeFragment.initUIAfterLoading(storeFragment.getProductList());
+                                    } else {
+                                        storeFragment.onFirstStoreLoading();
+                                    }
                                 }
                             }
                         }
