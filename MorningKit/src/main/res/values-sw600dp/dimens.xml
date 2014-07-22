@@ -1,5 +1,5 @@
 <resources>
-    <!-- 전체 -->
+    <!-- 전체 --> <!-- 기본 1.4배 -->
     <dimen name="rounded_corner_radius">11dp</dimen>                    <!--Done-->
     <dimen name="rounded_corner_radius_unlock">7dp</dimen>              <!--Done-->
     <dimen name="rounded_corner_radius_unlock_listview">23.8dp</dimen>  <!--Done-->
@@ -169,6 +169,7 @@
     <dimen name="panel_calendar_detail_item_ampm_rounded_corner_radius">23.8dp</dimen>  <!--Done-->
     <dimen name="panel_calendar_detail_item_textview_padding">14dp</dimen>              <!--Done-->
     <dimen name="panel_calendar_detail_item_indicator_textview_font_size">21sp</dimen>  <!--Done-->
+    <dimen name="panel_calendar_detail_item_padding">1.4dp</dimen>                      <!--Done-->
     <dimen name="panel_calendar_detail_select_calendars_top_margin">56dp</dimen>        <!--Done-->
     <dimen name="panel_calendar_detail_select_calendars_right_margin">9.8dp</dimen>     <!--Done-->
     <dimen name="panel_calendar_detail_select_calendars_icon_size">56dp</dimen>         <!--Done-->
