@@ -16,64 +16,6 @@
 #   public *;
 #}
 
--dontwarn lombok.**
--dontwarn org.joda.time.**
--dontwarn com.sun.jna.Native.**
--dontwarn java.awt.**
-
--keep public class lombok.**
--keep public class org.joda.time.**
--keep public class com.sun.jna.Native.**
--keep public class java.awt.**
-
-#-keep public class * { public protected private *; }
-
-# http://webcache.googleusercontent.com/search?q=cache:9UxNGhWOpukJ:stackoverflow.com/questions/14111150/application-stopped-working-after-enabling-proguard+&cd=1&hl=ko&ct=clnk&gl=kr&client=safari
-# Note that if you want to enable optimization, you cannot just
-# include optimization flags in your own project configuration file;
-# instead you will need to point to the
-# "proguard-android-optimize.txt" file instead of this one from your
-# project.properties file.
-
-#-keep public class * extends android.app.PreferenceActivity
-#-keep public class * extends android.view.View
-#-keep public class * extends android.widget.BaseAdapter
-#-keep public class * implements android.view.View.OnTouchListener
-#-keep public class * implements android.view.View.OnClickListener
-
-# 필요없는듯
-#-libraryjars libs/Digital_Garage_OneSDK_20140528.jar
-#-libraryjars libs/FlurryAnalytics-4.0.0.jar
-#-libraryjars libs/naver-iap-sdk-1.4.jar
-#-libraryjars libs/Volley.jar
-
-#
-#-assumenosideeffects class android.util.Log {
-#    public static *** v(...);
-#    public static *** i(...);
-#    public static *** d(...);
-#    public static *** w(...);
-#    public static *** e(...);
-#}
-
-# keep setters in Views so that animations can still work.
-# see http://proguard.sourceforge.net/manual/examples.html#beans
-#-keepclassmembers public class * extends android.view.View {
-#   void set*(***);
-#   *** get*();
-#}
-
-# We want to keep methods in Activity that could be used in the XML attribute onClick
-#-keepclassmembers class * extends android.app.Activity {
-#   public void *(android.view.View);
-#}
-
-# The support library contains references to newer platform versions.
-# Don't warn about those in case this app is linking against an older
-# platform version.  We know about them, and they are safe.
-#-dontwarn android.support.**
-#-dontwarn org.apache.**
-
 # Json에서 사용되는 proguard 파일
 # http://stackoverflow.com/questions/6533676/proguard-and-gson-on-android-classcastexception
 ##---------------Begin: proguard configuration common for all Android apps ----------
@@ -150,6 +92,7 @@
 }
 ##---------------End: proguard configuration common for all Android apps ----------
 
+
 ##---------------Begin: proguard configuration for Gson  ----------
 # Gson uses generic type information stored in a class file when working with fields. Proguard
 # removes such information by default, so configure it to keep all of it.
@@ -164,13 +107,68 @@
 
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.google.gson.examples.android.model.** { *; }
-
 ##---------------End: proguard configuration for Gson  ----------
 
 ##---------------Begin: proguard configuration for Butterknife ---------
-
 -dontwarn butterknife.internal.**
 -keep class **$$ViewInjector { *; }
 -keepnames class * { @butterknife.InjectView *;}
-
 ##---------------End: proguard configuration for Butterknife  ----------
+
+##---------------Begin: proguard configuration for Open Sources ---------
+-dontwarn lombok.**
+-dontwarn org.joda.time.**
+-dontwarn com.sun.jna.Native.**
+-dontwarn java.awt.**
+##---------------End: proguard configuration for Open Sources  ----------
+
+
+# 기존 테스트하던 레거시 코드
+
+#-keep public class * { public protected private *; }
+
+# http://webcache.googleusercontent.com/search?q=cache:9UxNGhWOpukJ:stackoverflow.com/questions/14111150/application-stopped-working-after-enabling-proguard+&cd=1&hl=ko&ct=clnk&gl=kr&client=safari
+# Note that if you want to enable optimization, you cannot just
+# include optimization flags in your own project configuration file;
+# instead you will need to point to the
+# "proguard-android-optimize.txt" file instead of this one from your
+# project.properties file.
+
+#-keep public class * extends android.app.PreferenceActivity
+#-keep public class * extends android.view.View
+#-keep public class * extends android.widget.BaseAdapter
+#-keep public class * implements android.view.View.OnTouchListener
+#-keep public class * implements android.view.View.OnClickListener
+
+# 필요없는듯
+#-libraryjars libs/Digital_Garage_OneSDK_20140528.jar
+#-libraryjars libs/FlurryAnalytics-4.0.0.jar
+#-libraryjars libs/naver-iap-sdk-1.4.jar
+#-libraryjars libs/Volley.jar
+
+#
+#-assumenosideeffects class android.util.Log {
+#    public static *** v(...);
+#    public static *** i(...);
+#    public static *** d(...);
+#    public static *** w(...);
+#    public static *** e(...);
+#}
+
+# keep setters in Views so that animations can still work.
+# see http://proguard.sourceforge.net/manual/examples.html#beans
+#-keepclassmembers public class * extends android.view.View {
+#   void set*(***);
+#   *** get*();
+#}
+
+# We want to keep methods in Activity that could be used in the XML attribute onClick
+#-keepclassmembers class * extends android.app.Activity {
+#   public void *(android.view.View);
+#}
+
+# The support library contains references to newer platform versions.
+# Don't warn about those in case this app is linking against an older
+# platform version.  We know about them, and they are safe.
+#-dontwarn android.support.**
+#-dontwarn org.apache.**
