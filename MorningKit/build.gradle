@@ -74,6 +74,12 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LGPL2.1'
     }
+
+    // java 1.7을 지원하는 코드. 하지만 OS단에서 java 1.6을 사용하고 있음
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_7
+//        targetCompatibility JavaVersion.VERSION_1_7
+//    }
 }
 
 apply plugin: 'android-unit-test'
