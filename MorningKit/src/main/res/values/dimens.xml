@@ -164,6 +164,7 @@
     <dimen name="panel_calendar_detail_item_ampm_rounded_corner_radius">17dp</dimen>
     <dimen name="panel_calendar_detail_item_textview_padding">10dp</dimen>
     <dimen name="panel_calendar_detail_item_indicator_textview_font_size">15sp</dimen>
+    <dimen name="panel_calendar_detail_item_padding">1dp</dimen>
     <dimen name="panel_calendar_detail_select_calendars_top_margin">40dp</dimen>
     <dimen name="panel_calendar_detail_select_calendars_right_margin">7dp</dimen>
     <dimen name="panel_calendar_detail_select_calendars_icon_size">40dp</dimen>
