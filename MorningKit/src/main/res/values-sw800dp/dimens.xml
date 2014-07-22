@@ -223,6 +223,23 @@
     <dimen name="panel_photo_album_dialog_refresh_item_horizontal_margin">16dp</dimen>
     <dimen name="panel_photo_album_dialog_refresh_textSize">28.9sp</dimen>  <!-- 두배x 1.7배 -->
 
+    <!-- News Feed -->
+    <!-- Detail -->
+    <dimen name="panel_news_feed_detail_title_magnifier_size">51dp</dimen>
+    <dimen name="panel_news_feed_detail_title_textSize">34sp</dimen>
+    <dimen name="panel_news_feed_detail_title_content_padding">3.4dp</dimen>
+    <dimen name="panel_news_feed_detail_title_magnifier_margin">5.1dp</dimen>
+    <dimen name="panel_news_feed_detail_dialog_clearBtn_leftMargin">56.1dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_title_size">28.9sp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_content_size">18.7sp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_indent">17dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_titleContent_margin">5.95dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_divider_height">1.7dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_divider_margin">5.1dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_min_height">37.4dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_padding">10.2dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_paddingTop">22.1dp</dimen>
+
     <!-- Date Countdown -->
     <dimen name="panel_date_countdown_title_font_size">27.2sp</dimen>       <!-- 두배x 1.7배 -->
     <dimen name="panel_date_countdown_count_font_size">51sp</dimen>         <!-- 두배x 1.7배 -->
