@@ -4,6 +4,6 @@
 
     <solid android:color="@color/mint_pink_forward_pressed_color" />
     <corners android:radius="@dimen/rounded_corner_radius" />
-    <stroke android:width="@dimen/theme_shape_width_stroke" android:color="@color/mint_pink_forward_pressed_color" />
+    <stroke android:width="@dimen/theme_shape_width_stroke" android:color="@color/mint_pink_backward_normal_color" />
 
 </shape>

@@ -319,7 +319,4 @@
     <string name="recommend_description">당황하지 않고 클릭해서 다운받으면~ 끝!</string>
     <string name="recommend_app_full_name">모닝키트</string>
 
-    <!-- Unlock -->
-    <string name="unlock_should_come_back_to_morningkit">리뷰 작성 후 반드시 모닝키트로 돌아오셔야 잠금해제가 완료됩니다</string>
-
 </resources>

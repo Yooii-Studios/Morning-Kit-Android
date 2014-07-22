@@ -77,7 +77,11 @@ public class MNWorldClock {
     }
 
     public String getUpperCasedTimeZoneString() {
-        return cityName.substring(0, 1).toUpperCase() + cityName.substring(1);
+        if (cityName != null && cityName.length() >= 1) {
+            return cityName.substring(0, 1).toUpperCase() + cityName.substring(1);
+        } else {
+            return "";
+        }
     }
 
     public int getDayDifferences() {

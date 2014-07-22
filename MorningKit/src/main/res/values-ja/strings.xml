@@ -319,7 +319,4 @@
     <string name="recommend_description">簡単にワンクリックでダウンロード！</string>
     <string name="recommend_app_full_name">モーニングキット</string>
 
-    <!-- Unlock -->
-    <string name="unlock_should_come_back_to_morningkit">この機能のロックを解除するためには、レビューを書いた後、必ずモーニングキットに戻ってください。</string>
-
 </resources>
