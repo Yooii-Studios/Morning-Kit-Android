@@ -246,8 +246,8 @@
     <dimen name="panel_date_countdown_date_font_size">16sp</dimen>
 
     <!-- Cat -->
-    <dimen name="panel_cat_image_view_width">109dp</dimen>
-    <dimen name="panel_cat_image_view_height">78dp</dimen>
+    <dimen name="panel_cat_image_view_width">141.7dp</dimen>
+    <dimen name="panel_cat_image_view_height">101.4dp</dimen>
 
     <!-- Setting -->
     <dimen name="setting_actionbar_title_font_size">18sp</dimen>
