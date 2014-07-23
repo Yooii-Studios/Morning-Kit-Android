@@ -49,7 +49,7 @@ public enum MNPanelType {
             case 8: return DATE_COUNTDOWN;
             case 9: return PHOTO_FRAME;
             case 10: return NEWS_FEED;
-            default: throw new IndexOutOfBoundsException("Undefined Panel Type");
+            default: return DATE;
         }
     }
 
@@ -66,7 +66,7 @@ public enum MNPanelType {
             case 8: return DATE_COUNTDOWN;
             case 9: return PHOTO_FRAME;
             case 10: return NEWS_FEED;
-            default: throw new IndexOutOfBoundsException("Undefined Panel Type");
+            default: return DATE;
         }
     }
 
@@ -83,7 +83,7 @@ public enum MNPanelType {
             case 8: return context.getString(R.string.date_calculator);
             case 9: return context.getString(R.string.photo_album);
             case 10: return context.getString(R.string.news_feed);
-            default: throw new IndexOutOfBoundsException("Undefined Panel Type");
+            default: return context.getString(R.string.calendar);
         }
     }
 }
