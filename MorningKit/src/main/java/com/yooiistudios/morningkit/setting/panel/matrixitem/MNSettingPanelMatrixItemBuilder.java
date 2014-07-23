@@ -68,6 +68,10 @@ public class MNSettingPanelMatrixItemBuilder {
                     break;
                 case PHOTO_FRAME:
                     panelImageResourceId = MNSettingResources.getPhotoFrameResourceId();
+                    break;
+                case NEWS_FEED:
+                    panelImageResourceId = MNSettingResources.getNewsResourceId();
+                    break;
             }
 
             // pastel green 컬러 필터, 예외적인 아트는 은실이 따로 제작

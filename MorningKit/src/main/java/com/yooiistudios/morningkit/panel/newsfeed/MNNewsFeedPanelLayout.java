@@ -17,8 +17,12 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -55,7 +59,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     public static final String KEY_LOADING_FEED_URL = "loading feed url";
     public static final String KEY_RSS_FEED = "rss feed";
     public static final String KEY_RSS_ITEMS = "rss items";
-    private static final int NEWS_FEED_HANDLER_DELAY = 8000;
+    private static final int NEWS_FEED_HANDLER_DELAY = 6700;
     private static final int INVALID_NEWS_IDX = -1;
 
     // views
@@ -393,10 +397,29 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         @Override
         public void handleMessage(Message msg) {
             if (MNTutorialManager.isTutorialShown(getContext().getApplicationContext())) {
-                Animation hideAnimation = AnimationUtils.loadAnimation(
-                        getContext().getApplicationContext(), R.anim.quotes_hide);
-                if (hideAnimation != null && newsFeedTextView != null) {
-                    hideAnimation.setAnimationListener(new Animation.AnimationListener() {
+//                Animation hideAnimation = AnimationUtils.loadAnimation(
+//                        getContext().getApplicationContext(), R.anim.quotes_hide);
+                AnimationSet hideSet = new AnimationSet(true);
+                hideSet.setInterpolator(new AccelerateInterpolator());
+
+                Animation moveOutAnim = new TranslateAnimation
+                        (Animation.RELATIVE_TO_SELF, 0.0f,
+                                Animation.RELATIVE_TO_SELF, -0.5f,
+                                Animation.RELATIVE_TO_SELF, 0.0f,
+                                Animation.RELATIVE_TO_SELF, 0.0f);
+                moveOutAnim.setDuration(380);
+                moveOutAnim.setFillEnabled(true);
+                moveOutAnim.setFillAfter(true);
+                hideSet.addAnimation(moveOutAnim);
+
+                Animation fadeoutAnim = new AlphaAnimation(1.0f, 0.0f);
+                fadeoutAnim.setDuration(380);
+                fadeoutAnim.setFillEnabled(true);
+                fadeoutAnim.setFillAfter(true);
+                hideSet.addAnimation(fadeoutAnim);
+
+                if (newsFeedTextView != null) {
+                    hideSet.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
                         }
@@ -406,19 +429,36 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                             // 뉴스 갱신
                             showNextNews();
                             // 다시 보여주기
-                            Animation showAnimation = AnimationUtils.loadAnimation(
-                                    getContext().getApplicationContext(), R.anim.quotes_show);
+//                            Animation showAnimation = AnimationUtils.loadAnimation(
+//                                    getContext().getApplicationContext(), R.anim.quotes_show);
 
-                            if (showAnimation != null) {
-                                newsFeedTextView.startAnimation(showAnimation);
-                            }
+                            AnimationSet showSet = new AnimationSet(false);
+                            showSet.setInterpolator(new DecelerateInterpolator());
+
+                            Animation moveinAnim = new TranslateAnimation
+                                    (Animation.RELATIVE_TO_SELF, 0.5f,
+                                            Animation.RELATIVE_TO_SELF, 0.0f,
+                                            Animation.RELATIVE_TO_SELF, 0.0f,
+                                            Animation.RELATIVE_TO_SELF, 0.0f);
+                            moveinAnim.setDuration(380);
+                            moveinAnim.setFillEnabled(true);
+                            moveinAnim.setFillAfter(true);
+                            showSet.addAnimation(moveinAnim);
+
+                            Animation fadeinAnim = new AlphaAnimation(0.0f,
+                                    1.0f);
+                            fadeinAnim.setDuration(380);
+                            fadeinAnim.setFillEnabled(true);
+                            fadeinAnim.setFillAfter(true);
+                            showSet.addAnimation(fadeinAnim);
+                            newsFeedTextView.startAnimation(showSet);
                         }
 
                         @Override
                         public void onAnimationRepeat(Animation animation) {
                         }
                     });
-                    newsFeedTextView.startAnimation(hideAnimation);
+                    newsFeedTextView.startAnimation(hideSet);
                 }
 
                 // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
