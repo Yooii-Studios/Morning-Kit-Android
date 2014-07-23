@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.cat.model;
+package com.yooiistudios.morningkit.panel.cat;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
@@ -9,7 +9,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
+import com.yooiistudios.morningkit.panel.cat.model.MNCatUtils;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 
 import org.json.JSONException;
@@ -63,22 +65,23 @@ public class MNCatPanelLayout extends MNPanelLayout {
         catImageView.setLayoutParams(layoutParams);
         layoutParams.addRule(CENTER_IN_PARENT);
         getContentLayout().addView(catImageView);
-
-        catImageView.setBackgroundResource(R.drawable.cat_animation_morning_set_1);
-        if (catImageView.getBackground() instanceof AnimationDrawable) {
-            AnimationDrawable loadingAnimation = (AnimationDrawable) catImageView.getBackground();
-            loadingAnimation.start();
-        }
     }
 
     @Override
     protected void processLoading() throws JSONException {
         super.processLoading();
+        catImageView.setBackgroundResource(MNCatUtils.getRandomCatAnimationResourceId(MNLog.isDebug));
     }
 
     @Override
     protected void updateUI() {
         super.updateUI();
+        if (catImageView.getBackground() instanceof AnimationDrawable) {
+            AnimationDrawable catAnimation = (AnimationDrawable) catImageView.getBackground();
+            if (!catAnimation.isRunning()) {
+                catAnimation.start();
+            }
+        }
     }
 
     @Override
