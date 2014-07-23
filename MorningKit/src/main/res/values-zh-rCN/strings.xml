@@ -308,6 +308,9 @@
     <string name="news_feed_invalid_url">Invalid RSS</string>
     <string name="news_feed_feed_unavailable">News Feed unavailable</string>
 
+        <!-- Cat -->
+    <string name="cat">Cat</string>
+
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">浅绿</string>
     <string name="setting_theme_color_cool_navy">Cool Navy</string>
