@@ -59,7 +59,8 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     public static final String KEY_LOADING_FEED_URL = "loading feed url";
     public static final String KEY_RSS_FEED = "rss feed";
     public static final String KEY_RSS_ITEMS = "rss items";
-    private static final int NEWS_FEED_HANDLER_DELAY = 6700;
+    private static final int NEWS_FEED_HANDLER_DELAY = 3200;
+    private static final int NEWS_FEED_ANIMATION_DURATION = 150;
     private static final int INVALID_NEWS_IDX = -1;
 
     // views
@@ -407,13 +408,13 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                                 Animation.RELATIVE_TO_SELF, -0.5f,
                                 Animation.RELATIVE_TO_SELF, 0.0f,
                                 Animation.RELATIVE_TO_SELF, 0.0f);
-                moveOutAnim.setDuration(380);
+                moveOutAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
                 moveOutAnim.setFillEnabled(true);
                 moveOutAnim.setFillAfter(true);
                 hideSet.addAnimation(moveOutAnim);
 
                 Animation fadeoutAnim = new AlphaAnimation(1.0f, 0.0f);
-                fadeoutAnim.setDuration(380);
+                fadeoutAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
                 fadeoutAnim.setFillEnabled(true);
                 fadeoutAnim.setFillAfter(true);
                 hideSet.addAnimation(fadeoutAnim);
@@ -440,14 +441,14 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                                             Animation.RELATIVE_TO_SELF, 0.0f,
                                             Animation.RELATIVE_TO_SELF, 0.0f,
                                             Animation.RELATIVE_TO_SELF, 0.0f);
-                            moveinAnim.setDuration(380);
+                            moveinAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
                             moveinAnim.setFillEnabled(true);
                             moveinAnim.setFillAfter(true);
                             showSet.addAnimation(moveinAnim);
 
                             Animation fadeinAnim = new AlphaAnimation(0.0f,
                                     1.0f);
-                            fadeinAnim.setDuration(380);
+                            fadeinAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
                             fadeinAnim.setFillEnabled(true);
                             fadeinAnim.setFillAfter(true);
                             showSet.addAnimation(fadeinAnim);
