@@ -95,7 +95,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
         textView2_3.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
         textView2_4.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
         textView2_5.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
-        textView2_6.setTextColor(MNSettingColors.getStorePointedFontColor(currentThemeType));
+        textView2_6.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
 
         if (textViews == null) {
             textViews = new ArrayList<TextView>();
