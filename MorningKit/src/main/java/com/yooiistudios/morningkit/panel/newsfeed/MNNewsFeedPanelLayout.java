@@ -64,7 +64,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     public static final String KEY_DISPLAYING_NEWS = "displaying news";
     private static final int NEWS_FEED_HANDLER_DELAY = 3200;
     private static final int NEWS_FEED_ANIMATION_DURATION = 250;
-    private static final int NEWS_FEED_ANIMATION_FADE_DURATION = 230;
+    private static final int NEWS_FEED_ANIMATION_FADE_DURATION = 210;
     private static final int INVALID_NEWS_IDX = -1;
 
     // views
@@ -434,7 +434,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                         (Animation.RELATIVE_TO_SELF, 0.0f,
                                 Animation.RELATIVE_TO_SELF, 0.0f,
                                 Animation.RELATIVE_TO_SELF, 0.0f,
-                                Animation.RELATIVE_TO_SELF, -0.35f);
+                                Animation.RELATIVE_TO_SELF, -0.1f);
                 moveUpAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
                 moveUpAnim.setFillEnabled(true);
                 moveUpAnim.setFillAfter(true);
@@ -476,7 +476,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                             Animation moveDownAnim = new TranslateAnimation
                                     (Animation.RELATIVE_TO_SELF, 0.0f,
                                             Animation.RELATIVE_TO_SELF, 0.0f,
-                                            Animation.RELATIVE_TO_SELF, 0.35f,
+                                            Animation.RELATIVE_TO_SELF, 0.1f,
                                             Animation.RELATIVE_TO_SELF, 0.0f);
                             moveDownAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
                             moveDownAnim.setFillEnabled(true);
