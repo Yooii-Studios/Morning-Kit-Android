@@ -61,6 +61,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     public static final String KEY_LOADING_FEED_URL = "loading feed url";
     public static final String KEY_RSS_FEED = "rss feed";
     public static final String KEY_RSS_ITEMS = "rss items";
+    public static final String KEY_DISPLAYING_NEWS = "displaying news";
     private static final int NEWS_FEED_HANDLER_DELAY = 3200;
     private static final int NEWS_FEED_ANIMATION_DURATION = 200;
     private static final int INVALID_NEWS_IDX = -1;
@@ -340,6 +341,20 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
 
             newsFeedTextView.setText(stringBuilder, TextView.BufferType.SPANNABLE);
         }
+    }
+
+    @Override
+    protected void onPanelClick() {
+        getPanelDataObject().remove(KEY_DISPLAYING_NEWS);
+        if (currentDisplayingItem != null) {
+            try {
+                getPanelDataObject().put(KEY_DISPLAYING_NEWS,
+                        feed.getRssItems().indexOf(currentDisplayingItem));
+            } catch(JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        super.onPanelClick();
     }
 
     @Override
