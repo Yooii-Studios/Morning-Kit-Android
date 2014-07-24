@@ -154,7 +154,8 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
 //                feedUrl = getPanelDataObject().getString(KEY_FEED_URL);
                 feedUrl = new Gson().fromJson(
                         getPanelDataObject().getString(KEY_FEED_URL), urlType);
-            } else {
+            }
+            else {
                 String savedUrl = prefs.getString(KEY_FEED_URL, null);
                 if (savedUrl != null) {
                     feedUrl = new Gson().fromJson(savedUrl, urlType);
@@ -178,14 +179,17 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                     RssFeed rssFeed = new Gson().fromJson(feedStr, type);
                     type = new TypeToken<ArrayList<RssItem>>() {
                     }.getType();
-                    rssFeed.setRssItems(
-                            (ArrayList<RssItem>) new Gson().fromJson(newsListStr, type));
+                    ArrayList<RssItem> savedNewsList = new Gson().fromJson
+                            (newsListStr, type);
+                    rssFeed.setRssItems(savedNewsList);
 
                     setNewRssFeed(feedUrl, rssFeed);
-                } else {
+                }
+                else {
                     feed = null;
                 }
-            } else {
+            }
+            else {
                 feed = null;
             }
 
