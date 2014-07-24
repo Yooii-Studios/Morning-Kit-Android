@@ -62,7 +62,8 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     public static final String KEY_RSS_FEED = "rss feed";
     public static final String KEY_RSS_ITEMS = "rss items";
     private static final int NEWS_FEED_HANDLER_DELAY = 3200;
-    private static final int NEWS_FEED_ANIMATION_DURATION = 200;
+    private static final int NEWS_FEED_ANIMATION_DURATION = 250;
+    private static final int NEWS_FEED_ANIMATION_FADE_DURATION = 230;
     private static final int INVALID_NEWS_IDX = -1;
 
     // views
@@ -418,7 +419,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                         (Animation.RELATIVE_TO_SELF, 0.0f,
                                 Animation.RELATIVE_TO_SELF, 0.0f,
                                 Animation.RELATIVE_TO_SELF, 0.0f,
-                                Animation.RELATIVE_TO_SELF, -0.5f);
+                                Animation.RELATIVE_TO_SELF, -0.35f);
                 moveUpAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
                 moveUpAnim.setFillEnabled(true);
                 moveUpAnim.setFillAfter(true);
@@ -426,7 +427,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 hideSet.addAnimation(moveUpAnim);
 
                 Animation fadeoutAnim = new AlphaAnimation(1.0f, 0.0f);
-                fadeoutAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
+                fadeoutAnim.setDuration(NEWS_FEED_ANIMATION_FADE_DURATION);
                 fadeoutAnim.setFillEnabled(true);
                 fadeoutAnim.setFillAfter(true);
                 hideSet.addAnimation(fadeoutAnim);
@@ -460,7 +461,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                             Animation moveDownAnim = new TranslateAnimation
                                     (Animation.RELATIVE_TO_SELF, 0.0f,
                                             Animation.RELATIVE_TO_SELF, 0.0f,
-                                            Animation.RELATIVE_TO_SELF, 0.5f,
+                                            Animation.RELATIVE_TO_SELF, 0.35f,
                                             Animation.RELATIVE_TO_SELF, 0.0f);
                             moveDownAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
                             moveDownAnim.setFillEnabled(true);
@@ -469,7 +470,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                             showSet.addAnimation(moveDownAnim);
 
                             Animation fadeInAnim = new AlphaAnimation(0.0f, 1.0f);
-                            fadeInAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
+                            fadeInAnim.setDuration(NEWS_FEED_ANIMATION_FADE_DURATION);
                             fadeInAnim.setFillEnabled(true);
                             fadeInAnim.setFillAfter(true);
                             showSet.addAnimation(fadeInAnim);
