@@ -106,17 +106,17 @@ public class MNInfoFragment extends Fragment implements MNInfoItemClickListener 
     public void onItemClick(int position) {
         MNInfoItemType type = MNInfoItemType.valueOf(position);
         switch (type) {
-            case STORE: {
-                Intent intent = new Intent(getActivity(), MNStoreActivity.class);
-                getActivity().startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
-
-                // 플러리
-                Map<String, String> params = new HashMap<String, String>();
-                params.put(MNFlurry.CALLED_FROM, "Setting - Info - Store");
-                FlurryAgent.logEvent(MNFlurry.STORE, params);
-                break;
-            }
+//            case STORE: {
+//                Intent intent = new Intent(getActivity(), MNStoreActivity.class);
+//                getActivity().startActivity(intent);
+//                getActivity().overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
+//
+//                // 플러리
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put(MNFlurry.CALLED_FROM, "Setting - Info - Store");
+//                FlurryAgent.logEvent(MNFlurry.STORE, params);
+//                break;
+//            }
 
             case MORNING_KIT_INFO: {
                 Intent i = new Intent(getActivity(), MNMoreInfoActivity.class);
