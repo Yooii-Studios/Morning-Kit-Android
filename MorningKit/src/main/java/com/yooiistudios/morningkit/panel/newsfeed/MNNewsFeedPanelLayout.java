@@ -50,6 +50,8 @@ import nl.matshofman.saxrssreader.RssItem;
 
 /**
  * Created by Dongheyon Jeong on in morning-kit from Yooii Studios Co., LTD. on 2014. 7. 2.
+ *
+ * MNNewsFeedPanelLayout
  */
 public class MNNewsFeedPanelLayout extends MNPanelLayout {
     private static final String TAG = MNNewsFeedPanelLayout.class.getName();
@@ -60,7 +62,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     public static final String KEY_RSS_FEED = "rss feed";
     public static final String KEY_RSS_ITEMS = "rss items";
     private static final int NEWS_FEED_HANDLER_DELAY = 3200;
-    private static final int NEWS_FEED_ANIMATION_DURATION = 150;
+    private static final int NEWS_FEED_ANIMATION_DURATION = 200;
     private static final int INVALID_NEWS_IDX = -1;
 
     // views
@@ -403,15 +405,25 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 AnimationSet hideSet = new AnimationSet(true);
                 hideSet.setInterpolator(new AccelerateInterpolator());
 
-                Animation moveOutAnim = new TranslateAnimation
+//                Animation moveOutAnim = new TranslateAnimation
+//                        (Animation.RELATIVE_TO_SELF, 0.0f,
+//                                Animation.RELATIVE_TO_SELF, -0.5f,
+//                                Animation.RELATIVE_TO_SELF, 0.0f,
+//                                Animation.RELATIVE_TO_SELF, 0.0f);
+//                moveOutAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
+//                moveOutAnim.setFillEnabled(true);
+//                moveOutAnim.setFillAfter(true);
+
+                Animation moveUpAnim = new TranslateAnimation
                         (Animation.RELATIVE_TO_SELF, 0.0f,
-                                Animation.RELATIVE_TO_SELF, -0.5f,
                                 Animation.RELATIVE_TO_SELF, 0.0f,
-                                Animation.RELATIVE_TO_SELF, 0.0f);
-                moveOutAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
-                moveOutAnim.setFillEnabled(true);
-                moveOutAnim.setFillAfter(true);
-                hideSet.addAnimation(moveOutAnim);
+                                Animation.RELATIVE_TO_SELF, 0.0f,
+                                Animation.RELATIVE_TO_SELF, -0.5f);
+                moveUpAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
+                moveUpAnim.setFillEnabled(true);
+                moveUpAnim.setFillAfter(true);
+
+                hideSet.addAnimation(moveUpAnim);
 
                 Animation fadeoutAnim = new AlphaAnimation(1.0f, 0.0f);
                 fadeoutAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
@@ -436,22 +448,31 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                             AnimationSet showSet = new AnimationSet(false);
                             showSet.setInterpolator(new DecelerateInterpolator());
 
-                            Animation moveinAnim = new TranslateAnimation
-                                    (Animation.RELATIVE_TO_SELF, 0.5f,
-                                            Animation.RELATIVE_TO_SELF, 0.0f,
-                                            Animation.RELATIVE_TO_SELF, 0.0f,
-                                            Animation.RELATIVE_TO_SELF, 0.0f);
-                            moveinAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
-                            moveinAnim.setFillEnabled(true);
-                            moveinAnim.setFillAfter(true);
-                            showSet.addAnimation(moveinAnim);
+//                            Animation moveInAnim = new TranslateAnimation
+//                                    (Animation.RELATIVE_TO_SELF, 0.5f,
+//                                            Animation.RELATIVE_TO_SELF, 0.0f,
+//                                            Animation.RELATIVE_TO_SELF, 0.0f,
+//                                            Animation.RELATIVE_TO_SELF, 0.0f);
+//                            moveInAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
+//                            moveInAnim.setFillEnabled(true);
+//                            moveInAnim.setFillAfter(true);
 
-                            Animation fadeinAnim = new AlphaAnimation(0.0f,
-                                    1.0f);
-                            fadeinAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
-                            fadeinAnim.setFillEnabled(true);
-                            fadeinAnim.setFillAfter(true);
-                            showSet.addAnimation(fadeinAnim);
+                            Animation moveDownAnim = new TranslateAnimation
+                                    (Animation.RELATIVE_TO_SELF, 0.0f,
+                                            Animation.RELATIVE_TO_SELF, 0.0f,
+                                            Animation.RELATIVE_TO_SELF, 0.5f,
+                                            Animation.RELATIVE_TO_SELF, 0.0f);
+                            moveDownAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
+                            moveDownAnim.setFillEnabled(true);
+                            moveDownAnim.setFillAfter(true);
+
+                            showSet.addAnimation(moveDownAnim);
+
+                            Animation fadeInAnim = new AlphaAnimation(0.0f, 1.0f);
+                            fadeInAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
+                            fadeInAnim.setFillEnabled(true);
+                            fadeInAnim.setFillAfter(true);
+                            showSet.addAnimation(fadeInAnim);
                             newsFeedTextView.startAnimation(showSet);
                         }
 
