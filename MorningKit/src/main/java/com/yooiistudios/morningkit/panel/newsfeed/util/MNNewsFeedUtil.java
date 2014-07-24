@@ -168,7 +168,7 @@ public class MNNewsFeedUtil {
                         pubEndIdx >= pubStartIdx) {
                 // title.length() >= delim.length()
                     newTitle = title.substring(titleStartIdx, titleEndIdx);
-                    publisher = title.substring(pubStartIdx, pubEndIdx);
+                    publisher = "- " + title.substring(pubStartIdx, pubEndIdx);
                 }
                 else {
                     newTitle = title;

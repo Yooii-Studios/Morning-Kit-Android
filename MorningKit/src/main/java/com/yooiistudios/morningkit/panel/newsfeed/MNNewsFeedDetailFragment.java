@@ -39,6 +39,7 @@ import butterknife.InjectView;
 import nl.matshofman.saxrssreader.RssFeed;
 import nl.matshofman.saxrssreader.RssItem;
 
+import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.KEY_DISPLAYING_NEWS;
 import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.KEY_FEED_URL;
 import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.KEY_LOADING_FEED_URL;
 import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.KEY_RSS_FEED;
@@ -53,6 +54,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
 
     private static final String TAG = "MNNewsFeedDetailFragment";
     public static final String TAG_FEED_SELECT_DIALOG = "feed select dialog";
+    private static final int INVALID_NEWS_IDX = -1;
 
     @InjectView(R.id.feedTitle) TextView feedTitleTextView;
     @InjectView(R.id.search) ImageView searchImageView;
@@ -66,6 +68,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
     private MNNewsFeedUrl loadingFeedUrl;
     private RssFeed feed;
     private MNNewsFeedAdapter feedAdapter;
+    private int highlightNewsIdx;
 
     private MNRssFetchTask rssFetchTask;
 
@@ -87,6 +90,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
                 feedUrl = MNNewsFeedUtil.getDefaultFeedUrl(getActivity());
                 loadingFeedUrl = null;
                 feed = null;
+                highlightNewsIdx = INVALID_NEWS_IDX;
             }
 
             // UI
@@ -134,13 +138,27 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
                 type = new TypeToken<ArrayList<RssItem>>() {}.getType();
                 feed.setRssItems(
                         (ArrayList<RssItem>)new Gson().fromJson(newsListStr, type));
+                if (getPanelDataObject().has(KEY_DISPLAYING_NEWS)) {
+                    int idx = getPanelDataObject().getInt(
+                            KEY_DISPLAYING_NEWS);
+                    if (idx < feed.getRssItems().size() && idx >= 0) {
+                        highlightNewsIdx = idx;
+                        RssItem item = feed.getRssItems().remove(idx);
+                        feed.getRssItems().add(0, item);
+                    }
+                    else {
+                        highlightNewsIdx = INVALID_NEWS_IDX;
+                    }
+                }
             }
             else {
                 feed = null;
+                highlightNewsIdx = INVALID_NEWS_IDX;
             }
         }
         else {
             feed = null;
+            highlightNewsIdx = INVALID_NEWS_IDX;
         }
     }
 
