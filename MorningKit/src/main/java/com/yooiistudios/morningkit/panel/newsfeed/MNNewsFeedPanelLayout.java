@@ -62,9 +62,9 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     public static final String KEY_RSS_FEED = "rss feed";
     public static final String KEY_RSS_ITEMS = "rss items";
     public static final String KEY_DISPLAYING_NEWS = "displaying news";
-    private static final int NEWS_FEED_HANDLER_DELAY = 3200;
+    private static final int NEWS_FEED_HANDLER_DELAY = 4000;
     private static final int NEWS_FEED_ANIMATION_DURATION = 250;
-    private static final int NEWS_FEED_ANIMATION_FADE_DURATION = 210;
+    private static final int NEWS_FEED_ANIMATION_FADE_DURATION = 200;
     private static final int INVALID_NEWS_IDX = -1;
 
     // views
