@@ -50,6 +50,8 @@ import nl.matshofman.saxrssreader.RssItem;
 
 /**
  * Created by Dongheyon Jeong on in morning-kit from Yooii Studios Co., LTD. on 2014. 7. 2.
+ *
+ * MNNewsFeedPanelLayout
  */
 public class MNNewsFeedPanelLayout extends MNPanelLayout {
     private static final String TAG = MNNewsFeedPanelLayout.class.getName();
@@ -59,7 +61,10 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     public static final String KEY_LOADING_FEED_URL = "loading feed url";
     public static final String KEY_RSS_FEED = "rss feed";
     public static final String KEY_RSS_ITEMS = "rss items";
-    private static final int NEWS_FEED_HANDLER_DELAY = 6700;
+    public static final String KEY_DISPLAYING_NEWS = "displaying news";
+    private static final int NEWS_FEED_HANDLER_DELAY = 4000;
+    private static final int NEWS_FEED_ANIMATION_DURATION = 250;
+    private static final int NEWS_FEED_ANIMATION_FADE_DURATION = 200;
     private static final int INVALID_NEWS_IDX = -1;
 
     // views
@@ -149,7 +154,8 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
 //                feedUrl = getPanelDataObject().getString(KEY_FEED_URL);
                 feedUrl = new Gson().fromJson(
                         getPanelDataObject().getString(KEY_FEED_URL), urlType);
-            } else {
+            }
+            else {
                 String savedUrl = prefs.getString(KEY_FEED_URL, null);
                 if (savedUrl != null) {
                     feedUrl = new Gson().fromJson(savedUrl, urlType);
@@ -173,14 +179,17 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                     RssFeed rssFeed = new Gson().fromJson(feedStr, type);
                     type = new TypeToken<ArrayList<RssItem>>() {
                     }.getType();
-                    rssFeed.setRssItems(
-                            (ArrayList<RssItem>) new Gson().fromJson(newsListStr, type));
+                    ArrayList<RssItem> savedNewsList = new Gson().fromJson
+                            (newsListStr, type);
+                    rssFeed.setRssItems(savedNewsList);
 
                     setNewRssFeed(feedUrl, rssFeed);
-                } else {
+                }
+                else {
                     feed = null;
                 }
-            } else {
+            }
+            else {
                 feed = null;
             }
 
@@ -340,6 +349,20 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     }
 
     @Override
+    protected void onPanelClick() {
+        getPanelDataObject().remove(KEY_DISPLAYING_NEWS);
+        if (currentDisplayingItem != null) {
+            try {
+                getPanelDataObject().put(KEY_DISPLAYING_NEWS,
+                        feed.getRssItems().indexOf(currentDisplayingItem));
+            } catch(JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        super.onPanelClick();
+    }
+
+    @Override
     public void onActivityResume() {
         super.onActivityResume();
 
@@ -402,18 +425,28 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 AnimationSet hideSet = new AnimationSet(true);
                 hideSet.setInterpolator(new AccelerateInterpolator());
 
-                Animation moveOutAnim = new TranslateAnimation
+//                Animation moveOutAnim = new TranslateAnimation
+//                        (Animation.RELATIVE_TO_SELF, 0.0f,
+//                                Animation.RELATIVE_TO_SELF, -0.5f,
+//                                Animation.RELATIVE_TO_SELF, 0.0f,
+//                                Animation.RELATIVE_TO_SELF, 0.0f);
+//                moveOutAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
+//                moveOutAnim.setFillEnabled(true);
+//                moveOutAnim.setFillAfter(true);
+
+                Animation moveUpAnim = new TranslateAnimation
                         (Animation.RELATIVE_TO_SELF, 0.0f,
-                                Animation.RELATIVE_TO_SELF, -0.5f,
                                 Animation.RELATIVE_TO_SELF, 0.0f,
-                                Animation.RELATIVE_TO_SELF, 0.0f);
-                moveOutAnim.setDuration(380);
-                moveOutAnim.setFillEnabled(true);
-                moveOutAnim.setFillAfter(true);
-                hideSet.addAnimation(moveOutAnim);
+                                Animation.RELATIVE_TO_SELF, 0.0f,
+                                Animation.RELATIVE_TO_SELF, -0.1f);
+                moveUpAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
+                moveUpAnim.setFillEnabled(true);
+                moveUpAnim.setFillAfter(true);
+
+                hideSet.addAnimation(moveUpAnim);
 
                 Animation fadeoutAnim = new AlphaAnimation(1.0f, 0.0f);
-                fadeoutAnim.setDuration(380);
+                fadeoutAnim.setDuration(NEWS_FEED_ANIMATION_FADE_DURATION);
                 fadeoutAnim.setFillEnabled(true);
                 fadeoutAnim.setFillAfter(true);
                 hideSet.addAnimation(fadeoutAnim);
@@ -435,22 +468,31 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                             AnimationSet showSet = new AnimationSet(false);
                             showSet.setInterpolator(new DecelerateInterpolator());
 
-                            Animation moveinAnim = new TranslateAnimation
-                                    (Animation.RELATIVE_TO_SELF, 0.5f,
-                                            Animation.RELATIVE_TO_SELF, 0.0f,
-                                            Animation.RELATIVE_TO_SELF, 0.0f,
-                                            Animation.RELATIVE_TO_SELF, 0.0f);
-                            moveinAnim.setDuration(380);
-                            moveinAnim.setFillEnabled(true);
-                            moveinAnim.setFillAfter(true);
-                            showSet.addAnimation(moveinAnim);
+//                            Animation moveInAnim = new TranslateAnimation
+//                                    (Animation.RELATIVE_TO_SELF, 0.5f,
+//                                            Animation.RELATIVE_TO_SELF, 0.0f,
+//                                            Animation.RELATIVE_TO_SELF, 0.0f,
+//                                            Animation.RELATIVE_TO_SELF, 0.0f);
+//                            moveInAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
+//                            moveInAnim.setFillEnabled(true);
+//                            moveInAnim.setFillAfter(true);
 
-                            Animation fadeinAnim = new AlphaAnimation(0.0f,
-                                    1.0f);
-                            fadeinAnim.setDuration(380);
-                            fadeinAnim.setFillEnabled(true);
-                            fadeinAnim.setFillAfter(true);
-                            showSet.addAnimation(fadeinAnim);
+                            Animation moveDownAnim = new TranslateAnimation
+                                    (Animation.RELATIVE_TO_SELF, 0.0f,
+                                            Animation.RELATIVE_TO_SELF, 0.0f,
+                                            Animation.RELATIVE_TO_SELF, 0.1f,
+                                            Animation.RELATIVE_TO_SELF, 0.0f);
+                            moveDownAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
+                            moveDownAnim.setFillEnabled(true);
+                            moveDownAnim.setFillAfter(true);
+
+                            showSet.addAnimation(moveDownAnim);
+
+                            Animation fadeInAnim = new AlphaAnimation(0.0f, 1.0f);
+                            fadeInAnim.setDuration(NEWS_FEED_ANIMATION_FADE_DURATION);
+                            fadeInAnim.setFillEnabled(true);
+                            fadeInAnim.setFillAfter(true);
+                            showSet.addAnimation(fadeInAnim);
                             newsFeedTextView.startAnimation(showSet);
                         }
 

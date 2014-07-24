@@ -40,9 +40,9 @@ public class MNInfoListAdapter extends BaseAdapter {
             MNSettingInfoItemViewHolder viewHolder = new MNSettingInfoItemViewHolder(convertView);
             MNInfoItemType type = MNInfoItemType.valueOf(position);
             switch (type) {
-                case STORE:
-                    viewHolder.getTextView().setText(R.string.info_store);
-                    break;
+//                case STORE:
+//                    viewHolder.getTextView().setText(R.string.info_store);
+//                    break;
                 case MORNING_KIT_INFO:
                     viewHolder.getTextView().setText(R.string.more_information);
                     break;
