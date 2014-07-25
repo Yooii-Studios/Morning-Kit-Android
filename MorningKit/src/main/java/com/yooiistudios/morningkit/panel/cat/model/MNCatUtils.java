@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class MNCatUtils {
     private static final int NUM_OF_MORNING_ANIM = 2;
-    private static final int NUM_OF_NOON_ANIM = 2;
+    private static final int NUM_OF_NOON_ANIM = 4;
     private static final int NUM_OF_EVENING_ANIM = 2;
 
     public static int getRandomCatAnimationResourceId(boolean isDebug) {
@@ -47,6 +47,10 @@ public class MNCatUtils {
                     return R.drawable.cat_animation_noon_set_1;
                 case 1:
                     return R.drawable.cat_animation_noon_set_2;
+                case 2:
+                    return R.drawable.cat_animation_noon_set_3;
+                case 3:
+                    return R.drawable.cat_animation_noon_set_4;
                 default:
                     return R.drawable.cat_animation_noon_set_1;
             }
