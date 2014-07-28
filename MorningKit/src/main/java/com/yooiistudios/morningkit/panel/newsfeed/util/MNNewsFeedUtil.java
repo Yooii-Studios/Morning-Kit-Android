@@ -51,7 +51,7 @@ public class MNNewsFeedUtil {
                 urlType = MNNewsFeedUrlType.YAHOO;
                 break;
             case TRADITIONAL_CHINESE:
-                feedUrl = "http://news.google.com/news?cf=all&ned=cn&hl=zh-CN&output=rss";
+                feedUrl = "http://news.google.com/news?cf=all&ned=tw&hl=zh-TW&output=rss";
                 urlType = MNNewsFeedUrlType.GOOGLE;
                 break;
             case SIMPLIFIED_CHINESE:

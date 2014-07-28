@@ -267,7 +267,8 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
     private void loadNewsFeed(MNNewsFeedUrl url) {
         showLoadingImageView();
         loadingFeedUrl = url;
-        rssFetchTask = new MNRssFetchTask(new MNRssFetchTask.OnFetchListener() {
+        rssFetchTask = new MNRssFetchTask(getActivity().getApplicationContext()
+                , new MNRssFetchTask.OnFetchListener() {
             @Override
             public void onFetch(RssFeed rssFeed) {
                 update(loadingFeedUrl, rssFeed);
@@ -290,7 +291,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
                 showUnavailableMessage();
             }
         });
-        rssFetchTask.execute(url.getUrl());
+        rssFetchTask.execute(url);
     }
     private void showUnavailableMessage() {
         Toast.makeText(getActivity().getApplicationContext(),

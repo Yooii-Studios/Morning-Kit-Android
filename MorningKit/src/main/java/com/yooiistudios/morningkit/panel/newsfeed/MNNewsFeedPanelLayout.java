@@ -36,6 +36,8 @@ import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNRssFetchTask;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
@@ -78,6 +80,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     private int newsIdx;
 
     private MNRssFetchTask rssFetchTask;
+    private MNLanguageType previousLanguageType;
     private boolean isHandlerRunning;
     private boolean needToLoad;
 
@@ -205,7 +208,8 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
             rssFetchTask.cancel(false);
         }
 
-        rssFetchTask = new MNRssFetchTask(new MNRssFetchTask.OnFetchListener() {
+        rssFetchTask = new MNRssFetchTask(getContext().getApplicationContext(),
+                new MNRssFetchTask.OnFetchListener() {
             @Override
             public void onFetch(RssFeed rssFeed) {
                 stopHandler();
@@ -235,7 +239,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 updateUI();
             }
         });
-        rssFetchTask.execute(url.getUrl());
+        rssFetchTask.execute(url);
         startLoadingAnimation();
     }
 
@@ -291,6 +295,22 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     @Override
     public void applyTheme() {
         super.applyTheme();
+        if (previousLanguageType == null) {
+            previousLanguageType = MNLanguage.getCurrentLanguageType(getContext());
+            // 디폴트를 사용하고 있다면 해당 언어에 따른 url 을 동적으로 가져온다
+        } else {
+            MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(getContext());
+            if (previousLanguageType != currentLanguageType) {
+                // 언어가 바뀔 때 이곳으로 오는데, 새로 바뀐 언어에 대한 url 을 가져와서 로딩한다
+                try {
+                    processLoading();
+                } catch(JSONException e) {
+                    e.printStackTrace();
+                }
+
+                previousLanguageType = currentLanguageType;
+            }
+        }
 
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(
                 getContext().getApplicationContext());
