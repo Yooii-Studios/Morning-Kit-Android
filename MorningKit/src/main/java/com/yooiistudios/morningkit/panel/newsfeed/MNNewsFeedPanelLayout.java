@@ -165,7 +165,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 }
 //                feedUrl = prefs.getString(KEY_FEED_URL,
 //                        MNNewsFeedUtil.getDefaultFeedUrl(getContext()));
-                getPanelDataObject().put(KEY_FEED_URL, feedUrl);
+                getPanelDataObject().put(KEY_FEED_URL, new Gson().toJson(feedUrl));
             }
             //메인에서 이전 피드 캐싱해서 보여주던 루틴 없엠.(피드 url이 바뀐 경우 의미 없음)
             if (getPanelDataObject().has(KEY_RSS_FEED)
