@@ -27,9 +27,4 @@
             android:textColor="@color/white"
             android:textSize="@dimen/alarm_pref_list_item_textview_font_size"/>
     </RelativeLayout>
-    <Button
-        android:id="@+id/reset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="blah...reset"/>
 </LinearLayout>

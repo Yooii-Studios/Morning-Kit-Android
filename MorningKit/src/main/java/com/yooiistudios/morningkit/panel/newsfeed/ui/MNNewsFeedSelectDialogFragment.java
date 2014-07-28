@@ -49,6 +49,13 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
         Bundle args = getArguments();
         mFeedUrl = (MNNewsFeedUrl)args.getSerializable(KEY_URL);
 
+        if (!mFeedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
+            // 디폴트 세팅을 사용할 경우 패널단에서 언어설정을 감지 못하므로 무조건 현재 언어의
+            // 디폴트 url을 가져온다.
+            mFeedUrl = MNNewsFeedUtil.getDefaultFeedUrl(
+                    getActivity().getApplicationContext());
+        }
+
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View root = inflater.inflate(R.layout
@@ -73,22 +80,24 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
         mFeedUrlEditText.setAdapter(adapter);
 
         //test code
-        root.findViewById(R.id.reset).setOnClickListener(new View
-                .OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mFeedUrl = MNNewsFeedUtil.getDefaultFeedUrl(getActivity());
-                mFeedUrlEditText.setText(mFeedUrl.getUrl());
-                mHasReset = true;
-            }
-        });
-        root.findViewById(R.id.clear).setOnClickListener(new View
+//        root.findViewById(R.id.reset).setOnClickListener(new View
+//                .OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mFeedUrl = MNNewsFeedUtil.getDefaultFeedUrl(getActivity());
+//                mFeedUrlEditText.setText(mFeedUrl.getUrl());
+//                mHasReset = true;
+//            }
+//        });
+        View clearButton = root.findViewById(R.id.clear);
+        clearButton.setOnClickListener(new View
                 .OnClickListener() {
             @Override
             public void onClick(View v) {
                 mFeedUrlEditText.setText("");
             }
         });
+        clearButton.bringToFront();
 
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -98,7 +107,7 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
             builder = new AlertDialog.Builder(getActivity());
         }
 
-        AlertDialog dialog = builder
+        final AlertDialog dialog = builder
                 .setTitle(R.string.news_feed_url_dialog_title)
                 .setView(root)
                 .setPositiveButton(R.string.ok,
@@ -136,6 +145,11 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
                             }
                         }
                 )
+                .setNeutralButton(R.string.news_feed_url_dialog_reset,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
                 .setNegativeButton(R.string.cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
@@ -152,6 +166,16 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
+                dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mFeedUrl = MNNewsFeedUtil.getDefaultFeedUrl(getActivity());
+                                mFeedUrlEditText.setText(mFeedUrl.getUrl());
+                                mHasReset = true;
+                            }
+                        }
+                );
                 mFeedUrlEditText.requestFocus();
                 mFeedUrlEditText.setSelection(mFeedUrlEditText.length());
                 InputMethodManager imm =

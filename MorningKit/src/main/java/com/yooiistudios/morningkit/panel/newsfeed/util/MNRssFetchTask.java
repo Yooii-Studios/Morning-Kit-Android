@@ -1,7 +1,11 @@
 package com.yooiistudios.morningkit.panel.newsfeed.util;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.text.Html;
+
+import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
+import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
 
 import org.xml.sax.SAXException;
 
@@ -17,30 +21,37 @@ import nl.matshofman.saxrssreader.RssReader;
 /**
  * Created by Dongheyon Jeong on in RSSTest from Yooii Studios Co., LTD. on 2014. 6. 27.
  */
-public class MNRssFetchTask extends AsyncTask<String, Void, RssFeed> {
+public class MNRssFetchTask extends AsyncTask<MNNewsFeedUrl, Void, RssFeed> {
 //    private String mRssUrl;
+    private Context mContext;
     private OnFetchListener mOnFetchListener;
 
     private static final int MAX_DESCRIPTION_LENGTH = 200;
     private static final String ILLEGAL_CHARACTER_OBJ = Character.toString((char)65532);
 
-    public MNRssFetchTask(OnFetchListener onFetchListener) {
+    public MNRssFetchTask(Context context, OnFetchListener onFetchListener) {
 //        mRssUrl = rssUrl;
         mOnFetchListener = onFetchListener;
     }
 
     @Override
-    protected RssFeed doInBackground(String... args) {
+    protected RssFeed doInBackground(MNNewsFeedUrl... args) {
 
         if (args == null || args.length <= 0) {
             //error
             return null;
         }
-        String urlStr = args[0];
+        MNNewsFeedUrl feedUrl = args[0];
+
+        if (!feedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
+            // 디폴트 세팅을 사용할 경우 패널단에서 언어설정을 감지 못하므로 무조건 현재 언어의
+            // 디폴트 url을 가져온다.
+            feedUrl = MNNewsFeedUtil.getDefaultFeedUrl(mContext);
+        }
 
         RssFeed feed = null;
         try {
-            URL url = new URL(urlStr);
+            URL url = new URL(feedUrl.getUrl());
 //            InputStream is = url.openStream();
             URLConnection conn = url.openConnection();
 
