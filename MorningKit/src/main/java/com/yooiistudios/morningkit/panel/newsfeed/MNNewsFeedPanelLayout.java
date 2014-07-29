@@ -64,7 +64,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     public static final String KEY_RSS_FEED = "rss feed";
     public static final String KEY_RSS_ITEMS = "rss items";
     public static final String KEY_DISPLAYING_NEWS = "displaying news";
-    private static final int NEWS_FEED_HANDLER_DELAY = 4000;
+    private static final int NEWS_FEED_HANDLER_DELAY = 5000;
     private static final int NEWS_FEED_ANIMATION_DURATION = 250;
     private static final int NEWS_FEED_ANIMATION_FADE_DURATION = 200;
     private static final int INVALID_NEWS_IDX = -1;
@@ -209,7 +209,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         }
 
         rssFetchTask = new MNRssFetchTask(getContext().getApplicationContext(),
-                new MNRssFetchTask.OnFetchListener() {
+                url, new MNRssFetchTask.OnFetchListener() {
             @Override
             public void onFetch(RssFeed rssFeed) {
                 stopHandler();
@@ -239,7 +239,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 updateUI();
             }
         });
-        rssFetchTask.execute(url);
+        rssFetchTask.execute();
         startLoadingAnimation();
     }
 
