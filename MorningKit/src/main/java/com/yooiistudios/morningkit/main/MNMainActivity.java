@@ -48,6 +48,8 @@ import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
+import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
+import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
@@ -641,12 +643,25 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             public void run() {
                 // 풀 버전 체크
                 Map<String, String> versionParams = new HashMap<String, String>();
-                if (SKIabProducts.loadOwnedIabProducts(MNMainActivity.this).contains(SKIabProducts.SKU_FULL_VERSION)) {
+                boolean isFullVersionBought =
+                        SKIabProducts.loadOwnedIabProducts(MNMainActivity.this).contains(SKIabProducts.SKU_FULL_VERSION);
+                if (isFullVersionBought) {
                     versionParams.put(MNFlurry.VERSION, MNFlurry.FULL_VERSION);
                 } else {
                     versionParams.put(MNFlurry.VERSION, MNFlurry.FREE_VERSION);
                 }
                 FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, versionParams);
+
+                // 풀 버전일 때 따로 2X3 / 2X2 체크
+                MNPanelMatrixType currentPanelMatrixType = MNPanelMatrix.getCurrentPanelMatrixType(MNMainActivity.this);
+                MNLog.now(currentPanelMatrixType.toString());
+                Map<String, String> panelMatrixParams = new HashMap<String, String>();
+                panelMatrixParams.put(MNFlurry.PANEL_MATRIX_TYPE, currentPanelMatrixType.toString());
+                if (isFullVersionBought) {
+                    FlurryAgent.logEvent(MNFlurry.FULL_VERSION, panelMatrixParams);
+                }
+                // 전체 2X3 / 2X2 체크 - On Launch 에 그대로 표시
+                FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, panelMatrixParams);
 
                 // 언어 체크
                 MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(MNMainActivity.this);

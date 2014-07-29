@@ -45,6 +45,9 @@ public class MNFlurry {
     public static final String FULL_VERSION = "Full Version";
     public static final String FREE_VERSION = "Free Version";
 
+    // 매트릭스 타입
+    public static final String PANEL_MATRIX_TYPE = "Panel Matrix Type";
+
     // 언어 체크
     public static final String LANGUAGE = "Language";
 
