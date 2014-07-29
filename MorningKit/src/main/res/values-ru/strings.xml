@@ -303,11 +303,11 @@
     <string name="photo_album_load">Выберите</string>
 
         <!-- News Feed -->
-    <string name="news_feed">News Feed</string>
-    <string name="news_feed_url_dialog_title">Enter RSS URL</string>
-    <string name="news_feed_url_dialog_reset">Reset</string>
-    <string name="news_feed_invalid_url">Invalid RSS</string>
-    <string name="news_feed_feed_unavailable">News Feed unavailable</string>
+    <string name="news_feed">новости</string>
+    <string name="news_feed_url_dialog_title">Введите RSS</string>
+    <string name="news_feed_url_dialog_reset">сброс</string>
+    <string name="news_feed_invalid_url">Неверный RSS</string>
+    <string name="news_feed_feed_unavailable">Новый недоступен сейчас</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">Зеленый пастельный</string>
