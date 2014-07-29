@@ -42,9 +42,7 @@
         <ListView
             android:id="@+id/newsList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@color/pastel_green_main_font_color"
-            android:dividerHeight="@dimen/panel_news_feed_detail_list_item_divider_height"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
     <ImageView
         android:id="@+id/loadingImageView"
