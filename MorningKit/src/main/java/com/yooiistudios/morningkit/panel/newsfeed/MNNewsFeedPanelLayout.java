@@ -29,7 +29,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -304,8 +303,6 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     @Override
     protected void archivePanelData() throws JSONException {
         super.archivePanelData();
-
-        MNLog.i(TAG, "archivePanelData");
     }
 
     private void archivePanelData_() throws JSONException {
