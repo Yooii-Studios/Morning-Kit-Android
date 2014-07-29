@@ -57,7 +57,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     private List<Boolean> selectedLanguages;
     private MNQuote quote;
 
-    private static final int QUOTES_HANDLER_DELAY = 8000;
+    private static final int QUOTES_HANDLER_DELAY = 7000;
     private boolean isHandlerRunning = false;
     private MNQuotesHandler quotesHandler = new MNQuotesHandler();
     private class MNQuotesHandler extends Handler {
