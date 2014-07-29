@@ -98,7 +98,7 @@
     <dimen name="panel_round_radius">15dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
 
     <!-- Detail Activity -->
-    <dimen name="panel_detail_padding">20dp</dimen>
+    <dimen name="panel_detail_padding">8.5dp</dimen>
     <dimen name="panel_detail_padding_inner">10dp</dimen>
     <dimen name="panel_detail_bigger_padding">40dp</dimen>
     <dimen name="panel_detail_bigger_padding_inner">20dp</dimen>
@@ -149,9 +149,11 @@
     <!-- Calendar -->
     <dimen name="panel_calendar_item_time_textview_width">110dp</dimen>
     <dimen name="panel_calendar_item_textview_font_size">20sp</dimen>
-    <dimen name="panel_calendar_item_divider_textview_font_size">11.9sp</dimen>
+    <dimen name="panel_calendar_item_divider_textview_font_size">15sp</dimen>
+    <dimen name="panel_calendar_item_margin_top">1.7dp</dimen>                      <!--Done-->
     <dimen name="panel_calendar_item_margin_inner">4dp</dimen>
     <dimen name="panel_calendar_item_margin_outer">8dp</dimen>
+    <dimen name="panel_calendar_item_divider_height">1dp</dimen>                    <!--Done-->
         <!-- Detail -->
     <dimen name="panel_calendar_detail_list_view_height">400dp</dimen>
     <dimen name="panel_calendar_detail_no_events_today_top_margin">30dp</dimen>

@@ -126,7 +126,7 @@ public class MNWorldClockPanelLayout extends MNPanelLayout {
         LayoutParams ampmLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         ampmLayoutParams.addRule(ALIGN_PARENT_RIGHT);
         ampmLayoutParams.addRule(ALIGN_PARENT_TOP);
-        ampmLayoutParams.rightMargin = getResources().getDimensionPixelSize(R.dimen.panel_detail_padding);
+        ampmLayoutParams.rightMargin = getResources().getDimensionPixelSize(R.dimen.panel_detail_bigger_padding_inner);
         ampmLayoutParams.topMargin = getResources().getDimensionPixelSize(R.dimen.margin_outer);
         analogAmpmTextView.setLayoutParams(ampmLayoutParams);
         analogAmpmTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,

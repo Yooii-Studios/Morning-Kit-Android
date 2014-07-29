@@ -150,8 +150,10 @@
     <dimen name="panel_calendar_item_time_textview_width">55dp</dimen>
     <dimen name="panel_calendar_item_textview_font_size">10sp</dimen>
     <dimen name="panel_calendar_item_divider_textview_font_size">7sp</dimen>
+    <dimen name="panel_calendar_item_margin_top">1dp</dimen>
     <dimen name="panel_calendar_item_margin_inner">2dp</dimen>
     <dimen name="panel_calendar_item_margin_outer">4dp</dimen>
+    <dimen name="panel_calendar_item_divider_height">0.5dp</dimen>
         <!-- Detail -->
     <dimen name="panel_calendar_detail_list_view_height">200dp</dimen>
     <dimen name="panel_calendar_detail_no_events_today_top_margin">15dp</dimen>

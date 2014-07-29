@@ -152,11 +152,13 @@
     <dimen name="panel_flickr_image_view_height">180dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
 
     <!-- Calendar -->
-    <dimen name="panel_calendar_item_time_textview_width">77dp</dimen>          <!--Done-->
-    <dimen name="panel_calendar_item_textview_font_size">14sp</dimen>           <!--Done-->
-    <dimen name="panel_calendar_item_divider_textview_font_size">9.8sp</dimen>  <!--Done-->
-    <dimen name="panel_calendar_item_margin_inner">2.8dp</dimen>                <!--Done-->
-    <dimen name="panel_calendar_item_margin_outer">5.6dp</dimen>                <!--Done-->
+    <dimen name="panel_calendar_item_time_textview_width">77dp</dimen>              <!--Done-->
+    <dimen name="panel_calendar_item_textview_font_size">14sp</dimen>               <!--Done-->
+    <dimen name="panel_calendar_item_divider_textview_font_size">11sp</dimen>       <!--Done-->
+    <dimen name="panel_calendar_item_margin_top">1.4dp</dimen>                      <!--Done-->
+    <dimen name="panel_calendar_item_margin_inner">2.8dp</dimen>                    <!--Done-->
+    <dimen name="panel_calendar_item_margin_outer">5.6dp</dimen>                    <!--Done-->
+    <dimen name="panel_calendar_item_divider_height">0.6dp</dimen>                  <!--Done-->
     <!-- Detail -->
     <dimen name="panel_calendar_detail_list_view_height">280dp</dimen>                  <!--Done-->
     <dimen name="panel_calendar_detail_no_events_today_top_margin">21dp</dimen>         <!--Done-->
