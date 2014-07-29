@@ -65,7 +65,7 @@ public class MNFlurry {
     public static final String WEATHER = "Weather";
     public static final String DATE = "Date";
 
-    public static final String NEWS = "Date";
+    public static final String NEWS = "News";
 
     // 테마 안에서의 선택을 로그
     public static final String ON_SETTING_THEME = "On Setting - Theme";
