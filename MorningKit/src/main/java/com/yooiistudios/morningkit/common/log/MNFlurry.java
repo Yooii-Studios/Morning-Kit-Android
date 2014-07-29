@@ -45,6 +45,9 @@ public class MNFlurry {
     public static final String FULL_VERSION = "Full Version";
     public static final String FREE_VERSION = "Free Version";
 
+    // 매트릭스 타입
+    public static final String PANEL_MATRIX_TYPE = "Panel Matrix Type";
+
     // 언어 체크
     public static final String LANGUAGE = "Language";
 
@@ -61,6 +64,8 @@ public class MNFlurry {
 
     public static final String WEATHER = "Weather";
     public static final String DATE = "Date";
+
+    public static final String NEWS = "News";
 
     // 테마 안에서의 선택을 로그
     public static final String ON_SETTING_THEME = "On Setting - Theme";

@@ -40,6 +40,12 @@ public class MNMainResources {
             case PASTEL_GREEN:
                 return R.drawable.main_refresh_button_selector_pastel_green;
 
+            case COOL_NAVY:
+                return R.drawable.main_refresh_button_selector_cool_navy;
+
+            case MINT_PINK:
+                return R.drawable.main_refresh_button_selector_mint_pink;
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -63,6 +69,12 @@ public class MNMainResources {
 
             case PASTEL_GREEN:
                 return R.drawable.main_setting_button_selector_pastel_green;
+
+            case COOL_NAVY:
+                return R.drawable.main_setting_button_selector_cool_navy;
+
+            case MINT_PINK:
+                return R.drawable.main_setting_button_selector_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -98,6 +110,12 @@ public class MNMainResources {
             case PASTEL_GREEN:
                 return R.drawable.clock_base_am_pastel_green;
 
+            case COOL_NAVY:
+                return R.drawable.clock_base_am_cool_navy;
+
+            case MINT_PINK:
+                return R.drawable.clock_base_am_mint_pink;
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -123,6 +141,12 @@ public class MNMainResources {
 
             case PASTEL_GREEN:
                 return R.drawable.clock_base_pm_pastel_green;
+
+            case COOL_NAVY:
+                return R.drawable.clock_base_pm_cool_navy;
+
+            case MINT_PINK:
+                return R.drawable.clock_base_pm_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -150,6 +174,12 @@ public class MNMainResources {
             case PASTEL_GREEN:
                 return R.drawable.clock_hand_hour_am_pastel_green;
 
+            case COOL_NAVY:
+                return R.drawable.clock_hand_hour_am_cool_navy;
+
+            case MINT_PINK:
+                return R.drawable.clock_hand_hour_am_mint_pink;
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -175,6 +205,12 @@ public class MNMainResources {
 
             case PASTEL_GREEN:
                 return R.drawable.clock_hand_hour_pm_pastel_green;
+
+            case COOL_NAVY:
+                return R.drawable.clock_hand_hour_pm_cool_navy;
+
+            case MINT_PINK:
+                return R.drawable.clock_hand_hour_pm_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -202,6 +238,12 @@ public class MNMainResources {
             case PASTEL_GREEN:
                 return R.drawable.clock_hand_minute_am_pastel_green;
 
+            case COOL_NAVY:
+                return R.drawable.clock_hand_minute_am_cool_navy;
+
+            case MINT_PINK:
+                return R.drawable.clock_hand_minute_am_mint_pink;
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -227,6 +269,12 @@ public class MNMainResources {
 
             case PASTEL_GREEN:
                 return R.drawable.clock_hand_minute_pm_pastel_green;
+
+            case COOL_NAVY:
+                return R.drawable.clock_hand_minute_pm_cool_navy;
+
+            case MINT_PINK:
+                return R.drawable.clock_hand_minute_pm_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -254,6 +302,12 @@ public class MNMainResources {
             case PASTEL_GREEN:
                 return R.drawable.clock_hand_second_am_pastel_green;
 
+            case COOL_NAVY:
+                return R.drawable.clock_hand_second_am_cool_navy;
+
+            case MINT_PINK:
+                return R.drawable.clock_hand_second_am_mint_pink;
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -280,6 +334,12 @@ public class MNMainResources {
             case PASTEL_GREEN:
                 return R.drawable.clock_hand_second_pm_pastel_green;
 
+            case COOL_NAVY:
+                return R.drawable.clock_hand_second_pm_cool_navy;
+
+            case MINT_PINK:
+                return R.drawable.clock_hand_second_pm_mint_pink;
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -305,6 +365,7 @@ public class MNMainResources {
                 return R.drawable.alarm_dividing_bar_on_classic_white;
 
             case SLATE_GRAY:
+            case COOL_NAVY:
                 return R.drawable.alarm_dividing_bar_on_skyblue;
 
             case CELESTIAL_SKY_BLUE:
@@ -312,6 +373,9 @@ public class MNMainResources {
 
             case PASTEL_GREEN:
                 return R.drawable.alarm_dividing_bar_add_pastel_green;
+
+            case MINT_PINK:
+                return R.drawable.alarm_dividing_bar_add_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -343,6 +407,12 @@ public class MNMainResources {
             case PASTEL_GREEN:
                 return R.drawable.alarm_dividing_bar_on_pastel_green;
 
+            case COOL_NAVY:
+                return R.drawable.alarm_dividing_bar_on_cool_navy;
+
+            case MINT_PINK:
+                return R.drawable.alarm_dividing_bar_on_mint_pink;
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -371,6 +441,8 @@ public class MNMainResources {
                 return R.drawable.alarm_dividing_bar_off_skyblue;
 
             case PASTEL_GREEN:
+            case COOL_NAVY:
+            case MINT_PINK:
                 return R.drawable.alarm_dividing_bar_off_pastel_green;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
@@ -395,6 +467,7 @@ public class MNMainResources {
                 return R.drawable.alarm_plus_classic_white;
 
             case SLATE_GRAY:
+            case COOL_NAVY:
                 return R.drawable.alarm_plus_classic_gray;
 
             case CELESTIAL_SKY_BLUE:
@@ -402,6 +475,9 @@ public class MNMainResources {
 
             case PASTEL_GREEN:
                 return R.drawable.alarm_plus_pastel_green;
+
+            case MINT_PINK:
+                return R.drawable.alarm_plus_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
@@ -432,6 +508,12 @@ public class MNMainResources {
             case PASTEL_GREEN:
                 return R.drawable.alarm_switch_button_selector_pastel_green;
 
+            case COOL_NAVY:
+                return R.drawable.alarm_switch_button_selector_cool_navy;
+
+            case MINT_PINK:
+                return R.drawable.alarm_switch_button_selector_mint_pink;
+
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -455,6 +537,12 @@ public class MNMainResources {
 
             case PASTEL_GREEN:
                 return R.drawable.shape_rounded_view_pastel_green;
+
+            case COOL_NAVY:
+                return R.drawable.shape_rounded_view_cool_navy;
+
+            case MINT_PINK:
+                return R.drawable.shape_rounded_view_mint_pink;
 
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }

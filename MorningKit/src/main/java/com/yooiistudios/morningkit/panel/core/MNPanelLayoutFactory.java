@@ -8,6 +8,7 @@ import com.yooiistudios.morningkit.panel.datecountdown.MNDateCountdownPanelLayou
 import com.yooiistudios.morningkit.panel.exchangerates.MNExchangeRatesPanelLayout;
 import com.yooiistudios.morningkit.panel.flickr.MNFlickrPanelLayout;
 import com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout;
+import com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout;
 import com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout;
 import com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout;
 import com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout;
@@ -82,6 +83,12 @@ public class MNPanelLayoutFactory {
                 newPanelLayout.setPanelType(MNPanelType.PHOTO_FRAME);
                 newPanelLayout.initNetworkPanel();
                 newPanelLayout.setUsingNetwork(false);
+                break;
+
+            case NEWS_FEED:
+                newPanelLayout = new MNNewsFeedPanelLayout(context);
+                newPanelLayout.setPanelType(MNPanelType.NEWS_FEED);
+                newPanelLayout.initNetworkPanel();
                 break;
 
             default:

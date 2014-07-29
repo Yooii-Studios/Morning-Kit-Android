@@ -6,10 +6,9 @@ import android.app.Activity;
 import android.widget.Toast;
 
 // 윤승용 제작. 김우성 감수 (특정 날짜를 지정해놓고 메인 액티비티의 onCreate에서 사용하면 날짜에 따라 알아서 죽음)
-public class AppValidationChecker
-{
+public class AppValidationChecker {
     private static final int VALIDATE_YEAR = 2014;
-    private static final int VALIDATE_MONTH = Calendar.AUGUST;
+    private static final int VALIDATE_MONTH = Calendar.DECEMBER;
     private static final int VALIDATE_DAY = 15;
 
     private AppValidationChecker() { throw new AssertionError(); } // You must not create instance

@@ -302,17 +302,22 @@
     <string name="photo_album_transition_alpha">透明度</string>
     <string name="photo_album_load">読み込む</string>
 
+        <!-- News Feed -->
+    <string name="news_feed">ニュース</string>
+    <string name="news_feed_url_dialog_title">RSSアドレスを入力してください。</string>
+    <string name="news_feed_url_dialog_reset">リセット</string>
+    <string name="news_feed_invalid_url">有効でないRSS</string>
+    <string name="news_feed_feed_unavailable">ニュースが使用できません。</string>
+
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">パステルグリーン</string>
     <string name="setting_theme_color_cool_navy">クールネイビー</string>
+    <string name="setting_theme_color_mint_pink">ミント・ピンク</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">友達にこのアプリを薦める</string>
     <string name="recommend_title">強くおススメめ！</string>
     <string name="recommend_description">簡単にワンクリックでダウンロード！</string>
     <string name="recommend_app_full_name">モーニングキット</string>
-
-    <!-- Unlock -->
-    <string name="unlock_should_come_back_to_morningkit">この機能のロックを解除するためには、レビューを書いた後、必ずモーニングキットに戻ってください。</string>
 
 </resources>

@@ -26,7 +26,9 @@ public class MNAlarmMaker {
 
         if (alarm != null) {
             alarm.setAlarmOn(true);
-            alarm.setSnoozeOn(false);
+            alarm.setSnoozeOn(true);
+            alarm.setVibrateOn(true);
+            alarm.setAlarmVolume(70);
             alarm.setRepeatOn(false);
             alarm.setAlarmLabel("Alarm");
             alarm.setAlarmCalendar(Calendar.getInstance());

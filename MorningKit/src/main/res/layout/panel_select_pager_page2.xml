@@ -45,18 +45,9 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="@dimen/margin_inner"
-                android:text="@string/memo"
+                android:text="@string/saying"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
-            <ImageView
-                android:id="@+id/panel_selector_page2_2_lock_imageview"
-                android:layout_width="@dimen/panel_select_pager_lock_image_view_size"
-                android:layout_height="@dimen/panel_select_pager_lock_image_view_size"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/margin_inner"
-                android:layout_marginRight="@dimen/margin_inner"
-                android:background="@drawable/panel_lock_icon_classic_white"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -72,7 +63,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="@dimen/margin_inner"
-                android:text="@string/date_calculator"
+                android:text="@string/memo"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
             <ImageView
@@ -107,7 +98,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="@dimen/margin_inner"
-                android:text="@string/photo_album"
+                android:text="@string/date_calculator"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
             <ImageView
@@ -134,9 +125,18 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="@dimen/margin_inner"
-                android:text="@string/info_store"
+                android:text="@string/photo_album"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
+            <ImageView
+                android:id="@+id/panel_selector_page2_5_lock_imageview"
+                android:layout_width="@dimen/panel_select_pager_lock_image_view_size"
+                android:layout_height="@dimen/panel_select_pager_lock_image_view_size"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/margin_inner"
+                android:layout_marginRight="@dimen/margin_inner"
+                android:background="@drawable/panel_lock_icon_classic_white"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -152,7 +152,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="@dimen/margin_inner"
-                android:text=""
+                android:text="@string/info_store"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
         </RelativeLayout>

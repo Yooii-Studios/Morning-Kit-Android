@@ -1,0 +1,339 @@
+<resources>
+    <!-- 전체 --> <!-- 모두 폰 dp의 두배 -->
+    <dimen name="rounded_corner_radius">16dp</dimen>
+    <dimen name="rounded_corner_radius_unlock">10dp</dimen>
+    <dimen name="rounded_corner_radius_unlock_listview">28dp</dimen>
+    <dimen name="pro_dog_ear_size">64dp</dimen>
+    <dimen name="admob_smart_banner_height">100dp</dimen>
+
+    <!-- 앱 전체적으로 쓰이는 패딩 -->
+    <dimen name="margin_outer">12dp</dimen>
+    <dimen name="margin_inner">6dp</dimen>
+    <dimen name="margin_shadow_inner">8dp</dimen>
+    <dimen name="margin_outer_minus_inner">6dp</dimen>
+    <dimen name="theme_shape_width_stroke">2dp</dimen>
+
+    <!-- 버튼레이아웃은 outer 패딩의 2배 -->
+    <dimen name="margin_main_button_layout">24dp</dimen>
+    <dimen name="padding_main_button_layout">16dp</dimen>
+    <dimen name="main_button_layout_height">86dp</dimen>
+    <dimen name="main_button_layout_corner_radius">24dp</dimen>
+    <dimen name="main_button_refresh_setting_size">48dp</dimen> <!-- 두배x 적절히 맞춤  -->
+
+    <!-- Admob -->
+    <dimen name="main_admob_layout_height">50dp</dimen>
+
+    <!-- Widget Window, 원래 높이 239(갤3 기준) -->
+    <dimen name="main_panel_window_layout_height">478dp</dimen> <!-- 전체 위젯 높이는 위젯 2줄 + outer * 2 + inner * 1 로 구성 -->
+    <dimen name="panel_height">242dp</dimen> <!-- 115dp + 6dp(inner_margin)는 스샷에서 위젯 크기 직접 잼 --> <!-- 두배x 1.8배 -->
+
+    <!-- Alarm -->
+    <dimen name="alarm_item_outer_height">120.7sp</dimen> <!-- inner + shadow_inner * 2  --> <!-- 두배x 1.7배 -->
+    <dimen name="alarm_item_inner_height">110.5sp</dimen>           <!-- 두배x 1.7배 -->
+    <dimen name="alarm_item_divider_with">3.4sp</dimen>             <!-- 두배x 1.7배 -->
+    <dimen name="alarm_item_divider_height">44.2sp</dimen>          <!-- 두배x 1.7배 -->
+    <dimen name="alarm_create_item_plus_size">102sp</dimen>         <!-- 두배x 1.7배 -->
+    <dimen name="alarm_item_switch_size">102sp</dimen>              <!-- 두배x 1.7배 -->
+
+    <dimen name="alarm_item_time_font_size">49.3sp</dimen>          <!-- 두배x 1.7배 -->
+    <dimen name="alarm_item_ampm_font_size">28.9sp</dimen>          <!-- 두배x 1.7배 -->
+    <dimen name="alarm_item_repeat_font_size">23.8sp</dimen>        <!-- 두배x 1.7배 -->
+    <dimen name="alarm_item_label_font_size">28.9sp</dimen>         <!-- 두배x 1.7배 -->
+
+    <dimen name="alarm_item_time_margin_top">1.7sp</dimen>          <!-- 두배x 1.7배 -->
+    <dimen name="alarm_item_time_margin_left">18.7sp</dimen>        <!-- 두배x 1.7배 -->
+    <dimen name="alarm_item_ampm_margin_left">6.8sp</dimen>         <!-- 두배x 1.7배 -->
+    <dimen name="alarm_item_label_margin_bottom">11.9sp</dimen>     <!-- 두배x 1.7배 -->
+
+    <dimen name="alarm_create_item_title_font_size">37.4sp</dimen>  <!-- 두배x 1.7배 -->
+
+        <!-- Alarm Preferences -->
+    <dimen name="alarm_pref_list_item_height">110dp</dimen> <!-- inner + margin_inner * 2  -->
+    <dimen name="alarm_pref_list_item_title_textview_width">220dp</dimen>
+    <dimen name="alarm_pref_list_item_padding">20dp</dimen>
+    <dimen name="alarm_pref_list_item_textview_font_size">30.6sp</dimen>  <!-- 두배x 1.7배 -->
+
+            <!-- Time Item -->
+    <dimen name="alarm_pref_list_time_item_margin_top">0dp</dimen>
+    <dimen name="alarm_pref_list_time_item_margin_bottom">60dp</dimen>
+    <dimen name="alarm_pref_list_time_divider_height">2dp</dimen>
+    <dimen name="alarm_pref_list_time_left_right_padding">32dp</dimen>
+
+            <!-- Repeat Item -->
+    <dimen name="alarm_pref_list_repeat_item_height">160dp</dimen>
+    <dimen name="alarm_pref_list_repeat_item_circle_size">64dp</dimen>
+
+            <!-- Label Dialog -->
+    <dimen name="alarm_pref_list_label_item_dialog_padding_button">10dp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_font_size">30.6sp</dimen>  <!-- 두배x 1.7배 -->
+    <dimen name="alarm_pref_list_label_item_dialog_button_size">60dp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_edit_remove_button_padding">80dp</dimen>
+
+            <!-- Volume Item -->
+    <dimen name="alarm_pref_list_volume_item_seekbar_height">18dp</dimen>
+    <dimen name="alarm_pref_list_volume_item_seekbar_margin_left">80dp</dimen>
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_size">44dp</dimen>
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_stroke_size">1dp</dimen>
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_offset">22dp</dimen>
+
+        <!-- Alarm Custom Dialog -->
+    <dimen name="alarm_custom_dialog_label_font_size">50sp</dimen>
+    <dimen name="alarm_custom_dialog_label_left_right_padding">46dp</dimen>
+    <dimen name="alarm_custom_dialog_label_top_bottom_padding">16dp</dimen>
+    <dimen name="alarm_custom_dialog_divider_padding">30dp</dimen>
+    <dimen name="alarm_custom_dialog_image_view_size">190dp</dimen>
+    <dimen name="alarm_custom_dialog_image_view_top_margin">40dp</dimen>
+    <dimen name="alarm_custom_dialog_time_text_top_margin">20dp</dimen>
+    <dimen name="alarm_custom_dialog_time_text_bottom_margin">40dp</dimen>
+    <dimen name="alarm_custom_dialog_time_text_font_size">44sp</dimen>
+    <dimen name="alarm_custom_dialog_button_text_font_size">32sp</dimen>
+
+    <!-- Panel -->
+    <dimen name="panel_layout_padding">20dp</dimen>
+    <dimen name="panel_cover_padding">32dp</dimen>
+    <dimen name="panel_cover_name_text_size">46sp</dimen>
+    <dimen name="panel_cover_status_text_size">24sp</dimen>
+    <dimen name="panel_network_status_gap_margin">24dp</dimen>
+    <dimen name="panel_network_animation_size">90dp</dimen>
+    <dimen name="panel_round_radius">15dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
+
+    <!-- Detail Activity -->
+    <dimen name="panel_detail_padding">8.5dp</dimen>
+    <dimen name="panel_detail_padding_inner">10dp</dimen>
+    <dimen name="panel_detail_bigger_padding">40dp</dimen>
+    <dimen name="panel_detail_bigger_padding_inner">20dp</dimen>
+    <dimen name="panel_detail_check_image_button_size">50dp</dimen>
+    <dimen name="panel_detail_remove_all_button_size">50dp</dimen>
+    <dimen name="panel_detail_remove_all_button_padding">60dp</dimen>
+    <dimen name="panel_detail_default_font_size">34sp</dimen>
+
+    <!-- Select Pager -->
+    <dimen name="panel_select_pager_height">332dp</dimen>
+    <dimen name="panel_select_pager_padding">26dp</dimen>
+    <dimen name="panel_select_pager_item_height">136dp</dimen>
+    <dimen name="panel_select_pager_item_height_no_shadow">124dp</dimen>
+    <dimen name="panel_select_pager_page_control_height">40dp</dimen>
+    <dimen name="panel_select_pager_font_size">28sp</dimen>
+    <dimen name="panel_select_pager_lock_image_view_size">26dp</dimen>
+    <dimen name="panel_select_pager_circle_indicator_size">7dp</dimen>
+
+    <!-- Weather -->
+        <!-- Main -->
+    <dimen name="panel_weather_current_temp_text_size">52dp</dimen>
+    <dimen name="panel_weather_low_high_temp_text_size">28sp</dimen>
+    <dimen name="panel_weather_city_name_local_time_text_size">24sp</dimen>
+    <dimen name="panel_weather_local_time_text_size">24sp</dimen>
+    <dimen name="panel_weather_condition_image_size">114dp</dimen>
+
+    <dimen name="panel_weather_city_list_item_height">100sp</dimen>
+    <dimen name="panel_weather_city_list_item_flag_width">110sp</dimen>
+
+    <!-- World Clock -->
+        <!-- Main -->
+    <dimen name="panel_world_clock_digital_time_text_size">74sp</dimen>
+    <dimen name="panel_world_clock_digital_text_size">24sp</dimen>
+    <dimen name="panel_world_clock_analog_clock_size">120dp</dimen>
+        <!-- Detail -->
+    <dimen name="panel_world_clock_detail_magnifier_size">36dp</dimen>
+    <dimen name="panel_world_clock_detail_edit_text_height">70dp</dimen>
+    <dimen name="panel_world_clock_detail_edit_text_font_size">34sp</dimen>
+    <dimen name="panel_world_clock_detail_checkbox_font_size">30sp</dimen>
+    <dimen name="panel_world_clock_detail_font_size">34sp</dimen>
+
+    <dimen name="panel_world_clock_detail_list_item_main_font_size">44sp</dimen>
+    <dimen name="panel_world_clock_detail_list_item_sub_font_size">22sp</dimen>
+
+    <!-- Flickr -->
+    <dimen name="panel_flickr_image_view_height">360dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
+
+    <!-- Calendar -->
+    <dimen name="panel_calendar_item_time_textview_width">110dp</dimen>
+    <dimen name="panel_calendar_item_textview_font_size">20sp</dimen>
+    <dimen name="panel_calendar_item_divider_textview_font_size">15sp</dimen>
+    <dimen name="panel_calendar_item_margin_top">1.7dp</dimen>                      <!--Done-->
+    <dimen name="panel_calendar_item_margin_inner">4dp</dimen>
+    <dimen name="panel_calendar_item_margin_outer">8dp</dimen>
+    <dimen name="panel_calendar_item_divider_height">1dp</dimen>                    <!--Done-->
+        <!-- Detail -->
+    <dimen name="panel_calendar_detail_list_view_height">400dp</dimen>
+    <dimen name="panel_calendar_detail_no_events_today_top_margin">30dp</dimen>
+    <dimen name="panel_calendar_detail_no_events_today_left_margin">40dp</dimen>
+    <dimen name="panel_calendar_detail_no_events_today_font_size">34sp</dimen>
+    <dimen name="panel_calendar_detail_item_time_layout_width">180dp</dimen>
+    <dimen name="panel_calendar_detail_item_time_textview_width">90dp</dimen>
+    <dimen name="panel_calendar_detail_item_textview_font_size">28sp</dimen>
+    <dimen name="panel_calendar_detail_item_ampm_textview_font_size">16sp</dimen>
+    <dimen name="panel_calendar_detail_item_ampm_rounded_corner_radius">34dp</dimen>
+    <dimen name="panel_calendar_detail_item_textview_padding">20dp</dimen>
+    <dimen name="panel_calendar_detail_item_indicator_textview_font_size">30sp</dimen>
+    <dimen name="panel_calendar_detail_item_padding">1.7dp</dimen>                      <!--Done-->
+    <dimen name="panel_calendar_detail_select_calendars_top_margin">80dp</dimen>
+    <dimen name="panel_calendar_detail_select_calendars_right_margin">14dp</dimen>
+    <dimen name="panel_calendar_detail_select_calendars_icon_size">80dp</dimen>
+    <dimen name="panel_calendar_detail_select_calendars_font_size">40sp</dimen>
+
+    <!-- Exchange Rates -->
+        <!-- Main -->
+    <dimen name="panel_exchange_rates_flag_width">110dp</dimen>
+    <dimen name="panel_exchange_rates_flag_height">72dp</dimen>
+    <dimen name="panel_exchange_rates_main_font_size">30sp</dimen>
+    <dimen name="panel_exchange_rates_sub_font_size">24sp</dimen>
+    <dimen name="panel_exchange_rates_minimum_font_size">18sp</dimen>
+
+        <!-- Detail -->
+    <dimen name="panel_exchange_rates_detail_info_height">112sp</dimen>
+    <dimen name="panel_exchange_rates_detail_flag_width">100sp</dimen>
+    <dimen name="panel_exchange_rates_detail_flag_height">60sp</dimen>
+    <dimen name="panel_exchange_rates_detail_swap_image_size">60sp</dimen>
+    <dimen name="panel_exchange_rates_detail_currency_code_text_size">34sp</dimen>
+    <dimen name="panel_exchange_rates_detail_edit_text_size">30sp</dimen>
+
+    <!-- Quotes -->
+        <!-- Main -->
+    <dimen name="panel_quotes_padding">26dp</dimen>
+    <dimen name="panel_quotes_default_font_size_port">25.5sp</dimen>        <!-- 두배x 1.7배 -->
+    <dimen name="panel_quotes_default_font_size_land">27.2sp</dimen>        <!-- 두배x 1.7배 -->
+        <!-- Detail -->
+    <dimen name="panel_quotes_detail_quote_text_size">30.6sp</dimen>        <!-- 두배x 1.7배 -->
+    <dimen name="panel_quotes_detail_language_text_size">28.9sp</dimen>     <!-- 두배x 1.7배 -->
+    <dimen name="panel_quotes_detail_padding">40dp</dimen>
+    <dimen name="panel_quotes_detail_text_padding">50dp</dimen>
+    <dimen name="panel_quotes_detail_rounded_corner_radius">30dp</dimen>
+
+    <!-- Date -->
+    <dimen name="panel_date_margin_between_dates">46dp</dimen>
+    <dimen name="panel_date_month_text_size">27.2sp</dimen>                 <!-- 두배x 1.7배 -->
+    <dimen name="panel_date_day_text_size">84dp</dimen>
+    <dimen name="panel_date_day_of_week_text_size">27.2sp</dimen>           <!-- 두배x 1.7배 -->
+    <dimen name="panel_date_minus_margin">-12dp</dimen>
+
+    <dimen name="panel_date_lunar_month_text_size">18.7sp</dimen>           <!-- 두배x 1.7배 -->
+    <dimen name="panel_date_lunar_day_text_size">64dp</dimen>
+    <dimen name="panel_date_lunar_day_of_week_text_size">18.7sp</dimen>     <!-- 두배x 1.7배 -->
+    <dimen name="panel_date_lunar_minus_margin">-2dp</dimen>
+
+    <!-- Photo Album -->
+    <!-- Detail -->
+    <dimen name="panel_photo_album_detail_load_icon_size">60dp</dimen>
+    <dimen name="panel_photo_album_detail_load_text_size">42.5sp</dimen>    <!-- 두배x 1.7배 -->
+    <dimen name="panel_photo_album_detail_preview_width">400dp</dimen>
+    <dimen name="panel_photo_album_detail_preview_height">280dp</dimen>
+    <dimen name="panel_photo_album_detail_preview_unavailable_size">120dp</dimen>
+    <dimen name="panel_photo_album_detail_row_height">90dp</dimen>
+    <dimen name="panel_photo_album_dropdown_minHeight">74dp</dimen>
+    <dimen name="panel_photo_album_dialog_refresh_vertical_padding">80dp</dimen>
+    <dimen name="panel_photo_album_dialog_refresh_item_horizontal_margin">16dp</dimen>
+    <dimen name="panel_photo_album_dialog_refresh_textSize">28.9sp</dimen>  <!-- 두배x 1.7배 -->
+
+    <!-- News Feed -->
+    <!-- Detail -->
+    <dimen name="panel_news_feed_detail_title_magnifier_size">51dp</dimen>
+    <dimen name="panel_news_feed_detail_title_textSize">34sp</dimen>
+    <dimen name="panel_news_feed_detail_title_content_padding">3.4dp</dimen>
+    <dimen name="panel_news_feed_detail_title_magnifier_margin">5.1dp</dimen>
+    <dimen name="panel_news_feed_detail_dialog_clearBtn_leftMargin">56.1dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_title_size">28.9sp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_content_size">18.7sp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_indent">17dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_titleContent_margin">5.95dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_divider_height">1.7dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_divider_margin">5.1dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_min_height">37.4dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_padding">10.2dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_paddingTop">22.1dp</dimen>
+
+    <!-- Date Countdown -->
+    <dimen name="panel_date_countdown_title_font_size">27.2sp</dimen>       <!-- 두배x 1.7배 -->
+    <dimen name="panel_date_countdown_count_font_size">51sp</dimen>         <!-- 두배x 1.7배 -->
+    <dimen name="panel_date_countdown_date_font_size">27.2sp</dimen>        <!-- 두배x 1.7배 -->
+
+    <!-- Setting -->
+    <dimen name="setting_actionbar_title_font_size">19.55sp</dimen>         <!-- 두배x 1.7배 -->
+    <dimen name="setting_actionbar_tab_text_font_size">20.4sp</dimen>       <!-- 두배x 1.7배 -->
+
+    <!-- Panel -->
+    <dimen name="setting_panel_matrix_layout_height">480dp</dimen>
+    <dimen name="setting_panel_item_height">240dp</dimen>
+    <dimen name="setting_panel_item_margin">26dp</dimen>
+    <dimen name="setting_panel_item_image_view_size">130dp</dimen>
+    <dimen name="setting_panel_item_text_font_size">25.5sp</dimen>          <!-- 두배x 1.7배 -->
+
+    <!-- Theme -->
+    <dimen name="setting_item_padding">16dp</dimen>
+    <dimen name="setting_item_title_textview_height">44.2sp</dimen>         <!-- 두배x 1.7배 -->
+    <dimen name="setting_item_title_font_size">34sp</dimen>                 <!-- 두배x 1.7배 -->
+    <dimen name="setting_item_detail_font_size">27.2sp</dimen>              <!-- 두배x 1.7배 -->
+    <dimen name="setting_item_detail_textview_left_margin">24dp</dimen>
+
+    <!-- Theme - detail item -->
+    <dimen name="setting_theme_detail_item_imageview_size">60dp</dimen>
+    <dimen name="setting_theme_detail_item_imageview_right_margin">20dp</dimen>
+
+    <!-- Theme - detail - photo item -->
+    <dimen name="setting_theme_detail_photo_item_padding">10dp</dimen>
+    <dimen name="setting_theme_detail_photo_item_crop_layout_width">93.5sp</dimen>  <!-- 두배x 1.7배 -->
+    <dimen name="setting_theme_detail_photo_item_divider_height">60dp</dimen>
+    <dimen name="setting_theme_detail_photo_item_divider_width">4dp</dimen>
+    <dimen name="setting_theme_detail_photo_item_textview_left_margin">20dp</dimen>
+
+    <!-- Theme - language item -->
+    <dimen name="setting_theme_language_item_padding">16dp</dimen>
+
+    <!-- License -->
+    <dimen name="setting_more_info_license_title_font_size">44.2sp</dimen>  <!-- 두배x 1.7배 -->
+
+    <!-- Credit -->
+    <dimen name="setting_info_credit_title_font_size">23.8sp</dimen>        <!-- 두배x 1.7배 -->
+    <dimen name="setting_info_credit_name_font_size">32.3sp</dimen>         <!-- 두배x 1.7배 -->
+
+    <!-- Store -->
+    <dimen name="setting_store_full_version_title_textsize">32.3sp</dimen>  <!-- 두배x 1.7배 -->
+    <dimen name="setting_store_full_version_title_margin_top">12dp</dimen>
+    <dimen name="setting_store_full_version_description_textsize">17sp</dimen>  <!-- 두배x 1.7배 -->
+    <dimen name="setting_store_full_version_text_margin">20dp</dimen>
+
+    <dimen name="setting_store_full_version_button_left_margin">30dp</dimen>
+    <dimen name="setting_store_full_version_button_bottom_margin">40dp</dimen>
+    <dimen name="setting_store_full_version_button_size">160dp</dimen>
+    <dimen name="setting_store_full_version_button_textsize">28dp</dimen>
+
+    <dimen name="setting_store_tab_height">80dp</dimen>
+    <dimen name="setting_store_tab_textsize">22.1sp</dimen>                 <!-- 두배x 1.7배 -->
+    <dimen name="setting_store_tab_bar_height">8dp</dimen>
+    <dimen name="setting_store_tab_divider_margin">18dp</dimen>
+    <dimen name="setting_store_tab_divider_width">2dp</dimen>
+
+    <dimen name="setting_store_gridview_spacing_outer">16dp</dimen>
+    <dimen name="setting_store_gridview_spacing_inner">8dp</dimen>
+    <dimen name="setting_store_gridview_padding">14dp</dimen>
+    <dimen name="setting_store_gridview_item_shadow_layout_padding">22dp</dimen> <!-- gridview_padding + inner -->
+    <dimen name="setting_store_gridview_item_outer_height">164dp</dimen> <!-- inner + margin_inner * 2  -->
+    <dimen name="setting_store_gridview_item_image_view_size">112dp</dimen>
+    <dimen name="setting_store_gridview_item_name_text_height">76dp</dimen>
+    <dimen name="setting_store_gridview_item_name_text_size">26dp</dimen>
+    <dimen name="setting_store_gridview_item_price_text_width">120dp</dimen>
+    <dimen name="setting_store_gridview_item_price_text_size">16dp</dimen>
+
+    <!-- Unlock -->
+    <dimen name="unlock_listview_shadow_blur_radius">16dp</dimen>
+    <dimen name="unlock_listview_padding">24dp</dimen>
+    <dimen name="unlock_listview_inner_margin">16dp</dimen>
+    <dimen name="unlock_listview_inner_margin_top">26dp</dimen>
+    <dimen name="unlock_listview_item_outer_height">150dp</dimen> <!-- inner + margin_inner * 2  -->
+    <dimen name="unlock_listview_item_image_view_size">92dp</dimen>
+    <dimen name="unlock_listview_item_name_text_size">24dp</dimen>
+    <dimen name="unlock_description_height">100dp</dimen>
+    <dimen name="unlock_description_padding">20dp</dimen>
+    <dimen name="unlock_description_padding_wide">30dp</dimen>
+    <dimen name="unlock_description_textsize">28dp</dimen>
+    <dimen name="unlock_description_textsize_scale_up">36dp</dimen>
+
+    <!-- Tutorial -->
+    <dimen name="tutorial_margin_skip_tutorial">18dp</dimen>
+    <dimen name="tutorial_circle_size">46dp</dimen>
+    <dimen name="tutorial_text_size">34sp</dimen>                   <!-- 두배x 1.7배 -->
+    <dimen name="tutorial_alarm_icon_size">160dp</dimen>
+    <dimen name="tutorial_skip_tutorial_text_size">27.2sp</dimen>   <!-- 두배x 1.7배 -->
+    <dimen name="tutorial_tap_screen_text_size">32.3sp</dimen>      <!-- 두배x 1.7배 -->
+
+</resources>

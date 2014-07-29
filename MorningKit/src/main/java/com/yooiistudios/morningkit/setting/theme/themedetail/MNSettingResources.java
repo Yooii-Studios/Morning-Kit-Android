@@ -147,7 +147,13 @@ public class MNSettingResources {
     public static int getDateCountdownResourceId() {
         return R.drawable.widget_cover_datecountdown_white_ipad;
     }
+
     public static int getPhotoFrameResourceId() {
         return R.drawable.widget_cover_photo_frame;
     }
+
+    public static int getNewsResourceId() {
+        return R.drawable.widget_cover_news_pastel_green;
+    }
+
 }

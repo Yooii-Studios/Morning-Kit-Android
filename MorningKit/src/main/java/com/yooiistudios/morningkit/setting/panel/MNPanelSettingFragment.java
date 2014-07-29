@@ -391,7 +391,7 @@ public class MNPanelSettingFragment extends Fragment implements MNSettingPanelMa
                     viewIndexToBeAnimatied++;
 
                     // 상점, 빈 두칸은 애니메이션을 넣지 않음
-                    if (viewIndexToBeAnimatied < secondFragment.getSelectItemLayouts().size() - 2) {
+                    if (viewIndexToBeAnimatied < secondFragment.getSelectItemLayouts().size() - 1) {
                         startRecursivePanelSelectSecondPagerGuideAnimation(secondFragment);
                     } else {
                         if (animationRemainingCount > 0) {

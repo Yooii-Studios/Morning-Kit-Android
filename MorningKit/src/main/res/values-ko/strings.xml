@@ -302,17 +302,22 @@
     <string name="photo_album_transition_alpha">투명도</string>
     <string name="photo_album_load">로드</string>
 
+        <!-- News Feed -->
+    <string name="news_feed">뉴스</string>
+    <string name="news_feed_url_dialog_title">RSS 주소 입력</string>
+    <string name="news_feed_url_dialog_reset">리셋</string>
+    <string name="news_feed_invalid_url">유효하지 않은 RSS</string>
+    <string name="news_feed_feed_unavailable">뉴스를 사용할 수 없습니다</string>
+
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">파스텔 그린</string>
     <string name="setting_theme_color_cool_navy">쿨 네이비</string>
+    <string name="setting_theme_color_mint_pink">민트 핑크</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">친구에게 추천하기</string>
     <string name="recommend_title">강력 추천!!</string>
     <string name="recommend_description">당황하지 않고 클릭해서 다운받으면~ 끝!</string>
     <string name="recommend_app_full_name">모닝키트</string>
-
-    <!-- Unlock -->
-    <string name="unlock_should_come_back_to_morningkit">리뷰 작성 후 반드시 모닝키트로 돌아오셔야 잠금해제가 완료됩니다</string>
 
 </resources>

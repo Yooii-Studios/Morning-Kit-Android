@@ -88,7 +88,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @InjectView(R.id.setting_store_debug_button) Button debugButton;
 
     // For Naver
-    public static final boolean IS_STORE_FOR_NAVER = true;
+    public static final boolean IS_STORE_FOR_NAVER = false;
     public static final int RC_NAVER_IAB = 8374;
     public boolean isNaverStoreStartLoading = false;
 //    public boolean isNaverStoreFinishLoading = false;

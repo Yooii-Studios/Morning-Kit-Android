@@ -81,8 +81,6 @@
 	<string name="world_clock">Мировые\nчасы</string>
 	<string name="flickr">Фликр</string>
 	<string name="memo">Заметка</string>
-
-	"date_calculator" = "дата\nобратного отсчета"; <!-- 카운트 다운\n타이머 -->
 	<string name="date_calculator">дата\nобратного отсчета</string>
 	<string name="weather">Погода</string>
 	<string name="calendar">Календарь</string>
@@ -304,17 +302,22 @@
     <string name="photo_album_transition_alpha">прозрачность</string>
     <string name="photo_album_load">Выберите</string>
 
+        <!-- News Feed -->
+    <string name="news_feed">новости</string>
+    <string name="news_feed_url_dialog_title">Введите RSS</string>
+    <string name="news_feed_url_dialog_reset">сброс</string>
+    <string name="news_feed_invalid_url">Неверный RSS</string>
+    <string name="news_feed_feed_unavailable">Новый недоступен сейчас</string>
+
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">Зеленый пастельный</string>
     <string name="setting_theme_color_cool_navy">Прохладный темно-синий</string>
+    <string name="setting_theme_color_mint_pink">Монетный двор Розовый</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">Рекомендовать Утренний Kомплект друзьям</string>
     <string name="recommend_title">Настоятельно рекомендуем!</string>
     <string name="recommend_description">Просто нажмите кнопку и скачать :-)</string>
     <string name="recommend_app_full_name">Утренний Kомплект</string>
-
-    <!-- Unlock -->
-    <string name="unlock_should_come_back_to_morningkit">После написания мнение о Google Play, вы должны вернуться к Утренний Kомплект чтобы разблокировать эту функцию</string>
 
 </resources>

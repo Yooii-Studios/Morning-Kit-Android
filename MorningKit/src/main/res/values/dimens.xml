@@ -98,7 +98,7 @@
     <dimen name="panel_round_radius">7.5dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
 
     <!-- Detail Activity -->
-    <dimen name="panel_detail_padding">10dp</dimen>
+    <dimen name="panel_detail_padding">5dp</dimen>
     <dimen name="panel_detail_padding_inner">5dp</dimen>
     <dimen name="panel_detail_bigger_padding">20dp</dimen>
     <dimen name="panel_detail_bigger_padding_inner">10dp</dimen>
@@ -150,8 +150,10 @@
     <dimen name="panel_calendar_item_time_textview_width">55dp</dimen>
     <dimen name="panel_calendar_item_textview_font_size">10sp</dimen>
     <dimen name="panel_calendar_item_divider_textview_font_size">7sp</dimen>
+    <dimen name="panel_calendar_item_margin_top">1dp</dimen>
     <dimen name="panel_calendar_item_margin_inner">2dp</dimen>
     <dimen name="panel_calendar_item_margin_outer">4dp</dimen>
+    <dimen name="panel_calendar_item_divider_height">0.5dp</dimen>
         <!-- Detail -->
     <dimen name="panel_calendar_detail_list_view_height">200dp</dimen>
     <dimen name="panel_calendar_detail_no_events_today_top_margin">15dp</dimen>
@@ -164,6 +166,7 @@
     <dimen name="panel_calendar_detail_item_ampm_rounded_corner_radius">17dp</dimen>
     <dimen name="panel_calendar_detail_item_textview_padding">10dp</dimen>
     <dimen name="panel_calendar_detail_item_indicator_textview_font_size">15sp</dimen>
+    <dimen name="panel_calendar_detail_item_padding">1dp</dimen>
     <dimen name="panel_calendar_detail_select_calendars_top_margin">40dp</dimen>
     <dimen name="panel_calendar_detail_select_calendars_right_margin">7dp</dimen>
     <dimen name="panel_calendar_detail_select_calendars_icon_size">40dp</dimen>
@@ -221,6 +224,23 @@
     <dimen name="panel_photo_album_dialog_refresh_vertical_padding">40dp</dimen>
     <dimen name="panel_photo_album_dialog_refresh_item_horizontal_margin">8dp</dimen>
     <dimen name="panel_photo_album_dialog_refresh_textSize">17sp</dimen>
+
+    <!-- News Feed -->
+    <!-- Detail -->
+    <dimen name="panel_news_feed_detail_title_magnifier_size">30dp</dimen>
+    <dimen name="panel_news_feed_detail_title_textSize">20sp</dimen>
+    <dimen name="panel_news_feed_detail_title_content_padding">2dp</dimen>
+    <dimen name="panel_news_feed_detail_title_magnifier_margin">3dp</dimen>
+    <dimen name="panel_news_feed_detail_dialog_clearBtn_leftMargin">33dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_title_size">17sp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_content_size">11sp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_indent">10dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_titleContent_margin">3.5dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_divider_height">1dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_divider_margin">3dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_min_height">22dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_padding">6dp</dimen>
+    <dimen name="panel_news_feed_detail_list_item_paddingTop">13dp</dimen>
 
     <!-- Date Countdown -->
     <dimen name="panel_date_countdown_title_font_size">16sp</dimen>
