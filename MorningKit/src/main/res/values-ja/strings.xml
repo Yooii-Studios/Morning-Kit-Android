@@ -303,11 +303,11 @@
     <string name="photo_album_load">読み込む</string>
 
         <!-- News Feed -->
-    <string name="news_feed">News Feed</string>
-    <string name="news_feed_url_dialog_title">Enter RSS URL</string>
-    <string name="news_feed_url_dialog_reset">Reset</string>
-    <string name="news_feed_invalid_url">Invalid RSS</string>
-    <string name="news_feed_feed_unavailable">News Feed unavailable</string>
+    <string name="news_feed">ニュース</string>
+    <string name="news_feed_url_dialog_title">RSSアドレスを入力してください。</string>
+    <string name="news_feed_url_dialog_reset">リセット</string>
+    <string name="news_feed_invalid_url">有効でないRSS</string>
+    <string name="news_feed_feed_unavailable">ニュースが使用できません。</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">パステルグリーン</string>

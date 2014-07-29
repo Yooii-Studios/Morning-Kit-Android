@@ -303,11 +303,11 @@
     <string name="photo_album_load">로드</string>
 
         <!-- News Feed -->
-    <string name="news_feed">News Feed</string>
-    <string name="news_feed_url_dialog_title">Enter RSS URL</string>
-    <string name="news_feed_url_dialog_reset">Reset</string>
-    <string name="news_feed_invalid_url">Invalid RSS</string>
-    <string name="news_feed_feed_unavailable">News Feed unavailable</string>
+    <string name="news_feed">뉴스</string>
+    <string name="news_feed_url_dialog_title">RSS 주소 입력</string>
+    <string name="news_feed_url_dialog_reset">리셋</string>
+    <string name="news_feed_invalid_url">유효하지 않은 RSS</string>
+    <string name="news_feed_feed_unavailable">뉴스를 사용할 수 없습니다</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">파스텔 그린</string>
