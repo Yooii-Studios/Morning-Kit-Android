@@ -149,7 +149,7 @@
     <!-- Calendar -->
     <dimen name="panel_calendar_item_time_textview_width">110dp</dimen>
     <dimen name="panel_calendar_item_textview_font_size">20sp</dimen>
-    <dimen name="panel_calendar_item_divider_textview_font_size">4sp</dimen>
+    <dimen name="panel_calendar_item_divider_textview_font_size">11.9sp</dimen>
     <dimen name="panel_calendar_item_margin_inner">4dp</dimen>
     <dimen name="panel_calendar_item_margin_outer">8dp</dimen>
         <!-- Detail -->
