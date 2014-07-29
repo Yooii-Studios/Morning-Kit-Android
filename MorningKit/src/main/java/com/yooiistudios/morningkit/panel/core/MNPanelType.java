@@ -19,13 +19,13 @@ public enum MNPanelType {
     DATE(1, 1),
     CALENDAR(2, 2),
     WORLD_CLOCK(3, 3),
-    QUOTES(4, 4),
+    NEWS_FEED(4, 10),
     FLICKR(5, 5),
     EXCHANGE_RATES(6, 6),
-    MEMO(7, 7),
-    DATE_COUNTDOWN(8, 8),
-    PHOTO_FRAME(9, 9),
-    NEWS_FEED(10, 10),
+    QUOTES(7, 4),
+    MEMO(8, 7),
+    DATE_COUNTDOWN(9, 8),
+    PHOTO_FRAME(10, 9),
     STORE(11, 9999); // 특수 타입, 패널은 아니나 상점을 위한 구분자
 
     @Getter private final int index; // 리스트뷰에 표시할 용도의 index
@@ -42,13 +42,13 @@ public enum MNPanelType {
             case 1: return DATE;
             case 2: return CALENDAR;
             case 3: return WORLD_CLOCK;
-            case 4: return QUOTES;
+            case 4: return NEWS_FEED;
             case 5: return FLICKR;
             case 6: return EXCHANGE_RATES;
-            case 7: return MEMO;
-            case 8: return DATE_COUNTDOWN;
-            case 9: return PHOTO_FRAME;
-            case 10: return NEWS_FEED;
+            case 7: return QUOTES;
+            case 8: return MEMO;
+            case 9: return DATE_COUNTDOWN;
+            case 10: return PHOTO_FRAME;
             default: return DATE;
         }
     }
@@ -76,13 +76,13 @@ public enum MNPanelType {
             case 1: return context.getString(R.string.calendar);
             case 2: return context.getString(R.string.reminder);
             case 3: return context.getString(R.string.world_clock);
-            case 4: return context.getString(R.string.saying);
+            case 4: return context.getString(R.string.news_feed);
             case 5: return context.getString(R.string.flickr);
             case 6: return context.getString(R.string.exchange_rate);
-            case 7: return context.getString(R.string.memo);
-            case 8: return context.getString(R.string.date_calculator);
-            case 9: return context.getString(R.string.photo_album);
-            case 10: return context.getString(R.string.news_feed);
+            case 7: return context.getString(R.string.saying);
+            case 8: return context.getString(R.string.memo);
+            case 9: return context.getString(R.string.date_calculator);
+            case 10: return context.getString(R.string.photo_album);
             default: return context.getString(R.string.calendar);
         }
     }
