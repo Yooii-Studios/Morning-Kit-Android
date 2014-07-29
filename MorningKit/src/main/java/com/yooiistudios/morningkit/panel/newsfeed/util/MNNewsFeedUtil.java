@@ -29,6 +29,7 @@ public class MNNewsFeedUtil {
     private static final int MAX_HISTORY_SIZE = 10;
 
     private static final String HISTORY_DELIM = "|";
+    private static final String NEWS_PROVIDER_YAHOO_JAPAN = "Yahoo!ニュース";
 
     public static MNNewsFeedUrl getDefaultFeedUrl(Context context) {
         MNLanguageType type = MNLanguage.getCurrentLanguageType(context);
@@ -36,7 +37,6 @@ public class MNNewsFeedUtil {
         String feedUrl;
         MNNewsFeedUrlType urlType;
 
-        //TODO 언어별 기본 RSS피드 주소 입력해야함.
         switch(type) {
             case ENGLISH:
                 feedUrl = "http://news.google.com/news?cf=all&ned=us&hl=en&output=rss";
@@ -178,7 +178,7 @@ public class MNNewsFeedUtil {
                 break;
             case YAHOO:
                 newTitle = title;
-                publisher = null;
+                publisher = NEWS_PROVIDER_YAHOO_JAPAN;
                 break;
             case CUSTOM:
             default:
@@ -188,5 +188,20 @@ public class MNNewsFeedUtil {
         }
 
         return new String[]{newTitle, publisher};
+    }
+
+    public static String getFeedTitle(Context context) {
+        MNLanguageType currentLanguage = MNLanguage.getCurrentLanguageType(context);
+
+        String provider;
+
+        if (currentLanguage.equals(MNLanguageType.JAPANESE)) {
+            provider = NEWS_PROVIDER_YAHOO_JAPAN;
+        }
+        else {
+            provider = null;
+        }
+
+        return provider;
     }
 }

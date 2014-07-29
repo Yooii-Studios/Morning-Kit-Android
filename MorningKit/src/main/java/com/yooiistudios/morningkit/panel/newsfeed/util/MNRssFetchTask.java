@@ -99,7 +99,7 @@ public class MNRssFetchTask extends AsyncTask<MNNewsFeedUrl, Void, RssFeed> {
             return;
         }
 
-        if (rssFeed != null) {
+        if (rssFeed != null && rssFeed.getRssItems() != null) {
             // success
             if (mOnFetchListener != null) {
                 mOnFetchListener.onFetch(rssFeed);

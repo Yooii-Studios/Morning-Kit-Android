@@ -243,7 +243,11 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
             this.loadingFeedUrl = null;
             this.feed = feed;
 
-            feedTitleTextView.setText(feed.getTitle());
+            Context context = getActivity().getApplicationContext();
+
+            String feedTitle = MNNewsFeedUtil.getFeedTitle(context);
+            feedTitleTextView.setText(feedTitle != null ?
+                    feedTitle : feed.getTitle());
 
             feedAdapter = new MNNewsFeedAdapter(getActivity(),
                     feed);

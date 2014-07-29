@@ -34,6 +34,7 @@ import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
+import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNRssFetchTask;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
@@ -46,6 +47,8 @@ import org.json.JSONException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 import nl.matshofman.saxrssreader.RssFeed;
 import nl.matshofman.saxrssreader.RssItem;
@@ -77,6 +80,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     private MNNewsFeedUrl loadingFeedUrl;
     private RssFeed feed;
     private RssItem currentDisplayingItem;
+    private ArrayList<RssItem> shuffledRssItemList;
     private int newsIdx;
 
     private MNRssFetchTask rssFetchTask;
@@ -139,12 +143,21 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
 
         SharedPreferences prefs = getContext().getSharedPreferences(
                 PREF_NEWS_FEED, Context.MODE_PRIVATE);
+        Context context = getContext().getApplicationContext();
         Type urlType = new TypeToken<MNNewsFeedUrl>(){}.getType();
 
         if (getPanelDataObject().has(KEY_LOADING_FEED_URL)) {
 //            loadingFeedUrl = getPanelDataObject().getString(KEY_LOADING_FEED_URL);
             loadingFeedUrl = new Gson().fromJson(getPanelDataObject().getString
                     (KEY_LOADING_FEED_URL), urlType);
+
+            if (!loadingFeedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
+                loadingFeedUrl = MNNewsFeedUtil.getDefaultFeedUrl(context);
+                getPanelDataObject().put(KEY_LOADING_FEED_URL,
+                        new Gson().toJson(loadingFeedUrl));
+                prefs.edit().putString(KEY_LOADING_FEED_URL,
+                        new Gson().toJson(loadingFeedUrl)).apply();
+            }
         }
         else {
             loadingFeedUrl = null;
@@ -157,6 +170,14 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
 //                feedUrl = getPanelDataObject().getString(KEY_FEED_URL);
                 feedUrl = new Gson().fromJson(
                         getPanelDataObject().getString(KEY_FEED_URL), urlType);
+
+                if (!feedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
+                    feedUrl = MNNewsFeedUtil.getDefaultFeedUrl(context);
+                    getPanelDataObject().put(KEY_FEED_URL,
+                            new Gson().toJson(feedUrl));
+                    prefs.edit().putString(KEY_FEED_URL,
+                            new Gson().toJson(feedUrl)).apply();
+                }
             }
             else {
                 String savedUrl = prefs.getString(KEY_FEED_URL, null);
@@ -168,7 +189,10 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 }
 //                feedUrl = prefs.getString(KEY_FEED_URL,
 //                        MNNewsFeedUtil.getDefaultFeedUrl(getContext()));
-                getPanelDataObject().put(KEY_FEED_URL, new Gson().toJson(feedUrl));
+                getPanelDataObject().put(KEY_FEED_URL,
+                        new Gson().toJson(feedUrl));
+                prefs.edit().putString(KEY_FEED_URL,
+                        new Gson().toJson(feedUrl)).apply();
             }
             //메인에서 이전 피드 캐싱해서 보여주던 루틴 없엠.(피드 url이 바뀐 경우 의미 없음)
             if (getPanelDataObject().has(KEY_RSS_FEED)
@@ -248,6 +272,9 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         this.loadingFeedUrl = null;
         this.feed = feed;
         newsIdx = 0;
+
+        shuffledRssItemList = new ArrayList<RssItem>(feed.getRssItems());
+        Collections.shuffle(shuffledRssItemList, new Random(System.nanoTime()));
     }
 
     @Override
@@ -259,6 +286,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     private void showCurrentFeed() {
         if (feed != null && feed.getRssItems().size() > 0) {
             hideCoverLayout();
+
             if (!isHandlerRunning) {
                 // if handler is not running, news won't be shown. So show
                 // next news forcefully.
@@ -426,10 +454,10 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         newsHandler.removeMessages(0);
     }
     private void showNextNews() {
-        if (newsIdx >= feed.getRssItems().size()) {
+        if (newsIdx >= shuffledRssItemList.size()) {
             newsIdx = 0;
         }
-        currentDisplayingItem = feed.getRssItems().get(newsIdx++);
+        currentDisplayingItem = shuffledRssItemList.get(newsIdx++);
 
         applyTheme();
 //        newsFeedTextView.setText(currentDisplayingItem.getTitle());
