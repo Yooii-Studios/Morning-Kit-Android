@@ -289,7 +289,7 @@
     <string name="calendar_select_calendars">캘린더 선택</string>
 
         <!-- Photo Album -->
-    <string name="photo_album">사진 앨범</string>
+    <string name="photo_album">사진첩</string>
     <string name="photo_album_no_image">사용가능한 이미지 없음</string>
     <string name="photo_album_error_getting_photo">사진을 가져올 때 문제가 생겼습니다</string>
     <string name="photo_album_label_refresh_time">리프레시 시간</string>
