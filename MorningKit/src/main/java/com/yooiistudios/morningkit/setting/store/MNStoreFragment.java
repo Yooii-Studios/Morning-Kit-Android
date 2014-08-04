@@ -36,6 +36,8 @@ import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.store.util.IabResult;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.store.util.Purchase;
+import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
+import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixType;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
 import java.util.ArrayList;
@@ -167,6 +169,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 fullVersionButtonTextView.setText(R.string.store_purchased);
                 fullVersionImageView.setClickable(false);
                 fullVersionButtonImageView.setClickable(false);
+
+                // 풀버전 구매시 2X3으로 매트릭스 변경
+                MNPanelMatrix.setPanelMatrixType(MNPanelMatrixType.PANEL_MATRIX_2X3, getActivity());
             } else {
                 if (!MNStoreDebugChecker.isUsingStore(getActivity())) {
                     initFullVersionUIDebug();
@@ -237,6 +242,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             fullVersionButtonTextView.setText(R.string.store_purchased);
             fullVersionImageView.setClickable(false);
             fullVersionButtonImageView.setClickable(false);
+
+            // 풀버전 구매시 2X3으로 매트릭스 변경
+            MNPanelMatrix.setPanelMatrixType(MNPanelMatrixType.PANEL_MATRIX_2X3, getActivity());
         } else {
             // Others
             List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
@@ -266,6 +274,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             fullVersionButtonTextView.setText(R.string.store_purchased);
             fullVersionImageView.setClickable(false);
             fullVersionButtonImageView.setClickable(false);
+
+            // 풀버전 구매시 2X3으로 매트릭스 변경
+            MNPanelMatrix.setPanelMatrixType(MNPanelMatrixType.PANEL_MATRIX_2X3, getActivity());
         }
         ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setOwnedSkus(ownedSkus);
         ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
@@ -495,6 +506,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             fullVersionButtonTextView.setText(R.string.store_purchased);
             fullVersionImageView.setClickable(false);
             fullVersionButtonImageView.setClickable(false);
+
+            // 풀버전 구매시 2X3으로 매트릭스 변경
+            MNPanelMatrix.setPanelMatrixType(MNPanelMatrixType.PANEL_MATRIX_2X3, getActivity());
         } else {
             Animation animation = AnimationUtils.loadAnimation(getActivity(),
                     R.anim.store_view_scale_up_and_down);
@@ -595,6 +609,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 fullVersionButtonTextView.setText(R.string.store_purchased);
                 fullVersionImageView.setClickable(false);
                 fullVersionButtonImageView.setClickable(false);
+
+                // 풀버전 구매시 2X3으로 매트릭스 변경
+                MNPanelMatrix.setPanelMatrixType(MNPanelMatrixType.PANEL_MATRIX_2X3, getActivity());
             } else {
                 if (!MNStoreDebugChecker.isUsingStore(getActivity())) {
                     initFullVersionUIDebug();
@@ -647,6 +664,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             fullVersionButtonTextView.setText(R.string.store_purchased);
             fullVersionImageView.setClickable(false);
             fullVersionButtonImageView.setClickable(false);
+
+            // 풀버전 구매시 2X3으로 매트릭스 변경
+            MNPanelMatrix.setPanelMatrixType(MNPanelMatrixType.PANEL_MATRIX_2X3, getActivity());
         }
         // Others
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
