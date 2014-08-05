@@ -299,7 +299,7 @@
     <string name="photo_album_second_hint">сек</string>
     <string name="photo_album_second">сек</string>
     <string name="photo_album_transition_none">ни один</string>
-    <string name="photo_album_transition_alpha">прозрачность</string>
+    <string name="photo_album_transition_alpha">исчезать</string>
     <string name="photo_album_load">Выберите</string>
 
         <!-- News Feed -->

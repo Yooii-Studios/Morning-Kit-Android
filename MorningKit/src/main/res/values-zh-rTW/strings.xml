@@ -303,11 +303,11 @@
     <string name="photo_album_load">載入</string>
 
         <!-- News Feed -->
-    <string name="news_feed">News Feed</string>
-    <string name="news_feed_url_dialog_title">Enter RSS URL</string>
-    <string name="news_feed_url_dialog_reset">Reset</string>
-    <string name="news_feed_invalid_url">Invalid RSS</string>
-    <string name="news_feed_feed_unavailable">News Feed unavailable</string>
+    <string name="news_feed">"新聞"</string>
+    <string name="news_feed_url_dialog_title">輸入RSS地址</string>
+    <string name="news_feed_url_dialog_reset">重設</string>
+    <string name="news_feed_invalid_url">無效RSS</string>
+    <string name="news_feed_feed_unavailable">暫無新聞</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">淺綠</string>
