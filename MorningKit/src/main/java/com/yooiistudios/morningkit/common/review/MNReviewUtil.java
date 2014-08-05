@@ -68,7 +68,7 @@ public class MNReviewUtil {
                     builder = new AlertDialog.Builder(activity);
                 }
                 builder.setTitle(activity.getString(R.string.rate_morning_kit));
-                String appName = activity.getString(R.string.app_name);
+                String appName = activity.getString(R.string.recommend_app_full_name);
                 String message = activity.getString(R.string.rate_it_contents, appName);
                 builder.setMessage(message);
                 builder.setPositiveButton(R.string.rate_it_rate, new DialogInterface.OnClickListener() {

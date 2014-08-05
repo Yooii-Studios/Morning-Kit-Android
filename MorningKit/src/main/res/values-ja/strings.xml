@@ -79,7 +79,7 @@
 
 	<!-- Widget -->
 	<string name="world_clock">世界時計</string>
-	<string name="flickr">Flickr</string>
+	<string name="flickr">フリッカー</string>
 	<string name="memo">メモ</string>
 	<string name="date_calculator">日付計算</string>
 	<string name="weather">天気</string>
@@ -106,7 +106,7 @@
 	<string name="flickr_photo_saved">写真を保存しました。</string>
 	<string name="flickr_normal_quality">標準画質</string>
 	<string name="flickr_high_quality">高画質</string>
-	<string name="flickr_error_access_server">Flickrのサーバーに接続できません</string>
+	<string name="flickr_error_access_server">フリッカーのサーバーに接続できません</string>
 
 	<!-- Date Countdown -->
 	<string name="date_countdown_date">日付</string>
@@ -226,9 +226,9 @@
 	<string name="store_restore_purchases">購入した機能の復元</string>
 	<string name="store_purchased">購入完了</string>
 	<string name="store_restore">復元</string>
-	<string name="store_restore_success_message">機能が復元されました。</string>
+	<string name="store_restore_success_message">購入復元に成功しました。</string>
 	<string name="store_buy_full_version">完全版購入</string>
-	<string name="store_buy_full_version_description">すべてのパネル、機能や特徴のロックを解除！</string>
+	<string name="store_buy_full_version_description">すべてのパネル、機能やテーマのロックを解除！</string>
 	<string name="store_tab_functions">機能</string>
 	<string name="store_tab_widgets">パネル</string>
 	<string name="store_tab_themes">テーマ</string>
@@ -276,7 +276,7 @@
     <string name="alarm_status_bar_icon">アラームアイコンを表示</string>
 
         <!-- Prefs -->
-    <string name="alarm_pref_volume">ボリューム</string>
+    <string name="alarm_pref_volume">音量</string>
 
     <!-- Panel -->
         <!-- Flickr -->
@@ -299,7 +299,7 @@
     <string name="photo_album_second_hint">秒</string>
     <string name="photo_album_second">秒</string>
     <string name="photo_album_transition_none">なし</string>
-    <string name="photo_album_transition_alpha">透明度</string>
+    <string name="photo_album_transition_alpha">フェード</string>
     <string name="photo_album_load">読み込む</string>
 
         <!-- News Feed -->

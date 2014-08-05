@@ -209,14 +209,11 @@
         <!-- naver iab -->
         <activity
             android:name="com.naver.iap.NaverIabActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection"
-            android:theme="@style/Theme.Transparent" >
-        </activity>
-        <!-- <activity android:name="com.nhn.android.appstore.iap.sample.RestorePaymentActivity" >
-        </activity> -->
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@style/Theme.Transparent" />
         <activity
             android:name="com.nhn.android.appstore.iap.cpa.NIAPCPAActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection" />
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
 
         <!-- alarm reset on reboot -->
         <receiver

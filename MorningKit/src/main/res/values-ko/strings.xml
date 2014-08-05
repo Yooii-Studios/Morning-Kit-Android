@@ -86,7 +86,7 @@
 	<string name="calendar">달력</string>
 	<string name="exchange_rate">환율</string>
 	<string name="saying">명언</string>
-	<string name="reminder">일정관리</string>
+	<string name="reminder">일정</string>
 
 	<!-- Calendar -->
 	<string name="calendar_lunar_calendar">음력 달력 추가</string>
@@ -289,17 +289,17 @@
     <string name="calendar_select_calendars">캘린더 선택</string>
 
         <!-- Photo Album -->
-    <string name="photo_album">사진 앨범</string>
+    <string name="photo_album">사진첩</string>
     <string name="photo_album_no_image">사용가능한 이미지 없음</string>
     <string name="photo_album_error_getting_photo">사진을 가져올 때 문제가 생겼습니다</string>
     <string name="photo_album_label_refresh_time">리프레시 시간</string>
-    <string name="photo_album_label_transition_type">애니메이션 타입</string>
+    <string name="photo_album_label_transition_type">전환 효과</string>
     <string name="photo_album_minute_hint">분</string>
     <string name="photo_album_minute">분</string>
     <string name="photo_album_second_hint">초</string>
     <string name="photo_album_second">초</string>
     <string name="photo_album_transition_none">없음</string>
-    <string name="photo_album_transition_alpha">투명도</string>
+    <string name="photo_album_transition_alpha">페이드</string>
     <string name="photo_album_load">로드</string>
 
         <!-- News Feed -->
