@@ -293,7 +293,7 @@
     <string name="photo_album_no_image">No image available</string>
     <string name="photo_album_error_getting_photo">Error occurred while getting photo</string>
     <string name="photo_album_label_refresh_time">Refresh Time</string>
-    <string name="photo_album_label_transition_type">Transition Type</string>
+    <string name="photo_album_label_transition_type">Slideshow Type</string>
     <string name="photo_album_minute_hint">min</string>
     <string name="photo_album_minute">min</string>
     <string name="photo_album_second_hint">sec</string>
