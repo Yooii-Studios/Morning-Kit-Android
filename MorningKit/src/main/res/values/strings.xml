@@ -224,9 +224,9 @@
     <!-- Store -->
     <string name="store_no_purchase_records">No purchase records</string>
     <string name="store_restore_purchases">Restore purchases</string>
-    <string name="store_restore">Restore</string>
     <string name="store_purchased">Purchased</string>
-    <string name="store_restore_success_message">All purchases was restored</string>
+    <string name="store_restore">Restore</string>
+    <string name="store_restore_success_message">All purchases are restored</string>
     <string name="store_buy_full_version">Buy the full version!</string>
     <string name="store_buy_full_version_description">Upgrade to unlock all Functions, Panels, and Themes</string>
     <string name="store_tab_functions">Functions</string>
