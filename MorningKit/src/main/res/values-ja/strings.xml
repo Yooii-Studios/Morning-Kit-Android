@@ -299,7 +299,7 @@
     <string name="photo_album_second_hint">秒</string>
     <string name="photo_album_second">秒</string>
     <string name="photo_album_transition_none">なし</string>
-    <string name="photo_album_transition_alpha">透明度</string>
+    <string name="photo_album_transition_alpha">フェード</string>
     <string name="photo_album_load">読み込む</string>
 
         <!-- News Feed -->
