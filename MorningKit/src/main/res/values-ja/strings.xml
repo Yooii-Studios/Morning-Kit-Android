@@ -226,7 +226,7 @@
 	<string name="store_restore_purchases">購入した機能の復元</string>
 	<string name="store_purchased">購入完了</string>
 	<string name="store_restore">復元</string>
-	<string name="store_restore_success_message">機能が復元されました。</string>
+	<string name="store_restore_success_message">購入復元に成功しました。</string>
 	<string name="store_buy_full_version">完全版購入</string>
 	<string name="store_buy_full_version_description">すべてのパネル、機能やテーマのロックを解除！</string>
 	<string name="store_tab_functions">機能</string>
