@@ -121,7 +121,7 @@
     <string name="weather_current_location">Current Location</string>
     <string name="weather_search_city">Search for City (in English)</string>
     <string name="display_local_time">Display Local Time</string>
-    <string name="weather_choose_your_city">Choose Your City</string>
+    <string name="weather_choose_your_city">Choose your City</string>
 
     <!-- World Clock -->
     <string name="world_clock_clock_type_text">Clock Type</string>
@@ -273,7 +273,7 @@
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
-    <string name="alarm_status_bar_icon">Show Alarm Icon in Status Bar</string>
+    <string name="alarm_status_bar_icon">Show Alarm Icon on Status Bar</string>
 
         <!-- Prefs -->
     <string name="alarm_pref_volume">Volume</string>
@@ -307,7 +307,7 @@
     <string name="news_feed_url_dialog_title">Enter RSS URL</string>
     <string name="news_feed_url_dialog_reset">Reset</string>
     <string name="news_feed_invalid_url">Invalid RSS</string>
-    <string name="news_feed_feed_unavailable">News is unavailable now</string>
+    <string name="news_feed_feed_unavailable">News is not available now</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">Pastel Green</string>

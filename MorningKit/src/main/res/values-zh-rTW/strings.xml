@@ -191,7 +191,7 @@
 	<string name="setting_effect_sound_off">關</string>
 
 	<!-- Tutorial -->
-	<string name="tutorial_select_theme">￼￼￼￼請選擇一個主題背景</string>
+	<string name="tutorial_select_theme">請選擇一個主題背景</string>
 
 	<!-- Tutorial1 - Description -->
 	<string name="tutorial1_label1">您可以重新安排面板</string>
@@ -311,8 +311,8 @@
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">淺綠</string>
-    <string name="setting_theme_color_cool_navy">Cool Navy</string>
-    <string name="setting_theme_color_mint_pink">Mint Pink</string>
+    <string name="setting_theme_color_cool_navy">海藍</string>
+    <string name="setting_theme_color_mint_pink">粉紅</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">向朋友推薦早安工具</string>
