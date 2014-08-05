@@ -191,7 +191,7 @@
 	<string name="setting_effect_sound_off">關</string>
 
 	<!-- Tutorial -->
-	<string name="tutorial_select_theme">￼￼￼￼請選擇一個主題背景</string>
+	<string name="tutorial_select_theme">請選擇一個主題背景</string>
 
 	<!-- Tutorial1 - Description -->
 	<string name="tutorial1_label1">您可以重新安排面板</string>
@@ -303,16 +303,16 @@
     <string name="photo_album_load">載入</string>
 
         <!-- News Feed -->
-    <string name="news_feed">News Feed</string>
-    <string name="news_feed_url_dialog_title">Enter RSS URL</string>
-    <string name="news_feed_url_dialog_reset">Reset</string>
-    <string name="news_feed_invalid_url">Invalid RSS</string>
-    <string name="news_feed_feed_unavailable">News Feed unavailable</string>
+    <string name="news_feed">"新聞"</string>
+    <string name="news_feed_url_dialog_title">輸入RSS地址</string>
+    <string name="news_feed_url_dialog_reset">重設</string>
+    <string name="news_feed_invalid_url">無效RSS</string>
+    <string name="news_feed_feed_unavailable">暫無新聞</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">淺綠</string>
-    <string name="setting_theme_color_cool_navy">Cool Navy</string>
-    <string name="setting_theme_color_mint_pink">Mint Pink</string>
+    <string name="setting_theme_color_cool_navy">海藍</string>
+    <string name="setting_theme_color_mint_pink">粉紅</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">向朋友推薦早安工具</string>
