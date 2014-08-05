@@ -299,7 +299,7 @@
     <string name="photo_album_second_hint">秒</string>
     <string name="photo_album_second">秒</string>
     <string name="photo_album_transition_none">無</string>
-    <string name="photo_album_transition_alpha">Alpha</string>
+    <string name="photo_album_transition_alpha">淡入淡出</string>
     <string name="photo_album_load">載入</string>
 
         <!-- News Feed -->
