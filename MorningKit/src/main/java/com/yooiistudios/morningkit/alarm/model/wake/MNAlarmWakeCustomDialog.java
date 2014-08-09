@@ -203,21 +203,23 @@ public class MNAlarmWakeCustomDialog {
 
                 // manipulate target alarm
                 MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarmId, context);
-                targetAlarm.stopAlarm(context);
-                if (targetAlarm.isRepeatOn()) {
-                    targetAlarm.startAlarm(context);
-                }
+                if (targetAlarm != null) {
+                    targetAlarm.stopAlarm(context);
+                    if (targetAlarm.isRepeatOn()) {
+                        targetAlarm.startAlarm(context);
+                    }
 
-                // save alarm
-                try {
-                    MNAlarmListManager.saveAlarmList(context);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    // save alarm
+                    try {
+                        MNAlarmListManager.saveAlarmList(context);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 // bus message
-                MNAlarmScrollViewBusProvider.getInstance().post(context);
-                MNAlarmScrollViewBusProvider.getInstance().post(wakeDialog);
+                MNAlarmScrollViewBusProvider.getInstance().post(context);       // 리스트 어댑터, UI 갱신
+                MNAlarmScrollViewBusProvider.getInstance().post(wakeDialog);    // 메인, SCREEN_ON 해제
 
                 // clear animation and wakeDialog
                 if (wakeDialog != null && wakeDialog.isShowing()) {
