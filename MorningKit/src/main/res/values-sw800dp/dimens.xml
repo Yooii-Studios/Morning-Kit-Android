@@ -74,7 +74,7 @@
     <dimen name="alarm_pref_list_volume_item_seekbar_margin_left">80dp</dimen>
     <dimen name="alarm_pref_list_volume_item_seekbar_thumb_size">44dp</dimen>
     <dimen name="alarm_pref_list_volume_item_seekbar_thumb_stroke_size">1dp</dimen>
-    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_offset">22dp</dimen>
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_offset">16dp</dimen>
 
         <!-- Alarm Custom Dialog -->
     <dimen name="alarm_custom_dialog_label_font_size">50sp</dimen>
