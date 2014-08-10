@@ -47,7 +47,7 @@ public class MNAlarmWakeCustomDialog {
 
             // 5분 후 dismiss 자동으로 되게 구현
             Message msg = Message.obtain(alarmWakeDialogHandler, alarm.getAlarmId(), wakeDialog);
-//            alarmWakeDialogHandler.sendMessageDelayed(msg, 5 * 1 * 1000); // for test
+//            alarmWakeDialogHandler.sendMessageDelayed(msg, 4 * 1 * 1000); // for test
             alarmWakeDialogHandler.sendMessageDelayed(msg, 5 * 60 * 1000);
         }
     }
@@ -191,37 +191,39 @@ public class MNAlarmWakeCustomDialog {
             AlertDialog wakeDialog = (AlertDialog) msg.obj;
 
             if (wakeDialog != null) {
-                Context context = wakeDialog.getContext().getApplicationContext();
+                Context context = wakeDialog.getContext();
 
-                // wakeDialog.dismiss 에 크래시가 났음
+                if (context != null) {
+                    // stop vibrator
+                    Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                    if (vibrator != null) {
+                        vibrator.cancel();
+                    }
+
+                    // manipulate target alarm
+                    MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarmId, context);
+                    if (targetAlarm != null) {
+                        targetAlarm.stopAlarm(context);
+                        if (targetAlarm.isRepeatOn()) {
+                            targetAlarm.startAlarm(context);
+                        }
+
+                        // save alarm
+                        try {
+                            MNAlarmListManager.saveAlarmList(context);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    // bus message
+                    MNAlarmScrollViewBusProvider.getInstance().post(context);       // 리스트 어댑터, UI 갱신
+                    MNAlarmScrollViewBusProvider.getInstance().post(wakeDialog);    // 메인, SCREEN_ON 해제
+                }
 
                 // 따라서 모델부터 처리 후 UI를 제일 마지막에 처리
                 // stop alarm sound
                 SKAlarmSoundPlayer.stop();
-
-                // stop vibrator
-                Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                vibrator.cancel();
-
-                // manipulate target alarm
-                MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarmId, context);
-                if (targetAlarm != null) {
-                    targetAlarm.stopAlarm(context);
-                    if (targetAlarm.isRepeatOn()) {
-                        targetAlarm.startAlarm(context);
-                    }
-
-                    // save alarm
-                    try {
-                        MNAlarmListManager.saveAlarmList(context);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                // bus message
-                MNAlarmScrollViewBusProvider.getInstance().post(context);       // 리스트 어댑터, UI 갱신
-                MNAlarmScrollViewBusProvider.getInstance().post(wakeDialog);    // 메인, SCREEN_ON 해제
 
                 // clear animation and wakeDialog
                 if (wakeDialog != null && wakeDialog.isShowing()) {
