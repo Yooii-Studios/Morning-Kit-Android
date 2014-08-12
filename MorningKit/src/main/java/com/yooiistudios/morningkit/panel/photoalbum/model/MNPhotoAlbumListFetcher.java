@@ -74,6 +74,10 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
 
     public static ArrayList<String> getFileList(File rootDir, File curDir,
                                                 String mimeType) {
+        // 둘 다 null 이라면 제대로 얻을 수 없어서 체크 필요 - by 우성
+        if (curDir == null && rootDir == null) {
+            return null;
+        }
         ArrayList<String> inFiles = new ArrayList<String>();
         File[] files =
                 curDir != null ? curDir.listFiles() : rootDir.listFiles();
