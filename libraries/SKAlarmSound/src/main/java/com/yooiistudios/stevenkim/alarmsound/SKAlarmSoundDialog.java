@@ -35,10 +35,10 @@ public class SKAlarmSoundDialog {
                                               final OnAlarmSoundClickListener alarmSoundClickListener) {
         // SingleChoiceItems
         final String[] soundTypes = new String[] {
-                context.getString(R.string.alarm_sound_string_none),
-                context.getString(R.string.alarm_sound_string_ringtones),
                 context.getString(R.string.alarm_sound_string_music),
+                context.getString(R.string.alarm_sound_string_ringtones),
                 context.getString(R.string.alarm_sound_string_app_music),
+                context.getString(R.string.alarm_sound_string_none),
         };
 
         // Builder for each version
@@ -56,8 +56,9 @@ public class SKAlarmSoundDialog {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0:
-                        if (alarmSoundClickListener != null) {
-                            alarmSoundClickListener.onAlarmSoundSelected(SKAlarmSoundFactory.makeMuteAlarmSound(context));
+                        AlertDialog musicDialog = makeMusicDialog(context, alarmSound, alarmSoundClickListener);
+                        if (musicDialog != null) {
+                            musicDialog.show();
                         }
                         break;
                     case 1:
@@ -65,14 +66,13 @@ public class SKAlarmSoundDialog {
                         ringtoneDialog.show();
                         break;
                     case 2:
-                        AlertDialog musicDialog = makeMusicDialog(context, alarmSound, alarmSoundClickListener);
-                        if (musicDialog != null) {
-                            musicDialog.show();
-                        }
-                        break;
-                    case 3:
                         AlertDialog appMusicDialog = makeAppMusicDialog(context, alarmSound, alarmSoundClickListener);
                         appMusicDialog.show();
+                        break;
+                    case 3:
+                        if (alarmSoundClickListener != null) {
+                            alarmSoundClickListener.onAlarmSoundSelected(SKAlarmSoundFactory.makeMuteAlarmSound(context));
+                        }
                         break;
                 }
                 dialog.dismiss();
