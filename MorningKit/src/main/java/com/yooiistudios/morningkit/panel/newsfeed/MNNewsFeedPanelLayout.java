@@ -58,7 +58,7 @@ import nl.matshofman.saxrssreader.RssItem;
  * MNNewsFeedPanelLayout
  */
 public class MNNewsFeedPanelLayout extends MNPanelLayout {
-    private static final String TAG = MNNewsFeedPanelLayout.class.getName();
+//    private static final String TAG = MNNewsFeedPanelLayout.class.getName();
 
     public static final String PREF_NEWS_FEED = "news feed preference";
     public static final String KEY_FEED_URL = "feed url";
@@ -69,7 +69,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     private static final int NEWS_FEED_HANDLER_DELAY = 5000;
     private static final int NEWS_FEED_ANIMATION_DURATION = 250;
     private static final int NEWS_FEED_ANIMATION_FADE_DURATION = 200;
-    private static final int INVALID_NEWS_IDX = -1;
+//    private static final int INVALID_NEWS_IDX = -1;
 
     // views
     private AutoResizeTextView newsFeedTextView;
@@ -430,9 +430,6 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         if (getPanelDataObject().has(KEY_LOADING_FEED_URL)) {
             needToLoad = true;
         }
-//        if (rssFetchTask != null) {
-//            rssFetchTask.cancel(false);
-//        }
     }
 
     private void startHandler() {
@@ -457,27 +454,16 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         currentDisplayingItem = shuffledRssItemList.get(newsIdx++);
 
         applyTheme();
-//        newsFeedTextView.setText(currentDisplayingItem.getTitle());
     }
 
     private MNQuotesHandler newsHandler = new MNQuotesHandler();
     private class MNQuotesHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
+            // 튜토리얼이 끝난 후부터 뉴스 갱신
             if (MNTutorialManager.isTutorialShown(getContext().getApplicationContext())) {
-//                Animation hideAnimation = AnimationUtils.loadAnimation(
-//                        getContext().getApplicationContext(), R.anim.quotes_hide);
                 AnimationSet hideSet = new AnimationSet(true);
                 hideSet.setInterpolator(new AccelerateInterpolator());
-
-//                Animation moveOutAnim = new TranslateAnimation
-//                        (Animation.RELATIVE_TO_SELF, 0.0f,
-//                                Animation.RELATIVE_TO_SELF, -0.5f,
-//                                Animation.RELATIVE_TO_SELF, 0.0f,
-//                                Animation.RELATIVE_TO_SELF, 0.0f);
-//                moveOutAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
-//                moveOutAnim.setFillEnabled(true);
-//                moveOutAnim.setFillAfter(true);
 
                 Animation moveUpAnim = new TranslateAnimation
                         (Animation.RELATIVE_TO_SELF, 0.0f,
@@ -506,21 +492,10 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                         public void onAnimationEnd(Animation animation) {
                             // 뉴스 갱신
                             showNextNews();
-                            // 다시 보여주기
-//                            Animation showAnimation = AnimationUtils.loadAnimation(
-//                                    getContext().getApplicationContext(), R.anim.quotes_show);
 
+                            // 다시 보여주기
                             AnimationSet showSet = new AnimationSet(false);
                             showSet.setInterpolator(new DecelerateInterpolator());
-
-//                            Animation moveInAnim = new TranslateAnimation
-//                                    (Animation.RELATIVE_TO_SELF, 0.5f,
-//                                            Animation.RELATIVE_TO_SELF, 0.0f,
-//                                            Animation.RELATIVE_TO_SELF, 0.0f,
-//                                            Animation.RELATIVE_TO_SELF, 0.0f);
-//                            moveInAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
-//                            moveInAnim.setFillEnabled(true);
-//                            moveInAnim.setFillAfter(true);
 
                             Animation moveDownAnim = new TranslateAnimation
                                     (Animation.RELATIVE_TO_SELF, 0.0f,
@@ -547,10 +522,9 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                     });
                     newsFeedTextView.startAnimation(hideSet);
                 }
-
-                // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
-                newsHandler.sendEmptyMessageDelayed(0, NEWS_FEED_HANDLER_DELAY);
             }
+            // tick 의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
+            newsHandler.sendEmptyMessageDelayed(0, NEWS_FEED_HANDLER_DELAY);
         }
     }
 }
