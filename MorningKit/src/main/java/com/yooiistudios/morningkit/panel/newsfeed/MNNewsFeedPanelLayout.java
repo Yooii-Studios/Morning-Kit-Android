@@ -430,9 +430,6 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         if (getPanelDataObject().has(KEY_LOADING_FEED_URL)) {
             needToLoad = true;
         }
-//        if (rssFetchTask != null) {
-//            rssFetchTask.cancel(false);
-//        }
     }
 
     private void startHandler() {
@@ -457,7 +454,6 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         currentDisplayingItem = shuffledRssItemList.get(newsIdx++);
 
         applyTheme();
-//        newsFeedTextView.setText(currentDisplayingItem.getTitle());
     }
 
     private MNQuotesHandler newsHandler = new MNQuotesHandler();
@@ -465,19 +461,8 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         @Override
         public void handleMessage(Message msg) {
             if (MNTutorialManager.isTutorialShown(getContext().getApplicationContext())) {
-//                Animation hideAnimation = AnimationUtils.loadAnimation(
-//                        getContext().getApplicationContext(), R.anim.quotes_hide);
                 AnimationSet hideSet = new AnimationSet(true);
                 hideSet.setInterpolator(new AccelerateInterpolator());
-
-//                Animation moveOutAnim = new TranslateAnimation
-//                        (Animation.RELATIVE_TO_SELF, 0.0f,
-//                                Animation.RELATIVE_TO_SELF, -0.5f,
-//                                Animation.RELATIVE_TO_SELF, 0.0f,
-//                                Animation.RELATIVE_TO_SELF, 0.0f);
-//                moveOutAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
-//                moveOutAnim.setFillEnabled(true);
-//                moveOutAnim.setFillAfter(true);
 
                 Animation moveUpAnim = new TranslateAnimation
                         (Animation.RELATIVE_TO_SELF, 0.0f,
@@ -506,21 +491,10 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                         public void onAnimationEnd(Animation animation) {
                             // 뉴스 갱신
                             showNextNews();
-                            // 다시 보여주기
-//                            Animation showAnimation = AnimationUtils.loadAnimation(
-//                                    getContext().getApplicationContext(), R.anim.quotes_show);
 
+                            // 다시 보여주기
                             AnimationSet showSet = new AnimationSet(false);
                             showSet.setInterpolator(new DecelerateInterpolator());
-
-//                            Animation moveInAnim = new TranslateAnimation
-//                                    (Animation.RELATIVE_TO_SELF, 0.5f,
-//                                            Animation.RELATIVE_TO_SELF, 0.0f,
-//                                            Animation.RELATIVE_TO_SELF, 0.0f,
-//                                            Animation.RELATIVE_TO_SELF, 0.0f);
-//                            moveInAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
-//                            moveInAnim.setFillEnabled(true);
-//                            moveInAnim.setFillAfter(true);
 
                             Animation moveDownAnim = new TranslateAnimation
                                     (Animation.RELATIVE_TO_SELF, 0.0f,
