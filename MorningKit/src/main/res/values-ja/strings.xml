@@ -86,7 +86,7 @@
 	<string name="calendar">カレンダー</string>
 	<string name="exchange_rate">為替レート</string>
 	<string name="saying">名言</string>
-	<string name="reminder">日程</string>
+	<string name="reminder">スケジュール</string>
 
 	<!-- Calendar -->
 	<string name="calendar_lunar_calendar">陰曆</string>

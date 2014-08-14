@@ -224,8 +224,8 @@
 	<!-- Store -->
 	<string name="store_no_purchase_records">Нет данных о покупках</string>
 	<string name="store_restore_purchases">Восстановить покупки</string>
-	<string name="store_restore">Восстановить</string>
-	<string name="store_purchased">Купленные</string>
+    <string name="store_purchased">Приобретенные</string>
+    <string name="store_restore">Восстановить</string>
 	<string name="store_restore_success_message">Все покупки были восстановлены</string>
 	<string name="store_buy_full_version">Купить полную версию!</string>
 	<string name="store_buy_full_version_description">Обновить чтобы разблокировать все Функции, Панели и Темы</string>
