@@ -224,7 +224,7 @@
 	<!-- Store -->
 	<string name="store_no_purchase_records">无购买纪录</string>
 	<string name="store_restore_purchases">恢复购买</string>
-	<string name="store_purchased">购买完了</string>
+	<string name="store_purchased">已购买</string>
 	<string name="store_restore">恢复</string>
 	<string name="store_restore_success_message">恢复购买成功</string>
 	<string name="store_buy_full_version">￼购买完整版!</string>
