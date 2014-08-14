@@ -38,11 +38,11 @@ public class MNAdUtils {
 
     public static void checkFullScreenAdCount(Activity activity) {
 
-        List<String> owndedSkus =  SKIabProducts.loadOwnedIabProducts(activity);
+        List<String> ownedSkus =  SKIabProducts.loadOwnedIabProducts(activity);
 
         // 풀버전이나 광고 구매를 하지 않았을 경우만 진행
-        if (!owndedSkus.contains(SKIabProducts.SKU_FULL_VERSION) &&
-        !owndedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
+        if (!ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION) &&
+        !ownedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
             // 12회 이상 실행, 5회 카운트 계산
             SharedPreferences prefs = activity.getSharedPreferences(KEY, Context.MODE_PRIVATE);
             int launchCount = prefs.getInt(LAUNCH_COUNT, 0);
