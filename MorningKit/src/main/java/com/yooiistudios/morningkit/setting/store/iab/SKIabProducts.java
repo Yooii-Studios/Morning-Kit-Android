@@ -53,7 +53,7 @@ public class SKIabProducts {
         } else {
             prefs = context.getSharedPreferences(SHARED_PREFERENCES_IAB_DEBUG, Context.MODE_PRIVATE);
         }
-        prefs.edit().putBoolean(sku, true).commit();
+        prefs.edit().putBoolean(sku, true).apply();
     }
 
     // 인앱 정보를 읽어오며 자동으로 적용
@@ -65,7 +65,7 @@ public class SKIabProducts {
         for (String sku : ownedSkus) {
             edit.putBoolean(sku, true);
         }
-        edit.commit();
+        edit.apply();
     }
 
     public static boolean isIabProductBought(String sku, Context context) {
@@ -134,7 +134,7 @@ public class SKIabProducts {
     public static void resetIabProductsDebug(Context context) {
         SharedPreferences.Editor edit = context.getSharedPreferences(SHARED_PREFERENCES_IAB_DEBUG,
                 Context.MODE_PRIVATE).edit();
-        edit.clear().commit();
+        edit.clear().apply();
     }
 
     /**
@@ -149,6 +149,6 @@ public class SKIabProducts {
                 edit.putBoolean(NaverIabProductUtils.googleSkuMap.get(naverIabInventoryItem.getKey()), true);
             }
         }
-        edit.commit();
+        edit.apply();
     }
 }
