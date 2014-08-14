@@ -18,6 +18,7 @@ import java.io.File;
  */
 public class SKAlarmSoundManager {
 
+//    private static final String TAG = "SKAlarmSoundManager";
 //    private SKAlarmSoundManager() { throw new AssertionError("You MUST not craete class!"); }
     private static final String ALARM_SOUND_TYPE = "SK_ALARM_SOUND_TYPE";
     private static final String ALARM_SOUND_TITLE = "SK_ALARM_SOUND_TITLE";
@@ -83,11 +84,11 @@ public class SKAlarmSoundManager {
         editor.putInt(ALARM_SOUND_TYPE, alarmSound.getAlarmSoundType().getIndex());
         editor.putString(ALARM_SOUND_TITLE, alarmSound.getSoundTitle());
         editor.putString(ALARM_SOUND_PATH, alarmSound.getSoundPath());
-        editor.commit();
+        editor.apply();
     }
 
     /**
-     * Return the lastest SKAlarmSound instance from the device.
+     * Return the latest SKAlarmSound instance from the device.
      * If the one doesn't exist, return the one with the system default ringtone.
      * If the one isn't validate, also return the default ringtone
      *
@@ -112,15 +113,15 @@ public class SKAlarmSoundManager {
     }
 
     /**
-     * Clear lastest alarm sound stuff from SharedPreferences
+     * Clear latest alarm sound stuff from SharedPreferences
      *
      * @param context Context to access the Android
      */
-    public static void clearLatestAlarmSound(Context context) {
-        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
-        editor.remove(ALARM_SOUND_TYPE);
-        editor.remove(ALARM_SOUND_TITLE);
-        editor.remove(ALARM_SOUND_PATH);
-        editor.commit();
-    }
+//    public static void clearLatestAlarmSound(Context context) {
+//        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+//        editor.remove(ALARM_SOUND_TYPE);
+//        editor.remove(ALARM_SOUND_TITLE);
+//        editor.remove(ALARM_SOUND_PATH);
+//        editor.apply();
+//    }
 }

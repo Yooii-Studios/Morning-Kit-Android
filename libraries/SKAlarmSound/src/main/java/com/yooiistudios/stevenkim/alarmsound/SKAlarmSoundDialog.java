@@ -20,7 +20,7 @@ import java.io.IOException;
  *  Class that makes dialogs setting alarm sound in preference activity
  */
 public class SKAlarmSoundDialog {
-    private static final String TAG = "SKAlarmSoundDialog";
+//    private static final String TAG = "SKAlarmSoundDialog";
 
     private SKAlarmSoundDialog() { throw new AssertionError("You MUST not create this class!"); }
 
@@ -305,6 +305,8 @@ public class SKAlarmSoundDialog {
                         else {
                             newAlarmSound = SKAlarmSoundFactory.makeDefaultAlarmSound(context);
                         }
+                        // save
+                        SKAlarmSoundManager.saveLatestAlarmSound(newAlarmSound, context);
                         if (alarmSoundClickListener != null) {
                             alarmSoundClickListener.onAlarmSoundSelected(newAlarmSound);
                         }
