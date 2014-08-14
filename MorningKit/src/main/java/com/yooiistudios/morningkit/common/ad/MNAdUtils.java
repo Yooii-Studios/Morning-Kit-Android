@@ -43,15 +43,15 @@ public class MNAdUtils {
         // 풀버전이나 광고 구매를 하지 않았을 경우만 진행
         if (!owndedSkus.contains(SKIabProducts.SKU_FULL_VERSION) &&
         !owndedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
-            // 10회 이상 실행, 5회 카운트 계산
+            // 12회 이상 실행, 5회 카운트 계산
             SharedPreferences prefs = activity.getSharedPreferences(KEY, Context.MODE_PRIVATE);
             int launchCount = prefs.getInt(LAUNCH_COUNT, 0);
-            // 10회 이상 실행부터 계속 5배수 실행 카운트 체크
-            if (launchCount >= 4) {
+            // 12회 이상 실행부터 계속 5배수 실행 카운트 체크 - 10회는 리뷰 남기기 메시지.
+            if (launchCount >= 6) {
                 int eachLaunchCount = prefs.getInt(EACH_LAUNCH_COUNT, 0);
                 if (eachLaunchCount == 4) {
                     // 5회 실행시마다 초기화
-                    prefs.edit().remove(EACH_LAUNCH_COUNT).commit();
+                    prefs.edit().remove(EACH_LAUNCH_COUNT).apply();
 
                     // 광고 실행
                     MNLanguageType currentLagunageType = MNLanguage.getCurrentLanguageType(activity);
@@ -111,11 +111,11 @@ public class MNAdUtils {
                     }
                 } else {
                     eachLaunchCount++;
-                    prefs.edit().putInt(EACH_LAUNCH_COUNT, eachLaunchCount).commit();
+                    prefs.edit().putInt(EACH_LAUNCH_COUNT, eachLaunchCount).apply();
                 }
             } else {
                 launchCount++;
-                prefs.edit().putInt(LAUNCH_COUNT, launchCount).commit();
+                prefs.edit().putInt(LAUNCH_COUNT, launchCount).apply();
             }
         }
     }

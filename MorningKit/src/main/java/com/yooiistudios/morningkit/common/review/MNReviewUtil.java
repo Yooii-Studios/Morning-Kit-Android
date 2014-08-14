@@ -12,6 +12,9 @@ import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
 
 /**
  * Created by Dongheyon Jeong on in morning-kit from Yooii Studios Co., LTD. on 2014. 6. 5.
+ *
+ * MNReviewUtil
+ *  앱 실행 수를 체크해 리뷰를 요청
  */
 public class MNReviewUtil {
 
@@ -21,12 +24,12 @@ public class MNReviewUtil {
 
     private static final int VALUE_DEFAULT_LAUNCHCOUNT = 0;
 
-    private static final int ASKLIMIT_FIRST = 10;
-    private static final int ASKLIMIT_AGAIN = 40;
+    private static final int ASK_LIMIT_FIRST = 10;
+    private static final int ASK_LIMIT_AGAIN = 40;
     private enum STATE {
         NECESSARY,
         ASK_AGAIN,
-        NEVER_ASK;
+        NEVER_ASK
     }
     public static void checkRate(final Activity activity) {
         if (activity.getSharedPreferences(MNUnlockActivity.SHARED_PREFS,
@@ -46,10 +49,10 @@ public class MNReviewUtil {
         final STATE state = STATE.values()[stateOrdinal];
         int askLimit;
         if (state.equals(STATE.NECESSARY)) {
-            askLimit = ASKLIMIT_FIRST;
+            askLimit = ASK_LIMIT_FIRST;
         }
         else if (state.equals(STATE.ASK_AGAIN)) {
-            askLimit = ASKLIMIT_AGAIN;
+            askLimit = ASK_LIMIT_AGAIN;
         }
         else {
             return;
@@ -57,7 +60,7 @@ public class MNReviewUtil {
         if (launchCount < askLimit) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt(KEY_LAUNCHCOUNT, ++launchCount);
-            editor.commit();
+            editor.apply();
 
             if (launchCount >= askLimit) {
                 AlertDialog.Builder builder;
@@ -75,13 +78,12 @@ public class MNReviewUtil {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // TODO Auto-generated method stub
                         MNReviewApp.showReviewActivity(activity);
 
                         SharedPreferences sharedPreferences = activity.getSharedPreferences(SPNAME_REVIEW, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt(KEY_ASKAGAIN, STATE.NEVER_ASK.ordinal());
-                        editor.commit();
+                        editor.apply();
 
                         dialog.dismiss();
                     }
@@ -90,7 +92,6 @@ public class MNReviewUtil {
 //
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
-//                        // TODO Auto-generated method stub
 //                        SharedPreferences sharedPreferences = activity
 //                                .getSharedPreferences(SPNAME_REVIEW,
 //                                        Context.MODE_PRIVATE);
@@ -119,7 +120,7 @@ public class MNReviewUtil {
                             //never ask after
                             editor.putInt(KEY_ASKAGAIN, STATE.NEVER_ASK.ordinal());
                         }
-                        editor.commit();
+                        editor.apply();
 
                         dialog.dismiss();
                     }
