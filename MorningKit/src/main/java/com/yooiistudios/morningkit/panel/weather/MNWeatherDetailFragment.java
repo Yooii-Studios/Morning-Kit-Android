@@ -152,7 +152,9 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
         if (selectedLocationInfo != null) {
             searchEditText.setText(selectedLocationInfo.getName());
             try {
-                searchEditText.setSelection(selectedLocationInfo.getName().length());
+                if (selectedLocationInfo.getName() != null) {
+                    searchEditText.setSelection(selectedLocationInfo.getName().length());
+                }
             } catch (RuntimeException e) {
                 e.printStackTrace();
             }
@@ -290,10 +292,16 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     @Override
     public void OnWeatherLocationInfoLoad(List<MNWeatherLocationInfo> weatherLocationInfoList) {
         locationInfoList = weatherLocationInfoList;
-        if (selectedLocationInfo != null) {
+        if (selectedLocationInfo != null && searchEditText != null) {
             searchEditText.setText(selectedLocationInfo.getName());
-            searchEditText.setSelection(selectedLocationInfo.getName().length());
-            searchCity(selectedLocationInfo.getName());
+            try {
+                if (selectedLocationInfo.getName() != null) {
+                    searchEditText.setSelection(selectedLocationInfo.getName().length());
+                }
+                searchCity(selectedLocationInfo.getName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

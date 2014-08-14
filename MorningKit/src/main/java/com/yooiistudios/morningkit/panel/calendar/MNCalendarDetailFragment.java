@@ -36,7 +36,7 @@ import static com.yooiistudios.morningkit.panel.calendar.MNCalendarPanelLayout.C
  *
  * MNCalendarDetailFragment
  */
-public class MNCalendarDetailFragment extends MNPanelDetailFragment implements MNCalendarSelectDialog.MNCalendarSelectDialogListner {
+public class MNCalendarDetailFragment extends MNPanelDetailFragment implements MNCalendarSelectDialog.MNCalendarSelectDialogListener {
 
     private static final String TAG = "MNCalendarDetailFragment";
 

@@ -16,14 +16,14 @@ import java.util.ArrayList;
  *  달력을 선택하는 다이얼로그
  */
 public class MNCalendarSelectDialog {
-    private static final String TAG = "MNCalendarSelectDialog";
+//    private static final String TAG = "MNCalendarSelectDialog";
 
-    public interface MNCalendarSelectDialogListner {
+    public interface MNCalendarSelectDialogListener {
         public void onSelectCalendars(boolean[] selectedArr);
     }
 
     public static AlertDialog makeDialog(Context context,
-                                         final MNCalendarSelectDialogListner calendarSelectListner,
+                                         final MNCalendarSelectDialogListener calendarSelectListener,
                                          boolean[] selectedCalendarArr) {
         // 모든 캘린더 id를 로딩해서 선택 여부를 결정한다
 
@@ -37,11 +37,13 @@ public class MNCalendarSelectDialog {
 
         // Init cursor
         ArrayList<String> calendarNameList = new ArrayList<String>();
-        for (MNCalendar calendarModel : calendarModels) {
-            calendarNameList.add(calendarModel.displayName);
+        if (calendarModels != null) {
+            for (MNCalendar calendarModel : calendarModels) {
+                calendarNameList.add(calendarModel.displayName);
+            }
         }
 
-        // Arraylist to String[]
+        // ArrayList to String[]
         final String[] calendarNames = calendarNameList.toArray(new String[calendarNameList.size()]);
 
         final boolean[] selectedArr = new boolean[calendarNames.length];
@@ -68,7 +70,7 @@ public class MNCalendarSelectDialog {
         }).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                calendarSelectListner.onSelectCalendars(selectedArr);
+                calendarSelectListener.onSelectCalendars(selectedArr);
             }
         }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
