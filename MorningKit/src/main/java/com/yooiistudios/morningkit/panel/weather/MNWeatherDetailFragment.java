@@ -152,7 +152,9 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
         if (selectedLocationInfo != null) {
             searchEditText.setText(selectedLocationInfo.getName());
             try {
-                searchEditText.setSelection(selectedLocationInfo.getName().length());
+                if (selectedLocationInfo.getName() != null) {
+                    searchEditText.setSelection(selectedLocationInfo.getName().length());
+                }
             } catch (RuntimeException e) {
                 e.printStackTrace();
             }
