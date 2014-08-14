@@ -195,7 +195,7 @@
 
 	<!-- Tutorial1 - Description -->
 	<string name="tutorial1_label1">您可以重新安排面板</string>
-	<string name="tutorial1_label2">￼您可以添加或編輯鬧</string>
+	<string name="tutorial1_label2">您可以添加或編輯鬧</string>
 	<string name="tutorial1_label3">滑動刪除鬧鐘</string>
 	<string name="tutorial1_label4">刷新</string>
 	<string name="tutorial1_label5">設定</string>
