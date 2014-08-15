@@ -316,7 +316,7 @@
 
     <!-- Recommend -->
     <string name="recommend_to_friends">Recommend Morning Kit to your friends</string>
-    <string name="recommend_title">Check out this new app = Morning Kit, it's awesome!</string>
+    <string name="recommend_title">Check out this new app = Morning Kit, it\'s awesome!</string>
     <string name="recommend_description">Click the link and take it for a spin</string>
     <string name="recommend_app_full_name">Morning Kit</string>
 
