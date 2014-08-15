@@ -264,7 +264,7 @@
     <!-- Photo Theme -->
     <string name="photo_theme_move_and_scale">Move and Scale</string>
     <string name="photo_theme_choose">Choose</string>
-    <string name="photo_theme_first_open_notice">Please resize the picture to fit the frame so that it fills the screen</string>
+    <string name="photo_theme_first_open_notice">Please resize the picture to fill the screen</string>
 
     <!-- Android Only -->
     <!-- General -->
@@ -273,7 +273,7 @@
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
-    <string name="alarm_status_bar_icon">Show Alarm Icon on Status Bar</string>
+    <string name="alarm_status_bar_icon">Alarm icon on status bar</string>
 
         <!-- Prefs -->
     <string name="alarm_pref_volume">Volume</string>
@@ -291,7 +291,7 @@
         <!-- Photo Album -->
     <string name="photo_album">Photo Frame</string>
     <string name="photo_album_no_image">No image available</string>
-    <string name="photo_album_error_getting_photo">Error occurred while getting photo</string>
+    <string name="photo_album_error_getting_photo">Error occurred while getting photo from your smart device</string>
     <string name="photo_album_label_refresh_time">Refresh Time</string>
     <string name="photo_album_label_transition_type">Slideshow Type</string>
     <string name="photo_album_minute_hint">min</string>
@@ -316,8 +316,8 @@
 
     <!-- Recommend -->
     <string name="recommend_to_friends">Recommend Morning Kit to your friends</string>
-    <string name="recommend_title">Strongly recommend!</string>
-    <string name="recommend_description">Just click and download :- )</string>
+    <string name="recommend_title">Check out this new app = Morning Kit, it's awesome!</string>
+    <string name="recommend_description">Click the link and take it for a spin</string>
     <string name="recommend_app_full_name">Morning Kit</string>
 
 </resources>
