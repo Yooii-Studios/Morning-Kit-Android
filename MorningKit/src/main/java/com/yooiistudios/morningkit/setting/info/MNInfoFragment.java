@@ -172,7 +172,7 @@ public class MNInfoFragment extends Fragment implements MNInfoItemClickListener 
                     // 모닝은 37676
                     link = "http://nstore.naver.com/appstore/web/detail.nhn?originalProductId=37676";
                 } else {
-                    link = "http://play.google.com/store/apps/details?id=" + getActivity().getPackageName();
+                    link = "https://play.google.com/store/apps/details?id=" + getActivity().getPackageName();
                 }
                 String message = title + "\n" + getString(R.string.recommend_description) + "\n" + link;
                 intent.putExtra(Intent.EXTRA_TEXT, message);
