@@ -101,7 +101,7 @@ public class MNAlarmWakeCustomDialog {
 
                     wakeDialog.dismiss();
                     alarmWakeCustomView.alarmImageView.clearAnimation();
-                    SKAlarmSoundPlayer.stop();
+                    SKAlarmSoundPlayer.stop(context);
 
                     // stop vibrator
                     Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -135,7 +135,7 @@ public class MNAlarmWakeCustomDialog {
 
                         wakeDialog.dismiss();
                         alarmWakeCustomView.alarmImageView.clearAnimation();
-                        SKAlarmSoundPlayer.stop();
+                        SKAlarmSoundPlayer.stop(context);
 
                         // stop vibrator
                         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -223,7 +223,7 @@ public class MNAlarmWakeCustomDialog {
 
                 // 따라서 모델부터 처리 후 UI를 제일 마지막에 처리
                 // stop alarm sound
-                SKAlarmSoundPlayer.stop();
+                SKAlarmSoundPlayer.stop(context);
 
                 // clear animation and wakeDialog
                 if (wakeDialog != null && wakeDialog.isShowing()) {
