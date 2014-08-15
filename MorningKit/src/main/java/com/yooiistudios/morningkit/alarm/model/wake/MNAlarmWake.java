@@ -31,7 +31,6 @@ public class MNAlarmWake {
             int alarmUniqueId = intent.getIntExtra(SKAlarmManager.ALARM_UNIQUE_ID, -1);
             MNAlarm alarm = MNAlarmListManager.findAlarmById(alarmUniqueId, context);
             if (alarm != null) {
-//                MNAlarmWakeDialog.show(alarm, context);
                 MNAlarmWakeCustomDialog.show(alarm, context);
                 SKAlarmSoundPlayer.playAlarmSound(alarm.getAlarmSound(), alarm.getAlarmVolume(), context);
 
@@ -42,10 +41,6 @@ public class MNAlarmWake {
                     vibrator.vibrate(pattern, 0);                           // 패턴을 지정하고 반복횟수를 지정
                 }
             }
-            // 이 상황은 있어서는 안되는 상황이지만 이것 때문에 크래시가 나는 경우가 있기에 주석처리해둠
-//            else {
-//                throw new AssertionError("The target alarm must exist in the list.");
-//            }
         }
     }
 }
