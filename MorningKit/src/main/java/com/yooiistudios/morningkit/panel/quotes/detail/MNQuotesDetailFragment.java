@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.panel.quotes.detail;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
 import android.text.Spannable;
@@ -142,6 +143,9 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
     }
 
     private void initQuoteTextView() {
+        if (Build.VERSION.SDK_INT > 10) {
+            quoteTextView.setTextIsSelectable(true);
+        }
         quoteTextView.setTextColor(MNSettingColors.getSubFontColor(MNTheme.getCurrentThemeType(
                 getActivity().getApplicationContext())));
 
