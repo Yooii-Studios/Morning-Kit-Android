@@ -22,6 +22,7 @@ public class SKAlarmSoundPlayer {
      */
     private volatile static SKAlarmSoundPlayer instance;
     private MediaPlayer mediaPlayer;
+    private int previousVolume;
 
     public static MediaPlayer getMediaPlayer() {
         return getInstance().mediaPlayer;
@@ -50,6 +51,18 @@ public class SKAlarmSoundPlayer {
 
     public static void stop() {
         getMediaPlayer().stop();
+    }
+
+    public static void stop(Context context) {
+        getMediaPlayer().stop();
+
+        // 음악을 멈추고 예전 볼륨으로 되돌려줌
+        if (context != null) {
+            AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager != null) {
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, getInstance().previousVolume, 0);
+            }
+        }
     }
 
     public static void playAppMusic(final int rawInt, final Context context) throws IOException {
@@ -115,7 +128,10 @@ public class SKAlarmSoundPlayer {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                // 기존의 볼륨 기억
                 AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+                getInstance().previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
                 int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                 int targetVolume = (int) (volume * (maxVolume / 100.0f)); // AudioManager의 볼륨으로 환산
                 int currentVolume = 0;

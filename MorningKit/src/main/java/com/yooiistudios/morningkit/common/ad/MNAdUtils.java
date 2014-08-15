@@ -76,7 +76,7 @@ public class MNAdUtils {
                         // 4820 = publisher ID = Yooii Studios
                         // 20 = App ID = Morning Kit
                         // 8 = Sketch Kit, 테스트용
-                        DGService dgService = sdk.OpenService(4820, 8, 2, Constants.ServiceCategories.INTERSTITIAL, activity);
+                        DGService dgService = sdk.OpenService(4820, 8, 20, Constants.ServiceCategories.INTERSTITIAL, activity);
 
                         // 리스너 테스트용, 나중에 배너에서 활용
 //                        dgService.setOneSDKListeners(new OneSDKListeners() {
