@@ -427,7 +427,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 // 프레퍼런스에 저장
                 SKIabProducts.saveIabProduct(info.getSku(), getActivity());
                 updateUIAfterPurchase(info);
-            } else if (info != null) {
+            } else if (info == null) {
                 showComplain("No purchase info");
             } else {
                 showComplain("Payload problem");
