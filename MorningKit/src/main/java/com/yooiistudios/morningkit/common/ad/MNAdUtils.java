@@ -47,6 +47,7 @@ public class MNAdUtils {
             SharedPreferences prefs = activity.getSharedPreferences(KEY, Context.MODE_PRIVATE);
             int launchCount = prefs.getInt(LAUNCH_COUNT, 0);
             // 12회 이상 실행부터 계속 5배수 실행 카운트 체크 - 10회는 리뷰 남기기 메시지.
+            // 일정 카운트 이상부터는 launchCount 는 더 증가시킬 필요가 없음
             if (launchCount >= 6) {
                 int eachLaunchCount = prefs.getInt(EACH_LAUNCH_COUNT, 0);
                 if (eachLaunchCount == 4) {
@@ -58,7 +59,7 @@ public class MNAdUtils {
                     if (currentLagunageType != MNLanguageType.JAPANESE) {
                         // Admob
                         final InterstitialAd fullScreenAdView = new InterstitialAd(activity);
-                        fullScreenAdView.setAdUnitId("a15278abca8d8ec");
+                        fullScreenAdView.setAdUnitId("ca-app-pub-2310680050309555/2209471823");
                         fullScreenAdView.setAdListener(new AdListener() {
                             @Override
                             public void onAdLoaded() {
