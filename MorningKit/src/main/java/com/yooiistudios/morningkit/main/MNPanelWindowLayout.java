@@ -215,14 +215,19 @@ public class MNPanelWindowLayout extends LinearLayout
                         switch (getResources().getConfiguration().orientation) {
                             // 2X3
                             case Configuration.ORIENTATION_PORTRAIT:
-                                panelLineLayouts[index / 2].removeViewAt(index % 2);
-                                panelLineLayouts[index / 2].addView(panelLayouts[index], index % 2);
+                                // 회전 중 죽을 가능성이 있기에 null 체크 삽입
+                                if (panelLineLayouts[index / 2].getChildAt(index % 2) != null) {
+                                    panelLineLayouts[index / 2].removeViewAt(index % 2);
+                                    panelLineLayouts[index / 2].addView(panelLayouts[index], index % 2);
+                                }
                                 break;
 
                             // 3X2
                             case Configuration.ORIENTATION_LANDSCAPE:
-                                panelLineLayouts[index / 3].removeViewAt(index % 3);
-                                panelLineLayouts[index / 3].addView(panelLayouts[index], index % 3);
+                                if (panelLineLayouts[index / 3].getChildAt(index % 3) != null) {
+                                    panelLineLayouts[index / 3].removeViewAt(index % 3);
+                                    panelLineLayouts[index / 3].addView(panelLayouts[index], index % 3);
+                                }
                                 break;
                         }
                     }
