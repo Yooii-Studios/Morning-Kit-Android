@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -35,7 +34,6 @@ import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.weather.model.LocationUtils;
@@ -77,11 +75,6 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     protected static final String WEATHER_DATA_TEMP_CELSIUS = "WEATHER_TEMP_CELSIUS";
     protected static final String WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO = "WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO";
 
-    // UI
-    private RelativeLayout innerContentLayout;
-    private RelativeLayout upperContentLayout;
-    private RelativeLayout upperTempContentLayout;
-    private RelativeLayout upperTempInnerContentLayout;
     private ImageView weatherConditionImageView;
     private TextView currentTempTextView;
     private TextView lowHighTempTextView;
@@ -101,9 +94,12 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     // LocalTime
     private boolean isClockRunning = false;
 
-    // Current Location
+    // Current Location - Deprecated
     private LocationClient locationClient;
     private LocationRequest mLocationRequest; // A request to connect to Location Services
+
+    // New but now use now
+//    private GoogleApiClient googleApiClient;
 
     // Cache
     private MNWeatherDataSearchCityCache searchCityWeatherDataCache;
@@ -131,8 +127,9 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         // Set the update interval
         mLocationRequest.setInterval(LocationUtils.UPDATE_INTERVAL_IN_MILLISECONDS);
 
-        // Use high accuracy
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        // Use high accuracy - 위치에서 배터리 사용 낮음으로 하기 위함
+//        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         // Set the interval ceiling to one minute
         mLocationRequest.setFastestInterval(LocationUtils.FAST_INTERVAL_CEILING_IN_MILLISECONDS);
@@ -145,14 +142,14 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 
     private void initUI() {
         // containers
-        innerContentLayout = new RelativeLayout(getContext());
+        RelativeLayout innerContentLayout = new RelativeLayout(getContext());
         RelativeLayout.LayoutParams innerLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         innerLayoutParams.addRule(CENTER_IN_PARENT);
         innerContentLayout.setLayoutParams(innerLayoutParams);
         getContentLayout().addView(innerContentLayout);
 
         // upper layout
-        upperContentLayout = new RelativeLayout(getContext());
+        RelativeLayout upperContentLayout = new RelativeLayout(getContext());
         upperContentLayout.setId(9123857);
         RelativeLayout.LayoutParams upperLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         upperLayoutParams.addRule(CENTER_HORIZONTAL);
@@ -171,7 +168,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         int marginOuter = getResources().getDimensionPixelSize(R.dimen.margin_outer);
 
         // upper temp layout
-        upperTempContentLayout = new RelativeLayout(getContext());
+        RelativeLayout upperTempContentLayout = new RelativeLayout(getContext());
         upperTempContentLayout.setId(1323857);
         RelativeLayout.LayoutParams upperTempLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         upperTempLayoutParams.addRule(RIGHT_OF, weatherConditionImageView.getId());
@@ -182,7 +179,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         upperContentLayout.addView(upperTempContentLayout);
 
         // upper temp inner layout
-        upperTempInnerContentLayout = new RelativeLayout(getContext());
+        RelativeLayout upperTempInnerContentLayout = new RelativeLayout(getContext());
         RelativeLayout.LayoutParams upperTempInnerLayoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         upperTempInnerLayoutParams.addRule(CENTER_IN_PARENT);
         upperTempInnerContentLayout.setLayoutParams(upperTempInnerLayoutParams);
@@ -273,7 +270,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 
         // recycle imageview
         if (MNBitmapUtils.recycleImageView(weatherConditionImageView)) {
-            MNLog.i(TAG, "weather condition imageview recycled");
+//            MNLog.i(TAG, "weather condition imageview recycled");
         }
 
         // get data from panelDataObject
@@ -284,16 +281,29 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             weatherWWOAsyncTask.cancel(true);
         }
 
+        // deprecated
         if (locationClient == null) {
             locationClient = new LocationClient(getContext(), this, this);
         } else {
             locationClient.disconnect();
         }
 
+        // new locationClient
+//        if (googleApiClient == null) {
+//            googleApiClient = new GoogleApiClient.Builder(getContext(), this, this)
+//                    .addApi(LocationServices.API)
+//                    .addConnectionCallbacks(this)
+//                    .addOnConnectionFailedListener(this)
+//                    .build();
+//        } else {
+//            googleApiClient.disconnect();
+//        }
+
         // get weather data from server
         if (isUsingCurrentLocation) {
-            // 현재 위치는 locationClient에서 위치를 받아와 콜백 메서드에서 로직을 진행
+            // 현재 위치는 locationClient 에서 위치를 받아와 콜백 메서드에서 로직을 진행
             locationClient.connect();
+//            googleApiClient.connect();
         } else {
             if (selectedLocationInfo != null) {
                 // find previous data from cache
@@ -490,9 +500,32 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         // lastLocation can't have a recent location, so must call
         // requestLocationUpdates()
         if (servicesConnected()) {
+//            LocationServices.FusedLocationApi.requestLocationUpdates(
+//                    googleApiClient, mLocationRequest, this);
+
+            Location lastLocation = locationClient.getLastLocation();
+//                    LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+
+//            lastLocation 이 있으면 그것을 써서 빨리 업데이트를 하고, 최신 위치를 바로 받아오자.
+            if (lastLocation != null) {
+                startWWOTask(lastLocation);
+            }
             locationClient.requestLocationUpdates(mLocationRequest, this);
+
         }
     }
+
+    /*
+    @Override
+    public void onConnectionSuspended(int i) {
+        MNLog.now("google onConnectionSuspended");
+// lastLocation can't have a recent location, so must call
+        // requestLocationUpdates()
+        if (servicesConnected()) {
+//            googleApiClient. requestLocationUpdates(mLocationRequest, this);
+        }
+    }
+    */
 
     /**
      * Called by Location Services if the attempt to
@@ -515,29 +548,35 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     @Override
     public void onLocationChanged(Location location) {
         locationClient.disconnect();
+//        googleApiClient.disconnect();
 
         // 현재위치를 사용할 때만 진행
         if (location != null && isUsingCurrentLocation) {
-            // find previous data from cache
-            MNWeatherData cachedWeatherData = currentLocationWeatherDataCache.findWeatherCache(
-                    location.getLatitude(), location.getLongitude());
-
-            if (cachedWeatherData != null) {
-                // update UI using cache weather data
-                weatherData = cachedWeatherData;
-                updateUI();
-            } else {
-                // WWO using current location
-                MNWeatherLocationInfo currentLocationInfo = new MNWeatherLocationInfo();
-
-                currentLocationInfo.setLatitude(location.getLatitude());
-                currentLocationInfo.setLongitude(location.getLongitude());
-                weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(currentLocationInfo, getContext(), false, this);
-                weatherWWOAsyncTask.execute();
-            }
+            startWWOTask(location);
         } else {
             // Location Fail 메시지 보여주기
-            MNLog.now("weatherPanel/onConnected: no last location");
+//            MNLog.now("weatherPanel/onConnected: no last location");
+            showCoverLayout(getResources().getString(R.string.weather_choose_your_city));
+        }
+    }
+
+    private void startWWOTask(Location location) {
+        // find previous data from cache
+        MNWeatherData cachedWeatherData = currentLocationWeatherDataCache.findWeatherCache(
+                location.getLatitude(), location.getLongitude());
+
+        if (cachedWeatherData != null) {
+            // update UI using cache weather data
+            weatherData = cachedWeatherData;
+            updateUI();
+        } else {
+            // WWO using current location
+            MNWeatherLocationInfo currentLocationInfo = new MNWeatherLocationInfo();
+
+            currentLocationInfo.setLatitude(location.getLatitude());
+            currentLocationInfo.setLongitude(location.getLongitude());
+            weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(currentLocationInfo, getContext(), false, this);
+            weatherWWOAsyncTask.execute();
         }
     }
 
