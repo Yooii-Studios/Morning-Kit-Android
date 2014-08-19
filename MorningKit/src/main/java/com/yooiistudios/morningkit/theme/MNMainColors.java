@@ -171,6 +171,8 @@ public class MNMainColors {
             return Color.parseColor("#797979");
         } else if (themeType == MNThemeType.COOL_NAVY) {
             return getMainFontColor(MNThemeType.SLATE_GRAY, context);
+        } else if (themeType == MNThemeType.MINT_PINK) {
+            return getSubFontColor(MNThemeType.MINT_PINK, context);
         } else {
             return getAlarmMainFontColor(themeType, context);
         }
