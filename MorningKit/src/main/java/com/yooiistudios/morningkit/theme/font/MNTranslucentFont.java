@@ -56,6 +56,6 @@ public class MNTranslucentFont {
     public static void setThemeType(MNTranslucentFontType newFontType, Context context) {
         MNTranslucentFont.getInstance(context).currentFontType = newFontType;
         context.getSharedPreferences(FONT_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                .edit().putInt(FONT_KEY, newFontType.getUniqueId()).commit();
+                .edit().putInt(FONT_KEY, newFontType.getUniqueId()).apply();
     }
 }

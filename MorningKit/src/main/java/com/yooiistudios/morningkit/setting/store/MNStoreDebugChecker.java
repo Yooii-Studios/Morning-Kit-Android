@@ -40,7 +40,7 @@ public class MNStoreDebugChecker {
     public static void setUsingStore(boolean isUsingStore, Context context) {
         getInstance(context).isUsingStore = isUsingStore;
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit();
-        editor.putBoolean(IS_USING_STORE, isUsingStore).commit();
+        editor.putBoolean(IS_USING_STORE, isUsingStore).apply();
 
     }
 }

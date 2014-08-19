@@ -23,13 +23,13 @@ public class MNTutorialManager {
         if (context != null) {
             SharedPreferences prefs =
                     context.getSharedPreferences("SKAlarmSoundManager", Context.MODE_PRIVATE);
-            prefs.edit().putBoolean(KEY_IS_TUTORIAL_SHOWN, true).commit();
+            prefs.edit().putBoolean(KEY_IS_TUTORIAL_SHOWN, true).apply();
         }
     }
 
     public static void resetTutorial(Context context) {
         SharedPreferences prefs =
                 context.getSharedPreferences("SKAlarmSoundManager", Context.MODE_PRIVATE);
-        prefs.edit().remove(KEY_IS_TUTORIAL_SHOWN).commit();
+        prefs.edit().remove(KEY_IS_TUTORIAL_SHOWN).apply();
     }
 }

@@ -196,9 +196,9 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
 
         // 알람 저장하기 전에 스누즈 여부, 볼륨, 진동을 저장
         SharedPreferences prefs = getSharedPreferences(ALARM_SHARED_PREFS, MODE_PRIVATE);
-        prefs.edit().putBoolean(ALARM_SHARED_PREFS_ALARM_SNOOZE_ON, alarm.isSnoozeOn()).commit();
-        prefs.edit().putInt(ALARM_SHARED_PREFS_ALARM_VOLUME, alarm.getAlarmVolume()).commit();
-        prefs.edit().putBoolean(ALARM_SHARED_PREFS_ALARM_VIBRATE_ON, alarm.isVibrateOn()).commit();
+        prefs.edit().putBoolean(ALARM_SHARED_PREFS_ALARM_SNOOZE_ON, alarm.isSnoozeOn()).apply();
+        prefs.edit().putInt(ALARM_SHARED_PREFS_ALARM_VOLUME, alarm.getAlarmVolume()).apply();
+        prefs.edit().putBoolean(ALARM_SHARED_PREFS_ALARM_VIBRATE_ON, alarm.isVibrateOn()).apply();
 
         // 알람 저장
         switch (alarmPreferenceType) {

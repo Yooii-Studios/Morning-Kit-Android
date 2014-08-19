@@ -164,7 +164,7 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
 
             // SharedPreferences에 키워드 아카이빙
             SharedPreferences prefs = getActivity().getSharedPreferences(FLICKR_PREFS, Context.MODE_PRIVATE);
-            prefs.edit().putString(FLICKR_PREFS_KEYWORD, keywordEditText.getText().toString()).commit();
+            prefs.edit().putString(FLICKR_PREFS_KEYWORD, keywordEditText.getText().toString()).apply();
         }
     }
 

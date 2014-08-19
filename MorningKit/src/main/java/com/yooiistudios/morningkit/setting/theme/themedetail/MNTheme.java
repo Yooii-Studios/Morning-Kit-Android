@@ -54,7 +54,7 @@ public class MNTheme {
     public static void setThemeType(MNThemeType newThemeType, Context context) {
         MNTheme.getInstance(context).currentThemeType = newThemeType;
         context.getSharedPreferences(THEME_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                .edit().putInt(THEME_KEY, newThemeType.getUniqueId()).commit();
+                .edit().putInt(THEME_KEY, newThemeType.getUniqueId()).apply();
 
         // 플러리
         Map<String, String> params = new HashMap<String, String>();

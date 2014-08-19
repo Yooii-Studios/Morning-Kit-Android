@@ -36,7 +36,7 @@ public class MNLanguage {
             currentLanguageType = MNLanguageType.valueOfCodeAndRegion(locale.getLanguage(), locale.getCountry());
             // 아카이브
             context.getSharedPreferences(LANGUAGE_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                    .edit().putInt(LANGUAGE_MATRIX_KEY, currentLanguageType.getUniqueId()).commit();
+                    .edit().putInt(LANGUAGE_MATRIX_KEY, currentLanguageType.getUniqueId()).apply();
         } else {
             currentLanguageType = MNLanguageType.valueOfUniqueId(uniqueId);
         }
