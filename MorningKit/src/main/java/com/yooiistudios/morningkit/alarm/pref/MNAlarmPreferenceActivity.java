@@ -106,33 +106,17 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
 
     // getSupportActionBar로 충분하나 테스트를 위해서 이렇게 작성
     private void initTitle() {
-        switch (alarmPreferenceType) {
-            case ADD:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    if (getActionBar() != null) {
-                        getActionBar().setTitle(R.string.add_an_alarm);
-                    }
-                }else{
-                    getSupportActionBar().setTitle(R.string.add_an_alarm); // 추후 구현 다시 하자
-                }
-                break;
+        if (getSupportActionBar() != null) {
+            switch (alarmPreferenceType) {
+                case ADD:
+                    getSupportActionBar().setTitle(R.string.add_an_alarm);
+                    break;
 
-            case EDIT:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    if (getActionBar() != null) {
-                        getActionBar().setTitle(R.string.edit_alarm);
-                    }
-                }else{
-                    getSupportActionBar().setTitle(R.string.edit_alarm); // 추후 구현 다시 하자
-                }
-                break;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (getActionBar() != null) {
-                getActionBar().setDisplayShowHomeEnabled(false); // 추후 구현 다시 하자
+                case EDIT:
+                    getSupportActionBar().setTitle(R.string.edit_alarm);
+                    break;
             }
-        }else{
-            getSupportActionBar().setDisplayShowHomeEnabled(false); // 추후 구현 다시 하자
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
         }
     }
 
@@ -178,7 +162,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.pref_action_ok:
                 // Add/Edit the alarm
-                applyAlarmPreferneces();
+                applyAlarmPreferences();
                 finish();
                 return true;
 
@@ -191,7 +175,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         }
     }
 
-    private void applyAlarmPreferneces() {
+    private void applyAlarmPreferences() {
         alarm.startAlarm(this);
 
         // 알람 저장하기 전에 스누즈 여부, 볼륨, 진동을 저장
