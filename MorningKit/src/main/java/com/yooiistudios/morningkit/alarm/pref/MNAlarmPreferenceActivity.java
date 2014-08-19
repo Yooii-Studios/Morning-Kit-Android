@@ -130,9 +130,9 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     }
 
     private void initAdView() {
-        List<String> owndedSkus = SKIabProducts.loadOwnedIabProducts(this.getApplicationContext());
+        List<String> ownededSkus = SKIabProducts.loadOwnedIabProducts(this.getApplicationContext());
         // 풀버전은 NO_ADS 포함
-        if (owndedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
+        if (ownededSkus.contains(SKIabProducts.SKU_NO_ADS)) {
             adView.setVisibility(View.GONE);
             if (footerView != null) {
                 listView.removeFooterView(footerView);
