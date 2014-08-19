@@ -59,7 +59,7 @@ public class SKAlarmManager {
         intent.putExtra(ALARM_ID, alarmId);
 
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
@@ -90,8 +90,16 @@ public class SKAlarmManager {
      */
     public static Calendar adjustCalendar(Calendar calendar) {
 
+        final boolean ALARM_DEBUG = false;
+
         // 알람 캘린더의 날짜는 오늘(같은 날)로 맞추고 비교
         Calendar todayCalendar = Calendar.getInstance();
+
+        if (ALARM_DEBUG) {
+            // 테스트용으로 무조건 3초 뒤 울리게 구현
+            todayCalendar.add(Calendar.SECOND, 3);
+            return todayCalendar;
+        }
 
         calendar.set(Calendar.YEAR, todayCalendar.get(Calendar.YEAR));
         calendar.set(Calendar.MONTH, todayCalendar.get(Calendar.MONTH));
