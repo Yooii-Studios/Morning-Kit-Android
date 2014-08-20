@@ -11,6 +11,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -34,6 +36,7 @@ import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.weather.model.LocationUtils;
@@ -66,7 +69,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         MNWeatherWWOAsyncTask.OnWeatherWWOAsyncTaskListener,
         GooglePlayServicesClient.ConnectionCallbacks,
         GooglePlayServicesClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener, LocationUtils.OnLocationListener {
 
     private static final String TAG = "MNWeatherPanelLayout";
 
@@ -302,8 +305,19 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         // get weather data from server
         if (isUsingCurrentLocation) {
             // 현재 위치는 locationClient 에서 위치를 받아와 콜백 메서드에서 로직을 진행
-            locationClient.connect();
+
+            // 네트워크 위치를 사용 가능할 때
+            LocationManager locManager =
+                    (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
+            if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                    locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                // Location enabled
+                locationClient.connect();
 //            googleApiClient.connect();
+            } else {
+                showLocationServerUnavailable();
+            }
+
         } else {
             if (selectedLocationInfo != null) {
                 // find previous data from cache
@@ -497,6 +511,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
      */
     @Override
     public void onConnected(Bundle bundle) {
+        MNLog.now("onConnected");
         // lastLocation can't have a recent location, so must call
         // requestLocationUpdates()
         if (servicesConnected()) {
@@ -508,7 +523,10 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 
 //            lastLocation 이 있으면 그것을 써서 빨리 업데이트를 하고, 최신 위치를 바로 받아오자.
             if (lastLocation != null) {
+                MNLog.now("lastLocation != null");
                 startWWOTask(lastLocation);
+            } else {
+                MNLog.now("lastLocation == null");
             }
             locationClient.requestLocationUpdates(mLocationRequest, this);
 
@@ -533,6 +551,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
      */
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+        MNLog.now("onConnectionFailed: " + connectionResult.toString());
         // Location Fail 메시지 보여주기
         showCoverLayout(getResources().getString(R.string.weather_choose_your_city));
     }
@@ -640,5 +659,24 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         stopClock();
+    }
+
+    private void showLocationServerUnavailable() {
+        LocationUtils.showLocationUnavailableDialog(getContext(), this);
+    }
+
+    // 위치 정보 사용 취소할 경우 현재 위치 사용 옵션을 풀고 저장하고 리프레시
+    @Override
+    public void onLocationTrackingCanceled() {
+        if (getPanelDataObject() != null) {
+            try {
+                getPanelDataObject().put(
+                        MNWeatherPanelLayout.WEATHER_DATA_IS_USING_CURRENT_LOCATION, false);
+                archivePanelData();
+                refreshPanel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

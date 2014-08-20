@@ -320,4 +320,8 @@
     <string name="recommend_description">Click the link and take it for a spin</string>
     <string name="recommend_app_full_name">Morning Kit</string>
 
+    <!-- Location -->
+    <string name="dialog_location_service_disabled_title">Location services disabled</string>
+    <string name="dialog_location_service_disabled_message">Click OK to enable location services</string>
+
 </resources>
