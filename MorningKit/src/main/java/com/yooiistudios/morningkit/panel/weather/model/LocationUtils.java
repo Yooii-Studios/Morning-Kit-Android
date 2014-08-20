@@ -82,11 +82,14 @@ public final class LocationUtils {
         }
     }
 
-    interface OnLocationCheckListener {
-        public void onCancelUsingLocation();
+    // 현재 위치의 날씨는 위치 정보가 필요한데, 위치 사용을 취소할 경우 도시 검색으로 옵션을 바꾸어야 하는데
+    // 그 때 활용되는 콜백 메서드
+    public interface OnLocationListener {
+        public void onLocationTrackingCanceled();
     }
 
-    public static void showLocationUnavailableDialog(final Context context) {
+    public static void showLocationUnavailableDialog(final Context context,
+                                                     final OnLocationListener listener) {
         AlertDialog.Builder builder = makeAlertDialogBuilder(context, false);
         String title = context.getString(R.string.weather) + " - "
                 + context.getString(R.string.dialog_location_service_disabled_title);
@@ -103,9 +106,16 @@ public final class LocationUtils {
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                if (listener != null) {
+                    listener.onLocationTrackingCanceled();
+                }
             }
         });
+
+        // 캔슬 방지
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
         builder.show();
     }
 

@@ -69,7 +69,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         MNWeatherWWOAsyncTask.OnWeatherWWOAsyncTaskListener,
         GooglePlayServicesClient.ConnectionCallbacks,
         GooglePlayServicesClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener, LocationUtils.OnLocationListener {
 
     private static final String TAG = "MNWeatherPanelLayout";
 
@@ -662,6 +662,21 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     }
 
     private void showLocationServerUnavailable() {
-        LocationUtils.showLocationUnavailableDialog(getContext());
+        LocationUtils.showLocationUnavailableDialog(getContext(), this);
+    }
+
+    // 위치 정보 사용 취소할 경우 현재 위치 사용 옵션을 풀고 저장하고 리프레시
+    @Override
+    public void onLocationTrackingCanceled() {
+        if (getPanelDataObject() != null) {
+            try {
+                getPanelDataObject().put(
+                        MNWeatherPanelLayout.WEATHER_DATA_IS_USING_CURRENT_LOCATION, false);
+                archivePanelData();
+                refreshPanel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
