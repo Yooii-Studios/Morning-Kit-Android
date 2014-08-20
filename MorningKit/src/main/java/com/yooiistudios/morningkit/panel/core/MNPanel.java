@@ -109,6 +109,6 @@ public class MNPanel {
         // Archive
         String jsonString = new Gson().toJson(MNPanel.getInstance(context).panelDataList);
         context.getSharedPreferences(PANEL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                .edit().putString(PANEL_DATA_LIST_KEY, jsonString).commit();
+                .edit().putString(PANEL_DATA_LIST_KEY, jsonString).apply();
     }
 }

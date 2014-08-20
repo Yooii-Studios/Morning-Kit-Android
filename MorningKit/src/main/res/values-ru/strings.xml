@@ -320,4 +320,8 @@
     <string name="recommend_description">Просто нажмите кнопку и скачать :-)</string>
     <string name="recommend_app_full_name">Утренний Kомплект</string>
 
+    <!-- Location -->
+    <string name="dialog_location_service_disabled_title">Адрес услуги отключены</string>
+    <string name="dialog_location_service_disabled_message">Нажмите OK, чтобы включить службы определения местонахождения</string>
+
 </resources>

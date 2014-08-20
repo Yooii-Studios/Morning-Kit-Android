@@ -49,7 +49,7 @@ public class MNAlarmStatusBarIcon {
     public static void setAlarmStatusBarIconType(MNAlarmStatusBarIconType newAlarmStatusBarIconType, Context context) {
         MNAlarmStatusBarIcon.getInstance(context).currentAlarmStatusBarIconType = newAlarmStatusBarIconType;
         context.getSharedPreferences(ALARM_STATUS_BAR_ICON_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                .edit().putInt(ALARM_STATUS_BAR_ICON_KEY, newAlarmStatusBarIconType.getUniqueId()).commit();
+                .edit().putInt(ALARM_STATUS_BAR_ICON_KEY, newAlarmStatusBarIconType.getUniqueId()).apply();
 
         // 플러리
         Map<String, String> params = new HashMap<String, String>();

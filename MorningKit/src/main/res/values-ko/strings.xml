@@ -320,4 +320,8 @@
     <string name="recommend_description">당황하지 않고 클릭해서 다운받으면~ 끝!</string>
     <string name="recommend_app_full_name">모닝키트</string>
 
+    <!-- Location -->
+    <string name="dialog_location_service_disabled_title">위치 서비스 비활성화됨</string>
+    <string name="dialog_location_service_disabled_message">확인을 눌러 위치서비스를 활성화하세요</string>
+
 </resources>

@@ -67,7 +67,7 @@
 
 	<!-- Alarm Wake -->
 	<string name="alarm_wake_snooze">小睡</string>
-	<string name="alarm_wake_dismiss">好</string>
+	<string name="alarm_wake_dismiss">关闭闹钟</string>
 
 	<!-- Alarm Sound -->
 	<string name="alarm_sound_string_none">静音</string>
@@ -319,5 +319,9 @@
     <string name="recommend_title">强烈推荐！</string>
     <string name="recommend_description">点击下载 :-)</string>
     <string name="recommend_app_full_name">早安工具</string>
+
+    <!-- Location -->
+    <string name="dialog_location_service_disabled_title">关闭定位服务</string>
+    <string name="dialog_location_service_disabled_message">点击确定开启定位服务</string>
 
 </resources>

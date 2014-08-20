@@ -27,7 +27,7 @@ import static com.yooiistudios.morningkit.panel.memo.MNMemoPanelLayout.MEMO_PREF
  */
 public class MNMemoDetailFragment extends MNPanelDetailFragment {
 
-    private static final String TAG = "MNMemoDetailFragment";
+//    private static final String TAG = "MNMemoDetailFragment";
 
     @InjectView(R.id.memo_detail_edittext) EditText memoEditText;
 
@@ -66,10 +66,10 @@ public class MNMemoDetailFragment extends MNPanelDetailFragment {
         SharedPreferences prefs = getActivity().getSharedPreferences(MEMO_PREFS, Context.MODE_PRIVATE);
         if (memoString != null) {
             getPanelDataObject().put(MEMO_DATA_CONTENT, memoString);
-            prefs.edit().putString(MEMO_PREFS_CONTENT, memoString).commit();
+            prefs.edit().putString(MEMO_PREFS_CONTENT, memoString).apply();
         } else {
             getPanelDataObject().remove(MEMO_DATA_CONTENT);
-            prefs.edit().remove(MEMO_PREFS_CONTENT).commit();
+            prefs.edit().remove(MEMO_PREFS_CONTENT).apply();
         }
     }
 }

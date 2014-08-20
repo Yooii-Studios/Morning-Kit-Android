@@ -131,7 +131,7 @@ public class MNAlarmListManager {
             } else {
                 editor.remove(ALARM_LIST);
             }
-            editor.commit();
+            editor.apply();
         }
     }
 

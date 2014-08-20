@@ -91,6 +91,6 @@ public class MNWeatherDataCurrentLocationCache extends MNWeatherDataCache {
         SharedPreferences prefs = context.getSharedPreferences(WEATHER_DATA_CURRENT_LOCATION_CACHE_PREFS,
                 Context.MODE_PRIVATE);
         prefs.edit().putString(WEATHER_DATA_CURRENT_LOCATION_CACHE_PREFS_KEY,
-                new Gson().toJson(weatherDataCacheList)).commit();
+                new Gson().toJson(weatherDataCacheList)).apply();
     }
 }

@@ -24,7 +24,7 @@
 
 	<!-- Alarm Toaster -->
 	<string name="alarm_set_toast_part1"></string>
-	<string name="alarm_set_toast_part2">あとでアラームが鳴り響きます。</string>
+	<string name="alarm_set_toast_part2">後、 アラームが鳴ります。</string>
 	<string name="alarm_day">日</string>
 	<string name="alarm_days">日</string>
 	<string name="alarm_hour">時間</string>
@@ -319,5 +319,9 @@
     <string name="recommend_title">強くおススメめ！</string>
     <string name="recommend_description">簡単にワンクリックでダウンロード！</string>
     <string name="recommend_app_full_name">モーニングキット</string>
+
+    <!-- Location -->
+    <string name="dialog_location_service_disabled_title">位置情報サービスを無効化されています。</string>
+    <string name="dialog_location_service_disabled_message">確認をクリックして位置情報サービスを活性化します。</string>
 
 </resources>

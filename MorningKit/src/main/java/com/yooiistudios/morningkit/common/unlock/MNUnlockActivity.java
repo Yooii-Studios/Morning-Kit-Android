@@ -155,8 +155,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         initDescriptionTextView();
 
         // 사용 이력을 전부 초기화해주자, 거의 리뷰에만 쓰일듯
-        getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit().remove(REVIEW_USED).commit();
-        getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit().remove(REVIEW_USED_PRODUCT_SKU).commit();
+        getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit().remove(REVIEW_USED).apply();
+        getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit().remove(REVIEW_USED_PRODUCT_SKU).apply();
         ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
     }
 
@@ -374,7 +374,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         SharedPreferences.Editor edit = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit();
         edit.putBoolean(REVIEW_USED, true);
         edit.putString(REVIEW_USED_PRODUCT_SKU, productSku);
-        edit.commit();
+        edit.apply();
     }
 
     private void onAfterReviewItemClicked() {

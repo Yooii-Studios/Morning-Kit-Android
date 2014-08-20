@@ -46,7 +46,7 @@ import static com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayo
  * MNWorldClockDetailFragment
  */
 public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements TextWatcher, MNTimeZoneSearchAsyncTask.OnTimeZoneSearchAsyncTaskListener, AdapterView.OnItemClickListener {
-    private static final String TAG = "MNWorldClockDetailFragment";
+//    private static final String TAG = "MNWorldClockDetailFragment";
 
     @InjectView(R.id.panel_detail_world_clock_use_24_hour_format_layout) RelativeLayout isUsing24HoursLayout;
     @InjectView(R.id.panel_detail_world_clock_use_24_hour_format_check_image_button) ImageButton isUsing24HoursCheckImageButton;
@@ -194,7 +194,7 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
 
         // shared prefreences에도 저장
         getActivity().getSharedPreferences(WORLD_CLOCK_PREFS, Context.MODE_PRIVATE)
-                .edit().putString(WORLD_CLOCK_PREFS_LATEST_TIME_ZONE, selectedTimeZoneJsonString).commit();
+                .edit().putString(WORLD_CLOCK_PREFS_LATEST_TIME_ZONE, selectedTimeZoneJsonString).apply();
     }
 
     // EditText

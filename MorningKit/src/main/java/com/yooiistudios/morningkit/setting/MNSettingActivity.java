@@ -223,7 +223,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
 
         // remember the selection
         SharedPreferences prefs = getSharedPreferences(SETTING_PREFERENCES, MODE_PRIVATE);
-        prefs.edit().putInt(LATEST_TAB_SELECTION, tab.getPosition()).commit();
+        prefs.edit().putInt(LATEST_TAB_SELECTION, tab.getPosition()).apply();
     }
 
     @Override

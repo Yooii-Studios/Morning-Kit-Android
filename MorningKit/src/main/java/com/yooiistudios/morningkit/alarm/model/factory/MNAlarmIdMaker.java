@@ -32,7 +32,7 @@ public class MNAlarmIdMaker {
                 alarmId = 0;
             }
         }
-        prefs.edit().putInt("alarmId", alarmId).commit();
+        prefs.edit().putInt("alarmId", alarmId).apply();
         return alarmId;
     }
 }
