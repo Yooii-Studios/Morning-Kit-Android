@@ -75,7 +75,7 @@ public class SKAlarmManager {
         Intent intent = new Intent(context, activity);
 
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = SKAlarmManager.getAlarmManager(context);
         alarmManager.cancel(pendingIntent);
