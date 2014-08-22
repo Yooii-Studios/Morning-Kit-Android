@@ -259,7 +259,7 @@
     <dimen name="setting_panel_item_text_font_size">25.5sp</dimen>          <!-- 두배x 1.7배 -->
 
     <!-- Theme -->
-    <dimen name="setting_item_padding">16dp</dimen>
+    <dimen name="setting_item_padding">14dp</dimen>
     <dimen name="setting_item_title_textview_height">44.2sp</dimen>         <!-- 두배x 1.7배 -->
     <dimen name="setting_item_title_font_size">34sp</dimen>                 <!-- 두배x 1.7배 -->
     <dimen name="setting_item_detail_font_size">27.2sp</dimen>              <!-- 두배x 1.7배 -->
@@ -277,7 +277,7 @@
     <dimen name="setting_theme_detail_photo_item_textview_left_margin">20dp</dimen>
 
     <!-- Theme - language item -->
-    <dimen name="setting_theme_language_item_padding">16dp</dimen>
+    <dimen name="setting_theme_language_item_padding">14dp</dimen>
 
     <!-- License -->
     <dimen name="setting_more_info_license_title_font_size">44.2sp</dimen>  <!-- 두배x 1.7배 -->
