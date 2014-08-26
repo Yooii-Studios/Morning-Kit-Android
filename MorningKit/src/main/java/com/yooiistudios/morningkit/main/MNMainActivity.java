@@ -28,6 +28,7 @@ import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.ad.MNAdUtils;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
+import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.review.MNReviewUtil;
@@ -61,7 +62,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import butterknife.ButterKnife;
@@ -344,13 +344,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         super.onConfigurationChanged(newConfig);
 
         // 회전마다 Locale 을 새로 적용해줌(언어가 바뀌어 버리는 문제 해결)
-        Configuration config = getApplicationContext().getResources().getConfiguration();
-        MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(this);
-        Locale locale = new Locale(currentLanguageType.getCode(), currentLanguageType.getRegion());
-        Locale.setDefault(locale);
-        config.locale = locale;
-        getApplicationContext().getResources().updateConfiguration(config,
-                getApplicationContext().getResources().getDisplayMetrics());
+        MNLocaleUtils.updateLocale(this);
 
         // 스크롤뷰
         MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(scrollView, newConfig.orientation);
