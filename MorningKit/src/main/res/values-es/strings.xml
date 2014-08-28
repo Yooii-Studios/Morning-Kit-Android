@@ -323,7 +323,7 @@
     <string name="recommend_app_full_name">Morning Kit</string>
 
     <!-- Location -->
-    <string name="dialog_location_service_disabled_title">Location services disabled</string>
-    <string name="dialog_location_service_disabled_message">Click OK to enable location services</string>
+    <string name="dialog_location_service_disabled_title">Ubicación Servicios desactivados</string>
+    <string name="dialog_location_service_disabled_message">Por favor, haga clic en Aceptar para activar los servicios de ubicación</string>
 
 </resources>
