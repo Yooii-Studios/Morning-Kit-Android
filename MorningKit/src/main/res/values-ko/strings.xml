@@ -20,7 +20,7 @@
 	<string name="alarm_default_label">알람</string>
 	<string name="alarm_am">오전</string>
 	<string name="alarm_pm">오후</string>
-	<string name="alarm_snooze_stirng">9분 뒤 알람이 다시 울립니다</string>
+	<string name="alarm_snooze_string">9분 뒤 알람이 다시 울립니다</string>
 
 	<!-- Alarm Toast -->
 	<string name="alarm_set_toast_part1"></string>
@@ -40,7 +40,7 @@
 	<string name="alarm_pref_repeat_weekdays">주중</string>
 	<string name="alarm_pref_repeat_weekends">주말</string>
 	<string name="alarm_pref_repeat_everyday">매일</string>
-	<string name="alarm_pref_pick_your_favorite_sond">노래 선택</string>
+	<string name="alarm_pref_pick_your_favorite_song">노래 선택</string>
 
 	<!-- Repeat -->
 	<string name="every_monday">월요일마다</string>
@@ -184,6 +184,8 @@
 	<string name="setting_language_simplified_chinese">简体中文</string>
 	<string name="setting_language_traditional_chinese">繁體中文</string>
 	<string name="setting_language_russian">Русский</string>
+    <string name="setting_language_spanish">Español</string>
+    <string name="setting_language_french">Français</string>
 
 	<!-- Setting (Effect sound) -->
 	<string name="setting_effect_sound">효과음</string>
@@ -308,6 +310,9 @@
     <string name="news_feed_url_dialog_reset">리셋</string>
     <string name="news_feed_invalid_url">유효하지 않은 RSS</string>
     <string name="news_feed_feed_unavailable">뉴스를 사용할 수 없습니다</string>
+
+    <!-- Panel - Cat -->
+    <string name="cat">고양이</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">파스텔 그린</string>

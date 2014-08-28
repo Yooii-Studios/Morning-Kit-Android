@@ -666,7 +666,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(MNMainActivity.this);
                 Map<String, String> languageParams = new HashMap<String, String>();
                 languageParams.put(MNFlurry.LANGUAGE,
-                        MNLanguageType.toEnglishString(currentLanguageType.getIndex(), MNMainActivity.this));
+                        MNLanguageType.toEnglishString(currentLanguageType.getIndex()));
                 FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, languageParams);
 
                 // 테마 체크

@@ -20,7 +20,7 @@
 	<string name="alarm_default_label">Будильник</string>
 	<string name="alarm_am">AM</string>
 	<string name="alarm_pm">PM</string>
-	<string name="alarm_snooze_stirng">Ваш будильник возобновит работy через 9 минут</string>
+	<string name="alarm_snooze_string">Ваш будильник возобновит работy через 9 минут</string>
 
 	<!-- Alarm Toaster -->
 	<string name="alarm_set_toast_part1">Установка будильника для </string>
@@ -40,7 +40,7 @@
 	<string name="alarm_pref_repeat_weekdays">Будни</string>
 	<string name="alarm_pref_repeat_weekends">Выходные</string>
 	<string name="alarm_pref_repeat_everyday">Каждый день</string>
-	<string name="alarm_pref_pick_your_favorite_sond">Выбрать песню</string>
+	<string name="alarm_pref_pick_your_favorite_song">Выбрать песню</string>
 
 	<!-- Repeat -->
 	<string name="every_monday">Каждый Понедельник</string>
@@ -184,6 +184,8 @@
 	<string name="setting_language_simplified_chinese">简体中文</string>
 	<string name="setting_language_traditional_chinese">繁體中文</string>
 	<string name="setting_language_russian">Русский</string>
+    <string name="setting_language_spanish">Español</string>
+    <string name="setting_language_french">Français</string>
 
 	<!-- Setting (Effect sound) -->
 	<string name="setting_effect_sound">Звуковой эффект</string>
@@ -308,6 +310,9 @@
     <string name="news_feed_url_dialog_reset">сброс</string>
     <string name="news_feed_invalid_url">Неверный RSS</string>
     <string name="news_feed_feed_unavailable">Новый недоступен сейчас</string>
+
+    <!-- Panel - Cat -->
+    <string name="cat">кот</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">Зеленый пастельный</string>

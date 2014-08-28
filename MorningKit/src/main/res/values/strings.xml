@@ -20,7 +20,7 @@
     <string name="alarm_default_label">Alarm</string>
     <string name="alarm_am">AM</string>
     <string name="alarm_pm">PM</string>
-    <string name="alarm_snooze_stirng">Your alarm will start again in 9 minutes</string>
+    <string name="alarm_snooze_string">Your alarm will start again in 9 minutes</string>
 
     <!-- Alarm Toaster -->
     <string name="alarm_set_toast_part1">Alarm set for </string>
@@ -40,7 +40,7 @@
     <string name="alarm_pref_repeat_weekdays">Weekdays</string>
     <string name="alarm_pref_repeat_weekends">Weekends</string>
     <string name="alarm_pref_repeat_everyday">Everyday</string>
-    <string name="alarm_pref_pick_your_favorite_sond">Pick a song</string>
+    <string name="alarm_pref_pick_your_favorite_song">Pick a song</string>
 
     <!-- Repeat -->
     <string name="every_monday">Every Monday</string>
@@ -184,6 +184,8 @@
     <string name="setting_language_simplified_chinese">简体中文</string>
     <string name="setting_language_traditional_chinese">繁體中文</string>
     <string name="setting_language_russian">Русский</string>
+    <string name="setting_language_spanish">Español</string>
+    <string name="setting_language_french">Français</string>
 
     <!-- Setting (Effect sound) -->
     <string name="setting_effect_sound">Sound Effects</string>
@@ -308,6 +310,9 @@
     <string name="news_feed_url_dialog_reset">Reset</string>
     <string name="news_feed_invalid_url">Invalid RSS</string>
     <string name="news_feed_feed_unavailable">News is not available now</string>
+
+    <!-- Panel - Cat -->
+    <string name="cat">Cat</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">Pastel Green</string>

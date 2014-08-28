@@ -57,7 +57,7 @@ public class MNLanguageListAdapter extends BaseAdapter {
             viewHolder.getLockImageView().setVisibility(View.GONE);
 
             viewHolder.getTitleTextView().setText(MNLanguageType.toTranselatedString(position, activity));
-            viewHolder.getDetailTextView().setText(MNLanguageType.toEnglishString(position, activity));
+            viewHolder.getDetailTextView().setText(MNLanguageType.toEnglishString(position));
 
             if (MNLanguageType.valueOf(position) != MNLanguage.getCurrentLanguageType(activity)) {
                 viewHolder.getCheckImageView().setVisibility(View.GONE);
