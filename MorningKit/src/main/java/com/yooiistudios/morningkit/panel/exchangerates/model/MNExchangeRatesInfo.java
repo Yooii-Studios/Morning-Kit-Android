@@ -29,7 +29,8 @@ public class MNExchangeRatesInfo {
 	public void setBaseCurrencyMoney(double _baseCurrencymoney)	{ baseCurrencyMoney = _baseCurrencymoney; }
 	public double getBaseCurrencyMoney() { return baseCurrencyMoney; }
 
-	public double getTargetCurrencyMoney() { return baseCurrencyMoney * exchangeRate; }
+    // 소수 셋째 자리 까지만 계산
+	public double getTargetCurrencyMoney() { return Math.round(baseCurrencyMoney * exchangeRate * 1000) / 1000.0; }
 //	public double getBaseCurrencyMoney(double _targetMoney) { return _targetMoney/exchangeRate; }
 //	public double getTargetCurrencyMoney(double _baseMoney) { return _baseMoney*exchangeRate; }
 
