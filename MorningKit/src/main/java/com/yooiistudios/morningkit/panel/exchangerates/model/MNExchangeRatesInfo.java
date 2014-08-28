@@ -29,7 +29,8 @@ public class MNExchangeRatesInfo {
 	public void setBaseCurrencyMoney(double _baseCurrencymoney)	{ baseCurrencyMoney = _baseCurrencymoney; }
 	public double getBaseCurrencyMoney() { return baseCurrencyMoney; }
 
-	public double getTargetCurrencyMoney() { return baseCurrencyMoney*exchangeRate; }
+    // 소수 셋째 자리 까지만 계산
+	public double getTargetCurrencyMoney() { return Math.round(baseCurrencyMoney * exchangeRate * 1000) / 1000.0; }
 //	public double getBaseCurrencyMoney(double _targetMoney) { return _targetMoney/exchangeRate; }
 //	public double getTargetCurrencyMoney(double _baseMoney) { return _baseMoney*exchangeRate; }
 
@@ -61,8 +62,10 @@ public class MNExchangeRatesInfo {
 	static public String getMoneyString(double _money, Context context) {
         String result;
 
-        // 러시아어일 경우 값이 이상하게 나온다. 예외처리가 필요
-        if (MNLanguage.getCurrentLanguageType(context) == MNLanguageType.RUSSIAN) {
+        // 러시아어, 스페인어, 프랑스어일 경우 값이 이상하게 나온다. 예외처리가 필요
+        if (MNLanguage.getCurrentLanguageType(context) == MNLanguageType.RUSSIAN ||
+                MNLanguage.getCurrentLanguageType(context) == MNLanguageType.FRENCH ||
+                MNLanguage.getCurrentLanguageType(context) == MNLanguageType.SPANISH) {
             result = String.valueOf(_money);
         } else {
             NumberFormat format = NumberFormat.getCurrencyInstance();
