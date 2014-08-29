@@ -78,13 +78,13 @@
 	<string name="alarm_ride">Paseo</string>
 
 	<!-- Widget -->
-	<string name="world_clock">Reloj Mundial</string>
+	<string name="world_clock">Reloj\nMundial</string>
 	<string name="flickr">parpadear</string>
 	<string name="memo">Memo</string>
-	<string name="date_calculator">FechanCuenta atrás</string>
+	<string name="date_calculator">Fecha\nCuenta atrás</string>
 	<string name="weather">El tiempo</string>
 	<string name="calendar">Fecha</string>
-	<string name="exchange_rate">TiponPrecios</string>
+	<string name="exchange_rate">Tipo\nPrecios</string>
 	<string name="saying">Cotizaciones</string>
 	<string name="reminder">Calendario</string>
 
@@ -165,7 +165,7 @@
 	<string name="tab_info">INFO</string>
 
 	<!-- Setting (General) -->
-	<string name="setting_language">Idioma</string>
+	<string name="setting_language">Idioma / Language</string>
 	<string name="setting_widgettable">Matrix Panel</string>
 	<string name="setting_theme_color">tema</string>
 	<string name="setting_theme_color_skyblue">Celeste (Celeste)</string>
@@ -235,19 +235,19 @@
 	<string name="store_tab_widgets">Paneles</string>
 	<string name="store_tab_themes">Temas</string>
 	<string name="store_item_more_alarm_slots">Más entradas de alarma</string>
-	<string name="store_item_no_ads">Sin publicidad</string>
+	<string name="store_item_no_ads">Sin\npublicidad</string>
 	<string name="store_item_matrix">2 X 3 Matrix</string>
-	<string name="store_item_widget_date_countdown">FechanCuenta atrás</string>
+	<string name="store_item_widget_date_countdown">Fecha\nCuenta atrás</string>
 	<string name="store_item_widget_memo">Memo</string>
-	<string name="store_item_photo_portrait">FotonRetrato</string>
-	<string name="store_item_photo_landscape">FotonPaisaje</string>
-	<string name="store_item_skyblue">Celestial n (Celeste)</string>
-	<string name="store_item_classic_white">Modernidad n (Chic blanco)</string>
+	<string name="store_item_photo_portrait">Foto\nRetrato</string>
+	<string name="store_item_photo_landscape">Foto\nPaisaje</string>
+	<string name="store_item_skyblue">Celestial \n (Celeste)</string>
+	<string name="store_item_classic_white">Modernidad \n (Chic blanco)</string>
 	<string name="store_item_water_lily">Lirio de agua (Diseño)</string>
 	<string name="store_item_popsicle">Paleta helada</string>
 
 	<!-- Rate it -->
-	<string name="rate_it_contents">Por favor, tasa de 5 estrellasnSin su apoyo, que no existen</string>
+	<string name="rate_it_contents">Por favor, tasa de 5 estrellas\nSin su apoyo, que no existen</string>
 	<string name="rate_it_rate">Cambio</string>
 	<string name="rate_it_no_thanks">Más tarde</string>
 	<string name="rate_morning_kit">Kit Cambio Mañana</string>
@@ -261,7 +261,7 @@
 	<string name="more_information_license">Licencia</string>
 
 	<!-- Alarm First On Notice -->
-	<string name="alarm_first_on_notice">. [Configuración -> Notificaciones -> Kit mañana]n(entrar) Por favor, establece Alerta Estilo a  "Alertas ", y encienda  "Sonidos " nnLa alarma no suena en el modo de vibración. Por favor, apague la vibración.</string>
+	<string name="alarm_first_on_notice">. [Configuración -> Notificaciones -> Kit mañana]\n Por favor, establece Alerta Estilo a  "Alertas ", y encienda  "Sonidos " \n\nLa alarma no suena en el modo de vibración. Por favor, apague la vibración.</string>
 
 	<!-- Photo Theme -->
 	<string name="photo_theme_move_and_scale">Mover y Escala</string>
@@ -269,7 +269,6 @@
 	<string name="photo_theme_first_open_notice">Por favor, cambiar el tamaño de la imagen para ajustarse al marco de modo que llene la pantalla</string>
 
 	<!-- Android Only -->
-
 	<!-- General -->
 	<string name="action_bar_up_button_main">principal</string>
 	<string name="store_item_full_version">Versión Completa</string>
@@ -281,6 +280,7 @@
 	<!-- Prefs -->
 	<string name="alarm_pref_volume">Volumen</string>
 
+	<!-- Panel -->
 	<!-- Flickr -->
 	<string name="saving">Guardando…</string>
 
