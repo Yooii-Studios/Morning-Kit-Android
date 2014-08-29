@@ -241,7 +241,7 @@
 	<string name="store_item_widget_memo">備忘錄</string>
 	<string name="store_item_photo_portrait">照片\n縱向</string>
 	<string name="store_item_photo_landscape">照片\n橫向</string>
-	<string name="store_item_skyblue">天上 (天空藍)</string>
+	<string name="store_item_skyblue">天上\n(天空藍)</string>
 	<string name="store_item_classic_white">摩登\n(時尚白)</string>
 	<string name="store_item_water_lily">睡蓮 （設計模式）</string>
 	<string name="store_item_popsicle">冰淇淋 （設計模式）</string>
