@@ -23,6 +23,7 @@ public class SKAlarmSoundPlayer {
     private volatile static SKAlarmSoundPlayer instance;
     private MediaPlayer mediaPlayer;
     private int previousVolume;
+    private int previousAudioServiceMode = -100;
 
     public static MediaPlayer getMediaPlayer() {
         return getInstance().mediaPlayer;
@@ -54,15 +55,18 @@ public class SKAlarmSoundPlayer {
     }
 
     public static void stop(Context context) {
-        getMediaPlayer().stop();
-
         // 음악을 멈추고 예전 볼륨으로 되돌려줌
         if (context != null) {
             AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             if (audioManager != null) {
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, getInstance().previousVolume, 0);
+                if (getInstance().previousAudioServiceMode != -100) {
+                    audioManager.setMode(getInstance().previousAudioServiceMode);
+                }
+                audioManager.abandonAudioFocus(null);
             }
         }
+        getMediaPlayer().stop();
     }
 
     public static void playAppMusic(final int rawInt, final Context context) throws IOException {
@@ -119,38 +123,50 @@ public class SKAlarmSoundPlayer {
     }
 
     private static void play(final int volume, final Context context) throws IOException {
-        getMediaPlayer().prepare();
-        getMediaPlayer().setLooping(true);
-        getMediaPlayer().setAudioStreamType(AudioManager.STREAM_MUSIC);
-        getMediaPlayer().start();
+        // 오디오 포커스 등록
+        final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        int result = audioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT); // TRANSIENT 는 45초 미만의 소리 재생 요청, 하지만 더 사용가능할듯
 
-        // 천천히 음량을 높여줌
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // 기존의 볼륨 기억
-                AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-                getInstance().previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            // Start playback.
+            // 미디어 플레이어 준비
+            getMediaPlayer().prepare();
+            getMediaPlayer().setLooping(true);
+            getMediaPlayer().setAudioStreamType(AudioManager.STREAM_MUSIC);
+            getMediaPlayer().start();
 
-                int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                int targetVolume = (int) (volume * (maxVolume / 100.0f)); // AudioManager의 볼륨으로 환산
-                int currentVolume = 0;
-                int OFFSET = 1;
+            // 천천히 음량을 높여줌
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                    int targetVolume = (int) (volume * (maxVolume / 100.0f)); // AudioManager의 볼륨으로 환산
+                    int currentVolume = 0;
+                    int OFFSET = 1;
 
-                // 볼륨 0에서 시작
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, 0);
+                    // 모드를 먼저 설정하고 기존의 볼륨을 얻어야 제대로 된 값을 얻을 수 있음
+                    getInstance().previousAudioServiceMode = audioManager.getMode();
+                    audioManager.setMode(AudioManager.STREAM_MUSIC);
 
-                // 천천히 음량을 높임
-                while (currentVolume < targetVolume) {
-                    try {
-                        Thread.sleep(300);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    getInstance().previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, 0); // 볼륨 0에서 시작
+
+                    // 무조건 스피커로 출력
+                    audioManager.setSpeakerphoneOn(true);
+
+                    // 천천히 음량을 높임
+                    while (currentVolume < targetVolume) {
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        currentVolume += OFFSET;
+                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, 0);
                     }
-                    currentVolume += OFFSET;
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, 0);
                 }
-            }
-        }).start();
+            }).start();
+        }
     }
 }

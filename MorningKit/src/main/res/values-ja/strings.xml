@@ -20,7 +20,7 @@
 	<string name="alarm_default_label">アラーム</string>
 	<string name="alarm_am">午前</string>
 	<string name="alarm_pm">午後</string>
-	<string name="alarm_snooze_stirng">9分後、 アラームが再び鳴り響きます。</string>
+	<string name="alarm_snooze_string">9分後、 アラームが再び鳴り響きます。</string>
 
 	<!-- Alarm Toaster -->
 	<string name="alarm_set_toast_part1"></string>
@@ -40,7 +40,7 @@
 	<string name="alarm_pref_repeat_weekdays">平日</string>
 	<string name="alarm_pref_repeat_weekends">週末</string>
 	<string name="alarm_pref_repeat_everyday">毎日</string>
-	<string name="alarm_pref_pick_your_favorite_sond">音楽を選択</string>
+	<string name="alarm_pref_pick_your_favorite_song">音楽を選択</string>
 
 	<!-- Repeat -->
 	<string name="every_monday">毎月曜日</string>
@@ -184,6 +184,8 @@
 	<string name="setting_language_simplified_chinese">简体中文</string>
 	<string name="setting_language_traditional_chinese">繁體中文</string>
 	<string name="setting_language_russian">Русский</string>
+    <string name="setting_language_spanish">Español</string>
+    <string name="setting_language_french">Français</string>
 
 	<!-- Setting (Effect sound) -->
 	<string name="setting_effect_sound">効果音</string>
@@ -308,6 +310,9 @@
     <string name="news_feed_url_dialog_reset">リセット</string>
     <string name="news_feed_invalid_url">有効でないRSS</string>
     <string name="news_feed_feed_unavailable">ニュースが使用できません。</string>
+
+    <!-- Panel - Cat -->
+    <string name="cat">猫</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">パステルグリーン</string>

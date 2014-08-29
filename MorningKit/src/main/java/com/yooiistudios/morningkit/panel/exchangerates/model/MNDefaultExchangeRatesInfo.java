@@ -16,7 +16,7 @@ public class MNDefaultExchangeRatesInfo {
     public static MNExchangeRatesInfo newInstance(Context context) {
         String baseCurrencyCode;
         String targetCurrencyCode;
-        double baseCurrenyMoney;
+        double baseCurrencyMoney;
 
         //한국어: 1000원 -> 달러
         //일본어: 100엔 -> 달러
@@ -24,51 +24,65 @@ public class MNDefaultExchangeRatesInfo {
         //번체: 100대만달러 -> 달러
         //영어: $1 -> 유로
         //러시아: 100루블 -> 달러
+        //스페인: 10유로 -> 달러
+        //프랑스: 100프랑 -> 달러
 
         switch (MNLanguage.getCurrentLanguageType(context)) {
             case KOREAN:
                 baseCurrencyCode = "KRW";
                 targetCurrencyCode = "USD";
-                baseCurrenyMoney = 1000;
+                baseCurrencyMoney = 1000;
                 break;
 
             case ENGLISH:
                 baseCurrencyCode = "USD";
                 targetCurrencyCode = "EUR";
-                baseCurrenyMoney = 1;
+                baseCurrencyMoney = 1;
                 break;
 
             case JAPANESE:
                 baseCurrencyCode = "JPY";
                 targetCurrencyCode = "USD";
-                baseCurrenyMoney = 100;
+                baseCurrencyMoney = 100;
                 break;
 
             case SIMPLIFIED_CHINESE:
                 baseCurrencyCode = "CNY";
                 targetCurrencyCode = "USD";
-                baseCurrenyMoney = 10;
+                baseCurrencyMoney = 10;
                 break;
 
             case TRADITIONAL_CHINESE:
                 baseCurrencyCode = "TWD";
                 targetCurrencyCode = "USD";
-                baseCurrenyMoney = 100;
+                baseCurrencyMoney = 100;
                 break;
 
             case RUSSIAN:
                 baseCurrencyCode = "RUB";
                 targetCurrencyCode = "USD";
-                baseCurrenyMoney = 100;
+                baseCurrencyMoney = 100;
+                break;
+
+            case FRENCH:
+                baseCurrencyCode = "EUR";
+                targetCurrencyCode = "USD";
+                baseCurrencyMoney = 10;
+                break;
+
+            case SPANISH:
+                baseCurrencyCode = "EUR";
+                targetCurrencyCode = "USD";
+                baseCurrencyMoney = 10;
                 break;
 
             default:
                 baseCurrencyCode = "USD";
                 targetCurrencyCode = "EUR";
-                baseCurrenyMoney = 1;
+                baseCurrencyMoney = 1;
         }
         MNExchangeRatesInfo newExchangeRatesInfo = new MNExchangeRatesInfo(baseCurrencyCode, targetCurrencyCode);
-        newExchangeRatesInfo.setBaseCurrencyMoney(baseCurrenyMoney);
+        newExchangeRatesInfo.setBaseCurrencyMoney(baseCurrencyMoney);
         newExchangeRatesInfo.setExchangeRate(1);
 
         return newExchangeRatesInfo;

@@ -62,6 +62,10 @@ public class MNNewsFeedAdapter extends BaseAdapter {
         titleView.setText(item.getTitle());
         titleView.setTextColor(textColor);
 
+        if (i == mFeed.getRssItems().size()-1) {
+            view.findViewById(R.id.divider).setVisibility(View.GONE);
+        }
+
         TextView contentView = (TextView)view.findViewById(R.id.content);
         contentView.setTextColor(textColor);
         // 퍼포먼스 개선을 위해 우선 200글자만 읽어서 보여줌(어차피 2줄 밖에 안보임)
