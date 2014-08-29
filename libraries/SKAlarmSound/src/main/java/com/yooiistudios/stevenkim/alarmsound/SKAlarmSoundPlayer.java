@@ -55,19 +55,18 @@ public class SKAlarmSoundPlayer {
     }
 
     public static void stop(Context context) {
-        getMediaPlayer().stop();
-
         // 음악을 멈추고 예전 볼륨으로 되돌려줌
         if (context != null) {
             AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             if (audioManager != null) {
-                audioManager.abandonAudioFocus(null);
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, getInstance().previousVolume, 0);
                 if (getInstance().previousAudioServiceMode != -100) {
                     audioManager.setMode(getInstance().previousAudioServiceMode);
                 }
+                audioManager.abandonAudioFocus(null);
             }
         }
+        getMediaPlayer().stop();
     }
 
     public static void playAppMusic(final int rawInt, final Context context) throws IOException {
@@ -127,7 +126,7 @@ public class SKAlarmSoundPlayer {
         // 오디오 포커스 등록
         final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         int result = audioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC,
-                AudioManager.AUDIOFOCUS_GAIN);
+                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT); // TRANSIENT 는 45초 미만의 소리 재생 요청, 하지만 더 사용가능할듯
 
         if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
             // Start playback.
