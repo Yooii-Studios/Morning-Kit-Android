@@ -329,5 +329,8 @@
 	<string name="dialog_location_service_disabled_title">Les services de localisation désactivés</string>
 	<string name="dialog_location_service_disabled_message">Cliquez sur OK pour activer les services de localisation</string>
 
+    <!-- Unlock - Recommend -->
+    <string name="unlock_recommend">Recommend Morning Kit to your friends and unlock it for free!</string>
+    <string name="unlock_recommend_highlight">Recommend</string>
+
 </resources>
-    
