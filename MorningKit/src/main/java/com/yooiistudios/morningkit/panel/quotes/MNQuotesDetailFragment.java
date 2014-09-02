@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.quotes.detail;
+package com.yooiistudios.morningkit.panel.quotes;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -21,13 +21,10 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuote;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLanguage;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLoader;
-import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
-import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -37,7 +34,6 @@ import org.json.JSONException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -106,39 +102,17 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
 
     private void initFirstLoading() {
         // 현재 언어에 따라 첫 명언 언어 설정해주기
-        MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(getActivity());
+        selectedLanguages = MNQuotesLanguage.initFirstQuoteLanguage(getActivity());
 
-        // 러시아 명언은 없어서 영어로 대체
-        if (currentLanguageType == MNLanguageType.RUSSIAN) {
-            currentLanguageType = MNLanguageType.ENGLISH;
-        }
-
-        selectedLanguages = new ArrayList<Boolean>();
-
+        int languageIndex = 0;
         for (int i = 0; i < 5; i++) {
-            if (currentLanguageType.getIndex() == i) {
-                selectedLanguages.add(true);
-            } else {
-                selectedLanguages.add(false);
+            if (selectedLanguages.get(i)) {
+                languageIndex = i;
             }
         }
 
-        MNLog.i(TAG, "selectedLanguages: " + selectedLanguages.toString());
-
-        // 해당 언어에 따라 명언 골라주기
-        // while이 이상적이지만 혹시나 모를 무한루프 방지를 위해 100번만 돌림
-//        MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
-        Random randomGenerator = new Random();
-        int randomLanguageIndex = 0;
-        for (int i = 0; i < 100; i++) {
-            randomLanguageIndex = randomGenerator.nextInt(selectedLanguages.size());
-            if (selectedLanguages.get(randomLanguageIndex)) {
-                break;
-            }
-        }
-
-        // 랜덤 명언 얻기
-        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOf(randomLanguageIndex);
+        // 현재 언어에 따른 랜덤 명언 얻기
+        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOfUniqueId(languageIndex);
         quote = MNQuotesLoader.getRandomQuote(getActivity(), quotesLanguage);
     }
 
