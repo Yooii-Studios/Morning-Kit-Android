@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public enum MNQuotesLanguage {
 	ENGLISH("English", R.raw.quotes_english),
-	KOREAN("Korean", R.raw.quotes_korean),
-	JAPANESE("Japanese", R.raw.quotes_japanese),
+    JAPANESE("Japanese", R.raw.quotes_japanese),
+    KOREAN("Korean", R.raw.quotes_korean),
 	SIMPLIFIED_CHINESE("Simplified Chinese", R.raw.quotes_chinese_simplified),
 	TRADITIONAL_CHINESE("Traditional Chinese", R.raw.quotes_chinese_traditional);
 
@@ -31,7 +31,7 @@ public enum MNQuotesLanguage {
 
         int languageIndex = -1;
         for (int i = 0; i < 5; i++) {
-            if (currentLanguageType.getUniqueId() == i) {
+            if (currentLanguageType.getIndex() == i) {
                 selectedLanguages.add(true);
                 languageIndex = i;
             } else {
@@ -47,10 +47,10 @@ public enum MNQuotesLanguage {
         return selectedLanguages;
     }
 
-    public static MNQuotesLanguage valueOfUniqueId(int index) {
+    public static MNQuotesLanguage valueOf(int index) {
         switch (index) {
-            case 1: return KOREAN;
-            case 2: return JAPANESE;
+            case 1: return JAPANESE;
+            case 2: return KOREAN;
             case 3: return SIMPLIFIED_CHINESE;
             case 4: return TRADITIONAL_CHINESE;
             default: return ENGLISH;

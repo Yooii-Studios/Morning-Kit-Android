@@ -184,7 +184,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
         }
 
         // 랜덤 명언 얻기
-        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOfUniqueId(randomLanguageIndex);
+        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOf(randomLanguageIndex);
         quote = MNQuotesLoader.getRandomQuote(getContext(), quotesLanguage);
     }
 

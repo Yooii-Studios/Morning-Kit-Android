@@ -47,13 +47,13 @@ import static com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout.QUOTE
  * MNQuotesDetailFragment
  */
 public class MNQuotesDetailFragment extends MNPanelDetailFragment implements View.OnClickListener {
-    private static final String TAG = "MNQuotesDetailFragment";
+//    private static final String TAG = "MNQuotesDetailFragment";
 
     @InjectView(R.id.panel_quotes_detail_quote_textview) TextView quoteTextView;
 
     @InjectView(R.id.panel_quotes_detail_language_english_layout) RelativeLayout languageEnglishLayout;
-    @InjectView(R.id.panel_quotes_detail_language_korean_layout) RelativeLayout languageKoreanLayout;
     @InjectView(R.id.panel_quotes_detail_language_japanese_layout) RelativeLayout languageJapaneseLayout;
+    @InjectView(R.id.panel_quotes_detail_language_korean_layout) RelativeLayout languageKoreanLayout;
     @InjectView(R.id.panel_quotes_detail_language_simplified_chinese_layout) RelativeLayout languageSimplifiedChineseLayout;
     @InjectView(R.id.panel_quotes_detail_language_traditional_chinese_layout) RelativeLayout languageTraditionalChineseLayout;
     List<ImageButton> languageImageButtons;
@@ -112,7 +112,7 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
         }
 
         // 현재 언어에 따른 랜덤 명언 얻기
-        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOfUniqueId(languageIndex);
+        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOf(languageIndex);
         quote = MNQuotesLoader.getRandomQuote(getActivity(), quotesLanguage);
     }
 
@@ -172,8 +172,8 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
     private void initLanguageLayouts() {
         languageImageButtons = new ArrayList<ImageButton>();
         languageImageButtons.add(getImageButtonFromLayout(languageEnglishLayout));
-        languageImageButtons.add(getImageButtonFromLayout(languageKoreanLayout));
         languageImageButtons.add(getImageButtonFromLayout(languageJapaneseLayout));
+        languageImageButtons.add(getImageButtonFromLayout(languageKoreanLayout));
         languageImageButtons.add(getImageButtonFromLayout(languageSimplifiedChineseLayout));
         languageImageButtons.add(getImageButtonFromLayout(languageTraditionalChineseLayout));
 
@@ -227,20 +227,6 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        applyTheme();
-    }
-
-    private void applyTheme() {
-//        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
-//        if (getView() != null) {
-//            getView().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-//        } else {
-//            MNLog.e(TAG, "getView() is null!");
-//        }
-    }
     @Override
     protected void archivePanelData() throws JSONException {
         // 직렬화 해서 panelDataObject에 저장
