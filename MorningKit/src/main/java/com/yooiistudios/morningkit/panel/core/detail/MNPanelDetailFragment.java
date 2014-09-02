@@ -12,7 +12,7 @@ import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
 import com.yooiistudios.morningkit.panel.memo.MNMemoDetailFragment;
 import com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedDetailFragment;
 import com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFragment;
-import com.yooiistudios.morningkit.panel.quotes.detail.MNQuotesDetailFragment;
+import com.yooiistudios.morningkit.panel.quotes.MNQuotesDetailFragment;
 import com.yooiistudios.morningkit.panel.weather.MNWeatherDetailFragment;
 import com.yooiistudios.morningkit.panel.worldclock.MNWorldClockDetailFragment;
 

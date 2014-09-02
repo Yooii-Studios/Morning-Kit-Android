@@ -28,8 +28,6 @@ import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuote;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLanguage;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLoader;
-import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
-import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
@@ -37,7 +35,6 @@ import com.yooiistudios.morningkit.theme.MNMainColors;
 import org.json.JSONException;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -47,7 +44,7 @@ import java.util.Random;
  * MNQuotesPanelLayout
  */
 public class MNQuotesPanelLayout extends MNPanelLayout {
-    private static final String TAG = "MNQuotesPanelLayout";
+//    private static final String TAG = "MNQuotesPanelLayout";
 
     public static final String QUOTES_STRING = "QUOTES_STRING";
     public static final String QUOTES_LANGUAGES = "QUOTES_LANGUAGES";
@@ -168,22 +165,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
 
     private void initFirstLanguages() throws JSONException {
         // 현재 언어에 따라 첫 명언 언어 설정해주기
-        MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(getContext());
-
-        // 러시아 명언은 없어서 영어로 대체
-        if (currentLanguageType == MNLanguageType.RUSSIAN) {
-            currentLanguageType = MNLanguageType.ENGLISH;
-        }
-
-        selectedLanguages = new ArrayList<Boolean>();
-
-        for (int i = 0; i < 5; i++) {
-            if (currentLanguageType.getIndex() == i) {
-                selectedLanguages.add(true);
-            } else {
-                selectedLanguages.add(false);
-            }
-        }
+        selectedLanguages = MNQuotesLanguage.initFirstQuoteLanguage(getContext());
 
         // 초기화 이후 panelDataObject에 저장
         getPanelDataObject().put(QUOTES_LANGUAGES, new Gson().toJson(selectedLanguages));
@@ -202,7 +184,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
         }
 
         // 랜덤 명언 얻기
-        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOf(randomLanguageIndex);
+        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOfUniqueId(randomLanguageIndex);
         quote = MNQuotesLoader.getRandomQuote(getContext(), quotesLanguage);
     }
 

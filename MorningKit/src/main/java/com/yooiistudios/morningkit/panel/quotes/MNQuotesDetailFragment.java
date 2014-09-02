@@ -1,4 +1,4 @@
-package com.yooiistudios.morningkit.panel.quotes.detail;
+package com.yooiistudios.morningkit.panel.quotes;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -21,13 +21,10 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuote;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLanguage;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLoader;
-import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
-import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -37,7 +34,6 @@ import org.json.JSONException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -51,7 +47,7 @@ import static com.yooiistudios.morningkit.panel.quotes.MNQuotesPanelLayout.QUOTE
  * MNQuotesDetailFragment
  */
 public class MNQuotesDetailFragment extends MNPanelDetailFragment implements View.OnClickListener {
-    private static final String TAG = "MNQuotesDetailFragment";
+//    private static final String TAG = "MNQuotesDetailFragment";
 
     @InjectView(R.id.panel_quotes_detail_quote_textview) TextView quoteTextView;
 
@@ -106,39 +102,17 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
 
     private void initFirstLoading() {
         // 현재 언어에 따라 첫 명언 언어 설정해주기
-        MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(getActivity());
+        selectedLanguages = MNQuotesLanguage.initFirstQuoteLanguage(getActivity());
 
-        // 러시아 명언은 없어서 영어로 대체
-        if (currentLanguageType == MNLanguageType.RUSSIAN) {
-            currentLanguageType = MNLanguageType.ENGLISH;
-        }
-
-        selectedLanguages = new ArrayList<Boolean>();
-
+        int languageIndex = 0;
         for (int i = 0; i < 5; i++) {
-            if (currentLanguageType.getIndex() == i) {
-                selectedLanguages.add(true);
-            } else {
-                selectedLanguages.add(false);
+            if (selectedLanguages.get(i)) {
+                languageIndex = i;
             }
         }
 
-        MNLog.i(TAG, "selectedLanguages: " + selectedLanguages.toString());
-
-        // 해당 언어에 따라 명언 골라주기
-        // while이 이상적이지만 혹시나 모를 무한루프 방지를 위해 100번만 돌림
-//        MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
-        Random randomGenerator = new Random();
-        int randomLanguageIndex = 0;
-        for (int i = 0; i < 100; i++) {
-            randomLanguageIndex = randomGenerator.nextInt(selectedLanguages.size());
-            if (selectedLanguages.get(randomLanguageIndex)) {
-                break;
-            }
-        }
-
-        // 랜덤 명언 얻기
-        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOf(randomLanguageIndex);
+        // 현재 언어에 따른 랜덤 명언 얻기
+        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOfUniqueId(languageIndex);
         quote = MNQuotesLoader.getRandomQuote(getActivity(), quotesLanguage);
     }
 
@@ -203,6 +177,7 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
         languageImageButtons.add(getImageButtonFromLayout(languageSimplifiedChineseLayout));
         languageImageButtons.add(getImageButtonFromLayout(languageTraditionalChineseLayout));
 
+        // TODO: 기존 index에서 값을 결정하는 것이 아닌, uniqueId에서 index를 추출하도록 구현하자
         int i = 0;
         for (Boolean isLanguageSelected : selectedLanguages) {
             ImageButton imageButton = languageImageButtons.get(i);
@@ -254,20 +229,6 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        applyTheme();
-    }
-
-    private void applyTheme() {
-//        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getActivity());
-//        if (getView() != null) {
-//            getView().setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(currentThemeType));
-//        } else {
-//            MNLog.e(TAG, "getView() is null!");
-//        }
-    }
-    @Override
     protected void archivePanelData() throws JSONException {
         // 직렬화 해서 panelDataObject에 저장
         String selectedLanguagesJsonString = new Gson().toJson(selectedLanguages);
@@ -277,6 +238,8 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
     @Override
     public void onClick(View imageButton) {
         int index = (Integer) imageButton.getTag();
+
+        // TODO: 기존 index로 값을 세팅해주는 것이 아닌, index에서 uniqueId를 추출해서 세팅하자
         // 해당 스위치 토글
         selectedLanguages.set(index, !selectedLanguages.get(index));
         if (selectedLanguages.get(index)) {
