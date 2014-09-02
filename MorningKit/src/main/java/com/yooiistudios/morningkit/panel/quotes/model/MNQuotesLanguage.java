@@ -27,15 +27,17 @@ public enum MNQuotesLanguage {
         // 현재 언어에 따라 첫 명언 언어 설정해주기
         MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(context);
 
+        // 로직 수정: 모두 false 처리를 하고, 해당 uniqueId를 확인해 해당 언어이면, 해당 index 에 true 를 세팅
         ArrayList<Boolean> selectedLanguages = new ArrayList<Boolean>();
+        for (int i = 0; i < 5; i++) {
+            selectedLanguages.add(false);
+        }
 
         int languageIndex = -1;
         for (int i = 0; i < 5; i++) {
-            if (currentLanguageType.getIndex() == i) {
-                selectedLanguages.add(true);
+            if (currentLanguageType.getUniqueId() == i) {
+                selectedLanguages.set(currentLanguageType.getIndex(), true);
                 languageIndex = i;
-            } else {
-                selectedLanguages.add(false);
             }
         }
 
