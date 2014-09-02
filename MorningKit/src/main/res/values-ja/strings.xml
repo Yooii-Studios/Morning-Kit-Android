@@ -5,12 +5,12 @@
 	<string name="app_name">モーニング</string>
 	<string name="ok">確認</string>
 	<string name="cancel">キャンセル</string>
-	<string name="loading">読み込み中…</string>
+	<string name="loading">Now loading…</string>
 	<string name="default_string">基本設定</string>
 	<string name="yes">はい</string>
 	<string name="no">いいえ</string>
 	<string name="no_network_connection">ネットワークに接続できません</string>
-	<string name="searching">保存中…</string>
+	<string name="searching">検索中…</string>
 	<string name="done">完了</string>
 	<string name="open">オープン</string>
 
@@ -20,7 +20,7 @@
 	<string name="alarm_default_label">アラーム</string>
 	<string name="alarm_am">午前</string>
 	<string name="alarm_pm">午後</string>
-	<string name="alarm_snooze_string">9分後、 アラームが再び鳴り響きます。</string>
+	<string name="alarm_snooze_string">9分後、 アラームが再度鳴ります。</string>
 
 	<!-- Alarm Toaster -->
 	<string name="alarm_set_toast_part1"></string>
@@ -43,13 +43,13 @@
 	<string name="alarm_pref_pick_your_favorite_song">音楽を選択</string>
 
 	<!-- Repeat -->
-	<string name="every_monday">毎月曜日</string>
-	<string name="every_tuesday">毎火曜日</string>
-	<string name="every_wednesday">毎水曜日</string>
-	<string name="every_thursday">毎木曜日</string>
-	<string name="every_friday">毎金曜日</string>
-	<string name="every_saturday">毎土曜日</string>
-	<string name="every_sunday">毎日曜日</string>
+	<string name="every_monday">毎週月曜日</string>
+	<string name="every_tuesday">毎週火曜日</string>
+	<string name="every_wednesday">毎週水曜日</string>
+	<string name="every_thursday">毎週木曜日</string>
+	<string name="every_friday">毎週金曜日</string>
+	<string name="every_saturday">毎週土曜日</string>
+	<string name="every_sunday">毎週日曜日</string>
 	<string name="monday">月</string>
 	<string name="tuesday">火</string>
 	<string name="wednesday">水</string>
@@ -99,7 +99,7 @@
 	<string name="calendar_sunday">日曜日</string>
 
 	<!-- Flickr -->
-	<string name="flickr_not_available_flickr_url">このキーワードに一致する結果がありません。</string>
+	<string name="flickr_not_available_flickr_url">このキーワードに一致する内容がありません。</string>
 	<string name="flickr_search_images">イメージを検索</string>
 	<string name="flickr_use_gray_scale">グレースケールを使用</string>
 	<string name="flickr_save_to_library_guide">写真をライブラリに保存します。</string>
@@ -119,9 +119,9 @@
 	<string name="weather_temperature_unit">温度単位</string>
 	<string name="weather_use_current_location">現在の位置情報を利用します。</string>
 	<string name="weather_current_location">現存地</string>
-	<string name="weather_search_city">都市検索(英語で)</string>
+	<string name="weather_search_city">都市検索(英語)</string>
 	<string name="display_local_time">現地時間を表示する</string>
-	<string name="weather_choose_your_city">都市をご選択ください。</string>
+	<string name="weather_choose_your_city">都市を選択してください。</string>
 
 	<!-- World Clock -->
 	<string name="world_clock_clock_type_text">時計タイプ</string>
@@ -140,7 +140,7 @@
 	<!-- Memo -->
 	<string name="memo_write_here">ここにメモを書いてください。</string>
 	<string name="memo_write_here_modal">ここに書いてください。</string>
-	<string name="memo_end_of_page_halt">入力範囲を超え</string>
+	<string name="memo_end_of_page_halt">入力制限文字数を超過しています。</string>
 
 	<!-- Quotes -->
 	<string name="quotes_copy">コピー</string>
@@ -155,7 +155,7 @@
 	<string name="info_store">ストア</string>
 	<string name="info_help">ヘルプ</string>
 	<string name="info_credit">クレジット</string>
-	<string name="info_yooii_connector">ユーイのコネクタ</string>
+	<string name="info_yooii_connector">ユーイコネクター</string>
 
 	<!-- Tab -->
 	<string name="tab_widget">パネル</string>
@@ -196,39 +196,39 @@
 	<string name="tutorial_select_theme">壁紙を選択</string>
 
 	<!-- Tutorial1 - Description -->
-	<string name="tutorial1_label1">パネルを編集したり、再配置されます</string>
-	<string name="tutorial1_label2">アラームを追加したり、編集されます</string>
-	<string name="tutorial1_label3">アラームをスワイプで削除</string>
+	<string name="tutorial1_label1">パネルの編集、配置変更ができます</string>
+	<string name="tutorial1_label2">アラームの追加、編集ができます</string>
+	<string name="tutorial1_label3">スワイプでアラームは削除できます</string>
 	<string name="tutorial1_label4">更新</string>
 	<string name="tutorial1_label5">設定</string>
 	<string name="tutorial1_tap_screen">画面をタップ</string>
-	<string name="tutorial1_skip_tutorial">チュートリアルをスキップ</string>
+	<string name="tutorial1_skip_tutorial">チュートリアルスキップ</string>
 
 	<!-- Unlock -->
 	<string name="unlock_notice">お知らせ</string>
 	<string name="unlock_unlocked">使用可能</string>
-	<string name="unlock_description">機能を追加するさまざまな方法がありますが無料でできます。</string>
+	<string name="unlock_description">機能を追加する方法は下記3種類になります。無料の場合、1つだけ機能を開放できます。</string>
 	<string name="unlock_description_highlight">機能を追加</string>
-	<string name="unlock_everything">$1.99をお支払いいただくとモーニングキットのすべての機能を使用できます！</string>
+	<string name="unlock_everything">$2.99をお支払いいただくとモーニングキットのすべての機能が使用できます！</string>
 	<string name="unlock_everything_highlight">すべて</string>
-	<string name="unlock_only_this">$0.99をお支払いいただくと,この機能を使用できます。</string>
-	<string name="unlock_review">あなたの評価は貴重なご意見です。レビューを残せば,この機能を使用できます。</string>
+	<string name="unlock_only_this">$0.99をお支払いいただくと,この機能が使用できます。</string>
+	<string name="unlock_review">あなたの評価は貴重なご意見です。レビューを残していただければ、この機能が使用できます。</string>
 	<string name="unlock_review_highlight">レビュー</string>
-	<string name="unlock_connector">コネクタに登録していただくと, この機能を使用できます。</string>
-	<string name="unlock_connector_highlight">コネクタ</string>
-	<string name="unlock_use_morning">モーニングキットを10回使用すると,この機能を使用できます。</string>
+	<string name="unlock_connector">ユーイコネクターに登録していただくと、この機能が使用できます。</string>
+	<string name="unlock_connector_highlight">ユーイコネクター</string>
+	<string name="unlock_use_morning">モーニングキットを10回使用すると,この機能が使用できます。</string>
 	<string name="unlock_use_morning_highlight">10回</string>
-	<string name="unlock_facebook">いいねボタンを押していただくと,この機能を使用できます。</string>
-	<string name="unlock_facebook_highlight">いいねボタン</string>
-	<string name="unlock_twitter">フォローボタンを押していただくと,この機能を使用できます。</string>
-	<string name="unlock_twitter_highlight">フォローボタン</string>
+	<string name="unlock_facebook">「いいね」ボタンを押していただくと、この機能が使用できます。</string>
+	<string name="unlock_facebook_highlight">「いいね」ボタン</string>
+	<string name="unlock_twitter">「フォロー」ボタンを押していただくと、この機能が使用できます。</string>
+	<string name="unlock_twitter_highlight">「フォロー」ボタン</string>
 
 	<!-- Store -->
 	<string name="store_no_purchase_records">購入履歴がありません。</string>
-	<string name="store_restore_purchases">購入した機能の復元</string>
+	<string name="store_restore_purchases">購入した機能を復旧</string>
 	<string name="store_purchased">購入完了</string>
-	<string name="store_restore">復元</string>
-	<string name="store_restore_success_message">購入復元に成功しました。</string>
+	<string name="store_restore">復旧</string>
+	<string name="store_restore_success_message">復旧に成功しました。</string>
 	<string name="store_buy_full_version">完全版購入</string>
 	<string name="store_buy_full_version_description">すべてのパネル、機能やテーマのロックを解除！</string>
 	<string name="store_tab_functions">機能</string>
@@ -247,7 +247,7 @@
 	<string name="store_item_popsicle">Popsicle</string>
 
 	<!-- Rate it -->
-	<string name="rate_it_contents">%1$s レビューをお願いします。\nお客様のレビューは、より良い製品を作るのに役立ちます！^^</string>
+	<string name="rate_it_contents">%1$s レビューをお願いいたします。\nユーザー様のレビューは、より良い製品を作れるよう参考にさせていただきます！</string>
 	<string name="rate_it_rate">評価する</string>
 	<string name="rate_it_no_thanks">後で</string>
 	<string name="rate_morning_kit">モーニングキットを評価する</string>
@@ -266,7 +266,7 @@
 	<!-- Photo Theme -->
 	<string name="photo_theme_move_and_scale">移動と拡大</string>
 	<string name="photo_theme_choose">選択</string>
-	<string name="photo_theme_first_open_notice">写真を移動し、拡大して写真をフレームよりも大きく合わせください。\nフレームよりも小さく設定すると、写真が画面に合わせて表示されないことがあります      </string>
+	<string name="photo_theme_first_open_notice">写真を移動、拡大してフレームよりも大きくなるようにしてください。。\nフレームより小さく設定すると、画面に合わせて表示されないことがあります      </string>
 
     <!-- Android Only -->
     <!-- General -->
@@ -292,8 +292,8 @@
 
         <!-- Photo Album -->
     <string name="photo_album">フォトフレーム</string>
-    <string name="photo_album_no_image">使用できるイメージなし</string>
-    <string name="photo_album_error_getting_photo">写真を読み込む中に問題が生じました</string>
+    <string name="photo_album_no_image">使用可能なイメージがありません</string>
+    <string name="photo_album_error_getting_photo">写真の読み込み中にエラーが発生しました</string>
     <string name="photo_album_label_refresh_time">リフレッシュ時間</string>
     <string name="photo_album_label_transition_type">アニメーションタイプ</string>
     <string name="photo_album_minute_hint">分</string>
@@ -321,13 +321,13 @@
 
     <!-- Recommend -->
     <string name="recommend_to_friends">友達にこのアプリを薦める</string>
-    <string name="recommend_title">強くおススメめ！</string>
-    <string name="recommend_description">簡単にワンクリックでダウンロード！</string>
+    <string name="recommend_title">おススメアプリ「モーニングキット！」！</string>
+    <string name="recommend_description">ワンクリックで簡単ダウンロード！</string>
     <string name="recommend_app_full_name">モーニングキット</string>
 
     <!-- Location -->
-    <string name="dialog_location_service_disabled_title">位置情報サービスを無効化されています。</string>
-    <string name="dialog_location_service_disabled_message">確認をクリックして位置情報サービスを活性化します。</string>
+    <string name="dialog_location_service_disabled_title">位置情報サービスが無効になっています。</string>
+    <string name="dialog_location_service_disabled_message">確認をタップし、位置情報サービスの設定をしてください。</string>
 
     <!-- Unlock - Recommend -->
     <string name="unlock_recommend">友達にこのアプリを薦めば、この機能を無料で使うことができます。</string>
