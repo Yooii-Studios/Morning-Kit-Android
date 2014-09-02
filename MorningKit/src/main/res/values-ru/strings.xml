@@ -20,7 +20,7 @@
 	<string name="alarm_default_label">Будильник</string>
 	<string name="alarm_am">AM</string>
 	<string name="alarm_pm">PM</string>
-	<string name="alarm_snooze_stirng">Ваш будильник возобновит работy через 9 минут</string>
+	<string name="alarm_snooze_string">Ваш будильник возобновит работy через 9 минут</string>
 
 	<!-- Alarm Toaster -->
 	<string name="alarm_set_toast_part1">Установка будильника для </string>
@@ -40,7 +40,7 @@
 	<string name="alarm_pref_repeat_weekdays">Будни</string>
 	<string name="alarm_pref_repeat_weekends">Выходные</string>
 	<string name="alarm_pref_repeat_everyday">Каждый день</string>
-	<string name="alarm_pref_pick_your_favorite_sond">Выбрать песню</string>
+	<string name="alarm_pref_pick_your_favorite_song">Выбрать песню</string>
 
 	<!-- Repeat -->
 	<string name="every_monday">Каждый Понедельник</string>
@@ -184,6 +184,8 @@
 	<string name="setting_language_simplified_chinese">简体中文</string>
 	<string name="setting_language_traditional_chinese">繁體中文</string>
 	<string name="setting_language_russian">Русский</string>
+    <string name="setting_language_spanish">Español</string>
+    <string name="setting_language_french">Français</string>
 
 	<!-- Setting (Effect sound) -->
 	<string name="setting_effect_sound">Звуковой эффект</string>
@@ -224,8 +226,8 @@
 	<!-- Store -->
 	<string name="store_no_purchase_records">Нет данных о покупках</string>
 	<string name="store_restore_purchases">Восстановить покупки</string>
-	<string name="store_restore">Восстановить</string>
-	<string name="store_purchased">Купленные</string>
+    <string name="store_purchased">Приобретенные</string>
+    <string name="store_restore">Восстановить</string>
 	<string name="store_restore_success_message">Все покупки были восстановлены</string>
 	<string name="store_buy_full_version">Купить полную версию!</string>
 	<string name="store_buy_full_version_description">Обновить чтобы разблокировать все Функции, Панели и Темы</string>
@@ -299,15 +301,15 @@
     <string name="photo_album_second_hint">сек</string>
     <string name="photo_album_second">сек</string>
     <string name="photo_album_transition_none">ни один</string>
-    <string name="photo_album_transition_alpha">прозрачность</string>
+    <string name="photo_album_transition_alpha">исчезать</string>
     <string name="photo_album_load">Выберите</string>
 
         <!-- News Feed -->
-    <string name="news_feed">News Feed</string>
-    <string name="news_feed_url_dialog_title">Enter RSS URL</string>
-    <string name="news_feed_url_dialog_reset">Reset</string>
-    <string name="news_feed_invalid_url">Invalid RSS</string>
-    <string name="news_feed_feed_unavailable">News Feed unavailable</string>
+    <string name="news_feed">новости</string>
+    <string name="news_feed_url_dialog_title">Введите RSS</string>
+    <string name="news_feed_url_dialog_reset">сброс</string>
+    <string name="news_feed_invalid_url">Неверный RSS</string>
+    <string name="news_feed_feed_unavailable">Новый недоступен сейчас</string>
 
         <!-- Cat -->
     <string name="cat">Cat</string>
@@ -322,5 +324,9 @@
     <string name="recommend_title">Настоятельно рекомендуем!</string>
     <string name="recommend_description">Просто нажмите кнопку и скачать :-)</string>
     <string name="recommend_app_full_name">Утренний Kомплект</string>
+
+    <!-- Location -->
+    <string name="dialog_location_service_disabled_title">Адрес услуги отключены</string>
+    <string name="dialog_location_service_disabled_message">Нажмите OK, чтобы включить службы определения местонахождения</string>
 
 </resources>

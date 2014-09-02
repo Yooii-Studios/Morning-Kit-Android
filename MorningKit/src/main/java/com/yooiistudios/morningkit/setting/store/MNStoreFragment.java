@@ -28,6 +28,8 @@ import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.number.MNDecimalFormatUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
+import com.yooiistudios.morningkit.panel.core.MNPanel;
+import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManagerListener;
@@ -36,6 +38,8 @@ import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.store.util.IabResult;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.store.util.Purchase;
+import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
+import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixType;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
 import java.util.ArrayList;
@@ -237,6 +241,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             fullVersionButtonTextView.setText(R.string.store_purchased);
             fullVersionImageView.setClickable(false);
             fullVersionButtonImageView.setClickable(false);
+
+            // 풀버전 구매시 2X3으로 매트릭스 변경
+            apply2X3MatrixAfterFullVersionPurchase();
         } else {
             // Others
             List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
@@ -373,6 +380,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             SKIabProducts.saveIabProduct(SKIabProducts.SKU_FULL_VERSION, getActivity());
             initUI();
             initFullVersionUIDebug();
+            // 디버그 모드도 풀버전 구매시 2X3으로 매트릭스 변경
+            apply2X3MatrixAfterFullVersionPurchase();
         }
     }
 
@@ -418,7 +427,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 // 프레퍼런스에 저장
                 SKIabProducts.saveIabProduct(info.getSku(), getActivity());
                 updateUIAfterPurchase(info);
-            } else if (info != null) {
+            } else if (info == null) {
                 showComplain("No purchase info");
             } else {
                 showComplain("Payload problem");
@@ -474,7 +483,6 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             SKIabProducts.resetIabProductsDebug(getActivity());
             initUI();
             initFullVersionUIDebug();
-
         }
     }
 
@@ -647,6 +655,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             fullVersionButtonTextView.setText(R.string.store_purchased);
             fullVersionImageView.setClickable(false);
             fullVersionButtonImageView.setClickable(false);
+
+            // 풀버전 구매시 2X3으로 매트릭스 변경
+            apply2X3MatrixAfterFullVersionPurchase();
         }
         // Others
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
@@ -662,5 +673,12 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
 //        if (!isNaverStoreFinishLoading) {
 //            onFirstStoreLoading();
 //        }
+    }
+
+    private void apply2X3MatrixAfterFullVersionPurchase() {
+        // 2X3을 기본으로 바꾸어 주고, 5, 6번째 패널을 날짜 계산, 사진첩 패널로 바꾸어주기
+        MNPanelMatrix.setPanelMatrixType(MNPanelMatrixType.PANEL_MATRIX_2X3, getActivity());
+        MNPanel.changeToEmptyDataPanel(getActivity(), MNPanelType.DATE_COUNTDOWN.getUniqueId(), 4);
+        MNPanel.changeToEmptyDataPanel(getActivity(), MNPanelType.PHOTO_FRAME.getUniqueId(), 5);
     }
 }

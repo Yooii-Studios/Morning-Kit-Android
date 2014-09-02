@@ -53,7 +53,7 @@ public class MNPanel {
                     panelDataList.add(makeDefaultJSONObject(0, MNPanelType.WEATHER.getUniqueId()));
                     panelDataList.add(makeDefaultJSONObject(1, MNPanelType.DATE.getUniqueId()));
                     panelDataList.add(makeDefaultJSONObject(2, MNPanelType.WORLD_CLOCK.getUniqueId()));
-                    panelDataList.add(makeDefaultJSONObject(3, MNPanelType.QUOTES.getUniqueId()));
+                    panelDataList.add(makeDefaultJSONObject(3, MNPanelType.NEWS_FEED.getUniqueId()));
                     panelDataList.add(makeDefaultJSONObject(4, MNPanelType.CALENDAR.getUniqueId()));
                     panelDataList.add(makeDefaultJSONObject(5, MNPanelType.FLICKR.getUniqueId()));
                 } catch (JSONException e) {
@@ -109,6 +109,6 @@ public class MNPanel {
         // Archive
         String jsonString = new Gson().toJson(MNPanel.getInstance(context).panelDataList);
         context.getSharedPreferences(PANEL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                .edit().putString(PANEL_DATA_LIST_KEY, jsonString).commit();
+                .edit().putString(PANEL_DATA_LIST_KEY, jsonString).apply();
     }
 }

@@ -848,8 +848,9 @@ public class NumberPicker extends LinearLayout {
                     postChangeCurrentByOneFromLongPress(
                             true, ViewConfiguration.getLongPressTimeout());
                 } else {
-                    mShowSoftInputOnTap = true;
-                    postBeginSoftInputOnLongPressCommand();
+//                    mShowSoftInputOnTap = true;
+                    mShowSoftInputOnTap = false;
+//                    postBeginSoftInputOnLongPressCommand();
                 }
                 return true;
             }

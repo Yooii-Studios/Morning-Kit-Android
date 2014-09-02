@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
@@ -29,6 +28,7 @@ import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.ad.MNAdUtils;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
+import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.review.MNReviewUtil;
@@ -76,11 +76,11 @@ import lombok.Getter;
  *  앱에서 가장 중요한 메인 액티비티
  */
 public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutorialFinishListener {
-    private static final String TAG = "MNMainActivity";
+//    private static final String TAG = "MNMainActivity";
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
-    @Getter @InjectView(R.id.main_scroll_content_layout)    LinearLayout scrollContentLayout;
+//    @Getter @InjectView(R.id.main_scroll_content_layout)    LinearLayout scrollContentLayout;
     @Getter @InjectView(R.id.main_widget_window_layout)     MNPanelWindowLayout panelWindowLayout;
     @Getter @InjectView(R.id.main_alarm_list_view)          MNMainAlarmListView alarmListView;
     @Getter @InjectView(R.id.main_button_layout)            MNMainButtonLayout buttonLayout;
@@ -239,10 +239,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     @Override
     protected void onResume() {
         super.onResume();
-        MNLog.i(TAG, "onResume");
-
-        int orientation = getResources().getConfiguration().orientation;
-
         // Activity visible to user
         MNAlarmScrollViewBusProvider.getInstance().register(this);
 
@@ -340,12 +336,16 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
      */
     @Override
     public void onConfigurationChanged(final Configuration newConfig) {
+
+        // 튜토리얼 체크
         if (MNTutorialManager.isTutorialShown(getApplicationContext())) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         }
-
         super.onConfigurationChanged(newConfig);
-        MNLog.i(TAG, "onConfigurationChanged");
+
+        // 회전마다 Locale 을 새로 적용해줌(언어가 바뀌어 버리는 문제 해결)
+        MNLocaleUtils.updateLocale(this);
+
         // 스크롤뷰
         MNMainLayoutSetter.adjustScrollViewLayoutParamsAtOrientation(scrollView, newConfig.orientation);
 
@@ -654,7 +654,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
                 // 풀 버전일 때 따로 2X3 / 2X2 체크
                 MNPanelMatrixType currentPanelMatrixType = MNPanelMatrix.getCurrentPanelMatrixType(MNMainActivity.this);
-                MNLog.now(currentPanelMatrixType.toString());
                 Map<String, String> panelMatrixParams = new HashMap<String, String>();
                 panelMatrixParams.put(MNFlurry.PANEL_MATRIX_TYPE, currentPanelMatrixType.toString());
                 if (isFullVersionBought) {
@@ -667,7 +666,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(MNMainActivity.this);
                 Map<String, String> languageParams = new HashMap<String, String>();
                 languageParams.put(MNFlurry.LANGUAGE,
-                        MNLanguageType.toEnglishString(currentLanguageType.getIndex(), MNMainActivity.this));
+                        MNLanguageType.toEnglishString(currentLanguageType.getIndex()));
                 FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, languageParams);
 
                 // 테마 체크

@@ -29,11 +29,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
+import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNRssFetchTask;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
@@ -46,6 +46,8 @@ import org.json.JSONException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 import nl.matshofman.saxrssreader.RssFeed;
 import nl.matshofman.saxrssreader.RssItem;
@@ -56,7 +58,7 @@ import nl.matshofman.saxrssreader.RssItem;
  * MNNewsFeedPanelLayout
  */
 public class MNNewsFeedPanelLayout extends MNPanelLayout {
-    private static final String TAG = MNNewsFeedPanelLayout.class.getName();
+//    private static final String TAG = MNNewsFeedPanelLayout.class.getName();
 
     public static final String PREF_NEWS_FEED = "news feed preference";
     public static final String KEY_FEED_URL = "feed url";
@@ -64,10 +66,10 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     public static final String KEY_RSS_FEED = "rss feed";
     public static final String KEY_RSS_ITEMS = "rss items";
     public static final String KEY_DISPLAYING_NEWS = "displaying news";
-    private static final int NEWS_FEED_HANDLER_DELAY = 4000;
+    private static final int NEWS_FEED_HANDLER_DELAY = 5000;
     private static final int NEWS_FEED_ANIMATION_DURATION = 250;
     private static final int NEWS_FEED_ANIMATION_FADE_DURATION = 200;
-    private static final int INVALID_NEWS_IDX = -1;
+//    private static final int INVALID_NEWS_IDX = -1;
 
     // views
     private AutoResizeTextView newsFeedTextView;
@@ -77,6 +79,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     private MNNewsFeedUrl loadingFeedUrl;
     private RssFeed feed;
     private RssItem currentDisplayingItem;
+    private ArrayList<RssItem> shuffledRssItemList;
     private int newsIdx;
 
     private MNRssFetchTask rssFetchTask;
@@ -139,12 +142,21 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
 
         SharedPreferences prefs = getContext().getSharedPreferences(
                 PREF_NEWS_FEED, Context.MODE_PRIVATE);
+        Context context = getContext().getApplicationContext();
         Type urlType = new TypeToken<MNNewsFeedUrl>(){}.getType();
 
         if (getPanelDataObject().has(KEY_LOADING_FEED_URL)) {
 //            loadingFeedUrl = getPanelDataObject().getString(KEY_LOADING_FEED_URL);
             loadingFeedUrl = new Gson().fromJson(getPanelDataObject().getString
                     (KEY_LOADING_FEED_URL), urlType);
+
+            if (!loadingFeedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
+                loadingFeedUrl = MNNewsFeedUtil.getDefaultFeedUrl(context);
+                getPanelDataObject().put(KEY_LOADING_FEED_URL,
+                        new Gson().toJson(loadingFeedUrl));
+                prefs.edit().putString(KEY_LOADING_FEED_URL,
+                        new Gson().toJson(loadingFeedUrl)).apply();
+            }
         }
         else {
             loadingFeedUrl = null;
@@ -157,6 +169,14 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
 //                feedUrl = getPanelDataObject().getString(KEY_FEED_URL);
                 feedUrl = new Gson().fromJson(
                         getPanelDataObject().getString(KEY_FEED_URL), urlType);
+
+                if (!feedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
+                    feedUrl = MNNewsFeedUtil.getDefaultFeedUrl(context);
+                    getPanelDataObject().put(KEY_FEED_URL,
+                            new Gson().toJson(feedUrl));
+                    prefs.edit().putString(KEY_FEED_URL,
+                            new Gson().toJson(feedUrl)).apply();
+                }
             }
             else {
                 String savedUrl = prefs.getString(KEY_FEED_URL, null);
@@ -168,7 +188,10 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 }
 //                feedUrl = prefs.getString(KEY_FEED_URL,
 //                        MNNewsFeedUtil.getDefaultFeedUrl(getContext()));
-                getPanelDataObject().put(KEY_FEED_URL, new Gson().toJson(feedUrl));
+                getPanelDataObject().put(KEY_FEED_URL,
+                        new Gson().toJson(feedUrl));
+                prefs.edit().putString(KEY_FEED_URL,
+                        new Gson().toJson(feedUrl)).apply();
             }
             //메인에서 이전 피드 캐싱해서 보여주던 루틴 없엠.(피드 url이 바뀐 경우 의미 없음)
             if (getPanelDataObject().has(KEY_RSS_FEED)
@@ -209,7 +232,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         }
 
         rssFetchTask = new MNRssFetchTask(getContext().getApplicationContext(),
-                new MNRssFetchTask.OnFetchListener() {
+                url, new MNRssFetchTask.OnFetchListener() {
             @Override
             public void onFetch(RssFeed rssFeed) {
                 stopHandler();
@@ -239,7 +262,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 updateUI();
             }
         });
-        rssFetchTask.execute(url);
+        rssFetchTask.execute();
         startLoadingAnimation();
     }
 
@@ -248,6 +271,9 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         this.loadingFeedUrl = null;
         this.feed = feed;
         newsIdx = 0;
+
+        shuffledRssItemList = new ArrayList<RssItem>(feed.getRssItems());
+        Collections.shuffle(shuffledRssItemList, new Random(System.nanoTime()));
     }
 
     @Override
@@ -259,6 +285,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     private void showCurrentFeed() {
         if (feed != null && feed.getRssItems().size() > 0) {
             hideCoverLayout();
+
             if (!isHandlerRunning) {
                 // if handler is not running, news won't be shown. So show
                 // next news forcefully.
@@ -276,8 +303,6 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     @Override
     protected void archivePanelData() throws JSONException {
         super.archivePanelData();
-
-        MNLog.i(TAG, "archivePanelData");
     }
 
     private void archivePanelData_() throws JSONException {
@@ -405,9 +430,6 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         if (getPanelDataObject().has(KEY_LOADING_FEED_URL)) {
             needToLoad = true;
         }
-//        if (rssFetchTask != null) {
-//            rssFetchTask.cancel(false);
-//        }
     }
 
     private void startHandler() {
@@ -426,33 +448,22 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         newsHandler.removeMessages(0);
     }
     private void showNextNews() {
-        if (newsIdx >= feed.getRssItems().size()) {
+        if (newsIdx >= shuffledRssItemList.size()) {
             newsIdx = 0;
         }
-        currentDisplayingItem = feed.getRssItems().get(newsIdx++);
+        currentDisplayingItem = shuffledRssItemList.get(newsIdx++);
 
         applyTheme();
-//        newsFeedTextView.setText(currentDisplayingItem.getTitle());
     }
 
     private MNQuotesHandler newsHandler = new MNQuotesHandler();
     private class MNQuotesHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
+            // 튜토리얼이 끝난 후부터 뉴스 갱신
             if (MNTutorialManager.isTutorialShown(getContext().getApplicationContext())) {
-//                Animation hideAnimation = AnimationUtils.loadAnimation(
-//                        getContext().getApplicationContext(), R.anim.quotes_hide);
                 AnimationSet hideSet = new AnimationSet(true);
                 hideSet.setInterpolator(new AccelerateInterpolator());
-
-//                Animation moveOutAnim = new TranslateAnimation
-//                        (Animation.RELATIVE_TO_SELF, 0.0f,
-//                                Animation.RELATIVE_TO_SELF, -0.5f,
-//                                Animation.RELATIVE_TO_SELF, 0.0f,
-//                                Animation.RELATIVE_TO_SELF, 0.0f);
-//                moveOutAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
-//                moveOutAnim.setFillEnabled(true);
-//                moveOutAnim.setFillAfter(true);
 
                 Animation moveUpAnim = new TranslateAnimation
                         (Animation.RELATIVE_TO_SELF, 0.0f,
@@ -481,21 +492,10 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                         public void onAnimationEnd(Animation animation) {
                             // 뉴스 갱신
                             showNextNews();
-                            // 다시 보여주기
-//                            Animation showAnimation = AnimationUtils.loadAnimation(
-//                                    getContext().getApplicationContext(), R.anim.quotes_show);
 
+                            // 다시 보여주기
                             AnimationSet showSet = new AnimationSet(false);
                             showSet.setInterpolator(new DecelerateInterpolator());
-
-//                            Animation moveInAnim = new TranslateAnimation
-//                                    (Animation.RELATIVE_TO_SELF, 0.5f,
-//                                            Animation.RELATIVE_TO_SELF, 0.0f,
-//                                            Animation.RELATIVE_TO_SELF, 0.0f,
-//                                            Animation.RELATIVE_TO_SELF, 0.0f);
-//                            moveInAnim.setDuration(NEWS_FEED_ANIMATION_DURATION);
-//                            moveInAnim.setFillEnabled(true);
-//                            moveInAnim.setFillAfter(true);
 
                             Animation moveDownAnim = new TranslateAnimation
                                     (Animation.RELATIVE_TO_SELF, 0.0f,
@@ -522,10 +522,9 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                     });
                     newsFeedTextView.startAnimation(hideSet);
                 }
-
-                // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
-                newsHandler.sendEmptyMessageDelayed(0, NEWS_FEED_HANDLER_DELAY);
             }
+            // tick 의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
+            newsHandler.sendEmptyMessageDelayed(0, NEWS_FEED_HANDLER_DELAY);
         }
     }
 }

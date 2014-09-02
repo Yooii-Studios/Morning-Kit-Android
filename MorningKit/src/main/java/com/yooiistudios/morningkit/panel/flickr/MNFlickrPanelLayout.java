@@ -111,7 +111,7 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
             photoInfoFetchAsyncTask.cancel(true);
         }
 
-        // 기존에 읽었던 플리커 정보 로딩 - Gson으로 캐스팅
+        // 기존에 읽었던 플리커 정보 로딩 - Gson 으로 캐스팅
         if (getPanelDataObject().has(FLICKR_DATA_FLICKR_INFO)) {
             String flickrInfoString = getPanelDataObject().getString(FLICKR_DATA_FLICKR_INFO);
             Type type = new TypeToken<MNFlickrPhotoInfo>(){}.getType();

@@ -46,6 +46,6 @@ public class MNSound {
     public static void setSoundType(MNSoundType newSoundType, Context context) {
         MNSound.getInstance(context).currentSoundType = newSoundType;
         context.getSharedPreferences(SOUND_EFFECTS_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                .edit().putInt(SOUND_EFFECTS_KEY, newSoundType.getUniqueId()).commit();
+                .edit().putInt(SOUND_EFFECTS_KEY, newSoundType.getUniqueId()).apply();
     }
 }

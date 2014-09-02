@@ -4,5 +4,11 @@
 
     <item android:drawable="@drawable/cat_morning_set_2_1" android:duration="800" />
     <item android:drawable="@drawable/cat_morning_set_2_2" android:duration="800" />
+    <item android:drawable="@drawable/cat_morning_set_2_3" android:duration="800" />
+    <item android:drawable="@drawable/cat_morning_set_2_4" android:duration="800" />
+    <item android:drawable="@drawable/cat_morning_set_2_5" android:duration="800" />
+    <item android:drawable="@drawable/cat_morning_set_2_6" android:duration="800" />
+    <item android:drawable="@drawable/cat_morning_set_2_7" android:duration="800" />
+    <item android:drawable="@drawable/cat_morning_set_2_8" android:duration="800" />
 
 </animation-list>

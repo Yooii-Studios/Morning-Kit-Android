@@ -4,5 +4,7 @@
 
     <item android:drawable="@drawable/cat_evening_set_2_1" android:duration="800" />
     <item android:drawable="@drawable/cat_evening_set_2_2" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_2_3" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_2_4" android:duration="800" />
 
 </animation-list>

@@ -33,9 +33,9 @@ public class MNCalendarUtils {
         return null;
     }
 
-    public static void saveCaeldnarModels(boolean[] selectedCalendarArr, Context context) {
+    public static void saveCalendarModels(boolean[] selectedCalendarArr, Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-        prefs.edit().putString(PREFS_KEY, new Gson().toJson(selectedCalendarArr)).commit();
+        prefs.edit().putString(PREFS_KEY, new Gson().toJson(selectedCalendarArr)).apply();
     }
 
     public static void sort(ArrayList<MNCalendarEvent> calendarEventList) {

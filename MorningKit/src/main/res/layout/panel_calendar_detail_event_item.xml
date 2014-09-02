@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/margin_inner"
             android:paddingRight="@dimen/margin_inner"
+            android:layout_marginTop="@dimen/panel_calendar_item_divider_height"
             android:layout_marginLeft="@dimen/margin_inner"
             android:background="@drawable/shape_rounded_view_pastel_green_calendar_detail_ampm"
             android:text="@string/alarm_pm"

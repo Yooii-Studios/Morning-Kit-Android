@@ -45,7 +45,7 @@ import static com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout.WEA
  * MNWeatherDetailFragment
  */
 public class MNWeatherDetailFragment extends MNPanelDetailFragment implements AdapterView.OnItemClickListener, TextWatcher, MNWeatherLocationInfoLoader.OnWeatherLocatinInfoLoaderListener, MNWeatherLocationInfoSearchAsyncTask.MNWeatherLocationInfoSearchAsyncTaskListener {
-    private static final String TAG = "MNWeatherDetailFragment";
+//    private static final String TAG = "MNWeatherDetailFragment";
 
     @InjectView(R.id.panel_detail_weather_use_current_location_check_image_button)      ImageButton     useCurrentLocationCheckImageButton;
 
@@ -141,7 +141,7 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
         }
 
         setUseCurrentLocationState();
-        initCheckedChangeListners();
+        initCheckedChangeListeners();
 
         // edit text
         searchEditText.addTextChangedListener(this);
@@ -151,7 +151,13 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
         searchListView.setAdapter(listAdapter);
         if (selectedLocationInfo != null) {
             searchEditText.setText(selectedLocationInfo.getName());
-            searchEditText.setSelection(selectedLocationInfo.getName().length());
+            try {
+                if (selectedLocationInfo.getName() != null) {
+                    searchEditText.setSelection(selectedLocationInfo.getName().length());
+                }
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+            }
         }
 
         // list view
@@ -161,7 +167,7 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
         initTheme();
     }
 
-    private void initCheckedChangeListners() {
+    private void initCheckedChangeListeners() {
         useCurrentLocationCheckImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -218,6 +224,16 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
             useCurrentLocationCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
             searchEditLayout.setVisibility(View.GONE);
             searchListViewLayout.setVisibility(View.GONE);
+
+            // 현재위치를 누를 때 키보드가 떠 있다면 없애주기
+            try {
+                InputMethodManager inputManager =
+                        (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);   //mPwd는 EditText의 변수 - 내리기
+//			inputManager.showSoftInput(edit_query, 0); //올리기 단, mPwd에 Focus 가야 됨. ( mPwd.requestFocus(); )
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             useCurrentLocationCheckImageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
             searchEditLayout.setVisibility(View.VISIBLE);
@@ -286,10 +302,16 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     @Override
     public void OnWeatherLocationInfoLoad(List<MNWeatherLocationInfo> weatherLocationInfoList) {
         locationInfoList = weatherLocationInfoList;
-        if (selectedLocationInfo != null) {
+        if (selectedLocationInfo != null && searchEditText != null) {
             searchEditText.setText(selectedLocationInfo.getName());
-            searchEditText.setSelection(selectedLocationInfo.getName().length());
-            searchCity(selectedLocationInfo.getName());
+            try {
+                if (selectedLocationInfo.getName() != null) {
+                    searchEditText.setSelection(selectedLocationInfo.getName().length());
+                }
+                searchCity(selectedLocationInfo.getName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

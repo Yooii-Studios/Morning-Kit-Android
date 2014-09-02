@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.text.Html;
 
+import com.flurry.android.FlurryAgent;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
 
@@ -13,6 +15,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 import nl.matshofman.saxrssreader.RssFeed;
 import nl.matshofman.saxrssreader.RssItem;
@@ -24,34 +28,37 @@ import nl.matshofman.saxrssreader.RssReader;
 public class MNRssFetchTask extends AsyncTask<MNNewsFeedUrl, Void, RssFeed> {
 //    private String mRssUrl;
     private Context mContext;
+    private MNNewsFeedUrl mFeedUrl;
     private OnFetchListener mOnFetchListener;
 
     private static final int MAX_DESCRIPTION_LENGTH = 200;
     private static final String ILLEGAL_CHARACTER_OBJ = Character.toString((char)65532);
 
-    public MNRssFetchTask(Context context, OnFetchListener onFetchListener) {
+    public MNRssFetchTask(Context context, MNNewsFeedUrl feedUrl,
+                          OnFetchListener onFetchListener) {
 //        mRssUrl = rssUrl;
+        mFeedUrl = feedUrl;
         mOnFetchListener = onFetchListener;
     }
 
     @Override
     protected RssFeed doInBackground(MNNewsFeedUrl... args) {
 
-        if (args == null || args.length <= 0) {
-            //error
-            return null;
-        }
-        MNNewsFeedUrl feedUrl = args[0];
+//        if (args == null || args.length <= 0) {
+//            //error
+//            return null;
+//        }
+//        MNNewsFeedUrl feedUrl = args[0];
 
-        if (!feedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
+        if (!mFeedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
             // 디폴트 세팅을 사용할 경우 패널단에서 언어설정을 감지 못하므로 무조건 현재 언어의
             // 디폴트 url을 가져온다.
-            feedUrl = MNNewsFeedUtil.getDefaultFeedUrl(mContext);
+            mFeedUrl = MNNewsFeedUtil.getDefaultFeedUrl(mContext);
         }
 
         RssFeed feed = null;
         try {
-            URL url = new URL(feedUrl.getUrl());
+            URL url = new URL(mFeedUrl.getUrl());
 //            InputStream is = url.openStream();
             URLConnection conn = url.openConnection();
 
@@ -92,11 +99,19 @@ public class MNRssFetchTask extends AsyncTask<MNNewsFeedUrl, Void, RssFeed> {
             return;
         }
 
-        if (rssFeed != null) {
+        if (rssFeed != null && rssFeed.getRssItems() != null) {
             // success
             if (mOnFetchListener != null) {
                 mOnFetchListener.onFetch(rssFeed);
             }
+
+            // flurry
+            Map<String, String> params = new HashMap<String, String>();
+            params.put(MNFlurry.NEWS,
+                    mFeedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM) ?
+                    "Custom RSS" : "Default News");
+            FlurryAgent.logEvent(MNFlurry.PANEL, params);
+
 //            ArrayList<RssItem> rssItems = rssFeed.getRssItems();
 //            for (RssItem rssItem : rssItems) {
 //                Log.i("RSS Reader", rssItem.getTitle());

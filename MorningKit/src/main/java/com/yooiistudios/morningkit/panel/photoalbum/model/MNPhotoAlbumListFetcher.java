@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Dongheyon Jeong on in My Application 3 from Yooii Studios Co., LTD. on 2014. 5. 9.
+ *
+ * MNPhotoAlbumListFetcher
  */
 public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
         ArrayList<String>> {
@@ -71,7 +73,11 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
     }
 
     public static ArrayList<String> getFileList(File rootDir, File curDir,
-                                                String mimetype) {
+                                                String mimeType) {
+        // 둘 다 null 이라면 제대로 얻을 수 없어서 체크 필요 - by 우성
+        if (curDir == null && rootDir == null) {
+            return null;
+        }
         ArrayList<String> inFiles = new ArrayList<String>();
         File[] files =
                 curDir != null ? curDir.listFiles() : rootDir.listFiles();
@@ -85,9 +91,9 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
                 }
             }
             if (file.isDirectory()) {
-                inFiles.addAll(getFileList(rootDir, file, mimetype));
+                inFiles.addAll(getFileList(rootDir, file, mimeType));
             } else {
-                if (checkMimetype(file, mimetype)) {
+                if (checkMimetype(file, mimeType)) {
                     String relativePath = file.getAbsolutePath().replace(
                             rootDir.getAbsolutePath(), "");
                     inFiles.add(relativePath);
@@ -98,9 +104,9 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
     }
 
     public static boolean checkMimetype(File fileToCheck,
-                                        String mimetypeToCompare) {
+                                        String mimeTypeToCompare) {
 
-        if (mimetypeToCompare == null) {
+        if (mimeTypeToCompare == null) {
             return true;
         }
 
@@ -114,19 +120,14 @@ public class MNPhotoAlbumListFetcher extends AsyncTask<Void, Void,
         String path;
         try {
             path = URLEncoder.encode(urlOfFile.toString(), "UTF-8");
-            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(path);
+            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(path).toLowerCase();
             MimeTypeMap mime = MimeTypeMap.getSingleton();
-            String mimetype = mime.getMimeTypeFromExtension(fileExtension);
+            String mimeType = mime.getMimeTypeFromExtension(fileExtension);
 
-            if (mimetype == null) {
+            if (mimeType == null) {
                 return false;
-            }
-            else {
-                if (mimetype.contains(mimetypeToCompare)) {
-                    return true;
-                } else {
-                    return false;
-                }
+            } else {
+                return mimeType.contains(mimeTypeToCompare);
             }
         } catch(UnsupportedEncodingException e) {
             e.printStackTrace();

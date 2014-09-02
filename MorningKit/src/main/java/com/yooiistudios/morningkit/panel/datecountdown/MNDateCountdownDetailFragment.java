@@ -81,6 +81,10 @@ public class MNDateCountdownDetailFragment extends MNPanelDetailFragment {
 
     @Override
     protected void archivePanelData() throws JSONException {
+        if (customDatePicker != null) {
+            customDatePicker.clearFocus();
+        }
+
         // title
         String titleString = titleEditText.getText().toString();
         // 새해 체크해주기

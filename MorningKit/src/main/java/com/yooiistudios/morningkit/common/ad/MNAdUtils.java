@@ -38,27 +38,28 @@ public class MNAdUtils {
 
     public static void checkFullScreenAdCount(Activity activity) {
 
-        List<String> owndedSkus =  SKIabProducts.loadOwnedIabProducts(activity);
+        List<String> ownedSkus =  SKIabProducts.loadOwnedIabProducts(activity);
 
         // 풀버전이나 광고 구매를 하지 않았을 경우만 진행
-        if (!owndedSkus.contains(SKIabProducts.SKU_FULL_VERSION) &&
-        !owndedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
-            // 10회 이상 실행, 5회 카운트 계산
+        if (!ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION) &&
+        !ownedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
+            // 12회 이상 실행, 5회 카운트 계산
             SharedPreferences prefs = activity.getSharedPreferences(KEY, Context.MODE_PRIVATE);
             int launchCount = prefs.getInt(LAUNCH_COUNT, 0);
-            // 10회 이상 실행부터 계속 5배수 실행 카운트 체크
-            if (launchCount >= 4) {
+            // 12회 이상 실행부터 계속 5배수 실행 카운트 체크 - 10회는 리뷰 남기기 메시지.
+            // 일정 카운트 이상부터는 launchCount 는 더 증가시킬 필요가 없음
+            if (launchCount >= 6) {
                 int eachLaunchCount = prefs.getInt(EACH_LAUNCH_COUNT, 0);
                 if (eachLaunchCount == 4) {
                     // 5회 실행시마다 초기화
-                    prefs.edit().remove(EACH_LAUNCH_COUNT).commit();
+                    prefs.edit().remove(EACH_LAUNCH_COUNT).apply();
 
                     // 광고 실행
                     MNLanguageType currentLagunageType = MNLanguage.getCurrentLanguageType(activity);
                     if (currentLagunageType != MNLanguageType.JAPANESE) {
                         // Admob
                         final InterstitialAd fullScreenAdView = new InterstitialAd(activity);
-                        fullScreenAdView.setAdUnitId("a15278abca8d8ec");
+                        fullScreenAdView.setAdUnitId("ca-app-pub-2310680050309555/2209471823");
                         fullScreenAdView.setAdListener(new AdListener() {
                             @Override
                             public void onAdLoaded() {
@@ -76,7 +77,7 @@ public class MNAdUtils {
                         // 4820 = publisher ID = Yooii Studios
                         // 20 = App ID = Morning Kit
                         // 8 = Sketch Kit, 테스트용
-                        DGService dgService = sdk.OpenService(4820, 8, 2, Constants.ServiceCategories.INTERSTITIAL, activity);
+                        DGService dgService = sdk.OpenService(4820, 8, 20, Constants.ServiceCategories.INTERSTITIAL, activity);
 
                         // 리스너 테스트용, 나중에 배너에서 활용
 //                        dgService.setOneSDKListeners(new OneSDKListeners() {
@@ -111,11 +112,11 @@ public class MNAdUtils {
                     }
                 } else {
                     eachLaunchCount++;
-                    prefs.edit().putInt(EACH_LAUNCH_COUNT, eachLaunchCount).commit();
+                    prefs.edit().putInt(EACH_LAUNCH_COUNT, eachLaunchCount).apply();
                 }
             } else {
                 launchCount++;
-                prefs.edit().putInt(LAUNCH_COUNT, launchCount).commit();
+                prefs.edit().putInt(LAUNCH_COUNT, launchCount).apply();
             }
         }
     }

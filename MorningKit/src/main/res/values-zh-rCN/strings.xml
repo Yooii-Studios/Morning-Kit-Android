@@ -20,7 +20,7 @@
 	<string name="alarm_default_label">闹钟</string>
 	<string name="alarm_am">上午</string>
 	<string name="alarm_pm">下午</string>
-	<string name="alarm_snooze_stirng">9分钟后闹钟重新启动</string>
+	<string name="alarm_snooze_string">9分钟后闹钟重新启动</string>
 
 	<!-- Alarm Toaster -->
 	<string name="alarm_set_toast_part1">现在距离您设定的时间还有</string>
@@ -40,7 +40,7 @@
 	<string name="alarm_pref_repeat_weekdays">工作日</string>
 	<string name="alarm_pref_repeat_weekends">周末</string>
 	<string name="alarm_pref_repeat_everyday">每天</string>
-	<string name="alarm_pref_pick_your_favorite_sond">选取一首歌曲</string>
+	<string name="alarm_pref_pick_your_favorite_song">选取一首歌曲</string>
 
 	<!-- Repeat -->
 	<string name="every_monday">每周一</string>
@@ -67,7 +67,7 @@
 
 	<!-- Alarm Wake -->
 	<string name="alarm_wake_snooze">小睡</string>
-	<string name="alarm_wake_dismiss">好</string>
+	<string name="alarm_wake_dismiss">关闭闹钟</string>
 
 	<!-- Alarm Sound -->
 	<string name="alarm_sound_string_none">静音</string>
@@ -184,6 +184,8 @@
 	<string name="setting_language_simplified_chinese">简体中文</string>
 	<string name="setting_language_traditional_chinese">繁體中文</string>
 	<string name="setting_language_russian">Русский</string>
+    <string name="setting_language_spanish">Español</string>
+    <string name="setting_language_french">Français</string>
 
 	<!-- Setting (Effect sound) -->
 	<string name="setting_effect_sound">声音特效</string>
@@ -192,7 +194,6 @@
 
 	<!-- Tutorial -->
 	<string name="tutorial_select_theme">请选择一个主题背景</string>
-	<string name="tutorial1_skip_tutorial">跳过教程</string>
 
 	<!-- Tutorial1 - Description -->
 	<string name="tutorial1_label1">您可以重新安排面板</string>
@@ -201,6 +202,7 @@
 	<string name="tutorial1_label4">刷新</string>
 	<string name="tutorial1_label5">设置</string>
 	<string name="tutorial1_tap_screen">点击屏幕</string>
+    <string name="tutorial1_skip_tutorial">跳过教程</string>
 
 	<!-- Unlock -->
 	<string name="unlock_notice">公告</string>
@@ -224,10 +226,10 @@
 	<!-- Store -->
 	<string name="store_no_purchase_records">无购买纪录</string>
 	<string name="store_restore_purchases">恢复购买</string>
-	<string name="store_purchased">购买完了</string>
+	<string name="store_purchased">已购买</string>
 	<string name="store_restore">恢复</string>
 	<string name="store_restore_success_message">恢复购买成功</string>
-	<string name="store_buy_full_version">￼购买完整版!</string>
+	<string name="store_buy_full_version">购买完整版!</string>
 	<string name="store_buy_full_version_description">可以使用无限制闹铃数量、完整面板、全部功能和主题背景</string>
 	<string name="store_tab_functions">功能</string>
 	<string name="store_tab_widgets">面板</string>
@@ -299,28 +301,32 @@
     <string name="photo_album_second_hint">秒</string>
     <string name="photo_album_second">秒</string>
     <string name="photo_album_transition_none">无</string>
-    <string name="photo_album_transition_alpha">无</string>
+    <string name="photo_album_transition_alpha">淡入淡出</string>
     <string name="photo_album_load">载入</string>
 
         <!-- News Feed -->
-    <string name="news_feed">News Feed</string>
-    <string name="news_feed_url_dialog_title">Enter RSS URL</string>
-    <string name="news_feed_url_dialog_reset">Reset</string>
-    <string name="news_feed_invalid_url">Invalid RSS</string>
-    <string name="news_feed_feed_unavailable">News Feed unavailable</string>
+    <string name="news_feed">新闻</string>
+    <string name="news_feed_url_dialog_title">输入RSS地址</string>
+    <string name="news_feed_url_dialog_reset">重设</string>
+    <string name="news_feed_invalid_url">无效RSS</string>
+    <string name="news_feed_feed_unavailable">暂无新闻</string>
 
         <!-- Cat -->
     <string name="cat">Cat</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">浅绿</string>
-    <string name="setting_theme_color_cool_navy">Cool Navy</string>
-    <string name="setting_theme_color_mint_pink">Mint Pink</string>
+    <string name="setting_theme_color_cool_navy">海蓝</string>
+    <string name="setting_theme_color_mint_pink">粉红</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">向朋友推荐早安工具</string>
     <string name="recommend_title">强烈推荐！</string>
     <string name="recommend_description">点击下载 :-)</string>
     <string name="recommend_app_full_name">早安工具</string>
+
+    <!-- Location -->
+    <string name="dialog_location_service_disabled_title">关闭定位服务</string>
+    <string name="dialog_location_service_disabled_message">点击确定开启定位服务</string>
 
 </resources>

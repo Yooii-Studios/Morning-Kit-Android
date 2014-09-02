@@ -24,7 +24,7 @@ public class MNCurrencyInfo {
 		usingCountryCode = _usingCountryCode;
 		currencySymbol = _currencySymbol;
 	}
-	// 오스트레일리아 달러, 캐나다 달러, 중국 위안, 유로, 영국 파운드, 일본 엔, 한국 원, 미국 달러
+	// 미국 달러, 캐나다 달러, 유로, 영국 파운드, 중국 위안, 일본 엔, 한국 원, 오스트레일리아 달러, 타이완 달러
 	public static final MNCurrencyInfo frequentCurrency[] = {
 		new MNCurrencyInfo("USD", "US Dollar", "US", "$"),
 		new MNCurrencyInfo("CAD", "Canadian Dollar", "CA", "$"),

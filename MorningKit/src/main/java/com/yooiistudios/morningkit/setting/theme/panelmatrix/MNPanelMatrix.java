@@ -48,7 +48,7 @@ public class MNPanelMatrix {
     public static void setPanelMatrixType(MNPanelMatrixType newPanelMatrixType, Context context) {
         MNPanelMatrix.getInstance(context).currentPanelMatrixType = newPanelMatrixType;
         context.getSharedPreferences(PANEL_MATRIX_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                .edit().putInt(PANEL_MATRIX_KEY, newPanelMatrixType.getUniqueId()).commit();
+                .edit().putInt(PANEL_MATRIX_KEY, newPanelMatrixType.getUniqueId()).apply();
 
         // 플러리
         Map<String, String> params = new HashMap<String, String>();

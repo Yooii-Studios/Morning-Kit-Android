@@ -74,7 +74,7 @@
     <dimen name="alarm_pref_list_volume_item_seekbar_margin_left">80dp</dimen>
     <dimen name="alarm_pref_list_volume_item_seekbar_thumb_size">44dp</dimen>
     <dimen name="alarm_pref_list_volume_item_seekbar_thumb_stroke_size">1dp</dimen>
-    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_offset">22dp</dimen>
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_offset">16dp</dimen>
 
         <!-- Alarm Custom Dialog -->
     <dimen name="alarm_custom_dialog_label_font_size">50sp</dimen>
@@ -98,7 +98,7 @@
     <dimen name="panel_round_radius">15dp</dimen> <!-- 8dp를 하면 살짝 덜 덮혀서 줄임 -->
 
     <!-- Detail Activity -->
-    <dimen name="panel_detail_padding">20dp</dimen>
+    <dimen name="panel_detail_padding">8.5dp</dimen>
     <dimen name="panel_detail_padding_inner">10dp</dimen>
     <dimen name="panel_detail_bigger_padding">40dp</dimen>
     <dimen name="panel_detail_bigger_padding_inner">20dp</dimen>
@@ -149,9 +149,11 @@
     <!-- Calendar -->
     <dimen name="panel_calendar_item_time_textview_width">110dp</dimen>
     <dimen name="panel_calendar_item_textview_font_size">20sp</dimen>
-    <dimen name="panel_calendar_item_divider_textview_font_size">4sp</dimen>
+    <dimen name="panel_calendar_item_divider_textview_font_size">15sp</dimen>
+    <dimen name="panel_calendar_item_margin_top">1.7dp</dimen>                      <!--Done-->
     <dimen name="panel_calendar_item_margin_inner">4dp</dimen>
     <dimen name="panel_calendar_item_margin_outer">8dp</dimen>
+    <dimen name="panel_calendar_item_divider_height">1dp</dimen>                    <!--Done-->
         <!-- Detail -->
     <dimen name="panel_calendar_detail_list_view_height">400dp</dimen>
     <dimen name="panel_calendar_detail_no_events_today_top_margin">30dp</dimen>
@@ -261,7 +263,7 @@
     <dimen name="setting_panel_item_text_font_size">25.5sp</dimen>          <!-- 두배x 1.7배 -->
 
     <!-- Theme -->
-    <dimen name="setting_item_padding">16dp</dimen>
+    <dimen name="setting_item_padding">14dp</dimen>
     <dimen name="setting_item_title_textview_height">44.2sp</dimen>         <!-- 두배x 1.7배 -->
     <dimen name="setting_item_title_font_size">34sp</dimen>                 <!-- 두배x 1.7배 -->
     <dimen name="setting_item_detail_font_size">27.2sp</dimen>              <!-- 두배x 1.7배 -->
@@ -279,7 +281,7 @@
     <dimen name="setting_theme_detail_photo_item_textview_left_margin">20dp</dimen>
 
     <!-- Theme - language item -->
-    <dimen name="setting_theme_language_item_padding">16dp</dimen>
+    <dimen name="setting_theme_language_item_padding">14dp</dimen>
 
     <!-- License -->
     <dimen name="setting_more_info_license_title_font_size">44.2sp</dimen>  <!-- 두배x 1.7배 -->

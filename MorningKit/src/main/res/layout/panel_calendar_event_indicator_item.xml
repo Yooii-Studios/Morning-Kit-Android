@@ -3,7 +3,7 @@
     android:id="@+id/panel_calendar_event_indicator_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="1dp"
+    android:layout_marginTop="@dimen/panel_calendar_item_margin_top"
     android:orientation="vertical" >
 
     <TextView
@@ -24,7 +24,7 @@
     <View
         android:id="@+id/panel_calendar_event_item_divider"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="@dimen/panel_calendar_item_divider_height"
         android:background="@color/pastel_green_main_font_color"
         android:layout_marginTop="@dimen/margin_inner"
         android:layout_marginLeft="@dimen/margin_inner"

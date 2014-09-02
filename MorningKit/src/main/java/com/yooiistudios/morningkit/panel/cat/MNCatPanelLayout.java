@@ -70,7 +70,7 @@ public class MNCatPanelLayout extends MNPanelLayout {
     @Override
     protected void processLoading() throws JSONException {
         super.processLoading();
-        catImageView.setBackgroundResource(MNCatUtils.getRandomCatAnimationResourceId(MNLog.isDebug));
+        catImageView.setBackgroundResource(MNCatUtils.getRandomCatAnimationResourceId(true));
     }
 
     @Override

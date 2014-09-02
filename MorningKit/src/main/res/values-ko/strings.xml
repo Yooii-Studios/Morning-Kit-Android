@@ -20,7 +20,7 @@
 	<string name="alarm_default_label">알람</string>
 	<string name="alarm_am">오전</string>
 	<string name="alarm_pm">오후</string>
-	<string name="alarm_snooze_stirng">9분 뒤 알람이 다시 울립니다</string>
+	<string name="alarm_snooze_string">9분 뒤 알람이 다시 울립니다</string>
 
 	<!-- Alarm Toast -->
 	<string name="alarm_set_toast_part1"></string>
@@ -40,7 +40,7 @@
 	<string name="alarm_pref_repeat_weekdays">주중</string>
 	<string name="alarm_pref_repeat_weekends">주말</string>
 	<string name="alarm_pref_repeat_everyday">매일</string>
-	<string name="alarm_pref_pick_your_favorite_sond">노래 선택</string>
+	<string name="alarm_pref_pick_your_favorite_song">노래 선택</string>
 
 	<!-- Repeat -->
 	<string name="every_monday">월요일마다</string>
@@ -86,7 +86,7 @@
 	<string name="calendar">달력</string>
 	<string name="exchange_rate">환율</string>
 	<string name="saying">명언</string>
-	<string name="reminder">일정관리</string>
+	<string name="reminder">일정</string>
 
 	<!-- Calendar -->
 	<string name="calendar_lunar_calendar">음력 달력 추가</string>
@@ -184,6 +184,8 @@
 	<string name="setting_language_simplified_chinese">简体中文</string>
 	<string name="setting_language_traditional_chinese">繁體中文</string>
 	<string name="setting_language_russian">Русский</string>
+    <string name="setting_language_spanish">Español</string>
+    <string name="setting_language_french">Français</string>
 
 	<!-- Setting (Effect sound) -->
 	<string name="setting_effect_sound">효과음</string>
@@ -289,25 +291,25 @@
     <string name="calendar_select_calendars">캘린더 선택</string>
 
         <!-- Photo Album -->
-    <string name="photo_album">사진 앨범</string>
+    <string name="photo_album">사진첩</string>
     <string name="photo_album_no_image">사용가능한 이미지 없음</string>
     <string name="photo_album_error_getting_photo">사진을 가져올 때 문제가 생겼습니다</string>
     <string name="photo_album_label_refresh_time">리프레시 시간</string>
-    <string name="photo_album_label_transition_type">애니메이션 타입</string>
+    <string name="photo_album_label_transition_type">전환 효과</string>
     <string name="photo_album_minute_hint">분</string>
     <string name="photo_album_minute">분</string>
     <string name="photo_album_second_hint">초</string>
     <string name="photo_album_second">초</string>
     <string name="photo_album_transition_none">없음</string>
-    <string name="photo_album_transition_alpha">투명도</string>
+    <string name="photo_album_transition_alpha">페이드</string>
     <string name="photo_album_load">로드</string>
 
         <!-- News Feed -->
-    <string name="news_feed">News Feed</string>
-    <string name="news_feed_url_dialog_title">Enter RSS URL</string>
-    <string name="news_feed_url_dialog_reset">Reset</string>
-    <string name="news_feed_invalid_url">Invalid RSS</string>
-    <string name="news_feed_feed_unavailable">News Feed unavailable</string>
+    <string name="news_feed">뉴스</string>
+    <string name="news_feed_url_dialog_title">RSS 주소 입력</string>
+    <string name="news_feed_url_dialog_reset">리셋</string>
+    <string name="news_feed_invalid_url">유효하지 않은 RSS</string>
+    <string name="news_feed_feed_unavailable">뉴스를 사용할 수 없습니다</string>
 
         <!-- Cat -->
     <string name="cat">고양이</string>
@@ -322,5 +324,9 @@
     <string name="recommend_title">강력 추천!!</string>
     <string name="recommend_description">당황하지 않고 클릭해서 다운받으면~ 끝!</string>
     <string name="recommend_app_full_name">모닝키트</string>
+
+    <!-- Location -->
+    <string name="dialog_location_service_disabled_title">위치 서비스 비활성화됨</string>
+    <string name="dialog_location_service_disabled_message">확인을 눌러 위치서비스를 활성화하세요</string>
 
 </resources>

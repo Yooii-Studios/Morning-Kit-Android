@@ -99,6 +99,7 @@ public class MNCreditListAdapter extends BaseAdapter {
                     viewHolder.getTitleTextView().setText("Localization");
                     viewHolder.getNameTextView().setText("Akira Yamada\n" +
                             "Angela Choi\n" +
+                            "Avix Hsu\n" +
                             "Brad Tsao\n" +
                             "Chez Kuo\n" +
                             "Jasmine Jeongmin Oh\n" +
@@ -106,7 +107,8 @@ public class MNCreditListAdapter extends BaseAdapter {
                             "Lena Zaverukha\n" +
                             "Matt Wang\n" +
                             "Taft Love\n" +
-                            "Yu Wang");
+                            "Yu Wang\n" +
+                            "Yuki Endo");
                     break;
                 case 13:
                     viewHolder.getTitleTextView().setText("Special Thanks to");

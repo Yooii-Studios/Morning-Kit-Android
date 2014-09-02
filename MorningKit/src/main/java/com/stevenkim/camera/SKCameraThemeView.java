@@ -118,7 +118,14 @@ public class SKCameraThemeView extends SurfaceView implements
                         mCamera = Camera.open(cameraFacingInfo);
                     } catch (Exception e){
                         e.printStackTrace();
-                        mCamera = Camera.open(0);
+                        // 전면을 부를 때도 try 를 실행 - RuntimeException 의 가능성이 있음
+                        try {
+                            mCamera = Camera.open(0);
+                            cameraFacingInfo = 0;
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                            cameraFacingInfo = -1;
+                        }
                     }
 //                } else if(CameraInfo.CAMERA_FACING_FRONT > -1){ // 예전 코드인데 이해를 못하겠음
                 } else if(m_context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)){

@@ -30,8 +30,6 @@ import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumDisplayHel
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumListFetcher;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumRefreshTimeDialogFragment;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumTransitionType;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
@@ -45,12 +43,12 @@ import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayo
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_SELECTED;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_INTERVAL_MINUTE;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_INTERVAL_SECOND;
+import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_IS_FIRST_LOADING;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_TRANS_TYPE;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_USE_GRAYSCALE;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_USE_REFRESH;
-import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_IS_FIRST_LOADING;
-import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFileManager.DEFAULT_PARENT_DIR;
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.PREF_PHOTO_ALBUM;
+import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFileManager.DEFAULT_PARENT_DIR;
 
 //import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_FILELIST;
 //import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_PARENT_LIST;
@@ -190,13 +188,6 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         public void onClick(View view) {
             Intent intent;
             intent = new Intent(Intent.ACTION_PICK);
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-//                        intent = new Intent(Intent.ACTION_GET_CONTENT);
-            }
-            else {
-//                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-//                        intent.addCategory(Intent.CATEGORY_OPENABLE);
-            }
             intent.setType("image/*");
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
                 intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
@@ -409,8 +400,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     }
 
     private void initTheme() {
-        MNThemeType currentThemeType =
-                MNTheme.getCurrentThemeType(getActivity());
+//        MNThemeType currentThemeType =
+//                MNTheme.getCurrentThemeType(getActivity());
     }
 
     private void updateRefreshTimeUI() {
@@ -468,7 +459,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                 .putString(KEY_DATA_FILE_SELECTED, selectedFileName)
                 .putString(KEY_DATA_FILE_ROOT, rootDirForFiles)
                 .putBoolean(KEY_DATA_USE_GRAYSCALE, useGrayscale)
-        .commit();
+        .apply();
     }
 
     private void onTimeUpdated() {

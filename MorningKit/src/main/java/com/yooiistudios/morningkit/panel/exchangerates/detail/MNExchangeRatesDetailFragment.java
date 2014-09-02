@@ -292,7 +292,7 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
         getPanelDataObject().put(EXCHANGE_RATES_DATA_EXCHANGE_INFO, exchangeInfoJsonString);
 
         // SharedPreferences에도 아카이빙 저장
-        prefs.edit().putString(EXCHANGE_RATES_DATA_EXCHANGE_INFO, exchangeInfoJsonString).commit();
+        prefs.edit().putString(EXCHANGE_RATES_DATA_EXCHANGE_INFO, exchangeInfoJsonString).apply();
     }
 
     @OnClick({R.id.panel_exchange_rates_info_layout_base, R.id.panel_exchange_rates_info_layout_target})

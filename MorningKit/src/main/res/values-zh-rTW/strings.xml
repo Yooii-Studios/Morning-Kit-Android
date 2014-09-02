@@ -20,7 +20,7 @@
 	<string name="alarm_default_label">鬧鐘</string>
 	<string name="alarm_am">上午</string>
 	<string name="alarm_pm">下午</string>
-	<string name="alarm_snooze_stirng">9分鐘後鬧鐘提醒</string>
+	<string name="alarm_snooze_string">9分鐘後鬧鐘提醒</string>
 
 	<!-- Alarm Toaster -->
 	<string name="alarm_set_toast_part1">此鬧鐘設定為現在起</string>
@@ -40,7 +40,7 @@
 	<string name="alarm_pref_repeat_weekdays">工作日</string>
 	<string name="alarm_pref_repeat_weekends">週末</string>
 	<string name="alarm_pref_repeat_everyday">每日</string>
-	<string name="alarm_pref_pick_your_favorite_sond">選取歌曲</string>
+	<string name="alarm_pref_pick_your_favorite_song">選取歌曲</string>
 
 	<!-- Repeat -->
 	<string name="every_monday">每週一</string>
@@ -67,7 +67,7 @@
 
 	<!-- Alarm Wake -->
 	<string name="alarm_wake_snooze">小睡</string>
-	<string name="alarm_wake_dismiss">好</string>
+	<string name="alarm_wake_dismiss">關閉鬧鐘</string>
 
 	<!-- Alarm Sound -->
 	<string name="alarm_sound_string_none">靜音</string>
@@ -184,6 +184,8 @@
 	<string name="setting_language_simplified_chinese">简体中文</string>
 	<string name="setting_language_traditional_chinese">繁體中文</string>
 	<string name="setting_language_russian">Русский</string>
+    <string name="setting_language_spanish">Español</string>
+    <string name="setting_language_french">Français</string>
 
 	<!-- Setting (Effect sound) -->
 	<string name="setting_effect_sound">聲音特效</string>
@@ -191,11 +193,11 @@
 	<string name="setting_effect_sound_off">關</string>
 
 	<!-- Tutorial -->
-	<string name="tutorial_select_theme">￼￼￼￼請選擇一個主題背景</string>
+	<string name="tutorial_select_theme">請選擇一個主題背景</string>
 
 	<!-- Tutorial1 - Description -->
 	<string name="tutorial1_label1">您可以重新安排面板</string>
-	<string name="tutorial1_label2">￼您可以添加或編輯鬧</string>
+	<string name="tutorial1_label2">您可以添加或編輯鬧</string>
 	<string name="tutorial1_label3">滑動刪除鬧鐘</string>
 	<string name="tutorial1_label4">刷新</string>
 	<string name="tutorial1_label5">設定</string>
@@ -224,7 +226,7 @@
 	<!-- Store -->
 	<string name="store_no_purchase_records">無購買記錄</string>
 	<string name="store_restore_purchases">恢復購買</string>
-	<string name="store_purchased">購買完了</string>
+	<string name="store_purchased">已購買</string>
 	<string name="store_restore">恢復</string>
 	<string name="store_restore_success_message">恢復購買成功</string>
 	<string name="store_buy_full_version">購買完整版!</string>
@@ -239,7 +241,7 @@
 	<string name="store_item_widget_memo">備忘錄</string>
 	<string name="store_item_photo_portrait">照片\n縱向</string>
 	<string name="store_item_photo_landscape">照片\n橫向</string>
-	<string name="store_item_skyblue">天上 (天空藍)</string>
+	<string name="store_item_skyblue">天上\n(天空藍)</string>
 	<string name="store_item_classic_white">摩登\n(時尚白)</string>
 	<string name="store_item_water_lily">睡蓮 （設計模式）</string>
 	<string name="store_item_popsicle">冰淇淋 （設計模式）</string>
@@ -299,28 +301,32 @@
     <string name="photo_album_second_hint">秒</string>
     <string name="photo_album_second">秒</string>
     <string name="photo_album_transition_none">無</string>
-    <string name="photo_album_transition_alpha">Alpha</string>
+    <string name="photo_album_transition_alpha">淡入淡出</string>
     <string name="photo_album_load">載入</string>
 
         <!-- News Feed -->
-    <string name="news_feed">News Feed</string>
-    <string name="news_feed_url_dialog_title">Enter RSS URL</string>
-    <string name="news_feed_url_dialog_reset">Reset</string>
-    <string name="news_feed_invalid_url">Invalid RSS</string>
-    <string name="news_feed_feed_unavailable">News Feed unavailable</string>
+    <string name="news_feed">"新聞"</string>
+    <string name="news_feed_url_dialog_title">輸入RSS地址</string>
+    <string name="news_feed_url_dialog_reset">重設</string>
+    <string name="news_feed_invalid_url">無效RSS</string>
+    <string name="news_feed_feed_unavailable">暫無新聞</string>
 
         <!-- Cat -->
     <string name="cat">Cat</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">淺綠</string>
-    <string name="setting_theme_color_cool_navy">Cool Navy</string>
-    <string name="setting_theme_color_mint_pink">Mint Pink</string>
+    <string name="setting_theme_color_cool_navy">海藍</string>
+    <string name="setting_theme_color_mint_pink">粉紅</string>
 
     <!-- Recommend -->
     <string name="recommend_to_friends">向朋友推薦早安工具</string>
     <string name="recommend_title">強烈推薦！</string>
     <string name="recommend_description">點擊下載 :-)</string>
     <string name="recommend_app_full_name">早安工具</string>
+
+    <!-- Location -->
+    <string name="dialog_location_service_disabled_title">關閉定位服務</string>
+    <string name="dialog_location_service_disabled_message">確認以開啟定位服務</string>
 
 </resources>

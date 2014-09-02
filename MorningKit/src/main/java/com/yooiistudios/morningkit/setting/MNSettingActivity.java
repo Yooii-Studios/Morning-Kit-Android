@@ -13,8 +13,8 @@ import android.view.MenuItem;
 
 import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
-import com.yooiistudios.morningkit.common.memory.ViewUnbindHelper;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.panel.MNPanelSettingFragment;
 import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
@@ -55,6 +55,9 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
     protected void onCreate(Bundle savedInstanceState) {
         // Theme
 //        setTheme(R.style.MNSettingActionBarTheme_PastelGreen);
+
+        // 회전마다 Locale 을 새로 적용해줌(언어가 바뀌어 버리는 문제 해결)
+        MNLocaleUtils.updateLocale(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
@@ -223,7 +226,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
 
         // remember the selection
         SharedPreferences prefs = getSharedPreferences(SETTING_PREFERENCES, MODE_PRIVATE);
-        prefs.edit().putInt(LATEST_TAB_SELECTION, tab.getPosition()).commit();
+        prefs.edit().putInt(LATEST_TAB_SELECTION, tab.getPosition()).apply();
     }
 
     @Override

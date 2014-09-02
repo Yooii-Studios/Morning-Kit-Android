@@ -18,15 +18,15 @@ import java.util.List;
  * SKIabProducts
  */
 public class SKIabProducts {
-    public static final String SKU_FULL_VERSION = "full_version_test"; // full_version
-    public static final String SKU_MORE_ALARM_SLOTS = "more_alarm_slots_test"; // "functions.more_alarm_slots";
-    public static final String SKU_NO_ADS = "no_ads_test"; // functions.no_ads
-    public static final String SKU_PANEL_MATRIX_2X3 = "panel_matrix_2_3_test"; // panel_matrix_2_3
-    public static final String SKU_DATE_COUNTDOWN = "date_countdown_test"; // "panels.date_countdown";
-    public static final String SKU_MEMO = "memo_test"; // "panels.memo";
-    public static final String SKU_PHOTO_FRAME = "photo_frame_test"; // "panel.photo_frame";
-    public static final String SKU_MODERNITY = "modernity_test"; // "themes.modernity";
-    public static final String SKU_CELESTIAL = "celestial_test"; // "themes.celestial";
+    public static final String SKU_FULL_VERSION = "full_version"; // "full_version_test"
+    public static final String SKU_MORE_ALARM_SLOTS = "functions.more_alarm_slots"; // "more_alarm_slots_test"
+    public static final String SKU_NO_ADS = "functions.no_ads"; // "no_ads_test"
+    public static final String SKU_PANEL_MATRIX_2X3 = "panel_matrix_2_3"; // "panel_matrix_2_3_test"
+    public static final String SKU_DATE_COUNTDOWN = "panels.date_countdown"; // "date_countdown_test";
+    public static final String SKU_MEMO = "panels.memo"; // "memo_test";
+    public static final String SKU_PHOTO_FRAME = "panel.photo_frame"; // "photo_frame_test";
+    public static final String SKU_MODERNITY = "themes.modernity"; // "modernity_test";
+    public static final String SKU_CELESTIAL = "themes.celestial"; // "celestial_test";
 
     private static final String SHARED_PREFERENCES_IAB = "SHARED_PREFERENCES_IAB";
     private static final String SHARED_PREFERENCES_IAB_DEBUG = "SHARED_PREFERENCES_IAB_DEBUG";
@@ -53,7 +53,7 @@ public class SKIabProducts {
         } else {
             prefs = context.getSharedPreferences(SHARED_PREFERENCES_IAB_DEBUG, Context.MODE_PRIVATE);
         }
-        prefs.edit().putBoolean(sku, true).commit();
+        prefs.edit().putBoolean(sku, true).apply();
     }
 
     // 인앱 정보를 읽어오며 자동으로 적용
@@ -65,7 +65,7 @@ public class SKIabProducts {
         for (String sku : ownedSkus) {
             edit.putBoolean(sku, true);
         }
-        edit.commit();
+        edit.apply();
     }
 
     public static boolean isIabProductBought(String sku, Context context) {
@@ -134,7 +134,7 @@ public class SKIabProducts {
     public static void resetIabProductsDebug(Context context) {
         SharedPreferences.Editor edit = context.getSharedPreferences(SHARED_PREFERENCES_IAB_DEBUG,
                 Context.MODE_PRIVATE).edit();
-        edit.clear().commit();
+        edit.clear().apply();
     }
 
     /**
@@ -149,6 +149,6 @@ public class SKIabProducts {
                 edit.putBoolean(NaverIabProductUtils.googleSkuMap.get(naverIabInventoryItem.getKey()), true);
             }
         }
-        edit.commit();
+        edit.apply();
     }
 }

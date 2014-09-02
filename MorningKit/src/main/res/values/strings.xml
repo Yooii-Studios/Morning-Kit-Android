@@ -20,7 +20,7 @@
     <string name="alarm_default_label">Alarm</string>
     <string name="alarm_am">AM</string>
     <string name="alarm_pm">PM</string>
-    <string name="alarm_snooze_stirng">Your alarm will start again in 9 minutes</string>
+    <string name="alarm_snooze_string">Your alarm will start again in 9 minutes</string>
 
     <!-- Alarm Toaster -->
     <string name="alarm_set_toast_part1">Alarm set for </string>
@@ -40,7 +40,7 @@
     <string name="alarm_pref_repeat_weekdays">Weekdays</string>
     <string name="alarm_pref_repeat_weekends">Weekends</string>
     <string name="alarm_pref_repeat_everyday">Everyday</string>
-    <string name="alarm_pref_pick_your_favorite_sond">Pick a song</string>
+    <string name="alarm_pref_pick_your_favorite_song">Pick a song</string>
 
     <!-- Repeat -->
     <string name="every_monday">Every Monday</string>
@@ -121,7 +121,7 @@
     <string name="weather_current_location">Current Location</string>
     <string name="weather_search_city">Search for City (in English)</string>
     <string name="display_local_time">Display Local Time</string>
-    <string name="weather_choose_your_city">Choose Your City</string>
+    <string name="weather_choose_your_city">Choose your City</string>
 
     <!-- World Clock -->
     <string name="world_clock_clock_type_text">Clock Type</string>
@@ -184,6 +184,8 @@
     <string name="setting_language_simplified_chinese">简体中文</string>
     <string name="setting_language_traditional_chinese">繁體中文</string>
     <string name="setting_language_russian">Русский</string>
+    <string name="setting_language_spanish">Español</string>
+    <string name="setting_language_french">Français</string>
 
     <!-- Setting (Effect sound) -->
     <string name="setting_effect_sound">Sound Effects</string>
@@ -224,9 +226,9 @@
     <!-- Store -->
     <string name="store_no_purchase_records">No purchase records</string>
     <string name="store_restore_purchases">Restore purchases</string>
-    <string name="store_restore">Restore</string>
     <string name="store_purchased">Purchased</string>
-    <string name="store_restore_success_message">All purchases was restored</string>
+    <string name="store_restore">Restore</string>
+    <string name="store_restore_success_message">All purchases are restored</string>
     <string name="store_buy_full_version">Buy the full version!</string>
     <string name="store_buy_full_version_description">Upgrade to unlock all Functions, Panels, and Themes</string>
     <string name="store_tab_functions">Functions</string>
@@ -264,7 +266,7 @@
     <!-- Photo Theme -->
     <string name="photo_theme_move_and_scale">Move and Scale</string>
     <string name="photo_theme_choose">Choose</string>
-    <string name="photo_theme_first_open_notice">Please resize the picture to fit the frame so that it fills the screen</string>
+    <string name="photo_theme_first_open_notice">Please resize the picture to fill the screen</string>
 
     <!-- Android Only -->
     <!-- General -->
@@ -273,7 +275,7 @@
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>
-    <string name="alarm_status_bar_icon">Show Alarm Icon in Status Bar</string>
+    <string name="alarm_status_bar_icon">Alarm icon on status bar</string>
 
         <!-- Prefs -->
     <string name="alarm_pref_volume">Volume</string>
@@ -291,15 +293,15 @@
         <!-- Photo Album -->
     <string name="photo_album">Photo Frame</string>
     <string name="photo_album_no_image">No image available</string>
-    <string name="photo_album_error_getting_photo">Error occurred while getting photo</string>
+    <string name="photo_album_error_getting_photo">Error occurred while getting photo from your smart device</string>
     <string name="photo_album_label_refresh_time">Refresh Time</string>
-    <string name="photo_album_label_transition_type">Transition Type</string>
+    <string name="photo_album_label_transition_type">Slideshow Type</string>
     <string name="photo_album_minute_hint">min</string>
     <string name="photo_album_minute">min</string>
     <string name="photo_album_second_hint">sec</string>
     <string name="photo_album_second">sec</string>
     <string name="photo_album_transition_none">None</string>
-    <string name="photo_album_transition_alpha">Alpha</string>
+    <string name="photo_album_transition_alpha">Fade</string>
     <string name="photo_album_load">Load</string>
 
         <!-- News Feed -->
@@ -307,7 +309,7 @@
     <string name="news_feed_url_dialog_title">Enter RSS URL</string>
     <string name="news_feed_url_dialog_reset">Reset</string>
     <string name="news_feed_invalid_url">Invalid RSS</string>
-    <string name="news_feed_feed_unavailable">News unavailable</string>
+    <string name="news_feed_feed_unavailable">News is not available now</string>
 
         <!-- Cat -->
     <string name="cat">Cat</string>
@@ -319,8 +321,12 @@
 
     <!-- Recommend -->
     <string name="recommend_to_friends">Recommend Morning Kit to your friends</string>
-    <string name="recommend_title">Strongly recommend!</string>
-    <string name="recommend_description">Just click and download :- )</string>
+    <string name="recommend_title">Check out this new app = Morning Kit, it\'s awesome!</string>
+    <string name="recommend_description">Click the link and take it for a spin</string>
     <string name="recommend_app_full_name">Morning Kit</string>
+
+    <!-- Location -->
+    <string name="dialog_location_service_disabled_title">Location services disabled</string>
+    <string name="dialog_location_service_disabled_message">Click OK to enable location services</string>
 
 </resources>
