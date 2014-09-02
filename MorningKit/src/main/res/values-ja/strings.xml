@@ -311,8 +311,8 @@
     <string name="news_feed_invalid_url">有効でないRSS</string>
     <string name="news_feed_feed_unavailable">ニュースが使用できません。</string>
 
-    <!-- Panel - Cat -->
-    <string name="cat">猫</string>
+        <!-- Cat -->
+    <string name="cat">ねこ</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">パステルグリーン</string>

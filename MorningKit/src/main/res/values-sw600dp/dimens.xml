@@ -252,6 +252,10 @@
     <dimen name="panel_date_countdown_count_font_size">42sp</dimen>     <!--Done-->
     <dimen name="panel_date_countdown_date_font_size">22.4sp</dimen>    <!--Done-->
 
+    <!-- Cat -->
+    <dimen name="panel_cat_image_view_width">198.38dp</dimen>              <!--Done-->
+    <dimen name="panel_cat_image_view_height">141.96dp</dimen>             <!--Done-->
+
     <!-- Setting -->
     <dimen name="setting_actionbar_title_font_size">23sp</dimen>    <!--Done-->
     <dimen name="setting_actionbar_tab_text_font_size">14sp</dimen> <!--Done-->

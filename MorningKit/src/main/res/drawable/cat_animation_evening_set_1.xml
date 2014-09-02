@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false" >
+
+    <item android:drawable="@drawable/cat_evening_set_1_1" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_2" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_3" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_4" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_5" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_6" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_7" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_8" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_9" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_10" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_11" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_12" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_13" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_14" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_15" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_16" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_17" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_18" android:duration="800" />
+    <item android:drawable="@drawable/cat_evening_set_1_19" android:duration="800" />
+
+</animation-list>

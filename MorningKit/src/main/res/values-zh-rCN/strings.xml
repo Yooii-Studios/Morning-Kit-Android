@@ -311,8 +311,8 @@
     <string name="news_feed_invalid_url">无效RSS</string>
     <string name="news_feed_feed_unavailable">暂无新闻</string>
 
-    <!-- Panel - Cat -->
-    <string name="cat">猫</string>
+        <!-- Cat -->
+    <string name="cat">Cat</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">浅绿</string>

@@ -304,14 +304,14 @@
 	<string name="photo_album_transition_alpha">fundido</string>
 	<string name="photo_album_load">carga</string>
 
-	<!-- Panel - News Feed -->
+	    <!-- News Feed -->
 	<string name="news_feed">Noticias</string>
 	<string name="news_feed_invalid_url">Inválido RSS</string>
 	<string name="news_feed_feed_unavailable">Noticias no están disponibles ahora</string>
 	<string name="news_feed_url_dialog_title">Introduzca RSS URL</string>
 	<string name="news_feed_url_dialog_reset">Restablecer</string>
 
-	<!-- Panel - Cat -->
+	    <!-- Cat -->
 	<string name="cat">Gato</string>
 
 	<!-- Theme -->

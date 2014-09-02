@@ -311,7 +311,7 @@
     <string name="news_feed_invalid_url">유효하지 않은 RSS</string>
     <string name="news_feed_feed_unavailable">뉴스를 사용할 수 없습니다</string>
 
-    <!-- Panel - Cat -->
+        <!-- Cat -->
     <string name="cat">고양이</string>
 
     <!-- Theme -->

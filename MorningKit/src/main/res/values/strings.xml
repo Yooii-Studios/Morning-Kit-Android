@@ -311,7 +311,7 @@
     <string name="news_feed_invalid_url">Invalid RSS</string>
     <string name="news_feed_feed_unavailable">News is not available now</string>
 
-    <!-- Panel - Cat -->
+        <!-- Cat -->
     <string name="cat">Cat</string>
 
     <!-- Theme -->
