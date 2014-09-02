@@ -52,8 +52,8 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
     @InjectView(R.id.panel_quotes_detail_quote_textview) TextView quoteTextView;
 
     @InjectView(R.id.panel_quotes_detail_language_english_layout) RelativeLayout languageEnglishLayout;
-    @InjectView(R.id.panel_quotes_detail_language_japanese_layout) RelativeLayout languageJapaneseLayout;
     @InjectView(R.id.panel_quotes_detail_language_korean_layout) RelativeLayout languageKoreanLayout;
+    @InjectView(R.id.panel_quotes_detail_language_japanese_layout) RelativeLayout languageJapaneseLayout;
     @InjectView(R.id.panel_quotes_detail_language_simplified_chinese_layout) RelativeLayout languageSimplifiedChineseLayout;
     @InjectView(R.id.panel_quotes_detail_language_traditional_chinese_layout) RelativeLayout languageTraditionalChineseLayout;
     List<ImageButton> languageImageButtons;
@@ -112,7 +112,7 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
         }
 
         // 현재 언어에 따른 랜덤 명언 얻기
-        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOf(languageIndex);
+        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOfUniqueId(languageIndex);
         quote = MNQuotesLoader.getRandomQuote(getActivity(), quotesLanguage);
     }
 
@@ -172,11 +172,12 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
     private void initLanguageLayouts() {
         languageImageButtons = new ArrayList<ImageButton>();
         languageImageButtons.add(getImageButtonFromLayout(languageEnglishLayout));
-        languageImageButtons.add(getImageButtonFromLayout(languageJapaneseLayout));
         languageImageButtons.add(getImageButtonFromLayout(languageKoreanLayout));
+        languageImageButtons.add(getImageButtonFromLayout(languageJapaneseLayout));
         languageImageButtons.add(getImageButtonFromLayout(languageSimplifiedChineseLayout));
         languageImageButtons.add(getImageButtonFromLayout(languageTraditionalChineseLayout));
 
+        // TODO: 기존 index에서 값을 결정하는 것이 아닌, uniqueId에서 index를 추출하도록 구현하자
         int i = 0;
         for (Boolean isLanguageSelected : selectedLanguages) {
             ImageButton imageButton = languageImageButtons.get(i);
@@ -237,6 +238,8 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
     @Override
     public void onClick(View imageButton) {
         int index = (Integer) imageButton.getTag();
+
+        // TODO: 기존 index로 값을 세팅해주는 것이 아닌, index에서 uniqueId를 추출해서 세팅하자
         // 해당 스위치 토글
         selectedLanguages.set(index, !selectedLanguages.get(index));
         if (selectedLanguages.get(index)) {
