@@ -1,19 +1,30 @@
 package com.yooiistudios.morningkit.panel.cat;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
 import android.os.Message;
+import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
+import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.cat.model.MNCatUtils;
+import com.yooiistudios.morningkit.panel.cat.model.MNHappyMessage;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
+import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
+import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import org.json.JSONException;
 
@@ -27,9 +38,14 @@ public class MNCatPanelLayout extends MNPanelLayout {
 //    private static final String TAG = "MNCatPanelLayout";
 
     private ImageView catImageView;
+
+    private AutoResizeTextView happyMessageTextView;
+    private MNHappyMessage happyMessage;
+
+    private static final int HAPPY_MESSAGE_HANDLER_DELAY = 2000;
     private static final int CAT_ANIMATION_HANDLER_DELAY = 8000;
     private boolean isHandlerRunning = false;
-    private MNCatAnimationHandler catHandler = new MNCatAnimationHandler();
+    private MNCatAnimationHandler catAnimationHandler = new MNCatAnimationHandler();
     private class MNCatAnimationHandler extends Handler {
         @Override
         public void handleMessage( Message msg ){
@@ -42,7 +58,47 @@ public class MNCatPanelLayout extends MNPanelLayout {
                 }
             }
             // tick 의 동작 시간을 계산해서 정확히 틱 초마다 UI 갱신을 요청할 수 있게 구현
-            catHandler.sendEmptyMessageDelayed(0, CAT_ANIMATION_HANDLER_DELAY);
+            catAnimationHandler.sendEmptyMessageDelayed(0,
+                    CAT_ANIMATION_HANDLER_DELAY + HAPPY_MESSAGE_HANDLER_DELAY);
+            happyMessageHandler.sendEmptyMessageDelayed(0, CAT_ANIMATION_HANDLER_DELAY);
+        }
+    }
+
+    private MNHappyMessageHandler happyMessageHandler = new MNHappyMessageHandler();
+    private class MNHappyMessageHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            if (MNTutorialManager.isTutorialShown(getContext().getApplicationContext())) {
+                // 애니메이션이 끝난 후 해피 텍스트를 보여주기
+                int previousIndex = -1;
+                if (happyMessage != null) {
+                    previousIndex = happyMessage.previousIndex;
+                }
+                happyMessage = MNCatUtils.getRandomHappyString(getContext().getApplicationContext(),
+                        previousIndex);
+
+                // 언어 길이에 따라 동적으로 크기 조절
+                SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+                stringBuilder.append(happyMessage.happyMessageString);
+//                happyMessageTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+//                        getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_main_font_size));
+//                happyMessageTextView.setMinTextSize(DipToPixel.dpToPixel(getContext(), 1));
+
+                // 방향에 따라 최초 사이즈를 약간 다르게 주기
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    happyMessageTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                            getResources().getDimensionPixelSize(R.dimen.panel_quotes_default_font_size_port));
+                } else {
+                    happyMessageTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                            getResources().getDimensionPixelSize(R.dimen.panel_quotes_default_font_size_land));
+                }
+
+                happyMessageTextView.setText(stringBuilder, TextView.BufferType.SPANNABLE);
+
+                // 텍스트뷰를 다시 보이게 변경
+                catImageView.setVisibility(View.GONE);
+                happyMessageTextView.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -68,6 +124,17 @@ public class MNCatPanelLayout extends MNPanelLayout {
         catImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imageViewLayoutParams.addRule(CENTER_IN_PARENT);
         getContentLayout().addView(catImageView);
+
+        // happyMessageTextView
+        happyMessageTextView = new AutoResizeTextView(getContext());
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        int margin = (int) getResources().getDimension(R.dimen.panel_quotes_padding);
+        layoutParams.setMargins(margin, margin, margin, margin);
+        happyMessageTextView.setLayoutParams(layoutParams);
+        happyMessageTextView.setVisibility(View.GONE);
+        happyMessageTextView.setGravity(Gravity.CENTER);
+        getContentLayout().addView(happyMessageTextView);
     }
 
     @Override
@@ -80,6 +147,8 @@ public class MNCatPanelLayout extends MNPanelLayout {
     @Override
     protected void updateUI() {
         super.updateUI();
+        happyMessageTextView.setVisibility(View.GONE);
+        catImageView.setVisibility(View.VISIBLE);
         if (catImageView.getBackground() instanceof AnimationDrawable) {
             AnimationDrawable catAnimation = (AnimationDrawable) catImageView.getBackground();
             if (!catAnimation.isRunning()) {
@@ -91,48 +160,55 @@ public class MNCatPanelLayout extends MNPanelLayout {
     @Override
     public void refreshPanel() throws JSONException {
         // 기존 핸들러를 취소하고 다시 실행하기
-        stopHandler();
+        stopAnimationHandler();
 
         super.refreshPanel();
 
-        startHandler();
+        startAnimationHandler();
     }
 
     @Override
     public void applyTheme() {
         super.applyTheme();
+
+        MNThemeType currentThemeType = MNTheme.getCurrentThemeType(getContext().getApplicationContext());
+        happyMessageTextView.setTextColor(
+                MNMainColors.getQuoteContentTextColor(currentThemeType, getContext().getApplicationContext()));
     }
 
-    private void startHandler() {
+    private void startAnimationHandler() {
         if (isHandlerRunning) {
             return;
         }
         isHandlerRunning = true;
         catImageView.setVisibility(View.VISIBLE);
-        catHandler.sendEmptyMessageDelayed(0, CAT_ANIMATION_HANDLER_DELAY);
+        catAnimationHandler.sendEmptyMessageDelayed(0,
+                CAT_ANIMATION_HANDLER_DELAY + HAPPY_MESSAGE_HANDLER_DELAY);
+        happyMessageHandler.sendEmptyMessageDelayed(0, CAT_ANIMATION_HANDLER_DELAY);
     }
 
-    private void stopHandler() {
+    private void stopAnimationHandler() {
         if (!isHandlerRunning) {
             return;
         }
         isHandlerRunning = false;
         catImageView.setVisibility(View.GONE);
-        catHandler.removeMessages(0);
+        catAnimationHandler.removeMessages(0);
+        happyMessageHandler.removeMessages(0);
     }
 
     // 뷰가 붙을 때 아날로그 시계뷰 재가동
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        startHandler();
+        startAnimationHandler();
     }
 
     // 뷰가 사라질 때 아날로그 시계뷰 핸들러 중지
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        stopHandler();
+        stopAnimationHandler();
     }
 
     @Override
