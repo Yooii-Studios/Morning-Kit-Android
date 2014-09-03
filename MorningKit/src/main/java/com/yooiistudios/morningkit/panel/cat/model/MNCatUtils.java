@@ -77,4 +77,13 @@ public class MNCatUtils {
             }
         }
     }
+
+    // -1일 경우는 최초 로딩
+    public static MNHappyMessage getRandomHappyString(MNHappyMessage happyMessage) {
+        MNHappyMessage newHappyMessage = new MNHappyMessage();
+        newHappyMessage.previousIndex = 1;
+        newHappyMessage.happyMessageString = "Have a nice day!";
+
+        return newHappyMessage;
+    }
 }
