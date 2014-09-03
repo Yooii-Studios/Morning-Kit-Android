@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -295,7 +297,11 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
                 showUnavailableMessage();
             }
         });
-        rssFetchTask.execute();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            rssFetchTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            rssFetchTask.execute();
+        }
     }
     private void showUnavailableMessage() {
         Toast.makeText(getActivity().getApplicationContext(),
