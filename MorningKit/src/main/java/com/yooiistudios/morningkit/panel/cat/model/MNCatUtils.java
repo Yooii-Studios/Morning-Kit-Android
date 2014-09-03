@@ -18,6 +18,8 @@ public class MNCatUtils {
     private static final int NUM_OF_EVENING_ANIM = 2;
     private static final int NUM_OF_NIGHT_ANIM = 2;
 
+    // 최초 기획에 따라 시간별로 구분을 해 두었지만, 절대량이 부족하기에 일단 전체랜덤으로 하기로 이사님과 합의.
+    // 대신 최근의 인덱스를 확인해서 이전 애니메이션과 같은 것이면 다른 것을 찾을 때 까지 랜덤으로 돌리기
     public static int getRandomCatAnimationResourceId(boolean isDebug) {
 
         Random randomGenerator = new Random();
