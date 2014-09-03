@@ -1,9 +1,15 @@
 package com.yooiistudios.morningkit.panel.cat.model;
 
+import android.content.Context;
+
 import com.yooiistudios.morningkit.R;
 
 import org.joda.time.DateTime;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Random;
 
 /**
@@ -79,11 +85,45 @@ public class MNCatUtils {
     }
 
     // -1일 경우는 최초 로딩
-    public static MNHappyMessage getRandomHappyString(MNHappyMessage happyMessage) {
+    public static MNHappyMessage getRandomHappyString(Context context, int previousIndex) {
         MNHappyMessage newHappyMessage = new MNHappyMessage();
-        newHappyMessage.previousIndex = 1;
-        newHappyMessage.happyMessageString = "Have a nice day!";
+        try {
+            InputStream file;
+            file = context.getResources().openRawResource(R.raw.cat_happy_messages_english);
 
+            BufferedReader reader = new BufferedReader(new InputStreamReader(file, "UNICODE"));
+            char[] tC = new char[file.available()];
+            reader.read(tC);
+
+            String buffer = new String(tC);
+            String[] lines = buffer.split("\n");
+
+            Random randomGenerator = new Random();
+            int randomIndex = 0;
+            // 기존의 인덱스가 존재한다면 다른 인덱스를 얻기 위해 최소 100번 돌리기
+            if (previousIndex != -1) {
+                for (int i = 0; i < 100; i++) {
+                    randomIndex = randomGenerator.nextInt(lines.length);
+                    if (randomIndex != previousIndex) {
+                        break;
+                    }
+                }
+            } else {
+                randomIndex = randomGenerator.nextInt(lines.length);
+            }
+
+
+            newHappyMessage.previousIndex = randomIndex;
+            newHappyMessage.happyMessageString = lines[randomIndex];
+
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            // 문제가 있을 경우 기본값을 넣어주기
+            newHappyMessage.previousIndex = 1;
+            newHappyMessage.happyMessageString = "Have a nice day!";
+        }
         return newHappyMessage;
     }
 }

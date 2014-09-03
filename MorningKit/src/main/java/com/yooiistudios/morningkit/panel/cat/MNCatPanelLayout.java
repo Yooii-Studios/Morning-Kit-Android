@@ -35,7 +35,7 @@ import org.json.JSONException;
  *  시간대별로 고양이 애니메이션을 보여주는 패널
  */
 public class MNCatPanelLayout extends MNPanelLayout {
-    private static final String TAG = "MNCatPanelLayout";
+//    private static final String TAG = "MNCatPanelLayout";
 
     private ImageView catImageView;
 
@@ -70,7 +70,12 @@ public class MNCatPanelLayout extends MNPanelLayout {
         public void handleMessage(Message msg) {
             if (MNTutorialManager.isTutorialShown(getContext().getApplicationContext())) {
                 // 애니메이션이 끝난 후 해피 텍스트를 보여주기
-                happyMessage = MNCatUtils.getRandomHappyString(happyMessage);
+                int previousIndex = -1;
+                if (happyMessage != null) {
+                    previousIndex = happyMessage.previousIndex;
+                }
+                happyMessage = MNCatUtils.getRandomHappyString(getContext().getApplicationContext(),
+                        previousIndex);
 
                 // 언어 길이에 따라 동적으로 크기 조절
                 SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
