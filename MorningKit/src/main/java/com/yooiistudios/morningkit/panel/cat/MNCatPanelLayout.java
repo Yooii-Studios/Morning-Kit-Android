@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -36,7 +35,7 @@ import org.json.JSONException;
  *  시간대별로 고양이 애니메이션을 보여주는 패널
  */
 public class MNCatPanelLayout extends MNPanelLayout {
-    private static final String TAG = "MNCatPanelLayout";
+//    private static final String TAG = "MNCatPanelLayout";
 
     private ImageView catImageView;
 
@@ -76,15 +75,11 @@ public class MNCatPanelLayout extends MNPanelLayout {
                 if (happyMessage != null) {
                     previousIndex = happyMessage.previousIndex;
                 }
-                happyMessage = MNCatUtils.getRandomHappyString(getContext().getApplicationContext(),
-                        previousIndex);
+                happyMessage = MNCatUtils.getRandomHappyString(previousIndex);
 
                 // 언어 길이에 따라 동적으로 크기 조절
                 SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
                 stringBuilder.append(happyMessage.happyMessageString);
-//                happyMessageTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-//                        getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_main_font_size));
-//                happyMessageTextView.setMinTextSize(DipToPixel.dpToPixel(getContext(), 1));
 
                 // 방향에 따라 최초 사이즈를 약간 다르게 주기
                 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -163,17 +158,10 @@ public class MNCatPanelLayout extends MNPanelLayout {
         catImageView.setVisibility(View.VISIBLE);
         if (catImageView.getDrawable() instanceof AnimationDrawable) {
             AnimationDrawable catAnimation = (AnimationDrawable) catImageView.getDrawable();
-            Log.i(TAG, catAnimation.toString());
             catAnimation.start();
             if (!catAnimation.isRunning()) {
-                Log.i(TAG, "!catAnimation.isRunning()");
                 catAnimation.start();
-            } else {
-                Log.i(TAG, "catAnimation.isRunning()");
             }
-        } else {
-            Log.i(TAG, "catImageView.getDrawable() isn't instanceof AnimationDrawable");
-            Log.i(TAG, catImageView.getDrawable().getClass().getName());
         }
     }
 

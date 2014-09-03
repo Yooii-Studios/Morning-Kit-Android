@@ -81,19 +81,9 @@ public class MNCatUtils {
     }
 
     // -1일 경우는 최초 로딩, static final 로 미리 선언해놓고 사용하자
-    public static MNHappyMessage getRandomHappyString(Context context, int previousIndex) {
+    public static MNHappyMessage getRandomHappyString(int previousIndex) {
         MNHappyMessage newHappyMessage = new MNHappyMessage();
         try {
-//            InputStream file;
-//            file = context.getResources().openRawResource(R.raw.cat_happy_messages_english);
-//
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(file, "UNICODE"));
-//            char[] tC = new char[file.available()];
-//            reader.read(tC);
-//
-//            String buffer = new String(tC);
-//            String[] lines = buffer.split("\n");
-
             Random randomGenerator = new Random();
             int randomIndex = 0;
             // 기존의 인덱스가 존재한다면 다른 인덱스를 얻기 위해 최소 100번 돌리기
@@ -109,7 +99,6 @@ public class MNCatUtils {
             }
 
             newHappyMessage.previousIndex = randomIndex;
-//            newHappyMessage.happyMessageString = lines[randomIndex];
             newHappyMessage.happyMessageString = MNHappyMessage.happyMessages[randomIndex];
 
 //            reader.close();
