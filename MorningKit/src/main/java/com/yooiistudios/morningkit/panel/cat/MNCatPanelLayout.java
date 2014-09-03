@@ -39,6 +39,7 @@ public class MNCatPanelLayout extends MNPanelLayout {
 
     private ImageView catImageView;
 
+    private int previousAnimationResourceId = -1;
     private AutoResizeTextView happyMessageTextView;
     private MNHappyMessage happyMessage;
 
@@ -140,7 +141,17 @@ public class MNCatPanelLayout extends MNPanelLayout {
     @Override
     protected void processLoading() throws JSONException {
         super.processLoading();
-        catImageView.setImageDrawable(getResources().getDrawable(MNCatUtils.getRandomCatAnimationResourceId(true)));
+        for (int i = 0; i < 100; i++) {
+            int newAnimationResourceId = MNCatUtils.getRandomCatAnimationResourceId(true);
+            if (newAnimationResourceId != previousAnimationResourceId) {
+                previousAnimationResourceId = newAnimationResourceId;
+                break;
+            }
+        }
+        // ScaleType 을 활용하기 위해서 해당 코드로 변경
+        if (previousAnimationResourceId != -1) {
+            catImageView.setImageDrawable(getResources().getDrawable(previousAnimationResourceId));
+        }
 //        catImageView.setBackgroundResource(MNCatUtils.getRandomCatAnimationResourceId(true));
     }
 
