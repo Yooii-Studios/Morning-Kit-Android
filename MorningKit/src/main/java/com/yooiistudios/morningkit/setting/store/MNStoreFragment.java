@@ -138,6 +138,8 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     }
 
     private void initIab() {
+        fullVersionButtonTextView.setSelected(true);
+
         // 이 부분 때문에 크래시가 나서 일단 null 체크를 해줌
         if (IS_STORE_FOR_NAVER) {
             // 네이버는 로딩을 탭 클릭 시로 미룸, 단 상점 액티비티는 처음에 로딩
