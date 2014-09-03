@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -235,7 +236,12 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                     }
                 }
         );
-        listFetcher.execute();
+        // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            listFetcher.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            listFetcher.execute();
+        }
     }
     private void togglePreviewWrapper(boolean available) {
         if (available) {

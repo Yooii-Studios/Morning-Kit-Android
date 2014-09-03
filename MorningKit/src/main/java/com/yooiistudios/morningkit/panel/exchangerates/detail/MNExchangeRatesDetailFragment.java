@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -140,7 +141,12 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
         }
         exchangeRatesAsyncTask = new MNExchangeRatesAsyncTask(exchangeRatesInfo.getBaseCurrencyCode(),
                 exchangeRatesInfo.getTargetCurrencyCode(), this);
-        exchangeRatesAsyncTask.execute();
+        // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            exchangeRatesAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            exchangeRatesAsyncTask.execute();
+        }
     }
 
     private void initEditTexts() {

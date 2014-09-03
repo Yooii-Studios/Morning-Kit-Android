@@ -264,6 +264,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 updateUI();
             }
         });
+        // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             rssFetchTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {

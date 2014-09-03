@@ -3,6 +3,8 @@ package com.yooiistudios.morningkit.panel.photoalbum;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -296,7 +298,12 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                         }
                     }
             );
-            listFetcher.execute();
+            // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                listFetcher.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            } else {
+                listFetcher.execute();
+            }
         }
     }
 

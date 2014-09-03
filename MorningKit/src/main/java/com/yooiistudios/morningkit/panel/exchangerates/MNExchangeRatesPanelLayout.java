@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.text.SpannableStringBuilder;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -165,7 +167,12 @@ public class MNExchangeRatesPanelLayout extends MNPanelLayout implements MNExcha
         }
         exchangeRatesAsyncTask = new MNExchangeRatesAsyncTask(exchangeRatesInfo.getBaseCurrencyCode(),
                 exchangeRatesInfo.getTargetCurrencyCode(), this);
-        exchangeRatesAsyncTask.execute();
+        // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            exchangeRatesAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            exchangeRatesAsyncTask.execute();
+        }
     }
 
     private void initExchangeRatesInfo() {

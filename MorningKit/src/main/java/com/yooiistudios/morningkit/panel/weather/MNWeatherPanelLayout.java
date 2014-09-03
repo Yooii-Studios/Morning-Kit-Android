@@ -333,6 +333,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
                 } else {
                     // get weather data from server if cache doesn't exist
                     weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), true, this);
+                    // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                         weatherWWOAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     } else {
@@ -601,6 +602,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             currentLocationInfo.setLatitude(location.getLatitude());
             currentLocationInfo.setLongitude(location.getLongitude());
             weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(currentLocationInfo, getContext(), false, this);
+            // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 weatherWWOAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             } else {
