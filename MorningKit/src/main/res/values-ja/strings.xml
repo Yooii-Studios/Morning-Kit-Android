@@ -127,7 +127,7 @@
 	<string name="world_clock_clock_type_text">時計タイプ</string>
 	<string name="world_clock_digital">デジタル</string>
 	<string name="world_clock_analog">アナログ</string>
-	<string name="world_clock_use_24_hour_format">24時間形式を使用</string>
+	<string name="world_clock_use_24_hour_format">24時間形式で表示</string>
 	<string name="world_clock_today">今日</string>
 	<string name="world_clock_tomorrow">明日</string>
 	<string name="world_clock_yesterday">昨日</string>
