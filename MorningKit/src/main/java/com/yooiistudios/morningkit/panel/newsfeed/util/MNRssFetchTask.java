@@ -27,9 +27,9 @@ import nl.matshofman.saxrssreader.RssReader;
  *
  * MNRssFetchTask
  *  RSS 내용을 읽어오는 AsyncTask 메서드
+ *
  */
 public class MNRssFetchTask extends AsyncTask<MNNewsFeedUrl, Void, RssFeed> {
-//    private String mRssUrl;
     private Context mContext;
     private MNNewsFeedUrl mFeedUrl;
     private OnFetchListener mOnFetchListener;
@@ -37,20 +37,14 @@ public class MNRssFetchTask extends AsyncTask<MNNewsFeedUrl, Void, RssFeed> {
     private static final int MAX_DESCRIPTION_LENGTH = 200;
     private static final String ILLEGAL_CHARACTER_OBJ = Character.toString((char)65532);
 
-    public MNRssFetchTask(MNNewsFeedUrl feedUrl, OnFetchListener onFetchListener) {
-//        mRssUrl = rssUrl;
+    public MNRssFetchTask(Context context, MNNewsFeedUrl feedUrl, OnFetchListener onFetchListener) {
+        mContext = context;
         mFeedUrl = feedUrl;
         mOnFetchListener = onFetchListener;
     }
 
     @Override
     protected RssFeed doInBackground(MNNewsFeedUrl... args) {
-
-//        if (args == null || args.length <= 0) {
-//            //error
-//            return null;
-//        }
-//        MNNewsFeedUrl feedUrl = args[0];
 
         if (!mFeedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
             // 디폴트 세팅을 사용할 경우 패널단에서 언어설정을 감지 못하므로 무조건 현재 언어의

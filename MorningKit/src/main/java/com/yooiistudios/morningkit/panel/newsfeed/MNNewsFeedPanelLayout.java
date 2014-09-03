@@ -231,7 +231,8 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
             rssFetchTask.cancel(false);
         }
 
-        rssFetchTask = new MNRssFetchTask(url, new MNRssFetchTask.OnFetchListener() {
+        rssFetchTask = new MNRssFetchTask(getContext().getApplicationContext(),
+                url, new MNRssFetchTask.OnFetchListener() {
             @Override
             public void onFetch(RssFeed rssFeed) {
                 stopHandler();
