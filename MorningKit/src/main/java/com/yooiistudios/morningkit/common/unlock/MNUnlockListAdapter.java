@@ -15,8 +15,6 @@ import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import java.util.List;
 
@@ -72,12 +70,12 @@ public class MNUnlockListAdapter extends BaseAdapter {
                     isCellUsed = owndSkus.contains(SKIabProducts.SKU_FULL_VERSION);
                     if (isCellUsed) {
                         viewHolder.getDescriptionTextView().setText(R.string.unlock_everything);
-                        viewHolder.getIconImageView().setImageResource(R.drawable.unlock_fullversion_icon_off);
+                        viewHolder.getIconImageView().setImageResource(R.drawable.unlock_fullversion_2_99_icon_off);
                     } else {
                         setPointColoredTextView(viewHolder.getDescriptionTextView(),
                                 context.getString(R.string.unlock_everything),
                                 context.getString(R.string.unlock_everything_highlight));
-                        viewHolder.getIconImageView().setImageResource(R.drawable.unlock_fullversion_icon_on);
+                        viewHolder.getIconImageView().setImageResource(R.drawable.unlock_fullversion_2_99_icon_on);
                     }
                     break;
 

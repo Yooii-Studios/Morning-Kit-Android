@@ -43,7 +43,7 @@ public class MNCatPanelLayout extends MNPanelLayout {
     private AutoResizeTextView happyMessageTextView;
     private MNHappyMessage happyMessage;
 
-    private static final int HAPPY_MESSAGE_HANDLER_DELAY = 2000;
+    private static final int HAPPY_MESSAGE_HANDLER_DELAY = 3000;
     private static final int CAT_ANIMATION_HANDLER_DELAY = 8000;
     private boolean isHandlerRunning = false;
     private MNCatAnimationHandler catAnimationHandler = new MNCatAnimationHandler();
