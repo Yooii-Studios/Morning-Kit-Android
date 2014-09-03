@@ -24,6 +24,9 @@ import nl.matshofman.saxrssreader.RssReader;
 
 /**
  * Created by Dongheyon Jeong on in RSSTest from Yooii Studios Co., LTD. on 2014. 6. 27.
+ *
+ * MNRssFetchTask
+ *  RSS 내용을 읽어오는 AsyncTask 메서드
  */
 public class MNRssFetchTask extends AsyncTask<MNNewsFeedUrl, Void, RssFeed> {
 //    private String mRssUrl;
