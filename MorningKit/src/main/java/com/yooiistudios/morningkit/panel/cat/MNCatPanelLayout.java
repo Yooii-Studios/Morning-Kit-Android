@@ -5,11 +5,10 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.cat.model.MNCatUtils;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -57,13 +56,22 @@ public class MNCatPanelLayout extends MNPanelLayout {
     protected void init() {
         super.init();
 
+        // 고양이 패널만 특별하게 패딩 삭제
+//        LinearLayout.LayoutParams panelLayoutParams = new LinearLayout.LayoutParams(
+//                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
+//                .MATCH_PARENT);
+//        panelLayoutParams.setMargins(0, 0, 0, 0);
+//        setLayoutParams(layoutParams);
+
         // image view
         catImageView = new ImageView(getContext());
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                getResources().getDimensionPixelSize(R.dimen.panel_cat_image_view_width),
-                getResources().getDimensionPixelSize(R.dimen.panel_cat_image_view_height));
-        catImageView.setLayoutParams(layoutParams);
-        layoutParams.addRule(CENTER_IN_PARENT);
+//        RelativeLayout.LayoutParams imageViewLayoutParams = new RelativeLayout.LayoutParams(
+//                getResources().getDimensionPixelSize(R.dimen.panel_cat_image_view_width),
+//                getResources().getDimensionPixelSize(R.dimen.panel_cat_image_view_height));
+        RelativeLayout.LayoutParams imageViewLayoutParams = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        catImageView.setLayoutParams(imageViewLayoutParams);
+        imageViewLayoutParams.addRule(CENTER_IN_PARENT);
         getContentLayout().addView(catImageView);
     }
 
