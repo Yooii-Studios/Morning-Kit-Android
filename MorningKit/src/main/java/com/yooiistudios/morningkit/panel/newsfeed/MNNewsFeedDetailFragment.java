@@ -271,8 +271,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
     private void loadNewsFeed(MNNewsFeedUrl url) {
         showLoadingImageView();
         loadingFeedUrl = url;
-        rssFetchTask = new MNRssFetchTask(getActivity().getApplicationContext(),
-                url, new MNRssFetchTask.OnFetchListener() {
+        rssFetchTask = new MNRssFetchTask(url, new MNRssFetchTask.OnFetchListener() {
             @Override
             public void onFetch(RssFeed rssFeed) {
                 update(loadingFeedUrl, rssFeed);

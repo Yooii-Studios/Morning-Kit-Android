@@ -34,8 +34,7 @@ public class MNRssFetchTask extends AsyncTask<MNNewsFeedUrl, Void, RssFeed> {
     private static final int MAX_DESCRIPTION_LENGTH = 200;
     private static final String ILLEGAL_CHARACTER_OBJ = Character.toString((char)65532);
 
-    public MNRssFetchTask(Context context, MNNewsFeedUrl feedUrl,
-                          OnFetchListener onFetchListener) {
+    public MNRssFetchTask(MNNewsFeedUrl feedUrl, OnFetchListener onFetchListener) {
 //        mRssUrl = rssUrl;
         mFeedUrl = feedUrl;
         mOnFetchListener = onFetchListener;
