@@ -25,7 +25,7 @@ public class MNDefaultExchangeRatesInfo {
         //영어: $1 -> 유로
         //러시아: 100루블 -> 달러
         //스페인: 10유로 -> 달러
-        //프랑스: 100프랑 -> 달러
+        //프랑스: 10유로 -> 달러
 
         switch (MNLanguage.getCurrentLanguageType(context)) {
             case KOREAN:
