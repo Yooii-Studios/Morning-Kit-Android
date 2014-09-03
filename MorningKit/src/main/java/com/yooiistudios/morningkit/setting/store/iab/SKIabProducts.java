@@ -27,6 +27,7 @@ public class SKIabProducts {
     public static final String SKU_PHOTO_FRAME = "panel.photo_frame"; // "photo_frame_test";
     public static final String SKU_MODERNITY = "themes.modernity"; // "modernity_test";
     public static final String SKU_CELESTIAL = "themes.celestial"; // "celestial_test";
+    public static final String SKU_CAT = "cat"; // 구글 플레이 판매용이 아닌 언락과 풀버전 전용 아이템
 
     private static final String SHARED_PREFERENCES_IAB = "SHARED_PREFERENCES_IAB";
     private static final String SHARED_PREFERENCES_IAB_DEBUG = "SHARED_PREFERENCES_IAB_DEBUG";
@@ -42,6 +43,7 @@ public class SKIabProducts {
         iabKeyList.add(SKU_PHOTO_FRAME);
         iabKeyList.add(SKU_MODERNITY);
         iabKeyList.add(SKU_CELESTIAL);
+        iabKeyList.add(SKU_CAT);
         return iabKeyList;
     }
 
@@ -92,6 +94,7 @@ public class SKIabProducts {
             ownedSkus.add(SKU_PHOTO_FRAME);
             ownedSkus.add(SKU_MODERNITY);
             ownedSkus.add(SKU_CELESTIAL);
+            ownedSkus.add(SKU_CAT);
         } else {
             if (prefs.getBoolean(SKU_MORE_ALARM_SLOTS, false)) {
                 ownedSkus.add(SKU_MORE_ALARM_SLOTS);
@@ -116,6 +119,9 @@ public class SKIabProducts {
             }
             if (prefs.getBoolean(SKU_CELESTIAL, false)) {
                 ownedSkus.add(SKU_CELESTIAL);
+            }
+            if (prefs.getBoolean(SKU_CAT, false)) {
+                ownedSkus.add(SKU_CAT);
             }
 
             // 추가: 언락화면에서 리뷰로 사용한 아이템도 체크
