@@ -193,6 +193,7 @@ public class MNCatPanelLayout extends MNPanelLayout {
         }
         isHandlerRunning = true;
         catImageView.setVisibility(View.VISIBLE);
+        happyMessageTextView.setVisibility(View.INVISIBLE);
         catAnimationHandler.sendEmptyMessageDelayed(0,
                 CAT_ANIMATION_HANDLER_DELAY + HAPPY_MESSAGE_HANDLER_DELAY);
         happyMessageHandler.sendEmptyMessageDelayed(0, CAT_ANIMATION_HANDLER_DELAY);
@@ -204,6 +205,7 @@ public class MNCatPanelLayout extends MNPanelLayout {
         }
         isHandlerRunning = false;
         catImageView.setVisibility(View.GONE);
+        happyMessageTextView.setVisibility(View.GONE);
         catAnimationHandler.removeMessages(0);
         happyMessageHandler.removeMessages(0);
     }
