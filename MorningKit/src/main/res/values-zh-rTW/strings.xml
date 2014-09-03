@@ -209,7 +209,7 @@
 	<string name="unlock_unlocked">解鎖</string>
 	<string name="unlock_description">找到更多方法免費解鎖並享受新功能!</string>
 	<string name="unlock_description_highlight">免費解鎖</string>
-	<string name="unlock_everything">全部解鎖只要$1.99</string>
+	<string name="unlock_everything">全部解鎖只要$2.99</string>
 	<string name="unlock_everything_highlight">全部</string>
 	<string name="unlock_only_this">解鎖只要$0.99</string>
 	<string name="unlock_review">為此APP評價以獲得此項功能免費解鎖。我們將繼續提供好用新功能!請給我們5顆星!</string>
@@ -241,7 +241,7 @@
 	<string name="store_item_widget_memo">備忘錄</string>
 	<string name="store_item_photo_portrait">照片\n縱向</string>
 	<string name="store_item_photo_landscape">照片\n橫向</string>
-	<string name="store_item_skyblue">天上 (天空藍)</string>
+	<string name="store_item_skyblue">天上\n(天空藍)</string>
 	<string name="store_item_classic_white">摩登\n(時尚白)</string>
 	<string name="store_item_water_lily">睡蓮 （設計模式）</string>
 	<string name="store_item_popsicle">冰淇淋 （設計模式）</string>
@@ -311,8 +311,8 @@
     <string name="news_feed_invalid_url">無效RSS</string>
     <string name="news_feed_feed_unavailable">暫無新聞</string>
 
-    <!-- Panel - Cat -->
-    <string name="cat">貓</string>
+        <!-- Cat -->
+    <string name="cat">Cat</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">淺綠</string>
@@ -328,5 +328,9 @@
     <!-- Location -->
     <string name="dialog_location_service_disabled_title">關閉定位服務</string>
     <string name="dialog_location_service_disabled_message">確認以開啟定位服務</string>
+
+    <!-- Unlock - Recommend -->
+    <string name="unlock_recommend">Recommend Morning Kit to your friends and unlock it for free!</string>
+    <string name="unlock_recommend_highlight">Recommend</string>
 
 </resources>

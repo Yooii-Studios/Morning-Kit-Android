@@ -209,7 +209,7 @@
 	<string name="unlock_unlocked">사용가능</string>
 	<string name="unlock_description">기능을 추가하는 다양한 방법들이 있습니다.물론 무료로도 가능합니다!</string>
 	<string name="unlock_description_highlight">기능을 추가</string>
-	<string name="unlock_everything">$1.99면 모닝키트의 모든 기능을 사용하실 수 있습니다!</string>
+	<string name="unlock_everything">$2.99면 모닝키트의 모든 기능을 사용하실 수 있습니다!</string>
 	<string name="unlock_everything_highlight">모든 기능</string>
 	<string name="unlock_only_this">$0.99면 이 기능을 사용하실 수 있습니다</string>
 	<string name="unlock_review">리뷰를 남겨주시면 이 기능을 무료로 사용하실 수 있습니다</string>
@@ -311,7 +311,7 @@
     <string name="news_feed_invalid_url">유효하지 않은 RSS</string>
     <string name="news_feed_feed_unavailable">뉴스를 사용할 수 없습니다</string>
 
-    <!-- Panel - Cat -->
+        <!-- Cat -->
     <string name="cat">고양이</string>
 
     <!-- Theme -->
@@ -328,5 +328,9 @@
     <!-- Location -->
     <string name="dialog_location_service_disabled_title">위치 서비스 비활성화됨</string>
     <string name="dialog_location_service_disabled_message">확인을 눌러 위치서비스를 활성화하세요</string>
+
+    <!-- Unlock - Recommend -->
+    <string name="unlock_recommend">모닝키트를 추천하고 이 기능을 무료로 사용하세요!</string>
+    <string name="unlock_recommend_highlight">추천</string>
 
 </resources>

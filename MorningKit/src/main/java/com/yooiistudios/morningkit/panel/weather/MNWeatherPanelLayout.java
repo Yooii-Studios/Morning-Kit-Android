@@ -12,6 +12,8 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -331,7 +333,12 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
                 } else {
                     // get weather data from server if cache doesn't exist
                     weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), true, this);
-                    weatherWWOAsyncTask.execute();
+                    // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        weatherWWOAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    } else {
+                        weatherWWOAsyncTask.execute();
+                    }
                 }
             } else {
                 // 네이버 인앱 현재위치 사용 안함시 도시 선택을 요청
@@ -595,7 +602,12 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             currentLocationInfo.setLatitude(location.getLatitude());
             currentLocationInfo.setLongitude(location.getLongitude());
             weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(currentLocationInfo, getContext(), false, this);
-            weatherWWOAsyncTask.execute();
+            // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                weatherWWOAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            } else {
+                weatherWWOAsyncTask.execute();
+            }
         }
     }
 

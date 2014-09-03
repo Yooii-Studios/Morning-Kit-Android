@@ -209,7 +209,7 @@
 	<string name="unlock_unlocked">Разблокирован</string>
 	<string name="unlock_description">Есть много способов для разблокировкий это функции. найди способ насладиться егю бесплатно!</string>
 	<string name="unlock_description_highlight">разблокировкий</string>
-	<string name="unlock_everything">Разблокировать всё всего за 1.99$</string>
+	<string name="unlock_everything">Разблокировать всё всего за 2.99$</string>
 	<string name="unlock_everything_highlight">всё</string>
 	<string name="unlock_only_this">Разблокировать за 0.99$</string>
 	<string name="unlock_review">Написать отзыв и разблокировать бесплатно!</string>
@@ -311,8 +311,8 @@
     <string name="news_feed_invalid_url">Неверный RSS</string>
     <string name="news_feed_feed_unavailable">Новый недоступен сейчас</string>
 
-    <!-- Panel - Cat -->
-    <string name="cat">кот</string>
+        <!-- Cat -->
+    <string name="cat">Cat</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">Зеленый пастельный</string>
@@ -328,5 +328,9 @@
     <!-- Location -->
     <string name="dialog_location_service_disabled_title">Адрес услуги отключены</string>
     <string name="dialog_location_service_disabled_message">Нажмите OK, чтобы включить службы определения местонахождения</string>
+
+    <!-- Unlock - Recommend -->
+    <string name="unlock_recommend">Recommend Morning Kit to your friends and unlock it for free!</string>
+    <string name="unlock_recommend_highlight">Recommend</string>
 
 </resources>

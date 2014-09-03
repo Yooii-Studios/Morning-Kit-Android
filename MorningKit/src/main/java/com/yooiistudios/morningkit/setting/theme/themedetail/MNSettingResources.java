@@ -156,4 +156,5 @@ public class MNSettingResources {
         return R.drawable.widget_cover_news_pastel_green;
     }
 
+    public static int getCatResourceId() { return R.drawable.widget_cover_cat_pastel_green; }
 }

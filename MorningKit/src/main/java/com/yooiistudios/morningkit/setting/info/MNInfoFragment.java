@@ -174,7 +174,7 @@ public class MNInfoFragment extends Fragment implements MNInfoItemClickListener 
                 } else {
                     link = "https://play.google.com/store/apps/details?id=" + getActivity().getPackageName();
                 }
-                String message = title + "\n" + getString(R.string.recommend_description) + "\n" + link;
+                String message = title + "\n\n" + getString(R.string.recommend_description) + "\n" + link;
                 intent.putExtra(Intent.EXTRA_TEXT, message);
 
                 // createChooser Intent

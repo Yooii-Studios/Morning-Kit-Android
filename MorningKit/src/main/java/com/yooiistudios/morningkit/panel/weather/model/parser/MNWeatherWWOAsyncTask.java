@@ -16,7 +16,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONObject;
 
-import java.util.Calendar;
 import java.util.Locale;
 
 /**
@@ -61,8 +60,6 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                             + "&format=json&extra=localObsTime&num_of_days=1&date=today"
                             + "&includelocation=yes&show_comments=no&key=" + WWO_KEY);
 
-//        MNLog.now("queryUrlString: " + queryUrlString);
-
             // 1번 블락: 날씨 가져오기
             // 2번 블락: 구글에서 도시 이름 가져오기
             // 3번 블락: 구글에서 현재 언어 도시 가져오기
@@ -70,6 +67,8 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
 
             // 아래 두 가지 변경을 하지 않으면 제대로 된 URL로 인식을 하지 못함
             queryUrlString = queryUrlString.replace(",", "%2C");
+
+//            Log.i("MNWeatherWWOAsyncTask", "queryUrlString: " + queryUrlString);
 
             JSONObject resultJsonObject = MNJsonUtils.getJsonObjectFromUrl(queryUrlString);
 //        MNLog.now("resultJsonObject: " + resultJsonObject);

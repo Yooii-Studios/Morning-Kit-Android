@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit.panel.core.detail;
 import android.support.v4.app.Fragment;
 
 import com.yooiistudios.morningkit.panel.calendar.MNCalendarDetailFragment;
+import com.yooiistudios.morningkit.panel.cat.MNCatPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.panel.date.MNDateDetailFragment;
@@ -12,7 +13,7 @@ import com.yooiistudios.morningkit.panel.flickr.detail.MNFlickrDetailFragment;
 import com.yooiistudios.morningkit.panel.memo.MNMemoDetailFragment;
 import com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedDetailFragment;
 import com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumDetailFragment;
-import com.yooiistudios.morningkit.panel.quotes.detail.MNQuotesDetailFragment;
+import com.yooiistudios.morningkit.panel.quotes.MNQuotesDetailFragment;
 import com.yooiistudios.morningkit.panel.weather.MNWeatherDetailFragment;
 import com.yooiistudios.morningkit.panel.worldclock.MNWorldClockDetailFragment;
 
@@ -85,6 +86,10 @@ public abstract class MNPanelDetailFragment extends Fragment {
 
             case NEWS_FEED:
                 newPanelDetailFragment = new MNNewsFeedDetailFragment();
+                break;
+
+            case CAT:
+                newPanelDetailFragment = new MNCatPanelDetailFragment();
                 break;
 
             default:

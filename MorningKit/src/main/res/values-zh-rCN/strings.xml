@@ -209,7 +209,7 @@
 	<string name="unlock_unlocked">解锁</string>
 	<string name="unlock_description">找到更多方法免费解锁并享受新功能!</string>
 	<string name="unlock_description_highlight">免费解锁</string>
-	<string name="unlock_everything">全部解锁只要$1.99</string>
+	<string name="unlock_everything">全部解锁只要$2.99</string>
 	<string name="unlock_everything_highlight">全部</string>
 	<string name="unlock_only_this">解锁只要$0.99</string>
 	<string name="unlock_review">为此APP评价以获得此项功能免费解锁。我们将继续提供好用新功能!请给我们5颗星!</string>
@@ -311,8 +311,8 @@
     <string name="news_feed_invalid_url">无效RSS</string>
     <string name="news_feed_feed_unavailable">暂无新闻</string>
 
-    <!-- Panel - Cat -->
-    <string name="cat">猫</string>
+        <!-- Cat -->
+    <string name="cat">Cat</string>
 
     <!-- Theme -->
     <string name="setting_theme_color_pastel_green">浅绿</string>
@@ -328,5 +328,9 @@
     <!-- Location -->
     <string name="dialog_location_service_disabled_title">关闭定位服务</string>
     <string name="dialog_location_service_disabled_message">点击确定开启定位服务</string>
+
+    <!-- Unlock - Recommend -->
+    <string name="unlock_recommend">Recommend Morning Kit to your friends and unlock it for free!</string>
+    <string name="unlock_recommend_highlight">Recommend</string>
 
 </resources>

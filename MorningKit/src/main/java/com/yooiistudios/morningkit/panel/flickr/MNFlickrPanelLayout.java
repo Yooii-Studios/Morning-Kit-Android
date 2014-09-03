@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -129,11 +131,11 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
                 // 기존 로딩
                 photoInfoFetchAsyncTask = MNPhotoInfoFetcher.newQueryInstance(keywordString,
                         flickrPhotoInfo.getTotalPhotos(), this);
-                photoInfoFetchAsyncTask.execute();
+                executeFetchAsyncTask();
             } else {
                 // 새 키워드의 첫 로딩
                 photoInfoFetchAsyncTask = MNPhotoInfoFetcher.newFirstQueryInstance(keywordString, this);
-                photoInfoFetchAsyncTask.execute();
+                executeFetchAsyncTask();
             }
         } else {
             SharedPreferences prefs = getContext().getSharedPreferences(FLICKR_PREFS, Context.MODE_PRIVATE);
@@ -141,11 +143,20 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
 
             // 새 키워드의 첫 로딩
             photoInfoFetchAsyncTask = MNPhotoInfoFetcher.newFirstQueryInstance(keywordString, this);
-            photoInfoFetchAsyncTask.execute();
+            executeFetchAsyncTask();
         }
 
         // 키워드 저장
         getPanelDataObject().put(FLICKR_DATA_KEYWORD, keywordString);
+    }
+
+    private void executeFetchAsyncTask() {
+        // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            photoInfoFetchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            photoInfoFetchAsyncTask.execute();
+        }
     }
 
     @Override
@@ -264,7 +275,12 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
             flickrBitmapAsyncTask = new MNFlickrBitmapAsyncTask(originalBitmap,
                     imageView.getWidth(), imageView.getHeight(), isGrayScale, this,
                     getContext().getApplicationContext());
-            flickrBitmapAsyncTask.execute();
+            // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                flickrBitmapAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            } else {
+                flickrBitmapAsyncTask.execute();
+            }
         }
     }
 

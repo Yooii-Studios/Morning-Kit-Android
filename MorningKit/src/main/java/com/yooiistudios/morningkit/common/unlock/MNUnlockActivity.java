@@ -45,7 +45,6 @@ import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 import lombok.Getter;
 
 public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnClickListener,
@@ -64,13 +63,10 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     private boolean isReviewScreenCalled = false;
     private int resumeCount = 0;
 
-    @InjectView(R.id.unlock_container)              RelativeLayout          containerLayout;
     @InjectView(R.id.unlock_listview_layout)        RelativeLayout          listViewLayout;
     @InjectView(R.id.unlock_description_textview)   TextView                descriptionTextView;
     @InjectView(R.id.unlock_listview)               ListView                listView;
     @InjectView(R.id.unlock_reset_button)           Button                  resetButton;
-
-    private static final boolean IS_DEBUG = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,8 +146,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         }
     }
 
-    @OnClick(R.id.unlock_reset_button)
-    void onResetButtonClicked(Button button) {
+    public void onResetButtonClicked(View view) {
         initDescriptionTextView();
 
         // 사용 이력을 전부 초기화해주자, 거의 리뷰에만 쓰일듯
@@ -320,6 +315,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
             return this.getString(R.string.setting_theme_color_classic_white);
         } else if (productSku.equals(SKIabProducts.SKU_CELESTIAL)) {
             return this.getString(R.string.setting_theme_color_skyblue);
+        } else if (productSku.equals(SKIabProducts.SKU_CAT)) {
+            return this.getString(R.string.cat);
         }
         return null;
     }
@@ -400,6 +397,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
             unlockedProduct = "Classic White";
         } else if (productSku.equals(SKIabProducts.SKU_CELESTIAL)) {
             unlockedProduct = "Sky Blue";
+        } else if (productSku.equals(SKIabProducts.SKU_CAT)) {
+            unlockedProduct = "Cat";
         }
         Map<String, String> params = new HashMap<String, String>();
         params.put(MNFlurry.UNLOCKED_PRODUCT, unlockedProduct);

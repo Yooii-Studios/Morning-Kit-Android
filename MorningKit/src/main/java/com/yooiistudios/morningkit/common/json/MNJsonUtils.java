@@ -5,6 +5,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -20,15 +22,21 @@ import java.io.InputStreamReader;
 public class MNJsonUtils {
     private MNJsonUtils() { throw new AssertionError("You MUST not create this class!"); }
     public static JSONObject getJsonObjectFromUrl(String url) {
-        DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
-        HttpPost httppost = new HttpPost(url);
+        DefaultHttpClient httpClient = new DefaultHttpClient(new BasicHttpParams());
+
+        // 20초 동안 응답이 없으면 timeout 처리
+        HttpParams params = httpClient .getParams();
+        HttpConnectionParams.setConnectionTimeout(params, 5 * 1000);
+        HttpConnectionParams.setSoTimeout(params, 5 * 1000);
+
+        HttpPost httpPost = new HttpPost(url);
         // Depends on your web service
-//        httppost.setHeader("Content-type", "application/json");
+//        httpPost.setHeader("Content-type", "application/json");
 
         InputStream inputStream = null;
         String result;
         try {
-            HttpResponse response = httpclient.execute(httppost);
+            HttpResponse response = httpClient.execute(httpPost);
             HttpEntity entity = response.getEntity();
             inputStream = entity.getContent();
 

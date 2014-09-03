@@ -209,7 +209,7 @@
     <string name="unlock_unlocked">Unlocked</string>
     <string name="unlock_description">There are many ways to unlock this feature. Find a way to enjoy it for free!</string>
     <string name="unlock_description_highlight">unlock</string>
-    <string name="unlock_everything">Unlock everything for only $1.99</string>
+    <string name="unlock_everything">Unlock everything for only $2.99</string>
     <string name="unlock_everything_highlight">everything</string>
     <string name="unlock_only_this">Unlock for $0.99</string>
     <string name="unlock_review">Write a Review and unlock it for free!</string>
@@ -311,7 +311,7 @@
     <string name="news_feed_invalid_url">Invalid RSS</string>
     <string name="news_feed_feed_unavailable">News is not available now</string>
 
-    <!-- Panel - Cat -->
+        <!-- Cat -->
     <string name="cat">Cat</string>
 
     <!-- Theme -->
@@ -321,12 +321,16 @@
 
     <!-- Recommend -->
     <string name="recommend_to_friends">Recommend Morning Kit to your friends</string>
-    <string name="recommend_title">Check out this new app = Morning Kit, it\'s awesome!</string>
+    <string name="recommend_title">Check out this new app, it\'s awesome!</string>
     <string name="recommend_description">Click the link and take it for a spin</string>
     <string name="recommend_app_full_name">Morning Kit</string>
 
     <!-- Location -->
     <string name="dialog_location_service_disabled_title">Location services disabled</string>
     <string name="dialog_location_service_disabled_message">Click OK to enable location services</string>
+
+    <!-- Unlock - Recommend -->
+    <string name="unlock_recommend">Recommend Morning Kit to your friends and unlock it for free!</string>
+    <string name="unlock_recommend_highlight">Recommend</string>
 
 </resources>

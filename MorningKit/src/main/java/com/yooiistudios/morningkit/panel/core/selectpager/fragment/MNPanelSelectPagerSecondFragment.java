@@ -43,12 +43,10 @@ import lombok.Setter;
  *  설정 - 패널 탭에서 패널을 선택할 수 있는 뷰 페이저의 프래그먼트
  */
 public class MNPanelSelectPagerSecondFragment extends Fragment {
-
-    private static final String TAG = "MNPanelSelectPagerSecondFragment";
-
-    @Setter MNPanelSelectPagerInterface panelSelectPagerInterface;
     // MNPanelSelectPagerInterface을 셋 해줘야함 non-default constructor 를 사용하지 않기 위함
     public MNPanelSelectPagerSecondFragment() {}
+
+    @Setter MNPanelSelectPagerInterface panelSelectPagerInterface;
 
     @Getter ArrayList<RelativeLayout> selectItemLayouts;
     @Getter ArrayList<TextView> textViews;
@@ -69,6 +67,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
     @InjectView(R.id.panel_selector_page2_3_lock_imageview) ImageView lockImageView2_3;
     @InjectView(R.id.panel_selector_page2_4_lock_imageview) ImageView lockImageView2_4;
     @InjectView(R.id.panel_selector_page2_5_lock_imageview) ImageView lockImageView2_5;
+    @InjectView(R.id.panel_selector_page2_6_lock_imageview) ImageView lockImageView2_6;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,7 +94,7 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
         textView2_3.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
         textView2_4.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
         textView2_5.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
-        textView2_6.setTextColor(MNSettingColors.getStorePointedFontColor(currentThemeType));
+        textView2_6.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
 
         if (textViews == null) {
             textViews = new ArrayList<TextView>();
@@ -234,6 +233,28 @@ public class MNPanelSelectPagerSecondFragment extends Fragment {
             lockImageView2_5.setVisibility(View.INVISIBLE);
             textView2_5.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
             selectItemLayout_2_5.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
+        }
+        if (ownedSkus.indexOf(SKIabProducts.SKU_CAT) == -1) {
+            lockImageView2_6.setVisibility(View.VISIBLE);
+            lockImageView2_6.setImageResource(MNSettingResources.getPanelSelectPagerLockResourceId(currentThemeType));
+            textView2_6.setTextColor(MNSettingColors.getLockedFontColor(currentThemeType));
+            selectItemLayout_2_6.setBackgroundResource(MNSettingResources.getLockItemResourcesId(currentThemeType));
+            selectItemLayout_2_6.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    panelSelectPagerInterface.onPanelSelectPagerUnlockItemClick((Integer) v.getTag());
+                    startUnlockActivity(SKIabProducts.SKU_CAT, v.getContext());
+
+                    // 플러리
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put(MNFlurry.CALLED_FROM, "Cat");
+                    FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
+                }
+            });
+        } else {
+            lockImageView2_6.setVisibility(View.INVISIBLE);
+            textView2_6.setTextColor(MNSettingColors.getSubFontColor(currentThemeType));
+            selectItemLayout_2_6.setBackgroundResource(R.drawable.shape_rounded_view_pastel_green_normal_panel_select_pager);
         }
     }
 

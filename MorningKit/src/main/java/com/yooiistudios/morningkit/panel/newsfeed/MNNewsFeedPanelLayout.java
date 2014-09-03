@@ -3,6 +3,8 @@ package com.yooiistudios.morningkit.panel.newsfeed;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Layout;
@@ -262,7 +264,12 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 updateUI();
             }
         });
-        rssFetchTask.execute();
+        // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            rssFetchTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            rssFetchTask.execute();
+        }
         startLoadingAnimation();
     }
 
