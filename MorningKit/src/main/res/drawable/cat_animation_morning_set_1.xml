@@ -6,5 +6,8 @@
     <item android:drawable="@drawable/cat_morning_set_1_2" android:duration="800" />
     <item android:drawable="@drawable/cat_morning_set_1_3" android:duration="800" />
     <item android:drawable="@drawable/cat_morning_set_1_4" android:duration="800" />
+    <item android:drawable="@drawable/cat_morning_set_1_5" android:duration="800" />
+    <item android:drawable="@drawable/cat_morning_set_1_6" android:duration="800" />
+    <item android:drawable="@drawable/cat_morning_set_1_7" android:duration="800" />
 
 </animation-list>

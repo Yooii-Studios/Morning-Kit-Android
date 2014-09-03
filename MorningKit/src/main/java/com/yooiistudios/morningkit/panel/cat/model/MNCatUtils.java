@@ -14,8 +14,9 @@ import java.util.Random;
  */
 public class MNCatUtils {
     private static final int NUM_OF_MORNING_ANIM = 2;
-    private static final int NUM_OF_NOON_ANIM = 4;
+    private static final int NUM_OF_NOON_ANIM = 2;
     private static final int NUM_OF_EVENING_ANIM = 2;
+    private static final int NUM_OF_NIGHT_ANIM = 2;
 
     public static int getRandomCatAnimationResourceId(boolean isDebug) {
 
@@ -28,8 +29,8 @@ public class MNCatUtils {
         }
 
         // 시간에 따른 분류
-        if (hourOfDay >= 4 && hourOfDay < 11) {
-            // 오전 4시 ~ 오전 11시
+        if (hourOfDay >= 6 && hourOfDay < 12) {
+            // 오전 6시 ~ 오전 11시: Morning
             int randomIndex = randomGenerator.nextInt(NUM_OF_MORNING_ANIM);
             switch (randomIndex) {
                 case 0:
@@ -39,23 +40,19 @@ public class MNCatUtils {
                 default:
                     return R.drawable.cat_animation_morning_set_1;
             }
-        } else if (hourOfDay >= 11 && hourOfDay < 19) {
-            // 오전 11시 ~ 오후 7시
+        } else if (hourOfDay >= 12 && hourOfDay < 18) {
+            // 오전 12시 ~ 오후 5시: Noon
             int randomIndex = randomGenerator.nextInt(NUM_OF_NOON_ANIM);
             switch (randomIndex) {
                 case 0:
                     return R.drawable.cat_animation_noon_set_1;
                 case 1:
                     return R.drawable.cat_animation_noon_set_2;
-                case 2:
-                    return R.drawable.cat_animation_noon_set_3;
-                case 3:
-                    return R.drawable.cat_animation_noon_set_4;
                 default:
                     return R.drawable.cat_animation_noon_set_1;
             }
-        } else {
-            // 오후 7시 ~ 오전 4시
+        } else if (hourOfDay >= 18 && hourOfDay < 24) {
+            // 오후 6시 ~ 오후 11시: Evening
             int randomIndex = randomGenerator.nextInt(NUM_OF_EVENING_ANIM);
             switch (randomIndex) {
                 case 0:
@@ -64,6 +61,17 @@ public class MNCatUtils {
                     return R.drawable.cat_animation_evening_set_2;
                 default:
                     return R.drawable.cat_animation_evening_set_1;
+            }
+        } else {
+            // 오전 12시 ~ 오전 5시
+            int randomIndex = randomGenerator.nextInt(NUM_OF_NIGHT_ANIM);
+            switch (randomIndex) {
+                case 0:
+                    return R.drawable.cat_animation_night_set_1;
+                case 1:
+                    return R.drawable.cat_animation_night_set_2;
+                default:
+                    return R.drawable.cat_animation_night_set_1;
             }
         }
     }
