@@ -250,6 +250,8 @@
     <!-- Cat -->
     <dimen name="panel_cat_image_view_width">240.89dp</dimen>              <!--Done-->
     <dimen name="panel_cat_image_view_height">172.38dp</dimen>             <!--Done-->
+    <dimen name="panel_cat_default_font_size_port">30.6sp</dimen>          <!-- 두배x 1.7배 -->
+    <dimen name="panel_cat_default_font_size_land">34sp</dimen>            <!-- 두배x 1.7배 -->
 
     <!-- Setting -->
     <dimen name="setting_actionbar_title_font_size">19.55sp</dimen>         <!-- 두배x 1.7배 -->

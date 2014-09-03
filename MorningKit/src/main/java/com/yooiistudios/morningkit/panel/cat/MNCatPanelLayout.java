@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -35,7 +36,7 @@ import org.json.JSONException;
  *  시간대별로 고양이 애니메이션을 보여주는 패널
  */
 public class MNCatPanelLayout extends MNPanelLayout {
-//    private static final String TAG = "MNCatPanelLayout";
+    private static final String TAG = "MNCatPanelLayout";
 
     private ImageView catImageView;
 
@@ -88,10 +89,10 @@ public class MNCatPanelLayout extends MNPanelLayout {
                 // 방향에 따라 최초 사이즈를 약간 다르게 주기
                 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     happyMessageTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                            getResources().getDimensionPixelSize(R.dimen.panel_quotes_default_font_size_port));
+                            getResources().getDimensionPixelSize(R.dimen.panel_cat_default_font_size_port));
                 } else {
                     happyMessageTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                            getResources().getDimensionPixelSize(R.dimen.panel_quotes_default_font_size_land));
+                            getResources().getDimensionPixelSize(R.dimen.panel_cat_default_font_size_land));
                 }
 
                 happyMessageTextView.setText(stringBuilder, TextView.BufferType.SPANNABLE);
@@ -120,7 +121,7 @@ public class MNCatPanelLayout extends MNPanelLayout {
         catImageView = new ImageView(getContext());
         RelativeLayout.LayoutParams imageViewLayoutParams = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        catImageView.setAdjustViewBounds(true);
+        catImageView.setAdjustViewBounds(true);
         catImageView.setLayoutParams(imageViewLayoutParams);
         catImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imageViewLayoutParams.addRule(CENTER_IN_PARENT);
@@ -151,8 +152,8 @@ public class MNCatPanelLayout extends MNPanelLayout {
         // ScaleType 을 활용하기 위해서 해당 코드로 변경
         if (previousAnimationResourceId != -1) {
             catImageView.setImageDrawable(getResources().getDrawable(previousAnimationResourceId));
-        }
 //        catImageView.setBackgroundResource(MNCatUtils.getRandomCatAnimationResourceId(true));
+        }
     }
 
     @Override
@@ -160,11 +161,19 @@ public class MNCatPanelLayout extends MNPanelLayout {
         super.updateUI();
         happyMessageTextView.setVisibility(View.GONE);
         catImageView.setVisibility(View.VISIBLE);
-        if (catImageView.getBackground() instanceof AnimationDrawable) {
-            AnimationDrawable catAnimation = (AnimationDrawable) catImageView.getBackground();
+        if (catImageView.getDrawable() instanceof AnimationDrawable) {
+            AnimationDrawable catAnimation = (AnimationDrawable) catImageView.getDrawable();
+            Log.i(TAG, catAnimation.toString());
+            catAnimation.start();
             if (!catAnimation.isRunning()) {
+                Log.i(TAG, "!catAnimation.isRunning()");
                 catAnimation.start();
+            } else {
+                Log.i(TAG, "catAnimation.isRunning()");
             }
+        } else {
+            Log.i(TAG, "catImageView.getDrawable() isn't instanceof AnimationDrawable");
+            Log.i(TAG, catImageView.getDrawable().getClass().getName());
         }
     }
 
