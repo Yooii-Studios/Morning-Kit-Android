@@ -5,10 +5,12 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.cat.model.MNCatUtils;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
@@ -22,7 +24,7 @@ import org.json.JSONException;
  *  시간대별로 고양이 애니메이션을 보여주는 패널
  */
 public class MNCatPanelLayout extends MNPanelLayout {
-    private static final String TAG = "MNCatPanelLayout";
+//    private static final String TAG = "MNCatPanelLayout";
 
     private ImageView catImageView;
     private static final int CAT_ANIMATION_HANDLER_DELAY = 8000;
@@ -56,21 +58,14 @@ public class MNCatPanelLayout extends MNPanelLayout {
     protected void init() {
         super.init();
 
-        // 고양이 패널만 특별하게 패딩 삭제
-//        LinearLayout.LayoutParams panelLayoutParams = new LinearLayout.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
-//                .MATCH_PARENT);
-//        panelLayoutParams.setMargins(0, 0, 0, 0);
-//        setLayoutParams(layoutParams);
-
         // image view
+        // 수정: 끝에서 끝으로 가는 애니메이션 때문에 패딩을 삭제
         catImageView = new ImageView(getContext());
-//        RelativeLayout.LayoutParams imageViewLayoutParams = new RelativeLayout.LayoutParams(
-//                getResources().getDimensionPixelSize(R.dimen.panel_cat_image_view_width),
-//                getResources().getDimensionPixelSize(R.dimen.panel_cat_image_view_height));
         RelativeLayout.LayoutParams imageViewLayoutParams = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        catImageView.setAdjustViewBounds(true);
         catImageView.setLayoutParams(imageViewLayoutParams);
+        catImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imageViewLayoutParams.addRule(CENTER_IN_PARENT);
         getContentLayout().addView(catImageView);
     }
@@ -78,7 +73,8 @@ public class MNCatPanelLayout extends MNPanelLayout {
     @Override
     protected void processLoading() throws JSONException {
         super.processLoading();
-        catImageView.setBackgroundResource(MNCatUtils.getRandomCatAnimationResourceId(true));
+        catImageView.setImageDrawable(getResources().getDrawable(MNCatUtils.getRandomCatAnimationResourceId(true)));
+//        catImageView.setBackgroundResource(MNCatUtils.getRandomCatAnimationResourceId(true));
     }
 
     @Override
@@ -93,6 +89,16 @@ public class MNCatPanelLayout extends MNPanelLayout {
     }
 
     @Override
+    public void refreshPanel() throws JSONException {
+        // 기존 핸들러를 취소하고 다시 실행하기
+        stopHandler();
+
+        super.refreshPanel();
+
+        startHandler();
+    }
+
+    @Override
     public void applyTheme() {
         super.applyTheme();
     }
@@ -102,6 +108,7 @@ public class MNCatPanelLayout extends MNPanelLayout {
             return;
         }
         isHandlerRunning = true;
+        catImageView.setVisibility(View.VISIBLE);
         catHandler.sendEmptyMessageDelayed(0, CAT_ANIMATION_HANDLER_DELAY);
     }
 
@@ -110,6 +117,7 @@ public class MNCatPanelLayout extends MNPanelLayout {
             return;
         }
         isHandlerRunning = false;
+        catImageView.setVisibility(View.GONE);
         catHandler.removeMessages(0);
     }
 
@@ -125,5 +133,20 @@ public class MNCatPanelLayout extends MNPanelLayout {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         stopHandler();
+    }
+
+    @Override
+    protected void onSizeChanged(final int w, final int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        MNViewSizeMeasure.setViewSizeObserver(catImageView, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
+            @Override
+            public void onLayoutLoad() {
+                try {
+                    refreshPanel();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }
