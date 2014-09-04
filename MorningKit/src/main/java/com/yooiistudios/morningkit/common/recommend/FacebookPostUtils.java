@@ -1,15 +1,10 @@
 package com.yooiistudios.morningkit.common.recommend;
 
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-
-import com.yooiistudios.morningkit.R;
 
 import java.util.List;
 
@@ -25,35 +20,42 @@ public class FacebookPostUtils {
     public static final int REQ_FACEBOOK = 41938;
 
     public static void postAppLink(Activity activity) {
-        Context context = activity.getApplicationContext();
-        String appName = context.getString(R.string.recommend_app_full_name);
-        String title = context.getString(R.string.recommend_title) + " [" + appName + "]";
-
         String link = "https://play.google.com/store/apps/details?id=com.yooiistudios.morningkit";
 
-        Intent appPostIntent = new Intent(Intent.ACTION_SEND);
-        appPostIntent.setType("text/plain");
-        appPostIntent.putExtra(Intent.EXTRA_SUBJECT, title);
-        appPostIntent.putExtra(Intent.EXTRA_TEXT, link);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+//        intent.putExtra(Intent.EXTRA_SUBJECT, title); // NB: no effect!
+        intent.putExtra(Intent.EXTRA_TEXT, link);
         PackageManager pm = activity.getPackageManager();
-        List<ResolveInfo> activityList = pm.queryIntentActivities(appPostIntent, 0);
+        List<ResolveInfo> activityList = pm.queryIntentActivities(intent, 0);
 
-        // Check if there is FB app
+        // See if official Facebook app is found
+        boolean isFacebookAppFound = false;
         for (final ResolveInfo app : activityList) {
-            if ((app.activityInfo.name).contains("facebook")) {
-                final ActivityInfo activityInfo = app.activityInfo;
-                final ComponentName name = new ComponentName(activityInfo.applicationInfo.packageName, activityInfo.name);
-                appPostIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-                appPostIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                appPostIntent.setComponent(name);
-                activity.startActivityForResult(appPostIntent, REQ_FACEBOOK);
-                return;
+            if (app.activityInfo.packageName.toLowerCase().startsWith("com.facebook.katana")) {
+                intent.setPackage(app.activityInfo.packageName);
+                isFacebookAppFound = true;
+                break;
             }
+
+            // 기존 안되는 코드. 페이스북 열린 채로 추천 버튼을 누르면 앱이 그냥 뜸. 
+//            if ((app.activityInfo.name).contains("facebook")) {
+//                final ActivityInfo activityInfo = app.activityInfo;
+//                final ComponentName name = new ComponentName(activityInfo.applicationInfo.packageName, activityInfo.name);
+//                appPostIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+//                appPostIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+//                appPostIntent.setComponent(name);
+//                activity.startActivityForResult(appPostIntent, REQ_FACEBOOK);
+//                return;
+//            }
         }
 
         // If we failed (not native FB app installed), try share through SEND
-        String sharerUrl = "https://www.facebook.com/sharer/sharer.php?u=" + link;
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharerUrl));
+        // As fallback, launch sharer.php in a browser
+        if (!isFacebookAppFound) {
+            String sharerUrl = "https://www.facebook.com/sharer/sharer.php?u=" + link;
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharerUrl));
+        }
         activity.startActivityForResult(intent, REQ_FACEBOOK);
     }
 }
