@@ -43,9 +43,9 @@ public class MNUnlockListAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         if (productSku.equals(SKIabProducts.SKU_CAT)) {
-            return 2;
+            return 3;
         }
-        return 3;
+        return 4;
     }
 
     @Override
@@ -68,10 +68,8 @@ public class MNUnlockListAdapter extends BaseAdapter {
             List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
 
             int convertedIndex = position;
-            if (productSku.equals(SKIabProducts.SKU_CAT)) {
-                if (convertedIndex > 0) {
-                    convertedIndex++;
-                }
+            if (productSku.equals(SKIabProducts.SKU_CAT) && position > 0) {
+                convertedIndex++;
             }
 
             // 사용 되었다면 폰트색은 a8a8a8, 아니라면 white
@@ -118,6 +116,26 @@ public class MNUnlockListAdapter extends BaseAdapter {
                         viewHolder.getIconImageView().setImageResource(R.drawable.unlock_rating_icon_on);
                     }
                     break;
+                case 3:
+                    // 구매를 했다면 사용할 필요가 없고, 구매를 하지 않았다면 리뷰 아이템을 클릭했는지를 체크
+                    if (ownedSkus.contains(productSku) || ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
+                        isCellUsed = true;
+                    } else {
+                        isCellUsed = context.getSharedPreferences(MNUnlockActivity.SHARED_PREFS, Context.MODE_PRIVATE)
+                                .getBoolean(MNUnlockActivity.RECOMMEND_USED, false);
+                    }
+
+                    if (isCellUsed) {
+                        viewHolder.getDescriptionTextView().setText(R.string.unlock_review);
+                        viewHolder.getIconImageView().setImageResource(R.drawable.unlock_recommend_icon_off);
+                    } else {
+                        setPointColoredTextView(viewHolder.getDescriptionTextView(),
+                                "Facebook : " + context.getString(R.string.unlock_recommend),
+                                context.getString(R.string.unlock_recommend_highlight));
+                        viewHolder.getIconImageView().setImageResource(R.drawable.unlock_recommend_icon_on);
+                    }
+                    break;
+
             }
             viewHolder.getOuterLayout().setBackgroundResource(R.color.classic_gray_forward_normal_color);
 

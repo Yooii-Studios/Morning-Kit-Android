@@ -30,6 +30,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.encryption.MNMd5Utils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.recommend.FacebookPostUtils;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
 import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
@@ -54,6 +55,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     public static final String PRODUCT_SKU_KEY = "PRODUCT_SKU_KEY";
     public static final String REVIEW_USED = "REVIEW_USED";
     public static final String REVIEW_USED_PRODUCT_SKU = "REVIEW_USED_PRODUCT_SKU";
+    public static final String RECOMMEND_USED = "RECOMMEND_USED";
+    public static final String RECOMMEND_USED_PRODUCT_SKU = "RECOMMEND_USED_PRODUCT_SKU";
 
     private String productSku;
 
@@ -152,6 +155,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         // 사용 이력을 전부 초기화해주자, 거의 리뷰에만 쓰일듯
         getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit().remove(REVIEW_USED).apply();
         getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit().remove(REVIEW_USED_PRODUCT_SKU).apply();
+        getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit().remove(RECOMMEND_USED).apply();
+        getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit().remove(RECOMMEND_USED_PRODUCT_SKU).apply();
         ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
     }
 
@@ -164,6 +169,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     @Override
     protected void onResume() {
         super.onResume();
+        MNLog.now("Unlock onResume");
         if (isReviewScreenCalled) {
             resumeCount ++;
             if (resumeCount == 2) {
@@ -237,7 +243,11 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     @Override
     public void onItemClick(int position) {
-        switch (position) {
+        int convertedIndex = position;
+        if (productSku.equals(SKIabProducts.SKU_CAT) && position > 0) {
+            convertedIndex++;
+        }
+        switch (convertedIndex) {
             case 0:
                 if (MNStoreFragment.IS_STORE_FOR_NAVER) {
                     Intent intent = new Intent(this, NaverIabActivity.class);
@@ -265,6 +275,10 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
             case 2:
 //                makeReviewGuideDialog().show();
                 MNReviewApp.showReviewActivity(MNUnlockActivity.this);
+                break;
+
+            case 3:
+                FacebookPostUtils.postAppLink(this);
                 break;
         }
     }
