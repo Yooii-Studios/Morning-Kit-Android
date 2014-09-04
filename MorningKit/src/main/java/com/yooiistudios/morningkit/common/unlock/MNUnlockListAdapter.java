@@ -126,7 +126,7 @@ public class MNUnlockListAdapter extends BaseAdapter {
                     }
 
                     if (isCellUsed) {
-                        viewHolder.getDescriptionTextView().setText(R.string.unlock_review);
+                        viewHolder.getDescriptionTextView().setText(R.string.unlock_recommend);
                         viewHolder.getIconImageView().setImageResource(R.drawable.unlock_recommend_icon_off);
                     } else {
                         setPointColoredTextView(viewHolder.getDescriptionTextView(),
