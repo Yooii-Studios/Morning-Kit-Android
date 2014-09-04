@@ -15,8 +15,6 @@ import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import java.util.List;
 
@@ -44,7 +42,10 @@ public class MNUnlockListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        if (productSku.equals(SKIabProducts.SKU_CAT)) {
+            return 3;
+        }
+        return 4;
     }
 
     @Override
@@ -64,25 +65,30 @@ public class MNUnlockListAdapter extends BaseAdapter {
             MNUnlockListViewItemViewHolder viewHolder = new MNUnlockListViewItemViewHolder(convertView);
             boolean isCellUsed = false;
 
-            List<String> owndSkus = SKIabProducts.loadOwnedIabProducts(context);
+            List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
+
+            int convertedIndex = position;
+            if (productSku.equals(SKIabProducts.SKU_CAT) && position > 0) {
+                convertedIndex++;
+            }
 
             // 사용 되었다면 폰트색은 a8a8a8, 아니라면 white
-            switch (position) {
+            switch (convertedIndex) {
                 case 0:
-                    isCellUsed = owndSkus.contains(SKIabProducts.SKU_FULL_VERSION);
+                    isCellUsed = ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION);
                     if (isCellUsed) {
                         viewHolder.getDescriptionTextView().setText(R.string.unlock_everything);
-                        viewHolder.getIconImageView().setImageResource(R.drawable.unlock_fullversion_icon_off);
+                        viewHolder.getIconImageView().setImageResource(R.drawable.unlock_fullversion_2_99_icon_off);
                     } else {
                         setPointColoredTextView(viewHolder.getDescriptionTextView(),
                                 context.getString(R.string.unlock_everything),
                                 context.getString(R.string.unlock_everything_highlight));
-                        viewHolder.getIconImageView().setImageResource(R.drawable.unlock_fullversion_icon_on);
+                        viewHolder.getIconImageView().setImageResource(R.drawable.unlock_fullversion_2_99_icon_on);
                     }
                     break;
 
                 case 1:
-                    isCellUsed = owndSkus.contains(productSku);
+                    isCellUsed = ownedSkus.contains(productSku);
                     viewHolder.getDescriptionTextView().setText(R.string.unlock_only_this);
                     if (isCellUsed) {
                         viewHolder.getIconImageView().setImageResource(R.drawable.unlock_buyit_icon_off);
@@ -93,7 +99,7 @@ public class MNUnlockListAdapter extends BaseAdapter {
 
                 case 2:
                     // 구매를 했다면 사용할 필요가 없고, 구매를 하지 않았다면 리뷰 아이템을 클릭했는지를 체크
-                    if (owndSkus.contains(productSku) || owndSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
+                    if (ownedSkus.contains(productSku) || ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
                         isCellUsed = true;
                     } else {
                         isCellUsed = context.getSharedPreferences(MNUnlockActivity.SHARED_PREFS, Context.MODE_PRIVATE)
@@ -110,12 +116,29 @@ public class MNUnlockListAdapter extends BaseAdapter {
                         viewHolder.getIconImageView().setImageResource(R.drawable.unlock_rating_icon_on);
                     }
                     break;
+                case 3:
+                    // 구매를 했다면 사용할 필요가 없고, 구매를 하지 않았다면 리뷰 아이템을 클릭했는지를 체크
+                    if (ownedSkus.contains(productSku) || ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
+                        isCellUsed = true;
+                    } else {
+                        isCellUsed = context.getSharedPreferences(MNUnlockActivity.SHARED_PREFS, Context.MODE_PRIVATE)
+                                .getBoolean(MNUnlockActivity.RECOMMEND_USED, false);
+                    }
+
+                    // Facebook 공유 전용 옵션으로 만들 것이기에 임시로 Facebook을 영어로 붙임
+                    String description = "Facebook : " + context.getString(R.string.unlock_recommend);
+                    if (isCellUsed) {
+                        viewHolder.getDescriptionTextView().setText(description);
+                        viewHolder.getIconImageView().setImageResource(R.drawable.unlock_recommend_icon_off);
+                    } else {
+                        setPointColoredTextView(viewHolder.getDescriptionTextView(), description,
+                                context.getString(R.string.unlock_recommend_highlight));
+                        viewHolder.getIconImageView().setImageResource(R.drawable.unlock_recommend_icon_on);
+                    }
+                    break;
+
             }
             viewHolder.getOuterLayout().setBackgroundResource(R.color.classic_gray_forward_normal_color);
-
-            // Shadow - Slate Gray
-//            MNShadowLayoutFactory.changeThemeOfShadowLayout(viewHolder.getShadowLayout(), context, MNThemeType.SLATE_GRAY);
-//            viewHolder.getShadowLayout().setRoundRectRadius(DipToPixel.dpToPixel(context, 5));
 
             if (isCellUsed) {
                 viewHolder.getDescriptionTextView().setTextColor(Color.parseColor("#a8a8a8"));

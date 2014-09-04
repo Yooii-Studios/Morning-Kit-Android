@@ -218,7 +218,7 @@
     <dimen name="panel_photo_album_detail_load_text_size">25sp</dimen>
     <dimen name="panel_photo_album_detail_preview_width">200dp</dimen>
     <dimen name="panel_photo_album_detail_preview_height">140dp</dimen>
-    <dimen name="panel_photo_album_detail_preview_unavailable_size">60dp</dimen>
+    <dimen name="panel_photo_album_detail_preview_unavailable_size">90dp</dimen>
     <dimen name="panel_photo_album_detail_row_height">45dp</dimen>
     <dimen name="panel_photo_album_dropdown_minHeight">37dp</dimen>
     <dimen name="panel_photo_album_dialog_refresh_vertical_padding">40dp</dimen>
@@ -250,6 +250,8 @@
     <!-- Cat -->
     <dimen name="panel_cat_image_view_width">141.7dp</dimen>
     <dimen name="panel_cat_image_view_height">101.4dp</dimen>
+    <dimen name="panel_cat_default_font_size_port">18sp</dimen>
+    <dimen name="panel_cat_default_font_size_land">20sp</dimen>
 
     <!-- Setting -->
     <dimen name="setting_actionbar_title_font_size">18sp</dimen>
@@ -311,8 +313,8 @@
     <dimen name="setting_store_gridview_spacing_inner">4dp</dimen>
     <dimen name="setting_store_gridview_padding">7dp</dimen>
     <dimen name="setting_store_gridview_item_shadow_layout_padding">11dp</dimen> <!-- gridview_padding + inner -->
-    <dimen name="setting_store_gridview_item_outer_height">82dp</dimen> <!-- inner + margin_inner * 2  -->
-    <dimen name="setting_store_gridview_item_image_view_size">56dp</dimen>
+    <dimen name="setting_store_gridview_item_outer_height">95dp</dimen> <!-- inner + margin_inner * 2  -->
+    <dimen name="setting_store_gridview_item_image_view_size">60dp</dimen>
     <dimen name="setting_store_gridview_item_name_text_height">38dp</dimen>
     <dimen name="setting_store_gridview_item_name_text_size">13dp</dimen>
     <dimen name="setting_store_gridview_item_price_text_width">60dp</dimen>

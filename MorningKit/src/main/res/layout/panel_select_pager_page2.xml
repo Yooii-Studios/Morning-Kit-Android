@@ -125,7 +125,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="@dimen/margin_inner"
-                android:text="@string/photo_album"
+                android:text="@string/store_item_widget_photo_album"
                 android:textStyle="bold"
                 android:textSize="@dimen/panel_select_pager_font_size" />
             <ImageView

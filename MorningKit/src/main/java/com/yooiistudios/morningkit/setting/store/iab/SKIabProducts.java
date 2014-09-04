@@ -124,11 +124,15 @@ public class SKIabProducts {
                 ownedSkus.add(SKU_CAT);
             }
 
-            // 추가: 언락화면에서 리뷰로 사용한 아이템도 체크
+            // 추가: 언락화면에서 리뷰, 추천으로 얻은 아이템도 체크
             SharedPreferences unlockPrefs = context.getSharedPreferences(MNUnlockActivity.SHARED_PREFS, Context.MODE_PRIVATE);
             String reviewUsedProductSku = unlockPrefs.getString(MNUnlockActivity.REVIEW_USED_PRODUCT_SKU, null);
             if (reviewUsedProductSku != null && ownedSkus.indexOf(reviewUsedProductSku) == -1) {
                 ownedSkus.add(reviewUsedProductSku);
+            }
+            String recommendUsedProductSku = unlockPrefs.getString(MNUnlockActivity.RECOMMEND_USED_PRODUCT_SKU, null);
+            if (recommendUsedProductSku != null && ownedSkus.indexOf(recommendUsedProductSku) == -1) {
+                ownedSkus.add(recommendUsedProductSku);
             }
         }
         return ownedSkus;

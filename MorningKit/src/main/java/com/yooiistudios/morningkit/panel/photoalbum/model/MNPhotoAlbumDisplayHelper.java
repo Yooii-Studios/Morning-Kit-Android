@@ -114,7 +114,7 @@ public class MNPhotoAlbumDisplayHelper {
         if (mFileList.size() == 0) {
             isRunning = false;
             if (mOnStartListener != null) {
-                mOnStartListener.onError(R.string.photo_album_no_image);
+                mOnStartListener.onError(R.string.photo_album_prompt_select_image);
             }
         }
         else {
@@ -178,8 +178,7 @@ public class MNPhotoAlbumDisplayHelper {
                     MNLog.i("MNPhotoAlbumBitmapLoader", "onError");
                     isRunning = false;
                     if (mOnStartListener != null) {
-                        mOnStartListener.onError(
-                                R.string.photo_album_error_getting_photo);
+                        mOnStartListener.onError(R.string.photo_album_prompt_select_image);
                     }
                 }
             });
@@ -312,7 +311,7 @@ public class MNPhotoAlbumDisplayHelper {
                 if (mFileList.size() == 0) {
                     stop();
                     if (mOnStartListener != null) {
-                        mOnStartListener.onError(R.string.photo_album_no_image);
+                        mOnStartListener.onError(R.string.photo_album_prompt_select_image);
                     }
 
                     return;

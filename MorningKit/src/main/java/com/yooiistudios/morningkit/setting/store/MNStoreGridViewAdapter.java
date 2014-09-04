@@ -134,7 +134,7 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                             viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_MEMO);
                             break;
                         case 2:
-                            viewHolder.getItemNameTextView().setText(R.string.photo_album);
+                            viewHolder.getItemNameTextView().setText(R.string.store_item_widget_photo_album);
                             viewHolder.getIconImageView().setImageResource(R.drawable.shop_photo_ipad);
                             viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_PHOTO_FRAME);
                             break;

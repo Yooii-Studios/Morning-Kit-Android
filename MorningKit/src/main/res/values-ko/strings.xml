@@ -207,8 +207,8 @@
 	<!-- Unlock -->
 	<string name="unlock_notice">알림</string>
 	<string name="unlock_unlocked">사용가능</string>
-	<string name="unlock_description">기능을 추가하는 다양한 방법들이 있습니다.물론 무료로도 가능합니다!</string>
-	<string name="unlock_description_highlight">기능을 추가</string>
+	<string name="unlock_description">이 기능을 잠금해제하는 다양한 방법들이 있습니다.물론 무료로도 가능합니다!</string>
+	<string name="unlock_description_highlight">이 기능을 잠금해제</string>
 	<string name="unlock_everything">$2.99면 모닝키트의 모든 기능을 사용하실 수 있습니다!</string>
 	<string name="unlock_everything_highlight">모든 기능</string>
 	<string name="unlock_only_this">$0.99면 이 기능을 사용하실 수 있습니다</string>
@@ -239,6 +239,7 @@
 	<string name="store_item_matrix">2 X 3 배열</string>
 	<string name="store_item_widget_date_countdown">날짜 계산</string>
 	<string name="store_item_widget_memo">메모</string>
+    <string name="store_item_widget_photo_album">사진첩</string>
 	<string name="store_item_photo_portrait">사진\n세로모드</string>
 	<string name="store_item_photo_landscape">사진\n가로모드</string>
 	<string name="store_item_skyblue">하늘\n(하늘색)</string>
@@ -293,6 +294,7 @@
         <!-- Photo Album -->
     <string name="photo_album">사진첩</string>
     <string name="photo_album_no_image">사용가능한 이미지 없음</string>
+    <string name="photo_album_prompt_select_image">사진을 선택 해 주세요.</string>
     <string name="photo_album_error_getting_photo">사진을 가져올 때 문제가 생겼습니다</string>
     <string name="photo_album_label_refresh_time">리프레시 시간</string>
     <string name="photo_album_label_transition_type">전환 효과</string>
@@ -302,7 +304,7 @@
     <string name="photo_album_second">초</string>
     <string name="photo_album_transition_none">없음</string>
     <string name="photo_album_transition_alpha">페이드</string>
-    <string name="photo_album_load">로드</string>
+    <string name="photo_album_load">불러오기</string>
 
         <!-- News Feed -->
     <string name="news_feed">뉴스</string>

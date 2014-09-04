@@ -127,7 +127,7 @@
 	<string name="world_clock_clock_type_text">時計タイプ</string>
 	<string name="world_clock_digital">デジタル</string>
 	<string name="world_clock_analog">アナログ</string>
-	<string name="world_clock_use_24_hour_format">24時間形式を使用</string>
+	<string name="world_clock_use_24_hour_format">24時間形式で表示</string>
 	<string name="world_clock_today">今日</string>
 	<string name="world_clock_tomorrow">明日</string>
 	<string name="world_clock_yesterday">昨日</string>
@@ -234,11 +234,12 @@
 	<string name="store_tab_functions">機能</string>
 	<string name="store_tab_widgets">パネル</string>
 	<string name="store_tab_themes">テーマ</string>
-	<string name="store_item_more_alarm_slots">アラーム設定数の増加</string>
+	<string name="store_item_more_alarm_slots">アラーム\n設定数の増加</string>
 	<string name="store_item_no_ads">広告削除</string>
 	<string name="store_item_matrix">2 X 3 配列</string>
 	<string name="store_item_widget_date_countdown">日付\n計算</string>
 	<string name="store_item_widget_memo">メモ</string>
+    <string name="store_item_widget_photo_album">フォト\nフレーム</string>
 	<string name="store_item_photo_portrait">写真\n縦画面モード </string>
 	<string name="store_item_photo_landscape">写真\n横画面モード</string>
 	<string name="store_item_skyblue">空\n(空色)</string>
@@ -293,6 +294,7 @@
         <!-- Photo Album -->
     <string name="photo_album">フォトフレーム</string>
     <string name="photo_album_no_image">使用可能なイメージがありません</string>
+    <string name="photo_album_prompt_select_image">好きな写真を設定できます。</string>
     <string name="photo_album_error_getting_photo">写真の読み込み中にエラーが発生しました</string>
     <string name="photo_album_label_refresh_time">リフレッシュ時間</string>
     <string name="photo_album_label_transition_type">アニメーションタイプ</string>

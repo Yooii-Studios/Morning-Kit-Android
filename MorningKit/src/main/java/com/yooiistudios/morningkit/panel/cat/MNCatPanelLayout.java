@@ -43,7 +43,7 @@ public class MNCatPanelLayout extends MNPanelLayout {
     private AutoResizeTextView happyMessageTextView;
     private MNHappyMessage happyMessage;
 
-    private static final int HAPPY_MESSAGE_HANDLER_DELAY = 2000;
+    private static final int HAPPY_MESSAGE_HANDLER_DELAY = 3000;
     private static final int CAT_ANIMATION_HANDLER_DELAY = 8000;
     private boolean isHandlerRunning = false;
     private MNCatAnimationHandler catAnimationHandler = new MNCatAnimationHandler();
@@ -75,23 +75,19 @@ public class MNCatPanelLayout extends MNPanelLayout {
                 if (happyMessage != null) {
                     previousIndex = happyMessage.previousIndex;
                 }
-                happyMessage = MNCatUtils.getRandomHappyString(getContext().getApplicationContext(),
-                        previousIndex);
+                happyMessage = MNCatUtils.getRandomHappyString(previousIndex);
 
                 // 언어 길이에 따라 동적으로 크기 조절
                 SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
                 stringBuilder.append(happyMessage.happyMessageString);
-//                happyMessageTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-//                        getResources().getDimensionPixelSize(R.dimen.panel_exchange_rates_main_font_size));
-//                happyMessageTextView.setMinTextSize(DipToPixel.dpToPixel(getContext(), 1));
 
                 // 방향에 따라 최초 사이즈를 약간 다르게 주기
                 if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     happyMessageTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                            getResources().getDimensionPixelSize(R.dimen.panel_quotes_default_font_size_port));
+                            getResources().getDimensionPixelSize(R.dimen.panel_cat_default_font_size_port));
                 } else {
                     happyMessageTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                            getResources().getDimensionPixelSize(R.dimen.panel_quotes_default_font_size_land));
+                            getResources().getDimensionPixelSize(R.dimen.panel_cat_default_font_size_land));
                 }
 
                 happyMessageTextView.setText(stringBuilder, TextView.BufferType.SPANNABLE);
@@ -120,7 +116,7 @@ public class MNCatPanelLayout extends MNPanelLayout {
         catImageView = new ImageView(getContext());
         RelativeLayout.LayoutParams imageViewLayoutParams = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        catImageView.setAdjustViewBounds(true);
+        catImageView.setAdjustViewBounds(true);
         catImageView.setLayoutParams(imageViewLayoutParams);
         catImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imageViewLayoutParams.addRule(CENTER_IN_PARENT);
@@ -151,8 +147,8 @@ public class MNCatPanelLayout extends MNPanelLayout {
         // ScaleType 을 활용하기 위해서 해당 코드로 변경
         if (previousAnimationResourceId != -1) {
             catImageView.setImageDrawable(getResources().getDrawable(previousAnimationResourceId));
-        }
 //        catImageView.setBackgroundResource(MNCatUtils.getRandomCatAnimationResourceId(true));
+        }
     }
 
     @Override
@@ -160,8 +156,9 @@ public class MNCatPanelLayout extends MNPanelLayout {
         super.updateUI();
         happyMessageTextView.setVisibility(View.GONE);
         catImageView.setVisibility(View.VISIBLE);
-        if (catImageView.getBackground() instanceof AnimationDrawable) {
-            AnimationDrawable catAnimation = (AnimationDrawable) catImageView.getBackground();
+        if (catImageView.getDrawable() instanceof AnimationDrawable) {
+            AnimationDrawable catAnimation = (AnimationDrawable) catImageView.getDrawable();
+            catAnimation.start();
             if (!catAnimation.isRunning()) {
                 catAnimation.start();
             }
@@ -193,6 +190,7 @@ public class MNCatPanelLayout extends MNPanelLayout {
         }
         isHandlerRunning = true;
         catImageView.setVisibility(View.VISIBLE);
+        happyMessageTextView.setVisibility(View.INVISIBLE);
         catAnimationHandler.sendEmptyMessageDelayed(0,
                 CAT_ANIMATION_HANDLER_DELAY + HAPPY_MESSAGE_HANDLER_DELAY);
         happyMessageHandler.sendEmptyMessageDelayed(0, CAT_ANIMATION_HANDLER_DELAY);
@@ -204,6 +202,7 @@ public class MNCatPanelLayout extends MNPanelLayout {
         }
         isHandlerRunning = false;
         catImageView.setVisibility(View.GONE);
+        happyMessageTextView.setVisibility(View.GONE);
         catAnimationHandler.removeMessages(0);
         happyMessageHandler.removeMessages(0);
     }

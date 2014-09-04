@@ -1,15 +1,9 @@
 package com.yooiistudios.morningkit.panel.cat.model;
 
-import android.content.Context;
-
 import com.yooiistudios.morningkit.R;
 
 import org.joda.time.DateTime;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Random;
 
 /**
@@ -19,8 +13,8 @@ import java.util.Random;
  *  시간대에 맞게 고양이 애니메이션 리소스 id를 제공함
  */
 public class MNCatUtils {
-    private static final int NUM_OF_MORNING_ANIM = 2;
-    private static final int NUM_OF_NOON_ANIM = 2;
+    private static final int NUM_OF_MORNING_ANIM = 3;
+    private static final int NUM_OF_NOON_ANIM = 3;
     private static final int NUM_OF_EVENING_ANIM = 2;
     private static final int NUM_OF_NIGHT_ANIM = 2;
 
@@ -45,6 +39,8 @@ public class MNCatUtils {
                     return R.drawable.cat_animation_morning_set_1;
                 case 1:
                     return R.drawable.cat_animation_morning_set_2;
+                case 2:
+                    return R.drawable.cat_animation_morning_set_3;
                 default:
                     return R.drawable.cat_animation_morning_set_1;
             }
@@ -56,6 +52,8 @@ public class MNCatUtils {
                     return R.drawable.cat_animation_noon_set_1;
                 case 1:
                     return R.drawable.cat_animation_noon_set_2;
+                case 2:
+                    return R.drawable.cat_animation_noon_set_3;
                 default:
                     return R.drawable.cat_animation_noon_set_1;
             }
@@ -84,40 +82,29 @@ public class MNCatUtils {
         }
     }
 
-    // -1일 경우는 최초 로딩
-    public static MNHappyMessage getRandomHappyString(Context context, int previousIndex) {
+    // -1일 경우는 최초 로딩, static final 로 미리 선언해놓고 사용하자
+    public static MNHappyMessage getRandomHappyString(int previousIndex) {
         MNHappyMessage newHappyMessage = new MNHappyMessage();
         try {
-            InputStream file;
-            file = context.getResources().openRawResource(R.raw.cat_happy_messages_english);
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(file, "UNICODE"));
-            char[] tC = new char[file.available()];
-            reader.read(tC);
-
-            String buffer = new String(tC);
-            String[] lines = buffer.split("\n");
-
             Random randomGenerator = new Random();
             int randomIndex = 0;
             // 기존의 인덱스가 존재한다면 다른 인덱스를 얻기 위해 최소 100번 돌리기
             if (previousIndex != -1) {
                 for (int i = 0; i < 100; i++) {
-                    randomIndex = randomGenerator.nextInt(lines.length);
+                    randomIndex = randomGenerator.nextInt(MNHappyMessage.happyMessages.length);
                     if (randomIndex != previousIndex) {
                         break;
                     }
                 }
             } else {
-                randomIndex = randomGenerator.nextInt(lines.length);
+                randomIndex = randomGenerator.nextInt(MNHappyMessage.happyMessages.length);
             }
 
-
             newHappyMessage.previousIndex = randomIndex;
-            newHappyMessage.happyMessageString = lines[randomIndex];
+            newHappyMessage.happyMessageString = MNHappyMessage.happyMessages[randomIndex];
 
-            reader.close();
-        } catch (IOException e) {
+//            reader.close();
+        } catch (Exception e) {
             e.printStackTrace();
 
             // 문제가 있을 경우 기본값을 넣어주기

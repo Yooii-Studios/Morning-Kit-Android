@@ -66,6 +66,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     @InjectView(R.id.setting_store_progressBar) ProgressBar progressBar;
     @InjectView(R.id.setting_store_loading_view) View loadingView;
 
+    @InjectView(R.id.setting_store_full_version_title) TextView fullVersionTitleTextView;
     @InjectView(R.id.setting_store_full_version_description) TextView fullVersionDescriptionTextView;
     
     @InjectView(R.id.setting_store_full_version_image_view) ImageView fullVersionImageView;
@@ -297,6 +298,20 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         if (iabManager != null) {
             iabManager.dispose();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fullVersionTitleTextView.setText(R.string.store_buy_full_version);
+        fullVersionDescriptionTextView.setText(R.string.store_buy_full_version_description);
+
+        functionTextView.setText(R.string.store_tab_functions);
+        panelTextView.setText(R.string.store_tab_widgets);
+        themeTextView.setText(R.string.store_tab_themes);
+        ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
+        ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
+        ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
     }
 
     /**

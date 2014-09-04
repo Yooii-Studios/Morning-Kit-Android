@@ -255,6 +255,8 @@
     <!-- Cat -->
     <dimen name="panel_cat_image_view_width">198.38dp</dimen>              <!--Done-->
     <dimen name="panel_cat_image_view_height">141.96dp</dimen>             <!--Done-->
+    <dimen name="panel_cat_default_font_size_port">25.2sp</dimen>          <!--Done-->
+    <dimen name="panel_cat_default_font_size_land">28sp</dimen>            <!--Done-->
 
     <!-- Setting -->
     <dimen name="setting_actionbar_title_font_size">23sp</dimen>    <!--Done-->
@@ -316,8 +318,8 @@
     <dimen name="setting_store_gridview_spacing_inner">5.6dp</dimen>                <!--Done-->
     <dimen name="setting_store_gridview_padding">11dp</dimen>                       <!--Done-->
     <dimen name="setting_store_gridview_item_shadow_layout_padding">15.4dp</dimen>  <!--Done--> <!-- gridview_padding + inner -->
-    <dimen name="setting_store_gridview_item_outer_height">114.8dp</dimen>          <!--Done--> <!-- inner + margin_inner * 2  -->
-    <dimen name="setting_store_gridview_item_image_view_size">78.4dp</dimen>        <!--Done-->
+    <dimen name="setting_store_gridview_item_outer_height">133dp</dimen>            <!--Done--> <!-- inner + margin_inner * 2  -->
+    <dimen name="setting_store_gridview_item_image_view_size">84dp</dimen>          <!--Done-->
     <dimen name="setting_store_gridview_item_name_text_height">53.2dp</dimen>       <!--Done-->
     <dimen name="setting_store_gridview_item_name_text_size">18.2dp</dimen>         <!--Done-->
     <dimen name="setting_store_gridview_item_price_text_width">84dp</dimen>         <!--Done-->

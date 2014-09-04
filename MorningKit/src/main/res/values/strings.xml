@@ -239,6 +239,7 @@
     <string name="store_item_matrix">2 X 3 Matrix</string>
     <string name="store_item_widget_date_countdown">Date\nCountdown</string>
     <string name="store_item_widget_memo">Memo</string>
+    <string name="store_item_widget_photo_album">Photo Frame</string>
     <string name="store_item_photo_portrait">Photo\nPortrait</string>
     <string name="store_item_photo_landscape">Photo\nLandscape</string>
     <string name="store_item_skyblue">Celestial\n(Sky blue)</string>
@@ -293,6 +294,7 @@
         <!-- Photo Album -->
     <string name="photo_album">Photo Frame</string>
     <string name="photo_album_no_image">No image available</string>
+    <string name="photo_album_prompt_select_image">Choose your favorite photo</string>
     <string name="photo_album_error_getting_photo">Error occurred while getting photo from your smart device</string>
     <string name="photo_album_label_refresh_time">Refresh Time</string>
     <string name="photo_album_label_transition_type">Slideshow Type</string>
