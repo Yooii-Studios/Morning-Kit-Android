@@ -332,7 +332,7 @@
     <string name="dialog_location_service_disabled_message">点击确定开启定位服务</string>
 
     <!-- Unlock - Recommend -->
-    <string name="unlock_recommend">Recommend Morning Kit to your friends and unlock it for free!</string>
-    <string name="unlock_recommend_highlight">Recommend</string>
+    <string name="unlock_recommend">向朋友推荐早安工具 免费获取此功能</string>
+    <string name="unlock_recommend_highlight">推荐</string>
 
 </resources>
