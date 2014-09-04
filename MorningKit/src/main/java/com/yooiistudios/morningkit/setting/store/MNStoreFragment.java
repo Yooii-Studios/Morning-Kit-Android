@@ -309,9 +309,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         functionTextView.setText(R.string.store_tab_functions);
         panelTextView.setText(R.string.store_tab_widgets);
         themeTextView.setText(R.string.store_tab_themes);
-        ((MNStoreGridViewAdapter) functionGridView.getAdapter()).notifyDataSetChanged();
-        ((MNStoreGridViewAdapter) panelGridView.getAdapter()).notifyDataSetChanged();
-        ((MNStoreGridViewAdapter) themeGridView.getAdapter()).notifyDataSetChanged();
+
+        // 풀버전 구매 버튼 때문에 한번 더 로딩을 요청, 그러면 아래 그리드뷰도 자동으로 언어가 적용
+        initIab();
     }
 
     /**
