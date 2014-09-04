@@ -294,6 +294,7 @@
         <!-- Photo Album -->
     <string name="photo_album">Photo Frame</string>
     <string name="photo_album_no_image">No image available</string>
+    <string name="photo_album_prompt_select_image">Choose your favorite photo</string>
     <string name="photo_album_error_getting_photo">Error occurred while getting photo from your smart device</string>
     <string name="photo_album_label_refresh_time">Refresh Time</string>
     <string name="photo_album_label_transition_type">Slideshow Type</string>

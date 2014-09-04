@@ -293,7 +293,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                         @Override
                         public void onError() {
                             stopLoadingAnimation();
-                            showCoverLayout(R.string.photo_album_no_image);
+                            showCoverLayout(R.string.photo_album_prompt_select_image);
                         }
                     }
             );

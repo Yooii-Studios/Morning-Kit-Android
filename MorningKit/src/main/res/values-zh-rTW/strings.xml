@@ -294,6 +294,7 @@
         <!-- Photo Album -->
     <string name="photo_album">相框</string>
     <string name="photo_album_no_image">無照片</string>
+    <string name="photo_album_prompt_select_image">選擇你最喜歡的照片</string>
     <string name="photo_album_error_getting_photo">獲取相片失敗</string>
     <string name="photo_album_label_refresh_time">刷新時間</string>
     <string name="photo_album_label_transition_type">切換方式</string>

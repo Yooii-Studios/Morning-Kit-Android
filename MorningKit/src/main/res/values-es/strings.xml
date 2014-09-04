@@ -294,6 +294,7 @@
 	<!-- Photo Album -->
 	<string name="photo_album">Marco de fotos</string>
 	<string name="photo_album_no_image">No hay imagen disponible</string>
+    <string name="photo_album_prompt_select_image">Elige tu foto favorita</string>
 	<string name="photo_album_error_getting_photo">Error al obtener la foto</string>
 	<string name="photo_album_label_refresh_time">Tiempo de Recarga</string>
 	<string name="photo_album_label_transition_type">Presentación Tipo</string>
