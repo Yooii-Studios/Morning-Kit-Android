@@ -42,6 +42,9 @@ public class MNUnlockListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        if (productSku.equals(SKIabProducts.SKU_CAT)) {
+            return 2;
+        }
         return 3;
     }
 
@@ -62,12 +65,19 @@ public class MNUnlockListAdapter extends BaseAdapter {
             MNUnlockListViewItemViewHolder viewHolder = new MNUnlockListViewItemViewHolder(convertView);
             boolean isCellUsed = false;
 
-            List<String> owndSkus = SKIabProducts.loadOwnedIabProducts(context);
+            List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
+
+            int convertedIndex = position;
+            if (productSku.equals(SKIabProducts.SKU_CAT)) {
+                if (convertedIndex > 0) {
+                    convertedIndex++;
+                }
+            }
 
             // 사용 되었다면 폰트색은 a8a8a8, 아니라면 white
-            switch (position) {
+            switch (convertedIndex) {
                 case 0:
-                    isCellUsed = owndSkus.contains(SKIabProducts.SKU_FULL_VERSION);
+                    isCellUsed = ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION);
                     if (isCellUsed) {
                         viewHolder.getDescriptionTextView().setText(R.string.unlock_everything);
                         viewHolder.getIconImageView().setImageResource(R.drawable.unlock_fullversion_2_99_icon_off);
@@ -80,7 +90,7 @@ public class MNUnlockListAdapter extends BaseAdapter {
                     break;
 
                 case 1:
-                    isCellUsed = owndSkus.contains(productSku);
+                    isCellUsed = ownedSkus.contains(productSku);
                     viewHolder.getDescriptionTextView().setText(R.string.unlock_only_this);
                     if (isCellUsed) {
                         viewHolder.getIconImageView().setImageResource(R.drawable.unlock_buyit_icon_off);
@@ -91,7 +101,7 @@ public class MNUnlockListAdapter extends BaseAdapter {
 
                 case 2:
                     // 구매를 했다면 사용할 필요가 없고, 구매를 하지 않았다면 리뷰 아이템을 클릭했는지를 체크
-                    if (owndSkus.contains(productSku) || owndSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
+                    if (ownedSkus.contains(productSku) || ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
                         isCellUsed = true;
                     } else {
                         isCellUsed = context.getSharedPreferences(MNUnlockActivity.SHARED_PREFS, Context.MODE_PRIVATE)
@@ -110,10 +120,6 @@ public class MNUnlockListAdapter extends BaseAdapter {
                     break;
             }
             viewHolder.getOuterLayout().setBackgroundResource(R.color.classic_gray_forward_normal_color);
-
-            // Shadow - Slate Gray
-//            MNShadowLayoutFactory.changeThemeOfShadowLayout(viewHolder.getShadowLayout(), context, MNThemeType.SLATE_GRAY);
-//            viewHolder.getShadowLayout().setRoundRectRadius(DipToPixel.dpToPixel(context, 5));
 
             if (isCellUsed) {
                 viewHolder.getDescriptionTextView().setTextColor(Color.parseColor("#a8a8a8"));
