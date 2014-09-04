@@ -239,6 +239,7 @@
 	<string name="store_item_matrix">2X3工具欄</string>
 	<string name="store_item_widget_date_countdown">日期\n倒數</string>
 	<string name="store_item_widget_memo">備忘錄</string>
+    <string name="store_item_widget_photo_album">相框</string>
 	<string name="store_item_photo_portrait">照片\n縱向</string>
 	<string name="store_item_photo_landscape">照片\n橫向</string>
 	<string name="store_item_skyblue">天上\n(天空藍)</string>

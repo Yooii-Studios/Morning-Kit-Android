@@ -85,7 +85,7 @@ public enum MNPanelType {
             case 7: return context.getString(R.string.saying);
             case 8: return context.getString(R.string.memo);
             case 9: return context.getString(R.string.date_calculator);
-            case 10: return context.getString(R.string.photo_album);
+            case 10: return context.getString(R.string.store_item_widget_photo_album);
             case 11: return context.getString(R.string.cat);
             default: return context.getString(R.string.calendar);
         }

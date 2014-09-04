@@ -66,12 +66,6 @@
                     android:layout_marginBottom="@dimen/panel_detail_padding_inner"
                     android:src="@drawable/widget_cover_photo_frame"
                     tools:ignore="ContentDescription"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/pastel_green_sub_font_color"
-                    android:textSize="@dimen/panel_detail_default_font_size"
-                    android:text="@string/photo_album_no_image"/>
             </LinearLayout>
         </FrameLayout>
         <TextView
