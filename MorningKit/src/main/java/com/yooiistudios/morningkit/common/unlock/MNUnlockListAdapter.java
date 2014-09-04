@@ -125,12 +125,13 @@ public class MNUnlockListAdapter extends BaseAdapter {
                                 .getBoolean(MNUnlockActivity.RECOMMEND_USED, false);
                     }
 
+                    // Facebook 공유 전용 옵션으로 만들 것이기에 임시로 Facebook을 영어로 붙임
+                    String description = "Facebook : " + context.getString(R.string.unlock_recommend);
                     if (isCellUsed) {
-                        viewHolder.getDescriptionTextView().setText(R.string.unlock_recommend);
+                        viewHolder.getDescriptionTextView().setText(description);
                         viewHolder.getIconImageView().setImageResource(R.drawable.unlock_recommend_icon_off);
                     } else {
-                        setPointColoredTextView(viewHolder.getDescriptionTextView(),
-                                "Facebook : " + context.getString(R.string.unlock_recommend),
+                        setPointColoredTextView(viewHolder.getDescriptionTextView(), description,
                                 context.getString(R.string.unlock_recommend_highlight));
                         viewHolder.getIconImageView().setImageResource(R.drawable.unlock_recommend_icon_on);
                     }
