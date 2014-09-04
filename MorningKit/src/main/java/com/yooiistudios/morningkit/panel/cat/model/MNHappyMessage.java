@@ -59,6 +59,17 @@ public class MNHappyMessage {
             "Eat Fresh.",
             "What greater gift than the love of a cat?",
             "Time spent with a cat is never wasted.",
-            "Take a break."
+            "Take a break.",
+            "Do what you love.",
+            "Keep good people around you.",
+            "Follow your passion, whatever it is.",
+            "Failures are a big opportunity.",
+            "Listen to your gut.",
+            "Keep an open mind, basically.",
+            "Goals are good.",
+            "Coffee break.",
+            "Tea time.",
+            "I feel like a snack.",
+            "Take a nap."
     };
 }
