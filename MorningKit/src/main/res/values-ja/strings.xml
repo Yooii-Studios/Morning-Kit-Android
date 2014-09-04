@@ -239,6 +239,7 @@
 	<string name="store_item_matrix">2 X 3 配列</string>
 	<string name="store_item_widget_date_countdown">日付\n計算</string>
 	<string name="store_item_widget_memo">メモ</string>
+    <string name="store_item_widget_photo_album">フォト\nフレーム</string>
 	<string name="store_item_photo_portrait">写真\n縦画面モード </string>
 	<string name="store_item_photo_landscape">写真\n横画面モード</string>
 	<string name="store_item_skyblue">空\n(空色)</string>

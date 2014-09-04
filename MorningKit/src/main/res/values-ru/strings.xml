@@ -239,6 +239,7 @@
 	<string name="store_item_matrix">2 X 3 матрица</string>
 	<string name="store_item_widget_date_countdown">дата\nобратного отсчета</string>
 	<string name="store_item_widget_memo">Заметка</string>
+    <string name="store_item_widget_photo_album">рамка для фотографий</string>
 	<string name="store_item_photo_portrait">Фото\nПортрет</string>
 	<string name="store_item_photo_landscape">Фото\nПейзаж</string>
 	<string name="store_item_skyblue">Небесный\n(Голубой)</string>
