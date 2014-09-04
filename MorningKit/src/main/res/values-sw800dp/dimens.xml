@@ -313,7 +313,7 @@
     <dimen name="setting_store_gridview_spacing_inner">8dp</dimen>
     <dimen name="setting_store_gridview_padding">14dp</dimen>
     <dimen name="setting_store_gridview_item_shadow_layout_padding">22dp</dimen> <!-- gridview_padding + inner -->
-    <dimen name="setting_store_gridview_item_outer_height">164dp</dimen> <!-- inner + margin_inner * 2  -->
+    <dimen name="setting_store_gridview_item_outer_height">180dp</dimen> <!-- inner + margin_inner * 2  -->
     <dimen name="setting_store_gridview_item_image_view_size">112dp</dimen>
     <dimen name="setting_store_gridview_item_name_text_height">76dp</dimen>
     <dimen name="setting_store_gridview_item_name_text_size">26dp</dimen>
