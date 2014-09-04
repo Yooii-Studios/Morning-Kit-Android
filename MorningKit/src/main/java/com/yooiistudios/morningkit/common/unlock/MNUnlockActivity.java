@@ -63,7 +63,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     @Getter private SKIabManager iabManager;
 
 
-    private boolean isReviewScreenCalled = false;
+    private boolean isActivityStarted = false;
     private int resumeCount = 0;
 
     @InjectView(R.id.unlock_listview_layout)        RelativeLayout          listViewLayout;
@@ -171,7 +171,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     protected void onResume() {
         super.onResume();
         MNLog.now("Unlock onResume");
-        if (isReviewScreenCalled) {
+        if (isActivityStarted) {
             resumeCount ++;
             if (resumeCount == 2) {
                 onAfterReviewItemClicked();
@@ -181,6 +181,9 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        MNLog.now("requestCode: " + requestCode);
+
+        // 구글 빌드
         if (iabManager != null) {
             if (iabManager.getHelper() == null) return;
 
@@ -191,11 +194,17 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                 // billing...
                 super.onActivityResult(requestCode, resultCode, data);
                 if (requestCode == MNReviewApp.REQ_REVIEW_APP) {
-                    saveUnlockedItem();
+                    MNLog.now("requestCode == MNReviewApp.REQ_REVIEW_APP");
+                    saveUnlockedItem(REVIEW_USED, REVIEW_USED_PRODUCT_SKU);
                     onAfterReviewItemClicked();
+                } else if (requestCode == FacebookPostUtils.REQ_FACEBOOK) {
+                    MNLog.now("requestCode == FacebookPostUtils.REQ_FACEBOOK");
+                    saveUnlockedItem(RECOMMEND_USED, RECOMMEND_USED_PRODUCT_SKU);
+                    isActivityStarted = true;
                 }
             }
         } else {
+            // 네이버 빌드
             super.onActivityResult(requestCode, resultCode, data);
             // 네이버 구매
             switch (requestCode) {
@@ -228,8 +237,13 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
             }
             // 리뷰 달기
             if (requestCode == MNReviewApp.REQ_REVIEW_APP) {
-                saveUnlockedItem();
-                isReviewScreenCalled = true;
+                MNLog.now("naver: isActivityStarted = true");
+                saveUnlockedItem(REVIEW_USED, REVIEW_USED_PRODUCT_SKU);
+                isActivityStarted = true;
+            } else if (requestCode == FacebookPostUtils.REQ_FACEBOOK) {
+                MNLog.now("naver: requestCode == FacebookPostUtils.REQ_FACEBOOK");
+                saveUnlockedItem(RECOMMEND_USED, RECOMMEND_USED_PRODUCT_SKU);
+                onAfterReviewItemClicked();
             }
         }
     }
@@ -274,7 +288,6 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                 break;
 
             case 2:
-//                makeReviewGuideDialog().show();
                 MNReviewApp.showReviewActivity(MNUnlockActivity.this);
                 break;
 
@@ -283,31 +296,6 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                 break;
         }
     }
-
-    // 유저들이 리뷰후 해제가 안된다는 불평이 많아 안내 메시지를 사용하려고 했으나,
-    // 아이템을 먼저 잠금해제 해 주고 UI만 나중에 바꾸는 식으로 변경해서 해결함
-    /*
-    private AlertDialog makeReviewGuideDialog() {
-        AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_DARK);
-        } else {
-            builder = new AlertDialog.Builder(this);
-        }
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                MNReviewApp.showReviewActivity(MNUnlockActivity.this);
-            }
-        });
-        AlertDialog reviewGuideDialog = builder.create();
-        reviewGuideDialog.setCancelable(false);
-        reviewGuideDialog.setCanceledOnTouchOutside(false);
-        reviewGuideDialog.setTitle(R.string.app_name);
-        reviewGuideDialog.setMessage(getString(R.string.unlock_should_come_back_to_morningkit));
-        return reviewGuideDialog;
-    }
-    */
 
     private String getProductString() {
         if (productSku.equals(SKIabProducts.SKU_FULL_VERSION)) {
@@ -382,10 +370,10 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         refreshUnlockedDescriptionTextView();
     }
 
-    private void saveUnlockedItem() {
+    private void saveUnlockedItem(String clickedItemPrefsKey, String clickedPrefsKey) {
         SharedPreferences.Editor edit = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit();
-        edit.putBoolean(REVIEW_USED, true);
-        edit.putString(REVIEW_USED_PRODUCT_SKU, productSku);
+        edit.putBoolean(clickedItemPrefsKey, true);
+        edit.putString(clickedPrefsKey, productSku);
         edit.apply();
     }
 

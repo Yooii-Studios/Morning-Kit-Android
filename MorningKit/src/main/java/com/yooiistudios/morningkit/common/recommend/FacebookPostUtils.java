@@ -22,8 +22,7 @@ import java.util.List;
 public class FacebookPostUtils {
     private FacebookPostUtils() { throw new AssertionError("Must not create this class!"); }
 
-    public static final int REQ_FACEBOOK_APP = 41938;
-    public static final int REQ_FACEBOOK_WEB = 54837;
+    public static final int REQ_FACEBOOK = 41938;
 
     public static void postAppLink(Activity activity) {
         Context context = activity.getApplicationContext();
@@ -47,7 +46,7 @@ public class FacebookPostUtils {
                 appPostIntent.addCategory(Intent.CATEGORY_LAUNCHER);
                 appPostIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                 appPostIntent.setComponent(name);
-                activity.startActivityForResult(appPostIntent, REQ_FACEBOOK_APP);
+                activity.startActivityForResult(appPostIntent, REQ_FACEBOOK);
                 return;
             }
         }
@@ -55,6 +54,6 @@ public class FacebookPostUtils {
         // If we failed (not native FB app installed), try share through SEND
         String sharerUrl = "https://www.facebook.com/sharer/sharer.php?u=" + link;
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharerUrl));
-        activity.startActivityForResult(intent, REQ_FACEBOOK_WEB);
+        activity.startActivityForResult(intent, REQ_FACEBOOK);
     }
 }
