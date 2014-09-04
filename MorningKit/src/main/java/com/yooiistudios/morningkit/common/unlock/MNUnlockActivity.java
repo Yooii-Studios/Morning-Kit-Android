@@ -126,7 +126,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setTitle(R.string.unlock_notice);
+        String notice = getString(R.string.unlock_notice);
+        actionBar.setTitle(notice + " : " + getProductString());
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setIcon(R.drawable.icon_actionbar_morning);
     }

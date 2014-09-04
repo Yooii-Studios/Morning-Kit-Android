@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.review.MNReviewApp;
+import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2014. 9. 4.
@@ -26,12 +26,12 @@ public class MNRecommendUtils {
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, title);
 
-        String link = MNReviewApp.getLink(context);
+        String link = getAppLink();
         String message = title + "\n\n" + context.getString(R.string.recommend_description) + "\n" + link;
         intent.putExtra(Intent.EXTRA_TEXT, message);
 
         // createChooser Intent
-        Intent createChooser = Intent.createChooser(intent, title);
+        Intent createChooser = Intent.createChooser(intent, context.getString(R.string.recommend_to_friends));
 
         // PendingIntent 가 완벽한 해법
         // (가로 모드에서 설정으로 와서 친구 추천하기를 누를 때 계속 반복 호출되는 상황을 막기 위함)
@@ -42,6 +42,17 @@ public class MNRecommendUtils {
             pendingIntent.send();
         } catch (PendingIntent.CanceledException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static String getAppLink() {
+        if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+            // 1500436# 은 여행의신(productNo)
+            // 출시전이면 originalProductId, 후면 productNo
+            // 모닝은 37676
+            return "http://nstore.naver.com/appstore/web/detail.nhn?originalProductId=37676";
+        } else {
+            return "https://play.google.com/store/apps/details?id=com.yooiistudios.morningkit";
         }
     }
 }
