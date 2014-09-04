@@ -304,7 +304,7 @@
     <string name="photo_album_second">초</string>
     <string name="photo_album_transition_none">없음</string>
     <string name="photo_album_transition_alpha">페이드</string>
-    <string name="photo_album_load">로드</string>
+    <string name="photo_album_load">불러오기</string>
 
         <!-- News Feed -->
     <string name="news_feed">뉴스</string>
