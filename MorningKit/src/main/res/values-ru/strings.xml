@@ -294,6 +294,7 @@
         <!-- Photo Album -->
     <string name="photo_album">рамка для фотографий</string>
     <string name="photo_album_no_image">Фотографий нету</string>
+    <string name="photo_album_prompt_select_image">Выберите любимую фотографию</string>
     <string name="photo_album_error_getting_photo">Произошла ошибка при извлечении фото</string>
     <string name="photo_album_label_refresh_time">время обновления</string>
     <string name="photo_album_label_transition_type">Тип перехода</string>

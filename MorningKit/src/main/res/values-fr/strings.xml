@@ -294,6 +294,7 @@
 	<!-- Photo Album -->
 	<string name="photo_album">Cadre photo</string>
 	<string name="photo_album_no_image">Aucune image disponible</string>
+    <string name="photo_album_prompt_select_image">Choisissez votre photo préférée</string>
 	<string name="photo_album_error_getting_photo">Une erreur s\'est produite lors de l\'obtention photo</string>
 	<string name="photo_album_label_refresh_time">Actualiser Temps</string>
 	<string name="photo_album_label_transition_type">Diaporama type</string>
