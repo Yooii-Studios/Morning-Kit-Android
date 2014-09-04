@@ -170,7 +170,6 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     @Override
     protected void onResume() {
         super.onResume();
-        MNLog.now("Unlock onResume");
         if (isActivityStarted) {
             resumeCount ++;
             if (resumeCount == 2) {
@@ -181,8 +180,6 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        MNLog.now("requestCode: " + requestCode);
-
         // 구글 빌드
         if (iabManager != null) {
             if (iabManager.getHelper() == null) return;
@@ -194,7 +191,6 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                 // billing...
                 super.onActivityResult(requestCode, resultCode, data);
                 if (requestCode == MNReviewApp.REQ_REVIEW_APP) {
-                    MNLog.now("requestCode == MNReviewApp.REQ_REVIEW_APP");
                     saveUnlockedItem(REVIEW_USED, REVIEW_USED_PRODUCT_SKU);
                     onAfterReviewItemClicked();
                 }
@@ -233,7 +229,6 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
             }
             // 리뷰 달기
             if (requestCode == MNReviewApp.REQ_REVIEW_APP) {
-                MNLog.now("naver: isActivityStarted = true");
                 saveUnlockedItem(REVIEW_USED, REVIEW_USED_PRODUCT_SKU);
                 isActivityStarted = true;
             }
@@ -241,7 +236,6 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
         // 페이스북 공유는 구글/네이버 빌드 상관없고, 구글 링크로만 사용
         if (requestCode == FacebookPostUtils.REQ_FACEBOOK) {
-            MNLog.now("requestCode == FacebookPostUtils.REQ_FACEBOOK");
             saveUnlockedItem(RECOMMEND_USED, RECOMMEND_USED_PRODUCT_SKU);
             isActivityStarted = true;
         }
