@@ -197,10 +197,6 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                     MNLog.now("requestCode == MNReviewApp.REQ_REVIEW_APP");
                     saveUnlockedItem(REVIEW_USED, REVIEW_USED_PRODUCT_SKU);
                     onAfterReviewItemClicked();
-                } else if (requestCode == FacebookPostUtils.REQ_FACEBOOK) {
-                    MNLog.now("requestCode == FacebookPostUtils.REQ_FACEBOOK");
-                    saveUnlockedItem(RECOMMEND_USED, RECOMMEND_USED_PRODUCT_SKU);
-                    isActivityStarted = true;
                 }
             }
         } else {
@@ -240,11 +236,14 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                 MNLog.now("naver: isActivityStarted = true");
                 saveUnlockedItem(REVIEW_USED, REVIEW_USED_PRODUCT_SKU);
                 isActivityStarted = true;
-            } else if (requestCode == FacebookPostUtils.REQ_FACEBOOK) {
-                MNLog.now("naver: requestCode == FacebookPostUtils.REQ_FACEBOOK");
-                saveUnlockedItem(RECOMMEND_USED, RECOMMEND_USED_PRODUCT_SKU);
-                onAfterReviewItemClicked();
             }
+        }
+
+        // 페이스북 공유는 구글/네이버 빌드 상관없고, 구글 링크로만 사용
+        if (requestCode == FacebookPostUtils.REQ_FACEBOOK) {
+            MNLog.now("requestCode == FacebookPostUtils.REQ_FACEBOOK");
+            saveUnlockedItem(RECOMMEND_USED, RECOMMEND_USED_PRODUCT_SKU);
+            isActivityStarted = true;
         }
     }
 
