@@ -234,7 +234,7 @@
 	<string name="store_tab_functions">機能</string>
 	<string name="store_tab_widgets">パネル</string>
 	<string name="store_tab_themes">テーマ</string>
-	<string name="store_item_more_alarm_slots">アラーム設定数の増加</string>
+	<string name="store_item_more_alarm_slots">アラーム\n設定数の増加</string>
 	<string name="store_item_no_ads">広告削除</string>
 	<string name="store_item_matrix">2 X 3 配列</string>
 	<string name="store_item_widget_date_countdown">日付\n計算</string>
