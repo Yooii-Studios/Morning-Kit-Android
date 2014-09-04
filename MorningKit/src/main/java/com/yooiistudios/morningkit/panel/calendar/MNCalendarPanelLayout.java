@@ -91,7 +91,7 @@ public class MNCalendarPanelLayout extends MNPanelLayout {
         if (eventsListView.getCount() != 0) {
             hideCoverLayout();
         } else {
-            showCoverLayout(getResources().getString(R.string.reminder_no_schedule));
+            showCoverLayout(R.string.reminder_no_schedule);
         }
 
         // test

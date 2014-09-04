@@ -342,7 +342,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
                 }
             } else {
                 // 네이버 인앱 현재위치 사용 안함시 도시 선택을 요청
-                showCoverLayout(getResources().getString(R.string.weather_choose_your_city));
+                showCoverLayout(R.string.weather_choose_your_city);
             }
         }
 
@@ -560,7 +560,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     public void onConnectionFailed(ConnectionResult connectionResult) {
         MNLog.now("onConnectionFailed: " + connectionResult.toString());
         // Location Fail 메시지 보여주기
-        showCoverLayout(getResources().getString(R.string.weather_choose_your_city));
+        showCoverLayout(R.string.weather_choose_your_city);
     }
 
     /**
@@ -582,7 +582,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         } else {
             // Location Fail 메시지 보여주기
 //            MNLog.now("weatherPanel/onConnected: no last location");
-            showCoverLayout(getResources().getString(R.string.weather_choose_your_city));
+            showCoverLayout(R.string.weather_choose_your_city);
         }
     }
 

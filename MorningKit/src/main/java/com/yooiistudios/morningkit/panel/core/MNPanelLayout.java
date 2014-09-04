@@ -53,6 +53,7 @@ public class MNPanelLayout extends RelativeLayout {
     @Getter RelativeLayout statusLayout;
     @Getter TextView panelNameTextView;
     @Getter AutoResizeTextView panelStatusTextView;
+    private int statusResourceId = -1;
 
     @Getter @Setter boolean isUsingNetwork;
     @Getter @Setter JSONObject panelDataObject;
@@ -245,14 +246,17 @@ public class MNPanelLayout extends RelativeLayout {
         contentLayout.setVisibility(VISIBLE);
     }
 
-    protected void showCoverLayout(String description) {
+    protected void showCoverLayout(int statusResourceId) {
         contentLayout.setVisibility(INVISIBLE);
         statusLayout.setVisibility(VISIBLE);
         if (isUsingNetwork) {
             loadingLayout.setVisibility(INVISIBLE);
         }
         panelNameTextView.setText(MNPanelType.toString(getPanelType().getIndex(), getContext()));
-        panelStatusTextView.setText(description);
+        this.statusResourceId = statusResourceId;
+        if (this.statusResourceId != -1) {
+            panelStatusTextView.setText(getResources().getString(statusResourceId));
+        }
     }
 
     protected void hideCoverLayout() {
@@ -262,7 +266,7 @@ public class MNPanelLayout extends RelativeLayout {
 
     protected void showNetworkIsUnavailable() {
         stopLoadingAnimation();
-        showCoverLayout(getResources().getString(R.string.no_network_connection));
+        showCoverLayout(R.string.no_network_connection);
     }
 
     public void applyTheme() {
@@ -276,8 +280,12 @@ public class MNPanelLayout extends RelativeLayout {
         // cover
         panelNameTextView.setTextColor(MNMainColors.getQuoteContentTextColor(currentThemeType,
                 getContext().getApplicationContext()));
+        panelNameTextView.setText(MNPanelType.toString(getPanelType().getIndex(), getContext()));
         panelStatusTextView.setTextColor(MNMainColors.getQuoteAuthorTextColor(currentThemeType,
                 getContext().getApplicationContext()));
+        if (statusResourceId != -1) {
+            panelStatusTextView.setText(statusResourceId);
+        }
     }
 
     protected void onPanelClick() {

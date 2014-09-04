@@ -88,7 +88,7 @@ public class MNMemoPanelLayout extends MNPanelLayout {
             memoTextView.setText(memoString);
         } else {
             // 추후 패널쪽으로 올려서 전체적으로 구현할 예정: 패널이름(중앙) + 설명(아래쪽)
-            showCoverLayout(getResources().getString(R.string.memo_write_here));
+            showCoverLayout(R.string.memo_write_here);
             memoTextView.setText(null);
         }
     }

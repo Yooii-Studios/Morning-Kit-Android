@@ -301,8 +301,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
             startHandler();
         }
         else {
-            showCoverLayout(getContext().getString(
-                    R.string.news_feed_feed_unavailable));
+            showCoverLayout(R.string.news_feed_feed_unavailable);
 //            newsFeedTextView.setText("blah...news feed unavailable.");
         }
     }

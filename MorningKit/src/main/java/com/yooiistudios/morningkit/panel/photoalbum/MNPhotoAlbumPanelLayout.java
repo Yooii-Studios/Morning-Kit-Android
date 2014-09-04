@@ -293,8 +293,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                         @Override
                         public void onError() {
                             stopLoadingAnimation();
-                            showCoverLayout(getContext().getString(
-                                    R.string.photo_album_no_image));
+                            showCoverLayout(R.string.photo_album_no_image);
                         }
                     }
             );
@@ -335,8 +334,7 @@ public class MNPhotoAlbumPanelLayout extends MNPanelLayout {
                                     @Override
                                     public void onError(int messageResId) {
                                         stopLoadingAnimation();
-                                        showCoverLayout(getContext().
-                                                getString(messageResId));
+                                        showCoverLayout(messageResId);
                                     }
                                 });
             }
