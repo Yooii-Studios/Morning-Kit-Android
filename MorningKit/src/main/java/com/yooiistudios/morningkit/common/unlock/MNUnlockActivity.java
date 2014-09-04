@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.common.unlock;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -22,6 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 import com.naver.iap.NaverIabActivity;
@@ -63,7 +63,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     @Getter private SKIabManager iabManager;
 
 
-    private boolean isActivityStarted = false;
+    private boolean isReviewScreenCalled = false;
+
     private int resumeCount = 0;
 
     @InjectView(R.id.unlock_listview_layout)        RelativeLayout          listViewLayout;
@@ -170,7 +171,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     @Override
     protected void onResume() {
         super.onResume();
-        if (isActivityStarted) {
+        if (isReviewScreenCalled) {
             resumeCount ++;
             if (resumeCount == 2) {
                 onAfterReviewItemClicked();
@@ -230,14 +231,14 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
             // 리뷰 달기
             if (requestCode == MNReviewApp.REQ_REVIEW_APP) {
                 saveUnlockedItem(REVIEW_USED, REVIEW_USED_PRODUCT_SKU);
-                isActivityStarted = true;
+                isReviewScreenCalled = true;
             }
         }
 
         // 페이스북 공유는 구글/네이버 빌드 상관없고, 구글 링크로만 사용
         if (requestCode == FacebookPostUtils.REQ_FACEBOOK) {
             saveUnlockedItem(RECOMMEND_USED, RECOMMEND_USED_PRODUCT_SKU);
-            isActivityStarted = true;
+            onAfterReviewItemClicked();
         }
     }
 
@@ -409,8 +410,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     @Override
     public void onIabSetupFailed(IabResult result) {
-//        Toast.makeText(this, result.toString(), Toast.LENGTH_SHORT).show();
-        showComplain("Setup Failed: " + result.getMessage());
+//        showComplain("Setup Failed: " + result.getMessage());
     }
 
     @Override
@@ -418,8 +418,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     @Override
     public void onQueryFailed(IabResult result) {
-//        Toast.makeText(this, result.toString(), Toast.LENGTH_SHORT).show();
-        showComplain("Query Failed: " + result.getMessage());
+//        showComplain("Query Failed: " + result.getMessage());
     }
 
     /**
@@ -448,14 +447,18 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                 }
             }
         } else {
-            showComplain("Purchase Failed: " + result.getMessage());
+            showComplain("Purchase Failed");
         }
     }
 
     private void showComplain(String string) {
+        /*
         AlertDialog.Builder bld = new AlertDialog.Builder(this);
         bld.setMessage(string);
         bld.setNeutralButton(getString(R.string.ok), null);
         bld.create().show();
+        */
+
+        Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
     }
 }
