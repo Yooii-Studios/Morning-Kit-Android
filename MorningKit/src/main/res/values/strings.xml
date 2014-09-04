@@ -239,6 +239,7 @@
     <string name="store_item_matrix">2 X 3 Matrix</string>
     <string name="store_item_widget_date_countdown">Date\nCountdown</string>
     <string name="store_item_widget_memo">Memo</string>
+    <string name="store_item_widget_photo_album">Photo Frame</string>
     <string name="store_item_photo_portrait">Photo\nPortrait</string>
     <string name="store_item_photo_landscape">Photo\nLandscape</string>
     <string name="store_item_skyblue">Celestial\n(Sky blue)</string>

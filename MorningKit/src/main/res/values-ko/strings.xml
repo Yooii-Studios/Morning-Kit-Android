@@ -239,6 +239,7 @@
 	<string name="store_item_matrix">2 X 3 배열</string>
 	<string name="store_item_widget_date_countdown">날짜 계산</string>
 	<string name="store_item_widget_memo">메모</string>
+    <string name="store_item_widget_photo_album">사진첩</string>
 	<string name="store_item_photo_portrait">사진\n세로모드</string>
 	<string name="store_item_photo_landscape">사진\n가로모드</string>
 	<string name="store_item_skyblue">하늘\n(하늘색)</string>

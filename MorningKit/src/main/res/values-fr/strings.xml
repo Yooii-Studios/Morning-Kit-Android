@@ -239,6 +239,7 @@
 	<string name="store_item_matrix">Matrice 2 X 3</string>
 	<string name="store_item_widget_date_countdown">Date Compte\nà rebours</string>
 	<string name="store_item_widget_memo">Note</string>
+    <string name="store_item_widget_photo_album">Cadre photo</string>
 	<string name="store_item_photo_portrait">Photo\nPortrait</string>
 	<string name="store_item_photo_landscape">Photo\nPaysage</string>
 	<string name="store_item_skyblue">Céleste\n(bleu ciel)</string>
