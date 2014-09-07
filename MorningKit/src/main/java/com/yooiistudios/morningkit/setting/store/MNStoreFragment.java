@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.setting.store;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -103,6 +104,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     // setActivity 반드시 해줘야함
     public MNStoreFragment(){}
 
+    // getActivity()가 null일 경우를 대비
+    Context context;
+
     // 이전에 생성된 프래그먼트를 유지
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -178,24 +182,34 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 if (!MNStoreDebugChecker.isUsingStore(getActivity())) {
                     initFullVersionUIDebug();
                 } else {
-                    Animation animation = AnimationUtils.loadAnimation(getActivity(),
-                            R.anim.store_view_scale_up_and_down);
-                    if (animation != null) {
-                        animation.setAnimationListener(new Animation.AnimationListener() {
-                            @Override
-                            public void onAnimationStart(Animation animation) {}
-                            @Override
-                            public void onAnimationEnd(Animation animation) {
-                                Animation textAniamtion = AnimationUtils.loadAnimation(getActivity(),
-                                        R.anim.store_view_scale_up_and_down);
-                                if (textAniamtion != null) {
-                                    fullVersionButtonTextView.startAnimation(textAniamtion);
+                    // 특정 기기에서 184라인에서 loadAnimation 을 하는 도중 크래시.
+                    // NullpointerException 이고 원인은 정확히 모름
+                    try {
+                        Animation animation = AnimationUtils.loadAnimation(getActivity(),
+                                R.anim.store_view_scale_up_and_down);
+                        if (animation != null) {
+                            animation.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
                                 }
-                            }
-                            @Override
-                            public void onAnimationRepeat(Animation animation) {}
-                        });
-                        fullVersionButtonImageView.startAnimation(animation);
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    Animation textAnimation = AnimationUtils.loadAnimation(getActivity(),
+                                            R.anim.store_view_scale_up_and_down);
+                                    if (textAnimation != null) {
+                                        fullVersionButtonTextView.startAnimation(textAnimation);
+                                    }
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+                                }
+                            });
+                            fullVersionButtonImageView.startAnimation(animation);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                     fullVersionButtonTextView.setText(inventory.getSkuDetails(SKIabProducts.SKU_FULL_VERSION).getPrice());
                     fullVersionImageView.setClickable(true);
@@ -207,7 +221,15 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setInventory(inventory);
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setInventory(inventory);
 
-            List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
+            // 특정 기기에서 getActivity()가 null일 경우를 대비한 처리
+            List<String> ownedSkus = null;
+            if (getActivity() != null) {
+                ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
+            } else {
+                if (context != null) {
+                    ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
+                }
+            }
             ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setOwnedSkus(ownedSkus);
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setOwnedSkus(ownedSkus);
@@ -411,7 +433,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
 
     @Override
     public void onIabSetupFailed(IabResult result) {
-        Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
+        try {
+            Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         hideLoadingViews();
     }
 
@@ -424,7 +450,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
 
     @Override
     public void onQueryFailed(IabResult result) {
-        Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
+        try {
+            Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         hideLoadingViews();
     }
 
@@ -697,5 +727,14 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         MNPanelMatrix.setPanelMatrixType(MNPanelMatrixType.PANEL_MATRIX_2X3, getActivity());
         MNPanel.changeToEmptyDataPanel(getActivity(), MNPanelType.DATE_COUNTDOWN.getUniqueId(), 4);
         MNPanel.changeToEmptyDataPanel(getActivity(), MNPanelType.PHOTO_FRAME.getUniqueId(), 5);
+    }
+
+    // 특정 기기에서 getActivity()가 null일 경우 대비
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity != null) {
+            context = activity;
+        }
     }
 }
