@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.setting.store;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -102,6 +103,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
 
     // setActivity 반드시 해줘야함
     public MNStoreFragment(){}
+
+    // getActivity()가 null일 경우를 대비
+    Context context;
 
     // 이전에 생성된 프래그먼트를 유지
     @Override
@@ -217,7 +221,15 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setInventory(inventory);
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setInventory(inventory);
 
-            List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
+            // 특정 기기에서 getActivity()가 null일 경우를 대비한 처리
+            List<String> ownedSkus = null;
+            if (getActivity() != null) {
+                ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
+            } else {
+                if (context != null) {
+                    ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
+                }
+            }
             ((MNStoreGridViewAdapter) functionGridView.getAdapter()).setOwnedSkus(ownedSkus);
             ((MNStoreGridViewAdapter) panelGridView.getAdapter()).setOwnedSkus(ownedSkus);
             ((MNStoreGridViewAdapter) themeGridView.getAdapter()).setOwnedSkus(ownedSkus);
@@ -715,5 +727,14 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         MNPanelMatrix.setPanelMatrixType(MNPanelMatrixType.PANEL_MATRIX_2X3, getActivity());
         MNPanel.changeToEmptyDataPanel(getActivity(), MNPanelType.DATE_COUNTDOWN.getUniqueId(), 4);
         MNPanel.changeToEmptyDataPanel(getActivity(), MNPanelType.PHOTO_FRAME.getUniqueId(), 5);
+    }
+
+    // 특정 기기에서 getActivity()가 null일 경우 대비
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity != null) {
+            context = activity;
+        }
     }
 }
