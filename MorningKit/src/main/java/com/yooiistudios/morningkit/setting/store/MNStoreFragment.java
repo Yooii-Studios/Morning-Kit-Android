@@ -178,24 +178,34 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 if (!MNStoreDebugChecker.isUsingStore(getActivity())) {
                     initFullVersionUIDebug();
                 } else {
-                    Animation animation = AnimationUtils.loadAnimation(getActivity(),
-                            R.anim.store_view_scale_up_and_down);
-                    if (animation != null) {
-                        animation.setAnimationListener(new Animation.AnimationListener() {
-                            @Override
-                            public void onAnimationStart(Animation animation) {}
-                            @Override
-                            public void onAnimationEnd(Animation animation) {
-                                Animation textAniamtion = AnimationUtils.loadAnimation(getActivity(),
-                                        R.anim.store_view_scale_up_and_down);
-                                if (textAniamtion != null) {
-                                    fullVersionButtonTextView.startAnimation(textAniamtion);
+                    // 특정 기기에서 184라인에서 loadAnimation 을 하는 도중 크래시.
+                    // NullpointerException 이고 원인은 정확히 모름
+                    try {
+                        Animation animation = AnimationUtils.loadAnimation(getActivity(),
+                                R.anim.store_view_scale_up_and_down);
+                        if (animation != null) {
+                            animation.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
                                 }
-                            }
-                            @Override
-                            public void onAnimationRepeat(Animation animation) {}
-                        });
-                        fullVersionButtonImageView.startAnimation(animation);
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    Animation textAnimation = AnimationUtils.loadAnimation(getActivity(),
+                                            R.anim.store_view_scale_up_and_down);
+                                    if (textAnimation != null) {
+                                        fullVersionButtonTextView.startAnimation(textAnimation);
+                                    }
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+                                }
+                            });
+                            fullVersionButtonImageView.startAnimation(animation);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                     fullVersionButtonTextView.setText(inventory.getSkuDetails(SKIabProducts.SKU_FULL_VERSION).getPrice());
                     fullVersionImageView.setClickable(true);
