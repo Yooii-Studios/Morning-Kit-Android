@@ -421,7 +421,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
 
     @Override
     public void onIabSetupFailed(IabResult result) {
-        Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
+        try {
+            Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         hideLoadingViews();
     }
 
@@ -434,7 +438,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
 
     @Override
     public void onQueryFailed(IabResult result) {
-        Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
+        try {
+            Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         hideLoadingViews();
     }
 
