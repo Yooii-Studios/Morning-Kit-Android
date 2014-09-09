@@ -187,7 +187,7 @@
 	<string name="setting_language_indonesian">(인도네시아어 본토 표기 필요)</string>
 	<string name="setting_language_spanish">Español</string>
 	<string name="setting_language_french">Français</string>
-    <string name="setting_language_deutsch">Deutsch</string>
+    <string name="setting_language_german">Deutsch</string>
 
 	<!-- Setting (Effect sound) -->
 	<string name="setting_effect_sound">Toneffekte</string>

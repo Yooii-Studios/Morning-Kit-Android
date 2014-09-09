@@ -186,7 +186,7 @@
 	<string name="setting_language_russian">Русский</string>
     <string name="setting_language_spanish">Español</string>
     <string name="setting_language_french">Français</string>
-    <string name="setting_language_deutsch">Deutsch</string>
+    <string name="setting_language_german">Deutsch</string>
 
 	<!-- Setting (Effect sound) -->
 	<string name="setting_effect_sound">効果音</string>

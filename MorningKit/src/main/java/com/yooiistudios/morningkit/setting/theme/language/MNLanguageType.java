@@ -22,8 +22,8 @@ public enum MNLanguageType {
     TRADITIONAL_CHINESE(4, 4, "zh", "TW"),
     SPANISH(5, 6, "es", ""),
     FRENCH(6, 7, "fr", ""),
-    RUSSIAN(7, 5, "ru", "");
-
+    GERMAN(7, 8, "de", ""),
+    RUSSIAN(8, 5, "ru", "");
 
     @Getter private final int index; // 리스트뷰에 표시할 용도의 index
     @Getter private final int uniqueId; // SharedPreferences 에 저장될 용도의 unique id
@@ -47,8 +47,9 @@ public enum MNLanguageType {
             case 4: return TRADITIONAL_CHINESE;
             case 5: return SPANISH;
             case 6: return FRENCH;
-            case 7: return RUSSIAN;
-            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+            case 7: return GERMAN;
+            case 8: return RUSSIAN;
+            default: return ENGLISH;
         }
     }
 
@@ -63,7 +64,8 @@ public enum MNLanguageType {
             case 5: return RUSSIAN;
             case 6: return SPANISH;
             case 7: return FRENCH;
-            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+            case 8: return GERMAN;
+            default: return ENGLISH;
         }
     }
 
@@ -76,8 +78,9 @@ public enum MNLanguageType {
             case 4: return context.getString(R.string.setting_language_traditional_chinese);
             case 5: return context.getString(R.string.setting_language_spanish);
             case 6: return context.getString(R.string.setting_language_french);
-            case 7: return context.getString(R.string.setting_language_russian);
-            default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
+            case 7: return context.getString(R.string.setting_language_german);
+            case 8: return context.getString(R.string.setting_language_russian);
+            default: return context.getString(R.string.setting_language_english);
         }
     }
 
@@ -90,7 +93,8 @@ public enum MNLanguageType {
             case 4: return "Chinese (Traditional)";
             case 5: return "Spanish";
             case 6: return "French";
-            case 7: return "Russian";
+            case 7: return "German";
+            case 8: return "Russian";
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -110,6 +114,8 @@ public enum MNLanguageType {
             return SPANISH;
         } else if (code.equals("fr")) {
             return FRENCH;
+        } else if (code.equals("de")) {
+            return GERMAN;
         } else {
             // Default
             return ENGLISH;
