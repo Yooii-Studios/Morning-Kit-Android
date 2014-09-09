@@ -117,7 +117,8 @@ public class MNTimeZoneLoader {
                 timeZone.m_Offset_Min = 0;
                 timeZone.m_TimeZoneName = "Romance Standard Time";
                 timeZone.m_priority = 1;
-            } else if (languageType == MNLanguageType.GERMAN) {
+            } else if (languageType == MNLanguageType.GERMAN ||
+                    languageType == MNLanguageType.FRENCH) {
                 // New York, NY	-5	-00	Eastern Standard Time/1;뉴욕
                 timeZone.m_Name = "New York";
                 timeZone.m_Offset_Hour = -5;
