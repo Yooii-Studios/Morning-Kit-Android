@@ -112,7 +112,7 @@ public class MNExchangeRatesSelectDialog extends Dialog implements AdapterView.O
         flagAllListView.setOnItemClickListener(this);
         allAdapter.notifyDataSetInvalidated();
 
-        EditText searchFlagEditText = (EditText) tabHost.findViewById(R.id.exchange_edit_allcurrency);
+        final EditText searchFlagEditText = (EditText) tabHost.findViewById(R.id.exchange_edit_allcurrency);
         searchFlagEditText.setInputType(InputType.TYPE_CLASS_TEXT);
         searchFlagEditText.setSingleLine(true);
 
@@ -141,6 +141,14 @@ public class MNExchangeRatesSelectDialog extends Dialog implements AdapterView.O
 
             @Override
             public void afterTextChanged(Editable s) {}
+        });
+
+        Button removeAllButton = (Button) tabHost.findViewById(R.id.exchange_edit_allcurrency_removeAllButton);
+        removeAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchFlagEditText.setText("");
+            }
         });
 
 //        searchFlagEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
