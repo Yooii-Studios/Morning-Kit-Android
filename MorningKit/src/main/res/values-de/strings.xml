@@ -299,10 +299,10 @@
 	<string name="photo_album_error_getting_photo">Es ist ein Fehler aufgetreten beim öffnen des Bildes von deinem Smart-Gerät</string>
 	<string name="photo_album_label_refresh_time">Aktualisierungszeit</string>
 	<string name="photo_album_label_transition_type">Diashow-Art</string>
-	<string name="photo_album_minute_hint">min.</string>
-	<string name="photo_album_minute">min.</string>
-	<string name="photo_album_second_hint">sec.</string>
-	<string name="photo_album_second">sec.</string>
+	<string name="photo_album_minute_hint">min</string>
+	<string name="photo_album_minute">min</string>
+	<string name="photo_album_second_hint">sec</string>
+	<string name="photo_album_second">sec</string>
 	<string name="photo_album_transition_none">Nichts</string>
 	<string name="photo_album_transition_alpha">Verblassen</string>
 	<string name="photo_album_load">Laden</string>

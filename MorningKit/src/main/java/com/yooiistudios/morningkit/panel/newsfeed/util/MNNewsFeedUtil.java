@@ -71,7 +71,7 @@ public class MNNewsFeedUtil {
                 urlType = MNNewsFeedUrlType.GOOGLE;
                 break;
             case GERMAN:
-                feedUrl = "http://news.google.com/news?cf=all&ned=de&hl=es&topic=w&output=rss";
+                feedUrl = "http://news.google.com/news?cf=all&ned=de&hl=de&output=rss";
                 urlType = MNNewsFeedUrlType.GOOGLE;
                 break;
             default:
