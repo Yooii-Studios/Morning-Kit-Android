@@ -63,14 +63,27 @@ public class MNExchangeRatesInfo {
         String result;
 
         // 러시아어, 스페인어, 프랑스어일 경우 값이 이상하게 나온다. 예외처리가 필요
-        if (MNLanguage.getCurrentLanguageType(context) == MNLanguageType.RUSSIAN ||
-                MNLanguage.getCurrentLanguageType(context) == MNLanguageType.FRENCH ||
-                MNLanguage.getCurrentLanguageType(context) == MNLanguageType.SPANISH) {
-            result = String.valueOf(_money);
-        } else {
+        // 기존 잘되는 언어만 제대로 처리하고 나머지는 전부 예외처리하게 변경
+        MNLanguageType languageType = MNLanguage.getCurrentLanguageType(context);
+        if (languageType == MNLanguageType.ENGLISH || languageType == MNLanguageType.KOREAN ||
+                languageType == MNLanguageType.SIMPLIFIED_CHINESE || languageType == MNLanguageType.JAPANESE ||
+                languageType == MNLanguageType.TRADITIONAL_CHINESE) {
+
             NumberFormat format = NumberFormat.getCurrencyInstance();
             result = format.format(_money);
+        } else {
+            result = String.valueOf(_money);
         }
+
+//        if (MNLanguage.getCurrentLanguageType(context) == MNLanguageType.RUSSIAN ||
+//                MNLanguage.getCurrentLanguageType(context) == MNLanguageType.FRENCH ||
+//                MNLanguage.getCurrentLanguageType(context) == MNLanguageType.SPANISH ||
+//                MNLanguage.getCurrentLanguageType(context) == MNLanguageType.GERMAN) {
+//            result = String.valueOf(_money);
+//        } else {
+//            NumberFormat format = NumberFormat.getCurrencyInstance();
+//            result = format.format(_money);
+//        }
 
         // 이 때 result의 형식은 현재 폰의 로케일에 따라 "$100.00" 같은 형태로 나타남
         // 앞에 붙는 통화 기호는 맘대로 설정 불가능
