@@ -106,6 +106,7 @@ public class MNCreditListAdapter extends BaseAdapter {
                             "Jason Piros\n" +
                             "Lena Zaverukha\n" +
                             "Matt Wang\n" +
+                            "Moritz Will\n" +
                             "Taft Love\n" +
                             "Yu Wang\n" +
                             "Yuki Endo");
