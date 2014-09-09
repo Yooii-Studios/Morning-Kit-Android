@@ -26,6 +26,7 @@ public class MNDefaultExchangeRatesInfo {
         //러시아: 100루블 -> 달러
         //스페인: 10유로 -> 달러
         //프랑스: 10유로 -> 달러
+        //독일어: 10유로 -> 달러
 
         switch (MNLanguage.getCurrentLanguageType(context)) {
             case KOREAN:
@@ -71,6 +72,12 @@ public class MNDefaultExchangeRatesInfo {
                 break;
 
             case SPANISH:
+                baseCurrencyCode = "EUR";
+                targetCurrencyCode = "USD";
+                baseCurrencyMoney = 10;
+                break;
+
+            case GERMAN:
                 baseCurrencyCode = "EUR";
                 targetCurrencyCode = "USD";
                 baseCurrencyMoney = 10;
