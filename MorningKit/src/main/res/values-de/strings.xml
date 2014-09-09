@@ -2,7 +2,7 @@
 <resources>
 
 	<!-- General -->
-	<string name="app_name">Morgen Kit</string>
+	<string name="app_name">Morgen Ausrüstung</string>
 	<string name="ok">OK</string>
 	<string name="cancel">Abbrechen</string>
 	<string name="loading">Laden…</string>
