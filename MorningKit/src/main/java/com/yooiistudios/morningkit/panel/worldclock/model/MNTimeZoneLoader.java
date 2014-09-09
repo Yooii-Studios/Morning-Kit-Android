@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.panel.worldclock.MNWorldClockPanelLayout;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
@@ -110,12 +109,21 @@ public class MNTimeZoneLoader {
             return new Gson().fromJson(latestTimeZoneJsonString, type);
         } else {
             MNTimeZone timeZone = new MNTimeZone();
-            if (MNLanguage.getCurrentLanguageType(context) == MNLanguageType.ENGLISH) {
+            MNLanguageType languageType = MNLanguage.getCurrentLanguageType(context);
+            if (languageType == MNLanguageType.ENGLISH) {
                 // Paris 1 0 Romance Standard Time/1
                 timeZone.m_Name = "Paris";
                 timeZone.m_Offset_Hour = 1;
                 timeZone.m_Offset_Min = 0;
                 timeZone.m_TimeZoneName = "Romance Standard Time";
+                timeZone.m_priority = 1;
+            } else if (languageType == MNLanguageType.GERMAN ||
+                    languageType == MNLanguageType.FRENCH) {
+                // New York, NY	-5	-00	Eastern Standard Time/1;뉴욕
+                timeZone.m_Name = "New York";
+                timeZone.m_Offset_Hour = -5;
+                timeZone.m_Offset_Min = 0;
+                timeZone.m_TimeZoneName = "Eastern Standard Time";
                 timeZone.m_priority = 1;
             } else {
                 // London 0 0 GMT Standard Time/4
