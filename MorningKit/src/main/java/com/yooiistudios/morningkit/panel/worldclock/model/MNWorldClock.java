@@ -42,7 +42,7 @@ public class MNWorldClock {
         } else if(hourOffset >= 0) {
             hourString = String.format("+%d", hourOffset);
         } else if(hourOffset < 0) {
-            hourString = String.format("-%d", hourOffset);
+            hourString = String.format("-%d", absoluteHour);
         } else {
             hourString = String.format("+%d", hourOffset);
         }
