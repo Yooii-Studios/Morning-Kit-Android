@@ -184,7 +184,6 @@
 	<string name="setting_language_simplified_chinese">简体中文</string>
 	<string name="setting_language_traditional_chinese">繁體中文</string>
 	<string name="setting_language_russian">Русский</string>
-	<string name="setting_language_indonesian">(인도네시아어 본토 표기 필요)</string>
 	<string name="setting_language_spanish">Español</string>
 	<string name="setting_language_french">Français</string>
     <string name="setting_language_german">Deutsch</string>
@@ -236,11 +235,12 @@
 	<string name="store_tab_functions">Funktionen</string>
 	<string name="store_tab_widgets">Kacheln</string>
 	<string name="store_tab_themes">Themen</string>
-	<string name="store_item_more_alarm_slots">Weiter Wecker-plätze</string>
+	<string name="store_item_more_alarm_slots">Weitere Weckerplätze</string>
 	<string name="store_item_no_ads">Keine Werbung</string>
 	<string name="store_item_matrix">2X3 Matrix</string>
 	<string name="store_item_widget_date_countdown">Datum\nCountdown</string>
 	<string name="store_item_widget_memo">Notiz</string>
+    <string name="store_item_widget_photo_album">Photo Frame</string>
 	<string name="store_item_photo_portrait">Foto\nPortrait</string>
 	<string name="store_item_photo_landscape">Foto\nLandschaft</string>
 	<string name="store_item_skyblue">Himmlisch (Himmelblau)</string>
