@@ -16,11 +16,8 @@
 
 package net.simonvt.timepicker;
 
-import net.simonvt.numberpicker.NumberPicker;
-
 import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -36,6 +33,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import net.simonvt.numberpicker.NumberPicker;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -473,7 +472,9 @@ public class TimePicker extends FrameLayout {
 
     @Override
     public void onPopulateAccessibilityEvent(AccessibilityEvent event) {
-        super.onPopulateAccessibilityEvent(event);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            super.onPopulateAccessibilityEvent(event);
+        }
 
         int flags = DateUtils.FORMAT_SHOW_TIME;
         if (mIs24HourView) {
@@ -490,14 +491,18 @@ public class TimePicker extends FrameLayout {
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
-        super.onInitializeAccessibilityEvent(event);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            super.onInitializeAccessibilityEvent(event);
+        }
         event.setClassName(TimePicker.class.getName());
     }
 
     @Override
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
-        super.onInitializeAccessibilityNodeInfo(info);
-        info.setClassName(TimePicker.class.getName());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            super.onInitializeAccessibilityNodeInfo(info);
+            info.setClassName(TimePicker.class.getName());
+        }
     }
 
     private void updateHourControl() {
