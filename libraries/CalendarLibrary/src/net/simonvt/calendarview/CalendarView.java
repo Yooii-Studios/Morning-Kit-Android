@@ -706,14 +706,18 @@ public class CalendarView extends FrameLayout {
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
-        super.onInitializeAccessibilityEvent(event);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            super.onInitializeAccessibilityEvent(event);
+        }
         event.setClassName(CalendarView.class.getName());
     }
 
     @Override
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
-        super.onInitializeAccessibilityNodeInfo(info);
-        info.setClassName(CalendarView.class.getName());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            super.onInitializeAccessibilityNodeInfo(info);
+            info.setClassName(CalendarView.class.getName());
+        }
     }
 
     /**
@@ -1147,8 +1151,10 @@ public class CalendarView extends FrameLayout {
 
             mPreviousScrollState = OnScrollListener.SCROLL_STATE_FLING;
             if (animate) {
-                mListView.smoothScrollToPositionFromTop(position, mListScrollTopOffset,
-                        GOTO_SCROLL_DURATION);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    mListView.smoothScrollToPositionFromTop(position, mListScrollTopOffset,
+                            GOTO_SCROLL_DURATION);
+                }
             } else {
                 mListView.setSelectionFromTop(position, mListScrollTopOffset);
                 // Perform any after scroll operations that are needed

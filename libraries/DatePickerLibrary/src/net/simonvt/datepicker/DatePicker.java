@@ -288,8 +288,10 @@ public class DatePicker extends FrameLayout {
         setContentDescriptions();
 
         // If not explicitly specified this view is important for accessibility.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && getImportantForAccessibility() == IMPORTANT_FOR_ACCESSIBILITY_AUTO) {
-            setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            if (getImportantForAccessibility() == IMPORTANT_FOR_ACCESSIBILITY_AUTO) {
+                setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
+            }
         }
     }
 
@@ -391,8 +393,9 @@ public class DatePicker extends FrameLayout {
 
     @Override
     public void onPopulateAccessibilityEvent(AccessibilityEvent event) {
-        super.onPopulateAccessibilityEvent(event);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            super.onPopulateAccessibilityEvent(event);
+        }
         final int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR;
         String selectedDateUtterance = DateUtils.formatDateTime(getContext(),
                 mCurrentDate.getTimeInMillis(), flags);
@@ -401,14 +404,18 @@ public class DatePicker extends FrameLayout {
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
-        super.onInitializeAccessibilityEvent(event);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            super.onInitializeAccessibilityEvent(event);
+        }
         event.setClassName(DatePicker.class.getName());
     }
 
     @Override
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
-        super.onInitializeAccessibilityNodeInfo(info);
-        info.setClassName(DatePicker.class.getName());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            super.onInitializeAccessibilityNodeInfo(info);
+            info.setClassName(DatePicker.class.getName());
+        }
     }
 
     @Override
