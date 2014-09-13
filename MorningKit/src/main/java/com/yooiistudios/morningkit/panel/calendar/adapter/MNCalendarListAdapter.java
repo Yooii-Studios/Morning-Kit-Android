@@ -19,6 +19,8 @@ import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventType;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventUtils;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 
+import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -144,16 +146,24 @@ public class MNCalendarListAdapter extends BaseAdapter {
                             .findViewById(R.id.panel_calendar_detail_event_item_ampm_textview);
                     ampmTextView.setVisibility(View.INVISIBLE);
                 } else {
+                    TextView ampmTextView = (TextView) convertView
+                            .findViewById(R.id.panel_calendar_detail_event_item_ampm_textview);
+
                     SimpleDateFormat simpleDateFormat;
                     if (DateFormat.is24HourFormat(context)) {
                         simpleDateFormat = new SimpleDateFormat("HH:mm");
 
                         // AMPM 표시 삭제
-                        TextView ampmTextView = (TextView) convertView
-                                .findViewById(R.id.panel_calendar_detail_event_item_ampm_textview);
                         ampmTextView.setVisibility(View.INVISIBLE);
                     } else {
                         simpleDateFormat = new SimpleDateFormat("hh:mm");
+
+                        DateTime eventTime = new DateTime(calendarModel.beginDate);
+                        if (eventTime.getHourOfDay() >= 12) {
+                            ampmTextView.setText(R.string.alarm_pm);
+                        } else {
+                            ampmTextView.setText(R.string.alarm_am);
+                        }
                     }
                     timeTextView.setText(simpleDateFormat.format(calendarModel.beginDate));
                 }
