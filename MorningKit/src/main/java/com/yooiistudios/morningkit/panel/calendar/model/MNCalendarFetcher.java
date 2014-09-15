@@ -68,7 +68,7 @@ public class MNCalendarFetcher {
     }
 
     @TargetApi(14)
-    public static ArrayList<MNCalendar> getCalendarModel14(Context context) {
+    public static ArrayList<MNCalendar> getCalendarModels14(Context context) {
         ContentResolver contentResolver = context.getContentResolver();
 
         // Fetch a list of all calendars synced with the device, their display names and whether the
@@ -125,6 +125,8 @@ public class MNCalendarFetcher {
         // 지금부터 내일 0시 0분 0초 미만의 시간(그 중에서도 all-day와 scheduled를 분리)
 //        Log.i(TAG, "today events");
 //        Log.i(TAG, "all-day events");
+        // 오늘 일정 현재로부터 한 시간 전 까지의 일정도 표시를 해줌
+        todayNowDateTime = todayNowDateTime.minusHours(1);
         calendarEventList.todayAlldayEvents = getEventsBetweenDates(context, calendarModels, true,
                 todayStartDateTime, todayEndDateTime);
 //        Log.i(TAG, "scheduled events");

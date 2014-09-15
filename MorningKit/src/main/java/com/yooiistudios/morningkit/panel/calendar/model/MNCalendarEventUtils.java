@@ -18,7 +18,7 @@ public class MNCalendarEventUtils {
         // Calendar Ids
         ArrayList<MNCalendar> calendarModels;
         if (android.os.Build.VERSION.SDK_INT >= 14) {
-            calendarModels = MNCalendarFetcher.getCalendarModel14(context);
+            calendarModels = MNCalendarFetcher.getCalendarModels14(context);
         } else {
             calendarModels = MNCalendarFetcher.getCalendarModels(context);
         }
