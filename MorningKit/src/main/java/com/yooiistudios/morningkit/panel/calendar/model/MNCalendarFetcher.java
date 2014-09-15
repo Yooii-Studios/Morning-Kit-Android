@@ -125,12 +125,13 @@ public class MNCalendarFetcher {
         // 지금부터 내일 0시 0분 0초 미만의 시간(그 중에서도 all-day와 scheduled를 분리)
 //        Log.i(TAG, "today events");
 //        Log.i(TAG, "all-day events");
+
         // 오늘 일정 현재로부터 한 시간 전 까지의 일정도 표시를 해줌
         calendarEventList.todayAlldayEvents = getEventsBetweenDates(context, calendarModels, true,
                 todayStartDateTime, todayEndDateTime);
 //        Log.i(TAG, "scheduled events");
         calendarEventList.todayScheduledEvents = getEventsBetweenDates(context, calendarModels, false,
-                todayNowDateTime, todayEndDateTime);
+                todayNowDateTime.minusHours(1), todayEndDateTime);
 
         // 내일 0시 0분 0초 이상 모레 0시 0분 0초 미만의 일정(그 중에서도 all-day와 scheduled를 분리)
 //        Log.i(TAG, "tomorrow events");
@@ -244,11 +245,13 @@ public class MNCalendarFetcher {
         // 지금부터 내일 0시 0분 0초 미만의 시간(그 중에서도 all-day와 scheduled를 분리)
 //        Log.i(TAG, "today events");
 //        Log.i(TAG, "all-day events");
+
+        // 현재 시간이 오전 1시 이상이라면, 이전 1시간 까지의 일정도 표시
         calendarEventList.todayAlldayEvents = getEventsBetweenDates14(context, calendarModels, true,
                 todayStartDateTime, todayEndDateTime);
 //        Log.i(TAG, "scheduled events");
         calendarEventList.todayScheduledEvents = getEventsBetweenDates14(context, calendarModels, false,
-                todayNowDateTime, todayEndDateTime);
+                todayNowDateTime.minusHours(1), todayEndDateTime);
 
         // 내일 0시 0분 0초 이상 모레 0시 0분 0초 미만의 일정(그 중에서도 all-day와 scheduled를 분리)
 //        Log.i(TAG, "tomorrow events");
