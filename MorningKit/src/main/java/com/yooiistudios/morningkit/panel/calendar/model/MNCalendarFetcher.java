@@ -126,7 +126,6 @@ public class MNCalendarFetcher {
 //        Log.i(TAG, "today events");
 //        Log.i(TAG, "all-day events");
         // 오늘 일정 현재로부터 한 시간 전 까지의 일정도 표시를 해줌
-        todayNowDateTime = todayNowDateTime.minusHours(1);
         calendarEventList.todayAlldayEvents = getEventsBetweenDates(context, calendarModels, true,
                 todayStartDateTime, todayEndDateTime);
 //        Log.i(TAG, "scheduled events");
