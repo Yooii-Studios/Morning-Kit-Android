@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- Gerneral -->
+	<string name="app_name">Morning Kit</string>
+	<string name="ok">OK</string>
+	<string name="cancel">Cancelar</string>
+	<string name="loading">Carregando…</string>
+	<string name="default_string">Padrão</string>
+	<string name="yes">Sim</string>
+	<string name="no">Não</string>
+	<string name="no_network_connection">Sem Conexão de Rede</string>
+	<string name="searching">Buscando…</string>
+	<string name="done">Pronto</string>
+	<string name="open">Abrir</string>
+
+	<!-- Alarm -->
+	<string name="add_an_alarm">Adicionar Alarme</string>
+	<string name="edit_alarm">Editar Alarme</string>
+	<string name="alarm_default_label">Alarme</string>
+	<string name="alarm_am">AM</string>
+	<string name="alarm_pm">PM</string>
+	<string name="alarm_snooze_string">Seu alarme irá reiniciar em 9 minutos</string>
+
+	<!-- Alarm Toaster -->
+	<string name="alarm_set_toast_part1">Alarme ajustado para</string>
+	<string name="alarm_set_toast_part2">deste momento</string>
+	<string name="alarm_day">dia</string>
+	<string name="alarm_days">dias</string>
+	<string name="alarm_hour">hora</string>
+	<string name="alarm_hours">horas</string>
+	<string name="alarm_minute">minuto</string>
+	<string name="alarm_minutes">minutos</string>
+
+	<!-- Alarm Preference -->
+	<string name="alarm_pref_repeat">Repetir</string>
+	<string name="alarm_pref_sound_type">Som</string>
+	<string name="alarm_pref_label">Etiqueta</string>
+	<string name="alarm_pref_repeat_never">Nunca</string>
+	<string name="alarm_pref_repeat_weekdays">Dias Úteis</string>
+	<string name="alarm_pref_repeat_weekends">Fins-de-semana</string>
+	<string name="alarm_pref_repeat_everyday">Todo Dia</string>
+	<string name="alarm_pref_pick_your_favorite_song">Escolha uma Música</string>
+
+	<!-- Repeat -->
+	<string name="every_monday">Toda Segunda-Feira</string>
+	<string name="every_tuesday">Toda Terça-Feira</string>
+	<string name="every_wednesday">Toda Quarta-Feira</string>
+	<string name="every_thursday">Toda Quinta-Feira</string>
+	<string name="every_friday">Toda Sexta-Feira</string>
+	<string name="every_saturday">Todo Sábado</string>
+	<string name="every_sunday">Todo Domingo</string>
+	<string name="monday">Seg</string>
+	<string name="tuesday">Ter</string>
+	<string name="wednesday">Qua</string>
+	<string name="thursday">Qui</string>
+	<string name="friday">Sex</string>
+	<string name="saturday">Sab</string>
+	<string name="sunday">Dom</string>
+	<string name="monday_short">S</string>
+	<string name="tuesday_short">T</string>
+	<string name="wednesday_short">Q</string>
+	<string name="thursday_short">Q</string>
+	<string name="friday_short">S</string>
+	<string name="saturday_short">S</string>
+	<string name="sunday_short">D</string>
+
+	<!-- Alarm Wake -->
+	<string name="alarm_wake_snooze">Snooze (no real translation here - you can use "soneca" but it means taking a nap)</string>
+	<string name="alarm_wake_dismiss">Desligar</string>
+
+	<!-- Alarm Sound -->
+	<string name="alarm_sound_string_none">SIlenciar</string>
+	<string name="alarm_sound_string_vibrate">Vibrar</string>
+	<string name="alarm_sound_string_ringtones">Ringtone</string>
+	<string name="alarm_sound_string_music">Música</string>
+	<string name="alarm_ocean_short">Oceano</string>
+	<string name="alarm_ride">Viagem</string>
+
+	<!-- Widget -->
+	<string name="world_clock">Relógio Mundial</string>
+	<string name="flickr">Flickr</string>
+	<string name="memo">Notas</string>
+	<string name="date_calculator">Date\nContagem Regressiva</string>
+	<string name="weather">Clima</string>
+	<string name="calendar">Data</string>
+	<string name="exchange_rate">Câmbio\nTaxas</string>
+	<string name="saying">Cotações</string>
+	<string name="reminder">Calendário</string>
+
+	<!-- Calendar -->
+	<string name="calendar_lunar_calendar">Calendário Lunar</string>
+	<string name="calendar_monday">SEGUNDA-FEIRA</string>
+	<string name="calendar_tuesday">TERÇA-FEIRA</string>
+	<string name="calendar_wednesday">QUARTA-FEIRA</string>
+	<string name="calendar_thursday">QUINTA-FEIRA</string>
+	<string name="calendar_friday">SEXTA-FEIRA</string>
+	<string name="calendar_saturday">SÁBADO</string>
+	<string name="calendar_sunday">DOMINGO</string>
+
+	<!-- Flickr -->
+	<string name="flickr_not_available_flickr_url">Nenhum Resultado Encontrado</string>
+	<string name="flickr_search_images">Buscar Imagem</string>
+	<string name="flickr_use_gray_scale">Usar Escala Cinza</string>
+	<string name="flickr_save_to_library_guide">Essa foto será salva na sua biblioteca</string>
+	<string name="flickr_photo_saved">Foto Salva</string>
+	<string name="flickr_normal_quality">Padrão</string>
+	<string name="flickr_high_quality">Alta Resolução</string>
+	<string name="flickr_error_access_server">Erro ao acessar o servidor do Flickr</string>
+
+	<!-- Date Countdown -->
+	<string name="date_countdown_date">Data</string>
+	<string name="date_countdown_countdown">Contagem Regressiva</string>
+	<string name="date_countdown_new_year">Ano Novo</string>
+	<string name="date_countdown_write_a_title">Etiqueta</string>
+	<string name="date_countdown_create_countdown">Criar Contagem Regressiva</string>
+
+	<!-- Weather -->
+	<string name="weather_temperature_unit">Unidade de Temperatura</string>
+	<string name="weather_use_current_location">Usar Localizção Atual</string>
+	<string name="weather_current_location">Localização Atual</string>
+	<string name="weather_search_city">Buscar Cidade (Em Inglês)</string>
+	<string name="display_local_time">Mostrar Horário Atual</string>
+	<string name="weather_choose_your_city">Escolha sua Cidade</string>
+
+	<!-- World clock -->
+	<string name="world_clock_clock_type_text">Tipo de Relógio</string>
+	<string name="world_clock_digital">Digital</string>
+	<string name="world_clock_analog">Analógico</string>
+	<string name="world_clock_use_24_hour_format">Usar formato de 24h</string>
+	<string name="world_clock_today">Hoje</string>
+	<string name="world_clock_tomorrow">Amanhã</string>
+	<string name="world_clock_yesterday">Ontem</string>
+
+	<!-- Exchange Rate -->
+	<string name="exchange_rate_switch_countries">Trocar moeda</string>
+	<string name="exchange_rate_main_currencies">Moedas em alta</string>
+	<string name="exchange_rate_all_currencies">Todas as moedas</string>
+
+	<!-- Memo -->
+	<string name="memo_write_here">Escrever uma nota</string>
+	<string name="memo_write_here_modal">Escreva aqui</string>
+	<string name="memo_end_of_page_halt">Fim da página</string>
+
+	<!-- Quotes -->
+	<string name="quotes_copy">Copiar</string>
+
+	<!-- Reminder -->
+	<string name="reminder_no_schedule">Nenhum evento hoje</string>
+	<string name="reminder_birthday">Aniversário</string>
+	<string name="reminder_event">Evento</string>
+	<string name="reminder_all_day">Dia Todo</string>
+
+	<!-- Configure_Info -->
+	<string name="info_store">Loja</string>
+	<string name="info_help">Ajuda</string>
+	<string name="info_credit">Créditos</string>
+	<string name="info_yooii_connector">Conector Yooii</string>
+
+	<!-- Tab -->
+	<string name="tab_widget">PAINEL</string>
+	<string name="tab_alarm">ALARME</string>
+	<string name="tab_setting">Opção</string>
+	<string name="tab_theme">TEMA</string>
+	<string name="tab_info">INFORMAÇÃO</string>
+
+	<!-- Setting (General) -->
+	<string name="setting_language">Linguagem</string>
+	<string name="setting_widgettable">Matrix do Painel</string>
+	<string name="setting_theme_color">Tema</string>
+	<string name="setting_theme_color_skyblue">Celestial (Azul Celeste)</string>
+	<string name="setting_theme_color_classic_gray">Ardósia (Cinza)</string>
+	<string name="setting_theme_color_classic_white">Modernidade (Branco)</string>
+	<string name="setting_theme_mirror">Reflexão (Espelhado)</string>
+	<string name="setting_theme_scenery">Traquilidade (Transparente)</string>
+	<string name="setting_theme_photo">Foto</string>
+	<string name="setting_theme_photo_portrait">Foto (Retrato)</string>
+	<string name="setting_theme_photo_landscape">Foto (Paisagem)</string>
+
+	<!-- Setting (Language) -->
+	<string name="setting_language_korean">한국어</string>
+	<string name="setting_language_english">Englisch</string>
+	<string name="setting_language_japanese">日本語</string>
+	<string name="setting_language_simplified_chinese">简体中文</string>
+	<string name="setting_language_traditional_chinese">繁體中文</string>
+	<string name="setting_language_russian">Русский</string>
+	<string name="setting_language_spanish">Español</string>
+	<string name="setting_language_french">Français</string>
+	<string name="setting_language_deutsch">Deutsch</string>
+    <string name="setting_language_portuguese_brazil">Português (Brazil)</string>
+    <string name="setting_language_portuguese_portugal">Português (Portugal)</string>
+
+	<!-- Setting (Effect sound) -->
+	<string name="setting_effect_sound">Efeitos Sonoros</string>
+	<string name="setting_effect_sound_on">Ligado</string>
+	<string name="setting_effect_sound_off">Desligado</string>
+
+	<!-- Tutorial -->
+	<string name="tutorial_select_theme">Selecione seu Tema Matinal</string>
+
+
+	<string name="tutorial1_label1">Você pode customizar os Painéis</string>
+	<string name="tutorial1_label2">Você pode adicionar ou remover Alarmes</string>
+	<string name="tutorial1_label3">Deslize para deletar alarmes</string>
+	<string name="tutorial1_label4">Atualizar</string>
+	<string name="tutorial1_label5">Configurações</string>
+	<string name="tutorial1_tap_screen">Toque a tela</string>
+	<string name="tutorial1_skip_tutorial">Pular tutorial</string>
+
+	<!-- Unlock -->
+	<string name="unlock_notice">AVISO</string>
+	<string name="unlock_unlocked">Desbloqueado</string>
+	<string name="unlock_description">Existem vários jeitos de desbloquear essa facilidade. Encontre um jeito de usa-la de graça!</string>
+	<string name="unlock_description_highlight">desbloquear</string>
+	<string name="unlock_everything">Desbloquear tudo por apenas $2.99 (Replace with value in R$)</string>
+	<string name="unlock_everything_highlight">tudo</string>
+	<string name="unlock_only_this">Desbloquear por $0.99 (Replace with value in R$)</string>
+	<string name="unlock_review">Escreva uma Resenha e desbloqueie de graça!</string>
+	<string name="unlock_review_highlight">Escreva uma Resenha</string>
+	<string name="unlock_connector">Ative o Yooii Connector e debloqueie de graça!</string>
+	<string name="unlock_connector_highlight">Yooii Connector</string>
+	<string name="unlock_use_morning">Use o Morning Kit 10 vezez e desbloqueie de graça!</string>
+	<string name="unlock_use_morning_highlight">10 Vezes</string>
+	<string name="unlock_facebook">Curta nosso Facebook e desbloqueie de graça!</string>
+	<string name="unlock_facebook_highlight">Curta</string>
+	<string name="unlock_twitter">Siga-nos no Twitter e desbloqueie de graça!</string>
+	<string name="unlock_twitter_highlight">Seguir</string>
+
+	<!-- Store -->
+	<string name="store_no_purchase_records">Nenhum registro de compras</string>
+	<string name="store_restore_purchases">Resgatar compras</string>
+	<string name="store_purchased">Adquirido</string>
+	<string name="store_restore">Resgatar</string>
+	<string name="store_restore_success_message">Todas as compras são restauradas</string>
+	<string name="store_buy_full_version">Compre a versão completa!</string>
+	<string name="store_buy_full_version_description">Atualize para desbloquear todas as Funções, Painéis e Temas</string>
+	<string name="store_tab_functions">Funções</string>
+	<string name="store_tab_widgets">Painéis</string>
+	<string name="store_tab_themes">Temas</string>
+	<string name="store_item_more_alarm_slots">Mais campos para alarmes</string>
+	<string name="store_item_no_ads">Desativar Anúncios</string>
+	<string name="store_item_matrix">Matriz 2 X 3</string>
+	<string name="store_item_widget_date_countdown">Data\nContagem Regressiva</string>
+	<string name="store_item_widget_memo">Notas</string>
+	<string name="store_item_widget_photo_album">Fotos</string>
+	<string name="store_item_photo_portrait">Fotos\nRetrato</string>
+	<string name="store_item_photo_landscape">Fotos\nPaisagem</string>
+	<string name="store_item_skyblue">Celestial\n(Azul Celeste)</string>
+	<string name="store_item_classic_white">Modernidade\n(Branco)</string>
+	<string name="store_item_water_lily">Vitória Régia (Design)</string>
+	<string name="store_item_popsicle">Picolé</string>
+
+	<!-- Rate it -->
+	<string name="rate_it_contents">Por favor, avalie-nos com 5 estrelas\nSem o seu suporte, nós não existimos</string>
+	<string name="rate_it_rate">Avalie</string>
+	<string name="rate_it_no_thanks">Mais Tarde</string>
+	<string name="rate_morning_kit">Avaliar o Morning Kit</string>
+
+	<!-- More Information -->
+	<string name="more_information">Informações do Morning Kit</string>
+	<string name="more_information_yooii_studios">Yooii Studios</string>
+	<string name="more_information_morning_kit_help">Ajuda do Morning Kit</string>
+	<string name="more_information_version_info">Versão</string>
+	<string name="more_information_morning_kit_license">Licença do Morning Kit</string>
+	<string name="more_information_license">Licença</string>
+
+	<!-- Alram Fist On Notice -->
+	<string name="alarm_first_on_notice">[Ajustes -> Notificações -> Morning Kit]\n\nPor favor ajuste o estilo de alerta para "Alertas", e ligue os "Sons".\n\nO alarme não toca no modo vibração. Por favor deligue a vibração.</string>
+
+	<!-- Photo Theme -->
+	<string name="photo_theme_move_and_scale">Mover e Redimensionar</string>
+	<string name="photo_theme_choose">Escolher</string>
+	<string name="photo_theme_first_open_notice">Por favor redimensione a imagem para caber na tela</string>
+
+	<!-- Android Only -->
+	<!-- General -->
+	<string name="action_bar_up_button_main">Principal</string>
+	<string name="store_item_full_version">Versão Completa</string>
+
+	<!-- Alarm -->
+	<string name="alarm_set_for_less_than_1_minute">Alarme programado para daqui a menos de um minuto</string>
+	<string name="alarm_status_bar_icon"> Ícone do alarme na barra de status </string>
+
+	<!-- Prefs -->
+	<string name="alarm_pref_volume">Volume</string>
+
+	<!-- Panel -->
+	<!-- Flickr -->
+	<string name="saving">Salvando…</string>
+
+	<!-- World Clock -->
+	<string name="no_search_result">Nenhum Resultado Encontrado</string>
+
+	<!-- Calender -->
+	<string name="calendar_select_calendars">Escolher Calendários</string>
+
+	<!-- Photo Album -->
+	<string name="photo_album">Foto</string>
+	<string name="photo_album_no_image">Nenhuma imagem disponível</string>
+	<string name="photo_album_error_getting_photo">Ocorreu um erro buscando</string>
+	<string name="photo_album_label_refresh_time">Tempo de Recarga</string>
+	<string name="photo_album_label_transition_type">Tipo de Exibição</string>
+	<string name="photo_album_minute_hint">min</string>
+	<string name="photo_album_minute">min</string>
+	<string name="photo_album_second_hint">seg</string>
+	<string name="photo_album_second">seg</string>
+	<string name="photo_album_transition_none">Nenhum</string>
+	<string name="photo_album_transition_alpha">Desaparecer</string>
+	<string name="photo_album_load">Carregar</string>
+
+	<!-- Panel - New Feed -->
+	<string name="news_feed">Notícias</string>
+	<string name="news_feed_invalid_url">RRS Inválido</string>
+	<string name="news_feed_feed_unavailable">Notícias não disponíveis nesse momento</string>
+	<string name="news_feed_url_dialog_title">Digite URL do RSS</string>
+    <string name="news_feed_url_dialog_reset">Redefinir</string>
+
+	<!-- Panel-cat -->
+	<string name="cat">Gato</string>
+
+	<!-- Theme -->
+	<string name="setting_theme_color_pastel_green">Verde Pastel</string>
+	<string name="setting_theme_color_cool_navy">Azul Marinho</string>
+	<string name="setting_theme_color_mint_pink">Rosa e Menta</string>
+
+	<!-- Recommend -->
+	<string name="recommend_to_friends">Recomende o Morning Kit para seus amigos</string>
+	<string name="recommend_title">Dá uma olhada nesse novo app, é incrível!</string>
+	<string name="recommend_description">Clique no link e faça o download!</string>
+	<string name="recommend_app_full_name">Morning Kit</string>
+
+	<!-- Location -->
+	<string name="dialog_location_service_disabled_title">Serviços de localização desativados</string>
+	<string name="dialog_location_service_disabled_message">Clique em OK para ativar os serviços de localização</string>
+
+	<!-- Unlock - Recommend -->
+	<string name="unlock_recommend">Recomende o Morning Kit para seus amigos e desbloqueie de graça!</string>
+	<string name="unlock_recommend_highlight">Recomende</string>
+	<string name="photo_album_prompt_select_image">Escolha sua foto favorita</string>
+
+</resources>

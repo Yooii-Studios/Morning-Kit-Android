@@ -74,6 +74,14 @@ public class MNNewsFeedUtil {
                 feedUrl = "http://news.google.com/news?cf=all&ned=de&hl=de&output=rss";
                 urlType = MNNewsFeedUrlType.GOOGLE;
                 break;
+            case PORTUGUESE_BRAZIL:
+                feedUrl = "https://news.google.com/news/feeds?cf=all&ned=pt-BR_br&hl=pt-BR_br&output=rss";
+                urlType = MNNewsFeedUrlType.GOOGLE;
+                break;
+            case PORTUGUESE_PORTUGAL:
+                feedUrl = "https://news.google.com/news/feeds?cf=all&ned=pt-PT_pt&hl=pt-PT_pt&output=rss";
+                urlType = MNNewsFeedUrlType.GOOGLE;
+                break;
             default:
                 feedUrl = "http://news.google.com/news?cf=all&ned=us&hl=en&output=rss";
                 urlType = MNNewsFeedUrlType.GOOGLE;
