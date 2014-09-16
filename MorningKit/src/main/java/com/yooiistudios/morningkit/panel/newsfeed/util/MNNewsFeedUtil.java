@@ -74,6 +74,10 @@ public class MNNewsFeedUtil {
                 feedUrl = "http://news.google.com/news?cf=all&ned=de&hl=de&output=rss";
                 urlType = MNNewsFeedUrlType.GOOGLE;
                 break;
+            case PORTUGUESE: // 포르투갈어의 최대 언어 사용국 브라질 뉴스 사용
+                feedUrl = "https://news.google.com/news/feeds?cf=all&ned=pt-BR_br&hl=pt-BR_br&output=rss";
+                urlType = MNNewsFeedUrlType.GOOGLE;
+                break;
             default:
                 feedUrl = "http://news.google.com/news?cf=all&ned=us&hl=en&output=rss";
                 urlType = MNNewsFeedUrlType.GOOGLE;
