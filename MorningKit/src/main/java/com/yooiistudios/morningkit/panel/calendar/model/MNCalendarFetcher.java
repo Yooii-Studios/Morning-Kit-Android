@@ -10,8 +10,6 @@ import android.provider.CalendarContract;
 
 import org.joda.time.DateTime;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,7 +24,7 @@ import static android.provider.CalendarContract.Events.CALENDAR_ID;
  *  -> 리팩토링 후
  */
 public class MNCalendarFetcher {
-    private static final String TAG = "MNCalendarUtils";
+//    private static final String TAG = "MNCalendarUtils";
 
     private MNCalendarFetcher() {
         throw new AssertionError("You MUST not create this class!");
@@ -37,8 +35,6 @@ public class MNCalendarFetcher {
 
         // Fetch a list of all calendars synced with the device, their display names and whether the
         // user has them selected for display.
-        // content://com.android.calendar // 2.2(Froyo) or greater
-        // content://calendar/calendars // below 2.2
         final Cursor cursor = contentResolver.query(getCalendarURI(false),
                 (new String[]{"_id", "displayName", "selected"}), null, null, null);
         // For a full list of available columns see http://tinyurl.com/yfbg76w
@@ -52,9 +48,6 @@ public class MNCalendarFetcher {
 
                 final String _id = cursor.getString(0);
                 final String displayName = cursor.getString(1);
-//                final Boolean selected = !cursor.getString(2).equals("0");
-
-//                System.out.println("Id: " + _id + " Display Name: " + displayName + " Selected: " + selected);
 
                 calendarModel.calendarId = _id;
                 calendarModel.displayName = displayName;
@@ -68,7 +61,7 @@ public class MNCalendarFetcher {
     }
 
     @TargetApi(14)
-    public static ArrayList<MNCalendar> getCalendarModel14(Context context) {
+    public static ArrayList<MNCalendar> getCalendarModels14(Context context) {
         ContentResolver contentResolver = context.getContentResolver();
 
         // Fetch a list of all calendars synced with the device, their display names and whether the
@@ -93,8 +86,6 @@ public class MNCalendarFetcher {
                 calendarModel.displayName = displayName;
                 calendarModel.selected = true;
 
-//                System.out.println("Id:" + _id + "/Display Name:" + displayName);
-
                 calendarModels.add(calendarModel);
             }
             cursor.close();
@@ -107,7 +98,7 @@ public class MNCalendarFetcher {
     public static MNCalendarEventList getCalendarEvents(Context context,
                                                         ArrayList<MNCalendar> calendarModels) {
         // 오늘부터 1년 간의 이벤트를 얻기 - 나중에 현 시간부터 내일까지로 변경 필요
-        // 오늘-종일, 오늘-일정 / 내일-종일, 내일-일정 총 4개의 ArrayList가 필요
+        // 오늘-종일, 오늘-일정 / 내일-종일, 내일-일정 총 4개의 ArrayList 가 필요
         MNCalendarEventList calendarEventList = new MNCalendarEventList();
 
         // 필요한 시간 기준들을 미리 준비
@@ -122,21 +113,16 @@ public class MNCalendarFetcher {
                 tomorrowDateTime.getMonthOfYear(), tomorrowDateTime.getDayOfMonth(), 0, 0, 0);
         DateTime tomorrowEndDateTime = tomorrowStartDateTime.plusDays(1);
 
-        // 지금부터 내일 0시 0분 0초 미만의 시간(그 중에서도 all-day와 scheduled를 분리)
-//        Log.i(TAG, "today events");
-//        Log.i(TAG, "all-day events");
+        // 지금부터 내일 0시 0분 0초 미만의 시간(그 중에서도 all-day 와 scheduled 를 분리)
+        // 오늘 일정 현재로부터 한 시간 전 까지의 일정도 표시를 해줌
         calendarEventList.todayAlldayEvents = getEventsBetweenDates(context, calendarModels, true,
                 todayStartDateTime, todayEndDateTime);
-//        Log.i(TAG, "scheduled events");
         calendarEventList.todayScheduledEvents = getEventsBetweenDates(context, calendarModels, false,
-                todayNowDateTime, todayEndDateTime);
+                todayNowDateTime.minusHours(1), todayEndDateTime);
 
-        // 내일 0시 0분 0초 이상 모레 0시 0분 0초 미만의 일정(그 중에서도 all-day와 scheduled를 분리)
-//        Log.i(TAG, "tomorrow events");
-//        Log.i(TAG, "all-day events");
+        // 내일 0시 0분 0초 이상 모레 0시 0분 0초 미만의 일정(그 중에서도 all-day 와 scheduled 를 분리)
         calendarEventList.tomorrowAlldayEvents = getEventsBetweenDates(context, calendarModels, true,
                 tomorrowStartDateTime, tomorrowEndDateTime);
-//        Log.i(TAG, "scheduled events");
         calendarEventList.tomorrowScheduledEvents = getEventsBetweenDates(context, calendarModels, false,
                 tomorrowStartDateTime, tomorrowEndDateTime);
 
@@ -189,33 +175,25 @@ public class MNCalendarFetcher {
                 MNCalendarEvent calendarEvent = new MNCalendarEvent();
 
                 // title
-                String title = "";
+                String title;
                 if (eventCursor.getString(0) != null) {
                     title = eventCursor.getString(0).trim();
                     calendarEvent.title = title;
                 }
 
                 // beginDate
-                Date begin = new Date(eventCursor.getLong(1));
-                calendarEvent.beginDate = begin;
+                calendarEvent.beginDate = new Date(eventCursor.getLong(1));
 
                 // all day
                 calendarEvent.isAllDayEvent = isAllDayEvents;
-
-                SimpleDateFormat sdfrr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-                String stimesr = sdfrr.format(begin);
-
-//                System.out.println("title:" + title + "/stimes:" + stimesr +
-//                        (calendarEvent.isAllDayEvent ? "/all-day" : ""));
+//                SimpleDateFormat sdfrr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                String stimesr = sdfrr.format(begin);
 
                 calendarModelList.add(calendarEvent);
             }
             eventCursor.close();
             return calendarModelList;
         } else {
-//            Log.e(TAG, "eventCursor is null");
-
             return null;
         }
     }
@@ -225,7 +203,7 @@ public class MNCalendarFetcher {
     public static MNCalendarEventList getCalendarEvents14(Context context,
                                                           ArrayList<MNCalendar> calendarModels) {
         // 오늘부터 1년 간의 이벤트를 얻기 - 나중에 현 시간부터 내일까지로 변경 필요
-        // 오늘-종일, 오늘-일정 / 내일-종일, 내일-일정 총 4개의 ArrayList가 필요
+        // 오늘-종일, 오늘-일정 / 내일-종일, 내일-일정 총 4개의 ArrayList 가 필요
         MNCalendarEventList calendarEventList = new MNCalendarEventList();
 
         // 필요한 시간 기준들을 미리 준비
@@ -240,21 +218,16 @@ public class MNCalendarFetcher {
                 tomorrowDateTime.getMonthOfYear(), tomorrowDateTime.getDayOfMonth(), 0, 0, 0);
         DateTime tomorrowEndDateTime = tomorrowStartDateTime.plusDays(1);
 
-        // 지금부터 내일 0시 0분 0초 미만의 시간(그 중에서도 all-day와 scheduled를 분리)
-//        Log.i(TAG, "today events");
-//        Log.i(TAG, "all-day events");
+        // 지금부터 내일 0시 0분 0초 미만의 시간(그 중에서도 all-day 와 scheduled 를 분리)
+        // 현재 시간이 오전 1시 이상이라면, 이전 1시간 까지의 일정도 표시
         calendarEventList.todayAlldayEvents = getEventsBetweenDates14(context, calendarModels, true,
                 todayStartDateTime, todayEndDateTime);
-//        Log.i(TAG, "scheduled events");
         calendarEventList.todayScheduledEvents = getEventsBetweenDates14(context, calendarModels, false,
-                todayNowDateTime, todayEndDateTime);
+                todayNowDateTime.minusHours(1), todayEndDateTime);
 
-        // 내일 0시 0분 0초 이상 모레 0시 0분 0초 미만의 일정(그 중에서도 all-day와 scheduled를 분리)
-//        Log.i(TAG, "tomorrow events");
-//        Log.i(TAG, "all-day events");
+        // 내일 0시 0분 0초 이상 모레 0시 0분 0초 미만의 일정(그 중에서도 all-day 와 scheduled 를 분리)
         calendarEventList.tomorrowAlldayEvents = getEventsBetweenDates14(context, calendarModels, true,
                 tomorrowStartDateTime, tomorrowEndDateTime);
-//        Log.i(TAG, "scheduled events");
         calendarEventList.tomorrowScheduledEvents = getEventsBetweenDates14(context, calendarModels, false,
                 tomorrowStartDateTime, tomorrowEndDateTime);
 
@@ -279,8 +252,8 @@ public class MNCalendarFetcher {
         // The ID of the recurring event whose instances you are searching
         // for in the Instances table
         // 괄호가 중요, 괄호에 따라 제대로 된 값이 안나올 가능성이 있음
-        // 아주 새로운 개념. 오늘의 일정을 표시하기 위해서, begin과 end가 필요한 것이 아니라,
-        // begin만을 가지고 오늘 예정된 일정이라는 것을 표시 가능! iOS도 수정 필요!
+        // 아주 새로운 개념. 오늘의 일정을 표시하기 위해서, begin 과 end 가 필요한 것이 아니라,
+        // begin 만을 가지고 오늘 예정된 일정이라는 것을 표시 가능! iOS도 수정 필요!
         String selection = null;
         for (MNCalendar calendarModel : calendarModels) {
             // 선택된 캘린더일 경우에만 로딩해 전체 캘린더에 더하기
@@ -330,8 +303,7 @@ public class MNCalendarFetcher {
                 // Do something with the values.
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(beginTimeInMillis);
-                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                Log.i(TAG, "Event:" + title + "/Date:" + formatter.format(calendar.getTime()));
+//                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
                 calendarEvent.title = title;
                 calendarEvent.isAllDayEvent = isAllDayEvents;
@@ -341,7 +313,6 @@ public class MNCalendarFetcher {
             eventCursor.close();
             return calendarModelList;
         } else {
-//            Log.e(TAG, "eventCursor is null");
             return null;
         }
     }

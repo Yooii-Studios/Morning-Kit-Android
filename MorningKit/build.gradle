@@ -26,8 +26,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 19
-        versionCode 49
-        versionName "2.5.4"
+        versionCode 50
+        versionName "2.6.0"
         applicationId "com.yooiistudios.morningkit"
     }
 
