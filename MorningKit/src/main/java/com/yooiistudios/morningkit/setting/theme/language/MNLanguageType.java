@@ -24,8 +24,8 @@ public enum MNLanguageType {
     FRENCH(6, 7, "fr", ""),
     GERMAN(7, 8, "de", ""),
     RUSSIAN(8, 5, "ru", ""),
-    PORTUGUESE_BRAZIL(9, 9, "pt", "rBR"),
-    PORTUGUESE_PORTUGAL(10, 10, "pt", "rPT");
+    PORTUGUESE_BRAZIL(9, 9, "pt", "BR"),
+    PORTUGUESE_PORTUGAL(10, 10, "pt", "PT");
 
     @Getter private final int index; // 리스트뷰에 표시할 용도의 index
     @Getter private final int uniqueId; // SharedPreferences 에 저장될 용도의 unique id
@@ -126,9 +126,9 @@ public enum MNLanguageType {
             return FRENCH;
         } else if (code.equals("de")) {
             return GERMAN;
-        } else if (code.equals("pt-rBR")) {
+        } else if (code.equals("pt") && region.equals("BR")) {
             return PORTUGUESE_BRAZIL;
-        } else if (code.equals("pt-rPT")) {
+        } else if (code.equals("pt") && region.equals("PT")) {
             return PORTUGUESE_PORTUGAL;
         } else {
             // Default
