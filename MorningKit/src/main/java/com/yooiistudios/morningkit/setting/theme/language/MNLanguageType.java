@@ -84,7 +84,7 @@ public enum MNLanguageType {
             case 4: return context.getString(R.string.setting_language_traditional_chinese);
             case 5: return context.getString(R.string.setting_language_spanish);
             case 6: return context.getString(R.string.setting_language_french);
-            case 7: return context.getString(R.string.setting_language_german);
+            case 7: return context.getString(R.string.setting_language_deutsch);
             case 8: return context.getString(R.string.setting_language_russian);
             case 9: return context.getString(R.string.setting_language_portuguese_brazil);
             case 10: return context.getString(R.string.setting_language_portuguese_portugal);
