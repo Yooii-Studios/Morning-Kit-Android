@@ -187,7 +187,8 @@
 	<string name="setting_language_spanish">Español</string>
 	<string name="setting_language_french">Français</string>
     <string name="setting_language_german">Deutsch</string>
-    <string name="setting_language_portuguese">Português</string>
+    <string name="setting_language_portuguese_brazil">Português (Brazil)</string>
+    <string name="setting_language_portuguese_portugal">Português (Portugal)</string>
 
 	<!-- Setting (Effect sound) -->
 	<string name="setting_effect_sound">Toneffekte</string>
