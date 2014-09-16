@@ -23,7 +23,8 @@ public enum MNLanguageType {
     SPANISH(5, 6, "es", ""),
     FRENCH(6, 7, "fr", ""),
     GERMAN(7, 8, "de", ""),
-    RUSSIAN(8, 5, "ru", "");
+    RUSSIAN(8, 5, "ru", ""),
+    PORTUGUESE(9, 9, "pt", "");
 
     @Getter private final int index; // 리스트뷰에 표시할 용도의 index
     @Getter private final int uniqueId; // SharedPreferences 에 저장될 용도의 unique id
@@ -49,6 +50,7 @@ public enum MNLanguageType {
             case 6: return FRENCH;
             case 7: return GERMAN;
             case 8: return RUSSIAN;
+            case 9: return PORTUGUESE;
             default: return ENGLISH;
         }
     }
@@ -65,6 +67,7 @@ public enum MNLanguageType {
             case 6: return SPANISH;
             case 7: return FRENCH;
             case 8: return GERMAN;
+            case 9: return PORTUGUESE;
             default: return ENGLISH;
         }
     }
@@ -80,6 +83,7 @@ public enum MNLanguageType {
             case 6: return context.getString(R.string.setting_language_french);
             case 7: return context.getString(R.string.setting_language_german);
             case 8: return context.getString(R.string.setting_language_russian);
+            case 9: return context.getString(R.string.setting_language_portuguese);
             default: return context.getString(R.string.setting_language_english);
         }
     }
@@ -95,6 +99,7 @@ public enum MNLanguageType {
             case 6: return "French";
             case 7: return "German";
             case 8: return "Russian";
+            case 9: return "Portuguese";
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -116,6 +121,8 @@ public enum MNLanguageType {
             return FRENCH;
         } else if (code.equals("de")) {
             return GERMAN;
+        } else if (code.equals("pt")) {
+            return PORTUGUESE;
         } else {
             // Default
             return ENGLISH;
