@@ -180,8 +180,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         }
     }
 
+    /*
     private void checkDGAd(int orientation) {
-        /*
+
         if (dgService != null) {
             dgService.close();
             adView.setVisibility(View.VISIBLE);
@@ -233,8 +234,8 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 }
             }
         }
-        */
     }
+    */
 
     @Override
     protected void onResume() {
