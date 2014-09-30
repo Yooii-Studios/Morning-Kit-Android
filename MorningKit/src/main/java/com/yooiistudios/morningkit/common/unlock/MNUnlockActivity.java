@@ -414,7 +414,13 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     }
 
     @Override
-    public void onQueryFinished(Inventory inventory) {}
+    public void onQueryFinished(Inventory inventory) {
+        // 풀 버전이나 해당 기능 구매 목록이 이미 있을 경우
+        if (inventory.hasPurchase(SKIabProducts.SKU_FULL_VERSION) ||
+                inventory.hasPurchase(productSku)) {
+            refreshUI();
+        }
+    }
 
     @Override
     public void onQueryFailed(IabResult result) {
