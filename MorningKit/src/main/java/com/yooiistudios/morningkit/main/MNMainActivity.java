@@ -255,7 +255,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         panelWindowLayout.onActivityResume();
 
         // 애드몹 레이아웃
-        admobLayout.setBackgroundColor(Color.parseColor("#BB000000"));
         adView.resume();
 
         // 테마 적용
