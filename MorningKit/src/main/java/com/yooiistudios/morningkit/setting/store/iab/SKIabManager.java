@@ -120,6 +120,7 @@ public class SKIabManager {
             helper.launchPurchaseFlow(activity, sku, IabHelper.ITEM_TYPE_INAPP, IAB_REQUEST_CODE, onIabPurchaseFinishedListener, MNMd5Utils.getMd5String(sku));
         } catch (IllegalStateException e) {
             e.printStackTrace();
+            helper.flagEndAsync();
         }
     }
 }
