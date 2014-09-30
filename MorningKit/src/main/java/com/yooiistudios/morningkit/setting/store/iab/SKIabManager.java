@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.setting.store.iab;
 
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 
 import com.yooiistudios.morningkit.common.encryption.MNMd5Utils;
 import com.yooiistudios.morningkit.common.log.MNLog;
@@ -27,11 +26,16 @@ public class SKIabManager {
     private ActionBarActivity activity;
     private String base64EncodedPublicKey;
 
+    public static final String piece1 = "MIIBIjANBgkqhkiG9w0BAQEFAAMT4wCvf12zdFOCAQ8AMIIBCgKCAQEAh2yCTQXMk/33q3PzCmCwlpmZ+";
+    public static final String piece2 = "0gh3Ya09dQdw01T6izPnTpbx/Ab66Wgt+ilCuqMik2LWd7go9pCGnYtB8h8pKztdffmfj1z8dBxE/7r++cF7krgATB52u4jsqXd91WntfPjvEe8wxCGRoOf76h2CV";
+    public static final String piece3 = "+hCPfnj+qJ1ugMRJTn9IwmAvrV9i2qni2vCHSDYjVBOc35u0A19fjaLezwo3vl8/vUMip4QUmppmSmJL53qMKx9j/1pBM2pumI7sqC2+85smYTXbgbCjW3BZLH2RQhTl0WkXEP6hIHt+";
+    public static final String piece4 = "8AHNZyb7e044k1jFZUgcITqs8d3lgoiZjMXo0HgHnEn9PeoTn1aMQYq3dFjgvDiwyq/cSgXfVel4nQAWV/swIDAQAB";
+
     private SKIabManager() {}
     public SKIabManager(ActionBarActivity activity, SKIabManagerListener iapManagerListener) {
         this.activity = activity;
         this.iapManagerListener = iapManagerListener;
-        this.base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh2yCTQXMk/33q3PzCmCwlpmZ+0gh3Ya09dQdw01T6izPnTpbx/Ab66Wgt+ilCuqMik2LWd7go9pCGnYtB8h8pBxE/7r++cF7krgATB52u4jsqXd91WntfPjvEe8wxCGRoOf76h2CV+hCPfnj+qJ1ugMRJTn9IwmAvrV9i2qni2vCHSDYjVBOc35u0vl8/vUMip4QUmppmSmJL53qMKx9j/1pBM2pumI7sqC2+85smYTXbgbCjW3BZLH2RQhTl0WkXEP6hIHt+8AHNZyb7e0UgcITqs8d3lgoiZjMXo0HgHnEn9PeoTn1aMQYq3dFjgvDiwyq/cSgXfVel4nQAWV/swIDAQAB";
+        this.base64EncodedPublicKey = piece1.replaceAll("MT4wCvf12zdF", "") + piece2.replaceAll("Kztdffmfj1z8d", "") + piece3.replaceAll("A19fjaLezwo3", "") + piece4.replaceAll("44k1jFZ", "");
     }
 
     public void loadWithAllItems() {
