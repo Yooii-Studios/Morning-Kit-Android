@@ -72,8 +72,12 @@ public class MNFlurry {
     public static final String PANEL_MATRIX = "Panel Matrix";
     public static final String ALARM_STATUS_BAR_ICON_TYPE = "Alarm Status Bar Icon Type";
 
-    // 어디서 상점이 불렸는지 로그
+    // 어디서 상점이 불렸는지 로그 및 예외상황 확인
     public static final String STORE = "Store";
+    public static final String PURCHASE_ANALYSIS = "Purchase analysis";
+    public static final String NORMAL_PURCHASE = "Normal purchase";
+    public static final String MD5_ERROR = "Payload problem with Md5";
+    public static final String ORDER_ID_LENGTH_NOT_37 = "OrderId's length isn't 37 ";
 
     // 어디서 언락이 불렸는지 로그
     public static final String UNLOCK = "Unlock";
