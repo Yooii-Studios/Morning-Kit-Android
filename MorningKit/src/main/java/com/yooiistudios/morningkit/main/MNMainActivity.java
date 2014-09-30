@@ -148,7 +148,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             // 리뷰 카운트 체크
             MNReviewUtil.checkRate(this);
             // 전면광고 카운트 체크
-            MNAdUtils.checkFullScreenAdCount(this);
+            MNAdUtils.checkFullScreenAdCount(this.getApplicationContext(), this);
         }
     }
 
