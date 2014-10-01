@@ -449,6 +449,23 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                     Log.e("MNStoreFragment", "payload not equals to md5 hash of sku");
                 }
             }
+
+            if (info != null && info.getDeveloperPayload().equals(MNMd5Utils.getMd5String(info.getSku())) &&
+                    info.getOrderId().length() == 37) {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(MNFlurry.PURCHASE_ANALYSIS, MNFlurry.NORMAL_PURCHASE);
+                FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
+            } else if (info != null && info.getDeveloperPayload().equals(MNMd5Utils.getMd5String(info.getSku())) &&
+                    info.getOrderId().length() != 37) {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(MNFlurry.PURCHASE_ANALYSIS, MNFlurry.ORDER_ID_LENGTH_NOT_37);
+                FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
+            } else if (info != null && !info.getDeveloperPayload().equals(MNMd5Utils.getMd5String(info.getSku())) &&
+                    info.getOrderId().length() == 37) {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(MNFlurry.PURCHASE_ANALYSIS, MNFlurry.MD5_ERROR);
+                FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
+            }
         } else {
             showComplain("Purchase Failed");
         }
