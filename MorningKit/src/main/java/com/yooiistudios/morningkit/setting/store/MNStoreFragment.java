@@ -498,7 +498,6 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 params.put(MNFlurry.PURCHASE_ANALYSIS, MNFlurry.MD5_ERROR);
                 FlurryAgent.logEvent(MNFlurry.STORE, params);
             }
-
         } else {
             showComplain("Purchase Failed");
         }
