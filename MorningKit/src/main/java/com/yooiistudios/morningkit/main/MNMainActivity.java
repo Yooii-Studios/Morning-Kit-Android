@@ -148,7 +148,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             // 리뷰 카운트 체크
             MNReviewUtil.checkRate(this);
             // 전면광고 카운트 체크
-            MNAdUtils.checkFullScreenAdCount(this);
+            MNAdUtils.checkFullScreenAdCount(this.getApplicationContext(), this);
         }
     }
 
@@ -180,8 +180,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         }
     }
 
+    /*
     private void checkDGAd(int orientation) {
-        /*
+
         if (dgService != null) {
             dgService.close();
             adView.setVisibility(View.VISIBLE);
@@ -233,8 +234,8 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 }
             }
         }
-        */
     }
+    */
 
     @Override
     protected void onResume() {
@@ -255,7 +256,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         panelWindowLayout.onActivityResume();
 
         // 애드몹 레이아웃
-        admobLayout.setBackgroundColor(Color.parseColor("#BB000000"));
         adView.resume();
 
         // 테마 적용

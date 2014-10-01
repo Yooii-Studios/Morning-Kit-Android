@@ -36,15 +36,16 @@ public class MNAdUtils {
     private static final String LAUNCH_COUNT = "LAUNCH_COUNT";
     private static final String EACH_LAUNCH_COUNT = "EACH_LAUNCH_COUNT";
 
-    public static void checkFullScreenAdCount(Activity activity) {
+    public static void checkFullScreenAdCount(Context context, Activity activity) {
+        if (context == null) {
+            return;
+        }
+        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
 
-        List<String> ownedSkus =  SKIabProducts.loadOwnedIabProducts(activity);
-
-        // 풀버전이나 광고 구매를 하지 않았을 경우만 진행
-        if (!ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION) &&
-        !ownedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
+        // 광고 구매 아이템이 없을 경우만 진행(풀버전은 광고 제거 포함)
+        if (!ownedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
             // 12회 이상 실행, 5회 카운트 계산
-            SharedPreferences prefs = activity.getSharedPreferences(KEY, Context.MODE_PRIVATE);
+            SharedPreferences prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
             int launchCount = prefs.getInt(LAUNCH_COUNT, 0);
             // 12회 이상 실행부터 계속 5배수 실행 카운트 체크 - 10회는 리뷰 남기기 메시지.
             // 일정 카운트 이상부터는 launchCount 는 더 증가시킬 필요가 없음
@@ -55,10 +56,10 @@ public class MNAdUtils {
                     prefs.edit().remove(EACH_LAUNCH_COUNT).apply();
 
                     // 광고 실행
-                    MNLanguageType currentLagunageType = MNLanguage.getCurrentLanguageType(activity);
-                    if (currentLagunageType != MNLanguageType.JAPANESE) {
+                    MNLanguageType currentLangunageType = MNLanguage.getCurrentLanguageType(context);
+                    if (currentLangunageType != MNLanguageType.JAPANESE) {
                         // Admob
-                        final InterstitialAd fullScreenAdView = new InterstitialAd(activity);
+                        final InterstitialAd fullScreenAdView = new InterstitialAd(context);
                         fullScreenAdView.setAdUnitId("ca-app-pub-2310680050309555/2209471823");
                         fullScreenAdView.setAdListener(new AdListener() {
                             @Override

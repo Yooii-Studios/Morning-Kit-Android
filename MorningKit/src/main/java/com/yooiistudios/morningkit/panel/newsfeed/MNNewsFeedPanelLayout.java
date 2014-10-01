@@ -462,8 +462,8 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         applyTheme();
     }
 
-    private MNQuotesHandler newsHandler = new MNQuotesHandler();
-    private class MNQuotesHandler extends Handler {
+    private MNNewsHandler newsHandler = new MNNewsHandler();
+    private class MNNewsHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             // 튜토리얼이 끝난 후부터 뉴스 갱신

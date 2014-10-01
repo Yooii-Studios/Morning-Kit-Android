@@ -469,8 +469,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
 
             // 창하님 조언으로 수정: payload는 sku의 md5해시값으로 비교해 해킹을 방지
             // 또한 orderId는 무조건 37자리여야 한다고 함. 프리덤같은 가짜 결제는 자릿수가 짧게 온다고 하심
-            if (info != null && info.getDeveloperPayload().equals(MNMd5Utils.getMd5String(info.getSku())) &&
-                    info.getOrderId().length() == 37) {
+            if (info != null && info.getDeveloperPayload().equals(MNMd5Utils.getMd5String(info.getSku()))) {
                 // 프레퍼런스에 저장
                 SKIabProducts.saveIabProduct(info.getSku(), getActivity());
                 updateUIAfterPurchase(info);
@@ -480,9 +479,24 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 showComplain("Payload problem");
                 if (!info.getDeveloperPayload().equals(MNMd5Utils.getMd5String(info.getSku()))) {
                     Log.e("MNStoreFragment", "payload not equals to md5 hash of sku");
-                } else if (info.getOrderId().length() != 37) {
-                    Log.e("MNStoreFragment", "length of orderId is not 37");
                 }
+            }
+
+            if (info != null && info.getDeveloperPayload().equals(MNMd5Utils.getMd5String(info.getSku())) &&
+                    info.getOrderId().length() == 37) {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(MNFlurry.PURCHASE_ANALYSIS, MNFlurry.NORMAL_PURCHASE);
+                FlurryAgent.logEvent(MNFlurry.STORE, params);
+            } else if (info != null && info.getDeveloperPayload().equals(MNMd5Utils.getMd5String(info.getSku())) &&
+                    info.getOrderId().length() != 37) {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(MNFlurry.PURCHASE_ANALYSIS, MNFlurry.ORDER_ID_LENGTH_NOT_37);
+                FlurryAgent.logEvent(MNFlurry.STORE, params);
+            } else if (info != null && !info.getDeveloperPayload().equals(MNMd5Utils.getMd5String(info.getSku())) &&
+                    info.getOrderId().length() == 37) {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(MNFlurry.PURCHASE_ANALYSIS, MNFlurry.MD5_ERROR);
+                FlurryAgent.logEvent(MNFlurry.STORE, params);
             }
         } else {
             showComplain("Purchase Failed");
