@@ -155,8 +155,8 @@ public class SKAlarmSoundPlayer {
                     // 무조건 스피커로 출력
                     audioManager.setSpeakerphoneOn(true);
 
-                    // 천천히 음량을 높임
-                    while (currentVolume < targetVolume) {
+                    // 천천히 음량을 높임 - 추가: 재생 중일 때만
+                    while (currentVolume < targetVolume && getMediaPlayer().isPlaying()) {
                         try {
                             Thread.sleep(300);
                         } catch (InterruptedException e) {

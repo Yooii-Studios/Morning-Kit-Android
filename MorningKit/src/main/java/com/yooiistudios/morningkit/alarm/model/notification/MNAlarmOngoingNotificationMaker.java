@@ -42,7 +42,9 @@ public class MNAlarmOngoingNotificationMaker {
         Intent intent = new Intent(context, MNMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
+
+        // 다른 PendingIntent 와 겹치지 않게 -20으로 설정
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, -20,
                 intent, 0);
 
         Notification notification = new NotificationCompat.Builder(context)
