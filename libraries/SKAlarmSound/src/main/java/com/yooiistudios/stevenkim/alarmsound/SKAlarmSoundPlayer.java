@@ -23,7 +23,7 @@ public class SKAlarmSoundPlayer {
     private volatile static SKAlarmSoundPlayer instance;
     private MediaPlayer mediaPlayer;
     private int previousVolume;
-    private int previousAudioServiceMode = -100;
+//    private int previousAudioServiceMode = -100;
 
     public static MediaPlayer getMediaPlayer() {
         return getInstance().mediaPlayer;
@@ -60,9 +60,9 @@ public class SKAlarmSoundPlayer {
             AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             if (audioManager != null) {
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, getInstance().previousVolume, 0);
-                if (getInstance().previousAudioServiceMode != -100) {
-                    audioManager.setMode(getInstance().previousAudioServiceMode);
-                }
+//                if (getInstance().previousAudioServiceMode != -100) {
+//                    audioManager.setMode(getInstance().previousAudioServiceMode);
+//                }
                 audioManager.abandonAudioFocus(null);
             }
         }
@@ -129,31 +129,33 @@ public class SKAlarmSoundPlayer {
                 AudioManager.AUDIOFOCUS_GAIN_TRANSIENT); // TRANSIENT 는 45초 미만의 소리 재생 요청, 하지만 더 사용가능할듯
 
         if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-            // Start playback.
+            // Start playback
             // 미디어 플레이어 준비
             getMediaPlayer().prepare();
             getMediaPlayer().setLooping(true);
             getMediaPlayer().setAudioStreamType(AudioManager.STREAM_MUSIC);
             getMediaPlayer().start();
 
+            // 모드를 먼저 설정하고 기존의 볼륨을 얻어야 제대로 된 값을 얻을 수 있음
+//            getInstance().previousAudioServiceMode = audioManager.getMode();
+            // 이 코드 때문에 베가 아이언 유플러스에서 시스템 소리가 뮤트가 됨 - setMode를 쓰지 않게 변경
+//            audioManager.setMode(AudioManager.STREAM_MUSIC);
+
+            getInstance().previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+            // 무조건 스피커로 출력
+            audioManager.setSpeakerphoneOn(true);
+
             // 천천히 음량을 높여줌
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                    int targetVolume = (int) (volume * (maxVolume / 100.0f)); // AudioManager의 볼륨으로 환산
+                    int targetVolume = (int) (volume * (maxVolume / 100.0f)); // AudioManager 의 볼륨으로 환산
                     int currentVolume = 0;
                     int OFFSET = 1;
 
-                    // 모드를 먼저 설정하고 기존의 볼륨을 얻어야 제대로 된 값을 얻을 수 있음
-                    getInstance().previousAudioServiceMode = audioManager.getMode();
-                    audioManager.setMode(AudioManager.STREAM_MUSIC);
-
-                    getInstance().previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, 0); // 볼륨 0에서 시작
-
-                    // 무조건 스피커로 출력
-                    audioManager.setSpeakerphoneOn(true);
 
                     // 천천히 음량을 높임 - 추가: 재생 중일 때만
                     while (currentVolume < targetVolume && getMediaPlayer().isPlaying()) {
