@@ -23,7 +23,7 @@ public class SKAlarmSoundPlayer {
     private volatile static SKAlarmSoundPlayer instance;
     private MediaPlayer mediaPlayer;
     private int previousVolume;
-//    private int previousAudioServiceMode = -100;
+//    private int previousAudioServiceMode = -100; // setMode를 쓰지 않게 변경(베가 아이언 유플 때문)
 
     public static MediaPlayer getMediaPlayer() {
         return getInstance().mediaPlayer;
@@ -55,6 +55,8 @@ public class SKAlarmSoundPlayer {
     }
 
     public static void stop(Context context) {
+        getMediaPlayer().stop();
+
         // 음악을 멈추고 예전 볼륨으로 되돌려줌
         if (context != null) {
             AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -66,7 +68,6 @@ public class SKAlarmSoundPlayer {
                 audioManager.abandonAudioFocus(null);
             }
         }
-        getMediaPlayer().stop();
     }
 
     public static void playAppMusic(final int rawInt, final Context context) throws IOException {
