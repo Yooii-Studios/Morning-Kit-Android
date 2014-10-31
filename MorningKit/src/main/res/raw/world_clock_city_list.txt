@@ -162,7 +162,7 @@ Brindisi	+1	+00	W. Europe Standard Time/6
 Brisbane	+10	+00	E. Australia Standard Time/5
 Bristol	0	0	GMT Standard Time/100
 Brno	+1	+00	Central Europe Standard Time/6
-Brussels	+1	+00	Romance Standard Time/100
+Brussels	+1	+00	Central European Standard Time/100
 Bucharest	+2	+00	FLE Standard Time/100
 Budapest	+1	+00	Central Europe Standard Time/6
 Buenos Aires	-3	-00	Argentina Standard Time/100
