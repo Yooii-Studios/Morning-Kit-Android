@@ -10,6 +10,7 @@ import com.yooiistudios.stevenkim.alarmmanager.SKAlarmManager;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSound;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -131,6 +132,7 @@ public class MNAlarm implements Serializable, Cloneable {
                     MNAlarmToast.show(context, repeatCalendar);
                     isToastShown = true;
                 }
+
             }
         }
     }
@@ -158,10 +160,26 @@ public class MNAlarm implements Serializable, Cloneable {
     
     @Override
     public String toString() {
-        return String.format("alarmId: %d / alarmLabel: %s / on: %s, repeat: %s / ",
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss");
+        return String.format("-alarmId: %d\n" +
+                        "-alarmCalendar: %s\n" +
+                        "-alarmLabel: %s\n" +
+                        "-on: %s\n" +
+                        "-repeat: %s\n" +
+                        "-snooze: %s",
                 alarmId,
+                dateFormat.format(alarmCalendar.getTime()),
                 alarmLabel,
                 isAlarmOn ? "Yes" : "No",
-                isRepeatOn ? "Yes" : "No");
+                isRepeatOn ? "Yes: " + getRepeatString(0) + "/" + getRepeatString(1) + "/"
+                                    + getRepeatString(2) + "/" + getRepeatString(3) + "/"
+                                    + getRepeatString(4) + "/" + getRepeatString(5) + "/"
+                                    + getRepeatString(6)
+                           : "No",
+                isSnoozeOn ? "Yes" : "No");
+    }
+
+    private String getRepeatString(int i) {
+        return alarmRepeatList.get(i) ? "t" : "f";
     }
 }
