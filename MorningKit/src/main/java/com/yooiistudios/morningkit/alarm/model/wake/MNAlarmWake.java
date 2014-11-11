@@ -28,9 +28,8 @@ public class MNAlarmWake {
     public static void checkReservedAlarm(Intent intent, Context context) throws IOException {
         int alarmId = intent.getIntExtra(SKAlarmManager.ALARM_ID, -1);
         if (alarmId != -1) {
-            int alarmUniqueId = intent.getIntExtra(SKAlarmManager.ALARM_UNIQUE_ID, -1);
-            MNAlarm alarm = MNAlarmListManager.findAlarmById(alarmUniqueId, context);
-            if (alarm != null) {
+            MNAlarm alarm = MNAlarmListManager.findAlarmById(alarmId, context);
+            if (alarm != null && alarm.isAlarmOn()) {
                 MNAlarmWakeCustomDialog.show(alarm, context);
                 SKAlarmSoundPlayer.playAlarmSound(alarm.getAlarmSound(), alarm.getAlarmVolume(), context);
 

@@ -60,7 +60,7 @@ public class SKAlarmManager {
         intent.putExtra(ALARM_ID, alarmId);
 
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getActivity(context, alarmUniqueId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Over KitKat, you must use 'setExact' to invoke alarm on exact time
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

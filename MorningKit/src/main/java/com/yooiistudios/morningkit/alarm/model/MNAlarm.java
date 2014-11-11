@@ -125,7 +125,7 @@ public class MNAlarm implements Serializable, Cloneable {
             }
 
             if (alarmRepeatList.get(convertedDayOfWeek)) {
-                SKAlarmManager.setAlarm(alarmId, alarmId + i, repeatCalendar, context, MNMainActivity.class);
+                SKAlarmManager.setAlarm(alarmId + i, alarmId, repeatCalendar, context, MNMainActivity.class);
 
                 if (isToastOn && !isToastShown) {
                     MNAlarmToast.show(context, repeatCalendar);
@@ -137,10 +137,10 @@ public class MNAlarm implements Serializable, Cloneable {
 
     public void snoozeAlarm(Context context) {
         Calendar snoozeCalendar = Calendar.getInstance();
-        snoozeCalendar.set(Calendar.SECOND, 0);
+        snoozeCalendar.set(Calendar.SECOND, 1);
         snoozeCalendar.add(Calendar.MINUTE, 10);
 
-        SKAlarmManager.setAlarm(alarmId, alarmId + 7, snoozeCalendar, context, MNMainActivity.class);
+        SKAlarmManager.setAlarm(alarmId + 7, alarmId, snoozeCalendar, context, MNMainActivity.class);
 
         MNAlarmToast.show(context, snoozeCalendar);
     }
