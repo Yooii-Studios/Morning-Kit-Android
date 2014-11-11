@@ -73,15 +73,15 @@ public class SKAlarmManager {
     /**
      * Cancel an alarm from AlarmManager
      *
-     * @param alarmId  unique Id to distinguish between alarms
+     * @param alarmUniqueId  unique Id to distinguish between alarms
      * @param context used to get AlarmManager
      * @param activity Class to insert into Intent and used as Context
      */
-    public static void cancelAlarm(int alarmId, Context context, Class activity) {
+    public static void cancelAlarm(int alarmUniqueId, Context context, Class activity) {
         Intent intent = new Intent(context, activity);
 
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getActivity(context, alarmUniqueId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = SKAlarmManager.getAlarmManager(context);
         alarmManager.cancel(pendingIntent);
