@@ -85,6 +85,7 @@ public class SKAlarmManager {
 
         AlarmManager alarmManager = SKAlarmManager.getAlarmManager(context);
         alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
     }
 
     /**
