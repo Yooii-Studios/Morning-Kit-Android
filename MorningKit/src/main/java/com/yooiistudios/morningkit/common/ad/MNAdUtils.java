@@ -56,20 +56,23 @@ public class MNAdUtils {
                     prefs.edit().remove(EACH_LAUNCH_COUNT).apply();
 
                     // 광고 실행
+                    // Admob
+                    final InterstitialAd fullScreenAdView = new InterstitialAd(context);
+                    fullScreenAdView.setAdUnitId("ca-app-pub-2310680050309555/2209471823");
+                    fullScreenAdView.setAdListener(new AdListener() {
+                        @Override
+                        public void onAdLoaded() {
+                            super.onAdLoaded();
+                            fullScreenAdView.show();
+                        }
+                    });
+                    AdRequest fullAdRequest = new AdRequest.Builder().build();
+                    fullScreenAdView.loadAd(fullAdRequest);
+                    
+                    /*
                     MNLanguageType currentLangunageType = MNLanguage.getCurrentLanguageType(context);
                     if (currentLangunageType != MNLanguageType.JAPANESE) {
-                        // Admob
-                        final InterstitialAd fullScreenAdView = new InterstitialAd(context);
-                        fullScreenAdView.setAdUnitId("ca-app-pub-2310680050309555/2209471823");
-                        fullScreenAdView.setAdListener(new AdListener() {
-                            @Override
-                            public void onAdLoaded() {
-                                super.onAdLoaded();
-                                fullScreenAdView.show();
-                            }
-                        });
-                        AdRequest fullAdRequest = new AdRequest.Builder().build();
-                        fullScreenAdView.loadAd(fullAdRequest);
+
                     } else {
                         // 일본어 = Digital Garage
                         OneSDK sdk = OneSDK.getInstance(activity);
@@ -111,6 +114,7 @@ public class MNAdUtils {
                             }
                         }
                     }
+                    */
                 } else {
                     eachLaunchCount++;
                     prefs.edit().putInt(EACH_LAUNCH_COUNT, eachLaunchCount).apply();
