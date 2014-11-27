@@ -4,10 +4,10 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.14.1' // 0.12.+ 버전은 안드로이드 스튜디오 0.8.+ 버전부터
+        classpath 'com.android.tools.build:gradle:1.0.0-rc1' // 0.12.+ 버전은 안드로이드 스튜디오 0.8.+ 버전부터
         // JaKe Wharton 것을 쓰다가 jcandksolutions 가 문제를 해결해서 여기의 것을 사용
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
-        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.2.3'
+//        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.2.3'
     }
 }
 
@@ -46,7 +46,7 @@ android {
 
     buildTypes {
         release {
-            runProguard true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             signingConfig signingConfigs.release
         }
@@ -82,7 +82,7 @@ android {
 //    }
 }
 
-apply plugin: 'android-unit-test'
+//apply plugin: 'android-unit-test'
 
 dependencies {
     // 내가 만든 모듈
@@ -110,7 +110,7 @@ dependencies {
 
     // Getter & Setter를 annotation으로 해결
     // (Android Studio용 플러그인용 jar 파일을 웹에서 받아서 <설정 -> plugin -> disk 에서 설치> 필요)
-    compile 'org.projectlombok:lombok:1.12.2'
+    compile 'org.projectlombok:lombok:1.12.6'
 
     // 설정앱에서 사용된 라이브러리
     compile 'com.nineoldandroids:library:2.4.0'
