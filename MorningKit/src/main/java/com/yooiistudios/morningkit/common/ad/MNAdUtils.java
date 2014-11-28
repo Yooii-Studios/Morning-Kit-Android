@@ -7,21 +7,9 @@ import android.content.SharedPreferences;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.dp.DipToPixel;
-import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
-import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
-import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
-
-import jp.co.garage.onesdk.Constants;
-import jp.co.garage.onesdk.DGService;
-import jp.co.garage.onesdk.OneSDK;
 
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2014. 6. 17.
