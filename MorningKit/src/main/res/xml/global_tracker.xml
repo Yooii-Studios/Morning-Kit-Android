@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+           tools:ignore="TypographyDashes">
+    <integer name="ga_sessionTimeout">300</integer>
+
+    <!-- Enable automatic Activity measurement -->
+    <bool name="ga_autoActivityTracking">true</bool>
+
+    <!-- The screen names that will appear in reports -->
+    <screenName name="com.yooiistudios.morningkit.main.MNMainActivity">
+        MainActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity">
+        MNAlarmPreferenceActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.setting.theme.alarmstatusbar.MNAlarmStatusBarIconActivity">
+        MNAlarmStatusBarIconActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.setting.info.credit.MNCreditActivity">
+        MNCreditActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.setting.theme.language.MNLanguageActivity">
+        MNLanguageActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.setting.info.moreinfo.MNMoreInfoActivity">
+        MNMoreInfoActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailActivity">
+        MNPanelDetailActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixActivity">
+        MNPanelMatrixActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.setting.MNSettingActivity">
+        MNSettingActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.setting.MNSettingDetailActivity">
+        MNSettingDetailActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.setting.theme.soundeffect.MNSoundEffectActivity">
+        MNSoundEffectActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.setting.store.MNStoreActivity">
+        MNStoreActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeDetailActivity">
+        MNThemeDetailActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.setting.theme.themedetail.photo.MNThemePhotoActivity">
+        MNThemePhotoActivity
+    </screenName>
+    <screenName name="com.yooiistudios.morningkit.common.unlock.MNUnlockActivity">
+        MNUnlockActivity
+    </screenName>
+    <screenName name="com.naver.iap.NaverIabActivity">
+        NaverIabActivity
+    </screenName>
+    <!--  The following value should be replaced with correct property id. -->
+    <string name="ga_trackingId">UA-50855812-20</string>
+</resources>
