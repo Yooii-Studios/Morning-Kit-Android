@@ -51,7 +51,9 @@ public class MNAdUtils {
                         @Override
                         public void onAdLoaded() {
                             super.onAdLoaded();
-                            fullScreenAdView.show();
+                            if (fullScreenAdView.isLoaded()) {
+                                fullScreenAdView.show();
+                            }
                         }
                     });
                     AdRequest fullAdRequest = new AdRequest.Builder().build();
