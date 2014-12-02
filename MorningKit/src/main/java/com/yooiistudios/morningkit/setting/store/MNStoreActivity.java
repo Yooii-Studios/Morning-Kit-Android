@@ -7,7 +7,10 @@ import android.support.v7.app.ActionBar;
 import android.widget.RelativeLayout;
 
 import com.flurry.android.FlurryAgent;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
@@ -19,6 +22,7 @@ import butterknife.InjectView;
 import lombok.Getter;
 
 public class MNStoreActivity extends MNSettingDetailActivity {
+    private static final String TAG = "SoundEffectActivity";
 
     @InjectView(R.id.store_container) RelativeLayout backgroundLayout;
     @Getter private SKIabManager iabManager;
@@ -49,6 +53,8 @@ public class MNStoreActivity extends MNSettingDetailActivity {
 
             initActionBar();
             initIab();
+
+            MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
         }
     }
 
@@ -98,6 +104,7 @@ public class MNStoreActivity extends MNSettingDetailActivity {
         // Activity visible to user
         super.onStart();
         FlurryAgent.onStartSession(this, MNFlurry.KEY);
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
     }
 
     @Override
@@ -105,5 +112,6 @@ public class MNStoreActivity extends MNSettingDetailActivity {
         // Activity no longer visible
         super.onStop();
         FlurryAgent.onEndSession(this);
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 }

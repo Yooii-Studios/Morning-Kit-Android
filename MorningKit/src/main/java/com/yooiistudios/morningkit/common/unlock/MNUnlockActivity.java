@@ -24,9 +24,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.naver.iap.NaverIabActivity;
 import com.naver.iap.NaverIabProductUtils;
+import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.encryption.MNMd5Utils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
@@ -50,6 +53,7 @@ import lombok.Getter;
 
 public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnClickListener,
         SKIabManagerListener, IabHelper.OnIabPurchaseFinishedListener {
+    private static final String TAG = "UnlockActivity";
 
     public static final String SHARED_PREFS = "UNLOCK_SHARED_PREFS";
     public static final String PRODUCT_SKU_KEY = "PRODUCT_SKU_KEY";
@@ -92,6 +96,8 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         } else {
             resetButton.setVisibility(View.INVISIBLE);
         }
+
+        MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
     }
 
     private void initListViewLayout() {
@@ -480,5 +486,21 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         */
 
         Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 }

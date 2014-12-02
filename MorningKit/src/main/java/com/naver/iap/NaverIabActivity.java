@@ -5,9 +5,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.nhn.android.appstore.iap.payment.NIAPActivity;
 import com.nhn.android.appstore.iap.result.NIAPResult;
 import com.nhn.android.appstore.iap.util.AppstoreSecurity;
+import com.yooiistudios.morningkit.MNApplication;
+import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
+import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 
 import org.json.JSONArray;
@@ -75,8 +80,8 @@ public class NaverIabActivity extends NIAPActivity {
 		 * parameter : product code list
 		 */
 		requestProductInfos(productCodes);
-		
-		
+
+        MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
 		//purchase
 //		requestPayment("1000007243", 100, "extra value");
 		
@@ -85,7 +90,22 @@ public class NaverIabActivity extends NIAPActivity {
 //		productCodes.add("1000007243");
 //		requestProductInfos(productCodes);
 	}
-	
+
+    @Override
+    protected void onStart() {
+        // Activity visible to user
+        super.onStart();
+        FlurryAgent.onStartSession(this, MNFlurry.KEY);
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        // Activity no longer visible
+        super.onStop();
+        FlurryAgent.onEndSession(this);
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
 	private void finishWithErrorMessage(String message) {
 		if (message != null) {
 			Toast.makeText(this, message, Toast.LENGTH_LONG).show();

@@ -20,13 +20,16 @@ import android.widget.ScrollView;
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.squareup.otto.Subscribe;
 import com.stevenkim.camera.SKCameraThemeView;
+import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.ad.MNAdUtils;
+import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
@@ -76,7 +79,7 @@ import lombok.Getter;
  *  앱에서 가장 중요한 메인 액티비티
  */
 public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutorialFinishListener {
-//    private static final String TAG = "MNMainActivity";
+    private static final String TAG = "MainActivity";
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
@@ -140,8 +143,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             }
         }
 
-        // 플러리
+        // 플러리, 구글 애널리틱스
         sendFlurryAnalytics();
+        MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
 
         // 알람 없이 켜질 경우
         if (!MNAlarmWake.isAlarmReserved(getIntent())) {
@@ -313,6 +317,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // Activity visible to user
         super.onStart();
         FlurryAgent.onStartSession(this, MNFlurry.KEY);
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
     }
 
     @Override
@@ -320,6 +325,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // Activity no longer visible
         super.onStop();
         FlurryAgent.onEndSession(this);
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 
     @Override

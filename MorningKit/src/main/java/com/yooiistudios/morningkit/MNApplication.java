@@ -19,7 +19,7 @@ import java.util.Locale;
  */
 public class MNApplication extends Application {
     private Locale locale = null;
-    private static final String PROPERTY_ID = "UA-50855812-20";
+    private static final String PROPERTY_ID = "UA-50855812-11";
 
     /**
      * Enum used to identify the tracker that needs to be used for tracking.
@@ -36,7 +36,7 @@ public class MNApplication extends Application {
 
     HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
 
-    synchronized Tracker getTracker(TrackerName trackerId) {
+    public synchronized Tracker getTracker(TrackerName trackerId) {
         if (!mTrackers.containsKey(trackerId)) {
 
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
