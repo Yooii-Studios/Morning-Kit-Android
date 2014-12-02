@@ -122,6 +122,9 @@
 -dontwarn java.awt.**
 ##---------------End: proguard configuration for Open Sources  ----------
 
+##---------------Begin: proguard configuration for MdotM Ad ---------
+-dontwarn android.webkit.**
+##---------------End: proguard configuration for MdotM Ad ----------
 
 # 기존 테스트하던 레거시 코드
 
