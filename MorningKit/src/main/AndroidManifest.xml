@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <uses-permission android:name="com.android.vending.BILLING" />
 
@@ -41,6 +42,11 @@
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
+
+
+        <meta-data
+            android:name="com.google.android.gms.analytics.globalConfigResource"
+            android:resource="@xml/global_tracker" />
 
         <!-- Main -->
         <activity
@@ -228,5 +234,7 @@
             </intent-filter>
         </receiver>
 
+        <!-- MdotM Ad -->
+        <activity android:name="com.mdotm.android.view.MdotMActivity" android:launchMode="singleTop"/>
     </application>
 </manifest>

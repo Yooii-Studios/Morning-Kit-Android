@@ -9,7 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.flurry.android.FlurryAgent;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
@@ -26,7 +29,7 @@ import butterknife.InjectView;
 public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelSelectPagerInterface,
         MNPanelDetailFragment.MNPanelDetailFragmentListener {
 
-    private static final String TAG = "MNPanelDetailActivity";
+    private static final String TAG = "PanelDetailActivity";
 
     @InjectView(R.id.panel_detail_select_pager_layout) MNPanelSelectPagerLayout panelSelectPagerLayout;
     private MNPanelDetailFragment panelDetailFragment;
@@ -66,6 +69,7 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
                         .add(R.id.panel_detail_fragment_container, panelDetailFragment)
                         .commit();
 
+                MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -216,6 +220,7 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
         // Activity visible to user
         super.onStart();
         FlurryAgent.onStartSession(this, MNFlurry.KEY);
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
     }
 
     @Override
@@ -223,5 +228,6 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
         // Activity no longer visible
         super.onStop();
         FlurryAgent.onEndSession(this);
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 }

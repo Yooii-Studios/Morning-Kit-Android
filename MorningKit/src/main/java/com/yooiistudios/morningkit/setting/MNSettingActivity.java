@@ -12,7 +12,10 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.flurry.android.FlurryAgent;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
@@ -30,8 +33,7 @@ import lombok.Setter;
  *  세팅 액티비티: 액션바가 바탕이 되고 안드로이드 기본 코드를 이용해 구현
  */
 public class MNSettingActivity extends ActionBarActivity implements ActionBar.TabListener {
-
-    private static final String TAG = "MNSettingActivity";
+    private static final String TAG = "SettingActivity";
     private static final String SETTING_PREFERENCES = "SETTING_PREFERENCES";
     private static final String LATEST_TAB_SELECTION= "LATEST_TAB_SELECTION";
     /**
@@ -154,6 +156,8 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
                             .setTabListener(this));
         }
         mViewPager.setCurrentItem(latestTabIndex);
+
+        MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
     }
 
     private void applyLocaledTabName() {
@@ -242,6 +246,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         // Activity visible to user
         super.onStart();
         FlurryAgent.onStartSession(this, MNFlurry.KEY);
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
     }
 
     @Override
@@ -249,5 +254,6 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         // Activity no longer visible
         super.onStop();
         FlurryAgent.onEndSession(this);
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 }

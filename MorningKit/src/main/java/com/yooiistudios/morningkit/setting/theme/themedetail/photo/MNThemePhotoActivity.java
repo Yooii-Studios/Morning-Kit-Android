@@ -13,8 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.stevenkim.photo.SKBitmapLoader;
+import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.size.MNDeviceSizeInfo;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
@@ -26,8 +29,10 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class MNThemePhotoActivity extends MNSettingDetailActivity {
-    @InjectView(R.id.setting_theme_detail_photo_container) RelativeLayout backgroundLayout;
+    private static final String TAG = "ThemePhotoActivity";
     private MNThemePhotoFragment photoFragment;
+
+    @InjectView(R.id.setting_theme_detail_photo_container) RelativeLayout backgroundLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,8 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
 
             // Commit the transaction
             transaction.commit();
+
+            MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
         }
     }
 
@@ -157,6 +164,7 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
         // Activity visible to user
         super.onStart();
         FlurryAgent.onStartSession(this, MNFlurry.KEY);
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
     }
 
     @Override
@@ -164,5 +172,6 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
         // Activity no longer visible
         super.onStop();
         FlurryAgent.onEndSession(this);
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 }
