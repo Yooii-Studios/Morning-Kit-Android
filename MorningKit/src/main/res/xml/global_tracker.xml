@@ -10,8 +10,8 @@
 
     <!-- Global Configure -->
     <!-- true 면 애널리틱스 서버로 데이터를 보내지 않음 -->
-    <bool name="ga_dryRun">false</bool>
-    <string name="ga_logLevel">verbose</string>
+    <!--<bool name="ga_dryRun">false</bool>-->
+    <!--<string name="ga_logLevel">verbose</string>-->
 
     <!-- The screen names that will appear in reports -->
     <screenName name="com.yooiistudios.morningkit.main.MNMainActivity">
