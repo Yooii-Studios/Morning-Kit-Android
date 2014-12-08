@@ -1,5 +1,7 @@
 package com.yooiistudios.morningkit.common.analytic;
 
+import android.content.res.Configuration;
+
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.yooiistudios.morningkit.MNApplication;
@@ -29,5 +31,17 @@ public class MNAnalyticsUtils {
 
         // Send a screen view.
         t.send(new HitBuilders.AppViewBuilder().build());
+    }
+
+    public static void trackMainOrientation(MNApplication application, String TAG, int orientation) {
+        // Get tracker.
+        Tracker t = application.getTracker(MNApplication.TrackerName.APP_TRACKER);
+
+        // Build and send an Event.
+        t.send(new HitBuilders.EventBuilder()
+                .setCategory(TAG)
+                .setAction("Orientation")
+                .setLabel(orientation == Configuration.ORIENTATION_PORTRAIT ? "Portrait" : "Landscape")
+                .build());
     }
 }
