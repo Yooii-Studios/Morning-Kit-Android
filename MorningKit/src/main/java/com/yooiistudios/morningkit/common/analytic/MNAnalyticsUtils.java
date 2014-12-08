@@ -21,6 +21,9 @@ public class MNAnalyticsUtils {
         // but you have to write a code on onStart and onStop for pre-V14 devices
         t.enableAutoActivityTracking(true);
 
+        // Display Advertising: 타겟의 정보를 수집해서 구글 애널리틱으로 확인할 수 있는 옵션
+        t.enableAdvertisingIdCollection(true);
+
         // Set screen name.
         t.setScreenName(screenName);
 

@@ -152,7 +152,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             // 리뷰 카운트 체크
             MNReviewUtil.checkRate(this);
             // 전면광고 카운트 체크
-            MNAdUtils.checkFullScreenAdCount(this.getApplicationContext(), this);
+            MNAdUtils.checkFullScreenAdCount(this.getApplicationContext());
         }
     }
 
@@ -169,12 +169,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // 애드몹
         AdRequest adRequest = new AdRequest.Builder()
 //                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-//                .addTestDevice("TEST_DEVICE_ID")
+//                .addTestDevice("D9XXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                 .build();
         adView.loadAd(adRequest);
-//        adView = new AdView(this, AdSize.BANNER, MN.ads.ADMOB_ID);
-//        admobLayout.addView(adView);
-//        adView.loadAd(new AdRequest());
 
         // 알람 체크
         try {
@@ -183,63 +180,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             e.printStackTrace();
         }
     }
-
-    /*
-    private void checkDGAd(int orientation) {
-
-        if (dgService != null) {
-            dgService.close();
-            adView.setVisibility(View.VISIBLE);
-        }
-        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(this);
-        MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(this.getApplicationContext());
-        // 일본어를 사용하고 광고나 풀버전 구매가 없을 경우
-        if (currentLanguageType == MNLanguageType.JAPANESE &&
-                (!ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION) && !ownedSkus.contains(SKIabProducts.SKU_NO_ADS))) {
-            // Open service
-            // 4820 = publisher ID = Yooii Studios
-            // 19 = App ID = Morning Kit
-            // 8 = Sketch Kit, 테스트용
-            OneSDK sdk = OneSDK.getInstance(this);
-
-            if (dgService == null) {
-                dgService = sdk.OpenService(4820, 8, 1, Constants.ServiceCategories.SSP, this);
-                dgService.setOneSDKListeners(new OneSDKListeners() {
-                    @Override
-                    public void startLoad(int i) {
-                        MNLog.now("DG Ad startLoad");
-                        adView.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void finishLoad(int i) {
-                        MNLog.now("DG Ad finishLoad");
-                        adView.setVisibility(View.INVISIBLE);
-                    }
-                });
-            }
-
-            // 중앙 계산
-            int y;
-            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                y = MNDeviceSizeInfo.getDeviceHeight(this) - DipToPixel.getPixel(this, 50);
-            } else {
-                y = MNDeviceSizeInfo.getDeviceHeight(this) - DipToPixel.getPixel(this, 50) -
-                        getResources().getDimensionPixelSize(R.dimen.margin_inner);
-            }
-
-            if (dgService != null) {
-                String paramstr = "{ \"y\" : \"" + y + "\"}";
-                try {
-                    JSONObject json = new JSONObject(paramstr);
-                    dgService.Request(json);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-    */
 
     @Override
     protected void onResume() {
