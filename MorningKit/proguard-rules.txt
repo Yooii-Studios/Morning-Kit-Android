@@ -126,6 +126,12 @@
 -dontwarn android.webkit.**
 ##---------------End: proguard configuration for MdotM Ad ----------
 
+##---------------Begin: proguard configuration for InMobi Ad ---------
+-keep class com.inmobi.** { *; }
+
+-dontwarn com.inmobi.**
+##---------------End: proguard configuration for InMobi Ad ----------
+
 # 기존 테스트하던 레거시 코드
 
 #-keep public class * { public protected private *; }

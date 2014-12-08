@@ -20,6 +20,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <uses-permission android:name="com.android.vending.BILLING" />
+    <!-- InMobi 에서 추천, 광고 전달 최적화를 위함 -->
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
 
     <supports-screens
         android:anyDensity="true"
@@ -235,5 +237,12 @@
 
         <!-- MdotM Ad -->
         <activity android:name="com.mdotm.android.view.MdotMActivity" android:launchMode="singleTop"/>
+
+        <!-- InMobi Ad -->
+        <activity android:name="com.inmobi.androidsdk.IMBrowserActivity"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                  android:hardwareAccelerated="true" />
+        <service android:enabled="true"
+                 android:name="com.inmobi.commons.internal.ActivityRecognitionManager" />
     </application>
 </manifest>
