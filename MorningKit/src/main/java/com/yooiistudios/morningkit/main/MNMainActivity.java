@@ -21,6 +21,7 @@ import com.flurry.android.FlurryAgent;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.inmobi.commons.InMobi;
 import com.squareup.otto.Subscribe;
 import com.stevenkim.camera.SKCameraThemeView;
 import com.yooiistudios.morningkit.MNApplication;
@@ -143,9 +144,10 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             }
         }
 
-        // 플러리, 구글 애널리틱스
+        // 플러리, 구글 애널리틱스, 인모비
         sendFlurryAnalytics();
         MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
+        InMobi.initialize(this, "2fda5c20a0054c43a454c8027bf2eb83");
 
         // 알람 없이 켜질 경우
         if (!MNAlarmWake.isAlarmReserved(getIntent())) {
@@ -355,9 +357,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 }
                 break;
         }
-
-        // 일본어 사용 체크해서 DG 광고 사용하기 - 한국 출시에는 일단 빼기
-//        checkDGAd(newConfig.orientation);
+        MNAnalyticsUtils.trackMainOrientation((MNApplication)getApplication(), TAG, newConfig.orientation);
     }
 
     /**
