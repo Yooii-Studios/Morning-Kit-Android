@@ -1,6 +1,5 @@
 package com.yooiistudios.morningkit.common.ad;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -24,7 +23,7 @@ public class MNAdUtils {
     private static final String LAUNCH_COUNT = "LAUNCH_COUNT";
     private static final String EACH_LAUNCH_COUNT = "EACH_LAUNCH_COUNT";
 
-    public static void checkFullScreenAdCount(Context context, Activity activity) {
+    public static void checkFullScreenAdCount(Context context) {
         if (context == null) {
             return;
         }
@@ -56,55 +55,10 @@ public class MNAdUtils {
                             }
                         }
                     });
-                    AdRequest fullAdRequest = new AdRequest.Builder().build();
+                    AdRequest fullAdRequest = new AdRequest.Builder()
+//                            .addTestDevice("D9XXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                            .build();
                     fullScreenAdView.loadAd(fullAdRequest);
-                    
-                    /*
-                    MNLanguageType currentLangunageType = MNLanguage.getCurrentLanguageType(context);
-                    if (currentLangunageType != MNLanguageType.JAPANESE) {
-
-                    } else {
-                        // 일본어 = Digital Garage
-                        OneSDK sdk = OneSDK.getInstance(activity);
-
-                        // Open service
-                        // 4820 = publisher ID = Yooii Studios
-                        // 20 = App ID = Morning Kit
-                        // 8 = Sketch Kit, 테스트용
-                        DGService dgService = sdk.OpenService(4820, 8, 20, Constants.ServiceCategories.INTERSTITIAL, activity);
-
-                        // 리스너 테스트용, 나중에 배너에서 활용
-//                        dgService.setOneSDKListeners(new OneSDKListeners() {
-//                            @Override
-//                            public void startLoad(int i) {
-//                                MNLog.now("DG Ad startLoad");
-////                                adView.setVisibility(View.VISIBLE);
-//                            }
-//
-//                            @Override
-//                            public void finishLoad(int i) {
-//                                MNLog.now("DG Ad finishLoad");
-////                                adView.setVisibility(View.INVISIBLE);
-//                            }
-//                        });
-
-                        // 중앙 계산
-                        int x = (MNDeviceSizeInfo.getDeviceWidth(activity) - DipToPixel.getPixel(activity, 320)) / 2;
-                        int y = (MNDeviceSizeInfo.getDeviceHeight(activity) - DipToPixel.getPixel(activity, 250)) / 2 -
-                                activity.getResources().getDimensionPixelSize(R.dimen.main_button_layout_height);
-
-                        // Show
-                        if (dgService != null) {
-                            String paramstr = "{ \"x\" : \"" + x + "\",\"y\" : \"" + y + "\"}";
-                            try {
-                                JSONObject json = new JSONObject(paramstr);
-                                dgService.Request(json);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                    */
                 } else {
                     eachLaunchCount++;
                     prefs.edit().putInt(EACH_LAUNCH_COUNT, eachLaunchCount).apply();
