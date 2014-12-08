@@ -1,11 +1,11 @@
 package com.yooiistudios.morningkit.alarm.model.wake;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -59,6 +59,7 @@ public class MNAlarmWakeCustomDialog {
         }
     }
 
+    @SuppressLint("InflateParams")
     protected static AlertDialog makeWakeAlertDialog(final MNAlarm alarm, final Context context) {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

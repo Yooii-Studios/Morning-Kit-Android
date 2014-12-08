@@ -101,9 +101,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
-    // 디지털 가라지 - 한국 출시에는 일단 빼기
-//    private DGService dgService;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

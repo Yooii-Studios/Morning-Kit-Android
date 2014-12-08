@@ -132,7 +132,6 @@ public class MNAlarm implements Serializable, Cloneable {
                     MNAlarmToast.show(context, repeatCalendar);
                     isToastShown = true;
                 }
-
             }
         }
     }
