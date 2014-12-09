@@ -19,6 +19,7 @@ import android.widget.ScrollView;
 
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.inmobi.commons.InMobi;
@@ -29,6 +30,7 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
+import com.yooiistudios.morningkit.common.ad.AdDialogFactory;
 import com.yooiistudios.morningkit.common.ad.MNAdUtils;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
@@ -99,6 +101,10 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     @Getter @InjectView(R.id.main_dog_ear_image_view)       ImageView dogEarImageView;
 
+    // Quit Ad Dialog
+    private AdRequest mQuitAdRequest;
+    private AdView mQuitAdView;
+
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
     @Override
@@ -121,6 +127,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(getApplicationContext());
             for (MNAlarm alarm : alarmList) {
                 if (alarm.isAlarmOn()) {
+                    alarm.stopAlarm(this); // 혹시나 이 부분 때문에 알람이 갑자기 울리지 않을까 해서 끄고 다시 켜기
                     alarm.startAlarmWithNoToast(getApplicationContext());
                 }
             }
@@ -172,6 +179,13 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 .build();
         adView.loadAd(adRequest);
 
+        // 애드몹 - Quit Dialog
+        mQuitAdRequest = new AdRequest.Builder().build();
+        mQuitAdView = new AdView(this);
+        mQuitAdView.setAdSize(AdSize.MEDIUM_RECTANGLE);
+        mQuitAdView.setAdUnitId(AdDialogFactory.AD_UNIT_ID);
+        mQuitAdView.loadAd(mQuitAdRequest);
+
         // 알람 체크
         try {
             MNAlarmWake.checkReservedAlarm(getIntent(), this);
@@ -208,7 +222,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         onConfigurationChanged(getResources().getConfiguration());
 
         // 풀버전 구매 확인, 독이어 제거
-        if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_FULL_VERSION, getApplicationContext())) {
+        if (SKIabProducts.containsSku(SKIabProducts.SKU_FULL_VERSION, getApplicationContext())) {
             dogEarImageView.setVisibility(View.GONE);
         } else {
             dogEarImageView.setVisibility(View.VISIBLE);
@@ -669,10 +683,31 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     }
 
     private void showTutorialLayout() {
-
         // 튜토리얼 전 세로고정 설정
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         MNTutorialLayout tutorialLayout = new MNTutorialLayout(getApplicationContext(), this);
         containerLayout.addView(tutorialLayout);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!SKIabProducts.containsSku(SKIabProducts.SKU_NO_ADS, this)) {
+            AlertDialog adDialog = AdDialogFactory.makeAdDialog(MNMainActivity.this, mQuitAdView);
+            if (adDialog != null) {
+                adDialog.show();
+                // make AdView again for next quit dialog
+                // prevent child reference
+                mQuitAdView = new AdView(this);
+                mQuitAdView.setAdSize(AdSize.MEDIUM_RECTANGLE);
+                mQuitAdView.setAdUnitId(AdDialogFactory.AD_UNIT_ID);
+                mQuitAdView.loadAd(mQuitAdRequest);
+            } else {
+                // just finish activity when dialog is null
+                super.onBackPressed();
+            }
+        } else {
+            // just finish activity when no ad item is bought
+            super.onBackPressed();
+        }
     }
 }
