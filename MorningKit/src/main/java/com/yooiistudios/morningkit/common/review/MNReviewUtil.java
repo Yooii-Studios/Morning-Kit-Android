@@ -18,115 +18,84 @@ import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
  */
 public class MNReviewUtil {
 
-    private static final String SPNAME_REVIEW = "Review";
-    private static final String KEY_LAUNCHCOUNT = "Launch Count";
-    private static final String KEY_ASKAGAIN = "Ask Again";
+    private static final String PREFS_KEY_REVIEW = "Review";
+    private static final String KEY_LAUNCH_COUNT = "Launch Count";
+    private static final String KEY_ASK_STATE_ORDINAL = "Ask Again";
 
-    private static final int VALUE_DEFAULT_LAUNCHCOUNT = 0;
+    private static final int VALUE_DEFAULT_LAUNCH_COUNT = 0;
 
-    private static final int ASK_LIMIT_FIRST = 10;
-    private static final int ASK_LIMIT_AGAIN = 40;
-    private enum STATE {
-        NECESSARY,
-        ASK_AGAIN,
-        NEVER_ASK
+    private static final int ASK_THRESHOLD_FIRST = 10;
+    private static final int ASK_THRESHOLD_AGAIN = 40;
+    private enum ASK_STATE {
+        FIRST,
+        LAST,
+        REVIEWED
     }
+
     public static void checkRate(final Activity activity) {
         if (activity.getSharedPreferences(MNUnlockActivity.SHARED_PREFS,
-                Context.MODE_PRIVATE).getBoolean(
-                MNUnlockActivity.REVIEW_USED, false)) {
+                Context.MODE_PRIVATE).getBoolean(MNUnlockActivity.REVIEW_USED, false)) {
             return;
         }
-
-        SharedPreferences sharedPreferences = activity.getSharedPreferences
-                (SPNAME_REVIEW, Context.MODE_PRIVATE);
+        final SharedPreferences prefs = activity.getSharedPreferences(PREFS_KEY_REVIEW, Context.MODE_PRIVATE);
 
         //check launch count.
-        int launchCount = sharedPreferences.getInt(KEY_LAUNCHCOUNT,
-                VALUE_DEFAULT_LAUNCHCOUNT);
-        int stateOrdinal = sharedPreferences.getInt(KEY_ASKAGAIN,
-                STATE.NECESSARY.ordinal());
-        final STATE state = STATE.values()[stateOrdinal];
-        int askLimit;
-        if (state.equals(STATE.NECESSARY)) {
-            askLimit = ASK_LIMIT_FIRST;
-        }
-        else if (state.equals(STATE.ASK_AGAIN)) {
-            askLimit = ASK_LIMIT_AGAIN;
-        }
-        else {
+        int launchCount = prefs.getInt(KEY_LAUNCH_COUNT, VALUE_DEFAULT_LAUNCH_COUNT);
+        int stateOrdinal = prefs.getInt(KEY_ASK_STATE_ORDINAL, ASK_STATE.FIRST.ordinal());
+        final ASK_STATE state = ASK_STATE.values()[stateOrdinal];
+        int threshold;
+
+        if (state.equals(ASK_STATE.FIRST)) {
+            threshold = ASK_THRESHOLD_FIRST;
+        } else if (state.equals(ASK_STATE.LAST)) {
+            threshold = ASK_THRESHOLD_AGAIN;
+        } else {
             return;
         }
-        if (launchCount < askLimit) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt(KEY_LAUNCHCOUNT, ++launchCount);
-            editor.apply();
+        prefs.edit().putInt(KEY_LAUNCH_COUNT, ++launchCount).apply();
 
-            if (launchCount >= askLimit) {
-                AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    builder = new AlertDialog.Builder(activity,
-                            AlertDialog.THEME_HOLO_DARK);
-                } else {
-                    builder = new AlertDialog.Builder(activity);
-                }
-                builder.setTitle(activity.getString(R.string.rate_morning_kit));
-                String appName = activity.getString(R.string.recommend_app_full_name);
-                String message = activity.getString(R.string.rate_it_contents, appName);
-                builder.setMessage(message);
-                builder.setPositiveButton(R.string.rate_it_rate, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MNReviewApp.showReviewActivity(activity);
-
-                        SharedPreferences sharedPreferences = activity.getSharedPreferences(SPNAME_REVIEW, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putInt(KEY_ASKAGAIN, STATE.NEVER_ASK.ordinal());
-                        editor.apply();
-
-                        dialog.dismiss();
-                    }
-                });
-//                builder.setNeutralButton(R.string.dialog_rateprompt_neutral, new DialogInterface.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        SharedPreferences sharedPreferences = activity
-//                                .getSharedPreferences(SPNAME_REVIEW,
-//                                        Context.MODE_PRIVATE);
-//                        SharedPreferences.Editor editor = sharedPreferences.edit();
-//                        editor.putInt(KEY_LAUNCHCOUNT,
-//                                VALUE_DEFAULT_LAUNCHCOUNT);
-//                        editor.putInt(KEY_ASKAGAIN, STATE.ASK_AGAIN.ordinal());
-//                        editor.commit();
-//
-//                        dialog.dismiss();
-//                    }
-//                });
-                builder.setNegativeButton(R.string.rate_it_no_thanks, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences sharedPreferences = activity.getSharedPreferences(SPNAME_REVIEW, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        if (state.equals(STATE.NECESSARY)) {
-                            //ask again later
-                            editor.putInt(KEY_LAUNCHCOUNT,
-                                    VALUE_DEFAULT_LAUNCHCOUNT);
-                            editor.putInt(KEY_ASKAGAIN, STATE.ASK_AGAIN.ordinal());
-                        }
-                        else if (state.equals(STATE.ASK_AGAIN)) {
-                            //never ask after
-                            editor.putInt(KEY_ASKAGAIN, STATE.NEVER_ASK.ordinal());
-                        }
-                        editor.apply();
-
-                        dialog.dismiss();
-                    }
-                });
-                builder.show();
+        if (launchCount >= threshold) {
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                builder = new AlertDialog.Builder(activity, AlertDialog.THEME_HOLO_DARK);
+            } else {
+                builder = new AlertDialog.Builder(activity);
             }
+            builder.setTitle(activity.getString(R.string.rate_morning_kit));
+            String appName = activity.getString(R.string.recommend_app_full_name);
+            String message = activity.getString(R.string.rate_it_contents, appName);
+            builder.setMessage(message);
+            builder.setPositiveButton(R.string.rate_it_rate, new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    MNReviewApp.showReviewActivity(activity);
+                    prefs.edit().putInt(KEY_ASK_STATE_ORDINAL, ASK_STATE.REVIEWED.ordinal()).apply();
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton(R.string.rate_it_no_thanks, new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SharedPreferences sharedPreferences = activity.getSharedPreferences(PREFS_KEY_REVIEW, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    if (state.equals(ASK_STATE.FIRST)) {
+                        //ask again later
+                        editor.putInt(KEY_LAUNCH_COUNT, VALUE_DEFAULT_LAUNCH_COUNT);
+                        editor.putInt(KEY_ASK_STATE_ORDINAL, ASK_STATE.LAST.ordinal());
+                    } else if (state.equals(ASK_STATE.LAST)) {
+                        //never ask after
+                        editor.putInt(KEY_ASK_STATE_ORDINAL, ASK_STATE.REVIEWED.ordinal());
+                    }
+                    editor.apply();
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog reviewDialog = builder.create();
+            reviewDialog.setCancelable(false);
+            reviewDialog.setCanceledOnTouchOutside(false);
+            reviewDialog.show();
         }
     }
 }
