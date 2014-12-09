@@ -4,7 +4,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0-rc1' // 0.12.+ 버전은 안드로이드 스튜디오 0.8.+ 버전부터
+        classpath 'com.android.tools.build:gradle:1.0.0' // 0.12.+ 버전은 안드로이드 스튜디오 0.8.+ 버전부터
         // JaKe Wharton 것을 쓰다가 jcandksolutions 가 문제를 해결해서 여기의 것을 사용
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
 //        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.2.3'
