@@ -156,7 +156,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // 알람 없이 켜질 경우
         if (!MNAlarmWake.isAlarmReserved(getIntent())) {
             // 리뷰 카운트 체크
-            MNReviewUtil.checkRate(this);
+            MNReviewUtil.showReviewDialogIfConditionMet(this);
             // 전면광고 카운트 체크
             MNAdUtils.checkFullScreenAdCount(this.getApplicationContext());
         }
