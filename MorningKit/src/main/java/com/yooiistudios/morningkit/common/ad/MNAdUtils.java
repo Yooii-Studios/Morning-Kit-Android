@@ -15,15 +15,16 @@ import java.util.List;
  *
  * MNAdChecker
  *  광고를 주기적으로 체크해서 10회 실행 이후부터 5번에 한번씩 전면광고를 실행
- *  일본어의 경우 디지털 가라지의 광고를 보여줄 것
+ *  50회 이상 실행이면 4번에 한번씩 전면광고를 실행
  */
 public class MNAdUtils {
     private MNAdUtils() { throw new AssertionError("You MUST not create this class!"); }
     private static final String KEY = "MNAdUtils";
     private static final String LAUNCH_COUNT = "LAUNCH_COUNT";
     private static final String EACH_LAUNCH_COUNT = "EACH_LAUNCH_COUNT";
+    private static final String INTERSTITIAL_ID = "ca-app-pub-2310680050309555/2209471823";
 
-    public static void checkFullScreenAdCount(Context context) {
+    public static void showPopupAdIfSatisfied(Context context) {
         if (context == null) {
             return;
         }
@@ -31,42 +32,68 @@ public class MNAdUtils {
 
         // 광고 구매 아이템이 없을 경우만 진행(풀버전은 광고 제거 포함)
         if (!ownedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
-            // 12회 이상 실행, 5회 카운트 계산
             SharedPreferences prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
-            int launchCount = prefs.getInt(LAUNCH_COUNT, 0);
-            // 12회 이상 실행부터 계속 5배수 실행 카운트 체크 - 10회는 리뷰 남기기 메시지.
-            // 일정 카운트 이상부터는 launchCount 는 더 증가시킬 필요가 없음
-            if (launchCount >= 6) {
-                int eachLaunchCount = prefs.getInt(EACH_LAUNCH_COUNT, 0);
-                if (eachLaunchCount == 4) {
-                    // 5회 실행시마다 초기화
-                    prefs.edit().remove(EACH_LAUNCH_COUNT).apply();
-
-                    // 광고 실행
-                    // Admob
-                    final InterstitialAd fullScreenAdView = new InterstitialAd(context);
-                    fullScreenAdView.setAdUnitId("ca-app-pub-2310680050309555/2209471823");
-                    fullScreenAdView.setAdListener(new AdListener() {
-                        @Override
-                        public void onAdLoaded() {
-                            super.onAdLoaded();
-                            if (fullScreenAdView.isLoaded()) {
-                                fullScreenAdView.show();
-                            }
-                        }
-                    });
-                    AdRequest fullAdRequest = new AdRequest.Builder()
-//                            .addTestDevice("D9XXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-                            .build();
-                    fullScreenAdView.loadAd(fullAdRequest);
-                } else {
-                    eachLaunchCount++;
-                    prefs.edit().putInt(EACH_LAUNCH_COUNT, eachLaunchCount).apply();
-                }
-            } else {
+            int launchCount = prefs.getInt(LAUNCH_COUNT, 1);
+            if (shouldShowAd(prefs, launchCount)) {
+                showInterstitialAd(context);
+            }
+            if (launchCount < 55) {
                 launchCount++;
                 prefs.edit().putInt(LAUNCH_COUNT, launchCount).apply();
             }
         }
+    }
+
+    /*
+    public static void checkTestInterstitialAdCount(Context context) {
+    SharedPreferences prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        for (int i = 1; i < 70; i++) {
+            if (shouldShowAd(prefs, i)) {
+                MNLog.now("ad count: " + i);
+            }
+        }
+    }
+    */
+
+    private static boolean shouldShowAd(SharedPreferences prefs, final int launchCount) {
+        // 11회 이상 실행부터 계속 5 or 4배수 실행 카운트 체크 - 10회는 리뷰 남기기 메시지.
+        // 일정 카운트(55) 이상부터는 launchCount 는 더 증가시킬 필요가 없음
+        if (launchCount >= 7) {
+            int threshold;
+            if (launchCount < 55) {
+                threshold = 5;
+            } else {
+                threshold = 4;
+            }
+            int eachLaunchCount = prefs.getInt(EACH_LAUNCH_COUNT, 1);
+            if (eachLaunchCount >= threshold) {
+                // 광고 표시와 동시에 다시 초기화
+                prefs.edit().remove(EACH_LAUNCH_COUNT).apply();
+                return true;
+            } else {
+                eachLaunchCount++;
+                prefs.edit().putInt(EACH_LAUNCH_COUNT, eachLaunchCount).apply();
+            }
+        }
+        return false;
+    }
+
+    private static void showInterstitialAd(Context context) {
+        // 전체 광고 표시
+        final InterstitialAd fullScreenAdView = new InterstitialAd(context);
+        fullScreenAdView.setAdUnitId(INTERSTITIAL_ID);
+        fullScreenAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                if (fullScreenAdView.isLoaded()) {
+                    fullScreenAdView.show();
+                }
+            }
+        });
+        AdRequest fullAdRequest = new AdRequest.Builder()
+//                            .addTestDevice("D9XXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                .build();
+        fullScreenAdView.loadAd(fullAdRequest);
     }
 }
