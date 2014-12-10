@@ -22,6 +22,8 @@ public class MNAdUtils {
     private static final String KEY = "MNAdUtils";
     private static final String LAUNCH_COUNT = "LAUNCH_COUNT";
     private static final String EACH_LAUNCH_COUNT = "EACH_LAUNCH_COUNT";
+    private static final String EACH_AD_COUNT = "EACH_AD_COUNT";
+
     private static final String INTERSTITIAL_ID = "ca-app-pub-2310680050309555/2209471823";
 
     public static void showPopupAdIfSatisfied(Context context) {
@@ -35,7 +37,15 @@ public class MNAdUtils {
             SharedPreferences prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
             int launchCount = prefs.getInt(LAUNCH_COUNT, 1);
             if (shouldShowAd(prefs, launchCount)) {
-                showInterstitialAd(context);
+                // 3번째 마다 인하우스 스토어 광고를 보여주게 로직 수정
+                int eachAdCount = prefs.getInt(EACH_AD_COUNT, 1);
+                if (eachAdCount >= 3) {
+                    prefs.edit().remove(EACH_AD_COUNT).apply();
+                    showInHouseStoreAd(context);
+                } else {
+                    prefs.edit().putInt(EACH_AD_COUNT, ++eachAdCount).apply();
+                    showInterstitialAd(context);
+                }
             }
             if (launchCount < 55) {
                 launchCount++;
@@ -49,7 +59,13 @@ public class MNAdUtils {
     SharedPreferences prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
         for (int i = 1; i < 70; i++) {
             if (shouldShowAd(prefs, i)) {
-                MNLog.now("ad count: " + i);
+                // 3번째 마다 인하우스 스토어 광고를 보여주게 로직 수정
+                int eachAdCount = prefs.getInt(EACH_AD_COUNT, 1);
+                if (eachAdCount >= 3) {
+                    prefs.edit().remove(EACH_AD_COUNT).apply();
+                } else {
+                    prefs.edit().putInt(EACH_AD_COUNT, ++eachAdCount).apply();
+                }
             }
         }
     }
@@ -95,5 +111,9 @@ public class MNAdUtils {
 //                            .addTestDevice("D9XXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                 .build();
         fullScreenAdView.loadAd(fullAdRequest);
+    }
+
+    private static void showInHouseStoreAd(Context context) {
+        showInterstitialAd(context);
     }
 }
