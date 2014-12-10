@@ -689,7 +689,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         containerLayout.addView(tutorialLayout);
     }
 
-    /*
     @Override
     public void onBackPressed() {
         if (!SKIabProducts.containsSku(SKIabProducts.SKU_NO_ADS, this)) {
@@ -711,5 +710,4 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             super.onBackPressed();
         }
     }
-    */
 }
