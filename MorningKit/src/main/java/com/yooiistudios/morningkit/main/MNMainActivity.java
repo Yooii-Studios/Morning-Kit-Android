@@ -158,7 +158,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             // 리뷰 카운트 체크
             MNReviewUtil.checkRate(this);
             // 전면광고 카운트 체크
-            MNAdUtils.checkFullScreenAdCount(this.getApplicationContext());
+            MNAdUtils.showPopupAdIfSatisfied(this);
         }
     }
 
@@ -689,6 +689,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         containerLayout.addView(tutorialLayout);
     }
 
+    /*
     @Override
     public void onBackPressed() {
         if (!SKIabProducts.containsSku(SKIabProducts.SKU_NO_ADS, this)) {
@@ -710,4 +711,5 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             super.onBackPressed();
         }
     }
+    */
 }
