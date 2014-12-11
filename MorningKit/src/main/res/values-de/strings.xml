@@ -339,6 +339,6 @@
 	<string name="unlock_recommend_highlight">Empfehlen</string>
 
     <!-- Quit Ad -->
-    <string name="ad_dialog_title_text">Do you want to quit Morning Kit?</string>
+    <string name="quit_ad_dialog_itle_text">Do you want to quit Morning Kit?</string>
 
 </resources>
