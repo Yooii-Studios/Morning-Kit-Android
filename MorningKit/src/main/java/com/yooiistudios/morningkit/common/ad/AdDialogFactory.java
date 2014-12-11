@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.yooiistudios.morningkit.R;
 
@@ -20,6 +21,17 @@ public class AdDialogFactory {
 
     public static final String AD_UNIT_ID = "ca-app-pub-2310680050309555/3689313020";
 
+    public static AdView initAdView(Context context,
+                                    final com.google.android.gms.ads.AdRequest adRequest) {
+        // make AdView again for next quit dialog
+        // prevent child reference
+        AdView adView = new AdView(context);
+        adView.setAdSize(AdSize.MEDIUM_RECTANGLE);
+        adView.setAdUnitId(AdDialogFactory.AD_UNIT_ID);
+        adView.loadAd(adRequest);
+        return adView;
+    }
+
     public static AlertDialog makeAdDialog(final Activity activity, final AdView adView) {
         Context context = activity.getApplicationContext();
         AlertDialog.Builder builder;
@@ -28,7 +40,7 @@ public class AdDialogFactory {
         } else {
             builder = new AlertDialog.Builder(activity);
         }
-        builder.setTitle(R.string.ad_dialog_title_text);
+        builder.setTitle(R.string.quit_ad_dialog_itle_text);
         builder.setPositiveButton(context.getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

@@ -96,21 +96,21 @@ public class MNAdUtils {
 
     private static void showInterstitialAd(Context context) {
         // 전체 광고 표시
-        final InterstitialAd fullScreenAdView = new InterstitialAd(context);
-        fullScreenAdView.setAdUnitId(INTERSTITIAL_ID);
-        fullScreenAdView.setAdListener(new AdListener() {
+        final InterstitialAd interstitialAdView = new InterstitialAd(context);
+        interstitialAdView.setAdUnitId(INTERSTITIAL_ID);
+        interstitialAdView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                if (fullScreenAdView.isLoaded()) {
-                    fullScreenAdView.show();
+                if (interstitialAdView.isLoaded()) {
+                    interstitialAdView.show();
                 }
             }
         });
         AdRequest fullAdRequest = new AdRequest.Builder()
 //                            .addTestDevice("D9XXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                 .build();
-        fullScreenAdView.loadAd(fullAdRequest);
+        interstitialAdView.loadAd(fullAdRequest);
     }
 
     private static void showInHouseStoreAd(Context context) {

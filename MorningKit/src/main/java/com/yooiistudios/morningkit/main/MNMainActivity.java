@@ -19,7 +19,6 @@ import android.widget.ScrollView;
 
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.inmobi.commons.InMobi;
@@ -181,10 +180,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         // 애드몹 - Quit Dialog
         mQuitAdRequest = new AdRequest.Builder().build();
-        mQuitAdView = new AdView(this);
-        mQuitAdView.setAdSize(AdSize.MEDIUM_RECTANGLE);
-        mQuitAdView.setAdUnitId(AdDialogFactory.AD_UNIT_ID);
-        mQuitAdView.loadAd(mQuitAdRequest);
+        mQuitAdView = AdDialogFactory.initAdView(this, mQuitAdRequest);
 
         // 알람 체크
         try {
@@ -283,7 +279,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     @Override
     protected void onDestroy() {
-        // Acitivity is destroyed
+        // Activity is destroyed
         if (adView != null) {
             adView.destroy();
         }
@@ -697,10 +693,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 adDialog.show();
                 // make AdView again for next quit dialog
                 // prevent child reference
-                mQuitAdView = new AdView(this);
-                mQuitAdView.setAdSize(AdSize.MEDIUM_RECTANGLE);
-                mQuitAdView.setAdUnitId(AdDialogFactory.AD_UNIT_ID);
-                mQuitAdView.loadAd(mQuitAdRequest);
+                mQuitAdView = AdDialogFactory.initAdView(this, mQuitAdRequest);
             } else {
                 // just finish activity when dialog is null
                 super.onBackPressed();
