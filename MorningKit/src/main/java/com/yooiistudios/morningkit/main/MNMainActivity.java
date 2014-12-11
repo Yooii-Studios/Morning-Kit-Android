@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -60,6 +61,7 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
 import com.yooiistudios.morningkit.theme.MNMainResources;
 import com.yooiistudios.morningkit.theme.font.MNTranslucentFont;
+import com.yooiistudios.stevenkim.alarmmanager.SKAlarmManager;
 
 import org.json.JSONException;
 
@@ -115,13 +117,21 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             AppValidationChecker.validationCheck(this);
         }
 
+        // 알람 검사 로직 새로 작성
+        if (isAlarmShouldBeInvoked()) {
+            return;
+        }
+
+        /*
         // 알람이 있을 경우는 화면을 켜주게 구현
         if (MNAlarmWake.isAlarmReserved(getIntent())) {
+            MNLog.addTestPrefLog(this, "MNAlarmWake isAlarmReserved: true");
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
                     WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                     WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
                     WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         } else {
+            MNLog.addTestPrefLog(this, "MNAlarmWake isAlarmReserved: false");
             // 알람 없이 정상 실행시 항상 알람이 제대로 동작함을 보장하기 위해서 켜진 알람들은 다시 켜주기
             ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(getApplicationContext());
             for (MNAlarm alarm : alarmList) {
@@ -131,6 +141,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 }
             }
         }
+        */
 
         setContentView(R.layout.activity_main);
 
@@ -183,11 +194,45 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         mQuitAdView = AdDialogFactory.initAdView(this, mQuitAdRequest);
 
         // 알람 체크
+        /*
         try {
             MNAlarmWake.checkReservedAlarm(getIntent(), this);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
+    }
+
+    private boolean isAlarmShouldBeInvoked() {
+        SharedPreferences prefs = getSharedPreferences(SKAlarmManager.PREFS_ALARM_BUFFER, MODE_PRIVATE);
+        if (MNAlarmWake.isAlarmReserved(getIntent())) {
+            prefs.edit().putInt(SKAlarmManager.ALARM_ID,
+                    getIntent().getIntExtra(SKAlarmManager.ALARM_ID, -1)).apply();
+
+            Intent intent = new Intent(this, MNMainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            startActivity(intent);
+            finish();
+            return true;
+        } else {
+            int alarmId = prefs.getInt(SKAlarmManager.ALARM_ID, -1);
+            if (alarmId != -1) {
+                prefs.edit().remove(SKAlarmManager.ALARM_ID).apply();
+
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+            }
+            try {
+                MNAlarmWake.checkReservedAlarm(alarmId, this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     @Override

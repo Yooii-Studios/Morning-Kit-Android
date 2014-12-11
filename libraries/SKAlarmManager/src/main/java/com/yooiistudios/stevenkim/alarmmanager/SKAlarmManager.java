@@ -15,7 +15,7 @@ import java.util.Calendar;
  *  Handling logic for AlarmManager
  */
 public class SKAlarmManager {
-
+    public static final String PREFS_ALARM_BUFFER = "PREFS_ALARM_BUFFER";
     public static final String ALARM_ID = "ALARM_ID";
     public static final String ALARM_UNIQUE_ID = "ALARM_UNIQUE_ID";
     private AlarmManager alarmManager;
@@ -56,11 +56,16 @@ public class SKAlarmManager {
         Intent intent = new Intent(context, activity);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+//        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(ALARM_UNIQUE_ID, alarmUniqueId);
         intent.putExtra(ALARM_ID, alarmId);
 
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(context, alarmUniqueId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                PendingIntent.getActivity(context, alarmUniqueId, intent, PendingIntent.FLAG_ONE_SHOT);
 
         // Over KitKat, you must use 'setExact' to invoke alarm on exact time
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
