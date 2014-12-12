@@ -35,7 +35,9 @@ public class MNReviewApp {
             // 모닝은 37676
             return "http://nstore.naver.com/appstore/web/detail.nhn?originalProductId=37676";
         } else {
-            return "market://details?id=" + context.getPackageName();
+            // 기존은 구글 용이지만 아마존 브랜치는 이것을 사용
+            return "amzn://apps/android?p=com.yooiistudios.morningkit";
+//            return "market://details?id=" + context.getPackageName();
         }
     }
 }
