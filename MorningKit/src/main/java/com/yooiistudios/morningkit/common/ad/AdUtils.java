@@ -17,8 +17,8 @@ import java.util.List;
  *  광고를 주기적으로 체크해서 10회 실행 이후부터 5번에 한번씩 전면광고를 실행
  *  50회 이상 실행이면 4번에 한번씩 전면광고를 실행
  */
-public class MNAdUtils {
-    private MNAdUtils() { throw new AssertionError("You MUST not create this class!"); }
+public class AdUtils {
+    private AdUtils() { throw new AssertionError("You MUST not create this class!"); }
     private static final String KEY = "MNAdUtils";
     private static final String LAUNCH_COUNT = "LAUNCH_COUNT";
     private static final String EACH_LAUNCH_COUNT = "EACH_LAUNCH_COUNT";
