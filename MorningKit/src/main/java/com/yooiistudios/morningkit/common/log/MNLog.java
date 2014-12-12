@@ -15,7 +15,7 @@ import java.util.Calendar;
  */
 public class MNLog {
     private MNLog() { throw new AssertionError("You MUST not create this class!"); }
-    public static final boolean isDebug = true;
+    public static final boolean isDebug = false;
     public static final String PREF_TEST_PREF_LOG = "PREF_TEST_PREF_LOG";
     public static final String KEY_LOG = "KEY_LOG";
 
