@@ -36,6 +36,7 @@ import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.network.InternetConnectionManager;
 import com.yooiistudios.morningkit.common.review.MNReviewUtil;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialLayout;
@@ -741,7 +742,8 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     @Override
     public void onBackPressed() {
-        if (!SKIabProducts.containsSku(SKIabProducts.SKU_NO_ADS, this)) {
+        if (!SKIabProducts.containsSku(SKIabProducts.SKU_NO_ADS, this) &&
+                InternetConnectionManager.isNetworkAvailable(this)) {
             AlertDialog adDialog = AdDialogFactory.makeAdDialog(MNMainActivity.this, mQuitAdView);
             if (adDialog != null) {
                 adDialog.show();
