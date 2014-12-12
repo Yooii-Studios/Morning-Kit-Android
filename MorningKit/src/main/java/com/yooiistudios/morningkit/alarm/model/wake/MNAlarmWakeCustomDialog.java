@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -180,13 +181,19 @@ public class MNAlarmWakeCustomDialog {
                                 dateFormat.format(Calendar.getInstance().getTime()) +
                                 "\n--------------------------------------\n" +
                                 "Target Alarm:\n" +
-                                alarm.toString() + "\n--------------------------------------\n" +
+                                alarm.toSimpleString() + "\n--------------------------------------\n" +
                                 "Alarms in List:\n";
                         int i = 0;
                         for (MNAlarm savedAlarm : alarmList) {
                             i++;
-                            message += ("Alarm " + i + ": \n" + savedAlarm.toString() + "\n\n");
+                            message += ("Alarm " + i + ": \n" + savedAlarm.toSimpleString() + "\n\n");
                         }
+                        // 메일로 보내고 기존 로그는 다시 삭제해주기
+                        message += "--------------------------------------\n";
+                        SharedPreferences prefs = context.getSharedPreferences(MNLog.PREF_TEST_PREF_LOG,
+                                Context.MODE_PRIVATE);
+                        message += prefs.getString(MNLog.KEY_LOG, "");
+                        MNLog.removeTestPrefLog(context);
                         intent.putExtra(Intent.EXTRA_TEXT, message);
 
                         String[] receiver = { "kwosu87@me.com" };

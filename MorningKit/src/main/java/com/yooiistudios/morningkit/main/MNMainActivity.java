@@ -110,18 +110,40 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 미리 정한 날짜가 지나면 앱이 죽게 변경, 출시시에 풀어야함, MNLog것을 써도 무방할듯
+        // 미리 정한 날짜가 지나면 앱이 죽게 변경, 출시에 풀어야함
         if (MNLog.isDebug) {
             AppValidationChecker.validationCheck(this);
         }
 
+        // 알람 검사 로직 새로 작성
+        if (MNAlarmWake.isAlarmReservedByIntent(this, getIntent())) {
+            relaunchActivity();
+            return;
+        } else {
+            if (MNAlarmWake.isAlarmReservedInPrefs(this)) {
+                turnOnScreen();
+                try {
+                    MNAlarmWake.invokeAlarm(this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // 알람이 울리지 않는다면 리뷰와 전면광고 카운트 체크
+                MNReviewUtil.showReviewDialogIfConditionMet(this);
+                MNAdUtils.showPopupAdIfSatisfied(this);
+            }
+        }
+
+        /*
         // 알람이 있을 경우는 화면을 켜주게 구현
         if (MNAlarmWake.isAlarmReserved(getIntent())) {
+            MNLog.addTestPrefLog(this, "MNAlarmWake isAlarmReserved: true");
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
                     WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                     WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
                     WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         } else {
+            MNLog.addTestPrefLog(this, "MNAlarmWake isAlarmReserved: false");
             // 알람 없이 정상 실행시 항상 알람이 제대로 동작함을 보장하기 위해서 켜진 알람들은 다시 켜주기
             ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(getApplicationContext());
             for (MNAlarm alarm : alarmList) {
@@ -131,6 +153,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 }
             }
         }
+        */
 
         setContentView(R.layout.activity_main);
 
@@ -153,12 +176,8 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         InMobi.initialize(this, "2fda5c20a0054c43a454c8027bf2eb83");
 
         // 알람 없이 켜질 경우
-        if (!MNAlarmWake.isAlarmReserved(getIntent())) {
-            // 리뷰 카운트 체크
-            MNReviewUtil.showReviewDialogIfConditionMet(this);
-            // 전면광고 카운트 체크
-            MNAdUtils.showPopupAdIfSatisfied(this);
-        }
+//        if (!MNAlarmWake.isAlarmReservedInIntent(getIntent())) {
+//        }
     }
 
     void initMainActivity() {
@@ -183,11 +202,57 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         mQuitAdView = AdDialogFactory.initAdView(this, mQuitAdRequest);
 
         // 알람 체크
+        /*
         try {
             MNAlarmWake.checkReservedAlarm(getIntent(), this);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
+    }
+
+    /*
+    private boolean shouldRelaunchActivityBecauseOfAlarm() {
+        if (MNAlarmWake.isAlarmReservedByIntent(this, getIntent())) {
+
+        }
+        SharedPreferences prefs = getSharedPreferences(SKAlarmManager.PREFS_ALARM_BUFFER, MODE_PRIVATE);
+        if (MNAlarmWake.isAlarmReservedInIntent(getIntent())) {
+            prefs.edit().putInt(SKAlarmManager.ALARM_ID,
+                    getIntent().getIntExtra(SKAlarmManager.ALARM_ID, -1)).apply();
+            relaunchActivity();
+            return true;
+        } else {
+            int alarmId = prefs.getInt(SKAlarmManager.ALARM_ID, -1);
+            if (alarmId != -1) {
+                turnOnScreen();
+                try {
+                    MNAlarmWake.invokeAlarm(alarmId, this);
+//                    MNAlarmWake.showAlarmIfReserved(alarmId, this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                prefs.edit().remove(SKAlarmManager.ALARM_ID).apply();
+            }
+            return false;
+        }
+    }
+    */
+
+    private void turnOnScreen() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+    }
+
+    private void relaunchActivity() {
+        Intent intent = new Intent(this, MNMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -226,12 +291,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     }
 
     @Override
-    protected void onRestart()
-    {
-        super.onRestart();
-    }
-
-    @Override
     protected void onPause() {
         // onPause 맨 뒤에서 맨 앞으로 보냄 - 시스템이 먼저 잘 처리했으면 함
         super.onPause();
@@ -254,11 +313,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         // Partially visible
         adView.pause();
-
-        // 디지털 가라지 광고를 사용하고 있을 경우는 close 시켜주기(일본어) - 한국 출시에는 일단 빼기
-//        if (dgService != null) {
-//            dgService.close();
-//        }
     }
 
     @Override
