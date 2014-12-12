@@ -57,15 +57,11 @@ public class SKAlarmManager {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-//        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(ALARM_UNIQUE_ID, alarmUniqueId);
         intent.putExtra(ALARM_ID, alarmId);
 
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(context, alarmUniqueId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//                PendingIntent.getActivity(context, alarmUniqueId, intent, PendingIntent.FLAG_ONE_SHOT);
 
         // Over KitKat, you must use 'setExact' to invoke alarm on exact time
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
