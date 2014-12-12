@@ -54,23 +54,6 @@ public class MNAdUtils {
         }
     }
 
-    /*
-    public static void checkTestInterstitialAdCount(Context context) {
-    SharedPreferences prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
-        for (int i = 1; i < 70; i++) {
-            if (shouldShowAd(prefs, i)) {
-                // 3번째 마다 인하우스 스토어 광고를 보여주게 로직 수정
-                int eachAdCount = prefs.getInt(EACH_AD_COUNT, 1);
-                if (eachAdCount >= 3) {
-                    prefs.edit().remove(EACH_AD_COUNT).apply();
-                } else {
-                    prefs.edit().putInt(EACH_AD_COUNT, ++eachAdCount).apply();
-                }
-            }
-        }
-    }
-    */
-
     private static boolean shouldShowAd(SharedPreferences prefs, final int launchCount) {
         // 11회 이상 실행부터 계속 5 or 4배수 실행 카운트 체크 - 10회는 리뷰 남기기 메시지.
         // 일정 카운트(55) 이상부터는 launchCount 는 더 증가시킬 필요가 없음
