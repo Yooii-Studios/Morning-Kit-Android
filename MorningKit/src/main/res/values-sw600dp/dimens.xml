@@ -298,18 +298,18 @@
     <dimen name="setting_info_credit_name_font_size">24sp</dimen>           <!--Done-->
 
     <!-- Store -->
-    <dimen name="setting_store_full_version_title_textsize">29sp</dimen>            <!--Done-->
+    <dimen name="setting_store_full_version_title_text_size">29sp</dimen>            <!--Done-->
     <dimen name="setting_store_full_version_title_margin_top">12dp</dimen>          <!--Done-->
-    <dimen name="setting_store_full_version_description_textsize">15sp</dimen>      <!--Done-->
+    <dimen name="setting_store_full_version_description_text_size">15sp</dimen>      <!--Done-->
     <dimen name="setting_store_full_version_text_margin">16dp</dimen>               <!--Done-->
 
     <dimen name="setting_store_full_version_button_left_margin">45dp</dimen>        <!--Done-->
     <dimen name="setting_store_full_version_button_bottom_margin">50dp</dimen>      <!--Done-->
     <dimen name="setting_store_full_version_button_size">112dp</dimen>              <!--Done-->
-    <dimen name="setting_store_full_version_button_textsize">19.6dp</dimen>         <!--Done-->
+    <dimen name="setting_store_full_version_button_text_size">19.6dp</dimen>         <!--Done-->
 
     <dimen name="setting_store_tab_height">56dp</dimen>                             <!--Done-->
-    <dimen name="setting_store_tab_textsize">18.2sp</dimen>                         <!--Done-->
+    <dimen name="setting_store_tab_text_size">18.2sp</dimen>                         <!--Done-->
     <dimen name="setting_store_tab_bar_height">5.6dp</dimen>                        <!--Done-->
     <dimen name="setting_store_tab_divider_margin">12.6dp</dimen>                   <!--Done-->
     <dimen name="setting_store_tab_divider_width">1.4dp</dimen>                     <!--Done-->

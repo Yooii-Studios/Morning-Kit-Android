@@ -293,18 +293,18 @@
     <dimen name="setting_info_credit_name_font_size">32.3sp</dimen>         <!-- 두배x 1.7배 -->
 
     <!-- Store -->
-    <dimen name="setting_store_full_version_title_textsize">32.3sp</dimen>  <!-- 두배x 1.7배 -->
+    <dimen name="setting_store_full_version_title_text_size">32.3sp</dimen>  <!-- 두배x 1.7배 -->
     <dimen name="setting_store_full_version_title_margin_top">12dp</dimen>
-    <dimen name="setting_store_full_version_description_textsize">17sp</dimen>  <!-- 두배x 1.7배 -->
+    <dimen name="setting_store_full_version_description_text_size">17sp</dimen>  <!-- 두배x 1.7배 -->
     <dimen name="setting_store_full_version_text_margin">20dp</dimen>
 
     <dimen name="setting_store_full_version_button_left_margin">30dp</dimen>
     <dimen name="setting_store_full_version_button_bottom_margin">40dp</dimen>
     <dimen name="setting_store_full_version_button_size">160dp</dimen>
-    <dimen name="setting_store_full_version_button_textsize">28dp</dimen>
+    <dimen name="setting_store_full_version_button_text_size">28dp</dimen>
 
     <dimen name="setting_store_tab_height">80dp</dimen>
-    <dimen name="setting_store_tab_textsize">22.1sp</dimen>                 <!-- 두배x 1.7배 -->
+    <dimen name="setting_store_tab_text_size">22.1sp</dimen>                 <!-- 두배x 1.7배 -->
     <dimen name="setting_store_tab_bar_height">8dp</dimen>
     <dimen name="setting_store_tab_divider_margin">18dp</dimen>
     <dimen name="setting_store_tab_divider_width">2dp</dimen>
