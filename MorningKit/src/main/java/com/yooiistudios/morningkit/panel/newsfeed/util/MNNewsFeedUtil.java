@@ -30,6 +30,7 @@ public class MNNewsFeedUtil {
 
     private static final String HISTORY_DELIM = "|";
     private static final String NEWS_PROVIDER_YAHOO_JAPAN = "Yahoo!ニュース";
+    private static final String NEWS_PROVIDER_ABC_ES = "ABC.es";
 
     public static MNNewsFeedUrl getDefaultFeedUrl(Context context) {
         MNLanguageType type = MNLanguage.getCurrentLanguageType(context);
@@ -67,8 +68,8 @@ public class MNNewsFeedUtil {
                 urlType = MNNewsFeedUrlType.GOOGLE;
                 break;
             case SPANISH:
-                feedUrl = "http://news.google.com/news?cf=all&ned=es&hl=es&topic=w&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
+                feedUrl = "http://www.abc.es/rss/feeds/abc_Internacional.xml";
+                urlType = MNNewsFeedUrlType.ABC_ES;
                 break;
             case GERMAN:
                 feedUrl = "http://news.google.com/news?cf=all&ned=de&hl=de&output=rss";
@@ -179,27 +180,29 @@ public class MNNewsFeedUtil {
                 int idx = title.lastIndexOf(delim);
 
                 int titleStartIdx = 0;
-                int titleEndIdx = idx;
-                int pubStartIdx = idx+delim.length();
+                int pubStartIdx = idx + delim.length();
                 int pubEndIdx = title.length();
 
-                if (idx >= 0 &&
-                        titleEndIdx >= titleStartIdx &&
+                if (idx >= 0 && idx >= titleStartIdx &&
                         pubEndIdx >= pubStartIdx) {
                 // title.length() >= delim.length()
-                    newTitle = title.substring(titleStartIdx, titleEndIdx);
+                    newTitle = title.substring(titleStartIdx, idx);
                     publisher = "- " + title.substring(pubStartIdx, pubEndIdx);
-                }
-                else {
+                } else {
                     newTitle = title;
                     publisher = null;
                 }
-
                 break;
             case YAHOO:
                 newTitle = title;
                 publisher = NEWS_PROVIDER_YAHOO_JAPAN;
                 break;
+
+            case ABC_ES:
+                newTitle = title;
+                publisher = NEWS_PROVIDER_ABC_ES;
+                break;
+
             case CUSTOM:
             default:
                 newTitle = title;
@@ -217,8 +220,9 @@ public class MNNewsFeedUtil {
 
         if (currentLanguage.equals(MNLanguageType.JAPANESE)) {
             provider = NEWS_PROVIDER_YAHOO_JAPAN;
-        }
-        else {
+        } else if (currentLanguage.equals(MNLanguageType.SPANISH)) {
+            provider = NEWS_PROVIDER_ABC_ES;
+        } else {
             provider = null;
         }
 

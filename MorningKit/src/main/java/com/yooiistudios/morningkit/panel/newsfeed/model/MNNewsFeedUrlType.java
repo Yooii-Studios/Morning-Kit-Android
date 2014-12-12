@@ -6,5 +6,6 @@ package com.yooiistudios.morningkit.panel.newsfeed.model;
 public enum MNNewsFeedUrlType {
     GOOGLE,
     YAHOO,
-    CUSTOM;
+    CUSTOM,
+    ABC_ES
 }
