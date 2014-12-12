@@ -293,18 +293,18 @@
     <dimen name="setting_info_credit_name_font_size">19sp</dimen>
 
     <!-- Store -->
-    <dimen name="setting_store_full_version_title_textsize">19sp</dimen>
+    <dimen name="setting_store_full_version_title_text_size">19sp</dimen>
     <dimen name="setting_store_full_version_title_margin_top">6dp</dimen>
-    <dimen name="setting_store_full_version_description_textsize">10sp</dimen>
+    <dimen name="setting_store_full_version_description_text_size">10sp</dimen>
     <dimen name="setting_store_full_version_text_margin">10dp</dimen>
 
     <dimen name="setting_store_full_version_button_left_margin">15dp</dimen>
     <dimen name="setting_store_full_version_button_bottom_margin">20dp</dimen>
     <dimen name="setting_store_full_version_button_size">80dp</dimen>
-    <dimen name="setting_store_full_version_button_textsize">14dp</dimen>
+    <dimen name="setting_store_full_version_button_text_size">14dp</dimen>
 
     <dimen name="setting_store_tab_height">40dp</dimen>
-    <dimen name="setting_store_tab_textsize">13sp</dimen>
+    <dimen name="setting_store_tab_text_size">13sp</dimen>
     <dimen name="setting_store_tab_bar_height">4dp</dimen>
     <dimen name="setting_store_tab_divider_margin">9dp</dimen>
     <dimen name="setting_store_tab_divider_width">1dp</dimen>
@@ -341,5 +341,18 @@
     <dimen name="tutorial_alarm_icon_size">80dp</dimen>
     <dimen name="tutorial_skip_tutorial_text_size">16sp</dimen>
     <dimen name="tutorial_tap_screen_text_size">19sp</dimen>
+
+    <!-- Store Ad Dialog -->
+    <dimen name="store_ad_dialog_layout_width">299dp</dimen>
+    <dimen name="store_ad_dialog_title_padding_top_bottom">11dp</dimen>
+    <dimen name="store_ad_dialog_title_padding_left_right">15dp</dimen>
+    <dimen name="store_ad_dialog_title_divider_height">0.5dp</dimen>
+    <dimen name="store_ad_dialog_title_divider_margin_left_right">8dp</dimen>
+    <dimen name="store_ad_dialog_image_layout_padding">3dp</dimen>
+    <dimen name="store_ad_dialog_image_width">296dp</dimen>
+    <dimen name="store_ad_dialog_image_text_margin_top">1dp</dimen>
+    <dimen name="store_ad_dialog_image_text_height">62dp</dimen>
+    <dimen name="store_ad_dialog_button_layout_height">45dp</dimen>
+    <dimen name="store_ad_dialog_button_text_size">15sp</dimen>
 
 </resources>

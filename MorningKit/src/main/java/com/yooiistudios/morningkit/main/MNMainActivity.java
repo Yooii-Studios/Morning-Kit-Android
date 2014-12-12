@@ -20,17 +20,23 @@ import android.widget.ScrollView;
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.inmobi.commons.InMobi;
 import com.squareup.otto.Subscribe;
 import com.stevenkim.camera.SKCameraThemeView;
+import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
-import com.yooiistudios.morningkit.common.ad.MNAdUtils;
+import com.yooiistudios.morningkit.common.ad.AdUtils;
+import com.yooiistudios.morningkit.common.ad.QuitAdDialogFactory;
+import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.network.InternetConnectionManager;
 import com.yooiistudios.morningkit.common.review.MNReviewUtil;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialLayout;
@@ -76,7 +82,7 @@ import lombok.Getter;
  *  앱에서 가장 중요한 메인 액티비티
  */
 public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutorialFinishListener {
-//    private static final String TAG = "MNMainActivity";
+    private static final String TAG = "MainActivity";
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
@@ -95,35 +101,60 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     @Getter @InjectView(R.id.main_dog_ear_image_view)       ImageView dogEarImageView;
 
-    private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
+    // Quit Ad Dialog
+    private AdRequest mQuitAdRequest;
+    private AdView mQuitAdView;
 
-    // 디지털 가라지 - 한국 출시에는 일단 빼기
-//    private DGService dgService;
+    private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 미리 정한 날짜가 지나면 앱이 죽게 변경, 출시시에 풀어야함, MNLog것을 써도 무방할듯
+        // 미리 정한 날짜가 지나면 앱이 죽게 변경, 출시에 풀어야함
         if (MNLog.isDebug) {
             AppValidationChecker.validationCheck(this);
         }
 
+        // 알람 검사 로직 새로 작성
+        if (MNAlarmWake.isAlarmReservedByIntent(this, getIntent())) {
+            relaunchActivity();
+            return;
+        } else {
+            if (MNAlarmWake.isAlarmReservedInPrefs(this)) {
+                turnOnScreen();
+                try {
+                    MNAlarmWake.invokeAlarm(this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // 알람이 울리지 않는다면 리뷰와 전면광고 카운트 체크
+                MNReviewUtil.showReviewDialogIfConditionMet(this);
+                AdUtils.showPopupAdIfSatisfied(this);
+            }
+        }
+
+        /*
         // 알람이 있을 경우는 화면을 켜주게 구현
         if (MNAlarmWake.isAlarmReserved(getIntent())) {
+            MNLog.addTestPrefLog(this, "MNAlarmWake isAlarmReserved: true");
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
                     WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                     WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
                     WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         } else {
+            MNLog.addTestPrefLog(this, "MNAlarmWake isAlarmReserved: false");
             // 알람 없이 정상 실행시 항상 알람이 제대로 동작함을 보장하기 위해서 켜진 알람들은 다시 켜주기
             ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(getApplicationContext());
             for (MNAlarm alarm : alarmList) {
                 if (alarm.isAlarmOn()) {
+                    alarm.stopAlarm(this); // 혹시나 이 부분 때문에 알람이 갑자기 울리지 않을까 해서 끄고 다시 켜기
                     alarm.startAlarmWithNoToast(getApplicationContext());
                 }
             }
         }
+        */
 
         setContentView(R.layout.activity_main);
 
@@ -140,16 +171,14 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             }
         }
 
-        // 플러리
+        // 플러리, 구글 애널리틱스, 인모비
         sendFlurryAnalytics();
+        MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
+        InMobi.initialize(this, "2fda5c20a0054c43a454c8027bf2eb83");
 
         // 알람 없이 켜질 경우
-        if (!MNAlarmWake.isAlarmReserved(getIntent())) {
-            // 리뷰 카운트 체크
-            MNReviewUtil.checkRate(this);
-            // 전면광고 카운트 체크
-            MNAdUtils.checkFullScreenAdCount(this.getApplicationContext(), this);
-        }
+//        if (!MNAlarmWake.isAlarmReservedInIntent(getIntent())) {
+//        }
     }
 
     void initMainActivity() {
@@ -165,77 +194,67 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // 애드몹
         AdRequest adRequest = new AdRequest.Builder()
 //                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-//                .addTestDevice("TEST_DEVICE_ID")
+//                .addTestDevice("D9XXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                 .build();
         adView.loadAd(adRequest);
-//        adView = new AdView(this, AdSize.BANNER, MN.ads.ADMOB_ID);
-//        admobLayout.addView(adView);
-//        adView.loadAd(new AdRequest());
+
+        // 애드몹 - Quit Dialog
+        mQuitAdRequest = new AdRequest.Builder().build();
+        mQuitAdView = QuitAdDialogFactory.initAdView(this, mQuitAdRequest);
 
         // 알람 체크
+        /*
         try {
             MNAlarmWake.checkReservedAlarm(getIntent(), this);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
     }
 
     /*
-    private void checkDGAd(int orientation) {
+    private boolean shouldRelaunchActivityBecauseOfAlarm() {
+        if (MNAlarmWake.isAlarmReservedByIntent(this, getIntent())) {
 
-        if (dgService != null) {
-            dgService.close();
-            adView.setVisibility(View.VISIBLE);
         }
-        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(this);
-        MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(this.getApplicationContext());
-        // 일본어를 사용하고 광고나 풀버전 구매가 없을 경우
-        if (currentLanguageType == MNLanguageType.JAPANESE &&
-                (!ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION) && !ownedSkus.contains(SKIabProducts.SKU_NO_ADS))) {
-            // Open service
-            // 4820 = publisher ID = Yooii Studios
-            // 19 = App ID = Morning Kit
-            // 8 = Sketch Kit, 테스트용
-            OneSDK sdk = OneSDK.getInstance(this);
-
-            if (dgService == null) {
-                dgService = sdk.OpenService(4820, 8, 1, Constants.ServiceCategories.SSP, this);
-                dgService.setOneSDKListeners(new OneSDKListeners() {
-                    @Override
-                    public void startLoad(int i) {
-                        MNLog.now("DG Ad startLoad");
-                        adView.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void finishLoad(int i) {
-                        MNLog.now("DG Ad finishLoad");
-                        adView.setVisibility(View.INVISIBLE);
-                    }
-                });
-            }
-
-            // 중앙 계산
-            int y;
-            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                y = MNDeviceSizeInfo.getDeviceHeight(this) - DipToPixel.getPixel(this, 50);
-            } else {
-                y = MNDeviceSizeInfo.getDeviceHeight(this) - DipToPixel.getPixel(this, 50) -
-                        getResources().getDimensionPixelSize(R.dimen.margin_inner);
-            }
-
-            if (dgService != null) {
-                String paramstr = "{ \"y\" : \"" + y + "\"}";
+        SharedPreferences prefs = getSharedPreferences(SKAlarmManager.PREFS_ALARM_BUFFER, MODE_PRIVATE);
+        if (MNAlarmWake.isAlarmReservedInIntent(getIntent())) {
+            prefs.edit().putInt(SKAlarmManager.ALARM_ID,
+                    getIntent().getIntExtra(SKAlarmManager.ALARM_ID, -1)).apply();
+            relaunchActivity();
+            return true;
+        } else {
+            int alarmId = prefs.getInt(SKAlarmManager.ALARM_ID, -1);
+            if (alarmId != -1) {
+                turnOnScreen();
                 try {
-                    JSONObject json = new JSONObject(paramstr);
-                    dgService.Request(json);
-                } catch (JSONException e) {
+                    MNAlarmWake.invokeAlarm(alarmId, this);
+//                    MNAlarmWake.showAlarmIfReserved(alarmId, this);
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
+                prefs.edit().remove(SKAlarmManager.ALARM_ID).apply();
             }
+            return false;
         }
     }
     */
+
+    private void turnOnScreen() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+    }
+
+    private void relaunchActivity() {
+        Intent intent = new Intent(this, MNMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     protected void onResume() {
@@ -265,17 +284,11 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         onConfigurationChanged(getResources().getConfiguration());
 
         // 풀버전 구매 확인, 독이어 제거
-        if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_FULL_VERSION, getApplicationContext())) {
+        if (SKIabProducts.containsSku(SKIabProducts.SKU_FULL_VERSION, getApplicationContext())) {
             dogEarImageView.setVisibility(View.GONE);
         } else {
             dogEarImageView.setVisibility(View.VISIBLE);
         }
-    }
-
-    @Override
-    protected void onRestart()
-    {
-        super.onRestart();
     }
 
     @Override
@@ -301,11 +314,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         // Partially visible
         adView.pause();
-
-        // 디지털 가라지 광고를 사용하고 있을 경우는 close 시켜주기(일본어) - 한국 출시에는 일단 빼기
-//        if (dgService != null) {
-//            dgService.close();
-//        }
     }
 
     @Override
@@ -313,6 +321,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // Activity visible to user
         super.onStart();
         FlurryAgent.onStartSession(this, MNFlurry.KEY);
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
     }
 
     @Override
@@ -320,11 +329,12 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // Activity no longer visible
         super.onStop();
         FlurryAgent.onEndSession(this);
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 
     @Override
     protected void onDestroy() {
-        // Acitivity is destroyed
+        // Activity is destroyed
         if (adView != null) {
             adView.destroy();
         }
@@ -409,9 +419,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 }
                 break;
         }
-
-        // 일본어 사용 체크해서 DG 광고 사용하기 - 한국 출시에는 일단 빼기
-//        checkDGAd(newConfig.orientation);
+        MNAnalyticsUtils.trackMainOrientation((MNApplication)getApplication(), TAG, newConfig.orientation);
     }
 
     /**
@@ -726,10 +734,29 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     }
 
     private void showTutorialLayout() {
-
         // 튜토리얼 전 세로고정 설정
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         MNTutorialLayout tutorialLayout = new MNTutorialLayout(getApplicationContext(), this);
         containerLayout.addView(tutorialLayout);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!SKIabProducts.containsSku(SKIabProducts.SKU_NO_ADS, this) &&
+                InternetConnectionManager.isNetworkAvailable(this)) {
+            AlertDialog adDialog = QuitAdDialogFactory.makeDialog(MNMainActivity.this, mQuitAdView);
+            if (adDialog != null) {
+                adDialog.show();
+                // make AdView again for next quit dialog
+                // prevent child reference
+                mQuitAdView = QuitAdDialogFactory.initAdView(this, mQuitAdRequest);
+            } else {
+                // just finish activity when dialog is null
+                super.onBackPressed();
+            }
+        } else {
+            // just finish activity when no ad item is bought
+            super.onBackPressed();
+        }
     }
 }

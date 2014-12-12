@@ -70,7 +70,7 @@ public class SKIabProducts {
         edit.apply();
     }
 
-    public static boolean isIabProductBought(String sku, Context context) {
+    public static boolean containsSku(String sku, Context context) {
         return loadOwnedIabProducts(context).contains(sku);
     }
 

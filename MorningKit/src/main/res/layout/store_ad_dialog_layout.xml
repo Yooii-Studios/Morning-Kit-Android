@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/store_ad_dialog_layout_width"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@android:color/transparent">
+
+    <TextView
+        android:id="@+id/store_ad_dialog_title_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/store_ad_dialog_title_padding_top_bottom"
+        android:paddingBottom="@dimen/store_ad_dialog_title_padding_top_bottom"
+        android:paddingLeft="@dimen/store_ad_dialog_title_padding_left_right"
+        android:paddingRight="@dimen/store_ad_dialog_title_padding_left_right"
+        android:background="@drawable/shape_store_ad_dialog_title_layout"
+        android:text="@string/recommend_app_full_name"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="@dimen/setting_store_full_version_title_text_size"/>
+
+    <LinearLayout
+        android:id="@+id/store_ad_dialog_title_divider_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/store_ad_dialog_title_divider_height"
+        android:layout_below="@id/store_ad_dialog_title_text_view"
+        android:background="@android:color/white">
+
+        <View
+            android:id="@+id/store_ad_dialog_title_divider_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#353535"
+            android:layout_marginLeft="@dimen/store_ad_dialog_title_divider_margin_left_right"
+            android:layout_marginRight="@dimen/store_ad_dialog_title_divider_margin_left_right"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/store_ad_dialog_image_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/store_ad_dialog_title_divider_layout"
+        android:padding="@dimen/store_ad_dialog_image_layout_padding"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/store_ad_dialog_image_view"
+            android:layout_width="@dimen/store_ad_dialog_image_width"
+            android:layout_height="wrap_content"
+            android:src="@drawable/store_ad_dialog_image_morning_kit"
+            android:scaleType="fitStart"
+            android:clickable="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/loading"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/store_ad_dialog_image_text_height"
+            android:layout_marginTop="@dimen/store_ad_dialog_image_text_margin_top"
+            android:gravity="center"
+            android:text="@string/store_buy_full_version"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="@dimen/setting_store_full_version_title_text_size"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/store_ad_dialog_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/store_ad_dialog_button_layout_height"
+        android:orientation="horizontal"
+        android:layout_below="@+id/store_ad_dialog_image_layout"
+        android:background="@drawable/shape_store_ad_dialog_button_layout">
+
+        <TextView
+            android:id="@+id/store_ad_dialog_cancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@android:color/transparent"
+            android:text="@string/cancel"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/store_ad_dialog_button_text_size"/>
+
+        <View
+            android:layout_width="@dimen/store_ad_dialog_title_divider_height"
+            android:layout_height="match_parent"
+            android:background="@color/pastel_green_sub_font_color"
+            android:layout_marginTop="@dimen/store_ad_dialog_title_padding_top_bottom"
+            android:layout_marginBottom="@dimen/store_ad_dialog_title_padding_top_bottom"/>
+
+        <TextView
+            android:id="@+id/store_ad_dialog_ok_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@android:color/transparent"
+            android:text="@string/info_store"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/store_ad_dialog_button_text_size"/>
+    </LinearLayout>
+</RelativeLayout>

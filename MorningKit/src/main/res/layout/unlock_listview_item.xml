@@ -26,7 +26,7 @@
             android:id="@+id/unlock_listview_item_imageview"
             android:layout_width="@dimen/unlock_listview_item_image_view_size"
             android:layout_height="@dimen/unlock_listview_item_image_view_size"
-            android:src="@drawable/unlock_fullversion_icon_on"
+            android:src="@drawable/unlock_fullversion_2_99_icon_on"
             android:scaleType="fitStart"
             android:layout_marginLeft="@dimen/margin_outer"
             android:layout_centerVertical="true"

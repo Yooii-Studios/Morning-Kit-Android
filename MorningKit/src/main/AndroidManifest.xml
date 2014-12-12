@@ -17,8 +17,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <uses-permission android:name="com.android.vending.BILLING" />
+    <!-- InMobi 에서 추천, 광고 전달 최적화를 위함 -->
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
 
     <supports-screens
         android:anyDensity="true"
@@ -41,6 +44,10 @@
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
+
+        <meta-data
+            android:name="com.google.android.gms.analytics.globalConfigResource"
+            android:resource="@xml/global_tracker" />
 
         <!-- Main -->
         <activity
@@ -228,5 +235,24 @@
             </intent-filter>
         </receiver>
 
+        <!-- MdotM Ad -->
+        <activity android:name="com.mdotm.android.view.MdotMActivity" android:launchMode="singleTop"/>
+
+        <!-- InMobi Ad -->
+        <activity android:name="com.inmobi.androidsdk.IMBrowserActivity"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                  android:hardwareAccelerated="true" />
+        <service android:enabled="true"
+                 android:name="com.inmobi.commons.internal.ActivityRecognitionManager" />
+        <receiver
+            android:name="com.inmobi.commons.analytics.androidsdk.IMAdTrackerReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.inmobi.share.id" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

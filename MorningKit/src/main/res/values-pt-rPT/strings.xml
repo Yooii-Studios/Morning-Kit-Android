@@ -338,4 +338,7 @@
 	<string name="unlock_recommend_highlight">Recomende</string>
 	<string name="photo_album_prompt_select_image">Escolha sua foto favorita</string>
 
+    <!-- Quit Ad -->
+    <string name="quit_ad_dialog_title_text">Do you want to quit Morning Kit?</string>
+
 </resources>

@@ -5,7 +5,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.RelativeLayout;
 
 import com.flurry.android.FlurryAgent;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
 
@@ -13,6 +16,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class MNMoreInfoActivity extends MNSettingDetailActivity {
+    private static final String TAG = "MoreInfoActivity";
+
     @InjectView(R.id.setting_info_moreinfo_container) RelativeLayout backgroundLayout;
 
     @Override
@@ -39,6 +44,8 @@ public class MNMoreInfoActivity extends MNSettingDetailActivity {
 
             // Commit the transaction
             transaction.commit();
+
+            MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
         }
     }
 
@@ -106,6 +113,7 @@ public class MNMoreInfoActivity extends MNSettingDetailActivity {
         // Activity visible to user
         super.onStart();
         FlurryAgent.onStartSession(this, MNFlurry.KEY);
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
     }
 
     @Override
@@ -113,5 +121,6 @@ public class MNMoreInfoActivity extends MNSettingDetailActivity {
         // Activity no longer visible
         super.onStop();
         FlurryAgent.onEndSession(this);
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 }

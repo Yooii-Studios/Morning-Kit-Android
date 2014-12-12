@@ -73,7 +73,7 @@ public class MNMainLayoutSetter {
         switch (orientation) {
             case Configuration.ORIENTATION_PORTRAIT: {
                 RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) admobLayout.getLayoutParams();
-                if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_NO_ADS, admobLayout.getContext())) {
+                if (SKIabProducts.containsSku(SKIabProducts.SKU_NO_ADS, admobLayout.getContext())) {
                     admobLayoutParams.height = 0;
                 } else {
                     admobLayoutParams.height = getAdmobLayoutHeightOnPortrait(admobLayout.getContext());
@@ -90,7 +90,7 @@ public class MNMainLayoutSetter {
 
     public static void adjustAdmobViewAtOrientation(MNMainActivity mainActivity, int orientation) {
         // 구매 여부에 따라 뷰의 표시 여부 결정
-        if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_NO_ADS, mainActivity.getApplicationContext())) {
+        if (SKIabProducts.containsSku(SKIabProducts.SKU_NO_ADS, mainActivity.getApplicationContext())) {
             mainActivity.getAdView().setVisibility(View.GONE);
         } else {
             mainActivity.getAdView().setVisibility(View.VISIBLE);
@@ -294,7 +294,7 @@ public class MNMainLayoutSetter {
     }
 
     public static int getAdmobLayoutHeightOnPortrait(Context context) {
-        if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_NO_ADS, context)) {
+        if (SKIabProducts.containsSku(SKIabProducts.SKU_NO_ADS, context)) {
             return 0;
         } else {
             if (MNDeviceSizeInfo.isTablet(context)) {
@@ -316,7 +316,7 @@ public class MNMainLayoutSetter {
                 }
 
             case Configuration.ORIENTATION_LANDSCAPE:
-                if (SKIabProducts.isIabProductBought(SKIabProducts.SKU_NO_ADS, context)) {
+                if (SKIabProducts.containsSku(SKIabProducts.SKU_NO_ADS, context)) {
                     if (MNDeviceSizeInfo.isTablet(context)) {
                         return context.getResources().getDimensionPixelSize(R.dimen.main_admob_layout_height)
                                 + context.getResources().getDimensionPixelSize(R.dimen.margin_inner) * 2;

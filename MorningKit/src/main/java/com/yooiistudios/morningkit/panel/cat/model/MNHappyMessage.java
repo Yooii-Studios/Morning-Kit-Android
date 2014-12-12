@@ -70,6 +70,7 @@ public class MNHappyMessage {
             "Coffee break.",
             "Tea time.",
             "I feel like a snack.",
-            "Take a nap."
+            "Take a nap.",
+            "Keep up the good work."
     };
 }

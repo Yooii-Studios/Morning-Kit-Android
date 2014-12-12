@@ -338,4 +338,7 @@
     <string name="unlock_recommend">友達にこのアプリを薦めば、この機能を無料で使うことができます。</string>
     <string name="unlock_recommend_highlight">薦め</string>
 
+    <!-- Quit Ad -->
+    <string name="quit_ad_dialog_title_text">このアプリを終了しますか。</string>
+
 </resources>

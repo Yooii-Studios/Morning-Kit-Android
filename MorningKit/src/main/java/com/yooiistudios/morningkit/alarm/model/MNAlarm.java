@@ -2,14 +2,14 @@ package com.yooiistudios.morningkit.alarm.model;
 
 import android.content.Context;
 
-import com.yooiistudios.morningkit.alarm.model.notification.MNAlarmNotificationChecker;
-import com.yooiistudios.morningkit.alarm.model.notification.MNAlarmOngoingNotificationMaker;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmToast;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.stevenkim.alarmmanager.SKAlarmManager;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSound;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -103,6 +103,9 @@ public class MNAlarm implements Serializable, Cloneable {
 
     private void startNonRepeatAlarm(Context context, boolean isToastOn) {
 //        MNAlarmWakeDialog.show(this, context);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss");
+        MNLog.addTestPrefLog(context, alarmId + "/nonRepeatAlarm/" + ": " +
+                dateFormat.format(alarmCalendar.getTime()));
         SKAlarmManager.setAlarm(alarmId, alarmId, alarmCalendar, context, MNMainActivity.class);
 
         if (isToastOn) {
@@ -125,7 +128,10 @@ public class MNAlarm implements Serializable, Cloneable {
             }
 
             if (alarmRepeatList.get(convertedDayOfWeek)) {
-                SKAlarmManager.setAlarm(alarmId, alarmId + i, repeatCalendar, context, MNMainActivity.class);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss");
+                MNLog.addTestPrefLog(context, (alarmId + i) + "/repeatAlarm[ " + i + "]: " +
+                        dateFormat.format(repeatCalendar.getTime()));
+                SKAlarmManager.setAlarm(alarmId + i, alarmId, repeatCalendar, context, MNMainActivity.class);
 
                 if (isToastOn && !isToastShown) {
                     MNAlarmToast.show(context, repeatCalendar);
@@ -137,10 +143,10 @@ public class MNAlarm implements Serializable, Cloneable {
 
     public void snoozeAlarm(Context context) {
         Calendar snoozeCalendar = Calendar.getInstance();
-        snoozeCalendar.set(Calendar.SECOND, 0);
+        snoozeCalendar.set(Calendar.SECOND, 1);
         snoozeCalendar.add(Calendar.MINUTE, 10);
 
-        SKAlarmManager.setAlarm(alarmId, alarmId + 7, snoozeCalendar, context, MNMainActivity.class);
+        SKAlarmManager.setAlarm(alarmId + 7, alarmId, snoozeCalendar, context, MNMainActivity.class);
 
         MNAlarmToast.show(context, snoozeCalendar);
     }
@@ -158,10 +164,40 @@ public class MNAlarm implements Serializable, Cloneable {
     
     @Override
     public String toString() {
-        return String.format("alarmId: %d / alarmLabel: %s / on: %s, repeat: %s / ",
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss");
+        return String.format("-alarmId: %d\n" +
+                        "-alarmCalendar: %s\n" +
+                        "-alarmLabel: %s\n" +
+                        "-on: %s\n" +
+                        "-repeat: %s\n" +
+                        "-snooze: %s",
                 alarmId,
+                dateFormat.format(alarmCalendar.getTime()),
                 alarmLabel,
                 isAlarmOn ? "Yes" : "No",
-                isRepeatOn ? "Yes" : "No");
+                isRepeatOn ? "Yes: " + getRepeatString(0) + "/" + getRepeatString(1) + "/"
+                                    + getRepeatString(2) + "/" + getRepeatString(3) + "/"
+                                    + getRepeatString(4) + "/" + getRepeatString(5) + "/"
+                                    + getRepeatString(6)
+                           : "No",
+                isSnoozeOn ? "Yes" : "No");
+    }
+
+    public String toSimpleString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss");
+        return String.format("-alarmId: %d\n" +
+                        "-alarmCalendar: %s\n" +
+                        "-repeat: %s",
+                alarmId,
+                dateFormat.format(alarmCalendar.getTime()),
+                isRepeatOn ? "Yes: " + getRepeatString(0) + "/" + getRepeatString(1) + "/"
+                        + getRepeatString(2) + "/" + getRepeatString(3) + "/"
+                        + getRepeatString(4) + "/" + getRepeatString(5) + "/"
+                        + getRepeatString(6)
+                        : "No");
+    }
+
+    private String getRepeatString(int i) {
+        return alarmRepeatList.get(i) ? "t" : "f";
     }
 }

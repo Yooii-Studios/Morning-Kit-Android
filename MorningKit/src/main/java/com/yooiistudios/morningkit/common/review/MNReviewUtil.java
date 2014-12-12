@@ -17,116 +17,70 @@ import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
  *  앱 실행 수를 체크해 리뷰를 요청
  */
 public class MNReviewUtil {
+    private static final String PREFS_KEY_REVIEW = "Review";
+    private static final String KEY_LAUNCH_COUNT = "Launch Count";
+    private static final String KEY_REVIEWED = "KEY_REVIEWED";
 
-    private static final String SPNAME_REVIEW = "Review";
-    private static final String KEY_LAUNCHCOUNT = "Launch Count";
-    private static final String KEY_ASKAGAIN = "Ask Again";
-
-    private static final int VALUE_DEFAULT_LAUNCHCOUNT = 0;
-
-    private static final int ASK_LIMIT_FIRST = 10;
-    private static final int ASK_LIMIT_AGAIN = 40;
-    private enum STATE {
-        NECESSARY,
-        ASK_AGAIN,
-        NEVER_ASK
-    }
-    public static void checkRate(final Activity activity) {
+    public static void showReviewDialogIfConditionMet(final Activity activity) {
         if (activity.getSharedPreferences(MNUnlockActivity.SHARED_PREFS,
-                Context.MODE_PRIVATE).getBoolean(
-                MNUnlockActivity.REVIEW_USED, false)) {
+                Context.MODE_PRIVATE).getBoolean(MNUnlockActivity.REVIEW_USED, false)) {
             return;
         }
-
-        SharedPreferences sharedPreferences = activity.getSharedPreferences
-                (SPNAME_REVIEW, Context.MODE_PRIVATE);
+        final SharedPreferences prefs = activity.getSharedPreferences(PREFS_KEY_REVIEW, Context.MODE_PRIVATE);
+        int launchCount = prefs.getInt(KEY_LAUNCH_COUNT, 1);
 
         //check launch count.
-        int launchCount = sharedPreferences.getInt(KEY_LAUNCHCOUNT,
-                VALUE_DEFAULT_LAUNCHCOUNT);
-        int stateOrdinal = sharedPreferences.getInt(KEY_ASKAGAIN,
-                STATE.NECESSARY.ordinal());
-        final STATE state = STATE.values()[stateOrdinal];
-        int askLimit;
-        if (state.equals(STATE.NECESSARY)) {
-            askLimit = ASK_LIMIT_FIRST;
+        if (shouldShowDialog(prefs, launchCount)) {
+            showDialog(activity, prefs.edit());
         }
-        else if (state.equals(STATE.ASK_AGAIN)) {
-            askLimit = ASK_LIMIT_AGAIN;
+        if (launchCount <= 40) {
+            prefs.edit().putInt(KEY_LAUNCH_COUNT, ++launchCount).apply();
         }
-        else {
-            return;
-        }
-        if (launchCount < askLimit) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt(KEY_LAUNCHCOUNT, ++launchCount);
-            editor.apply();
+    }
 
-            if (launchCount >= askLimit) {
-                AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    builder = new AlertDialog.Builder(activity,
-                            AlertDialog.THEME_HOLO_DARK);
-                } else {
-                    builder = new AlertDialog.Builder(activity);
-                }
-                builder.setTitle(activity.getString(R.string.rate_morning_kit));
-                String appName = activity.getString(R.string.recommend_app_full_name);
-                String message = activity.getString(R.string.rate_it_contents, appName);
-                builder.setMessage(message);
-                builder.setPositiveButton(R.string.rate_it_rate, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MNReviewApp.showReviewActivity(activity);
-
-                        SharedPreferences sharedPreferences = activity.getSharedPreferences(SPNAME_REVIEW, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putInt(KEY_ASKAGAIN, STATE.NEVER_ASK.ordinal());
-                        editor.apply();
-
-                        dialog.dismiss();
-                    }
-                });
-//                builder.setNeutralButton(R.string.dialog_rateprompt_neutral, new DialogInterface.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        SharedPreferences sharedPreferences = activity
-//                                .getSharedPreferences(SPNAME_REVIEW,
-//                                        Context.MODE_PRIVATE);
-//                        SharedPreferences.Editor editor = sharedPreferences.edit();
-//                        editor.putInt(KEY_LAUNCHCOUNT,
-//                                VALUE_DEFAULT_LAUNCHCOUNT);
-//                        editor.putInt(KEY_ASKAGAIN, STATE.ASK_AGAIN.ordinal());
-//                        editor.commit();
-//
-//                        dialog.dismiss();
-//                    }
-//                });
-                builder.setNegativeButton(R.string.rate_it_no_thanks, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences sharedPreferences = activity.getSharedPreferences(SPNAME_REVIEW, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        if (state.equals(STATE.NECESSARY)) {
-                            //ask again later
-                            editor.putInt(KEY_LAUNCHCOUNT,
-                                    VALUE_DEFAULT_LAUNCHCOUNT);
-                            editor.putInt(KEY_ASKAGAIN, STATE.ASK_AGAIN.ordinal());
-                        }
-                        else if (state.equals(STATE.ASK_AGAIN)) {
-                            //never ask after
-                            editor.putInt(KEY_ASKAGAIN, STATE.NEVER_ASK.ordinal());
-                        }
-                        editor.apply();
-
-                        dialog.dismiss();
-                    }
-                });
-                builder.show();
+    /*
+    // Test
+    public static void showTestReviewDialogIfNecessary(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_KEY_REVIEW, Context.MODE_PRIVATE);
+        for (int i = 1; i < 70; i++) {
+            if (i == 30) {
+                prefs.edit().putBoolean(KEY_REVIEWED, true).apply();
+            }
+            if (shouldShowDialog(prefs, i)) {
+                MNLog.now("review count: " + i);
             }
         }
+    }
+    */
+
+    private static boolean shouldShowDialog(SharedPreferences prefs, int launchCount) {
+        return !prefs.getBoolean(KEY_REVIEWED, false) && (launchCount == 10 || launchCount == 40);
+    }
+
+    private static void showDialog(final Activity activity, final SharedPreferences.Editor editor) {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            builder = new AlertDialog.Builder(activity, AlertDialog.THEME_HOLO_LIGHT);
+        } else {
+            builder = new AlertDialog.Builder(activity);
+        }
+        builder.setTitle(activity.getString(R.string.rate_morning_kit));
+        String appName = activity.getString(R.string.recommend_app_full_name);
+        String message = activity.getString(R.string.rate_it_contents, appName);
+        builder.setMessage(message);
+        builder.setPositiveButton(R.string.rate_it_rate, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                editor.putBoolean(KEY_REVIEWED, true).apply();
+                MNReviewApp.showReviewActivity(activity);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(R.string.rate_it_no_thanks, null);
+        AlertDialog reviewDialog = builder.create();
+        reviewDialog.setCancelable(false);
+        reviewDialog.setCanceledOnTouchOutside(false);
+        reviewDialog.show();
     }
 }

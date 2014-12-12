@@ -338,4 +338,7 @@
     <string name="unlock_recommend">Recommend Morning Kit to your friends and unlock it for free!</string>
     <string name="unlock_recommend_highlight">Recommend</string>
 
+    <!-- Quit Ad -->
+    <string name="quit_ad_dialog_title_text">Do you want to quit Morning Kit?</string>
+
 </resources>

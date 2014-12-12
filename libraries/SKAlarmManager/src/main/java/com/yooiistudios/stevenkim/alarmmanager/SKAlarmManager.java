@@ -15,7 +15,7 @@ import java.util.Calendar;
  *  Handling logic for AlarmManager
  */
 public class SKAlarmManager {
-
+    public static final String PREFS_ALARM_BUFFER = "PREFS_ALARM_BUFFER";
     public static final String ALARM_ID = "ALARM_ID";
     public static final String ALARM_UNIQUE_ID = "ALARM_UNIQUE_ID";
     private AlarmManager alarmManager;
@@ -56,11 +56,12 @@ public class SKAlarmManager {
         Intent intent = new Intent(context, activity);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         intent.putExtra(ALARM_UNIQUE_ID, alarmUniqueId);
         intent.putExtra(ALARM_ID, alarmId);
 
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getActivity(context, alarmUniqueId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Over KitKat, you must use 'setExact' to invoke alarm on exact time
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -73,18 +74,19 @@ public class SKAlarmManager {
     /**
      * Cancel an alarm from AlarmManager
      *
-     * @param alarmId  unique Id to distinguish between alarms
+     * @param alarmUniqueId  unique Id to distinguish between alarms
      * @param context used to get AlarmManager
      * @param activity Class to insert into Intent and used as Context
      */
-    public static void cancelAlarm(int alarmId, Context context, Class activity) {
+    public static void cancelAlarm(int alarmUniqueId, Context context, Class activity) {
         Intent intent = new Intent(context, activity);
 
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getActivity(context, alarmUniqueId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = SKAlarmManager.getAlarmManager(context);
         alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
     }
 
     /**

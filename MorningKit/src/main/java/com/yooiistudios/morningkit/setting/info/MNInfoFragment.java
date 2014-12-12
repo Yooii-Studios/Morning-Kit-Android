@@ -68,9 +68,9 @@ public class MNInfoFragment extends Fragment implements MNInfoItemClickListener 
     }
 
     private void initAdView() {
-        List<String> owndedSkus = SKIabProducts.loadOwnedIabProducts(getActivity().getApplicationContext());
+        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity().getApplicationContext());
         // 풀버전은 NO_ADS 포함
-        if (owndedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
+        if (ownedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
             adView.setVisibility(View.GONE);
             if (footerView != null) {
                 listView.removeFooterView(footerView);

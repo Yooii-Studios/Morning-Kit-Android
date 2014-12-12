@@ -2,7 +2,6 @@ package com.yooiistudios.morningkit.alarm.pref;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -14,12 +13,15 @@ import android.widget.ListView;
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.squareup.otto.Subscribe;
+import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPreferenceListAdapter;
+import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
@@ -49,7 +51,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     public static final String ALARM_SHARED_PREFS_ALARM_SNOOZE_ON = "ALARM_SHARED_PREFS_ALARM_SNOOZE_ON";
     public static final String ALARM_SHARED_PREFS_ALARM_VIBRATE_ON = "ALARM_SHARED_PREFS_ALARM_VIBRATE_ON";
     public static final String ALARM_SHARED_PREFS_ALARM_VOLUME = "ALARM_SHARED_PREFS_ALARM_VOLUME";
-    private static final String TAG = "MNAlarmPreferenceActivity";
+    private static final String TAG = "AlarmPreferenceActivity";
 
     @Getter private int alarmId;
     @Getter @Setter private MNAlarm alarm;
@@ -88,7 +90,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
                 // 알람 추가일 경우에는 최근 스누즈 사용 여부를 적용, 볼륨, 진동 사용 여부도.
                 SharedPreferences prefs = getSharedPreferences(ALARM_SHARED_PREFS, MODE_PRIVATE);
                 alarm.setSnoozeOn(prefs.getBoolean(ALARM_SHARED_PREFS_ALARM_SNOOZE_ON, true));
-                alarm.setAlarmVolume(prefs.getInt(ALARM_SHARED_PREFS_ALARM_VOLUME, 70));
+                alarm.setAlarmVolume(prefs.getInt(ALARM_SHARED_PREFS_ALARM_VOLUME, 85));
                 alarm.setVibrateOn(prefs.getBoolean(ALARM_SHARED_PREFS_ALARM_VIBRATE_ON, true));
             }
             if ((alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.MUSIC ||
@@ -102,6 +104,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         initTitle();
         initListView();
         initAdView();
+        MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
     }
 
     // getSupportActionBar로 충분하나 테스트를 위해서 이렇게 작성
@@ -221,6 +224,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         // Activity visible to user
         super.onStart();
         FlurryAgent.onStartSession(this, MNFlurry.KEY);
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
     }
 
     @Override
@@ -228,5 +232,6 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         // Activity no longer visible
         super.onStop();
         FlurryAgent.onEndSession(this);
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 }

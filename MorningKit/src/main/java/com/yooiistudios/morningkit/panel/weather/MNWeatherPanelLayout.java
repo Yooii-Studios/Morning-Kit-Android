@@ -518,7 +518,6 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
      */
     @Override
     public void onConnected(Bundle bundle) {
-        MNLog.now("onConnected");
         // lastLocation can't have a recent location, so must call
         // requestLocationUpdates()
         if (servicesConnected()) {
@@ -530,13 +529,9 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 
 //            lastLocation 이 있으면 그것을 써서 빨리 업데이트를 하고, 최신 위치를 바로 받아오자.
             if (lastLocation != null) {
-                MNLog.now("lastLocation != null");
                 startWWOTask(lastLocation);
-            } else {
-                MNLog.now("lastLocation == null");
             }
             locationClient.requestLocationUpdates(mLocationRequest, this);
-
         }
     }
 
