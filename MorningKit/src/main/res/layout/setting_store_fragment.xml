@@ -48,7 +48,7 @@
             android:ellipsize="marquee"
             android:text="@string/loading"
             android:textColor="@color/setting_store_full_version_button_text_color"
-            android:textSize="@dimen/setting_store_full_version_button_textsize"
+            android:textSize="@dimen/setting_store_full_version_button_text_size"
             android:textStyle="bold"/>
 
         <TextView
@@ -61,7 +61,7 @@
             android:textColor="@color/setting_store_full_version_text_color"
             android:singleLine="true"
             android:textStyle="bold"
-            android:textSize="@dimen/setting_store_full_version_title_textsize"
+            android:textSize="@dimen/setting_store_full_version_title_text_size"
             android:gravity="center"
             android:id="@+id/setting_store_full_version_title"/>
 
@@ -75,7 +75,7 @@
             android:textColor="@color/setting_store_full_version_text_color"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:textSize="@dimen/setting_store_full_version_description_textsize"
+            android:textSize="@dimen/setting_store_full_version_description_text_size"
             android:textStyle="bold"
             android:gravity="center"
             android:id="@+id/setting_store_full_version_description"/>
@@ -102,7 +102,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/store_tab_functions"
                 android:textColor="@color/setting_store_tab_unselected_text_color"
-                android:textSize="@dimen/setting_store_tab_textsize"
+                android:textSize="@dimen/setting_store_tab_text_size"
                 android:textStyle="bold"
                 android:gravity="center"/>
 
@@ -134,7 +134,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/store_tab_widgets"
                 android:textColor="@color/setting_store_tab_selected_text_color"
-                android:textSize="@dimen/setting_store_tab_textsize"
+                android:textSize="@dimen/setting_store_tab_text_size"
                 android:textStyle="bold"
                 android:gravity="center"/>
 
@@ -157,7 +157,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/store_tab_themes"
                 android:textColor="@color/setting_store_tab_unselected_text_color"
-                android:textSize="@dimen/setting_store_tab_textsize"
+                android:textSize="@dimen/setting_store_tab_text_size"
                 android:textStyle="bold"
                 android:gravity="center"/>
 

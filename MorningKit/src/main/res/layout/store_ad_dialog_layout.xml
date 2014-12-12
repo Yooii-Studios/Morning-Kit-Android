@@ -14,7 +14,7 @@
         android:paddingBottom="@dimen/store_ad_dialog_title_padding_top_bottom"
         android:paddingLeft="@dimen/store_ad_dialog_title_padding_left_right"
         android:paddingRight="@dimen/store_ad_dialog_title_padding_left_right"
-        android:background="@drawable/shape_in_house_title_layout"
+        android:background="@drawable/shape_store_ad_dialog_title_layout"
         android:text="@string/recommend_app_full_name"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -71,7 +71,7 @@
         android:layout_height="@dimen/store_ad_dialog_button_layout_height"
         android:orientation="horizontal"
         android:layout_below="@+id/store_ad_dialog_image_layout"
-        android:background="@drawable/shape_in_house_button_layout">
+        android:background="@drawable/shape_store_ad_dialog_button_layout">
 
         <TextView
             android:id="@+id/store_ad_dialog_cancel_button"
