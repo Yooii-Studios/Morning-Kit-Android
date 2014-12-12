@@ -1,11 +1,21 @@
 package com.yooiistudios.morningkit.common.ad;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.View;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 
 import java.util.List;
@@ -17,8 +27,8 @@ import java.util.List;
  *  광고를 주기적으로 체크해서 10회 실행 이후부터 5번에 한번씩 전면광고를 실행
  *  50회 이상 실행이면 4번에 한번씩 전면광고를 실행
  */
-public class MNAdUtils {
-    private MNAdUtils() { throw new AssertionError("You MUST not create this class!"); }
+public class AdUtils {
+    private AdUtils() { throw new AssertionError("You MUST not create this class!"); }
     private static final String KEY = "MNAdUtils";
     private static final String LAUNCH_COUNT = "LAUNCH_COUNT";
     private static final String EACH_LAUNCH_COUNT = "EACH_LAUNCH_COUNT";
@@ -96,7 +106,57 @@ public class MNAdUtils {
         interstitialAdView.loadAd(fullAdRequest);
     }
 
-    private static void showInHouseStoreAd(Context context) {
-        showInterstitialAd(context);
+    private static void showInHouseStoreAd(final Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.store_ad_dialog_layout);
+
+        Window window = dialog.getWindow();
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        // 다이얼로그 중앙 정렬용 코드였지만 위의 FEATURE_NO_TITLE 설정으로 인해 필요 없게 됨
+//        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+//        window.setGravity(Gravity.CENTER);
+
+        TextView titleTextView = (TextView) dialog.findViewById(R.id.store_ad_dialog_title_text_view);
+        titleTextView.setText(context.getString(R.string.recommend_app_full_name) +
+                " PRO");
+        titleTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                context.startActivity(new Intent(context, MNStoreActivity.class));
+            }
+        });
+
+        ImageView storeImageView = (ImageView) dialog.findViewById(R.id.store_ad_dialog_image_view);
+        storeImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                context.startActivity(new Intent(context, MNStoreActivity.class));
+            }
+        });
+
+        TextView storeButtonView = (TextView) dialog.findViewById(R.id.store_ad_dialog_ok_button);
+        storeButtonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                context.startActivity(new Intent(context, MNStoreActivity.class));
+            }
+        });
+
+        TextView cancelButtonView = (TextView) dialog.findViewById(R.id.store_ad_dialog_cancel_button);
+        cancelButtonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        // 기타 필요한 설정
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        dialog.show();
     }
 }

@@ -30,7 +30,7 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
 import com.yooiistudios.morningkit.common.ad.AdDialogFactory;
-import com.yooiistudios.morningkit.common.ad.MNAdUtils;
+import com.yooiistudios.morningkit.common.ad.AdUtils;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
@@ -131,7 +131,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             } else {
                 // 알람이 울리지 않는다면 리뷰와 전면광고 카운트 체크
                 MNReviewUtil.showReviewDialogIfConditionMet(this);
-                MNAdUtils.showPopupAdIfSatisfied(this);
+                AdUtils.showPopupAdIfSatisfied(this);
             }
         }
 

@@ -342,4 +342,17 @@
     <dimen name="tutorial_skip_tutorial_text_size">27.2sp</dimen>   <!-- 두배x 1.7배 -->
     <dimen name="tutorial_tap_screen_text_size">32.3sp</dimen>      <!-- 두배x 1.7배 -->
 
+    <!-- Store Ad Dialog * 1.7 -->
+    <dimen name="store_ad_dialog_layout_width">508.3dp</dimen>
+    <dimen name="store_ad_dialog_title_padding_top_bottom">18.7dp</dimen>
+    <dimen name="store_ad_dialog_title_padding_left_right">25.5dp</dimen>
+    <dimen name="store_ad_dialog_title_divider_height">0.85dp</dimen>
+    <dimen name="store_ad_dialog_title_divider_margin_left_right">13.6dp</dimen>
+    <dimen name="store_ad_dialog_image_layout_padding">5.1dp</dimen>
+    <dimen name="store_ad_dialog_image_width">503.2dp</dimen>
+    <dimen name="store_ad_dialog_image_text_margin_top">1.7dp</dimen>
+    <dimen name="store_ad_dialog_image_text_height">105.4dp</dimen>
+    <dimen name="store_ad_dialog_button_layout_height">76.5dp</dimen>
+    <dimen name="store_ad_dialog_button_text_size">25.5sp</dimen>
+
 </resources>
