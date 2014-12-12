@@ -16,8 +16,8 @@ import com.yooiistudios.morningkit.R;
  * AdDialogFactory
  *  종료시 애드뷰를 띄워주는 팩토리 클래스
  */
-public class AdDialogFactory {
-    private AdDialogFactory() { throw new AssertionError("Must not create this class!"); }
+public class QuitAdDialogFactory {
+    private QuitAdDialogFactory() { throw new AssertionError("Must not create this class!"); }
 
     public static final String AD_UNIT_ID = "ca-app-pub-2310680050309555/3689313020";
 
@@ -27,12 +27,12 @@ public class AdDialogFactory {
         // prevent child reference
         AdView adView = new AdView(context);
         adView.setAdSize(AdSize.MEDIUM_RECTANGLE);
-        adView.setAdUnitId(AdDialogFactory.AD_UNIT_ID);
+        adView.setAdUnitId(QuitAdDialogFactory.AD_UNIT_ID);
         adView.loadAd(adRequest);
         return adView;
     }
 
-    public static AlertDialog makeAdDialog(final Activity activity, final AdView adView) {
+    public static AlertDialog makeDialog(final Activity activity, final AdView adView) {
         Context context = activity.getApplicationContext();
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -40,7 +40,7 @@ public class AdDialogFactory {
         } else {
             builder = new AlertDialog.Builder(activity);
         }
-        builder.setTitle(R.string.quit_ad_dialog_itle_text);
+        builder.setTitle(R.string.quit_ad_dialog_title_text);
         builder.setPositiveButton(context.getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -48,12 +48,7 @@ public class AdDialogFactory {
                 activity.finish();
             }
         });
-        builder.setNegativeButton(context.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
+        builder.setNegativeButton(context.getString(R.string.cancel), null);
 
         AlertDialog wakeDialog = builder.create();
         wakeDialog.setView(adView); // Android L 에서 윗 공간이 좀 이상하긴 하지만 기본으로 가야할듯

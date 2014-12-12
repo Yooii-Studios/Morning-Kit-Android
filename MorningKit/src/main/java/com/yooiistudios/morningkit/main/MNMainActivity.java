@@ -29,8 +29,8 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
-import com.yooiistudios.morningkit.common.ad.AdDialogFactory;
 import com.yooiistudios.morningkit.common.ad.AdUtils;
+import com.yooiistudios.morningkit.common.ad.QuitAdDialogFactory;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
@@ -200,7 +200,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         // 애드몹 - Quit Dialog
         mQuitAdRequest = new AdRequest.Builder().build();
-        mQuitAdView = AdDialogFactory.initAdView(this, mQuitAdRequest);
+        mQuitAdView = QuitAdDialogFactory.initAdView(this, mQuitAdRequest);
 
         // 알람 체크
         /*
@@ -744,12 +744,12 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     public void onBackPressed() {
         if (!SKIabProducts.containsSku(SKIabProducts.SKU_NO_ADS, this) &&
                 InternetConnectionManager.isNetworkAvailable(this)) {
-            AlertDialog adDialog = AdDialogFactory.makeAdDialog(MNMainActivity.this, mQuitAdView);
+            AlertDialog adDialog = QuitAdDialogFactory.makeDialog(MNMainActivity.this, mQuitAdView);
             if (adDialog != null) {
                 adDialog.show();
                 // make AdView again for next quit dialog
                 // prevent child reference
-                mQuitAdView = AdDialogFactory.initAdView(this, mQuitAdRequest);
+                mQuitAdView = QuitAdDialogFactory.initAdView(this, mQuitAdRequest);
             } else {
                 // just finish activity when dialog is null
                 super.onBackPressed();
