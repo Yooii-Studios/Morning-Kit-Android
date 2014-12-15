@@ -5,6 +5,9 @@ import android.content.res.Configuration;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.yooiistudios.morningkit.MNApplication;
+import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
+
+import java.util.List;
 
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 14. 12. 2.
@@ -42,6 +45,21 @@ public class MNAnalyticsUtils {
                 .setCategory(TAG)
                 .setAction("Orientation")
                 .setLabel(orientation == Configuration.ORIENTATION_PORTRAIT ? "Portrait" : "Landscape")
+                .build());
+    }
+
+    // 풀버전 광고가 불려질 때 풀버전인지 아닌지 체크
+    public static void trackInterstitialAd(MNApplication application, String TAG) {
+        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(application.getApplicationContext());
+
+        // Get tracker.
+        Tracker t = application.getTracker(MNApplication.TrackerName.APP_TRACKER);
+
+        // Build and send an Event.
+        t.send(new HitBuilders.EventBuilder()
+                .setCategory(TAG)
+                .setAction("Showing Ad when have PRO version")
+                .setLabel(ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION) ? "YES" : "NO")
                 .build());
     }
 }
