@@ -110,9 +110,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
-    // 시작시 구매목록을 불러오는 로직 추가
-    private SKIabManager iabManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,15 +137,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 AdUtils.showPopupAdIfSatisfied(this);
             }
         }
-
-        // 구매목록을 항상 새로 확인
-        if (MNStoreFragment.IS_STORE_FOR_NAVER) {
-
-        } else {
-            iabManager = new SKIabManager(this, null);
-            iabManager.loadWithAllItems();
-        }
-
+        initIab();
 
         setContentView(R.layout.activity_main);
 
@@ -169,6 +158,18 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         sendFlurryAnalytics();
         MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
         InMobi.initialize(this, "2fda5c20a0054c43a454c8027bf2eb83");
+    }
+
+    private void initIab() {
+        // 구매목록을 항상 새로 확인 - 구글일 경우에만
+        if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+
+        } else {
+            try {
+                SKIabManager iabManager = new SKIabManager(this, null);
+                iabManager.loadWithAllItems();
+            } catch (Exception ignored) { }
+        }
     }
 
     void initMainActivity() {
