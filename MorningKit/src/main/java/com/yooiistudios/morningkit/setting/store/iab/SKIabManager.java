@@ -1,6 +1,6 @@
 package com.yooiistudios.morningkit.setting.store.iab;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 
 import com.yooiistudios.morningkit.common.encryption.MNMd5Utils;
 import com.yooiistudios.morningkit.common.log.MNLog;
@@ -23,7 +23,7 @@ public class SKIabManager {
     private static final String TAG = "SKIabManager";
     private SKIabManagerListener iapManagerListener;
     @Getter private IabHelper helper;
-    private ActionBarActivity activity;
+    private Activity activity;
     private String base64EncodedPublicKey;
 
     public static final String piece1 = "MIIBIjANBgkqhkiG9w0BAQEFAAMT4wCvf12zdFOCAQ8AMIIBCgKCAQEAh2yCTQXMk/33q3PzCmCwlpmZ+";
@@ -32,7 +32,7 @@ public class SKIabManager {
     public static final String piece4 = "8AHNZyb7e044k1jFZUgcITqs8d3lgoiZjMXo0HgHnEn9PeoTn1aMQYq3dFjgvDiwyq/cSgXfVel4nQAWV/swIDAQAB";
 
     private SKIabManager() {}
-    public SKIabManager(ActionBarActivity activity, SKIabManagerListener iapManagerListener) {
+    public SKIabManager(Activity activity, SKIabManagerListener iapManagerListener) {
         this.activity = activity;
         this.iapManagerListener = iapManagerListener;
         this.base64EncodedPublicKey = piece1.replaceAll("MT4wCvf12zdF", "") + piece2.replaceAll("Kztdffmfj1z8d", "") + piece3.replaceAll("A19fjaLezwo3", "") + piece4.replaceAll("44k1jFZ", "");
@@ -56,7 +56,9 @@ public class SKIabManager {
                 if (!result.isSuccess()) {
                     // Oh noes, there was a problem.
                     MNLog.e(TAG, "Problem setting up In-app Billing: " + result);
-                    iapManagerListener.onIabSetupFailed(result);
+                    if (iapManagerListener != null) {
+                        iapManagerListener.onIabSetupFailed(result);
+                    }
                     return;
                 }
 
@@ -64,7 +66,9 @@ public class SKIabManager {
                 if (helper == null) return;
 
                 // IAB is fully set up. Now, let's get an inventory of stuff we own.
-                iapManagerListener.onIabSetupFinished(result);
+                if (iapManagerListener != null) {
+                    iapManagerListener.onIabSetupFinished(result);
+                }
 
                 if (isOwnItemsOnly) {
                     queryOwnItemsInformation();
@@ -85,10 +89,14 @@ public class SKIabManager {
 
                 // Is it a failure?
                 if (result.isFailure()) {
-                    iapManagerListener.onQueryFailed(result);
+                    if (iapManagerListener != null) {
+                        iapManagerListener.onQueryFailed(result);
+                    }
                 } else {
                     SKIabProducts.saveIabProducts(inv, activity); // 구매한 상품은 저장
-                    iapManagerListener.onQueryFinished(inv);
+                    if (iapManagerListener != null) {
+                        iapManagerListener.onQueryFinished(inv);
+                    }
                 }
             }
         });
@@ -103,9 +111,13 @@ public class SKIabManager {
 
                 // Is it a failure?
                 if (result.isFailure()) {
-                    iapManagerListener.onQueryFailed(result);
+                    if (iapManagerListener != null) {
+                        iapManagerListener.onQueryFailed(result);
+                    }
                 } else {
-                    iapManagerListener.onQueryFinished(inv);
+                    if (iapManagerListener != null) {
+                        iapManagerListener.onQueryFinished(inv);
+                    }
                 }
             }
         });

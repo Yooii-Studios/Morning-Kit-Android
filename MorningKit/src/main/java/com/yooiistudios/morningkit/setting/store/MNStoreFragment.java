@@ -492,8 +492,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(MNFlurry.PURCHASE_ANALYSIS, MNFlurry.ORDER_ID_LENGTH_NOT_37);
                 FlurryAgent.logEvent(MNFlurry.STORE, params);
-            } else if (info != null && !info.getDeveloperPayload().equals(MNMd5Utils.getMd5String(info.getSku())) &&
-                    info.getOrderId().length() == 37) {
+            } else if (info != null && !info.getDeveloperPayload().equals(MNMd5Utils.getMd5String(info.getSku()))) {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(MNFlurry.PURCHASE_ANALYSIS, MNFlurry.MD5_ERROR);
                 FlurryAgent.logEvent(MNFlurry.STORE, params);

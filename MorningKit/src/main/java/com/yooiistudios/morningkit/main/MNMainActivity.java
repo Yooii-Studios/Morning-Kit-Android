@@ -19,6 +19,7 @@ import android.widget.ScrollView;
 
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.inmobi.commons.InMobi;
@@ -51,6 +52,7 @@ import com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
+import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
@@ -82,7 +84,7 @@ import lombok.Getter;
  *  앱에서 가장 중요한 메인 액티비티
  */
 public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutorialFinishListener {
-    private static final String TAG = "MainActivity";
+    public static final String TAG = "MainActivity";
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
@@ -102,10 +104,14 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     @Getter @InjectView(R.id.main_dog_ear_image_view)       ImageView dogEarImageView;
 
     // Quit Ad Dialog
-    private AdRequest mQuitAdRequest;
-    private AdView mQuitAdView;
+    private AdRequest quitAdRequest;
+    private AdView quitMediumAdView;
+    private AdView quitLargeBannerAdView;
 
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
+
+    // 시작시 구매목록을 불러오는 로직 추가
+    private SKIabManager iabManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,26 +141,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             }
         }
 
-        /*
-        // 알람이 있을 경우는 화면을 켜주게 구현
-        if (MNAlarmWake.isAlarmReserved(getIntent())) {
-            MNLog.addTestPrefLog(this, "MNAlarmWake isAlarmReserved: true");
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                    WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
-                    WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
-                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
-        } else {
-            MNLog.addTestPrefLog(this, "MNAlarmWake isAlarmReserved: false");
-            // 알람 없이 정상 실행시 항상 알람이 제대로 동작함을 보장하기 위해서 켜진 알람들은 다시 켜주기
-            ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(getApplicationContext());
-            for (MNAlarm alarm : alarmList) {
-                if (alarm.isAlarmOn()) {
-                    alarm.stopAlarm(this); // 혹시나 이 부분 때문에 알람이 갑자기 울리지 않을까 해서 끄고 다시 켜기
-                    alarm.startAlarmWithNoToast(getApplicationContext());
-                }
-            }
-        }
-        */
+        // 구매목록을 항상 새로 확인
+        iabManager = new SKIabManager(this, null);
+        iabManager.loadWithAllItems();
 
         setContentView(R.layout.activity_main);
 
@@ -175,10 +164,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         sendFlurryAnalytics();
         MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
         InMobi.initialize(this, "2fda5c20a0054c43a454c8027bf2eb83");
-
-        // 알람 없이 켜질 경우
-//        if (!MNAlarmWake.isAlarmReservedInIntent(getIntent())) {
-//        }
     }
 
     void initMainActivity() {
@@ -199,46 +184,12 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         adView.loadAd(adRequest);
 
         // 애드몹 - Quit Dialog
-        mQuitAdRequest = new AdRequest.Builder().build();
-        mQuitAdView = QuitAdDialogFactory.initAdView(this, mQuitAdRequest);
-
-        // 알람 체크
-        /*
-        try {
-            MNAlarmWake.checkReservedAlarm(getIntent(), this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
+        quitAdRequest = new AdRequest.Builder().build();
+        quitMediumAdView = QuitAdDialogFactory.initAdView(this, AdSize.MEDIUM_RECTANGLE,
+                quitAdRequest);
+        quitLargeBannerAdView = QuitAdDialogFactory.initAdView(this, AdSize.LARGE_BANNER,
+                quitAdRequest);
     }
-
-    /*
-    private boolean shouldRelaunchActivityBecauseOfAlarm() {
-        if (MNAlarmWake.isAlarmReservedByIntent(this, getIntent())) {
-
-        }
-        SharedPreferences prefs = getSharedPreferences(SKAlarmManager.PREFS_ALARM_BUFFER, MODE_PRIVATE);
-        if (MNAlarmWake.isAlarmReservedInIntent(getIntent())) {
-            prefs.edit().putInt(SKAlarmManager.ALARM_ID,
-                    getIntent().getIntExtra(SKAlarmManager.ALARM_ID, -1)).apply();
-            relaunchActivity();
-            return true;
-        } else {
-            int alarmId = prefs.getInt(SKAlarmManager.ALARM_ID, -1);
-            if (alarmId != -1) {
-                turnOnScreen();
-                try {
-                    MNAlarmWake.invokeAlarm(alarmId, this);
-//                    MNAlarmWake.showAlarmIfReserved(alarmId, this);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                prefs.edit().remove(SKAlarmManager.ALARM_ID).apply();
-            }
-            return false;
-        }
-    }
-    */
 
     private void turnOnScreen() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
@@ -744,12 +695,15 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     public void onBackPressed() {
         if (!SKIabProducts.containsSku(SKIabProducts.SKU_NO_ADS, this) &&
                 InternetConnectionManager.isNetworkAvailable(this)) {
-            AlertDialog adDialog = QuitAdDialogFactory.makeDialog(MNMainActivity.this, mQuitAdView);
+            AlertDialog adDialog = QuitAdDialogFactory.makeDialog(MNMainActivity.this,
+                    quitMediumAdView, quitLargeBannerAdView);
             if (adDialog != null) {
                 adDialog.show();
                 // make AdView again for next quit dialog
                 // prevent child reference
-                mQuitAdView = QuitAdDialogFactory.initAdView(this, mQuitAdRequest);
+                // 가로 모드는 7.5% 가량 사용하고 있기에 속도를 위해서 광고를 계속 불러오지 않음
+                quitMediumAdView = QuitAdDialogFactory.initAdView(this, AdSize.MEDIUM_RECTANGLE,
+                        quitAdRequest);
             } else {
                 // just finish activity when dialog is null
                 super.onBackPressed();
