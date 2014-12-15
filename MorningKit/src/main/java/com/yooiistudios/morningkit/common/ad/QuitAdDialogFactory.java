@@ -55,7 +55,7 @@ public class QuitAdDialogFactory {
         });
         builder.setNegativeButton(context.getString(R.string.cancel), null);
 
-        AlertDialog wakeDialog = builder.create();
+        final AlertDialog wakeDialog = builder.create();
 //        wakeDialog.setView(adView); // Android L 에서 윗 공간이 좀 이상하긴 하지만 기본으로 가야할듯
 
         /**
@@ -69,16 +69,9 @@ public class QuitAdDialogFactory {
 
             @Override
             public void onShow(DialogInterface dialog) {
-                AlertDialog alertDialog = (AlertDialog)dialog;
-
-//                View decorView = alertDialog.getWindow().getDecorView();
-//				View tempView = decorView.findViewById(R.id.temp);
-//                LogUtil.message("mQuitAdView", "decor size : " + decorView.getWidth()+ " X " + decorView.getHeight());
-//                LogUtil.message("mQuitAdView", "ad size : " + tempContentView.getWidth()+ " X " + tempContentView.getHeight());
-
                 ViewParent parentView = tempContentView.getParent();
                 if (parentView instanceof ViewGroup) {
-                    ViewGroup contentWrapper = ((ViewGroup)parentView);
+                    final ViewGroup contentWrapper = ((ViewGroup)parentView);
                     contentWrapper.removeView(tempContentView);
 
                     int contentWidth = tempContentView.getWidth();
@@ -88,11 +81,21 @@ public class QuitAdDialogFactory {
                     if (contentWidth >= 300 * screenDensity && contentHeight >= 250 * screenDensity) {
                         // medium rectangle
                         contentWrapper.addView(mediumAdView);
-//						mediumRectangleAdView.setAdSize(AdSize.MEDIUM_RECTANGLE);
+                        wakeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                contentWrapper.removeView(mediumAdView);
+                            }
+                        });
                     } else if (contentWidth >= 320 * screenDensity && contentHeight >= 100 * screenDensity) {
                         // large banner
                         contentWrapper.addView(largeBannerAdView);
-//						mediumRectangleAdView.setAdSize(AdSize.LARGE_BANNER);
+                        wakeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                contentWrapper.removeView(largeBannerAdView);
+                            }
+                        });
                     }
                 }
             }

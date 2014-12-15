@@ -83,7 +83,7 @@ import lombok.Getter;
  *  앱에서 가장 중요한 메인 액티비티
  */
 public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutorialFinishListener {
-    private static final String TAG = "MainActivity";
+    public static final String TAG = "MainActivity";
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
@@ -106,7 +106,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     private AdRequest mQuitAdRequest;
     private AdView mQuitMediumAdView;
     private AdView mQuitLargeBannerAdView;
-    private boolean isQuitDialogShowing = false;
 
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
@@ -753,19 +752,11 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             AlertDialog adDialog = QuitAdDialogFactory.makeDialog(MNMainActivity.this,
                     mQuitMediumAdView, mQuitLargeBannerAdView);
             if (adDialog != null) {
-                isQuitDialogShowing = true;
                 adDialog.show();
-//                adDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                    @Override
-//                    public void onDismiss(DialogInterface dialog) {
-//                        isQuitDialogShowing = false;
-//                    }
-//                });
                 // make AdView again for next quit dialog
                 // prevent child reference
+                // 가로 모드는 7.5% 가량 사용하고 있기에 속도를 위해서 광고를 계속 불러오지 않음
                 mQuitMediumAdView = QuitAdDialogFactory.initAdView(this, AdSize.MEDIUM_RECTANGLE,
-                        mQuitAdRequest);
-                mQuitLargeBannerAdView = QuitAdDialogFactory.initAdView(this, AdSize.LARGE_BANNER,
                         mQuitAdRequest);
             } else {
                 // just finish activity when dialog is null
