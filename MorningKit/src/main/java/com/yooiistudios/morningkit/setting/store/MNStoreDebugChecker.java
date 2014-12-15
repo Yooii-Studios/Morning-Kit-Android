@@ -41,6 +41,5 @@ public class MNStoreDebugChecker {
         getInstance(context).isUsingStore = isUsingStore;
         SharedPreferences.Editor editor = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit();
         editor.putBoolean(IS_USING_STORE, isUsingStore).apply();
-
     }
 }

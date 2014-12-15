@@ -19,6 +19,7 @@ import android.widget.ScrollView;
 
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.inmobi.commons.InMobi;
@@ -103,7 +104,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     // Quit Ad Dialog
     private AdRequest mQuitAdRequest;
-    private AdView mQuitAdView;
+    private AdView mQuitMediumAdView;
+    private AdView mQuitLargeBannerAdView;
+    private boolean isQuitDialogShowing = false;
 
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
@@ -200,7 +203,10 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         // 애드몹 - Quit Dialog
         mQuitAdRequest = new AdRequest.Builder().build();
-        mQuitAdView = QuitAdDialogFactory.initAdView(this, mQuitAdRequest);
+        mQuitMediumAdView = QuitAdDialogFactory.initAdView(this, AdSize.MEDIUM_RECTANGLE,
+                mQuitAdRequest);
+        mQuitLargeBannerAdView = QuitAdDialogFactory.initAdView(this, AdSize.LARGE_BANNER,
+                mQuitAdRequest);
 
         // 알람 체크
         /*
@@ -744,12 +750,23 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     public void onBackPressed() {
         if (!SKIabProducts.containsSku(SKIabProducts.SKU_NO_ADS, this) &&
                 InternetConnectionManager.isNetworkAvailable(this)) {
-            AlertDialog adDialog = QuitAdDialogFactory.makeDialog(MNMainActivity.this, mQuitAdView);
+            AlertDialog adDialog = QuitAdDialogFactory.makeDialog(MNMainActivity.this,
+                    mQuitMediumAdView, mQuitLargeBannerAdView);
             if (adDialog != null) {
+                isQuitDialogShowing = true;
                 adDialog.show();
+//                adDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                    @Override
+//                    public void onDismiss(DialogInterface dialog) {
+//                        isQuitDialogShowing = false;
+//                    }
+//                });
                 // make AdView again for next quit dialog
                 // prevent child reference
-                mQuitAdView = QuitAdDialogFactory.initAdView(this, mQuitAdRequest);
+                mQuitMediumAdView = QuitAdDialogFactory.initAdView(this, AdSize.MEDIUM_RECTANGLE,
+                        mQuitAdRequest);
+                mQuitLargeBannerAdView = QuitAdDialogFactory.initAdView(this, AdSize.LARGE_BANNER,
+                        mQuitAdRequest);
             } else {
                 // just finish activity when dialog is null
                 super.onBackPressed();
