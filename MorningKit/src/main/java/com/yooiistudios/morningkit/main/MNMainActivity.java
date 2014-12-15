@@ -142,8 +142,13 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         }
 
         // 구매목록을 항상 새로 확인
-        iabManager = new SKIabManager(this, null);
-        iabManager.loadWithAllItems();
+        if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+
+        } else {
+            iabManager = new SKIabManager(this, null);
+            iabManager.loadWithAllItems();
+        }
+
 
         setContentView(R.layout.activity_main);
 
