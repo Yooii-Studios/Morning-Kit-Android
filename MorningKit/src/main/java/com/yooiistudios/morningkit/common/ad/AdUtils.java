@@ -15,6 +15,8 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
+import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 
@@ -47,6 +49,12 @@ public class AdUtils {
             SharedPreferences prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
             int launchCount = prefs.getInt(LAUNCH_COUNT, 1);
             if (shouldShowAd(prefs, launchCount)) {
+
+                // 풀버전이 나올 때 아이템들을 체크
+                MNAnalyticsUtils.trackInterstitialAd(
+                        (com.yooiistudios.morningkit.MNApplication) context.getApplicationContext(),
+                        MNMainActivity.TAG);
+
                 // 3번째 마다 인하우스 스토어 광고를 보여주게 로직 수정
                 int eachAdCount = prefs.getInt(EACH_AD_COUNT, 1);
                 if (eachAdCount >= 3) {
