@@ -73,7 +73,7 @@ public class MNAlarmWake {
             // 진동 추가 구현
             if (alarm.isVibrateOn()) {
                 Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                long[] pattern = {500, 1000, 500, 1000, 500};         // 진동, 무진동, 진동 무진동 순으로 시간을 설정한다.
+                long[] pattern = {800, 1300, 800, 1300, 800};         // 진동, 무진동, 진동 무진동 순으로 시간을 설정한다.
                 vibrator.vibrate(pattern, 0);                           // 패턴을 지정하고 반복횟수를 지정
             }
         }
