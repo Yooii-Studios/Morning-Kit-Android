@@ -29,7 +29,7 @@ import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
-import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
+import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWakeUtils;
 import com.yooiistudios.morningkit.common.ad.AdUtils;
 import com.yooiistudios.morningkit.common.ad.QuitAdDialogFactory;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
@@ -119,23 +119,19 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             AppValidationChecker.validationCheck(this);
         }
 
-        // 알람 검사 로직 새로 작성
-        if (MNAlarmWake.isAlarmReservedByIntent(this, getIntent())) {
-            relaunchActivity();
-            return;
-        } else {
-            if (MNAlarmWake.isAlarmReservedInPrefs(this)) {
-                turnOnScreen();
-                try {
-                    MNAlarmWake.invokeAlarm(this);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                // 알람이 울리지 않는다면 리뷰와 전면광고 카운트 체크
-                MNReviewUtil.showReviewDialogIfConditionMet(this);
-                AdUtils.showPopupAdIfSatisfied(this);
+        // 강제종료되고 난 후의 실행이 아닌지 && 알람이 있는지 체크
+        // OS에 의해 강제종료가 된 후의 실행은 이전의 getIntent()를 받기 때문에 예외처리가 필요
+        if (savedInstanceState == null && MNAlarmWakeUtils.isAlarmReservedByIntent(getIntent())) {
+            turnOnScreen();
+            try {
+                MNAlarmWakeUtils.invokeAlarm(this, getIntent());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        } else {
+            // 알람이 울리지 않는다면 리뷰와 전면광고 카운트 체크
+            MNReviewUtil.showReviewDialogIfConditionMet(this);
+            AdUtils.showPopupAdIfSatisfied(this);
         }
         initIab();
 
@@ -202,15 +198,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
-    }
-
-    private void relaunchActivity() {
-        Intent intent = new Intent(this, MNMainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        startActivity(intent);
-        finish();
     }
 
     @Override
