@@ -28,7 +28,7 @@ public class MNAlarmStatusBarIcon {
     private MNAlarmStatusBarIcon(){}
     private MNAlarmStatusBarIcon(Context context) {
         int uniqueId = context.getSharedPreferences(ALARM_STATUS_BAR_ICON_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                .getInt(ALARM_STATUS_BAR_ICON_KEY, MNAlarmStatusBarIconType.ON.getUniqueId());
+                .getInt(ALARM_STATUS_BAR_ICON_KEY, MNAlarmStatusBarIconType.OFF.getUniqueId());
 
         currentAlarmStatusBarIconType = MNAlarmStatusBarIconType.valueOfUniqueId(uniqueId);
     }
