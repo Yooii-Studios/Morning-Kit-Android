@@ -43,6 +43,7 @@
                 android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
                 android:background="@drawable/alarm_pref_repeat_circle_selector"
                 android:text="@string/monday_short"
+                android:textSize="@dimen/alarm_pref_list_label_item_dialog_font_size"
                 android:textColor="@android:color/white"/>
 
         </LinearLayout>
@@ -59,6 +60,7 @@
                 android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
                 android:background="@drawable/alarm_pref_repeat_circle_selector"
                 android:text="@string/tuesday_short"
+                android:textSize="@dimen/alarm_pref_list_label_item_dialog_font_size"
                 android:textColor="@android:color/white"/>
 
         </LinearLayout>
@@ -75,6 +77,7 @@
                 android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
                 android:background="@drawable/alarm_pref_repeat_circle_selector"
                 android:text="@string/wednesday_short"
+                android:textSize="@dimen/alarm_pref_list_label_item_dialog_font_size"
                 android:textColor="@android:color/white"/>
 
         </LinearLayout>
@@ -91,6 +94,7 @@
                 android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
                 android:background="@drawable/alarm_pref_repeat_circle_selector"
                 android:text="@string/thursday_short"
+                android:textSize="@dimen/alarm_pref_list_label_item_dialog_font_size"
                 android:textColor="@android:color/white"/>
 
         </LinearLayout>
@@ -107,6 +111,7 @@
                 android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
                 android:background="@drawable/alarm_pref_repeat_circle_selector"
                 android:text="@string/friday_short"
+                android:textSize="@dimen/alarm_pref_list_label_item_dialog_font_size"
                 android:textColor="@android:color/white"/>
 
         </LinearLayout>
@@ -123,6 +128,7 @@
                 android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
                 android:background="@drawable/alarm_pref_repeat_circle_selector"
                 android:text="@string/saturday_short"
+                android:textSize="@dimen/alarm_pref_list_label_item_dialog_font_size"
                 android:textColor="@android:color/white"/>
 
         </LinearLayout>
@@ -139,6 +145,7 @@
                 android:layout_height="@dimen/alarm_pref_list_repeat_item_circle_size"
                 android:background="@drawable/alarm_pref_repeat_circle_selector"
                 android:text="@string/sunday_short"
+                android:textSize="@dimen/alarm_pref_list_label_item_dialog_font_size"
                 android:textColor="@android:color/white" />
 
         </LinearLayout>
