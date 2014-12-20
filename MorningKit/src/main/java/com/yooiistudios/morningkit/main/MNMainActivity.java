@@ -641,7 +641,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     private void askUsingCurrentLocationDialog() {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_DARK);
+            builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT);
         } else {
             builder = new AlertDialog.Builder(this);
         }

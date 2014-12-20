@@ -44,7 +44,7 @@ public class SKAlarmSoundDialog {
         // Builder for each version
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            builder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_DARK);
+            builder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_LIGHT);
         } else {
             builder = new AlertDialog.Builder(context);
         }
@@ -127,7 +127,7 @@ public class SKAlarmSoundDialog {
         // Builder for each version
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            builder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_DARK);
+            builder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_LIGHT);
         } else {
             builder = new AlertDialog.Builder(context);
         }
@@ -259,7 +259,7 @@ public class SKAlarmSoundDialog {
             // Builder for each version
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                builder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_DARK);
+                builder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_LIGHT);
             } else {
                 builder = new AlertDialog.Builder(context);
             }
@@ -375,7 +375,7 @@ public class SKAlarmSoundDialog {
         // Builder for each version
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            builder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_DARK);
+            builder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_LIGHT);
         } else {
             builder = new AlertDialog.Builder(context);
         }

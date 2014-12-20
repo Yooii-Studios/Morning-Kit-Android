@@ -64,7 +64,7 @@
     <dimen name="alarm_pref_list_repeat_item_circle_size">64dp</dimen>
 
             <!-- Label Dialog -->
-    <dimen name="alarm_pref_list_label_item_dialog_padding_button">10dp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_padding_button">8.5dp</dimen>
     <dimen name="alarm_pref_list_label_item_dialog_font_size">30.6sp</dimen>  <!-- 두배x 1.7배 -->
     <dimen name="alarm_pref_list_label_item_dialog_button_size">60dp</dimen>
     <dimen name="alarm_pref_list_label_item_dialog_edit_remove_button_padding">80dp</dimen>

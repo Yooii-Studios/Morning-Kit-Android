@@ -66,7 +66,7 @@
             <!-- Label Dialog -->
     <dimen name="alarm_pref_list_label_item_dialog_padding_button">5dp</dimen>
     <dimen name="alarm_pref_list_label_item_dialog_font_size">18sp</dimen>
-    <dimen name="alarm_pref_list_label_item_dialog_button_size">30dp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_button_size">27dp</dimen>
     <dimen name="alarm_pref_list_label_item_dialog_edit_remove_button_padding">40dp</dimen>
 
             <!-- Volume Item -->

@@ -25,7 +25,6 @@
         <!-- 탭 divider 변경이 제대로 되지 않아서 일단 보류 -->
         <!-- <item name="android:actionBarTabBarStyle">@style/ActionBarTabBarStyle.PastelGreen</item> -->
         <item name="android:actionBarTabTextStyle">@style/TabText.PastelGreen</item>
-        <item name="android:editTextStyle">@style/EditTextTheme.PastelGreen</item>
 
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/ActionBar.Solid.PastelGreen</item>
