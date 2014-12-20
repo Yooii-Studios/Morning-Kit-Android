@@ -18,7 +18,9 @@
         android:text="@string/recommend_app_full_name"
         android:textStyle="bold"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/setting_store_full_version_title_text_size"/>
+        android:textSize="@dimen/setting_store_full_version_title_text_size"
+        android:singleLine="true"
+        android:lines="1"/>
 
     <LinearLayout
         android:id="@+id/store_ad_dialog_title_divider_layout"
@@ -54,11 +56,15 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/loading"/>
 
-        <TextView
+        <com.yooiistudios.morningkit.common.textview.AutoFitTextView
+            android:id="@+id/store_ad_dialog_description_text_View"
             android:layout_width="match_parent"
             android:layout_height="@dimen/store_ad_dialog_image_text_height"
             android:layout_marginTop="@dimen/store_ad_dialog_image_text_margin_top"
+            android:paddingLeft="@dimen/store_ad_dialog_title_padding_left_right"
+            android:paddingRight="@dimen/store_ad_dialog_title_padding_left_right"
             android:gravity="center"
+            android:singleLine="true"
             android:text="@string/store_buy_full_version"
             android:textColor="@android:color/white"
             android:textStyle="bold"

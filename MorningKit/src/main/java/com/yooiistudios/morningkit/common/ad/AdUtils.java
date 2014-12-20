@@ -126,9 +126,9 @@ public class AdUtils {
 //        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 //        window.setGravity(Gravity.CENTER);
 
-        TextView titleTextView = (TextView) dialog.findViewById(R.id.store_ad_dialog_title_text_view);
-        titleTextView.setText(context.getString(R.string.recommend_app_full_name) +
-                " PRO");
+        TextView titleTextView =
+                (TextView) dialog.findViewById(R.id.store_ad_dialog_title_text_view);
+        titleTextView.setText(context.getString(R.string.recommend_app_full_name) + " PRO");
         titleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
