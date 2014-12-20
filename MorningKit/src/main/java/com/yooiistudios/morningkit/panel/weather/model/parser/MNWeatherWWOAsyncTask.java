@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.yooiistudios.morningkit.common.json.MNJsonUtils;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWWOWeatherCondition;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherData;
 import com.yooiistudios.morningkit.panel.weather.model.locationinfo.MNWeatherLocationInfo;
@@ -128,13 +127,10 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                             DateTime utcNowTime = DateTime.now(DateTimeZone.UTC);
                             utcNowTime = new DateTime(utcNowTime.getYear(), utcNowTime.getMonthOfYear(),
                                     utcNowTime.getDayOfMonth(), utcNowTime.getHourOfDay(), utcNowTime.getMinuteOfHour());
-                            MNLog.now("utcNowTime       : " + printFormatter.withLocale(Locale.US).print(utcNowTime));
-
 
                             // local time - 원래 0초로 옴
                             String dateString = currentConditionData.getString("localObsDateTime");
                             DateTime localObsDateTime = formatter.withLocale(Locale.US).parseDateTime(dateString);
-                            MNLog.now("localObsDateTime : " + printFormatter.withLocale(Locale.US).print(localObsDateTime));
 
                             // calculate offset
                             weatherData.timeOffsetInMillis = localObsDateTime.getMillis() - utcNowTime.getMillis();
@@ -144,25 +140,18 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                             if ((weatherData.timeOffsetInMillis / 1000) % 900 != 0) {
                                 localObsDateTime = localObsDateTime.plusMinutes(1);
                             }
-                            MNLog.now("offset minute: " +
-                                    (utcNowTime.getMinuteOfHour() - localObsDateTime.getMinuteOfHour()));
-                            MNLog.now("minus offset minute: " +
-                                    (60 + utcNowTime.getMinuteOfHour() - localObsDateTime.getMinuteOfHour()));
 
                             // 1~14분 차이가 날 경우 디바이스의 시간을 활용하게 offset 조절. 14분은 임의로 설정
                             if (utcNowTime.getMinuteOfHour() - localObsDateTime.getMinuteOfHour() >= 0) {
                                 // 기기 시간이 같은 시간으로 차이가 날 경우 기기 시간을 그냥 사용
                                 if (utcNowTime.getMinuteOfHour() - localObsDateTime.getMinuteOfHour() < 15) {
                                     localObsDateTime = localObsDateTime.withMinuteOfHour(utcNowTime.getMinuteOfHour());
-                                    MNLog.now("same hour, < 15 minutes: " + printFormatter.withLocale(Locale.US).print(localObsDateTime));
                                 }
                             } else {
                                 // 기기 시간이 다른 시간으로 차이가 날 경우(local이 한시간 이전)
                                 if (60 + utcNowTime.getMinuteOfHour() - localObsDateTime.getMinuteOfHour() < 15) {
                                     int adjustOffsetMinute = 60 + (utcNowTime.getMinuteOfHour() - localObsDateTime.getMinuteOfHour());
-                                    MNLog.now("adjustOffsetMinute: " + adjustOffsetMinute);
                                     localObsDateTime = localObsDateTime.plusMinutes(adjustOffsetMinute);
-                                    MNLog.now("diff hour, < 15 minutes: " + printFormatter.withLocale(Locale.US).print(localObsDateTime));
                                 }
                             }
                             weatherData.timeOffsetInMillis = localObsDateTime.getMillis() - utcNowTime.getMillis();
@@ -205,6 +194,7 @@ public class MNWeatherWWOAsyncTask extends AsyncTask<Void, Void, MNWeatherData> 
                 }
             }
         }
+
         /*
         "data": {
             "current_condition": [
