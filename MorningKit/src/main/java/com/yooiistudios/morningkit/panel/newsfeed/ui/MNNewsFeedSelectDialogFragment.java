@@ -102,7 +102,7 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             builder = new AlertDialog.Builder(getActivity(),
-                    AlertDialog.THEME_HOLO_DARK);
+                    AlertDialog.THEME_HOLO_LIGHT);
         } else {
             builder = new AlertDialog.Builder(getActivity());
         }

@@ -48,33 +48,34 @@
     <dimen name="alarm_create_item_title_font_size">37.4sp</dimen>  <!-- 두배x 1.7배 -->
 
         <!-- Alarm Preferences -->
-    <dimen name="alarm_pref_list_item_height">110dp</dimen> <!-- inner + margin_inner * 2  -->
+    <dimen name="alarm_pref_list_item_height">89dp</dimen> <!-- inner + margin_inner * 2  -->
     <dimen name="alarm_pref_list_item_title_textview_width">220dp</dimen>
     <dimen name="alarm_pref_list_item_padding">20dp</dimen>
-    <dimen name="alarm_pref_list_item_textview_font_size">30.6sp</dimen>  <!-- 두배x 1.7배 -->
+    <dimen name="alarm_pref_list_item_textview_font_size">28sp</dimen>  <!-- 두배x 1.7배 -->
 
             <!-- Time Item -->
     <dimen name="alarm_pref_list_time_item_margin_top">0dp</dimen>
     <dimen name="alarm_pref_list_time_item_margin_bottom">60dp</dimen>
     <dimen name="alarm_pref_list_time_divider_height">2dp</dimen>
-    <dimen name="alarm_pref_list_time_left_right_padding">32dp</dimen>
+    <dimen name="alarm_pref_list_time_left_right_padding">55dp</dimen>
 
             <!-- Repeat Item -->
-    <dimen name="alarm_pref_list_repeat_item_height">160dp</dimen>
-    <dimen name="alarm_pref_list_repeat_item_circle_size">64dp</dimen>
+    <dimen name="alarm_pref_list_repeat_item_height">130dp</dimen>
+    <dimen name="alarm_pref_list_repeat_item_circle_size">55dp</dimen>
 
             <!-- Label Dialog -->
-    <dimen name="alarm_pref_list_label_item_dialog_padding_button">10dp</dimen>
-    <dimen name="alarm_pref_list_label_item_dialog_font_size">30.6sp</dimen>  <!-- 두배x 1.7배 -->
-    <dimen name="alarm_pref_list_label_item_dialog_button_size">60dp</dimen>
-    <dimen name="alarm_pref_list_label_item_dialog_edit_remove_button_padding">80dp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_top_margin">0dp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_padding_button">8.5dp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_font_size">24sp</dimen>  <!-- 두배x 1.7배 -->
+    <dimen name="alarm_pref_list_label_item_dialog_button_size">30dp</dimen>
+    <dimen name="alarm_pref_list_label_item_dialog_edit_remove_button_padding">40dp</dimen>
 
             <!-- Volume Item -->
-    <dimen name="alarm_pref_list_volume_item_seekbar_height">18dp</dimen>
+    <dimen name="alarm_pref_list_volume_item_seekbar_height">13dp</dimen>
     <dimen name="alarm_pref_list_volume_item_seekbar_margin_left">80dp</dimen>
-    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_size">44dp</dimen>
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_size">37dp</dimen>
     <dimen name="alarm_pref_list_volume_item_seekbar_thumb_stroke_size">1dp</dimen>
-    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_offset">16dp</dimen>
+    <dimen name="alarm_pref_list_volume_item_seekbar_thumb_offset">18dp</dimen>
 
         <!-- Alarm Custom Dialog -->
     <dimen name="alarm_custom_dialog_label_font_size">50sp</dimen>
@@ -102,7 +103,7 @@
     <dimen name="panel_detail_padding_inner">10dp</dimen>
     <dimen name="panel_detail_bigger_padding">40dp</dimen>
     <dimen name="panel_detail_bigger_padding_inner">20dp</dimen>
-    <dimen name="panel_detail_check_image_button_size">50dp</dimen>
+    <dimen name="panel_detail_check_image_button_size">40dp</dimen>
     <dimen name="panel_detail_remove_all_button_size">50dp</dimen>
     <dimen name="panel_detail_remove_all_button_padding">60dp</dimen>
     <dimen name="panel_detail_default_font_size">34sp</dimen>

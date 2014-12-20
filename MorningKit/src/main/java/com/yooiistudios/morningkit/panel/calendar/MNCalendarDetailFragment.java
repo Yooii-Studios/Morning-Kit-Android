@@ -51,7 +51,7 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout
                 .panel_calendar_detail_fragment, container, false);
-        if (rootView != null) {
+        if (rootView != null && savedInstanceState == null) {
             ButterKnife.inject(this, rootView);
 
             if (DEBUG_UI) {

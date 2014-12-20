@@ -232,7 +232,7 @@
 	<string name="store_purchased">購入完了</string>
 	<string name="store_restore">復旧</string>
 	<string name="store_restore_success_message">復旧に成功しました。</string>
-	<string name="store_buy_full_version">完全版購入</string>
+	<string name="store_buy_full_version">プロバージョンをご購入ください！</string>
 	<string name="store_buy_full_version_description">すべてのパネル、機能やテーマのロックを解除！</string>
 	<string name="store_tab_functions">機能</string>
 	<string name="store_tab_widgets">パネル</string>

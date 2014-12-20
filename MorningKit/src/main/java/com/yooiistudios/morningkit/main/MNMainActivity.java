@@ -29,7 +29,7 @@ import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
-import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWake;
+import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWakeUtils;
 import com.yooiistudios.morningkit.common.ad.AdUtils;
 import com.yooiistudios.morningkit.common.ad.QuitAdDialogFactory;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
@@ -110,9 +110,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
-    // 시작시 구매목록을 불러오는 로직 추가
-    private SKIabManager iabManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,33 +119,21 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             AppValidationChecker.validationCheck(this);
         }
 
-        // 알람 검사 로직 새로 작성
-        if (MNAlarmWake.isAlarmReservedByIntent(this, getIntent())) {
-            relaunchActivity();
-            return;
-        } else {
-            if (MNAlarmWake.isAlarmReservedInPrefs(this)) {
-                turnOnScreen();
-                try {
-                    MNAlarmWake.invokeAlarm(this);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                // 알람이 울리지 않는다면 리뷰와 전면광고 카운트 체크
-                MNReviewUtil.showReviewDialogIfConditionMet(this);
-                AdUtils.showPopupAdIfSatisfied(this);
+        // 강제종료되고 난 후의 실행이 아닌지 && 알람이 있는지 체크
+        // OS에 의해 강제종료가 된 후의 실행은 이전의 getIntent()를 받기 때문에 예외처리가 필요
+        if (savedInstanceState == null && MNAlarmWakeUtils.isAlarmReservedByIntent(getIntent())) {
+            turnOnScreen();
+            try {
+                MNAlarmWakeUtils.invokeAlarm(this, getIntent());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }
-
-        // 구매목록을 항상 새로 확인
-        if (MNStoreFragment.IS_STORE_FOR_NAVER) {
-
         } else {
-            iabManager = new SKIabManager(this, null);
-            iabManager.loadWithAllItems();
+            // 알람이 울리지 않는다면 리뷰와 전면광고 카운트 체크
+            MNReviewUtil.showReviewDialogIfConditionMet(this);
+            AdUtils.showPopupAdIfSatisfied(this);
         }
-
+        initIab();
 
         setContentView(R.layout.activity_main);
 
@@ -169,6 +154,18 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         sendFlurryAnalytics();
         MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
         InMobi.initialize(this, "2fda5c20a0054c43a454c8027bf2eb83");
+    }
+
+    private void initIab() {
+        // 구매목록을 항상 새로 확인 - 구글일 경우에만
+        if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+
+        } else {
+            try {
+                SKIabManager iabManager = new SKIabManager(this, null);
+                iabManager.loadWithAllItems();
+            } catch (Exception ignored) { }
+        }
     }
 
     void initMainActivity() {
@@ -201,15 +198,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
-    }
-
-    private void relaunchActivity() {
-        Intent intent = new Intent(this, MNMainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        startActivity(intent);
-        finish();
     }
 
     @Override
@@ -653,7 +641,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     private void askUsingCurrentLocationDialog() {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_DARK);
+            builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT);
         } else {
             builder = new AlertDialog.Builder(this);
         }

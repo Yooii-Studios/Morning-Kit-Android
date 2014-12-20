@@ -2,11 +2,7 @@ package com.yooiistudios.morningkit.alarm.model.wake;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -24,15 +20,12 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundPlayer;
 
 import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -162,86 +155,6 @@ public class MNAlarmWakeCustomDialog {
                 alarmWakeCustomView.snoozeTextView.setVisibility(View.GONE);
                 alarmWakeCustomView.snoozeTextView.setOnClickListener(null);
             }
-            if (MNLog.isDebug) {
-                wakeDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "Dismiss & Send Report(Debug)", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // 기존처럼 알람 끄고 리포트
-                        // 리포트
-                        String title = "Bug Report: Alarm invoked unexpectedly";
-
-                        Intent intent = new Intent(Intent.ACTION_SEND);
-                        intent.setType("plain/text");
-                        intent.putExtra(Intent.EXTRA_SUBJECT, title);
-
-                        // make message
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss");
-                        List<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(context);
-                        String message = "Report Time: " +
-                                dateFormat.format(Calendar.getInstance().getTime()) +
-                                "\n--------------------------------------\n" +
-                                "Target Alarm:\n" +
-                                alarm.toSimpleString() + "\n--------------------------------------\n" +
-                                "Alarms in List:\n";
-                        int i = 0;
-                        for (MNAlarm savedAlarm : alarmList) {
-                            i++;
-                            message += ("Alarm " + i + ": \n" + savedAlarm.toSimpleString() + "\n\n");
-                        }
-                        // 메일로 보내고 기존 로그는 다시 삭제해주기
-                        message += "--------------------------------------\n";
-                        SharedPreferences prefs = context.getSharedPreferences(MNLog.PREF_TEST_PREF_LOG,
-                                Context.MODE_PRIVATE);
-                        message += prefs.getString(MNLog.KEY_LOG, "");
-                        MNLog.removeTestPrefLog(context);
-                        intent.putExtra(Intent.EXTRA_TEXT, message);
-
-                        String[] receiver = { "kwosu87@me.com" };
-                        intent.putExtra(Intent.EXTRA_EMAIL, receiver);
-
-                        // createChooser Intent
-                        Intent createChooser = Intent.createChooser(intent, "Send Report(Debug)");
-
-                        // PendingIntent 가 완벽한 해법
-                        // (가로 모드에서 설정으로 와서 친구 추천하기를 누를 때 계속 반복 호출되는 상황을 막기 위함)
-                        PendingIntent pendingIntent =
-                                PendingIntent.getActivity(context, 0, createChooser, 0);
-                        try {
-                            pendingIntent.send();
-                        } catch (PendingIntent.CanceledException e) {
-                            e.printStackTrace();
-                        }
-
-                        // 알람 끄기
-                        // 5분 후 자동으로 꺼지는 핸들러 취소
-                        alarmWakeDialogHandler.removeMessages(alarm.getAlarmId());
-
-                        wakeDialog.dismiss();
-                        alarmWakeCustomView.alarmImageView.clearAnimation();
-                        SKAlarmSoundPlayer.stop(context);
-
-                        // stop vibrator
-                        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                        vibrator.cancel();
-
-                        MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), context);
-                        if (targetAlarm != null) {
-                            targetAlarm.stopAlarm(context);
-                            if (targetAlarm.isRepeatOn()) {
-                                targetAlarm.startAlarm(context);
-                            }
-                            try {
-                                MNAlarmListManager.saveAlarmList(context);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        MNAlarmScrollViewBusProvider.getInstance().post(context);       // 리스트 어댑터, UI 갱신
-                        MNAlarmScrollViewBusProvider.getInstance().post(wakeDialog);    // 메인, SCREEN_ON 해제
-                    }
-                });
-            }
-
             // 기타 필요한 설정
             wakeDialog.setCancelable(false);
             wakeDialog.setCanceledOnTouchOutside(false);

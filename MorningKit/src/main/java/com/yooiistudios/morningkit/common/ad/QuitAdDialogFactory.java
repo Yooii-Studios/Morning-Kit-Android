@@ -56,6 +56,7 @@ public class QuitAdDialogFactory {
         builder.setNegativeButton(context.getString(R.string.cancel), null);
 
         final AlertDialog wakeDialog = builder.create();
+        // 세로 전용 앱이라서 동현 파트를 제거할 경우 아래 주석을 해제할 것
 //        wakeDialog.setView(adView); // Android L 에서 윗 공간이 좀 이상하긴 하지만 기본으로 가야할듯
 
         /**
@@ -101,6 +102,9 @@ public class QuitAdDialogFactory {
             }
         });
         wakeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        /**
+         * 동현 파트 끝
+         */
 
         // 기타 필요한 설정
         wakeDialog.setCanceledOnTouchOutside(false);

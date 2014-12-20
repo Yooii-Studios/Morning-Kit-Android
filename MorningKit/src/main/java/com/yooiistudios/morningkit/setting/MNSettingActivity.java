@@ -55,13 +55,17 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Theme
-//        setTheme(R.style.MNSettingActionBarTheme_PastelGreen);
-
         // 회전마다 Locale 을 새로 적용해줌(언어가 바뀌어 버리는 문제 해결)
         MNLocaleUtils.updateLocale(this);
 
         super.onCreate(savedInstanceState);
+
+        // OS에 의해서 kill 당할 경우 복구하지 말고 메인 액티비티를 새로 띄워줌 - panelObject 와 관련된 오류 해결
+        if (savedInstanceState != null) {
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_setting);
 
         // Set up the action bar.

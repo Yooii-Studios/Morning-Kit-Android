@@ -8,14 +8,14 @@
         android:id="@+id/alarm_pref_label_dialog_editText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/alarm_pref_list_label_item_dialog_top_margin"
         android:paddingRight="@dimen/alarm_pref_list_label_item_dialog_edit_remove_button_padding"
         android:ems="10"
-        android:hint="@string/alarm_pref_label"
         android:longClickable="false"
         android:singleLine="true"
         android:layout_gravity="center"
         android:gravity="center_vertical"
-        android:textColor="@color/white"
+        android:textColor="@android:color/black"
         android:textSize="@dimen/alarm_pref_list_item_textview_font_size">
     </EditText>
 
@@ -23,8 +23,9 @@
         android:id="@+id/alarm_pref_label_dialog_clear_button"
         android:layout_width="@dimen/alarm_pref_list_label_item_dialog_button_size"
         android:layout_height="@dimen/alarm_pref_list_label_item_dialog_button_size"
+        android:layout_marginTop="@dimen/alarm_pref_list_label_item_dialog_top_margin"
         android:layout_gravity="center_vertical|right"
         android:layout_marginRight="@dimen/alarm_pref_list_label_item_dialog_padding_button"
-        android:background="@drawable/ic_action_cancel" />
+        android:background="@drawable/ic_action_cancel_light" />
 
 </FrameLayout>

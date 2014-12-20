@@ -62,7 +62,7 @@ public class MNFlickrDetailFragment extends MNPanelDetailFragment implements Tex
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.panel_flickr_detail_fragment, container, false);
-        if (rootView != null) {
+        if (rootView != null && savedInstanceState == null) {
             ButterKnife.inject(this, rootView);
 
             // 버전 체크해 스위치 얻어내기
