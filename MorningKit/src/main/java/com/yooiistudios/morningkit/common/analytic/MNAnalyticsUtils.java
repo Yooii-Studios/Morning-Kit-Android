@@ -50,7 +50,7 @@ public class MNAnalyticsUtils {
 
     // 풀버전 광고가 불려질 때 풀버전인지 아닌지 체크
     public static void trackInterstitialAd(MNApplication application, String TAG) {
-        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(application.getApplicationContext());
+        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(application);
 
         // Get tracker.
         Tracker t = application.getTracker(MNApplication.TrackerName.APP_TRACKER);

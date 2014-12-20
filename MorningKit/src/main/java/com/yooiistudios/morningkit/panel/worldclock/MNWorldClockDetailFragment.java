@@ -71,7 +71,7 @@ public class MNWorldClockDetailFragment extends MNPanelDetailFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.panel_world_clock_detail_fragment, container, false);
-        if (rootView != null) {
+        if (rootView != null && savedInstanceState == null) {
             ButterKnife.inject(this, rootView);
 
             // 패널 데이터 가져오기

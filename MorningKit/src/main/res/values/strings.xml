@@ -232,7 +232,7 @@
     <string name="store_purchased">Purchased</string>
     <string name="store_restore">Restore</string>
     <string name="store_restore_success_message">All purchases are restored</string>
-    <string name="store_buy_full_version">Buy the full version!</string>
+    <string name="store_buy_full_version">Buy the pro version!</string>
     <string name="store_buy_full_version_description">Upgrade to unlock all Functions, Panels, and Themes</string>
     <string name="store_tab_functions">Functions</string>
     <string name="store_tab_widgets">Panels</string>
@@ -275,7 +275,7 @@
     <!-- Android Only -->
     <!-- General -->
     <string name="action_bar_up_button_main">Main</string>
-    <string name="store_item_full_version">Full Version</string>
+    <string name="store_item_full_version">Pro Version</string>
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>

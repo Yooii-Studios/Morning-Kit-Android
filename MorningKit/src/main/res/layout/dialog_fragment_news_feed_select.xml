@@ -10,19 +10,23 @@
         android:id="@+id/clear"
         android:layout_width="@dimen/alarm_pref_list_label_item_dialog_button_size"
         android:layout_height="@dimen/alarm_pref_list_label_item_dialog_button_size"
+        android:layout_marginTop="@dimen/alarm_pref_list_label_item_dialog_top_margin"
+        android:layout_marginRight="@dimen/alarm_pref_list_label_item_dialog_padding_button"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/alarm_pref_list_label_item_dialog_padding_button"
-        android:background="@drawable/ic_action_cancel" />
+        android:background="@drawable/ic_action_cancel_light" />
+
     <AutoCompleteTextView
         android:id="@+id/urlEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/alarm_pref_list_label_item_dialog_top_margin"
         android:layout_centerVertical="true"
         android:paddingRight="@dimen/panel_news_feed_detail_dialog_clearBtn_leftMargin"
         android:longClickable="false"
         android:singleLine="true"
         android:gravity="center_vertical"
-        android:textColor="@color/white"
+        android:textColor="@android:color/black"
         android:textSize="@dimen/alarm_pref_list_item_textview_font_size"/>
+
 </RelativeLayout>

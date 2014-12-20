@@ -50,6 +50,8 @@ import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.P
 
 /**
  * Created by Dongheyon Jeong on in morning-kit from Yooii Studios Co., LTD. on 2014. 7. 2.
+ *
+ * MNNewsFeedDetailFragment
  */
 public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
             implements MNNewsFeedSelectDialogFragment.OnClickListener{
@@ -77,9 +79,8 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(
-                R.layout.panel_news_feed_detail_fragment, container, false);
-        if (rootView != null) {
+        View rootView = inflater.inflate(R.layout.panel_news_feed_detail_fragment, container, false);
+        if (rootView != null && savedInstanceState == null) {
             ButterKnife.inject(this, rootView);
 
             // 패널 데이터 가져오기
@@ -98,7 +99,6 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
             // UI
             initUI();
         }
-
         return rootView;
     }
 
@@ -290,8 +290,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
 
             @Override
             public void onError() {
-                MNLog.i("RSS Reader", "error occurred while fetching rss feed" +
-                        ".");
+                MNLog.i("RSS Reader", "error occurred while fetching rss feed.");
 
                 update(feedUrl, feed);
                 showUnavailableMessage();

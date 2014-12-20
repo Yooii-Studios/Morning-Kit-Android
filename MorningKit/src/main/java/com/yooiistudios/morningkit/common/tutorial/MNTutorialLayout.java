@@ -50,30 +50,30 @@ public class MNTutorialLayout extends RelativeLayout {
     private Context applicationContext;
     private Resources resources;
 
-    private View        firstCircleView1;      // LT = left top
-    private View        firstCircleAnimView1;
-    private View        firstCircleView2;      // RT = right top
-    private View        firstCircleAnimView2;
-    private View        firstCircleView3;      // LB = left bottom
-    private View        firstCircleAnimView3;
-    private View        firstCircleView4;      // RB = right bottom
-    private View        firstCircleAnimView4;
-    private AutoResizeTextView firstTextView;
+    private View                firstCircleView1;      // LT = left top
+    private View                firstCircleAnimView1;
+    private View                firstCircleView2;      // RT = right top
+    private View                firstCircleAnimView2;
+    private View                firstCircleView3;      // LB = left bottom
+    private View                firstCircleAnimView3;
+    private View                firstCircleView4;      // RB = right bottom
+    private View                firstCircleAnimView4;
+    private AutoResizeTextView  firstTextView;
 
-    private ImageView   secondAlarmImageView;
-    private AutoResizeTextView    secondTextView;
-    private View        secondCircleView;
-    private View        secondCircleAnimView;
+    private ImageView           secondAlarmImageView;
+    private AutoResizeTextView  secondTextView;
+    private View                secondCircleView;
+    private View                secondCircleAnimView;
 
-    private View        thirdCircleView;
-    private View        thirdCircleAnimView;
-    private AutoResizeTextView    thirdTextView;
+    private View                thirdCircleView;
+    private View                thirdCircleAnimView;
+    private AutoResizeTextView  thirdTextView;
 
-    private RelativeLayout forthButtonLayout;
-    private ImageView   forthImageView1; // refresh
-    private TextView    forthTextView1;
-    private ImageView   forthImageView2; // setting
-    private TextView    forthTextView2;
+    private RelativeLayout      forthButtonLayout;
+    private ImageView           forthImageView1; // refresh
+    private TextView            forthTextView1;
+    private ImageView           forthImageView2; // setting
+    private TextView            forthTextView2;
 
     private int tutorialTapCount = 0;
 

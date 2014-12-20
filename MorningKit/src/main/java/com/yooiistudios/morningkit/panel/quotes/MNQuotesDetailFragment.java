@@ -64,7 +64,7 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.panel_quotes_detail_fragment, container, false);
-        if (rootView != null) {
+        if (rootView != null && savedInstanceState == null) {
             ButterKnife.inject(this, rootView);
 
             //// Logic part ////

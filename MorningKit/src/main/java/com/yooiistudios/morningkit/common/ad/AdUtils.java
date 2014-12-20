@@ -44,8 +44,9 @@ public class AdUtils {
         }
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
 
-        // 광고 구매 아이템이 없을 경우만 진행(풀버전은 광고 제거 포함)
-        if (!ownedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
+        // 광고 or 풀버전 구매 아이템이 없을 경우만 진행
+        if (!(ownedSkus.contains(SKIabProducts.SKU_NO_ADS) ||
+                ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION))) {
             SharedPreferences prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
             int launchCount = prefs.getInt(LAUNCH_COUNT, 1);
             if (shouldShowAd(prefs, launchCount)) {
@@ -125,9 +126,9 @@ public class AdUtils {
 //        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 //        window.setGravity(Gravity.CENTER);
 
-        TextView titleTextView = (TextView) dialog.findViewById(R.id.store_ad_dialog_title_text_view);
-        titleTextView.setText(context.getString(R.string.recommend_app_full_name) +
-                " PRO");
+        TextView titleTextView =
+                (TextView) dialog.findViewById(R.id.store_ad_dialog_title_text_view);
+        titleTextView.setText(context.getString(R.string.recommend_app_full_name) + " PRO");
         titleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

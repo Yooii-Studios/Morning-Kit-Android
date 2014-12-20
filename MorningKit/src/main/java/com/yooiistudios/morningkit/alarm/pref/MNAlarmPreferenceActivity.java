@@ -66,6 +66,11 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // OS에 의해서 kill 당할 경우 복구하지 말고 메인 액티비티를 새로 띄워줌 - panelObject 와 관련된 오류 해결
+        if (savedInstanceState != null) {
+            finish();
+            return;
+        }
         setContentView(R.layout.activity_alarm_pref);
         initAlarmPreferenceActivity();
     }
