@@ -275,7 +275,7 @@
     <!-- Android Only -->
     <!-- General -->
     <string name="action_bar_up_button_main">Main</string>
-    <string name="store_item_full_version">Full Version</string>
+    <string name="store_item_full_version">Pro Version</string>
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">Alarm set for less than 1 minute</string>

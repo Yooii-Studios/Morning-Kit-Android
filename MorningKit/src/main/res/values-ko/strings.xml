@@ -232,7 +232,7 @@
 	<string name="store_purchased">구매 완료</string>
 	<string name="store_restore">복원</string>
 	<string name="store_restore_success_message">구매 복원 성공</string>
-	<string name="store_buy_full_version">풀버전을 구매해 주세요!</string>
+	<string name="store_buy_full_version">프로 버전을 구매해 주세요!</string>
 	<string name="store_buy_full_version_description">알람 추가, 모든 기능과 패널, 테마를 사용하실 수 있습니다</string>
 	<string name="store_tab_functions">기능</string>
 	<string name="store_tab_widgets">패널</string>
@@ -275,7 +275,7 @@
     <!-- Android Only -->
     <!-- General -->
     <string name="action_bar_up_button_main">메인</string>
-    <string name="store_item_full_version">풀버전</string>
+    <string name="store_item_full_version">프로 버전</string>
 
     <!-- Alarm -->
     <string name="alarm_set_for_less_than_1_minute">알람이 1분 내에 울립니다</string>
