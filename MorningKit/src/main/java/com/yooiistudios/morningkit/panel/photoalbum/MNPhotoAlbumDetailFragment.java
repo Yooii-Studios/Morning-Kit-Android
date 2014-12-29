@@ -117,7 +117,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.panel_photo_album_detail_fragment, container, false);
-        if (rootView != null) {
+        if (rootView != null && savedInstanceState == null) {
             ButterKnife.inject(this, rootView);
 
             // 패널 데이터 가져오기
@@ -177,10 +177,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
             displayHelper.setPhotoHeight(lp.height -
                     (previewSwitcher.getPaddingTop() +
                             previewSwitcher.getPaddingBottom()));
+            loadFileList();
         }
-
-        loadFileList();
-
         return rootView;
     }
     private View.OnClickListener onLoadBtnClickListener =
