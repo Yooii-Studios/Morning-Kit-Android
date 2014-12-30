@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.main;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -11,6 +12,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -279,6 +281,12 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     @Override
     protected void onDestroy() {
         // Activity is destroyed
+        if (MNAlarmWakeUtils.isAlarmReservedByIntent(getIntent())) {
+            // 알람이 있을 때 액티비티 종료시 진동을 종료해 주어야 알람이 1분만에 두번이 울렸을 때 진동 때문에 문제가 생기지 않음
+            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.cancel();
+        }
+
         if (adView != null) {
             adView.destroy();
         }
