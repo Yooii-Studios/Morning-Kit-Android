@@ -171,6 +171,9 @@ public class MNFlickrPanelLayout extends MNPanelLayout implements MNBitmapLoadSa
 //        imageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(), polishedBitmap));
         imageView.setImageDrawable(new BitmapDrawable(getContext().getApplicationContext().getResources(),
                 polishedBitmap));
+        // 화면을 표시한 이후에는 무조건 cover layout 을 명시적으로 숨겨주기
+        // 이사님 피드백에 contentLayout 과 coverLayout 이 같이 나오는 문제가 있었음
+        hideCoverLayout();
     }
 
     /**

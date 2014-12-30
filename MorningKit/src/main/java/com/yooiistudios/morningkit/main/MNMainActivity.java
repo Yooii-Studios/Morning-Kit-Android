@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.main;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -11,6 +12,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -132,6 +134,15 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             // 알람이 울리지 않는다면 리뷰와 전면광고 카운트 체크
             MNReviewUtil.showReviewDialogIfConditionMet(this);
             AdUtils.showPopupAdIfSatisfied(this);
+
+            // 기존에 켜진 알람들도 다시 켜주기(반복 알람을 위함)
+            // 알람 없이 정상 실행시 항상 알람이 제대로 동작함을 보장하기 위해서 켜진 알람들은 다시 켜주기
+            ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(getApplicationContext());
+            for (MNAlarm alarm : alarmList) {
+                if (alarm.isAlarmOn()) {
+                    alarm.startAlarmWithNoToast(getApplicationContext());
+                }
+            }
         }
         initIab();
 
@@ -279,6 +290,12 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     @Override
     protected void onDestroy() {
         // Activity is destroyed
+        if (MNAlarmWakeUtils.isAlarmReservedByIntent(getIntent())) {
+            // 알람이 있을 때 액티비티 종료시 진동을 종료해 주어야 알람이 1분만에 두번이 울렸을 때 진동 때문에 문제가 생기지 않음
+            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.cancel();
+        }
+
         if (adView != null) {
             adView.destroy();
         }
@@ -475,10 +492,17 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
      */
     @Subscribe
     public void onDismissAlarmWakeDialog(AlertDialog alertDialog) {
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        // 롤리팝 버전은 잠금관련을 해제하지 말기. 그래야 스크린이 계속 켜짐
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                    WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                    WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                    WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        }
     }
 
     /**

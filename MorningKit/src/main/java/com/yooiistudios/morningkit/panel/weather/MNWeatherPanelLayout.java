@@ -425,6 +425,9 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
                     (RelativeLayout.LayoutParams) cityNameTextView.getLayoutParams();
             cityNameParams.topMargin = getResources().getDimensionPixelSize(R.dimen.panel_detail_padding_inner);
         }
+        // 화면을 표시한 이후에는 무조건 cover layout 을 명시적으로 숨겨주기
+        // 이사님 피드백에 contentLayout 과 coverLayout 이 같이 나오는 문제가 있었음
+        hideCoverLayout();
     }
 
     private String capitalize(String line) {

@@ -32,7 +32,7 @@ public class MNDateDetailFragment extends MNPanelDetailFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.panel_date_detail_fragment, container, false);
-        if (rootView != null) {
+        if (rootView != null && savedInstanceState == null) {
             ButterKnife.inject(this, rootView);
 
             // 패널 데이터 가져오기

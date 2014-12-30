@@ -36,7 +36,7 @@ public class MNMemoDetailFragment extends MNPanelDetailFragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.panel_memo_detail_fragment, container, false);
-        if (rootView != null) {
+        if (rootView != null && savedInstanceState == null) {
             ButterKnife.inject(this, rootView);
 
             // 메모 가져오기: 메모가 없다면 힌트를 보여주기
