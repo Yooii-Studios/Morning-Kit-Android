@@ -82,7 +82,7 @@ public class MNWeatherDetailFragment extends MNPanelDetailFragment implements Ad
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.panel_weather_detail_fragment, container, false);
-        if (rootView != null) {
+        if (rootView != null && savedInstanceState == null) {
             ButterKnife.inject(this, rootView);
 
             // 모든 위치 정보 로딩
