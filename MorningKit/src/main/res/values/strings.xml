@@ -339,6 +339,6 @@
     <string name="unlock_recommend_highlight">Recommend</string>
 
     <!-- Quit Ad -->
-    <string name="quit_ad_dialog_title_text">Do you want to quit this app?</string>
+    <string name="quit_ad_dialog_title_text">Are you sure you want to quit?</string>
 
 </resources>
