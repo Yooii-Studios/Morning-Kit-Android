@@ -31,6 +31,7 @@ MXN/Mexican Peso/MX/Mex$
 MYR/Malaysian Ringgit/MY/RM
 NOK/Norwegian Krone/NO/kr
 NZD/New Zealand Dollar/NZ/NZ$
+PKR/Pakistani rupee/PK/₨
 PEN/Peruvian Nuevo Sol/PE/S/.
 PHP/Philippine Peso/PH/₱
 PYG/Paraguayan Guarani/PY/₲
