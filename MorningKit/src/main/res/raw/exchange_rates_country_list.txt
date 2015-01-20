@@ -27,10 +27,12 @@ KWD/Kuwaiti Dinar/KW/KWD
 KZT/Kazakhstan Tenge/KZ/KZT
 LTL/Lithuanian Lita/LT/Lt
 LVL/Latvian Lat/LV/Ls
+MAD/Moroccan Dirham/MA/د.م.
 MXN/Mexican Peso/MX/Mex$
 MYR/Malaysian Ringgit/MY/RM
 NOK/Norwegian Krone/NO/kr
 NZD/New Zealand Dollar/NZ/NZ$
+PKR/Pakistani Rupee/PK/₨
 PEN/Peruvian Nuevo Sol/PE/S/.
 PHP/Philippine Peso/PH/₱
 PYG/Paraguayan Guarani/PY/₲
@@ -42,6 +44,7 @@ SGD/Singapore Dollar/SG/S$
 THB/Thai Baht/TH/฿
 TRY/Turkey Lira/TR/TRY
 TWD/Taiwan Dollar/TW/NT$
+UAH/Ukrainian Hryvnia/UA/₴
 USD/US Dollar/US/$
 UYU/Uruguayan New Peso/UY/$U
 ZAR/South African Rand/ZW/R
