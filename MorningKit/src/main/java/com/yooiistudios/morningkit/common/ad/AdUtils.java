@@ -64,7 +64,7 @@ public class AdUtils {
                     showInHouseStoreAd(context);
                 } else {
                     prefs.edit().putInt(EACH_AD_COUNT, ++eachAdCount).apply();
-                    showInterstitialAd(context);
+//                    showInterstitialAd(context);
                 }
             }
             if (launchCount < 55) {
@@ -97,6 +97,7 @@ public class AdUtils {
         return false;
     }
 
+    // 잠시 전면광고를 사용하지 않는 방향으로 기획 수정
     private static void showInterstitialAd(Context context) {
         // 전체 광고 표시
         final InterstitialAd interstitialAdView = new InterstitialAd(context);

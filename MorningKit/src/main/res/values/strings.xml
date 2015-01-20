@@ -326,7 +326,7 @@
 
     <!-- Recommend -->
     <string name="recommend_to_friends">Recommend Morning Kit to your friends</string>
-    <string name="recommend_title">Check out this new app, it\'s awesome!</string>
+    <string name="recommend_title">Hey,\nCheck out this awesome free app I found\nYou can download it here:\n</string>
     <string name="recommend_description">Click the link and take it for a spin</string>
     <string name="recommend_app_full_name">Morning Kit</string>
 
@@ -339,6 +339,6 @@
     <string name="unlock_recommend_highlight">Recommend</string>
 
     <!-- Quit Ad -->
-    <string name="quit_ad_dialog_title_text">Do you want to quit this app?</string>
+    <string name="quit_ad_dialog_title_text">Are you sure you want to quit?</string>
 
 </resources>
