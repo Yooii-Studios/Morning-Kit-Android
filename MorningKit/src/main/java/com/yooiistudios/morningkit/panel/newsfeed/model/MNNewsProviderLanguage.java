@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.panel.newsfeed.model;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 
 /**
@@ -9,7 +10,7 @@ import java.util.LinkedHashMap;
  *  뉴스 선택 화면의 탭에 들어가는 가장 상위 모델
  *  해당 언어의 표기, 코드 및 이를 사용하는 국가의 리스트를 가지는 자료 구조
  */
-public class MNNewsProviderLanguage {
+public class MNNewsProviderLanguage implements Serializable {
     public String englishLanguageName;
     public String regionalLanguageName;
 

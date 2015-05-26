@@ -183,13 +183,13 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 feedUrl = new Gson().fromJson(
                         getPanelDataObject().getString(KEY_FEED_URL), urlType);
 
-                if (!feedUrl.type.equals(MNNewsFeedUrlType.CUSTOM)) {
-                    feedUrl = MNNewsFeedUrlProvider.getInstance(context).getDefault();
-                    getPanelDataObject().put(KEY_FEED_URL,
-                            new Gson().toJson(feedUrl));
-                    prefs.edit().putString(KEY_FEED_URL,
-                            new Gson().toJson(feedUrl)).apply();
-                }
+//                if (!feedUrl.type.equals(MNNewsFeedUrlType.CUSTOM)) {
+//                    feedUrl = MNNewsFeedUrlProvider.getInstance(context).getDefault();
+//                    getPanelDataObject().put(KEY_FEED_URL,
+//                            new Gson().toJson(feedUrl));
+//                    prefs.edit().putString(KEY_FEED_URL,
+//                            new Gson().toJson(feedUrl)).apply();
+//                }
             }
             else {
                 String savedUrl = prefs.getString(KEY_FEED_URL, null);
@@ -201,10 +201,10 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 }
 //                feedUrl = prefs.getString(KEY_FEED_URL,
 //                        MNNewsFeedUtil.getDefaultFeedUrl(getContext()));
-                getPanelDataObject().put(KEY_FEED_URL,
-                        new Gson().toJson(feedUrl));
-                prefs.edit().putString(KEY_FEED_URL,
-                        new Gson().toJson(feedUrl)).apply();
+//                getPanelDataObject().put(KEY_FEED_URL,
+//                        new Gson().toJson(feedUrl));
+//                prefs.edit().putString(KEY_FEED_URL,
+//                        new Gson().toJson(feedUrl)).apply();
             }
             //메인에서 이전 피드 캐싱해서 보여주던 루틴 없엠.(피드 url 이 바뀐 경우 의미 없음)
             if (getPanelDataObject().has(KEY_RSS_FEED)

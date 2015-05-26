@@ -222,6 +222,13 @@
             android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
         </activity>
 
+        <activity
+            android:name=".panel.newsfeed.MNNewsSelectDetailActivity"
+            android:screenOrientation="sensorPortrait"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|locale|layoutDirection"
+            android:theme="@style/Theme.MNSettingActionBarTheme.PastelGreen" >
+        </activity>
+
         <!-- naver iab -->
         <activity
             android:name="com.naver.iap.NaverIabActivity"

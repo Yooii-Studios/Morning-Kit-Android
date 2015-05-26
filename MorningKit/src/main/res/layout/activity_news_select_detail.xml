@@ -2,10 +2,10 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.yooiistudios.morningkit.panel.newsfeed.MNNewsSelectActivity">
+                tools:context="com.yooiistudios.morningkit.panel.newsfeed.MNNewsSelectDetailActivity">
 
     <ListView
-        android:id="@+id/news_select_language_listview"
+        android:id="@+id/news_select_detail_country_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

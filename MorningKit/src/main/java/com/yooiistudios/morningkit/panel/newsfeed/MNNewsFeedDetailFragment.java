@@ -348,7 +348,6 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        MNLog.now("onActivityResult");
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == RC_NEWS_SELECT) {
                 MNNewsFeedUrl feedUrl = (MNNewsFeedUrl)data.getSerializableExtra(

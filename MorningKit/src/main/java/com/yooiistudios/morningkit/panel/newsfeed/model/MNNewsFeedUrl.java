@@ -28,4 +28,10 @@ public class MNNewsFeedUrl implements Serializable {
     public MNNewsFeedUrl(MNNewsFeedUrl feedUrl) {
         this(feedUrl.url, feedUrl.type, feedUrl.languageCode, feedUrl.regionCode, feedUrl.countryCode);
     }
+
+    public MNNewsFeedUrl(MNNewsProviderCountry newsProviderCountry, MNNewsFeedUrlType type) {
+        this(newsProviderCountry.url, type,
+                newsProviderCountry.languageCode, newsProviderCountry.regionCode,
+                newsProviderCountry.countryCode);
+    }
 }
