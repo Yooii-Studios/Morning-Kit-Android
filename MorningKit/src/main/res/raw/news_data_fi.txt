@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Finnish",
+    "lang_name_regional": "Suomi",
+    "lang_code": "fi",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Suomi",
+            "country_code": "FI",
+            "url": "http://www.iltasanomat.fi/rss/tuoreimmat.xml"
+        }
+    ]
+}

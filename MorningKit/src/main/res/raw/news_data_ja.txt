@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Japanese",
+    "lang_name_regional": "日本語",
+    "lang_code": "ja",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "日本",
+            "country_code": "JP",
+            "url": "http://www3.asahi.com/rss/index.rdf"
+        }
+    ]
+}

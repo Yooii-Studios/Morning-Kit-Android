@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Swedish",
+    "lang_name_regional": "Svenska",
+    "lang_code": "sv",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Sverige",
+            "country_code": "SE",
+            "url": "http://news.google.com/news?cf=all&ned=sv_se&hl=sv&output=rss"
+        }
+    ]
+}

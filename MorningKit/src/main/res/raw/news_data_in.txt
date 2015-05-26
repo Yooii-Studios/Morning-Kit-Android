@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Indonesian",
+    "lang_name_regional": "Indonesia",
+    "lang_code": "in",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Indonesia",
+            "country_code": "ID",
+            "url": "http://www.suaramerdeka.com/rsssm/index.php/news"
+        }
+    ]
+}

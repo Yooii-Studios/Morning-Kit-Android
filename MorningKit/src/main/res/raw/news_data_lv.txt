@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Latvian",
+    "lang_name_regional": "Latvijas",
+    "lang_code": "lv",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Latvija",
+            "country_code": "LV",
+            "url": "http://www.diena.lv/top_news.rss"
+        }
+    ]
+}

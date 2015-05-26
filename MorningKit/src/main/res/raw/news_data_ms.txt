@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Malay",
+    "lang_name_regional": "Melayu",
+    "lang_code": "ms",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Malaysia",
+            "country_code": "MY",
+            "url": "http://www.bharian.com.my/terkini.xml"
+        }
+    ]
+}

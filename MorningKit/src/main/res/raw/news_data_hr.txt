@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Croatian",
+    "lang_name_regional": "Hrvatski",
+    "lang_code": "hr",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Hrvatska",
+            "country_code": "HR",
+            "url": "http://www.24sata.hr/feeds/aktualno.xml"
+        }
+    ]
+}

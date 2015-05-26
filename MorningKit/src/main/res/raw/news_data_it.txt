@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Italian",
+    "lang_name_regional": "Italiano",
+    "lang_code": "it",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Italia",
+            "country_code": "IT",
+            "url": "http://news.google.com/news?cf=all&ned=it&hl=it&output=rss"
+        }
+    ]
+}

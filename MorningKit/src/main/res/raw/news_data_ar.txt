@@ -1,0 +1,38 @@
+{
+    "lang_name_english": "Arabic",
+    "lang_name_regional": "العربية",
+    "lang_code": "ar",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "مصر",
+            "country_code": "EG",
+            "url": "http://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
+        },
+        {
+            "country_name": "العراق",
+            "country_code": "IQ",
+            "url": "http://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
+        },
+        {
+            "country_name": "المملكة العربية السعودية",
+            "country_code": "SA",
+            "url": "http://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
+        },
+        {
+            "country_name": "يمني",
+            "country_code": "YE",
+            "url": "http://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
+        },
+        {
+            "country_name": "سوريا",
+            "country_code": "SY",
+            "url": "http://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
+        },
+        {
+            "country_name": "لبنان",
+            "country_code": "LB",
+            "url": "http://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
+        }
+    ]
+}

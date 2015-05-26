@@ -1,0 +1,18 @@
+{
+    "lang_name_english": "Portuguese",
+    "lang_name_regional": "Português",
+    "lang_code": "pt",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Portugal",
+            "country_code": "PT",
+            "url": "http://news.google.com/news?cf=all&ned=pt-PT_pt&hl=pt-PT&output=rss"
+        },
+        {
+            "country_name": "Brasil",
+            "country_code": "BR",
+            "url": "http://news.google.com/news?cf=all&ned=pt-BR_br&hl=pt-BR&output=rss"
+        }
+    ]
+}

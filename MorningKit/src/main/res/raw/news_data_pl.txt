@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Polish",
+    "lang_name_regional": "Język polski",
+    "lang_code": "pl",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Polska",
+            "country_code": "PL",
+            "url": "http://news.google.com/news?cf=all&ned=pl_pl&hl=pl&output=rss"
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Belarusian",
+    "lang_name_regional": "беларускі",
+    "lang_code": "be",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Беларусь",
+            "country_code": "BY",
+            "url": "http://nn.by/?c=rss-top"
+        }
+    ]
+}

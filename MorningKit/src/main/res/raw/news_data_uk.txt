@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Ukrainian",
+    "lang_name_regional": "Украї́нська",
+    "lang_code": "uk",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Україна",
+            "country_code": "UA",
+            "url": "http://news.google.com/news?cf=all&ned=uk_ua&hl=uk&output=rss"
+        }
+    ]
+}

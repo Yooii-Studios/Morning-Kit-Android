@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Bulgarian",
+    "lang_name_regional": "Български",
+    "lang_code": "bg",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "България",
+            "country_code": "BG",
+            "url": "http://www.dnevnik.bg/rss/"
+        }
+    ]
+}

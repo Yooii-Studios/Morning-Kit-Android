@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Estonian",
+    "lang_name_regional": "eesti",
+    "lang_code": "ee",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Eesti",
+            "country_code": "EE",
+            "url": "http://www.aripaev.ee/mod/rss.xml"
+        }
+    ]
+}

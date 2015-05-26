@@ -8,7 +8,6 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
@@ -31,69 +30,6 @@ public class MNNewsFeedUtil {
     private static final String HISTORY_DELIM = "|";
     private static final String NEWS_PROVIDER_YAHOO_JAPAN = "Yahoo!ニュース";
     private static final String NEWS_PROVIDER_ABC_ES = "ABC.es";
-
-    public static MNNewsFeedUrl getDefaultFeedUrl(Context context) {
-        MNLanguageType type = MNLanguage.getCurrentLanguageType(context);
-
-        String feedUrl;
-        MNNewsFeedUrlType urlType;
-
-        switch(type) {
-            case ENGLISH:
-                feedUrl = "http://news.google.com/news?cf=all&ned=us&hl=en&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case KOREAN:
-                feedUrl = "http://news.google.com/news?cf=all&ned=kr&hl=ko&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case JAPANESE:
-                feedUrl = "http://rss.dailynews.yahoo.co.jp/fc/rss.xml";
-                urlType = MNNewsFeedUrlType.YAHOO;
-                break;
-            case TRADITIONAL_CHINESE:
-                feedUrl = "http://news.google.com/news?cf=all&ned=tw&hl=zh-TW&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case SIMPLIFIED_CHINESE:
-                feedUrl = "http://news.google.com/news?cf=all&ned=cn&hl=zh-CN&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case RUSSIAN:
-                feedUrl = "http://news.google.com/news?cf=all&ned=ru_ru&hl=ru&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case FRENCH:
-                feedUrl = "http://news.google.com/news?cf=all&ned=fr&hl=fr&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case SPANISH:
-                feedUrl = "http://www.abc.es/rss/feeds/abc_Internacional.xml";
-                urlType = MNNewsFeedUrlType.ABC_ES;
-                break;
-            case GERMAN:
-                feedUrl = "http://news.google.com/news?cf=all&ned=de&hl=de&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case PORTUGUESE_BRAZIL:
-                feedUrl = "https://news.google.com/news/feeds?cf=all&ned=pt-BR_br&hl=pt-BR_br&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case PORTUGUESE_PORTUGAL:
-                feedUrl = "https://news.google.com/news/feeds?cf=all&ned=pt-PT_pt&hl=pt-PT_pt&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            default:
-                feedUrl = "http://news.google.com/news?cf=all&ned=us&hl=en&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-        }
-//        feedUrl = "http://sweetpjy.tistory.com/rss";
-//        feedUrl = "http://www.cnet.com/rss/iphone-update/";
-
-
-        return new MNNewsFeedUrl(feedUrl, urlType);
-    }
 
     public static String getRssFeedJsonString(RssFeed feed) {
         return new GsonBuilder().setExclusionStrategies(new ExclusionStrategy

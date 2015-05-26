@@ -49,7 +49,7 @@ public class MNRssFetchTask extends AsyncTask<MNNewsFeedUrl, Void, RssFeed> {
         if (!mFeedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
             // 디폴트 세팅을 사용할 경우 패널단에서 언어설정을 감지 못하므로 무조건 현재 언어의
             // 디폴트 url을 가져온다.
-            mFeedUrl = MNNewsFeedUtil.getDefaultFeedUrl(mContext);
+            mFeedUrl = MNNewsFeedUrlProvider.getInstance(mContext).getDefault();
         }
 
         RssFeed feed = null;

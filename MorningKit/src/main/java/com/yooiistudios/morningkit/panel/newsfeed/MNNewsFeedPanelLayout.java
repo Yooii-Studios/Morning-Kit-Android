@@ -31,11 +31,14 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
+import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsProviderLanguage;
+import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUrlProvider;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNRssFetchTask;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
@@ -49,6 +52,7 @@ import org.json.JSONException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Random;
 
 import nl.matshofman.saxrssreader.RssFeed;
@@ -100,6 +104,13 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     @Override
     protected void init() {
         super.init();
+        LinkedHashMap<String, MNNewsProviderLanguage> newsProviderLanguages
+                = MNNewsFeedUrlProvider.getInstance(getContext()).getUrlsSortedByLocale();
+        StringBuilder messageBuilder = new StringBuilder();
+        for (String languageRegionCode : newsProviderLanguages.keySet()) {
+            messageBuilder.append(languageRegionCode).append(", ");
+        }
+        MNLog.i("UrlsSortedByLocale", messageBuilder.toString());
 
         newsFeedTextView = new AutoResizeTextView(getContext());
         newsFeedTextView.setGravity(Gravity.CENTER);
@@ -153,7 +164,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                     (KEY_LOADING_FEED_URL), urlType);
 
             if (!loadingFeedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
-                loadingFeedUrl = MNNewsFeedUtil.getDefaultFeedUrl(context);
+                loadingFeedUrl = MNNewsFeedUrlProvider.getInstance(context).getDefault();
                 getPanelDataObject().put(KEY_LOADING_FEED_URL,
                         new Gson().toJson(loadingFeedUrl));
                 prefs.edit().putString(KEY_LOADING_FEED_URL,
@@ -173,7 +184,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                         getPanelDataObject().getString(KEY_FEED_URL), urlType);
 
                 if (!feedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
-                    feedUrl = MNNewsFeedUtil.getDefaultFeedUrl(context);
+                    feedUrl = MNNewsFeedUrlProvider.getInstance(context).getDefault();
                     getPanelDataObject().put(KEY_FEED_URL,
                             new Gson().toJson(feedUrl));
                     prefs.edit().putString(KEY_FEED_URL,
@@ -186,7 +197,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                     feedUrl = new Gson().fromJson(savedUrl, urlType);
                 }
                 else {
-                    feedUrl = MNNewsFeedUtil.getDefaultFeedUrl(getContext());
+                    feedUrl = MNNewsFeedUrlProvider.getInstance(context).getDefault();
                 }
 //                feedUrl = prefs.getString(KEY_FEED_URL,
 //                        MNNewsFeedUtil.getDefaultFeedUrl(getContext()));
@@ -195,7 +206,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 prefs.edit().putString(KEY_FEED_URL,
                         new Gson().toJson(feedUrl)).apply();
             }
-            //메인에서 이전 피드 캐싱해서 보여주던 루틴 없엠.(피드 url이 바뀐 경우 의미 없음)
+            //메인에서 이전 피드 캐싱해서 보여주던 루틴 없엠.(피드 url 이 바뀐 경우 의미 없음)
             if (getPanelDataObject().has(KEY_RSS_FEED)
                     && getPanelDataObject().has(KEY_RSS_ITEMS)) {
                 String feedStr = getPanelDataObject().getString(KEY_RSS_FEED);

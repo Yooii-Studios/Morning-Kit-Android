@@ -26,6 +26,7 @@ import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.newsfeed.adapter.MNNewsFeedAdapter;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.ui.MNNewsFeedSelectDialogFragment;
+import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUrlProvider;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNRssFetchTask;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
@@ -90,7 +91,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
                 e.printStackTrace();
 
                 // init with default setting
-                feedUrl = MNNewsFeedUtil.getDefaultFeedUrl(getActivity());
+                feedUrl = MNNewsFeedUrlProvider.getInstance(getActivity()).getDefault();
                 loadingFeedUrl = null;
                 feed = null;
                 highlightNewsIdx = INVALID_NEWS_IDX;
@@ -116,7 +117,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
                 feedUrl = new Gson().fromJson(savedUrlJsonStr, urlType);
             }
             else {
-                feedUrl = MNNewsFeedUtil.getDefaultFeedUrl(getActivity());
+                feedUrl = MNNewsFeedUrlProvider.getInstance(getActivity()).getDefault();
             }
 //            feedUrl = prefs.getString(KEY_FEED_URL,
 //                    MNNewsFeedUtil.getDefaultFeedUrl(getActivity()));

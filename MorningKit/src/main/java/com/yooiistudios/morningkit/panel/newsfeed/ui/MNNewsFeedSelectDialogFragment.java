@@ -19,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
+import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUrlProvider;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 
 /**
@@ -52,8 +53,7 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
         if (!mFeedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
             // 디폴트 세팅을 사용할 경우 패널단에서 언어설정을 감지 못하므로 무조건 현재 언어의
             // 디폴트 url을 가져온다.
-            mFeedUrl = MNNewsFeedUtil.getDefaultFeedUrl(
-                    getActivity().getApplicationContext());
+            mFeedUrl = MNNewsFeedUrlProvider.getInstance(getActivity()).getDefault();
         }
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -128,8 +128,9 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
                                     MNNewsFeedUtil.addUrlToHistory(
                                             getActivity(), url);
 
-                                    MNNewsFeedUrl defUrl = MNNewsFeedUtil.
-                                            getDefaultFeedUrl(getActivity());
+                                    MNNewsFeedUrl defUrl =
+                                            MNNewsFeedUrlProvider.getInstance(getActivity())
+                                                    .getDefault();
 
                                     if (url.equalsIgnoreCase(defUrl.getUrl())
                                             || mHasReset) {
@@ -170,7 +171,7 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                mFeedUrl = MNNewsFeedUtil.getDefaultFeedUrl(getActivity());
+                                mFeedUrl = MNNewsFeedUrlProvider.getInstance(getActivity()).getDefault();
                                 mFeedUrlEditText.setText(mFeedUrl.getUrl());
                                 mHasReset = true;
                             }
@@ -190,7 +191,7 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
     }
 
     public interface OnClickListener {
-        public void onConfirm(MNNewsFeedUrl feedUrl);
-        public void onCancel();
+        void onConfirm(MNNewsFeedUrl feedUrl);
+        void onCancel();
     }
 }

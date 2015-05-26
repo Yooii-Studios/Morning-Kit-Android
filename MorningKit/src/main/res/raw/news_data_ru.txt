@@ -1,0 +1,28 @@
+{
+    "lang_name_english": "Russian",
+    "lang_name_regional": "Pусский",
+    "lang_code": "ru",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Россия",
+            "country_code": "RU",
+            "url": "http://news.google.com/news?cf=all&ned=ru_ru&hl=ru&output=rss"
+        },
+        {
+            "country_name": "Украина",
+            "country_code": "UA",
+            "url": "http://news.google.com/news?cf=all&ned=ru_ua&hl=ru&output=rss"
+        },
+        {
+            "country_name": "Қазақстан",
+            "country_code": "KZ",
+            "url": "http://www.caravan.kz/rss"
+        },
+        {
+            "country_name": "Беларусь",
+            "country_code": "BY",
+            "url": "http://www.nv-online.info/feed/index.rss"
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Czech",
+    "lang_name_regional": "Čeština",
+    "lang_code": "cs",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Česká republika",
+            "country_code": "CZ",
+            "url": "http://news.google.com/news?cf=all&ned=cs_cz&hl=cs&output=rss"
+        }
+    ]
+}

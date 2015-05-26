@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Hindi",
+    "lang_name_regional": "हिन्दी",
+    "lang_code": "hi",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "भारत",
+            "country_code": "IN",
+            "url": "http://news.google.com/news?cf=all&ned=hi_in&hl=hi&output=rss"
+        }
+    ]
+}

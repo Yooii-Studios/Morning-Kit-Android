@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Thai",
+    "lang_name_regional": "ไทย",
+    "lang_code": "th",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "ประเทศไทย",
+            "country_code": "TH",
+            "url": "http://www.khaosod.co.th/rss/urgent_news.xml"
+        }
+    ]
+}

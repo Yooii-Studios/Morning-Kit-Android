@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Simplified Chinese",
+    "lang_name_regional": "简体中文",
+    "lang_code": "zh",
+    "region_code": "cn",
+    "countries": [
+        {
+            "country_name": "中國",
+            "country_code": "CN",
+            "url": "http://news.google.com/news?cf=all&ned=cn&hl=zh-CN&output=rss"
+        }
+    ]
+}

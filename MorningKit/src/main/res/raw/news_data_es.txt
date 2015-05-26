@@ -1,0 +1,113 @@
+{
+    "lang_name_english": "Spanish",
+    "lang_name_regional": "Español",
+    "lang_code": "es",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "España",
+            "country_code": "ES",
+            "url": "http://ep00.epimg.net/rss/tags/ultimas_noticias.xml"
+        },
+        {
+            "country_name": "Mexico",
+            "country_code": "MX",
+            "url": "http://news.google.com/news?cf=all&ned=es_mx&hl=es&output=rss"
+        },
+        {
+            "country_name": "Colombia",
+            "country_code": "CO",
+            "url": "http://news.google.com/news?cf=all&ned=es_co&hl=es&output=rss"
+        },
+        {
+            "country_name": "Argentina",
+            "country_code": "AR",
+            "url": "http://news.google.com/news?cf=all&ned=es_ar&hl=es&output=rss"
+        },
+        {
+            "country_name": "Peru",
+            "country_code": "PE",
+            "url": "http://news.google.com/news?cf=all&ned=es_pe&hl=es&output=rss"
+        },
+        {
+            "country_name": "Venezuela",
+            "country_code": "VE",
+            "url": "http://news.google.com/news?cf=all&ned=es_ve&hl=es&output=rss"
+        },
+        {
+            "country_name": "Chile",
+            "country_code": "CL",
+            "url": "http://news.google.com/news?cf=all&ned=es_cl&hl=es&output=rss"
+        },
+        {
+            "country_name": "Ecuador",
+            "country_code": "EC",
+            "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
+        },
+        {
+            "country_name": "Bolivia",
+            "country_code": "BO",
+            "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
+        },
+        {
+            "country_name": "Guatemala",
+            "country_code": "GT",
+            "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
+        },
+        {
+            "country_name": "Paraguay",
+            "country_code": "PY",
+            "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
+        },
+        {
+            "country_name": "Uruguay",
+            "country_code": "UY",
+            "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
+        },
+        {
+            "country_name": "Cuba",
+            "country_code": "CU",
+            "url": "http://news.google.com/news?cf=all&ned=es_cu&hl=es&output=rss"
+        },
+        {
+            "country_name": "Dominican Republic",
+            "country_code": "DO",
+            "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
+        },
+        {
+            "country_name": "Honduras",
+            "country_code": "HN",
+            "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
+        },
+        {
+            "country_name": "Nicaragua",
+            "country_code": "NI",
+            "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
+        },
+        {
+            "country_name": "El Salvador",
+            "country_code": "SV",
+            "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
+        },
+        {
+            "country_name": "Costa Rica",
+            "country_code": "CR",
+            "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
+        },
+        {
+            "country_name": "Panama",
+            "country_code": "PA",
+            "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
+        },
+        {
+            "country_name": "Puerto Rico",
+            "country_code": "PR",
+            "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
+        },
+        {
+            "country_name": "Jamaica",
+            "country_code": "JM",
+            "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
+        }
+    ]
+}

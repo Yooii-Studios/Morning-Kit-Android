@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Kazakh",
+    "lang_name_regional": "Қазақ",
+    "lang_code": "kk",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Қазақстан",
+            "country_code": "KZ",
+            "url": "http://www.time.kz/rss"
+        }
+    ]
+}

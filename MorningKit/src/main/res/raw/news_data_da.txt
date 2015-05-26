@@ -1,0 +1,13 @@
+{
+    "lang_name_english": "Danish",
+    "lang_name_regional": "Dansk",
+    "lang_code": "da",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Danmark",
+            "country_code": "DK",
+            "url": "http://jp.dk/?service=rssfeed&submode=topnyheder"
+        }
+    ]
+}
