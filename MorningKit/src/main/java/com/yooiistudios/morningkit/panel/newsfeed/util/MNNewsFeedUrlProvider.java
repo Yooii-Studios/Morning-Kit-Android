@@ -762,7 +762,8 @@ public class MNNewsFeedUrlProvider {
         MNNewsProviderCountry providerCountry = newsProviderLanguage.newsProviderCountries.get(countryCode);
 
         // TODO: MNNewsFeedUrlType 지정
-        return new MNNewsFeedUrl(providerCountry.url, MNNewsFeedUrlType.GOOGLE);
+        return new MNNewsFeedUrl(providerCountry.url, MNNewsFeedUrlType.GOOGLE,
+                providerCountry.languageCode, providerCountry.regionCode, providerCountry.countryCode);
     }
 
     public LinkedHashMap<String, MNNewsProviderLanguage> getUrlsSortedByLocale() {

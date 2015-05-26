@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.panel.newsfeed.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -7,7 +8,6 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -50,7 +50,7 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
         Bundle args = getArguments();
         mFeedUrl = (MNNewsFeedUrl)args.getSerializable(KEY_URL);
 
-        if (!mFeedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
+        if (!mFeedUrl.type.equals(MNNewsFeedUrlType.CUSTOM)) {
             // 디폴트 세팅을 사용할 경우 패널단에서 언어설정을 감지 못하므로 무조건 현재 언어의
             // 디폴트 url을 가져온다.
             mFeedUrl = MNNewsFeedUrlProvider.getInstance(getActivity()).getDefault();
@@ -61,7 +61,7 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
         View root = inflater.inflate(R.layout
                 .dialog_fragment_news_feed_select, null, false);
         mFeedUrlEditText = (AutoCompleteTextView)root.findViewById(R.id.urlEditText);
-        mFeedUrlEditText.setText(mFeedUrl.getUrl());
+        mFeedUrlEditText.setText(mFeedUrl.url);
         mFeedUrlEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -113,9 +113,9 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                Fragment parentFragment = getTargetFragment();
-                                if (parentFragment != null &&
-                                        parentFragment
+                                Activity parentActivity = getActivity();
+                                if (parentActivity != null &&
+                                        parentActivity
                                                 instanceof OnClickListener) {
                                     String url = mFeedUrlEditText.getText()
                                             .toString();
@@ -132,7 +132,7 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
                                             MNNewsFeedUrlProvider.getInstance(getActivity())
                                                     .getDefault();
 
-                                    if (url.equalsIgnoreCase(defUrl.getUrl())
+                                    if (url.equalsIgnoreCase(defUrl.url)
                                             || mHasReset) {
                                         mFeedUrl = defUrl;
                                     } else {
@@ -140,7 +140,7 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
                                                 MNNewsFeedUrlType.CUSTOM);
                                     }
 
-                                    ((OnClickListener) parentFragment)
+                                    ((OnClickListener) parentActivity)
                                             .onConfirm(mFeedUrl);
                                 }
                             }
@@ -154,11 +154,11 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
                 .setNegativeButton(R.string.cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                Fragment parentFragment = getTargetFragment();
-                                if (parentFragment != null &&
-                                        parentFragment
+                                Activity parentActivity = getActivity();
+                                if (parentActivity != null &&
+                                        parentActivity
                                                 instanceof OnClickListener) {
-                                    ((OnClickListener) parentFragment)
+                                    ((OnClickListener) parentActivity)
                                             .onCancel();
                                 }
                             }
@@ -172,7 +172,7 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
                             @Override
                             public void onClick(View v) {
                                 mFeedUrl = MNNewsFeedUrlProvider.getInstance(getActivity()).getDefault();
-                                mFeedUrlEditText.setText(mFeedUrl.getUrl());
+                                mFeedUrlEditText.setText(mFeedUrl.url);
                                 mHasReset = true;
                             }
                         }

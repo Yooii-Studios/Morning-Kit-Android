@@ -163,7 +163,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
             loadingFeedUrl = new Gson().fromJson(getPanelDataObject().getString
                     (KEY_LOADING_FEED_URL), urlType);
 
-            if (!loadingFeedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
+            if (!loadingFeedUrl.type.equals(MNNewsFeedUrlType.CUSTOM)) {
                 loadingFeedUrl = MNNewsFeedUrlProvider.getInstance(context).getDefault();
                 getPanelDataObject().put(KEY_LOADING_FEED_URL,
                         new Gson().toJson(loadingFeedUrl));
@@ -183,7 +183,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 feedUrl = new Gson().fromJson(
                         getPanelDataObject().getString(KEY_FEED_URL), urlType);
 
-                if (!feedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
+                if (!feedUrl.type.equals(MNNewsFeedUrlType.CUSTOM)) {
                     feedUrl = MNNewsFeedUrlProvider.getInstance(context).getDefault();
                     getPanelDataObject().put(KEY_FEED_URL,
                             new Gson().toJson(feedUrl));
@@ -359,7 +359,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
 
         if (currentDisplayingItem != null) {
             String[] result = MNNewsFeedUtil.getTitleAndPublisherName(
-                    currentDisplayingItem, feedUrl.getType());
+                    currentDisplayingItem, feedUrl.type);
 //            if (result[1] != null) {
 //                newsFeedTextView.setText(result[0] + "\n\n" + result[1]);
 //            } else {
