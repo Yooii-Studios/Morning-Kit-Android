@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -60,7 +61,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
     private static final int RC_NEWS_SELECT = 1001;
 
     @InjectView(R.id.feedTitle) TextView feedTitleTextView;
-    @InjectView(R.id.search) ImageView searchImageView;
+    @InjectView(R.id.news_feed_detail_globe) ImageView globeImageView;
     @InjectView(R.id.newsList) ListView newsListView;
     @InjectView(R.id.result) LinearLayout newsResult;
     @InjectView(R.id.loadingImageView) ImageView loadingImageView;
@@ -172,13 +173,21 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
                 startActivity(intent);
             }
         });
-        searchImageView.setOnClickListener(onSelectFeedClickedListener);
         loadingImageView.setVisibility(View.GONE);
         newsResult.setVisibility(View.GONE);
+
+        initGlobeImageView();
 
         // theme
         initTheme();
     }
+
+    private void initGlobeImageView() {
+        globeImageView.setOnClickListener(onSelectFeedClickedListener);
+        int iconColor = getResources().getColor(R.color.pastel_green_main_font_color);
+        globeImageView.setColorFilter(iconColor, PorterDuff.Mode.MULTIPLY);
+    }
+
     private View.OnClickListener
             onSelectFeedClickedListener = new View.OnClickListener() {
         @Override

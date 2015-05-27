@@ -71,6 +71,8 @@ public class MNNewsSelectDetailActivity extends ActionBarActivity
         mAdapter = new MNNewsProviderCountryAdapter(newsProviderLanguage);
 
         listView.setAdapter(mAdapter);
+        listView.setDivider(null);
+        listView.setDividerHeight(0);
         listView.setOnItemClickListener(this);
     }
 

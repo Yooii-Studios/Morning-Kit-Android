@@ -1,10 +1,12 @@
 package com.yooiistudios.morningkit.panel.newsfeed.adapter;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsProviderLanguage;
 
 import java.util.List;
@@ -44,11 +46,12 @@ public class MNNewsProviderLanguageAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = new TextView(parent.getContext());
+            convertView = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.panel_news_select_row, parent, false);
         }
         MNNewsProviderLanguage newsProviderLanguage = mNewsProviderLanguages.get(position);
 
-        TextView messageTextView = (TextView)convertView;
+        TextView messageTextView = (TextView)convertView.findViewById(R.id.news_select_row_title);
         messageTextView.setText(newsProviderLanguage.regionalLanguageName);
 
         return convertView;
