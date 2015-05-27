@@ -227,10 +227,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
                     MNNewsFeedUtil.getRssItemArrayListString(feed.getRssItems()));
         }
 
-        SharedPreferences prefs = getActivity().getSharedPreferences(
-                PREF_NEWS_FEED, Context.MODE_PRIVATE);
-//        prefs.edit().putString(KEY_FEED_URL, feedUrl).apply();
-        prefs.edit().putString(KEY_FEED_URL, new Gson().toJson(feedUrl)).apply();
+        MNNewsFeedUtil.saveNewsFeedUrl(getActivity(), feedUrl);
     }
     private void showResultView() {
         loadingImageView.setVisibility(View.GONE);

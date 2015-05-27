@@ -8,6 +8,7 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import nl.matshofman.saxrssreader.RssFeed;
 import nl.matshofman.saxrssreader.RssItem;
 
+import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.KEY_FEED_URL;
 import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.PREF_NEWS_FEED;
 
 /**
@@ -45,6 +47,7 @@ public class MNNewsFeedUtil {
                     }
                 }).serializeNulls().create().toJson(feed);
     }
+
     public static String getRssItemArrayListString(ArrayList<RssItem>
                                                            itemList) {
         return new GsonBuilder().setExclusionStrategies(new ExclusionStrategy
@@ -59,6 +62,18 @@ public class MNNewsFeedUtil {
                 return (clazz == RssFeed.class);
             }
         }).serializeNulls().create().toJson(itemList);
+    }
+
+    public static void saveNewsFeedUrl(Context context, MNNewsFeedUrl newsFeedUrl) {
+        SharedPreferences prefs = context.getApplicationContext()
+                .getSharedPreferences(PREF_NEWS_FEED, Context.MODE_PRIVATE);
+        prefs.edit().putString(KEY_FEED_URL, new Gson().toJson(newsFeedUrl)).apply();
+    }
+
+    public static void removeNewsFeedUrl(Context context) {
+        SharedPreferences prefs = context.getApplicationContext()
+                .getSharedPreferences(PREF_NEWS_FEED, Context.MODE_PRIVATE);
+        prefs.edit().remove(KEY_FEED_URL).apply();
     }
 
     public static void addUrlToHistory(Context context, String url) {

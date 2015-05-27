@@ -31,13 +31,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
-import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsProviderLanguage;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUrlProvider;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNRssFetchTask;
@@ -48,11 +46,11 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.Random;
 
 import nl.matshofman.saxrssreader.RssFeed;
@@ -104,13 +102,6 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     @Override
     protected void init() {
         super.init();
-        LinkedHashMap<String, MNNewsProviderLanguage> newsProviderLanguages
-                = MNNewsFeedUrlProvider.getInstance(getContext()).getUrlsSortedByLocale();
-        StringBuilder messageBuilder = new StringBuilder();
-        for (String languageRegionCode : newsProviderLanguages.keySet()) {
-            messageBuilder.append(languageRegionCode).append(", ");
-        }
-        MNLog.i("UrlsSortedByLocale", messageBuilder.toString());
 
         newsFeedTextView = new AutoResizeTextView(getContext());
         newsFeedTextView.setGravity(Gravity.CENTER);
@@ -152,6 +143,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
     @Override
     protected void processLoading() throws JSONException {
         super.processLoading();
+        updateDataIfNecessary();
 
         SharedPreferences prefs = getContext().getSharedPreferences(
                 PREF_NEWS_FEED, Context.MODE_PRIVATE);
@@ -235,6 +227,32 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
             loadNewsFeed(feedUrl);
         }
     }
+
+    private void updateDataIfNecessary() throws JSONException {
+        if (getPanelDataObject().has(KEY_FEED_URL)) {
+            String prev = getPanelDataObject().getString(KEY_FEED_URL);
+            JSONObject prevNewsFeedUrlJson = new JSONObject(prev);
+            if (prevNewsFeedUrlJson.length() <= 2) {
+                /**
+                 * version 58(v3.2.0): 언어 선택 기능 추가됨.
+                 * 1. 기존에 커스텀 url 을 사용중이었다면 migration.
+                 * 2. 기본값을 사용하고 있었다면 기존의 내용을 지워 기본 세팅을 사용하게 함.
+                 */
+                MNNewsFeedUtil.removeNewsFeedUrl(getContext());
+                getPanelDataObject().remove(KEY_FEED_URL);
+                getPanelDataObject().remove(KEY_LOADING_FEED_URL);
+                getPanelDataObject().remove(KEY_RSS_FEED);
+                getPanelDataObject().remove(KEY_RSS_ITEMS);
+
+                if (prevNewsFeedUrlJson.getString("mType").equals("CUSTOM")) {
+                    String prevUrl = prevNewsFeedUrlJson.getString("mUrl");
+                    MNNewsFeedUrl newsFeedUrl = new MNNewsFeedUrl(prevUrl, MNNewsFeedUrlType.CUSTOM);
+                    getPanelDataObject().put(KEY_FEED_URL, new Gson().toJson(newsFeedUrl));
+                }
+            }
+        }
+    }
+
     private void loadNewsFeed(MNNewsFeedUrl url) {
         startLoadingAnimation();
         stopHandler();

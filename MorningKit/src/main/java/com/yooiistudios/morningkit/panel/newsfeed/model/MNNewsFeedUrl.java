@@ -8,9 +8,9 @@ import java.io.Serializable;
 public class MNNewsFeedUrl implements Serializable {
     public String url;
     public MNNewsFeedUrlType type;
-    public String languageCode;
-    public String regionCode;
-    public String countryCode;
+    public String languageCode = "";
+    public String regionCode = "";
+    public String countryCode = "";
 
     public MNNewsFeedUrl(String url, MNNewsFeedUrlType type) {
         this.url = url;
