@@ -62,11 +62,12 @@ public class MNNewsSelectDetailActivity extends ActionBarActivity
     private void initViews() {
         ListView listView = (ListView)findViewById(R.id.news_select_detail_country_listview);
 
-
         MNNewsProviderLanguage newsProviderLanguage =
                 (MNNewsProviderLanguage)getIntent().getSerializableExtra(
                         INTENT_KEY_NEWS_PROVIDER_LANGUAGE);
-        mAdapter = new MNNewsProviderCountryAdapter(newsProviderLanguage);
+        MNNewsFeedUrl feedUrl =
+                (MNNewsFeedUrl)getIntent().getSerializableExtra(MNNewsSelectActivity.INTENT_KEY_URL);
+        mAdapter = new MNNewsProviderCountryAdapter(newsProviderLanguage, feedUrl);
 
         listView.setAdapter(mAdapter);
         listView.setDivider(null);

@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.panel.newsfeed.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,8 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsProviderCountry;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsProviderLanguage;
+import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +25,30 @@ import java.util.List;
 public class MNNewsProviderCountryAdapter extends BaseAdapter {
     private MNNewsProviderLanguage mNewsProviderLanguage;
     private List<MNNewsProviderCountry> mNewsProviderCountries;
+    private int mCurrentCountryIndex = -1;
 
-    public MNNewsProviderCountryAdapter(MNNewsProviderLanguage newsProviderLanguage) {
+    public MNNewsProviderCountryAdapter(MNNewsProviderLanguage newsProviderLanguage,
+                                        MNNewsFeedUrl feedUrl) {
         mNewsProviderLanguage = newsProviderLanguage;
         mNewsProviderCountries = new ArrayList<MNNewsProviderCountry>(
                 newsProviderLanguage.newsProviderCountries.values()
         );
+
+
+        String currentLanguageRegionCode = MNNewsFeedUtil.makeLanguageRegionCode(
+                feedUrl.languageCode,
+                feedUrl.regionCode
+        );
+        for (int i = 0; i < mNewsProviderCountries.size(); i++) {
+            MNNewsProviderCountry country = mNewsProviderCountries.get(i);
+            String languageRegionCode =
+                    MNNewsFeedUtil.makeLanguageRegionCode(country.languageCode, country.regionCode);
+            if (languageRegionCode.equals(currentLanguageRegionCode)
+                    && feedUrl.countryCode.equals(country.countryCode)) {
+                mCurrentCountryIndex = i;
+                break;
+            }
+        }
     }
 
     public MNNewsProviderCountry getNewsProviderCountryAt(int idx) {
@@ -51,15 +72,41 @@ public class MNNewsProviderCountryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Context context = parent.getContext();
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(
+            convertView = LayoutInflater.from(context).inflate(
                     R.layout.panel_news_select_row, parent, false);
         }
-        MNNewsProviderCountry newsProviderCountry = mNewsProviderCountries.get(position);
+        ViewHolder viewHolder = new ViewHolder(convertView);
 
-        TextView messageTextView = (TextView)convertView.findViewById(R.id.news_select_row_title);
-        messageTextView.setText(newsProviderCountry.countryLocalName);
+        setCountryName(position, viewHolder);
+        setFontColor(context, viewHolder, position);
 
         return convertView;
+    }
+
+    private void setCountryName(int position, ViewHolder viewHolder) {
+        MNNewsProviderCountry newsProviderCountry = mNewsProviderCountries.get(position);
+        viewHolder.textView.setText(newsProviderCountry.countryLocalName);
+    }
+
+    private void setFontColor(Context context, ViewHolder viewHolder, int position) {
+        int fontColorResId;
+        if (position == mCurrentCountryIndex) {
+            fontColorResId = R.color.pastel_green_main_font_color;
+        } else {
+            fontColorResId = R.color.pastel_green_sub_font_color;
+        }
+        int fontColor = context.getResources().getColor(fontColorResId);
+        viewHolder.textView.setTextColor(fontColor);
+    }
+
+
+    private static class ViewHolder {
+        public TextView textView;
+
+        public ViewHolder(View view) {
+            textView = (TextView)view.findViewById(R.id.news_select_row_title);
+        }
     }
 }

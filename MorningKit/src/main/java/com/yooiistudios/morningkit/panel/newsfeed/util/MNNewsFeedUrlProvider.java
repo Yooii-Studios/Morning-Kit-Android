@@ -745,7 +745,7 @@ public class MNNewsFeedUrlProvider {
             MNNewsProviderLangType type = MNNewsProviderLangType.valueOf(i);
             MNNewsProviderLanguage newsProviderLanguage
                     = parseNewsProvidersByResource(context, type.getResourceId());
-            String languageRegionCode = makeLanguageRegionCode(
+            String languageRegionCode = MNNewsFeedUtil.makeLanguageRegionCode(
                     newsProviderLanguage.languageCode,
                     newsProviderLanguage.regionCode
             );
@@ -1068,7 +1068,7 @@ public class MNNewsFeedUrlProvider {
     private static void putNewsProviderLanguage(LinkedHashMap<String, MNNewsProviderLanguage> cloned,
                                                 LinkedHashMap<String, MNNewsProviderLanguage> sorted,
                                                 String languageCode, String regionCode) {
-        String languageRegionCode = makeLanguageRegionCode(languageCode, regionCode);
+        String languageRegionCode = MNNewsFeedUtil.makeLanguageRegionCode(languageCode, regionCode);
         sorted.put(languageRegionCode, cloned.remove(languageRegionCode));
     }
 
@@ -1124,14 +1124,6 @@ public class MNNewsFeedUrlProvider {
             newsProviderCountries.put(newsProviderCountry.countryCode, newsProviderCountry);
         }
         return newsProviderCountries;
-    }
-
-    private static String makeLanguageRegionCode(String languageCode, String regionCode) {
-        String key = languageCode;
-        if (regionCode != null && regionCode.length() > 0) {
-            key += "_" + regionCode;
-        }
-        return key;
     }
 
 //    private static class MNLocale {

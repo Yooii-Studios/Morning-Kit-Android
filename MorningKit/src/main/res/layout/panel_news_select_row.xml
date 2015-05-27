@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/alarm_pref_list_item_padding"
-        android:textColor="@color/pastel_green_sub_font_color"
         android:textSize="@dimen/panel_news_feed_detail_list_item_title_size"
         android:gravity="center_vertical"
         android:text="@string/loading"/>

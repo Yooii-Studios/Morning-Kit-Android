@@ -195,13 +195,6 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
             Intent intent = new Intent(getActivity(), MNNewsSelectActivity.class);
             intent.putExtra(MNNewsSelectActivity.INTENT_KEY_URL, feedUrl);
             startActivityForResult(intent, RC_NEWS_SELECT);
-//            DialogFragment newFragment =
-//                    MNNewsFeedSelectDialogFragment.
-//                            newInstance(feedUrl);
-//            newFragment.setTargetFragment(
-//                    MNNewsFeedDetailFragment.this, -1);
-//            newFragment.show(getFragmentManager(), TAG_FEED_SELECT_DIALOG);
-
         }
     };
 

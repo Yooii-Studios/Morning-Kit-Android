@@ -179,4 +179,12 @@ public class MNNewsFeedUtil {
 
         return provider;
     }
+
+    public static String makeLanguageRegionCode(String languageCode, String regionCode) {
+        String key = languageCode;
+        if (regionCode != null && regionCode.length() > 0) {
+            key += "_" + regionCode;
+        }
+        return key;
+    }
 }

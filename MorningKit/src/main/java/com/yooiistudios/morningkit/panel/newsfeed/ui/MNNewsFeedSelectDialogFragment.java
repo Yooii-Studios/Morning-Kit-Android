@@ -8,8 +8,6 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -19,23 +17,27 @@ import android.widget.AutoCompleteTextView;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
-import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUrlProvider;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 
 /**
  * Created by Dongheyon Jeong on in morning-kit from Yooii Studios Co., LTD. on 2014. 7. 5.
+ *
+ * MNNewsFeedSelectDialogFragment
+ *  커스텀 RSS 를 입력하는 다이얼로그
  */
 public class MNNewsFeedSelectDialogFragment extends DialogFragment {
     private static final String KEY_URL = "url";
 
     private AutoCompleteTextView mFeedUrlEditText;
     private MNNewsFeedUrl mFeedUrl;
-    private boolean mHasReset;
+
+    public static MNNewsFeedSelectDialogFragment newInstance() {
+        return new MNNewsFeedSelectDialogFragment();
+    }
 
     public static MNNewsFeedSelectDialogFragment newInstance(
             MNNewsFeedUrl feedUrl) {
-        MNNewsFeedSelectDialogFragment fragment =
-                new MNNewsFeedSelectDialogFragment();
+        MNNewsFeedSelectDialogFragment fragment = newInstance();
 
         Bundle args = new Bundle();
         args.putSerializable(KEY_URL, new MNNewsFeedUrl(feedUrl));
@@ -47,13 +49,8 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Bundle args = getArguments();
-        mFeedUrl = (MNNewsFeedUrl)args.getSerializable(KEY_URL);
-
-        if (!mFeedUrl.type.equals(MNNewsFeedUrlType.CUSTOM)) {
-            // 디폴트 세팅을 사용할 경우 패널단에서 언어설정을 감지 못하므로 무조건 현재 언어의
-            // 디폴트 url을 가져온다.
-            mFeedUrl = MNNewsFeedUrlProvider.getInstance(getActivity()).getDefault();
+        if (getArguments() != null && getArguments().containsKey(KEY_URL)) {
+            mFeedUrl = (MNNewsFeedUrl) getArguments().getSerializable(KEY_URL);
         }
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -61,17 +58,7 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
         View root = inflater.inflate(R.layout
                 .dialog_fragment_news_feed_select, null, false);
         mFeedUrlEditText = (AutoCompleteTextView)root.findViewById(R.id.urlEditText);
-        mFeedUrlEditText.setText(mFeedUrl.url);
-        mFeedUrlEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void afterTextChanged(Editable s) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mHasReset = false;
-            }
-        });
+        mFeedUrlEditText.setText(mFeedUrl != null ? mFeedUrl.url : "");
 
         // config adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
@@ -115,51 +102,30 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 Activity parentActivity = getActivity();
                                 if (parentActivity != null &&
-                                        parentActivity
-                                                instanceof OnClickListener) {
-                                    String url = mFeedUrlEditText.getText()
-                                            .toString();
+                                        parentActivity instanceof OnClickListener) {
+                                    String url = mFeedUrlEditText.getText().toString();
 
                                     // add "http://" if it's not entered.
                                     if (!url.toLowerCase().matches("^\\w+://.*")) {
                                         url = "http://" + url;
                                     }
 
-                                    MNNewsFeedUtil.addUrlToHistory(
-                                            getActivity(), url);
+                                    MNNewsFeedUtil.addUrlToHistory(getActivity(), url);
 
-                                    MNNewsFeedUrl defUrl =
-                                            MNNewsFeedUrlProvider.getInstance(getActivity())
-                                                    .getDefault();
-
-                                    if (url.equalsIgnoreCase(defUrl.url)
-                                            || mHasReset) {
-                                        mFeedUrl = defUrl;
-                                    } else {
-                                        mFeedUrl = new MNNewsFeedUrl(url,
-                                                MNNewsFeedUrlType.CUSTOM);
-                                    }
-
-                                    ((OnClickListener) parentActivity)
-                                            .onConfirm(mFeedUrl);
+                                    ((OnClickListener) parentActivity).onConfirm(
+                                            new MNNewsFeedUrl(url, MNNewsFeedUrlType.CUSTOM)
+                                    );
                                 }
                             }
                         }
                 )
-                .setNeutralButton(R.string.news_feed_url_dialog_reset,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                            }
-                        })
                 .setNegativeButton(R.string.cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 Activity parentActivity = getActivity();
                                 if (parentActivity != null &&
-                                        parentActivity
-                                                instanceof OnClickListener) {
-                                    ((OnClickListener) parentActivity)
-                                            .onCancel();
+                                        parentActivity instanceof OnClickListener) {
+                                    ((OnClickListener) parentActivity).onCancel();
                                 }
                             }
                         }
@@ -167,16 +133,6 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mFeedUrl = MNNewsFeedUrlProvider.getInstance(getActivity()).getDefault();
-                                mFeedUrlEditText.setText(mFeedUrl.url);
-                                mHasReset = true;
-                            }
-                        }
-                );
                 mFeedUrlEditText.requestFocus();
                 mFeedUrlEditText.setSelection(mFeedUrlEditText.length());
                 InputMethodManager imm =

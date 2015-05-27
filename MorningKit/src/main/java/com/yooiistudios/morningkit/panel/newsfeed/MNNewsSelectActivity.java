@@ -85,7 +85,7 @@ public class MNNewsSelectActivity extends ActionBarActivity
                 new ArrayList<MNNewsProviderLanguage>(
                         MNNewsFeedUrlProvider.getInstance(this).getUrlsSortedByLocale().values()
                 );
-        mAdapter = new MNNewsProviderLanguageAdapter(newsProviderLanguages);
+        mAdapter = new MNNewsProviderLanguageAdapter(newsProviderLanguages, mFeedUrl);
 
         listView.setAdapter(mAdapter);
         listView.setDivider(null);
@@ -125,8 +125,9 @@ public class MNNewsSelectActivity extends ActionBarActivity
                 return true;
             case R.id.news_select_action_custom:
                 DialogFragment newFragment =
-                        MNNewsFeedSelectDialogFragment.
-                                newInstance(mFeedUrl);
+                        mFeedUrl.type.equals(MNNewsFeedUrlType.CUSTOM)
+                                ? MNNewsFeedSelectDialogFragment.newInstance(mFeedUrl)
+                                : MNNewsFeedSelectDialogFragment.newInstance();
                 newFragment.show(getSupportFragmentManager(), TAG_FEED_SELECT_DIALOG);
                 return true;
         }
@@ -172,6 +173,7 @@ public class MNNewsSelectActivity extends ActionBarActivity
         } else {
             Intent intent = new Intent(this, MNNewsSelectDetailActivity.class);
             intent.putExtra(MNNewsSelectDetailActivity.INTENT_KEY_NEWS_PROVIDER_LANGUAGE, newsProviderLanguage);
+            intent.putExtra(MNNewsSelectActivity.INTENT_KEY_URL, mFeedUrl);
             startActivityForResult(intent, RC_NEWS_SELECT_DETAIL);
         }
     }
