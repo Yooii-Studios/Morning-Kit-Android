@@ -28,6 +28,7 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.naver.iap.NaverIabActivity;
 import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.MNApplication;
+import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.encryption.MNMd5Utils;
@@ -36,6 +37,7 @@ import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.recommend.FacebookPostUtils;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
 import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
+import com.yooiistudios.morningkit.setting.store.MNStoreType;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManagerListener;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
@@ -150,7 +152,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     }
 
     private void initIab() {
-        boolean isStoreForNaver = MNStoreFragment.IS_STORE_FOR_NAVER;
+        boolean isStoreForNaver = MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER);
         if (!isStoreForNaver) {
             iabManager = new SKIabManager(this, this);
             iabManager.loadWithAllItems();
@@ -264,7 +266,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         }
         switch (convertedIndex) {
             case 0:
-                if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+                if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
                     Intent intent = new Intent(this, NaverIabActivity.class);
                     intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
                     intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
@@ -276,7 +278,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                 break;
 
             case 1:
-                if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+                if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
                     Intent intent = new Intent(this, NaverIabActivity.class);
                     intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
                     intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,

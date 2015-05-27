@@ -23,6 +23,7 @@ import com.flurry.android.FlurryAgent;
 import com.naver.iap.NaverIabActivity;
 import com.naver.iap.NaverIabInventoryItem;
 import com.naver.iap.NaverIabProductUtils;
+import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.encryption.MNMd5Utils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
@@ -146,7 +147,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         fullVersionButtonTextView.setSelected(true);
 
         // 이 부분 때문에 크래시가 나서 일단 null 체크를 해줌
-        if (IS_STORE_FOR_NAVER) {
+        if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
             // 네이버는 로딩을 탭 클릭 시로 미룸, 단 상점 액티비티는 처음에 로딩
             if (isFragmentForActivity) {
                 onFirstStoreLoading();
@@ -245,7 +246,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             resetButton.setVisibility(View.VISIBLE);
             debugButton.setVisibility(View.VISIBLE);
             if (MNStoreDebugChecker.isUsingStore(getActivity())) {
-                if (IS_STORE_FOR_NAVER) {
+                if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
                     debugButton.setText("Naver Store");
                 } else {
                     debugButton.setText("Google Store");
@@ -404,7 +405,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             MNSoundEffectsPlayer.play(R.raw.effect_view_open, getActivity());
         }
         if (MNStoreDebugChecker.isUsingStore(getActivity())) {
-            if (IS_STORE_FOR_NAVER) {
+            if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
                 showLoadingViews();
 
                 Intent intent = new Intent(getActivity(), NaverIabActivity.class);
@@ -522,7 +523,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             debugButton.setText("Debug");
             MNStoreDebugChecker.setUsingStore(false, getActivity());
         } else {
-            if (IS_STORE_FOR_NAVER) {
+            if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
                 debugButton.setText("Naver Store");
             } else {
                 debugButton.setText("Google Store");

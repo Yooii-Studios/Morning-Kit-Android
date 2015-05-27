@@ -7,7 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
 
-import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
+import com.yooiistudios.morningkit.MNIabInfo;
+import com.yooiistudios.morningkit.setting.store.MNStoreType;
 
 /**
  * Created by StevenKim in Morning Kit from Yooii Studios Co., LTD. on 2014. 1. 28.
@@ -29,7 +30,7 @@ public class MNReviewApp {
     }
 
     public static String getLink(Context context) {
-        if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+        if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
             // 1500436# 은 여행의신(productNo)
             // 출시전이면 originalProductId, 후면 productNo
             // 모닝은 37676
