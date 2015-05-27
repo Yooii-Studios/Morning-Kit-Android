@@ -1,6 +1,6 @@
 {
     "lang_name_english": "Greek",
-    "lang_name_regional": "ελληνικά",
+    "lang_name_regional": "Eλληνικά",
     "lang_code": "el",
     "region_code": "",
     "countries": [
