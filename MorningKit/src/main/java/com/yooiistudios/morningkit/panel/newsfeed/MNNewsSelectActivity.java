@@ -19,7 +19,6 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.panel.newsfeed.adapter.MNNewsProviderLanguageAdapter;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
@@ -184,7 +183,6 @@ public class MNNewsSelectActivity extends ActionBarActivity
             if (requestCode == RC_NEWS_SELECT_DETAIL) {
                 MNNewsFeedUrl feedUrl = (MNNewsFeedUrl)data.getSerializableExtra(
                         MNNewsSelectActivity.INTENT_KEY_URL);
-                MNLog.now("feedUrl: " + feedUrl.url);
                 finishWithNewsFeedUrl(feedUrl);
             }
         }

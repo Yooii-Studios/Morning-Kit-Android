@@ -358,7 +358,6 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
             if (requestCode == RC_NEWS_SELECT) {
                 MNNewsFeedUrl feedUrl = (MNNewsFeedUrl)data.getSerializableExtra(
                         MNNewsSelectActivity.INTENT_KEY_URL);
-                MNLog.now("feedUrl: " + feedUrl.url);
                 loadNewsFeed(feedUrl);
             }
         }

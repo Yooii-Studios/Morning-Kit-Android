@@ -15,7 +15,6 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.panel.newsfeed.adapter.MNNewsProviderCountryAdapter;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
@@ -67,7 +66,6 @@ public class MNNewsSelectDetailActivity extends ActionBarActivity
         MNNewsProviderLanguage newsProviderLanguage =
                 (MNNewsProviderLanguage)getIntent().getSerializableExtra(
                         INTENT_KEY_NEWS_PROVIDER_LANGUAGE);
-        MNLog.now("newsProviderLanguage: " + newsProviderLanguage.regionalLanguageName);
         mAdapter = new MNNewsProviderCountryAdapter(newsProviderLanguage);
 
         listView.setAdapter(mAdapter);
