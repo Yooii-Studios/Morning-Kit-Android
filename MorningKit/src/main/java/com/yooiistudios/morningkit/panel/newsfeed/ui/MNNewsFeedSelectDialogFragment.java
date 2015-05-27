@@ -107,9 +107,9 @@ public class MNNewsFeedSelectDialogFragment extends DialogFragment {
 
                                     // add "http://" if it's not entered.
                                     if (!url.toLowerCase().matches("^\\w+://.*")) {
+                                        MNNewsFeedUtil.addUrlToHistory(getActivity(), url);
                                         url = "http://" + url;
                                     }
-
                                     MNNewsFeedUtil.addUrlToHistory(getActivity(), url);
 
                                     ((OnClickListener) parentActivity).onConfirm(

@@ -23,7 +23,6 @@
         android:layout_marginTop="@dimen/alarm_pref_list_label_item_dialog_top_margin"
         android:layout_centerVertical="true"
         android:paddingRight="@dimen/panel_news_feed_detail_dialog_clearBtn_leftMargin"
-        android:longClickable="false"
         android:singleLine="true"
         android:gravity="center_vertical"
         android:textColor="@android:color/black"
