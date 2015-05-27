@@ -5,8 +5,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
+import com.yooiistudios.morningkit.setting.store.MNStoreType;
 
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2014. 9. 4.
@@ -46,7 +47,7 @@ public class MNRecommendUtils {
     }
 
     private static String getAppLink() {
-        if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+        if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
             // 1500436# 은 여행의신(productNo)
             // 출시전이면 originalProductId, 후면 productNo
             // 모닝은 37676

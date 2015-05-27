@@ -28,6 +28,7 @@ import com.inmobi.commons.InMobi;
 import com.squareup.otto.Subscribe;
 import com.stevenkim.camera.SKCameraThemeView;
 import com.yooiistudios.morningkit.MNApplication;
+import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
@@ -53,7 +54,7 @@ import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
-import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
+import com.yooiistudios.morningkit.setting.store.MNStoreType;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
@@ -154,7 +155,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // 튜토리얼 체크
         if (!MNTutorialManager.isTutorialShown(getApplicationContext())) {
             // 네이버 앱스토어에서는 현재 날씨 사용부터 먼저 묻기(반려 사유)
-            if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+            if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
                 askUsingCurrentLocationDialog(); // 확인/취소하고 튜토리얼 시작
             } else {
                 showTutorialLayout();
@@ -169,7 +170,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     private void initIab() {
         // 구매목록을 항상 새로 확인 - 구글일 경우에만
-        if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+        if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
 
         } else {
             try {

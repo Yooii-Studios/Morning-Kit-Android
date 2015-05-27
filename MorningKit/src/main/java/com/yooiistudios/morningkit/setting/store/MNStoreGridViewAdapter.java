@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.naver.iap.NaverIabInventoryItem;
 import com.naver.iap.NaverIabProductUtils;
+import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.number.MNDecimalFormatUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
@@ -169,7 +170,7 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                     MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
                 }
                 if (MNStoreDebugChecker.isUsingStore(context)) {
-                    if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+                    if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
                         storeGridViewOnClickListener.onItemClickedForNaver(
                                 (String) viewHolder.getPriceTextView().getTag());
                     } else {
@@ -189,7 +190,7 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
         // price - check from inventory
         String sku = (String) viewHolder.getPriceTextView().getTag();
 
-        if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+        if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
             // Naver
             boolean hasDetails = false;
             if (naverIabInventoryItemList != null) {
@@ -246,7 +247,7 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                     MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
                 }
                 if (MNStoreDebugChecker.isUsingStore(context)) {
-                    if (MNStoreFragment.IS_STORE_FOR_NAVER) {
+                    if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
                         storeGridViewOnClickListener.onItemClickedForNaver((String) v.getTag());
                     } else {
                         iabManager.processPurchase((String) v.getTag(), onIabPurchaseFinishedListener);

@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.yooiistudios.morningkit.MNApplication;
+import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
@@ -68,7 +69,7 @@ public class MNStoreActivity extends MNSettingDetailActivity {
     }
 
     private void initIab() {
-        boolean isStoreForNaver = MNStoreFragment.IS_STORE_FOR_NAVER;
+        boolean isStoreForNaver = MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER);
         if (!isStoreForNaver) {
             iabManager = new SKIabManager(this, storeFragment);
             iabManager.loadWithAllItems();
