@@ -48,4 +48,9 @@
     <color name="setting_store_grid_item_background_color_touched">#a1a1a1</color>
     <color name="setting_store_grid_item_button_background_color">#b0b0b0</color>
     <color name="setting_store_grid_item_button_border_color">#e0e0e0</color>
+
+    <!-- News Kit Ad -->
+    <color name="newskit_store_ad_layout_divider_color">#797979</color>
+    <color name="newskit_store_ad_description_sub_color">#006699</color>
+    <color name="newskit_store_ad_icon_text_color">#0074bb</color>
 </resources>
