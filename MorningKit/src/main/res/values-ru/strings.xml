@@ -189,6 +189,7 @@
     <string name="setting_language_deutsch">Deutsch</string>
     <string name="setting_language_portuguese_brazil">Português (Brasil)</string>
     <string name="setting_language_portuguese_portugal">Português (Portugal)</string>
+	<string name="setting_language_portuguese_italian">Italiano</string>
 
 	<!-- Setting (Effect sound) -->
 	<string name="setting_effect_sound">Звуковой эффект</string>
