@@ -7,6 +7,7 @@
         {
             "country_name": "Česká republika",
             "country_code": "CZ",
+            "provider_name": "Google Zprávy",
             "url": "http://news.google.com/news?cf=all&ned=cs_cz&hl=cs&output=rss"
         }
     ]

@@ -7,6 +7,7 @@
         {
             "country_name": "Қазақстан",
             "country_code": "KZ",
+            "provider_name": "Time",
             "url": "http://www.time.kz/rss"
         }
     ]

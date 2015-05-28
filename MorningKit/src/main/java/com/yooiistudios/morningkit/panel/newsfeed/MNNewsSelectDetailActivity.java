@@ -31,6 +31,9 @@ public class MNNewsSelectDetailActivity extends ActionBarActivity
 
     private MNNewsProviderCountryAdapter mAdapter;
 
+    private MNNewsProviderLanguage mNewsProviderLanguage;
+    private MNNewsFeedUrl mFeedUrl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // 회전마다 Locale 을 새로 적용해줌(언어가 바뀌어 버리는 문제 해결)
@@ -46,28 +49,29 @@ public class MNNewsSelectDetailActivity extends ActionBarActivity
 
         setContentView(R.layout.activity_news_select_detail);
 
+        initData();
+        initViews();
+
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        // TODO: 탭 이름 변경
-        actionBar.setTitle(R.string.tab_setting);
+        actionBar.setTitle(mNewsProviderLanguage.englishLanguageName);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(R.drawable.icon_actionbar_morning);
 
-        initViews();
-
         MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
+    }
+
+    private void initData() {
+        mNewsProviderLanguage = (MNNewsProviderLanguage)getIntent().getSerializableExtra(
+                INTENT_KEY_NEWS_PROVIDER_LANGUAGE);
+        mFeedUrl = (MNNewsFeedUrl)getIntent().getSerializableExtra(MNNewsSelectActivity.INTENT_KEY_URL);
     }
 
     private void initViews() {
         ListView listView = (ListView)findViewById(R.id.news_select_detail_country_listview);
 
-        MNNewsProviderLanguage newsProviderLanguage =
-                (MNNewsProviderLanguage)getIntent().getSerializableExtra(
-                        INTENT_KEY_NEWS_PROVIDER_LANGUAGE);
-        MNNewsFeedUrl feedUrl =
-                (MNNewsFeedUrl)getIntent().getSerializableExtra(MNNewsSelectActivity.INTENT_KEY_URL);
-        mAdapter = new MNNewsProviderCountryAdapter(newsProviderLanguage, feedUrl);
+        mAdapter = new MNNewsProviderCountryAdapter(mNewsProviderLanguage, mFeedUrl);
 
         listView.setAdapter(mAdapter);
         listView.setDivider(null);
@@ -114,8 +118,7 @@ public class MNNewsSelectDetailActivity extends ActionBarActivity
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         MNNewsProviderCountry newsProviderCountry = mAdapter.getNewsProviderCountryAt(position);
-        // TODO: type 체크
-        MNNewsFeedUrl newsFeedUrl = new MNNewsFeedUrl(newsProviderCountry, MNNewsFeedUrlType.GOOGLE);
+        MNNewsFeedUrl newsFeedUrl = new MNNewsFeedUrl(newsProviderCountry, MNNewsFeedUrlType.CURATION);
 
         getIntent().putExtra(MNNewsSelectActivity.INTENT_KEY_URL, newsFeedUrl);
         setResult(RESULT_OK, getIntent());

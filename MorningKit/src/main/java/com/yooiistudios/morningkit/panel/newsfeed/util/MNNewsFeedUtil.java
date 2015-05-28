@@ -120,49 +120,46 @@ public class MNNewsFeedUtil {
      * retval[1] : publisher or null if there's no publisher info.
      *
      */
-    public static String[] getTitleAndPublisherName(RssItem news,
-                                          MNNewsFeedUrlType type) {
-        String title = news.getTitle();
-        String newTitle;
-        String publisher;
-        switch (type) {
-            case GOOGLE:
-                final String delim = " - ";
-                int idx = title.lastIndexOf(delim);
-
-                int titleStartIdx = 0;
-                int pubStartIdx = idx + delim.length();
-                int pubEndIdx = title.length();
-
-                if (idx >= 0 && idx >= titleStartIdx &&
-                        pubEndIdx >= pubStartIdx) {
-                // title.length() >= delim.length()
-                    newTitle = title.substring(titleStartIdx, idx);
-                    publisher = "- " + title.substring(pubStartIdx, pubEndIdx);
-                } else {
-                    newTitle = title;
-                    publisher = null;
-                }
-                break;
-            case YAHOO:
-                newTitle = title;
-                publisher = NEWS_PROVIDER_YAHOO_JAPAN;
-                break;
-
-            case ABC_ES:
-                newTitle = title;
-                publisher = NEWS_PROVIDER_ABC_ES;
-                break;
-
-            case CUSTOM:
-            default:
-                newTitle = title;
-                publisher = null;
-                break;
-        }
-
-        return new String[]{newTitle, publisher};
-    }
+//    public static String[] getTitleAndPublisherName(RssItem news, MNNewsFeedUrlType type) {
+//        String title = news.getTitle();
+//        String newTitle;
+//        String publisher;
+//        switch (type) {
+//            case GOOGLE:
+//                final String delim = " - ";
+//                int idx = title.lastIndexOf(delim);
+//
+//                int titleStartIdx = 0;
+//                int pubStartIdx = idx + delim.length();
+//                int pubEndIdx = title.length();
+//
+//                if (idx >= 0 && idx >= titleStartIdx &&
+//                        pubEndIdx >= pubStartIdx) {
+//                // title.length() >= delim.length()
+//                    newTitle = title.substring(titleStartIdx, idx);
+//                    publisher = "- " + title.substring(pubStartIdx, pubEndIdx);
+//                } else {
+//                    newTitle = title;
+//                    publisher = null;
+//                }
+//                break;
+////            case YAHOO:
+////                newTitle = title;
+////                publisher = NEWS_PROVIDER_YAHOO_JAPAN;
+////                break;
+////            case ABC_ES:
+////                newTitle = title;
+////                publisher = NEWS_PROVIDER_ABC_ES;
+////                break;
+//            case CUSTOM:
+//            default:
+//                newTitle = title;
+//                publisher = null;
+//                break;
+//        }
+//
+//        return new String[]{newTitle, publisher};
+//    }
 
     public static String getFeedTitle(Context context) {
         MNLanguageType currentLanguage = MNLanguage.getCurrentLanguageType(context);

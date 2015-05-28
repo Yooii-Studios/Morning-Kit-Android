@@ -7,6 +7,7 @@
         {
             "country_name": "Danmark",
             "country_code": "DK",
+            "provider_name": "Jyllands-Posten",
             "url": "http://jp.dk/?service=rssfeed&submode=topnyheder"
         }
     ]

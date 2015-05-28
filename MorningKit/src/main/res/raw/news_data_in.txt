@@ -7,6 +7,7 @@
         {
             "country_name": "Indonesia",
             "country_code": "ID",
+            "provider_name": "Suara Merdeka",
             "url": "http://www.suaramerdeka.com/rsssm/index.php/news"
         }
     ]

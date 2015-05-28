@@ -341,4 +341,9 @@
     <!-- Quit Ad -->
     <string name="quit_ad_dialog_title_text">确定退出吗？</string>
 
+	<!-- Panel -->
+		<!-- News Feed -->
+	<string name="select_newsfeed_title">新闻列表</string>
+	<string name="custom_news_feed_menu_item_title">RSS</string>
+
 </resources>

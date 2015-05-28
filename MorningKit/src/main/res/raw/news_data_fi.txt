@@ -7,6 +7,7 @@
         {
             "country_name": "Suomi",
             "country_code": "FI",
+            "provider_name": "Ilta-Sanomat",
             "url": "http://www.iltasanomat.fi/rss/tuoreimmat.xml"
         }
     ]

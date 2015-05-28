@@ -7,6 +7,7 @@
         {
             "country_name": "България",
             "country_code": "BG",
+            "provider_name": "Дневник",
             "url": "http://www.dnevnik.bg/rss/"
         }
     ]

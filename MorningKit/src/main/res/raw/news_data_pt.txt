@@ -7,11 +7,13 @@
         {
             "country_name": "Portugal",
             "country_code": "PT",
+            "provider_name": "Google Notícias",
             "url": "http://news.google.com/news?cf=all&ned=pt-PT_pt&hl=pt-PT&output=rss"
         },
         {
             "country_name": "Brasil",
             "country_code": "BR",
+            "provider_name": "Google Notícias",
             "url": "http://news.google.com/news?cf=all&ned=pt-BR_br&hl=pt-BR&output=rss"
         }
     ]

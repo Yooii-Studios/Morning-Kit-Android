@@ -7,6 +7,7 @@
         {
             "country_name": "Türkiye",
             "country_code": "TR",
+            "provider_name": "Google Haberler",
             "url": "http://news.google.com/news?cf=all&ned=tr_tr&hl=tr&output=rss"
         }
     ]

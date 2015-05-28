@@ -341,4 +341,9 @@
     <!-- Quit Ad -->
     <string name="quit_ad_dialog_title_text">이 앱을 종료하시겠습니까?</string>
 
+	<!-- Panel -->
+		<!-- News Feed -->
+	<string name="select_newsfeed_title">뉴스 리스트</string>
+	<string name="custom_news_feed_menu_item_title">RSS</string>
+
 </resources>

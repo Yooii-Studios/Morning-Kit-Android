@@ -7,21 +7,25 @@
         {
             "country_name": "Россия",
             "country_code": "RU",
+            "provider_name": "Google Новости",
             "url": "http://news.google.com/news?cf=all&ned=ru_ru&hl=ru&output=rss"
         },
         {
             "country_name": "Украина",
             "country_code": "UA",
+            "provider_name": "Google Новости",
             "url": "http://news.google.com/news?cf=all&ned=ru_ua&hl=ru&output=rss"
         },
         {
             "country_name": "Қазақстан",
             "country_code": "KZ",
+            "provider_name": "Караван",
             "url": "http://www.caravan.kz/rss"
         },
         {
             "country_name": "Беларусь",
             "country_code": "BY",
+            "provider_name": "Наро́дная во́ля",
             "url": "http://www.nv-online.info/feed/index.rss"
         }
     ]

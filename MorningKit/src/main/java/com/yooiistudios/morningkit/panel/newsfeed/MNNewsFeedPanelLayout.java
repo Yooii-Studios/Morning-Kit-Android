@@ -376,8 +376,8 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 getContext().getApplicationContext());
 
         if (currentDisplayingItem != null) {
-            String[] result = MNNewsFeedUtil.getTitleAndPublisherName(
-                    currentDisplayingItem, feedUrl.type);
+//            String[] result = MNNewsFeedUtil.getTitleAndPublisherName(
+//                    currentDisplayingItem, feedUrl.type);
 //            if (result[1] != null) {
 //                newsFeedTextView.setText(result[0] + "\n\n" + result[1]);
 //            } else {
@@ -387,7 +387,7 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
 
             SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
 
-            SpannableString contentString = new SpannableString(result[0]);
+            SpannableString contentString = new SpannableString(currentDisplayingItem.getTitle());
             contentString.setSpan(
                     new ForegroundColorSpan(MNMainColors.getQuoteContentTextColor(currentThemeType, getContext().getApplicationContext())),
                     0, contentString.length(),
@@ -395,7 +395,8 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
             stringBuilder.append(contentString);
 
             // if publisher available
-            String publisher = result[1] != null ? result[1] : feed.getTitle();
+            String publisher = feedUrl.providerName != null && feedUrl.providerName.length() > 0
+                    ? feedUrl.providerName : feed.getTitle();
             if (publisher != null) {
                 SpannableString emptyString = new SpannableString("\n\n");
                 emptyString.setSpan(new RelativeSizeSpan(0.4f), 0, emptyString.length(),

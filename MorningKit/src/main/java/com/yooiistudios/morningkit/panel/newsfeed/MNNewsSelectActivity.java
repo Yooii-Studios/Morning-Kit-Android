@@ -19,7 +19,6 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
-import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.panel.newsfeed.adapter.MNNewsProviderLanguageAdapter;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
@@ -27,7 +26,6 @@ import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsProviderCountry;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsProviderLanguage;
 import com.yooiistudios.morningkit.panel.newsfeed.ui.MNNewsFeedSelectDialogFragment;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUrlProvider;
-import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -63,9 +61,7 @@ public class MNNewsSelectActivity extends ActionBarActivity
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        // TODO: 탭 이름 변경
-        actionBar.setTitle(R.string.tab_setting);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.select_newsfeed_title);
         actionBar.setIcon(R.drawable.icon_actionbar_morning);
 
         initData();
@@ -105,24 +101,20 @@ public class MNNewsSelectActivity extends ActionBarActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
-        // TODO: 텍스트, 아이콘 변경
         getMenuInflater().inflate(R.menu.news_select_actions, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         switch(id) {
-            case android.R.id.home:
-                if (MNSound.isSoundOn(this)) {
-                    MNSoundEffectsPlayer.play(R.raw.effect_view_close, this);
-                }
-                finish();
-                return true;
+//            case android.R.id.home:
+//                if (MNSound.isSoundOn(this)) {
+//                    MNSoundEffectsPlayer.play(R.raw.effect_view_close, this);
+//                }
+//                finish();
+//                return true;
             case R.id.news_select_action_custom:
                 DialogFragment newFragment =
                         mFeedUrl.type.equals(MNNewsFeedUrlType.CUSTOM)
@@ -167,8 +159,7 @@ public class MNNewsSelectActivity extends ActionBarActivity
         if (countries.size() == 1) {
             MNNewsProviderCountry newsProviderCountry =
                     new ArrayList<MNNewsProviderCountry>(countries.values()).get(0);
-            // TODO: type 체크
-            MNNewsFeedUrl newsFeedUrl = new MNNewsFeedUrl(newsProviderCountry, MNNewsFeedUrlType.GOOGLE);
+            MNNewsFeedUrl newsFeedUrl = new MNNewsFeedUrl(newsProviderCountry, MNNewsFeedUrlType.CURATION);
             finishWithNewsFeedUrl(newsFeedUrl);
         } else {
             Intent intent = new Intent(this, MNNewsSelectDetailActivity.class);

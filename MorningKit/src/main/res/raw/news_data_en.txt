@@ -7,96 +7,115 @@
         {
             "country_name": "US",
             "country_code": "US",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=us&hl=en&output=rss"
         },
         {
             "country_name": "Canada",
             "country_code": "CA",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=ca&hl=en&output=rss"
         },
         {
             "country_name": "UK",
             "country_code": "GB",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=uk&hl=en&output=rss"
         },
         {
             "country_name": "Ireland",
             "country_code": "IE",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=en_ie&hl=en&output=rss"
         },
         {
             "country_name": "Australia",
             "country_code": "AU",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=au&hl=en&output=rss"
         },
         {
             "country_name": "New Zealand",
             "country_code": "NZ",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=nz&hl=en&output=rss"
         },
         {
             "country_name": "Korea",
             "country_code": "KR",
+            "provider_name": "Korea Herald",
             "url": "http://biz.heraldcorp.com/common/rss_xml.php?ct=101"
         },
         {
             "country_name": "Japan",
             "country_code": "JP",
+            "provider_name": "Japan Times",
             "url": "http://feeds.feedburner.com/japantimes"
         },
         {
             "country_name": "China",
             "country_code": "CN",
+            "provider_name": "China Daily",
             "url": "http://www.chinadaily.com.cn/rss/china_rss.xml"
         },
         {
             "country_name": "Singapore",
             "country_code": "SG",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=en_sg&hl=en&output=rss"
         },
         {
             "country_name": "India",
             "country_code": "IN",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=in&hl=en&output=rss"
         },
         {
             "country_name": "Philippines",
             "country_code": "PH",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=en_ph&hl=en&output=rss"
         },
         {
             "country_name": "Malaysia",
             "country_code": "MY",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=en_my&hl=en&output=rss"
         },
         {
             "country_name": "Pakistan",
             "country_code": "PK",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=en_pk&hl=en&output=rss"
         },
         {
             "country_name": "South Africa",
             "country_code": "ZA",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=en_za&hl=en&output=rss"
         },
         {
             "country_name": "Nigeria",
             "country_code": "NG",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=en_ng&hl=en&output=rss"
         },
         {
             "country_name": "Ethiopia",
             "country_code": "ET",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=en_et&hl=en&output=rss"
         },
         {
             "country_name": "Tanzania",
             "country_code": "TZ",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=en_tz&hl=en&output=rss"
         },
         {
             "country_name": "Kenya",
             "country_code": "KE",
+            "provider_name": "Google News",
             "url": "http://news.google.com/news?cf=all&ned=en_ke&hl=en&output=rss"
         }
     ]

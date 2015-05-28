@@ -17,5 +17,6 @@ public class MNNewsProviderCountry implements Serializable {
     public String countryLocalName;
     public String countryCode;
 
+    public String newsProviderName;
     public String url;
 }

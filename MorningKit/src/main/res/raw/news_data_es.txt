@@ -7,106 +7,127 @@
         {
             "country_name": "España",
             "country_code": "ES",
+            "provider_name": "El País",
             "url": "http://ep00.epimg.net/rss/tags/ultimas_noticias.xml"
         },
         {
             "country_name": "Mexico",
             "country_code": "MX",
+            "provider_name": "Google Noticias - Mexico",
             "url": "http://news.google.com/news?cf=all&ned=es_mx&hl=es&output=rss"
         },
         {
             "country_name": "Colombia",
             "country_code": "CO",
+            "provider_name": "Google Noticias - Colombia",
             "url": "http://news.google.com/news?cf=all&ned=es_co&hl=es&output=rss"
         },
         {
             "country_name": "Argentina",
             "country_code": "AR",
+            "provider_name": "Google Noticias - Argentina",
             "url": "http://news.google.com/news?cf=all&ned=es_ar&hl=es&output=rss"
         },
         {
             "country_name": "Peru",
             "country_code": "PE",
+            "provider_name": "Google Noticias - Peru",
             "url": "http://news.google.com/news?cf=all&ned=es_pe&hl=es&output=rss"
         },
         {
             "country_name": "Venezuela",
             "country_code": "VE",
+            "provider_name": "Google Noticias - Venezuela",
             "url": "http://news.google.com/news?cf=all&ned=es_ve&hl=es&output=rss"
         },
         {
             "country_name": "Chile",
             "country_code": "CL",
+            "provider_name": "Google Noticias - Chile",
             "url": "http://news.google.com/news?cf=all&ned=es_cl&hl=es&output=rss"
         },
         {
             "country_name": "Ecuador",
             "country_code": "EC",
+            "provider_name": "Google Noticias - Unidos",
             "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
         },
         {
             "country_name": "Bolivia",
             "country_code": "BO",
+            "provider_name": "Google Noticias - Unidos",
             "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
         },
         {
             "country_name": "Guatemala",
             "country_code": "GT",
+            "provider_name": "Google Noticias - Unidos",
             "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
         },
         {
             "country_name": "Paraguay",
             "country_code": "PY",
+            "provider_name": "Google Noticias - Unidos",
             "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
         },
         {
             "country_name": "Uruguay",
             "country_code": "UY",
+            "provider_name": "Google Noticias - Unidos",
             "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
         },
         {
             "country_name": "Cuba",
             "country_code": "CU",
+            "provider_name": "Google Noticias - Cuba",
             "url": "http://news.google.com/news?cf=all&ned=es_cu&hl=es&output=rss"
         },
         {
             "country_name": "Dominican Republic",
             "country_code": "DO",
+            "provider_name": "Google Noticias - Unidos",
             "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
         },
         {
             "country_name": "Honduras",
             "country_code": "HN",
+            "provider_name": "Google Noticias - Unidos",
             "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
         },
         {
             "country_name": "Nicaragua",
             "country_code": "NI",
+            "provider_name": "Google Noticias - Unidos",
             "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
         },
         {
             "country_name": "El Salvador",
             "country_code": "SV",
+            "provider_name": "Google Noticias - Unidos",
             "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
         },
         {
             "country_name": "Costa Rica",
             "country_code": "CR",
+            "provider_name": "Google Noticias - Unidos",
             "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
         },
         {
             "country_name": "Panama",
             "country_code": "PA",
+            "provider_name": "Google Noticias - Unidos",
             "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
         },
         {
             "country_name": "Puerto Rico",
             "country_code": "PR",
+            "provider_name": "Google Noticias - Unidos",
             "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
         },
         {
             "country_name": "Jamaica",
             "country_code": "JM",
+            "provider_name": "Google Noticias - Unidos",
             "url": "http://news.google.com/news?cf=all&ned=es_us&hl=es&output=rss"
         }
     ]

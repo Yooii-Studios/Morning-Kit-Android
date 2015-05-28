@@ -7,11 +7,13 @@
         {
             "country_name": "台灣",
             "country_code": "TW",
+            "provider_name": "Google 新聞",
             "url": "http://news.google.com/news?cf=all&ned=tw&hl=zh-TW&output=rss"
         },
         {
             "country_name": "香港",
             "country_code": "HK",
+            "provider_name": "Google 新聞",
             "url": "http://news.google.com/news?cf=all&ned=hk&hl=zh-TW&output=rss"
         }
     ]

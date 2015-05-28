@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/news_select_action_custom"
-          android:icon="@drawable/ic_action_accept"
-          android:title="@string/ok"
+          android:icon="@drawable/ic_rss_normal"
+          android:title="@string/custom_news_feed_menu_item_title"
           app:showAsAction="always" />
 </menu>
