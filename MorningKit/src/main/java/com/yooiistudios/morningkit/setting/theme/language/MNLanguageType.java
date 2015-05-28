@@ -25,7 +25,8 @@ public enum MNLanguageType {
     GERMAN(7, 8, "de", ""),
     RUSSIAN(8, 5, "ru", ""),
     PORTUGUESE_BRAZIL(9, 9, "pt", "BR"),
-    PORTUGUESE_PORTUGAL(10, 10, "pt", "PT");
+    PORTUGUESE_PORTUGAL(10, 10, "pt", "PT"),
+    ITALIAN(11, 11, "it", "");
 
     @Getter private final int index; // 리스트뷰에 표시할 용도의 index
     @Getter private final int uniqueId; // SharedPreferences 에 저장될 용도의 unique id
@@ -53,6 +54,7 @@ public enum MNLanguageType {
             case 8: return RUSSIAN;
             case 9: return PORTUGUESE_BRAZIL;
             case 10: return PORTUGUESE_PORTUGAL;
+            case 11: return ITALIAN;
             default: return ENGLISH;
         }
     }
@@ -71,6 +73,7 @@ public enum MNLanguageType {
             case 8: return GERMAN;
             case 9: return PORTUGUESE_BRAZIL;
             case 10: return PORTUGUESE_PORTUGAL;
+            case 11: return ITALIAN;
             default: return ENGLISH;
         }
     }
@@ -88,6 +91,7 @@ public enum MNLanguageType {
             case 8: return context.getString(R.string.setting_language_russian);
             case 9: return context.getString(R.string.setting_language_portuguese_brazil);
             case 10: return context.getString(R.string.setting_language_portuguese_portugal);
+            case 11: return context.getString(R.string.setting_language_portuguese_italian);
             default: return context.getString(R.string.setting_language_english);
         }
     }
@@ -105,6 +109,7 @@ public enum MNLanguageType {
             case 8: return "Russian";
             case 9: return "Portuguese (Brazil)";
             case 10: return "Portuguese (Portugal)";
+            case 11: return "Italian";
             default: throw new IndexOutOfBoundsException("Undefined Enumeration Index");
         }
     }
@@ -130,6 +135,8 @@ public enum MNLanguageType {
             return PORTUGUESE_BRAZIL;
         } else if (code.equals("pt") && region.equals("PT")) {
             return PORTUGUESE_PORTUGAL;
+        } else if (code.equals("it")) {
+            return ITALIAN;
         } else {
             // Default
             return ENGLISH;
