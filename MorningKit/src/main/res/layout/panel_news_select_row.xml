@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="@dimen/margin_outer">
+    <TextView
+        android:id="@+id/news_select_row_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/alarm_pref_list_item_padding"
+        android:textSize="@dimen/panel_news_feed_detail_list_item_title_size"
+        android:gravity="center_vertical"
+        android:text="@string/loading"/>
+</LinearLayout>

@@ -1,0 +1,20 @@
+{
+    "lang_name_english": "Dutch",
+    "lang_name_regional": "Nederlands",
+    "lang_code": "nl",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Nederland",
+            "country_code": "NL",
+            "provider_name": "Google Nieuws",
+            "url": "http://news.google.com/news?cf=all&ned=nl_nl&hl=nl&output=rss"
+        },
+        {
+            "country_name": "Belgium",
+            "country_code": "BE",
+            "provider_name": "Google Nieuws",
+            "url": "http://news.google.com/news?cf=all&ned=nl_be&hl=nl&output=rss"
+        }
+    ]
+}

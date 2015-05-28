@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import nl.matshofman.saxrssreader.RssFeed;
 import nl.matshofman.saxrssreader.RssItem;
 
+import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.KEY_FEED_URL;
 import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.PREF_NEWS_FEED;
 
 /**
@@ -31,69 +32,6 @@ public class MNNewsFeedUtil {
     private static final String HISTORY_DELIM = "|";
     private static final String NEWS_PROVIDER_YAHOO_JAPAN = "Yahoo!ニュース";
     private static final String NEWS_PROVIDER_ABC_ES = "ABC.es";
-
-    public static MNNewsFeedUrl getDefaultFeedUrl(Context context) {
-        MNLanguageType type = MNLanguage.getCurrentLanguageType(context);
-
-        String feedUrl;
-        MNNewsFeedUrlType urlType;
-
-        switch(type) {
-            case ENGLISH:
-                feedUrl = "http://news.google.com/news?cf=all&ned=us&hl=en&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case KOREAN:
-                feedUrl = "http://news.google.com/news?cf=all&ned=kr&hl=ko&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case JAPANESE:
-                feedUrl = "http://rss.dailynews.yahoo.co.jp/fc/rss.xml";
-                urlType = MNNewsFeedUrlType.YAHOO;
-                break;
-            case TRADITIONAL_CHINESE:
-                feedUrl = "http://news.google.com/news?cf=all&ned=tw&hl=zh-TW&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case SIMPLIFIED_CHINESE:
-                feedUrl = "http://news.google.com/news?cf=all&ned=cn&hl=zh-CN&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case RUSSIAN:
-                feedUrl = "http://news.google.com/news?cf=all&ned=ru_ru&hl=ru&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case FRENCH:
-                feedUrl = "http://news.google.com/news?cf=all&ned=fr&hl=fr&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case SPANISH:
-                feedUrl = "http://www.abc.es/rss/feeds/abc_Internacional.xml";
-                urlType = MNNewsFeedUrlType.ABC_ES;
-                break;
-            case GERMAN:
-                feedUrl = "http://news.google.com/news?cf=all&ned=de&hl=de&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case PORTUGUESE_BRAZIL:
-                feedUrl = "https://news.google.com/news/feeds?cf=all&ned=pt-BR_br&hl=pt-BR_br&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            case PORTUGUESE_PORTUGAL:
-                feedUrl = "https://news.google.com/news/feeds?cf=all&ned=pt-PT_pt&hl=pt-PT_pt&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-            default:
-                feedUrl = "http://news.google.com/news?cf=all&ned=us&hl=en&output=rss";
-                urlType = MNNewsFeedUrlType.GOOGLE;
-                break;
-        }
-//        feedUrl = "http://sweetpjy.tistory.com/rss";
-//        feedUrl = "http://www.cnet.com/rss/iphone-update/";
-
-
-        return new MNNewsFeedUrl(feedUrl, urlType);
-    }
 
     public static String getRssFeedJsonString(RssFeed feed) {
         return new GsonBuilder().setExclusionStrategies(new ExclusionStrategy
@@ -109,6 +47,7 @@ public class MNNewsFeedUtil {
                     }
                 }).serializeNulls().create().toJson(feed);
     }
+
     public static String getRssItemArrayListString(ArrayList<RssItem>
                                                            itemList) {
         return new GsonBuilder().setExclusionStrategies(new ExclusionStrategy
@@ -123,6 +62,18 @@ public class MNNewsFeedUtil {
                 return (clazz == RssFeed.class);
             }
         }).serializeNulls().create().toJson(itemList);
+    }
+
+    public static void saveNewsFeedUrl(Context context, MNNewsFeedUrl newsFeedUrl) {
+        SharedPreferences prefs = context.getApplicationContext()
+                .getSharedPreferences(PREF_NEWS_FEED, Context.MODE_PRIVATE);
+        prefs.edit().putString(KEY_FEED_URL, new Gson().toJson(newsFeedUrl)).apply();
+    }
+
+    public static void removeNewsFeedUrl(Context context) {
+        SharedPreferences prefs = context.getApplicationContext()
+                .getSharedPreferences(PREF_NEWS_FEED, Context.MODE_PRIVATE);
+        prefs.edit().remove(KEY_FEED_URL).apply();
     }
 
     public static void addUrlToHistory(Context context, String url) {
@@ -169,49 +120,46 @@ public class MNNewsFeedUtil {
      * retval[1] : publisher or null if there's no publisher info.
      *
      */
-    public static String[] getTitleAndPublisherName(RssItem news,
-                                          MNNewsFeedUrlType type) {
-        String title = news.getTitle();
-        String newTitle;
-        String publisher;
-        switch (type) {
-            case GOOGLE:
-                final String delim = " - ";
-                int idx = title.lastIndexOf(delim);
-
-                int titleStartIdx = 0;
-                int pubStartIdx = idx + delim.length();
-                int pubEndIdx = title.length();
-
-                if (idx >= 0 && idx >= titleStartIdx &&
-                        pubEndIdx >= pubStartIdx) {
-                // title.length() >= delim.length()
-                    newTitle = title.substring(titleStartIdx, idx);
-                    publisher = "- " + title.substring(pubStartIdx, pubEndIdx);
-                } else {
-                    newTitle = title;
-                    publisher = null;
-                }
-                break;
-            case YAHOO:
-                newTitle = title;
-                publisher = NEWS_PROVIDER_YAHOO_JAPAN;
-                break;
-
-            case ABC_ES:
-                newTitle = title;
-                publisher = NEWS_PROVIDER_ABC_ES;
-                break;
-
-            case CUSTOM:
-            default:
-                newTitle = title;
-                publisher = null;
-                break;
-        }
-
-        return new String[]{newTitle, publisher};
-    }
+//    public static String[] getTitleAndPublisherName(RssItem news, MNNewsFeedUrlType type) {
+//        String title = news.getTitle();
+//        String newTitle;
+//        String publisher;
+//        switch (type) {
+//            case GOOGLE:
+//                final String delim = " - ";
+//                int idx = title.lastIndexOf(delim);
+//
+//                int titleStartIdx = 0;
+//                int pubStartIdx = idx + delim.length();
+//                int pubEndIdx = title.length();
+//
+//                if (idx >= 0 && idx >= titleStartIdx &&
+//                        pubEndIdx >= pubStartIdx) {
+//                // title.length() >= delim.length()
+//                    newTitle = title.substring(titleStartIdx, idx);
+//                    publisher = "- " + title.substring(pubStartIdx, pubEndIdx);
+//                } else {
+//                    newTitle = title;
+//                    publisher = null;
+//                }
+//                break;
+////            case YAHOO:
+////                newTitle = title;
+////                publisher = NEWS_PROVIDER_YAHOO_JAPAN;
+////                break;
+////            case ABC_ES:
+////                newTitle = title;
+////                publisher = NEWS_PROVIDER_ABC_ES;
+////                break;
+//            case CUSTOM:
+//            default:
+//                newTitle = title;
+//                publisher = null;
+//                break;
+//        }
+//
+//        return new String[]{newTitle, publisher};
+//    }
 
     public static String getFeedTitle(Context context) {
         MNLanguageType currentLanguage = MNLanguage.getCurrentLanguageType(context);
@@ -227,5 +175,13 @@ public class MNNewsFeedUtil {
         }
 
         return provider;
+    }
+
+    public static String makeLanguageRegionCode(String languageCode, String regionCode) {
+        String key = languageCode;
+        if (regionCode != null && regionCode.length() > 0) {
+            key += "_" + regionCode;
+        }
+        return key;
     }
 }

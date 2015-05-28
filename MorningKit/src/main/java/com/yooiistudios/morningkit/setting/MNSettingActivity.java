@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.yooiistudios.morningkit.MNApplication;
+import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
@@ -21,6 +22,7 @@ import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.panel.MNPanelSettingFragment;
 import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
+import com.yooiistudios.morningkit.setting.store.MNStoreType;
 import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
@@ -107,7 +109,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
                     }
                 } else if (position == 1) {
                     // 상점 탭이고 네이버일 경우
-                    boolean isStoreForNaver = MNStoreFragment.IS_STORE_FOR_NAVER;
+                    boolean isStoreForNaver = MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER);
                     if (isStoreForNaver) {
                         // 1. 첫 진입인 경우에는 네이버 인앱 로딩
                         // 2. 로딩 후 탭 클릭 시는 구매 재로딩(다른 탭에서 언락했을 경우 UI 처리용)
@@ -120,7 +122,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
                                     if (viewPagerFragment != null &&
                                             viewPagerFragment instanceof MNStoreFragment) {
                                         MNStoreFragment storeFragment = ((MNStoreFragment) viewPagerFragment);
-                                        boolean isStoreForNaver = MNStoreFragment.IS_STORE_FOR_NAVER;
+                                        boolean isStoreForNaver = MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER);
                                         if (isStoreForNaver && !storeFragment.isNaverStoreStartLoading) {
                                             storeFragment.onFirstStoreLoading();
                                         }

@@ -1,0 +1,14 @@
+{
+    "lang_name_english": "Hebrew",
+    "lang_name_regional": "עברית",
+    "lang_code": "il",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "ישראל",
+            "country_code": "IL",
+            "provider_name": "חדשות Google",
+            "url": "http://news.google.com/news?cf=all&ned=iw_il&hl=iw&output=rss"
+        }
+    ]
+}

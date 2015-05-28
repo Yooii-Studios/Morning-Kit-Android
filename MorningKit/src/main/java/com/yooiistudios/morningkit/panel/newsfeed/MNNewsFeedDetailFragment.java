@@ -1,13 +1,14 @@
 package com.yooiistudios.morningkit.panel.newsfeed;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.newsfeed.adapter.MNNewsFeedAdapter;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
-import com.yooiistudios.morningkit.panel.newsfeed.ui.MNNewsFeedSelectDialogFragment;
+import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUrlProvider;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNRssFetchTask;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
@@ -53,15 +54,14 @@ import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.P
  *
  * MNNewsFeedDetailFragment
  */
-public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
-            implements MNNewsFeedSelectDialogFragment.OnClickListener{
-
+public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
     private static final String TAG = "MNNewsFeedDetailFragment";
-    public static final String TAG_FEED_SELECT_DIALOG = "feed select dialog";
     private static final int INVALID_NEWS_IDX = -1;
 
+    private static final int RC_NEWS_SELECT = 1001;
+
     @InjectView(R.id.feedTitle) TextView feedTitleTextView;
-    @InjectView(R.id.search) ImageView searchImageView;
+    @InjectView(R.id.news_feed_detail_globe) ImageView globeImageView;
     @InjectView(R.id.newsList) ListView newsListView;
     @InjectView(R.id.result) LinearLayout newsResult;
     @InjectView(R.id.loadingImageView) ImageView loadingImageView;
@@ -90,7 +90,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
                 e.printStackTrace();
 
                 // init with default setting
-                feedUrl = MNNewsFeedUtil.getDefaultFeedUrl(getActivity());
+                feedUrl = MNNewsFeedUrlProvider.getInstance(getActivity()).getDefault();
                 loadingFeedUrl = null;
                 feed = null;
                 highlightNewsIdx = INVALID_NEWS_IDX;
@@ -116,7 +116,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
                 feedUrl = new Gson().fromJson(savedUrlJsonStr, urlType);
             }
             else {
-                feedUrl = MNNewsFeedUtil.getDefaultFeedUrl(getActivity());
+                feedUrl = MNNewsFeedUrlProvider.getInstance(getActivity()).getDefault();
             }
 //            feedUrl = prefs.getString(KEY_FEED_URL,
 //                    MNNewsFeedUtil.getDefaultFeedUrl(getActivity()));
@@ -173,24 +173,28 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
                 startActivity(intent);
             }
         });
-        searchImageView.setOnClickListener(onSelectFeedClickedListener);
         loadingImageView.setVisibility(View.GONE);
         newsResult.setVisibility(View.GONE);
+
+        initGlobeImageView();
 
         // theme
         initTheme();
     }
+
+    private void initGlobeImageView() {
+        globeImageView.setOnClickListener(onSelectFeedClickedListener);
+        int iconColor = getResources().getColor(R.color.pastel_green_main_font_color);
+        globeImageView.setColorFilter(iconColor, PorterDuff.Mode.MULTIPLY);
+    }
+
     private View.OnClickListener
             onSelectFeedClickedListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            DialogFragment newFragment =
-                    MNNewsFeedSelectDialogFragment.
-                            newInstance(feedUrl);
-            newFragment.setTargetFragment(
-                    MNNewsFeedDetailFragment.this, -1);
-            newFragment.show(getFragmentManager(), TAG_FEED_SELECT_DIALOG);
-
+            Intent intent = new Intent(getActivity(), MNNewsSelectActivity.class);
+            intent.putExtra(MNNewsSelectActivity.INTENT_KEY_URL, feedUrl);
+            startActivityForResult(intent, RC_NEWS_SELECT);
         }
     };
 
@@ -225,10 +229,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
                     MNNewsFeedUtil.getRssItemArrayListString(feed.getRssItems()));
         }
 
-        SharedPreferences prefs = getActivity().getSharedPreferences(
-                PREF_NEWS_FEED, Context.MODE_PRIVATE);
-//        prefs.edit().putString(KEY_FEED_URL, feedUrl).apply();
-        prefs.edit().putString(KEY_FEED_URL, new Gson().toJson(feedUrl)).apply();
+        MNNewsFeedUtil.saveNewsFeedUrl(getActivity(), feedUrl);
     }
     private void showResultView() {
         loadingImageView.setVisibility(View.GONE);
@@ -245,14 +246,11 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
             this.loadingFeedUrl = null;
             this.feed = feed;
 
-            Context context = getActivity().getApplicationContext();
+            String publisher = feedUrl.providerName != null && feedUrl.providerName.length() > 0
+                    ? feedUrl.providerName : feed.getTitle();
+            feedTitleTextView.setText(publisher);
 
-            String feedTitle = MNNewsFeedUtil.getFeedTitle(context);
-            feedTitleTextView.setText(feedTitle != null ?
-                    feedTitle : feed.getTitle());
-
-            feedAdapter = new MNNewsFeedAdapter(getActivity(),
-                    feed);
+            feedAdapter = new MNNewsFeedAdapter(getActivity(), feed);
             newsListView.setAdapter(feedAdapter);
             newsListView.setVisibility(View.VISIBLE);
             newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -271,6 +269,8 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
     }
 
     private void loadNewsFeed(MNNewsFeedUrl url) {
+        cancelRssFetchTask();
+
         showLoadingImageView();
         loadingFeedUrl = url;
         rssFetchTask = new MNRssFetchTask(getActivity().getApplicationContext(),
@@ -303,6 +303,13 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
             rssFetchTask.execute();
         }
     }
+
+    private void cancelRssFetchTask() {
+        if (rssFetchTask != null) {
+            rssFetchTask.cancel(true);
+        }
+    }
+
     private void showUnavailableMessage() {
         Toast.makeText(getActivity().getApplicationContext(),
                 R.string.news_feed_invalid_url, Toast.LENGTH_SHORT).show();
@@ -331,17 +338,18 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment
     public void onPause() {
         super.onPause();
 
-        if (rssFetchTask != null) {
-            rssFetchTask.cancel(true);
+        cancelRssFetchTask();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == RC_NEWS_SELECT) {
+                MNNewsFeedUrl feedUrl = (MNNewsFeedUrl)data.getSerializableExtra(
+                        MNNewsSelectActivity.INTENT_KEY_URL);
+                loadNewsFeed(feedUrl);
+            }
         }
     }
-
-
-    @Override
-    public void onConfirm(MNNewsFeedUrl url) {
-        loadNewsFeed(url);
-    }
-
-    @Override
-    public void onCancel() {}
 }

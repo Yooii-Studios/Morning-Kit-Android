@@ -1,0 +1,14 @@
+{
+    "lang_name_english": "Greek",
+    "lang_name_regional": "Eλληνικά",
+    "lang_code": "el",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Ελλάδα",
+            "country_code": "GR",
+            "provider_name": "Google Ειδήσεις",
+            "url": "http://news.google.com/news?cf=all&ned=el_gr&hl=el&output=rss"
+        }
+    ]
+}

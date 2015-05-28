@@ -341,4 +341,9 @@
     <!-- Quit Ad -->
     <string name="quit_ad_dialog_title_text">Voulez-vous quitter cette application?</string>
 
+	<!-- Panel -->
+		<!-- News Feed -->
+	<string name="select_newsfeed_title">Liste de Nouvelles</string>
+	<string name="custom_news_feed_menu_item_title">RSS</string>
+
 </resources>

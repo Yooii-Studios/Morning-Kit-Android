@@ -1,0 +1,14 @@
+{
+    "lang_name_english": "Vietnamese",
+    "lang_name_regional": "Tiếng Việt",
+    "lang_code": "vi",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Việt Nam",
+            "country_code": "VN",
+            "provider_name": "Google News",
+            "url": "http://news.google.com/news?cf=all&ned=vi_vn&hl=vi&output=rss"
+        }
+    ]
+}
