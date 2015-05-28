@@ -23,7 +23,7 @@
             android:paddingRight="@dimen/panel_news_feed_detail_title_content_padding"
             android:paddingBottom="@dimen/panel_news_feed_detail_title_content_padding">
             <ImageView
-                android:id="@+id/search"
+                android:id="@+id/news_feed_detail_globe"
                 android:layout_width="@dimen/panel_news_feed_detail_title_magnifier_size"
                 android:layout_height="@dimen/panel_news_feed_detail_title_magnifier_size"
                 android:layout_alignParentRight="true"
@@ -34,7 +34,7 @@
                 android:id="@+id/feedTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/search"
+                android:layout_toLeftOf="@id/news_feed_detail_globe"
                 android:layout_centerVertical="true"
                 android:textColor="@color/pastel_green_main_font_color"
                 android:textSize="@dimen/panel_news_feed_detail_title_textSize"/>

@@ -1,0 +1,14 @@
+{
+    "lang_name_english": "Slovak",
+    "lang_name_regional": "Slovenčina",
+    "lang_code": "sk",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Slovensko",
+            "country_code": "SK",
+            "provider_name": "Pravda",
+            "url": "http://spravy.pravda.sk/rss/xml/s-obrazkom/"
+        }
+    ]
+}

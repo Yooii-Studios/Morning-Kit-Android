@@ -45,16 +45,15 @@ public class MNRssFetchTask extends AsyncTask<MNNewsFeedUrl, Void, RssFeed> {
 
     @Override
     protected RssFeed doInBackground(MNNewsFeedUrl... args) {
-
-        if (!mFeedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM)) {
-            // 디폴트 세팅을 사용할 경우 패널단에서 언어설정을 감지 못하므로 무조건 현재 언어의
-            // 디폴트 url을 가져온다.
-            mFeedUrl = MNNewsFeedUtil.getDefaultFeedUrl(mContext);
-        }
+//        if (!mFeedUrl.type.equals(MNNewsFeedUrlType.CUSTOM)) {
+//            // 디폴트 세팅을 사용할 경우 패널단에서 언어설정을 감지 못하므로 무조건 현재 언어의
+//            // 디폴트 url을 가져온다.
+//            mFeedUrl = MNNewsFeedUrlProvider.getInstance(mContext).getDefault();
+//        }
 
         RssFeed feed = null;
         try {
-            URL url = new URL(mFeedUrl.getUrl());
+            URL url = new URL(mFeedUrl.url);
 //            InputStream is = url.openStream();
             URLConnection conn = url.openConnection();
 
@@ -104,7 +103,7 @@ public class MNRssFetchTask extends AsyncTask<MNNewsFeedUrl, Void, RssFeed> {
             // flurry
             Map<String, String> params = new HashMap<String, String>();
             params.put(MNFlurry.NEWS,
-                    mFeedUrl.getType().equals(MNNewsFeedUrlType.CUSTOM) ?
+                    mFeedUrl.type.equals(MNNewsFeedUrlType.CUSTOM) ?
                     "Custom RSS" : "Default News");
             FlurryAgent.logEvent(MNFlurry.PANEL, params);
 

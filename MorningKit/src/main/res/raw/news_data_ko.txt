@@ -1,0 +1,14 @@
+{
+    "lang_name_english": "Korean",
+    "lang_name_regional": "한국어",
+    "lang_code": "ko",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "대한민국",
+            "country_code": "KR",
+            "provider_name": "구글 뉴스",
+            "url": "http://news.google.co.kr/news?pz=1&cf=all&ned=kr&hl=ko&output=rss"
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "lang_name_english": "Persian",
+    "lang_name_regional": "فارسی",
+    "lang_code": "fa",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "ایران",
+            "country_code": "IR",
+            "provider_name": "روزنامه دنیای اقتصاد",
+            "url": "http://www.donya-e-eqtesad.com/general-news/rss/"
+        }
+    ]
+}

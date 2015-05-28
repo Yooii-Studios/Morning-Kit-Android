@@ -1,0 +1,14 @@
+{
+    "lang_name_english": "Serbian",
+    "lang_name_regional": "Cрпски",
+    "lang_code": "sr",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Република Србија",
+            "country_code": "RS",
+            "provider_name": "Danas",
+            "url": "http://www.danas.rs/rss/rss.asp?column_id=27"
+        }
+    ]
+}
