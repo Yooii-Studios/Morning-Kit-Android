@@ -165,7 +165,7 @@
 	<string name="tab_info">INFO</string>
 
 	<!-- Setting (General) -->
-	<string name="setting_language">Lingua</string>
+	<string name="setting_language">Lingua / Language</string>
 	<string name="setting_widgettable">Griglia del pannello</string>
 	<string name="setting_theme_color">Temi</string>
 	<string name="setting_theme_color_skyblue">Celestial (azzurro)</string>
@@ -179,16 +179,16 @@
 
 	<!-- Setting (Language) -->
 	<string name="setting_language_korean">한국어</string>
-	<string name="setting_language_english">Inglese</string>
+	<string name="setting_language_english">English</string>
 	<string name="setting_language_japanese">日本語</string>
 	<string name="setting_language_simplified_chinese">简体中文</string>
 	<string name="setting_language_traditional_chinese">繁體中文</string>
-	<string name="setting_language_russian">Russo</string>
-	<string name="setting_language_spanish">Spagnolo</string>
-	<string name="setting_language_french">Francese</string>
-	<string name="setting_language_deutsch">Tedesco</string>
-	<string name="setting_language_portuguese_brazil">Portoghese (Brasile)</string>
-	<string name="setting_language_portuguese_portugal">Portoghese (Portogallo)</string>
+	<string name="setting_language_russian">Русский</string>
+	<string name="setting_language_spanish">Español</string>
+	<string name="setting_language_french">Français</string>
+	<string name="setting_language_deutsch">Deutsch</string>
+	<string name="setting_language_portuguese_brazil">Português (Brasil)</string>
+	<string name="setting_language_portuguese_portugal">Português (Portugal)</string>
 	<string name="setting_language_portuguese_italian">Italiano</string>
 
 	<!-- Setting (Effect sound) -->
