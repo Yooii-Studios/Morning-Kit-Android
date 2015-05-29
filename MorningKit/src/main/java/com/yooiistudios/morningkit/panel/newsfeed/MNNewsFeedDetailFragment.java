@@ -8,8 +8,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +63,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
     // Animation
     private static final String KEY_HAS_CLICKED_NEWS_SELECT_BUTTON = "key_has_clicked_news_select_button";
     private static final float START_SCALE = 1.0f;
-    private static final float END_SCALE = 1.3f;
+    private static final float END_SCALE = 1.2f;
     private static final long ANIM_DURATION = 150;
     private static final int TOTAL_ANIM_COUNT = 4;
     private static final long TOTAL_ANIM_DURATION = TOTAL_ANIM_COUNT * ANIM_DURATION;
@@ -87,15 +85,15 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
 
     private MNRssFetchTask rssFetchTask;
 
-    private Handler animationHandler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            animateNewsSelectIcon();
-
-            animationHandler.sendEmptyMessageDelayed(0, TOTAL_ANIM_DURATION + 900);
-            return false;
-        }
-    });
+//    private Handler animationHandler = new Handler(new Handler.Callback() {
+//        @Override
+//        public boolean handleMessage(Message msg) {
+//            animateNewsSelectIcon();
+//
+//            animationHandler.sendEmptyMessageDelayed(0, TOTAL_ANIM_DURATION + 900);
+//            return false;
+//        }
+//    });
 
 
     @Override
@@ -213,17 +211,24 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
                 PREF_NEWS_FEED, Context.MODE_PRIVATE);
         boolean hasClicked = prefs.getBoolean(KEY_HAS_CLICKED_NEWS_SELECT_BUTTON, false);
         if (!hasClicked) {
-            animationHandler.sendEmptyMessage(0);
+            animateNewsSelectIcon();
+//            animationHandler.sendEmptyMessage(0);
         }
     }
 
     private void animateNewsSelectIcon() {
-        final ScaleAnimation scaleUp = new ScaleAnimation(START_SCALE, END_SCALE, START_SCALE, END_SCALE,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        scaleUp.setDuration(ANIM_DURATION);
-        scaleUp.setRepeatCount(ANIM_REPEAT_COUNT);
-        scaleUp.setRepeatMode(Animation.REVERSE);
-        newsSelectButton.startAnimation(scaleUp);
+        newsSelectButton.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                final ScaleAnimation scaleUp = new ScaleAnimation(START_SCALE, END_SCALE, START_SCALE, END_SCALE,
+                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                scaleUp.setDuration(ANIM_DURATION);
+                scaleUp.setRepeatCount(ANIM_REPEAT_COUNT);
+                scaleUp.setRepeatMode(Animation.REVERSE);
+                newsSelectButton.startAnimation(scaleUp);
+            }
+        }, 500);
     }
 
     private View.OnClickListener
@@ -233,7 +238,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
             SharedPreferences prefs = getActivity().getSharedPreferences(
                     PREF_NEWS_FEED, Context.MODE_PRIVATE);
             prefs.edit().putBoolean(KEY_HAS_CLICKED_NEWS_SELECT_BUTTON, true).apply();
-            animationHandler.removeMessages(0);
+//            animationHandler.removeMessages(0);
             newsSelectButton.clearAnimation();
 
             Intent intent = new Intent(getActivity(), MNNewsSelectActivity.class);

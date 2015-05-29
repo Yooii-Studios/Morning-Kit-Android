@@ -14,13 +14,11 @@
         android:paddingTop="@dimen/panel_detail_bigger_padding"
         android:paddingRight="@dimen/panel_detail_bigger_padding"
         android:paddingBottom="0px"
-        android:clipChildren="false"
-        android:clipToPadding="false"
         android:orientation="vertical">
         <RelativeLayout
             android:id="@+id/titleMagnifierWrapper"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/panel_news_feed_detail_title_wrapper_height"
             android:layout_marginBottom="@dimen/panel_detail_padding"
             android:clipChildren="false"
             android:clipToPadding="false"

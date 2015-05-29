@@ -233,6 +233,7 @@
 
     <!-- News Feed -->
     <!-- Detail -->
+    <dimen name="panel_news_feed_detail_title_wrapper_height">60dp</dimen>
     <dimen name="panel_news_feed_detail_news_select_icon_size">51dp</dimen>                  <!--Done-->
     <dimen name="panel_news_feed_detail_title_textSize">28sp</dimen>                        <!--Done-->
     <dimen name="panel_news_feed_detail_title_content_padding">2.8dp</dimen>                <!--Done-->
