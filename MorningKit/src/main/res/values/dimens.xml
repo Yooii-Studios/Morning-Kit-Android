@@ -228,7 +228,8 @@
 
     <!-- News Feed -->
     <!-- Detail -->
-    <dimen name="panel_news_feed_detail_title_magnifier_size">30dp</dimen>
+    <dimen name="panel_news_feed_detail_title_wrapper_height">43dp</dimen>
+    <dimen name="panel_news_feed_detail_news_select_icon_size">36dp</dimen>
     <dimen name="panel_news_feed_detail_title_textSize">20sp</dimen>
     <dimen name="panel_news_feed_detail_title_content_padding">2dp</dimen>
     <dimen name="panel_news_feed_detail_title_magnifier_margin">3dp</dimen>

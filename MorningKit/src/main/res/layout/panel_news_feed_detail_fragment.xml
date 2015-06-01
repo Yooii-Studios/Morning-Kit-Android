@@ -3,7 +3,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="@color/white"
+             android:clipChildren="false"
+             android:clipToPadding="false">
     <LinearLayout
         android:id="@+id/result"
         android:layout_width="match_parent"
@@ -16,20 +18,21 @@
         <RelativeLayout
             android:id="@+id/titleMagnifierWrapper"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/panel_news_feed_detail_title_wrapper_height"
             android:layout_marginBottom="@dimen/panel_detail_padding"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:paddingLeft="@dimen/panel_news_feed_detail_title_content_padding"
             android:paddingTop="0px"
             android:paddingRight="@dimen/panel_news_feed_detail_title_content_padding"
             android:paddingBottom="@dimen/panel_news_feed_detail_title_content_padding">
             <ImageView
                 android:id="@+id/news_feed_detail_globe"
-                android:layout_width="@dimen/panel_news_feed_detail_title_magnifier_size"
-                android:layout_height="@dimen/panel_news_feed_detail_title_magnifier_size"
+                android:layout_width="@dimen/panel_news_feed_detail_news_select_icon_size"
+                android:layout_height="@dimen/panel_news_feed_detail_news_select_icon_size"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:padding="@dimen/panel_news_feed_detail_title_magnifier_margin"
-                android:src="@drawable/icon_magnifier"/>
+                android:src="@drawable/icon_news_select"/>
             <TextView
                 android:id="@+id/feedTitle"
                 android:layout_width="match_parent"
