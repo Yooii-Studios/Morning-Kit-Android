@@ -334,7 +334,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         themeTextView.setText(R.string.store_tab_themes);
 
         // 풀버전 구매 버튼 때문에 한번 더 로딩을 요청, 그러면 아래 그리드뷰도 자동으로 언어가 적용
-        initIab();
+        if (!isFragmentForActivity) {
+            initIab();
+        }
     }
 
     /**
@@ -650,17 +652,17 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     public void initUIAfterLoading(List<NaverIabInventoryItem> productList) {
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
 
-        NaverIabInventoryItem fullversionNaverIabItem = null;
+        NaverIabInventoryItem fullVersionNaverIabItem = null;
         for (NaverIabInventoryItem naverIabInventoryItem : productList) {
             if (naverIabInventoryItem.getKey().equals(
                     NaverIabProductUtils.naverSkuMap.get(SKIabProducts.SKU_FULL_VERSION))) {
-                fullversionNaverIabItem = naverIabInventoryItem;
+                fullVersionNaverIabItem = naverIabInventoryItem;
             }
         }
 
-        if (fullversionNaverIabItem != null) {
+        if (fullVersionNaverIabItem != null) {
             // 네이버에서 구매했거나, 다른 곳에서 구매해서 ownedSkus 에 있는지 둘 다 확인 필요
-            if (fullversionNaverIabItem.isAvailable() || ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
+            if (fullVersionNaverIabItem.isAvailable() || ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
                 fullVersionButtonTextView.setText(R.string.store_purchased);
                 fullVersionImageView.setClickable(false);
                 fullVersionButtonImageView.setClickable(false);
@@ -688,7 +690,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                         fullVersionButtonImageView.startAnimation(animation);
                     }
                     fullVersionButtonTextView.setText(
-                            "₩" + MNDecimalFormatUtils.makeStringComma(fullversionNaverIabItem.getPrice()));
+                            "₩" + MNDecimalFormatUtils.makeStringComma(fullVersionNaverIabItem.getPrice()));
                     fullVersionImageView.setClickable(true);
                     fullVersionButtonImageView.setClickable(true);
                 }
