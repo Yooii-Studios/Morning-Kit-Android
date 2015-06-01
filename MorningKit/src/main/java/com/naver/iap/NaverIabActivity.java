@@ -10,6 +10,7 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.nhn.android.appstore.iap.payment.NIAPActivity;
 import com.nhn.android.appstore.iap.result.NIAPResult;
 import com.nhn.android.appstore.iap.util.AppstoreSecurity;
+import com.nhn.android.appstore.iap.util.ExecuteDelegator;
 import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
@@ -115,6 +116,10 @@ public class NaverIabActivity extends NIAPActivity {
 	}
 	private void finishGracefully() {
 		setResult(RESULT_OK, getIntent());
+
+		// 액티비티를 닫기 직전 명시적으로 Queue 를 stop 시켜준다 - UI가 갱신되자마자 구매를 누를 때 죽는 현상을 막기 위함
+		ExecuteDelegator.getInstance().stop();
+
 		finish();
 	}
 
