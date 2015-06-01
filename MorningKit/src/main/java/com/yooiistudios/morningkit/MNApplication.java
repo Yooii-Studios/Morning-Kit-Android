@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
@@ -65,6 +66,8 @@ public class MNApplication extends Application {
         super.onCreate();
 
         Configuration config = getApplicationContext().getResources().getConfiguration();
+
+        MNLocaleUtils.saveDefaultLocaleIfNecessary(getApplicationContext(), Locale.getDefault());
 
         // load language from MNLanguage
         MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(getApplicationContext());

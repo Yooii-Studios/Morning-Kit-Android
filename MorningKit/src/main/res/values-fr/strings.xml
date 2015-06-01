@@ -189,6 +189,7 @@
     <string name="setting_language_deutsch">Deutsch</string>
     <string name="setting_language_portuguese_brazil">Português (Brasil)</string>
     <string name="setting_language_portuguese_portugal">Português (Portugal)</string>
+	<string name="setting_language_portuguese_italian">Italiano</string>
 
 	<!-- Setting (Effect sound) -->
 	<string name="setting_effect_sound">Les effets sonores</string>
@@ -340,5 +341,10 @@
 
     <!-- Quit Ad -->
     <string name="quit_ad_dialog_title_text">Voulez-vous quitter cette application?</string>
+
+	<!-- Panel -->
+		<!-- News Feed -->
+	<string name="select_newsfeed_title">Liste de Nouvelles</string>
+	<string name="custom_news_feed_menu_item_title">RSS</string>
 
 </resources>

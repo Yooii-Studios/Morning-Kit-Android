@@ -1,0 +1,14 @@
+{
+    "lang_name_english": "Hungarian",
+    "lang_name_regional": "Magyar",
+    "lang_code": "hu",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Magyarország",
+            "country_code": "HU",
+            "provider_name": "Google Hírek",
+            "url": "http://news.google.com/news?cf=all&ned=hu_hu&hl=hu&output=rss"
+        }
+    ]
+}

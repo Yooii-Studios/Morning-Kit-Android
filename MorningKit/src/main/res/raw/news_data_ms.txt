@@ -1,0 +1,14 @@
+{
+    "lang_name_english": "Malay",
+    "lang_name_regional": "Melayu",
+    "lang_code": "ms",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Malaysia",
+            "country_code": "MY",
+            "provider_name": "Berita Harian",
+            "url": "http://www.bharian.com.my/terkini.xml"
+        }
+    ]
+}

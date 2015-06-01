@@ -1,0 +1,32 @@
+{
+    "lang_name_english": "German",
+    "lang_name_regional": "Deutsch",
+    "lang_code": "de",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Deutschland",
+            "country_code": "DE",
+            "provider_name": "Google News",
+            "url": "http://news.google.com/news?cf=all&ned=de&hl=de&output=rss"
+        },
+        {
+            "country_name": "Österreich",
+            "country_code": "AT",
+            "provider_name": "Google News",
+            "url": "http://news.google.com/news?cf=all&ned=de_at&hl=de&output=rss"
+        },
+        {
+            "country_name": "Switzerland",
+            "country_code": "CH",
+            "provider_name": "20 Minuten",
+            "url": "http://www.20min.ch/rss/rss.tmpl?type=channel&get=1"
+        },
+        {
+            "country_name": "Luxemburg",
+            "country_code": "LU",
+            "provider_name": "Tageblatt",
+            "url": "http://www.tageblatt.lu/rss/front.tmpl"
+        }
+    ]
+}

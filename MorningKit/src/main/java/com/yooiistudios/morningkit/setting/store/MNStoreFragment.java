@@ -23,6 +23,7 @@ import com.flurry.android.FlurryAgent;
 import com.naver.iap.NaverIabActivity;
 import com.naver.iap.NaverIabInventoryItem;
 import com.naver.iap.NaverIabProductUtils;
+import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.encryption.MNMd5Utils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
@@ -146,7 +147,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         fullVersionButtonTextView.setSelected(true);
 
         // 이 부분 때문에 크래시가 나서 일단 null 체크를 해줌
-        if (IS_STORE_FOR_NAVER) {
+        if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
             // 네이버는 로딩을 탭 클릭 시로 미룸, 단 상점 액티비티는 처음에 로딩
             if (isFragmentForActivity) {
                 onFirstStoreLoading();
@@ -245,7 +246,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             resetButton.setVisibility(View.VISIBLE);
             debugButton.setVisibility(View.VISIBLE);
             if (MNStoreDebugChecker.isUsingStore(getActivity())) {
-                if (IS_STORE_FOR_NAVER) {
+                if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
                     debugButton.setText("Naver Store");
                 } else {
                     debugButton.setText("Google Store");
@@ -333,7 +334,9 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         themeTextView.setText(R.string.store_tab_themes);
 
         // 풀버전 구매 버튼 때문에 한번 더 로딩을 요청, 그러면 아래 그리드뷰도 자동으로 언어가 적용
-        initIab();
+        if (!isFragmentForActivity) {
+            initIab();
+        }
     }
 
     /**
@@ -404,7 +407,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             MNSoundEffectsPlayer.play(R.raw.effect_view_open, getActivity());
         }
         if (MNStoreDebugChecker.isUsingStore(getActivity())) {
-            if (IS_STORE_FOR_NAVER) {
+            if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
                 showLoadingViews();
 
                 Intent intent = new Intent(getActivity(), NaverIabActivity.class);
@@ -522,7 +525,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             debugButton.setText("Debug");
             MNStoreDebugChecker.setUsingStore(false, getActivity());
         } else {
-            if (IS_STORE_FOR_NAVER) {
+            if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
                 debugButton.setText("Naver Store");
             } else {
                 debugButton.setText("Google Store");
@@ -649,17 +652,17 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     public void initUIAfterLoading(List<NaverIabInventoryItem> productList) {
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
 
-        NaverIabInventoryItem fullversionNaverIabItem = null;
+        NaverIabInventoryItem fullVersionNaverIabItem = null;
         for (NaverIabInventoryItem naverIabInventoryItem : productList) {
             if (naverIabInventoryItem.getKey().equals(
                     NaverIabProductUtils.naverSkuMap.get(SKIabProducts.SKU_FULL_VERSION))) {
-                fullversionNaverIabItem = naverIabInventoryItem;
+                fullVersionNaverIabItem = naverIabInventoryItem;
             }
         }
 
-        if (fullversionNaverIabItem != null) {
+        if (fullVersionNaverIabItem != null) {
             // 네이버에서 구매했거나, 다른 곳에서 구매해서 ownedSkus 에 있는지 둘 다 확인 필요
-            if (fullversionNaverIabItem.isAvailable() || ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
+            if (fullVersionNaverIabItem.isAvailable() || ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION)) {
                 fullVersionButtonTextView.setText(R.string.store_purchased);
                 fullVersionImageView.setClickable(false);
                 fullVersionButtonImageView.setClickable(false);
@@ -687,7 +690,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                         fullVersionButtonImageView.startAnimation(animation);
                     }
                     fullVersionButtonTextView.setText(
-                            "₩" + MNDecimalFormatUtils.makeStringComma(fullversionNaverIabItem.getPrice()));
+                            "₩" + MNDecimalFormatUtils.makeStringComma(fullVersionNaverIabItem.getPrice()));
                     fullVersionImageView.setClickable(true);
                     fullVersionButtonImageView.setClickable(true);
                 }

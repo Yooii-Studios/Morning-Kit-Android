@@ -167,7 +167,7 @@
 	<!-- Setting (General) -->
 	<string name="setting_language">Idioma / Language</string>
 	<string name="setting_widgettable">Matrix Panel</string>
-	<string name="setting_theme_color">tema</string>
+	<string name="setting_theme_color">Tema</string>
 	<string name="setting_theme_color_skyblue">Celeste (Celeste)</string>
 	<string name="setting_theme_color_classic_gray">Pizarra (gris)</string>
 	<string name="setting_theme_color_classic_white">Modernidad (blanco Chic)</string>
@@ -189,6 +189,7 @@
     <string name="setting_language_deutsch">Deutsch</string>
     <string name="setting_language_portuguese_brazil">Português (Brasil)</string>
     <string name="setting_language_portuguese_portugal">Português (Portugal)</string>
+	<string name="setting_language_portuguese_italian">Italiano</string>
 
 	<!-- Setting (Effect sound) -->
 	<string name="setting_effect_sound">Efectos de sonido</string>
@@ -340,5 +341,10 @@
 
     <!-- Quit Ad -->
     <string name="quit_ad_dialog_title_text">Are you sure you want to quit?</string>
+
+	<!-- Panel -->
+		<!-- News Feed -->
+	<string name="select_newsfeed_title">Lista da novedades</string>
+	<string name="custom_news_feed_menu_item_title">RSS</string>
 
 </resources>

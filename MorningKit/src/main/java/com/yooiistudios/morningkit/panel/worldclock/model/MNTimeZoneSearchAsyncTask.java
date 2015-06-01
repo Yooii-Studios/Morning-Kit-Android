@@ -147,6 +147,8 @@ public class MNTimeZoneSearchAsyncTask extends AsyncTask<String, Object, ArrayLi
                         }
                     }
                     // TimeZone 도 검색 대상에 포함 - 영어, 다국어 모두 검색이 되지 않았을 경우만
+                    // 이사님 피드백으로 TimeZone 은 검색에서 제외하기로 결정
+                    /*
                     if (!isEnglishNameFound && !isLocalizedNameFound) {
                         String compareTimeZoneString = currentTimeZone.getTimeZoneName().toLowerCase();
                         String compareTimeZoneStringWitNoBlank = currentTimeZone.getTimeZoneName()
@@ -159,6 +161,7 @@ public class MNTimeZoneSearchAsyncTask extends AsyncTask<String, Object, ArrayLi
                             sameTimeZoneContains.add(currentTimeZone);
                         }
                     }
+                    */
                 }
 
 				// last publishing

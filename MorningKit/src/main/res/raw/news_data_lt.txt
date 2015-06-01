@@ -1,0 +1,14 @@
+{
+    "lang_name_english": "Lithuanian",
+    "lang_name_regional": "Lietuvos",
+    "lang_code": "lt",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "Lietuva",
+            "country_code": "LT",
+            "provider_name": "Lietuvos rytas",
+            "url": "http://www.lrytas.lt/rss/"
+        }
+    ]
+}

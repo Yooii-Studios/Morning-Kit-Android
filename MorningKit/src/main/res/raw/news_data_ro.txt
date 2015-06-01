@@ -1,0 +1,14 @@
+{
+    "lang_name_english": "Romanian",
+    "lang_name_regional": "Român",
+    "lang_code": "ro",
+    "region_code": "",
+    "countries": [
+        {
+            "country_name": "România",
+            "country_code": "RO",
+            "provider_name": "Jurnalul Naţional",
+            "url": "http://jurnalul.ro/rss/stiri.xml"
+        }
+    ]
+}
