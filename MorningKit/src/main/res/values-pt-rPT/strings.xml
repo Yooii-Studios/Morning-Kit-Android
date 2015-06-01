@@ -165,7 +165,7 @@
 	<string name="tab_info">INFORMAÇÃO</string>
 
 	<!-- Setting (General) -->
-	<string name="setting_language">Linguagem</string>
+	<string name="setting_language">Linguagem / Language</string>
 	<string name="setting_widgettable">Matrix do Painel</string>
 	<string name="setting_theme_color">Tema</string>
 	<string name="setting_theme_color_skyblue">Celestial (Azul Celeste)</string>
