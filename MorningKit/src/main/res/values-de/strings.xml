@@ -165,7 +165,7 @@
 	<string name="tab_info">Info</string>
 
 	<!-- Setting (General) -->
-	<string name="setting_language">Sprache</string>
+	<string name="setting_language">Sprache / Language</string>
 	<string name="setting_widgettable">Anzeigeraster</string>
 	<string name="setting_theme_color">Thema</string>
 	<string name="setting_theme_color_skyblue">(Himmelblau)</string>

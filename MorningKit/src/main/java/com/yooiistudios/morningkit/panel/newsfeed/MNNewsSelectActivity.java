@@ -26,6 +26,8 @@ import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsProviderCountry;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsProviderLanguage;
 import com.yooiistudios.morningkit.panel.newsfeed.ui.MNNewsFeedSelectDialogFragment;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUrlProvider;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -156,9 +158,22 @@ public class MNNewsSelectActivity extends ActionBarActivity
 
         LinkedHashMap<String, MNNewsProviderCountry> countries =
                 newsProviderLanguage.newsProviderCountries;
-        if (countries.size() == 1) {
+
+        boolean isLanguageSimplifiedChineseAndClickEnglish = false;
+        if (MNLanguage.getCurrentLanguageType(this) == MNLanguageType.SIMPLIFIED_CHINESE &&
+                newsProviderLanguage.languageCode.equals("en")) {
+            isLanguageSimplifiedChineseAndClickEnglish = true;
+        }
+
+        if (countries.size() == 1 || isLanguageSimplifiedChineseAndClickEnglish) {
             MNNewsProviderCountry newsProviderCountry =
                     new ArrayList<MNNewsProviderCountry>(countries.values()).get(0);
+
+            // 예외 추가: 앱 언어가 중국이이며 영어를 클릭할 경우는 뉴욕타임즈 기사를 대신 보여줄 것. 구글은 중국에서 블럭됨
+            if (isLanguageSimplifiedChineseAndClickEnglish) {
+                newsProviderCountry.url = "http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml";
+                newsProviderCountry.newsProviderName = "New York Times";
+            }
             MNNewsFeedUrl newsFeedUrl = new MNNewsFeedUrl(newsProviderCountry, MNNewsFeedUrlType.CURATION);
             finishWithNewsFeedUrl(newsFeedUrl);
         } else {
