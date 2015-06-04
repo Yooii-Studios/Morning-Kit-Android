@@ -346,5 +346,9 @@
 		<!-- News Feed -->
 	<string name="select_newsfeed_title">Lista da novedades</string>
 	<string name="custom_news_feed_menu_item_title">RSS</string>
+	<string name="news_kit_ad_title">News Kit</string>
+	<string name="news_kit_ad_description">La más bella app para novedades y und camino innovativo para leer diario</string>
+	<string name="close">Cerca</string>
+	<string name="download">Descargar</string>
 
 </resources>

@@ -61,7 +61,10 @@ public class AdUtils {
                 int eachAdCount = prefs.getInt(EACH_AD_COUNT, 1);
                 if (eachAdCount >= 3) {
                     prefs.edit().remove(EACH_AD_COUNT).apply();
-                    showInHouseStoreAd(context);
+                    // 뉴스키트 광고를 안 보여줄 경우에만 인하우스 광고 보여주기. 겹치면 안됨
+                    if (!NewsKitAdUtils.shouldShowAd(context)) {
+                        showInHouseStoreAd(context);
+                    }
                 } else {
                     prefs.edit().putInt(EACH_AD_COUNT, ++eachAdCount).apply();
 //                    showInterstitialAd(context);
