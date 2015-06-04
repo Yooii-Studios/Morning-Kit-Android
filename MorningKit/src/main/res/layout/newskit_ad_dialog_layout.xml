@@ -59,13 +59,14 @@
             android:id="@+id/store_ad_dialog_description_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/base_margin_double"
+            android:layout_marginBottom="@dimen/newskit_ad_dialog_desc_bottom_margin"
             android:layout_alignParentBottom="true"
             android:paddingLeft="@dimen/store_ad_dialog_title_padding_left_right"
             android:paddingRight="@dimen/store_ad_dialog_title_padding_left_right"
             android:gravity="center|bottom"
             android:text="@string/news_kit_ad_description"
             android:textColor="@android:color/white"
+            android:textScaleX="0.95"
             android:textSize="@dimen/newskit_ad_dialog_desc_text_size"/>
     </RelativeLayout>
 

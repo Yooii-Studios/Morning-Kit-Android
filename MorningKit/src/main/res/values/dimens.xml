@@ -362,9 +362,5 @@
     <dimen name="newskit_ad_dialog_img_height">197dp</dimen>
     <dimen name="newskit_ad_dialog_title_text_size">19sp</dimen>
     <dimen name="newskit_ad_dialog_desc_text_size">11sp</dimen>
-    <dimen name="base_margin">16dp</dimen>
-    <dimen name="base_margin_double">32dp</dimen>
-    <dimen name="base_margin_middle">12dp</dimen>
-    <dimen name="base_margin_half">8dp</dimen>
-    <dimen name="base_margin_small">4dp</dimen>
+    <dimen name="newskit_ad_dialog_desc_bottom_margin">24dp</dimen>
 </resources>

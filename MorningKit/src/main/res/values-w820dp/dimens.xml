@@ -357,4 +357,10 @@
     <dimen name="store_ad_dialog_button_layout_height">76.5dp</dimen>
     <dimen name="store_ad_dialog_button_text_size">25.5sp</dimen>
 
+    <!-- News Kit Ad -->
+    <dimen name="newskit_ad_dialog_img_width">479.4dp</dimen>
+    <dimen name="newskit_ad_dialog_img_height">334.9dp</dimen>
+    <dimen name="newskit_ad_dialog_title_text_size">32.3sp</dimen>
+    <dimen name="newskit_ad_dialog_desc_text_size">18.7sp</dimen>
+    <dimen name="newskit_ad_dialog_desc_bottom_margin">40.8dp</dimen>
 </resources>
