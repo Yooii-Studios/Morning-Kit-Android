@@ -346,5 +346,9 @@
 		<!-- News Feed -->
 	<string name="select_newsfeed_title">Лента новостей</string>
 	<string name="custom_news_feed_menu_item_title">Новости</string>
+	<string name="news_kit_ad_title">News Kit</string>
+	<string name="news_kit_ad_description">An innovative, beautiful way to read the news</string>
+	<string name="close">Close</string>
+	<string name="download">Скачать</string>
 
 </resources>

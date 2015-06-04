@@ -347,4 +347,9 @@
     <string name="select_newsfeed_title">News List</string>
     <string name="custom_news_feed_menu_item_title">RSS</string>
 
+    <!-- News Kit Ad -->
+    <string name="news_kit_ad_title">News Kit</string>
+    <string name="news_kit_ad_description">An innovative, beautiful way to read the news</string>
+    <string name="download">Download</string>
+    <string name="close">Close</string>
 </resources>

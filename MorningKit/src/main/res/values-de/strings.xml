@@ -346,5 +346,9 @@
 		<!-- News Feed -->
 	<string name="select_newsfeed_title">Nachrichten Liste</string>
 	<string name="custom_news_feed_menu_item_title">RSS</string>
+	<string name="news_kit_ad_title">News Kit</string>
+	<string name="news_kit_ad_description">Die schönste Nachrichten-App überhaupt und ein Innovativer Weg, Zeitung zu lesen</string>
+	<string name="close">Schließen</string>
+	<string name="download">Herunterladen</string>
 
 </resources>
