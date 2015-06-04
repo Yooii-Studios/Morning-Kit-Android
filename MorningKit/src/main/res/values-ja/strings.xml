@@ -346,5 +346,9 @@
 		<!-- News Feed -->
 	<string name="select_newsfeed_title">ニュースリスト</string>
 	<string name="custom_news_feed_menu_item_title">RSS</string>
+	<string name="news_kit_ad_description">選ばれたニュースリストと主要ニュースがあなたの手元に。</string>
+	<string name="news_kit_ad_title">ニュースキット</string>
+	<string name="close"> 閉じる</string>
+	<string name="download">ダウンロード</string>
 
 </resources>

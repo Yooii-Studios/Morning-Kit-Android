@@ -346,5 +346,9 @@
 	<!-- News Feed -->
 	<string name="select_newsfeed_title">Elenco Notizie</string>
 	<string name="custom_news_feed_menu_item_title">RSS</string>
+	<string name="news_kit_ad_title">News Kit</string>
+	<string name="news_kit_ad_description">Un modo semplice e innovativo per leggere le news.</string>
+	<string name="close">Chiudi</string>
+	<string name="download">Scarica</string>
 
 </resources>
