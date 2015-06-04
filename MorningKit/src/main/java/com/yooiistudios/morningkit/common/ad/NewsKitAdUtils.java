@@ -10,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -59,8 +58,6 @@ public class NewsKitAdUtils {
     public static boolean shouldShowAd(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
         int launchCount = prefs.getInt(LAUNCH_COUNT, 1);
-
-        Log.i("NewsKitAdUtils", "launchCount: " + launchCount);
 
         // 첫 설치든, 기존 유저 업데이트 이후든 5회 & 20회 실행시 보여주게 구현(뉴스키트 안 깔린 경우만)
         return (launchCount == 5 || launchCount == 20) &&
