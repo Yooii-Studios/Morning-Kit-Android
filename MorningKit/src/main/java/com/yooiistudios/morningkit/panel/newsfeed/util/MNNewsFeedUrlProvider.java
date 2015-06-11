@@ -67,7 +67,11 @@ public class MNNewsFeedUrlProvider {
         String langCode = defaultLocale.getLanguage();
         String countryCode = defaultLocale.getCountry();
 
-        MNNewsProviderLanguage newsProviderLanguage = mNewsLanguages.get(langCode);
+        String langRegionCode = MNNewsFeedUtil.makeLanguageRegionCode(langCode, countryCode);
+        MNNewsProviderLanguage newsProviderLanguage = mNewsLanguages.get(langRegionCode);
+        if (newsProviderLanguage == null) {
+            newsProviderLanguage = mNewsLanguages.get("en");
+        }
         MNNewsProviderCountry providerCountry = newsProviderLanguage.newsProviderCountries.get(countryCode);
 
         return new MNNewsFeedUrl(providerCountry, MNNewsFeedUrlType.CURATION);
