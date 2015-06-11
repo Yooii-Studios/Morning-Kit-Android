@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel.newsfeed.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
@@ -9,7 +10,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
-import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
@@ -182,6 +182,6 @@ public class MNNewsFeedUtil {
         if (regionCode != null && regionCode.length() > 0) {
             key += "_" + regionCode;
         }
-        return key;
+        return key.toLowerCase();
     }
 }
