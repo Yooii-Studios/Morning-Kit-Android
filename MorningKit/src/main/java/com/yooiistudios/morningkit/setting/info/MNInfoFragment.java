@@ -1,8 +1,6 @@
 package com.yooiistudios.morningkit.setting.info;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,6 +13,7 @@ import android.widget.ListView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.FacebookUtils;
 import com.yooiistudios.morningkit.common.recommend.MNRecommendUtils;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
 import com.yooiistudios.morningkit.setting.info.credit.MNCreditActivity;
@@ -134,15 +133,7 @@ public class MNInfoFragment extends Fragment implements MNInfoItemClickListener 
                 break;
 
             case LIKE_US_ON_FACEBOOK:
-                try {
-                    PackageManager packageManager = getActivity().getPackageManager();
-                    if (packageManager != null) {
-                        packageManager.getPackageInfo("com.facebook.katana", 0);
-                    }
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_APP_PREFIX + FB_YOOII_ID)));
-                } catch (Exception e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/YooiiMooii")));
-                }
+                FacebookUtils.openYooiiPage(getActivity());
                 break;
 
             case CREDITS: {
