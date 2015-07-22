@@ -67,8 +67,20 @@ public class MNNewsFeedUrlProvider {
         String langCode = defaultLocale.getLanguage();
         String countryCode = defaultLocale.getCountry();
 
-        MNNewsProviderLanguage newsProviderLanguage = mNewsLanguages.get(langCode);
-        MNNewsProviderCountry providerCountry = newsProviderLanguage.newsProviderCountries.get(countryCode);
+        String langRegionCode;
+        if (langCode.equals("zh")){
+            langRegionCode = MNNewsFeedUtil.makeLanguageRegionCode(langCode, countryCode);
+        } else {
+            langRegionCode = MNNewsFeedUtil.makeLanguageRegionCode(langCode, null);
+        }
+        MNNewsProviderLanguage newsProviderLanguage = mNewsLanguages.get(langRegionCode);
+        MNNewsProviderCountry providerCountry;
+        if (newsProviderLanguage == null) {
+            newsProviderLanguage = mNewsLanguages.get("en");
+            providerCountry = newsProviderLanguage.newsProviderCountries.get("US");
+        } else {
+            providerCountry = newsProviderLanguage.newsProviderCountries.get(countryCode);
+        }
 
         return new MNNewsFeedUrl(providerCountry, MNNewsFeedUrlType.CURATION);
 //        return new MNNewsFeedUrl(providerCountry.url, MNNewsFeedUrlType.CURATION,
