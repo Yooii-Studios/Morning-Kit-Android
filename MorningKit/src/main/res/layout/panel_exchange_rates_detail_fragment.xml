@@ -71,7 +71,7 @@
                 android:digits="0123456789.,"
                 android:inputType="numberDecimal"
                 android:padding="0dip"
-                android:.ㅑㅕㅗtextSize="@dimen/panel_exchange_rates_detail_edit_text_size"
+                android:textSize="@dimen/panel_exchange_rates_detail_edit_text_size"
                 android:textColor="@color/pastel_green_sub_font_color"
                 android:singleLine="true"
                 android:background="#00000000"
