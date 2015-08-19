@@ -53,7 +53,7 @@ public class MNRecommendUtils {
             // 모닝은 37676
             return "http://nstore.naver.com/appstore/web/detail.nhn?originalProductId=37676";
         } else {
-            return "https://play.google.com/store/apps/details?id=com.yooiistudios.morningkit";
+            return "https://play.google.com/store/apps/details?id=com.yooiistudios.morningkit&hl=en";
         }
     }
 }
