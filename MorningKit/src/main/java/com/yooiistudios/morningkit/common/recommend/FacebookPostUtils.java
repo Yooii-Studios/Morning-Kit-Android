@@ -20,7 +20,7 @@ public class FacebookPostUtils {
     public static final int REQ_FACEBOOK = 41938;
 
     public static void postAppLink(Activity activity) {
-        String link = "https://play.google.com/store/apps/details?id=com.yooiistudios.morningkit";
+        String link = "https://play.google.com/store/apps/details?id=com.yooiistudios.morningkit&hl=en";
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
