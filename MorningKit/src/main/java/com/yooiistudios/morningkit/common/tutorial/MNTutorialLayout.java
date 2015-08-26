@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.common.tutorial;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -38,9 +39,8 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  * MNTutorialView
  * 첫 번째 튜토리얼(앱 설명)을 위한 뷰
  */
+@SuppressLint("ViewConstructor")
 public class MNTutorialLayout extends RelativeLayout {
-    private static final String TAG = "MNTutorialLayout";
-
     @InjectView(R.id.tutorial_skip_tutorial_text_view) TextView skipTutorialTextView;
     @InjectView(R.id.tutorial_tap_screen_text_view) TextView tapScreenTextView;
 
@@ -58,6 +58,10 @@ public class MNTutorialLayout extends RelativeLayout {
     private View                firstCircleAnimView3;
     private View                firstCircleView4;      // RB = right bottom
     private View                firstCircleAnimView4;
+    private View                firstCircleView5;      // LBB = left bottom most
+    private View                firstCircleAnimView5;
+    private View                firstCircleView6;      // RBB = right bottom most
+    private View                firstCircleAnimView6;
     private AutoResizeTextView  firstTextView;
 
     private ImageView           secondAlarmImageView;
@@ -79,7 +83,7 @@ public class MNTutorialLayout extends RelativeLayout {
 
     private OnTutorialFinishListener listener;
     public interface OnTutorialFinishListener {
-        public void onFinishTutorial();
+        void onFinishTutorial();
     }
 
     public MNTutorialLayout(Context context, OnTutorialFinishListener listener) {
@@ -95,15 +99,16 @@ public class MNTutorialLayout extends RelativeLayout {
     }
 
     private void initTutorialLayout() {
-        LayoutParams layoutParams = new LayoutParams(
-                MATCH_PARENT,
-                MATCH_PARENT);
+        LayoutParams layoutParams = new LayoutParams(MATCH_PARENT, MATCH_PARENT);
         setLayoutParams(layoutParams);
 
         if (applicationContext != null) {
             LayoutInflater inflater = (LayoutInflater) applicationContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            RelativeLayout tutorialLayout = (RelativeLayout) inflater.inflate(R.layout.tutorial_layout, null);
+
+            @SuppressLint("InflateParams")
+            RelativeLayout tutorialLayout =
+                    (RelativeLayout) inflater.inflate(R.layout.tutorial_layout, null);
 
             if (tutorialLayout != null) {
                 tutorialLayout.setLayoutParams(layoutParams);
@@ -149,13 +154,15 @@ public class MNTutorialLayout extends RelativeLayout {
 
     private void showFirstTutorial() {
         // 튜토리얼 1:
-        // 동그라미 4개가 각 패널 중심에서 차례대로 나타난 이후
+        // 동그라미 6개가 각 패널 중심에서 차례대로 나타난 이후
         // 가운데에 텍스트뷰가 하나 뜬다.
         int deviceWidth = MNDeviceSizeInfo.getDeviceWidth(applicationContext);
         int circleSize = resources.getDimensionPixelSize(R.dimen.tutorial_circle_size);
         int innerMargin = resources.getDimensionPixelSize(R.dimen.margin_inner);
         int panelHeight = resources.getDimensionPixelSize(R.dimen.panel_height);
-        int circleLeftRightMargin = (int) ((deviceWidth - innerMargin * 2) / 4.0f - circleSize / 2.0f);
+        // 먼저 안쪽 패널 반 너비를 구하고, 이에 margin * 2(바깥 마진)을 더해줌
+        int circleLeftRightMargin = (int) ((deviceWidth - innerMargin * 6) / 4.0f +
+                innerMargin * 2 - circleSize / 2.0f);
         int circleTopMargin = (int) (innerMargin * 2 + (panelHeight / 2.0f) - (circleSize / 2.0f));
         int textViewMargin = resources.getDimensionPixelSize(R.dimen.panel_detail_bigger_padding);
         int alarmHeight = resources.getDimensionPixelSize(R.dimen.alarm_item_outer_height);
@@ -325,7 +332,7 @@ public class MNTutorialLayout extends RelativeLayout {
         firstCircleView4.setBackgroundResource(R.drawable.tutorial_circle_gray_shape);
         addView(firstCircleView4);
 
-        // Circle Anim View3
+        // Circle Anim View4
         firstCircleAnimView4 = new View(applicationContext);
         firstCircleAnimView4.setLayoutParams(circleView4Params);
         firstCircleAnimView4.setBackgroundResource(R.drawable.tutorial_circle_white_shape);
@@ -349,7 +356,93 @@ public class MNTutorialLayout extends RelativeLayout {
                     Animation circleScalingAnimation4 = AnimationUtils.loadAnimation(applicationContext,
                             R.anim.tutorial_circle_scaling_anim);
                     if (circleScalingAnimation4 != null) {
-                        circleScalingAnimation4.setAnimationListener(new Animation.AnimationListener() {
+                        firstCircleAnimView4.startAnimation(circleScalingAnimation4);
+                    }
+                }
+            });
+            firstCircleAnimView4.startAnimation(circleAlphaAnimation4);
+        }
+
+        // Circle View5
+        firstCircleView5 = new View(applicationContext);
+        LayoutParams circleView5Params =
+                new LayoutParams(circleSize, circleSize);
+        circleView5Params.addRule(ALIGN_PARENT_TOP);
+        circleView5Params.addRule(ALIGN_PARENT_LEFT);
+        circleView5Params.topMargin = circleTopMargin + (panelHeight + innerMargin * 2) * 2;
+        circleView5Params.leftMargin = circleLeftRightMargin;
+        firstCircleView5.setLayoutParams(circleView5Params);
+        firstCircleView5.setBackgroundResource(R.drawable.tutorial_circle_gray_shape);
+        addView(firstCircleView5);
+
+        // Circle Anim View5
+        firstCircleAnimView5 = new View(applicationContext);
+        firstCircleAnimView5.setLayoutParams(circleView5Params);
+        firstCircleAnimView5.setBackgroundResource(R.drawable.tutorial_circle_white_shape);
+        firstCircleAnimView5.setVisibility(INVISIBLE);
+        addView(firstCircleAnimView5);
+
+        Animation circleAlphaAnimation5 = AnimationUtils.loadAnimation(applicationContext,
+                R.anim.tutorial_circle_alpha_anim);
+        if (circleAlphaAnimation5 != null) {
+            circleAlphaAnimation5.setStartOffset(animationFirstOffset +
+                    animationOffset * 4);
+            circleAlphaAnimation5.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {}
+                @Override
+                public void onAnimationRepeat(Animation animation) {}
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    firstCircleView5.setBackgroundResource(R.drawable.tutorial_circle_white_shape);
+
+                    Animation circleScalingAnimation5 = AnimationUtils.loadAnimation(applicationContext,
+                            R.anim.tutorial_circle_scaling_anim);
+                    if (circleScalingAnimation5 != null) {
+                        firstCircleAnimView5.startAnimation(circleScalingAnimation5);
+                    }
+                }
+            });
+            firstCircleAnimView5.startAnimation(circleAlphaAnimation5);
+        }
+
+        // Circle View6
+        firstCircleView6 = new View(applicationContext);
+        LayoutParams circleView6Params =
+                new LayoutParams(circleSize, circleSize);
+        circleView6Params.addRule(ALIGN_PARENT_TOP);
+        circleView6Params.addRule(ALIGN_PARENT_RIGHT);
+        circleView6Params.topMargin = circleTopMargin + (panelHeight + innerMargin * 2) * 2;
+        circleView6Params.rightMargin = circleLeftRightMargin;
+        firstCircleView6.setLayoutParams(circleView6Params);
+        firstCircleView6.setBackgroundResource(R.drawable.tutorial_circle_gray_shape);
+        addView(firstCircleView6);
+
+        // Circle Anim View6
+        firstCircleAnimView6 = new View(applicationContext);
+        firstCircleAnimView6.setLayoutParams(circleView6Params);
+        firstCircleAnimView6.setBackgroundResource(R.drawable.tutorial_circle_white_shape);
+        firstCircleAnimView6.setVisibility(INVISIBLE);
+        addView(firstCircleAnimView6);
+
+        Animation circleAlphaAnimation6 = AnimationUtils.loadAnimation(applicationContext,
+                R.anim.tutorial_circle_alpha_anim);
+        if (circleAlphaAnimation6 != null) {
+            circleAlphaAnimation6.setStartOffset(animationFirstOffset +
+                    animationOffset * 5);
+            circleAlphaAnimation6.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {}
+                @Override
+                public void onAnimationRepeat(Animation animation) {}
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    firstCircleView6.setBackgroundResource(R.drawable.tutorial_circle_white_shape);
+
+                    Animation circleScalingAnimation6 = AnimationUtils.loadAnimation(applicationContext,
+                            R.anim.tutorial_circle_scaling_anim);
+                    if (circleScalingAnimation6 != null) {
+                        circleScalingAnimation6.setAnimationListener(new Animation.AnimationListener() {
                             @Override
                             public void onAnimationStart(Animation animation) {}
                             @Override
@@ -374,11 +467,11 @@ public class MNTutorialLayout extends RelativeLayout {
                                 }
                             }
                         });
-                        firstCircleAnimView4.startAnimation(circleScalingAnimation4);
+                        firstCircleAnimView6.startAnimation(circleScalingAnimation6);
                     }
                 }
             });
-            firstCircleAnimView4.startAnimation(circleAlphaAnimation4);
+            firstCircleAnimView6.startAnimation(circleAlphaAnimation6);
         }
     }
 
@@ -399,6 +492,12 @@ public class MNTutorialLayout extends RelativeLayout {
         firstCircleAnimView4.clearAnimation();
         removeView(firstCircleAnimView4);
 
+        removeView(firstCircleView5);
+        firstCircleAnimView5.clearAnimation();
+
+        removeView(firstCircleView6);
+        firstCircleAnimView6.clearAnimation();
+
         firstTextView.clearAnimation();
         removeView(firstTextView);
     }
@@ -416,8 +515,8 @@ public class MNTutorialLayout extends RelativeLayout {
         int textViewHeight = alarmHeight / 2;
         int textViewMargin = resources.getDimensionPixelSize(R.dimen.panel_detail_bigger_padding);
         int circleSize = resources.getDimensionPixelSize(R.dimen.tutorial_circle_size);
-        int circleTopMargin = (int) (innerMargin * 5 + panelHeight * 2 +
-                alarmHeight * 1.5 - circleSize / 2);
+        int circleTopMargin = (int) (innerMargin * 7 + panelHeight * 3 +
+                alarmHeight * 0.5 - circleSize / 2);
         int alarmIconSize = resources.getDimensionPixelSize(R.dimen.tutorial_alarm_icon_size);
 
         // Anim 관련
@@ -571,8 +670,8 @@ public class MNTutorialLayout extends RelativeLayout {
         int textViewHeight = alarmHeight / 2;
         int textViewMargin = resources.getDimensionPixelSize(R.dimen.panel_cover_padding);
         int circleSize = resources.getDimensionPixelSize(R.dimen.tutorial_circle_size);
-        int circleTopMargin = (int) (innerMargin * 5 + panelHeight * 2 +
-                alarmHeight * 1.5 - circleSize / 2);
+        int circleTopMargin = (int) (innerMargin * 7 + panelHeight * 3 +
+                alarmHeight * 0.5 - circleSize / 2);
         int circleRightMargin = (int) ((deviceWidth - innerMargin * 2) / 4.0f - circleSize / 2.0f);
 
         // 튜토리얼 3:
@@ -586,8 +685,7 @@ public class MNTutorialLayout extends RelativeLayout {
         // Circle View
         thirdCircleView = new View(applicationContext);
         thirdCircleView.setId(4523852);
-        LayoutParams circleViewParams =
-                new LayoutParams(circleSize, circleSize);
+        LayoutParams circleViewParams = new LayoutParams(circleSize, circleSize);
         circleViewParams.addRule(CENTER_HORIZONTAL);
         circleViewParams.addRule(ALIGN_PARENT_RIGHT);
         circleViewParams.topMargin = circleTopMargin;
