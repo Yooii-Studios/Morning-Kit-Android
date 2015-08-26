@@ -54,8 +54,8 @@ public class MNPanel {
                     panelDataList.add(makeDefaultJSONObject(1, MNPanelType.DATE.getUniqueId()));
                     panelDataList.add(makeDefaultJSONObject(2, MNPanelType.WORLD_CLOCK.getUniqueId()));
                     panelDataList.add(makeDefaultJSONObject(3, MNPanelType.NEWS_FEED.getUniqueId()));
-                    panelDataList.add(makeDefaultJSONObject(4, MNPanelType.CALENDAR.getUniqueId()));
-                    panelDataList.add(makeDefaultJSONObject(5, MNPanelType.FLICKR.getUniqueId()));
+                    panelDataList.add(makeDefaultJSONObject(4, MNPanelType.QUOTES.getUniqueId()));
+                    panelDataList.add(makeDefaultJSONObject(5, MNPanelType.CALENDAR.getUniqueId()));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
