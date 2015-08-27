@@ -73,7 +73,7 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
     public int getCount() {
         switch (type) {
             case FUNCTIONS:
-                return 3;
+                return 2;
             case PANELS:
                 return 3;
             case THEMES:
@@ -114,11 +114,11 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                             viewHolder.getIconImageView().setImageResource(R.drawable.shop_no_ad_icon_ipad);
                             viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_NO_ADS);
                             break;
-                        case 2:
-                            viewHolder.getItemNameTextView().setText(R.string.store_item_matrix);
-                            viewHolder.getIconImageView().setImageResource(R.drawable.shop_more_matrix_icon_ipad);
-                            viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_PANEL_MATRIX_2X3);
-                            break;
+//                        case 2:
+//                            viewHolder.getItemNameTextView().setText(R.string.store_item_matrix);
+//                            viewHolder.getIconImageView().setImageResource(R.drawable.shop_more_matrix_icon_ipad);
+//                            viewHolder.getPriceTextView().setTag(SKIabProducts.SKU_PANEL_MATRIX_2X3);
+//                            break;
                     }
                     break;
 

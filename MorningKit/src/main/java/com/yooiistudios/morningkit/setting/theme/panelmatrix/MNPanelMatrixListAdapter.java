@@ -1,27 +1,15 @@
 package com.yooiistudios.morningkit.setting.theme.panelmatrix;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
-import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
-import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.MNSettingThemeDetailItemViewHolder;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingResources;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by StevenKim in MNSettingActivityProject from Yooii Studios Co., LTD. on 2014. 1. 15.
@@ -68,12 +56,14 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
                     viewHolder.getTitleTextView().setText("2 X 3");
                     break;
             }
+
+            // 2X3 유료 아이템 제거
             if (panelMatrixType != MNPanelMatrix.getCurrentPanelMatrixType(activity)) {
                 viewHolder.getCheckImageView().setVisibility(View.GONE);
             }
 
             // theme
-            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(activity);
+//            MNThemeType currentThemeType = MNTheme.getCurrentThemeType(activity);
 
             // onClick
             viewHolder.getInnerLayout().setOnClickListener(new View.OnClickListener() {
@@ -91,6 +81,8 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
             if (panelMatrixType == MNPanelMatrixType.PANEL_MATRIX_2X2) {
                 viewHolder.getLockImageView().setVisibility(View.GONE);
             } else {
+                viewHolder.getLockImageView().setVisibility(View.GONE);
+                /*
                 List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(activity);
                 if (ownedSkus.contains(SKIabProducts.SKU_PANEL_MATRIX_2X3)) {
                     // 아이템 구매완료
@@ -115,6 +107,7 @@ public class MNPanelMatrixListAdapter extends BaseAdapter {
                         }
                     });
                 }
+                */
             }
         }
         return convertView;

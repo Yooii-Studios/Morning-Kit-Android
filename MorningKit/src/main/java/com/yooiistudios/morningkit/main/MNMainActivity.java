@@ -224,7 +224,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         alarmListView.refreshListView();
 
         // 패널 교체 확인
-        panelWindowLayout.checkPanelHadReplcaedAtSetting();
+        panelWindowLayout.checkPanelHadReplacedAtSetting();
 
         // 테마와 관련된 작업 실행
         panelWindowLayout.applyTheme();

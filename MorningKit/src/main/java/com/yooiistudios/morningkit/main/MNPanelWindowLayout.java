@@ -31,29 +31,24 @@ import lombok.Getter;
  * Created by yongbinbae on 13. 10. 22..
  * MNWidgetWindowLayout
  */
-public class MNPanelWindowLayout extends LinearLayout
-{
+public class MNPanelWindowLayout extends LinearLayout {
 //    private static final String TAG = "MNWidgetWindowLayout";
 
     // 현재 지원하는 최대의 매트릭스 row과 갯수
     private static final int PANEL_ROWS = 3;
     private static final int NUMBER_OF_PANELS = 6;
 
-    private Context context;
     @Getter private LinearLayout panelLineLayouts[];
     @Getter private MNPanelLayout panelLayouts[];
-//    @Getter private FrameLayout[][] widgetSlots;
 
     private MNPanelMatrixType previousPanelMatrixType;
 
     public MNPanelWindowLayout(Context context) {
         super(context);
-        this.context = context;
     }
 
     public MNPanelWindowLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context = context;
     }
 
     public void initWithPanelMatrix() {
@@ -365,7 +360,7 @@ public class MNPanelWindowLayout extends LinearLayout
     /**
      * 세팅에서 메인으로 나올 때 새 패널 데이터 리스트와 기존 리스트의 uniqueId를 비교해 교체되었으면 UI를 갱신
      */
-    public void checkPanelHadReplcaedAtSetting() {
+    public void checkPanelHadReplacedAtSetting() {
         // 새 uniqueId 리스트를 구하기
         List<JSONObject> panelDataObjects = MNPanel.getPanelDataList(getContext());
 

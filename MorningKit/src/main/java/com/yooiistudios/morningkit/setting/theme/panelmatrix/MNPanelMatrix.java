@@ -27,7 +27,7 @@ public class MNPanelMatrix {
     private MNPanelMatrix(){}
     private MNPanelMatrix(Context context) {
         int uniqueId = context.getSharedPreferences(PANEL_MATRIX_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                .getInt(PANEL_MATRIX_KEY, MNPanelMatrixType.PANEL_MATRIX_2X2.getUniqueId());
+                .getInt(PANEL_MATRIX_KEY, MNPanelMatrixType.PANEL_MATRIX_2X3.getUniqueId());
 
         currentPanelMatrixType = MNPanelMatrixType.valueOfUniqueId(uniqueId);
     }
