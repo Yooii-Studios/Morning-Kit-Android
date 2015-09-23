@@ -8,7 +8,7 @@ import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
 import java.util.ArrayList;
 
-// 순서는 절대 바꾸면 안됨. 순서가 곧 uniqueId 가 됨.
+// 순서는 절대 바꾸면 안됨.
 public enum MNQuotesLanguage {
 	ENGLISH(0, "English", R.raw.quotes_english),
     JAPANESE(2, "Japanese", R.raw.quotes_japanese),
@@ -18,12 +18,12 @@ public enum MNQuotesLanguage {
     SPANISH(6, "Spanish", R.raw.quotes_spanish),
     FRENCH(7, "French", R.raw.quotes_french);
 
-    final int uniqueId;
+    final int languageId; // MNLanguage 의 id
 	final String name;
     final int rawDataFileId;
 
-	MNQuotesLanguage(int _uniqueId, String _name, int _rawDataFileId) {
-        uniqueId = _uniqueId;
+	MNQuotesLanguage(int _languageId, String _name, int _rawDataFileId) {
+        languageId = _languageId;
 		name = _name;
         rawDataFileId = _rawDataFileId;
 	}
@@ -36,7 +36,7 @@ public enum MNQuotesLanguage {
         ArrayList<Boolean> selectedLanguages = new ArrayList<Boolean>();
         int languageIndex = -1;
         for (int i = 0; i < MNQuotesLanguage.values().length; i++) {
-            if (currentLanguageType.getUniqueId() == MNQuotesLanguage.values()[i].uniqueId) {
+            if (currentLanguageType.getUniqueId() == MNQuotesLanguage.values()[i].languageId) {
                 selectedLanguages.add(true);
                 languageIndex = i;
             } else {

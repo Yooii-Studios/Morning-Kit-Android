@@ -187,12 +187,12 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
     }
 
     private void initLanguageLayouts() {
-        sortLanguageLayouts();
-
+        // 기존의 로직을 해치지 않기 위해 MNQuotesLanguage 순서로 꼭 리스트를 만들어주고 관리
+        // 초기화 이후 레이아웃 위아래만 따로 바꾸어줄것
         languageImageButtons = new ArrayList<>();
         languageImageButtons.add(getImageButtonFromLayout(englishLayout));
-        languageImageButtons.add(getImageButtonFromLayout(koreanLayout));
         languageImageButtons.add(getImageButtonFromLayout(japaneseLayout));
+        languageImageButtons.add(getImageButtonFromLayout(koreanLayout));
         languageImageButtons.add(getImageButtonFromLayout(sChineseLayout));
         languageImageButtons.add(getImageButtonFromLayout(tChineseLayout));
         languageImageButtons.add(getImageButtonFromLayout(spanishLayout));
@@ -200,14 +200,13 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
 
         languageTextViews = new ArrayList<>();
         languageTextViews.add(getTextViewFromLayout(englishLayout));
-        languageTextViews.add(getTextViewFromLayout(koreanLayout));
         languageTextViews.add(getTextViewFromLayout(japaneseLayout));
+        languageTextViews.add(getTextViewFromLayout(koreanLayout));
         languageTextViews.add(getTextViewFromLayout(sChineseLayout));
         languageTextViews.add(getTextViewFromLayout(tChineseLayout));
         languageTextViews.add(getTextViewFromLayout(spanishLayout));
         languageTextViews.add(getTextViewFromLayout(frenchLayout));
 
-        // TODO: 기존 index 에서 값을 결정하는 것이 아닌, uniqueId 에서 index 를 추출하도록 구현하자
         int i = 0;
         for (Boolean isLanguageSelected : selectedLanguages) {
             ImageButton imageButton = languageImageButtons.get(i);
@@ -226,6 +225,7 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
             i++;
         }
         checkCheckBoxStates();
+        sortLanguageLayouts();
     }
 
     private void sortLanguageLayouts() {
@@ -362,7 +362,6 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
 
         ImageButton imageButton = languageImageButtons.get(index);
         if (imageButton.isEnabled()) {
-            // TODO: 기존 index 로 값을 세팅해주는 것이 아닌, index 에서 uniqueId 를 추출해서 세팅하자
             // 해당 스위치 토글
             selectedLanguages.set(index, !selectedLanguages.get(index));
             if (selectedLanguages.get(index)) {
