@@ -251,9 +251,9 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
             adjustUpperLanguageLayoutMargin(japaneseLayout);
             contentLayout.addView(japaneseLayout);
             contentLayout.addView(englishLayout);
-            contentLayout.addView(koreanLayout);
             contentLayout.addView(sChineseLayout);
             contentLayout.addView(tChineseLayout);
+            contentLayout.addView(koreanLayout);
             contentLayout.addView(spanishLayout);
             contentLayout.addView(frenchLayout);
         } else if (currentLanguageType == MNLanguageType.SIMPLIFIED_CHINESE) {
@@ -279,8 +279,8 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
             contentLayout.addView(spanishLayout);
             contentLayout.addView(englishLayout);
             contentLayout.addView(frenchLayout);
-            contentLayout.addView(tChineseLayout);
             contentLayout.addView(sChineseLayout);
+            contentLayout.addView(tChineseLayout);
             contentLayout.addView(japaneseLayout);
             contentLayout.addView(koreanLayout);
         } else if (currentLanguageType == MNLanguageType.FRENCH) {
@@ -288,8 +288,8 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
             contentLayout.addView(frenchLayout);
             contentLayout.addView(englishLayout);
             contentLayout.addView(spanishLayout);
-            contentLayout.addView(tChineseLayout);
             contentLayout.addView(sChineseLayout);
+            contentLayout.addView(tChineseLayout);
             contentLayout.addView(japaneseLayout);
             contentLayout.addView(koreanLayout);
         } else {
