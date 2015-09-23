@@ -1,23 +1,11 @@
 package com.yooiistudios.morningkit.common.ad;
 
-import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
-import android.view.View;
-import android.view.Window;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.textview.AutoFitTextView;
+import com.yooiistudios.fullscreenad.FullscreenAdUtils;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 
 import java.util.List;
@@ -43,12 +31,10 @@ public class NewsKitAdUtils {
         }
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
 
-//        showNewsKitAd(context);
-
         // 풀버전 구매 아이템이 없을 경우만 진행, 첫 설치든 업데이트 이후든 똑같은 횟수에 보여주기
         if (!(ownedSkus.contains(SKIabProducts.SKU_NO_ADS))) {
             if (shouldShowAd(context)) {
-                showNewsKitAd(context);
+                FullscreenAdUtils.showNewsKitAd(context);
             }
             increaseLaunchCount(context);
         }
@@ -74,6 +60,18 @@ public class NewsKitAdUtils {
         }
     }
 
+    private static boolean isPackageExisted(Context context, String targetPackage){
+        List<ApplicationInfo> packages;
+        PackageManager pm;
+        pm = context.getPackageManager();
+        packages = pm.getInstalledApplications(0);
+        for (ApplicationInfo packageInfo : packages) {
+            if(packageInfo.packageName.equals(targetPackage)) return true;
+        }
+        return false;
+    }
+
+    /*
     private static void showNewsKitAd(final Context context) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -128,7 +126,9 @@ public class NewsKitAdUtils {
         dialog.setCancelable(false);
         dialog.show();
     }
+    */
 
+    /*
     private static void goToPlayStoreForNewsKit(Context context) {
         Uri uri = Uri.parse("market://details?id=" + NEWS_KIT_PACKAGE_NAME);
         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
@@ -138,15 +138,6 @@ public class NewsKitAdUtils {
             Toast.makeText(context, "Couldn't launch the market", Toast.LENGTH_SHORT).show();
         }
     }
+    */
 
-    private static boolean isPackageExisted(Context context, String targetPackage){
-        List<ApplicationInfo> packages;
-        PackageManager pm;
-        pm = context.getPackageManager();
-        packages = pm.getInstalledApplications(0);
-        for (ApplicationInfo packageInfo : packages) {
-            if(packageInfo.packageName.equals(targetPackage)) return true;
-        }
-        return false;
-    }
 }
