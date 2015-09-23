@@ -50,6 +50,8 @@
                 android:layout_marginTop="@dimen/panel_detail_padding"
                 android:layout_toLeftOf="@id/panel_quotes_detail_language_image_button"
                 android:gravity="center_vertical"
+                android:focusable="true"
+                android:clickable="true"
                 android:text="@string/setting_language_english"
                 android:textSize="@dimen/panel_quotes_detail_language_text_size"
                 android:textColor="@color/pastel_green_sub_font_color"/>
@@ -83,6 +85,8 @@
                 android:layout_marginTop="@dimen/panel_detail_padding"
                 android:layout_toLeftOf="@id/panel_quotes_detail_language_image_button"
                 android:gravity="center_vertical"
+                android:focusable="true"
+                android:clickable="true"
                 android:text="@string/setting_language_japanese"
                 android:textSize="@dimen/panel_quotes_detail_language_text_size"
                 android:textColor="@color/pastel_green_sub_font_color"/>
@@ -116,6 +120,8 @@
                 android:layout_marginTop="@dimen/panel_detail_padding"
                 android:layout_toLeftOf="@id/panel_quotes_detail_language_image_button"
                 android:gravity="center_vertical"
+                android:focusable="true"
+                android:clickable="true"
                 android:text="@string/setting_language_korean"
                 android:textSize="@dimen/panel_quotes_detail_language_text_size"
                 android:textColor="@color/pastel_green_sub_font_color"/>
@@ -149,6 +155,8 @@
                 android:layout_marginTop="@dimen/panel_detail_padding"
                 android:layout_toLeftOf="@id/panel_quotes_detail_language_image_button"
                 android:gravity="center_vertical"
+                android:focusable="true"
+                android:clickable="true"
                 android:text="@string/setting_language_simplified_chinese"
                 android:textSize="@dimen/panel_quotes_detail_language_text_size"
                 android:textColor="@color/pastel_green_sub_font_color"/>
@@ -182,7 +190,79 @@
                 android:layout_marginTop="@dimen/panel_detail_padding"
                 android:layout_toLeftOf="@id/panel_quotes_detail_language_image_button"
                 android:gravity="center_vertical"
+                android:focusable="true"
+                android:clickable="true"
                 android:text="@string/setting_language_traditional_chinese"
+                android:textSize="@dimen/panel_quotes_detail_language_text_size"
+                android:textColor="@color/pastel_green_sub_font_color"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/panel_quotes_detail_language_spanish_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/panel_detail_padding"
+            android:layout_marginLeft="@dimen/panel_detail_padding"
+            android:layout_marginRight="@dimen/panel_detail_padding" >
+
+            <ImageButton
+                android:id="@+id/panel_quotes_detail_language_image_button"
+                android:layout_width="@dimen/panel_detail_check_image_button_size"
+                android:layout_height="@dimen/panel_detail_check_image_button_size"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:scaleType="centerInside"
+                android:background="@android:color/transparent"
+                android:src="@drawable/icon_panel_detail_checkbox"/>
+
+            <TextView
+                android:id="@+id/panel_quotes_detail_language_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="@dimen/panel_detail_padding"
+                android:layout_toLeftOf="@id/panel_quotes_detail_language_image_button"
+                android:gravity="center_vertical"
+                android:focusable="true"
+                android:clickable="true"
+                android:text="@string/setting_language_spanish"
+                android:textSize="@dimen/panel_quotes_detail_language_text_size"
+                android:textColor="@color/pastel_green_sub_font_color"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/panel_quotes_detail_language_french_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/panel_detail_padding"
+            android:layout_marginLeft="@dimen/panel_detail_padding"
+            android:layout_marginRight="@dimen/panel_detail_padding" >
+
+            <ImageButton
+                android:id="@+id/panel_quotes_detail_language_image_button"
+                android:layout_width="@dimen/panel_detail_check_image_button_size"
+                android:layout_height="@dimen/panel_detail_check_image_button_size"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:scaleType="centerInside"
+                android:background="@android:color/transparent"
+                android:src="@drawable/icon_panel_detail_checkbox"/>
+
+            <TextView
+                android:id="@+id/panel_quotes_detail_language_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="@dimen/panel_detail_padding"
+                android:layout_toLeftOf="@id/panel_quotes_detail_language_image_button"
+                android:gravity="center_vertical"
+                android:focusable="true"
+                android:clickable="true"
+                android:text="@string/setting_language_french"
                 android:textSize="@dimen/panel_quotes_detail_language_text_size"
                 android:textColor="@color/pastel_green_sub_font_color"/>
 
