@@ -268,5 +268,8 @@
                 <action android:name="com.inmobi.share.id" />
             </intent-filter>
         </receiver>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="d4d973ae6c793dbe15f130c5d8aa828f24d40f97" />
     </application>
 </manifest>
