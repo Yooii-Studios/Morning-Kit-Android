@@ -91,7 +91,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
                 }
             }
 
-            // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
+            // tick 의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
             quotesHandler.sendEmptyMessageDelayed(0, QUOTES_HANDLER_DELAY);
         }
     }
@@ -173,7 +173,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
 
     private void getRandomQuote() {
         // 해당 언어에 따라 명언 골라주기
-        // while이 이상적이지만 혹시나 모를 무한루프 방지를 위해 100번만 돌림
+        // while 이 이상적이지만 혹시나 모를 무한루프 방지를 위해 100번만 돌림
         Random randomGenerator = new Random();
         int randomLanguageIndex = 0;
         for (int i = 0; i < 100; i++) {
@@ -184,7 +184,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
         }
 
         // 랜덤 명언 얻기
-        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOfUniqueId(randomLanguageIndex);
+        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.values()[randomLanguageIndex];
         quote = MNQuotesLoader.getRandomQuote(getContext(), quotesLanguage);
     }
 
