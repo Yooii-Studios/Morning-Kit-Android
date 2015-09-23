@@ -7,6 +7,7 @@
     android:background="@color/white">
 
     <LinearLayout
+        android:id="@+id/panel_quotes_detail_content_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -27,7 +28,7 @@
             android:id="@+id/panel_quotes_detail_language_english_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/panel_detail_bigger_padding"
+            android:layout_marginTop="@dimen/panel_detail_padding"
             android:layout_marginLeft="@dimen/panel_detail_padding"
             android:layout_marginRight="@dimen/panel_detail_padding">
 
