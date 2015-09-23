@@ -44,8 +44,6 @@ import java.util.Random;
  * MNQuotesPanelLayout
  */
 public class MNQuotesPanelLayout extends MNPanelLayout {
-//    private static final String TAG = "MNQuotesPanelLayout";
-
     public static final String QUOTES_STRING = "QUOTES_STRING";
     public static final String QUOTES_LANGUAGES = "QUOTES_LANGUAGES";
 
@@ -143,10 +141,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     protected void processLoading() throws JSONException {
         super.processLoading();
 
-        //// Logic part ////
         if (getPanelDataObject().has(QUOTES_LANGUAGES)) {
-            // 설정된 언어 불러오기
-//            MNLog.i(TAG, "not first loading");
             try {
                 String selectedLanguagesJsonString = getPanelDataObject().getString(QUOTES_LANGUAGES);
                 Type type = new TypeToken<List<Boolean>>(){}.getType();
@@ -155,11 +150,8 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
                 e.printStackTrace();
             }
         } else {
-            // 명언 첫 로딩, 현재 언어 체크해서 명언 초기화해주기
-//            MNLog.i(TAG, "first loading");
             initFirstLanguages();
         }
-
         getRandomQuote();
     }
 
@@ -167,7 +159,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
         // 현재 언어에 따라 첫 명언 언어 설정해주기
         selectedLanguages = MNQuotesLanguage.initFirstQuoteLanguage(getContext());
 
-        // 초기화 이후 panelDataObject에 저장
+        // 초기화 이후 panelDataObject 에 저장
         getPanelDataObject().put(QUOTES_LANGUAGES, new Gson().toJson(selectedLanguages));
     }
 

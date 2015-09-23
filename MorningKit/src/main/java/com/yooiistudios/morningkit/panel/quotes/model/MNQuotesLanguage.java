@@ -8,20 +8,22 @@ import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
 import java.util.ArrayList;
 
-// 순서는 절대 바꾸면 안됨. 순서가 곧 uniqueId 가 됨.
+// 순서는 절대 바꾸면 안됨.
 public enum MNQuotesLanguage {
-	ENGLISH("English", R.raw.quotes_english),
-    JAPANESE("Japanese", R.raw.quotes_japanese),
-    KOREAN("Korean", R.raw.quotes_korean),
-	SIMPLIFIED_CHINESE("Simplified Chinese", R.raw.quotes_chinese_simplified),
-	TRADITIONAL_CHINESE("Traditional Chinese", R.raw.quotes_chinese_traditional),
-    SPANISH("Spanish", R.raw.quotes_spanish),
-    FRENCH("French", R.raw.quotes_french);
+	ENGLISH(0, "English", R.raw.quotes_english),
+    JAPANESE(2, "Japanese", R.raw.quotes_japanese),
+    KOREAN(1, "Korean", R.raw.quotes_korean),
+	SIMPLIFIED_CHINESE(3, "Simplified Chinese", R.raw.quotes_chinese_simplified),
+	TRADITIONAL_CHINESE(4, "Traditional Chinese", R.raw.quotes_chinese_traditional),
+    SPANISH(6, "Spanish", R.raw.quotes_spanish),
+    FRENCH(7, "French", R.raw.quotes_french);
 
+    final int languageId; // MNLanguage 의 id
 	final String name;
     final int rawDataFileId;
-	
-	MNQuotesLanguage(String _name, int _rawDataFileId) {
+
+	MNQuotesLanguage(int _languageId, String _name, int _rawDataFileId) {
+        languageId = _languageId;
 		name = _name;
         rawDataFileId = _rawDataFileId;
 	}
@@ -30,11 +32,11 @@ public enum MNQuotesLanguage {
         // 현재 언어에 따라 첫 명언 언어 설정해주기
         MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(context);
 
-        // 현재 언어의 uniqueId를 확인해 true 를 세팅
+        // 현재 언어의 uniqueId와 비교해 true 를 세팅
         ArrayList<Boolean> selectedLanguages = new ArrayList<Boolean>();
         int languageIndex = -1;
         for (int i = 0; i < MNQuotesLanguage.values().length; i++) {
-            if (currentLanguageType.getUniqueId() == i) {
+            if (currentLanguageType.getUniqueId() == MNQuotesLanguage.values()[i].languageId) {
                 selectedLanguages.add(true);
                 languageIndex = i;
             } else {
