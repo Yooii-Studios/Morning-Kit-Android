@@ -8,3 +8,4 @@ include ':libraries:DatePickerLibrary'
 include ':libraries:TimePickerLibrary'
 // project (':SKAlarmManager').projectDir = new File(settingsDir, '/libraries/SKAlarmManager')
 include ':libraries:sAXRSSReader'
+include ':libraries:FullscreenAd'
