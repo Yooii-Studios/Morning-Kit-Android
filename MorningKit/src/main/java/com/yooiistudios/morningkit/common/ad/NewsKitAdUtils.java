@@ -46,7 +46,7 @@ public class NewsKitAdUtils {
 //        showNewsKitAd(context);
 
         // 풀버전 구매 아이템이 없을 경우만 진행, 첫 설치든 업데이트 이후든 똑같은 횟수에 보여주기
-        if (!(ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION))) {
+        if (!(ownedSkus.contains(SKIabProducts.SKU_NO_ADS))) {
             if (shouldShowAd(context)) {
                 showNewsKitAd(context);
             }

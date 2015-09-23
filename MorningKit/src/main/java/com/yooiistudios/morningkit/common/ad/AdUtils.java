@@ -39,6 +39,19 @@ public class AdUtils {
     // 전면 광고 아이디는 각자의 앱에 맞는 전면 광고 ID를 추가
     private static final String INTERSTITIAL_ID = "ca-app-pub-2310680050309555/2209471823";
 
+    // 원하는 카운트에 실행이 되는지 테스트 용도. 필요할 때 풀고 사용하자
+    /*
+    public static void resetCounts(Context context) {
+        if (context == null) {
+            return;
+        }
+        SharedPreferences prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        prefs.edit().remove(LAUNCH_COUNT).apply();
+        prefs.edit().remove(EACH_AD_COUNT).apply();
+        prefs.edit().remove(EACH_LAUNCH_COUNT).apply();
+    }
+    */
+
     public static void showPopupAdIfSatisfied(Context context) {
         if (context == null) {
             return;
@@ -46,8 +59,7 @@ public class AdUtils {
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
 
         // 광고 or 풀버전 구매 아이템이 없을 경우만 진행
-        if (!(ownedSkus.contains(SKIabProducts.SKU_NO_ADS) ||
-                ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION))) {
+        if (!ownedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
             SharedPreferences prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
             int launchCount = prefs.getInt(LAUNCH_COUNT, 1);
             if (shouldShowAd(prefs, launchCount)) {
@@ -67,6 +79,7 @@ public class AdUtils {
                     }
                 } else {
                     prefs.edit().putInt(EACH_AD_COUNT, ++eachAdCount).apply();
+                    // 전면 광고 제거
 //                    showInterstitialAd(context);
                 }
             }
