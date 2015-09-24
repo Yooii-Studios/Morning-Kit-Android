@@ -16,7 +16,8 @@ public enum MNQuotesLanguage {
 	SIMPLIFIED_CHINESE(3, "Simplified Chinese", R.raw.quotes_chinese_simplified),
 	TRADITIONAL_CHINESE(4, "Traditional Chinese", R.raw.quotes_chinese_traditional),
     SPANISH(6, "Spanish", R.raw.quotes_spanish),
-    FRENCH(7, "French", R.raw.quotes_french);
+    FRENCH(7, "French", R.raw.quotes_french),
+    GERMAN(8, "German", R.raw.quotes_german);
 
     final int languageId; // MNLanguage 의 id
 	final String name;
