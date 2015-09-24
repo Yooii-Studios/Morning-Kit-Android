@@ -3,6 +3,7 @@ package com.yooiistudios.morningkit;
 import android.app.Application;
 import android.content.res.Configuration;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
@@ -11,6 +12,8 @@ import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
 import java.util.HashMap;
 import java.util.Locale;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by StevenKim in Morning Kit from Yooii Studios Co., LTD. on 2014. 1. 15.
