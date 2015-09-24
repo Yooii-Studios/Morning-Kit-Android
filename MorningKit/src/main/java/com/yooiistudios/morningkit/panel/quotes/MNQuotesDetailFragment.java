@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,6 +26,8 @@ import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuote;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLanguage;
 import com.yooiistudios.morningkit.panel.quotes.model.MNQuotesLoader;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
+import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
@@ -51,12 +54,17 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
 
     @InjectView(R.id.panel_quotes_detail_quote_textview) TextView quoteTextView;
 
-    @InjectView(R.id.panel_quotes_detail_language_english_layout) RelativeLayout languageEnglishLayout;
-    @InjectView(R.id.panel_quotes_detail_language_korean_layout) RelativeLayout languageKoreanLayout;
-    @InjectView(R.id.panel_quotes_detail_language_japanese_layout) RelativeLayout languageJapaneseLayout;
-    @InjectView(R.id.panel_quotes_detail_language_simplified_chinese_layout) RelativeLayout languageSimplifiedChineseLayout;
-    @InjectView(R.id.panel_quotes_detail_language_traditional_chinese_layout) RelativeLayout languageTraditionalChineseLayout;
+    @InjectView(R.id.panel_quotes_detail_content_layout) LinearLayout contentLayout;
+    @InjectView(R.id.panel_quotes_detail_language_english_layout) RelativeLayout englishLayout;
+    @InjectView(R.id.panel_quotes_detail_language_korean_layout) RelativeLayout koreanLayout;
+    @InjectView(R.id.panel_quotes_detail_language_japanese_layout) RelativeLayout japaneseLayout;
+    @InjectView(R.id.panel_quotes_detail_language_simplified_chinese_layout) RelativeLayout sChineseLayout;
+    @InjectView(R.id.panel_quotes_detail_language_traditional_chinese_layout) RelativeLayout tChineseLayout;
+    @InjectView(R.id.panel_quotes_detail_language_spanish_layout) RelativeLayout spanishLayout;
+    @InjectView(R.id.panel_quotes_detail_language_french_layout) RelativeLayout frenchLayout;
+    @InjectView(R.id.panel_quotes_detail_language_german_layout) RelativeLayout germanLayout;
     List<ImageButton> languageImageButtons;
+    List<TextView> languageTextViews;
 
     List<Boolean> selectedLanguages;
     MNQuote quote;
@@ -74,6 +82,16 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
                     String selectedLanguagesJsonString = getPanelDataObject().getString(QUOTES_LANGUAGES);
                     Type type = new TypeToken<List<Boolean>>(){}.getType();
                     selectedLanguages = new Gson().fromJson(selectedLanguagesJsonString, type);
+
+                    // 새로 명언이 추가된 경우 추가된 언어들은 false 선택으로 추가해주기
+                    int quoteLanguageSize = MNQuotesLanguage.values().length;
+                    if (selectedLanguages.size() != quoteLanguageSize
+                            && quoteLanguageSize > selectedLanguages.size()) {
+                        int differences = quoteLanguageSize - selectedLanguages.size();
+                        for (int i = 0; i < differences; i++) {
+                            selectedLanguages.add(false);
+                        }
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -105,14 +123,18 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
         selectedLanguages = MNQuotesLanguage.initFirstQuoteLanguage(getActivity());
 
         int languageIndex = 0;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < MNQuotesLanguage.values().length; i++) {
             if (selectedLanguages.get(i)) {
                 languageIndex = i;
             }
+
+            // 모든 명언 동작 테스트(필요시만 풀자)
+//            MNQuotesLanguage quotesLanguage = MNQuotesLanguage.values()[i];
+//            MNQuotesLoader.testAllQuotes(getActivity(), quotesLanguage);
         }
 
         // 현재 언어에 따른 랜덤 명언 얻기
-        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOfUniqueId(languageIndex);
+        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.values()[languageIndex];
         quote = MNQuotesLoader.getRandomQuote(getActivity(), quotesLanguage);
     }
 
@@ -170,35 +192,159 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
     }
 
     private void initLanguageLayouts() {
-        languageImageButtons = new ArrayList<ImageButton>();
-        languageImageButtons.add(getImageButtonFromLayout(languageEnglishLayout));
-        languageImageButtons.add(getImageButtonFromLayout(languageKoreanLayout));
-        languageImageButtons.add(getImageButtonFromLayout(languageJapaneseLayout));
-        languageImageButtons.add(getImageButtonFromLayout(languageSimplifiedChineseLayout));
-        languageImageButtons.add(getImageButtonFromLayout(languageTraditionalChineseLayout));
+        // 기존의 로직을 해치지 않기 위해 MNQuotesLanguage 순서로 꼭 리스트를 만들어주고 관리
+        // 초기화 이후 레이아웃 위아래만 따로 바꾸어줄것
+        languageImageButtons = new ArrayList<>();
+        languageImageButtons.add(getImageButtonFromLayout(englishLayout));
+        languageImageButtons.add(getImageButtonFromLayout(japaneseLayout));
+        languageImageButtons.add(getImageButtonFromLayout(koreanLayout));
+        languageImageButtons.add(getImageButtonFromLayout(sChineseLayout));
+        languageImageButtons.add(getImageButtonFromLayout(tChineseLayout));
+        languageImageButtons.add(getImageButtonFromLayout(spanishLayout));
+        languageImageButtons.add(getImageButtonFromLayout(frenchLayout));
+        languageImageButtons.add(getImageButtonFromLayout(germanLayout));
 
-        // TODO: 기존 index에서 값을 결정하는 것이 아닌, uniqueId에서 index를 추출하도록 구현하자
+        languageTextViews = new ArrayList<>();
+        languageTextViews.add(getTextViewFromLayout(englishLayout));
+        languageTextViews.add(getTextViewFromLayout(japaneseLayout));
+        languageTextViews.add(getTextViewFromLayout(koreanLayout));
+        languageTextViews.add(getTextViewFromLayout(sChineseLayout));
+        languageTextViews.add(getTextViewFromLayout(tChineseLayout));
+        languageTextViews.add(getTextViewFromLayout(spanishLayout));
+        languageTextViews.add(getTextViewFromLayout(frenchLayout));
+        languageTextViews.add(getTextViewFromLayout(germanLayout));
+
         int i = 0;
         for (Boolean isLanguageSelected : selectedLanguages) {
             ImageButton imageButton = languageImageButtons.get(i);
-            imageButton.setTag(i); // tag 를 index로 사용할 예정
+            TextView textView = languageTextViews.get(i);
+
+            imageButton.setTag(i); // tag 를 index 로 사용할 예정
+            textView.setTag(i);
+
             if (isLanguageSelected) {
                 imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
             } else {
                 imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
             }
             imageButton.setOnClickListener(this);
+            textView.setOnClickListener(this);
             i++;
         }
         checkCheckBoxStates();
+        sortLanguageLayouts();
+    }
+
+    private void sortLanguageLayouts() {
+        MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(getActivity());
+        contentLayout.removeView(englishLayout);
+        contentLayout.removeView(japaneseLayout);
+        contentLayout.removeView(koreanLayout);
+        contentLayout.removeView(sChineseLayout);
+        contentLayout.removeView(tChineseLayout);
+        contentLayout.removeView(spanishLayout);
+        contentLayout.removeView(frenchLayout);
+        contentLayout.removeView(germanLayout);
+
+        if (currentLanguageType == MNLanguageType.KOREAN) {
+            adjustUpperLanguageLayoutMargin(koreanLayout);
+            contentLayout.addView(koreanLayout);
+            contentLayout.addView(englishLayout);
+            contentLayout.addView(japaneseLayout);
+            contentLayout.addView(sChineseLayout);
+            contentLayout.addView(tChineseLayout);
+            contentLayout.addView(spanishLayout);
+            contentLayout.addView(germanLayout);
+            contentLayout.addView(frenchLayout);
+        } else if (currentLanguageType == MNLanguageType.JAPANESE) {
+            adjustUpperLanguageLayoutMargin(japaneseLayout);
+            contentLayout.addView(japaneseLayout);
+            contentLayout.addView(englishLayout);
+            contentLayout.addView(sChineseLayout);
+            contentLayout.addView(tChineseLayout);
+            contentLayout.addView(koreanLayout);
+            contentLayout.addView(spanishLayout);
+            contentLayout.addView(germanLayout);
+            contentLayout.addView(frenchLayout);
+        } else if (currentLanguageType == MNLanguageType.SIMPLIFIED_CHINESE) {
+            adjustUpperLanguageLayoutMargin(sChineseLayout);
+            contentLayout.addView(sChineseLayout);
+            contentLayout.addView(tChineseLayout);
+            contentLayout.addView(englishLayout);
+            contentLayout.addView(japaneseLayout);
+            contentLayout.addView(koreanLayout);
+            contentLayout.addView(spanishLayout);
+            contentLayout.addView(germanLayout);
+            contentLayout.addView(frenchLayout);
+        } else if (currentLanguageType == MNLanguageType.TRADITIONAL_CHINESE) {
+            adjustUpperLanguageLayoutMargin(tChineseLayout);
+            contentLayout.addView(tChineseLayout);
+            contentLayout.addView(sChineseLayout);
+            contentLayout.addView(englishLayout);
+            contentLayout.addView(japaneseLayout);
+            contentLayout.addView(koreanLayout);
+            contentLayout.addView(spanishLayout);
+            contentLayout.addView(germanLayout);
+            contentLayout.addView(frenchLayout);
+        } else if (currentLanguageType == MNLanguageType.SPANISH) {
+            adjustUpperLanguageLayoutMargin(spanishLayout);
+            contentLayout.addView(spanishLayout);
+            contentLayout.addView(englishLayout);
+            contentLayout.addView(germanLayout);
+            contentLayout.addView(frenchLayout);
+            contentLayout.addView(sChineseLayout);
+            contentLayout.addView(tChineseLayout);
+            contentLayout.addView(japaneseLayout);
+            contentLayout.addView(koreanLayout);
+        } else if (currentLanguageType == MNLanguageType.FRENCH) {
+            adjustUpperLanguageLayoutMargin(frenchLayout);
+            contentLayout.addView(frenchLayout);
+            contentLayout.addView(englishLayout);
+            contentLayout.addView(germanLayout);
+            contentLayout.addView(spanishLayout);
+            contentLayout.addView(sChineseLayout);
+            contentLayout.addView(tChineseLayout);
+            contentLayout.addView(japaneseLayout);
+            contentLayout.addView(koreanLayout);
+        } else if (currentLanguageType == MNLanguageType.GERMAN) {
+            adjustUpperLanguageLayoutMargin(germanLayout);
+            contentLayout.addView(germanLayout);
+            contentLayout.addView(englishLayout);
+            contentLayout.addView(frenchLayout);
+            contentLayout.addView(spanishLayout);
+            contentLayout.addView(sChineseLayout);
+            contentLayout.addView(tChineseLayout);
+            contentLayout.addView(japaneseLayout);
+            contentLayout.addView(koreanLayout);
+        } else {
+            // 영어 및 기본
+            adjustUpperLanguageLayoutMargin(englishLayout);
+            contentLayout.addView(englishLayout);
+            contentLayout.addView(frenchLayout);
+            contentLayout.addView(spanishLayout);
+            contentLayout.addView(sChineseLayout);
+            contentLayout.addView(tChineseLayout);
+            contentLayout.addView(germanLayout);
+            contentLayout.addView(japaneseLayout);
+            contentLayout.addView(koreanLayout);
+        }
+    }
+
+    private void adjustUpperLanguageLayoutMargin(RelativeLayout languageLayout) {
+        ((LinearLayout.LayoutParams) languageLayout.getLayoutParams()).topMargin =
+                getResources().getDimensionPixelSize(R.dimen.panel_detail_bigger_padding);
     }
 
     private ImageButton getImageButtonFromLayout(RelativeLayout layout) {
         return (ImageButton) layout.findViewById(R.id.panel_quotes_detail_language_image_button);
     }
 
+    private TextView getTextViewFromLayout(RelativeLayout layout) {
+        return (TextView) layout.findViewById(R.id.panel_quotes_detail_language_textview);
+    }
+
     private void checkCheckBoxStates() {
-        // 1개만 선택이 되어 있다면 해당 체크박스는 disable해서 무조건 하나는 선택되어 있게 만든다
+        // 1개만 선택이 되어 있다면 해당 체크박스는 disable 해서 무조건 하나는 선택되어 있게 만든다
         // 그렇지 않다면 모두 선택할 수 있게 해주기
         int counter = 0;
         ImageButton lastImageButtonWhichIsOn = null;
@@ -230,23 +376,25 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
 
     @Override
     protected void archivePanelData() throws JSONException {
-        // 직렬화 해서 panelDataObject에 저장
+        // 직렬화 해서 panelDataObject 에 저장
         String selectedLanguagesJsonString = new Gson().toJson(selectedLanguages);
         getPanelDataObject().put(QUOTES_LANGUAGES, selectedLanguagesJsonString);
     }
 
     @Override
-    public void onClick(View imageButton) {
-        int index = (Integer) imageButton.getTag();
+    public void onClick(View view) {
+        int index = (Integer) view.getTag();
 
-        // TODO: 기존 index로 값을 세팅해주는 것이 아닌, index에서 uniqueId를 추출해서 세팅하자
-        // 해당 스위치 토글
-        selectedLanguages.set(index, !selectedLanguages.get(index));
-        if (selectedLanguages.get(index)) {
-            ((ImageButton) imageButton).setImageResource(R.drawable.icon_panel_detail_checkbox_on);
-        } else {
-            ((ImageButton) imageButton).setImageResource(R.drawable.icon_panel_detail_checkbox);
+        ImageButton imageButton = languageImageButtons.get(index);
+        if (imageButton.isEnabled()) {
+            // 해당 스위치 토글
+            selectedLanguages.set(index, !selectedLanguages.get(index));
+            if (selectedLanguages.get(index)) {
+                imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox_on);
+            } else {
+                imageButton.setImageResource(R.drawable.icon_panel_detail_checkbox);
+            }
+            checkCheckBoxStates();
         }
-        checkCheckBoxStates();
     }
 }

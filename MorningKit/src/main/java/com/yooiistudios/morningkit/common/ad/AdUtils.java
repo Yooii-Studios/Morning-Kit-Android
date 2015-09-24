@@ -1,9 +1,12 @@
 package com.yooiistudios.morningkit.common.ad;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
@@ -11,9 +14,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
+import com.yooiistudios.fullscreenad.FullscreenAdUtils;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.main.MNMainActivity;
@@ -28,6 +29,9 @@ import java.util.List;
  * MNAdChecker
  *  광고를 주기적으로 체크해서 10회 실행 이후부터 5번에 한번씩 전면광고를 실행
  *  50회 이상 실행이면 4번에 한번씩 전면광고를 실행
+ *
+ *  -> 2015. 9. 17 수정(with 이사님)
+ *  5회도 뉴스키트 광고가 뜨게 수정, 5-20 뉴스 / 40 모닝 / 이후 60회부터 뉴스 뉴스 모닝 방식
  */
 public class AdUtils {
     private AdUtils() { throw new AssertionError("You MUST not create this class!"); }
@@ -35,9 +39,18 @@ public class AdUtils {
     private static final String LAUNCH_COUNT = "LAUNCH_COUNT";
     private static final String EACH_LAUNCH_COUNT = "EACH_LAUNCH_COUNT";
     private static final String EACH_AD_COUNT = "EACH_AD_COUNT";
+    private static final String NEWS_KIT_PACKAGE_NAME = "com.yooiistudios.newskit";
 
-    // 전면 광고 아이디는 각자의 앱에 맞는 전면 광고 ID를 추가
-    private static final String INTERSTITIAL_ID = "ca-app-pub-2310680050309555/2209471823";
+    // 원하는 카운트에 실행이 되는지 테스트 용도. 필요할 때 풀고 사용하자
+    public static void resetCounts(Context context) {
+        if (context == null) {
+            return;
+        }
+        SharedPreferences prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        prefs.edit().remove(LAUNCH_COUNT).apply();
+        prefs.edit().remove(EACH_AD_COUNT).apply();
+        prefs.edit().remove(EACH_LAUNCH_COUNT).apply();
+    }
 
     public static void showPopupAdIfSatisfied(Context context) {
         if (context == null) {
@@ -46,8 +59,7 @@ public class AdUtils {
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
 
         // 광고 or 풀버전 구매 아이템이 없을 경우만 진행
-        if (!(ownedSkus.contains(SKIabProducts.SKU_NO_ADS) ||
-                ownedSkus.contains(SKIabProducts.SKU_FULL_VERSION))) {
+        if (!ownedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
             SharedPreferences prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE);
             int launchCount = prefs.getInt(LAUNCH_COUNT, 1);
             if (shouldShowAd(prefs, launchCount)) {
@@ -61,16 +73,15 @@ public class AdUtils {
                 int eachAdCount = prefs.getInt(EACH_AD_COUNT, 1);
                 if (eachAdCount >= 3) {
                     prefs.edit().remove(EACH_AD_COUNT).apply();
-                    // 뉴스키트 광고를 안 보여줄 경우에만 인하우스 광고 보여주기. 겹치면 안됨
-                    if (!NewsKitAdUtils.shouldShowAd(context)) {
-                        showInHouseStoreAd(context);
-                    }
-                } else {
+                    showNewsKitAd(context);
+                } else if (eachAdCount < 3 || launchCount == 5 || launchCount == 20) {
                     prefs.edit().putInt(EACH_AD_COUNT, ++eachAdCount).apply();
-//                    showInterstitialAd(context);
+                    showInHouseStoreAd(context);
                 }
             }
-            if (launchCount < 55) {
+
+            // 20회부터 20번 실행마다 광고를 보여주면 되기에 더이상 체크 X
+            if (launchCount <= 20) {
                 launchCount++;
                 prefs.edit().putInt(LAUNCH_COUNT, launchCount).apply();
             }
@@ -78,15 +89,10 @@ public class AdUtils {
     }
 
     private static boolean shouldShowAd(SharedPreferences prefs, final int launchCount) {
-        // 11회 이상 실행부터 계속 5 or 4배수 실행 카운트 체크 - 10회는 리뷰 남기기 메시지.
-        // 일정 카운트(55) 이상부터는 launchCount 는 더 증가시킬 필요가 없음
-        if (launchCount >= 7) {
-            int threshold;
-            if (launchCount < 55) {
-                threshold = 5;
-            } else {
-                threshold = 4;
-            }
+        // 일정 카운트(20) 이상부터는 launchCount 는 더 증가시킬 필요가 없음. 실행 횟수만 체크
+        if (launchCount > 20) {
+            int threshold = 20;
+
             int eachLaunchCount = prefs.getInt(EACH_LAUNCH_COUNT, 1);
             if (eachLaunchCount >= threshold) {
                 // 광고 표시와 동시에 다시 초기화
@@ -96,30 +102,33 @@ public class AdUtils {
                 eachLaunchCount++;
                 prefs.edit().putInt(EACH_LAUNCH_COUNT, eachLaunchCount).apply();
             }
+        } else if (launchCount == 20 || launchCount == 5) {
+            return true;
         }
         return false;
     }
 
-    // 잠시 전면광고를 사용하지 않는 방향으로 기획 수정
-    private static void showInterstitialAd(Context context) {
-        // 전체 광고 표시
-        final InterstitialAd interstitialAdView = new InterstitialAd(context);
-        interstitialAdView.setAdUnitId(INTERSTITIAL_ID);
-        interstitialAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                if (interstitialAdView.isLoaded()) {
-                    interstitialAdView.show();
-                }
-            }
-        });
-        AdRequest fullAdRequest = new AdRequest.Builder()
-//                            .addTestDevice("D9XXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-                .build();
-        interstitialAdView.loadAd(fullAdRequest);
+    private static void showNewsKitAd(Context context) {
+        // 뉴스키트가 설치된 경우 대신 인하우스 광고 보여주기
+        if (!isPackageExisted(context, NEWS_KIT_PACKAGE_NAME)) {
+            FullscreenAdUtils.showMorningKitAd(context);
+        } else {
+            showInHouseStoreAd(context);
+        }
     }
 
+    private static boolean isPackageExisted(Context context, String targetPackage){
+        List<ApplicationInfo> packages;
+        PackageManager pm;
+        pm = context.getPackageManager();
+        packages = pm.getInstalledApplications(0);
+        for (ApplicationInfo packageInfo : packages) {
+            if(packageInfo.packageName.equals(targetPackage)) return true;
+        }
+        return false;
+    }
+
+    @SuppressLint("SetTextI18n")
     private static void showInHouseStoreAd(final Context context) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

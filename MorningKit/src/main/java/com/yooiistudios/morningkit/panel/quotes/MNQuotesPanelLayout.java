@@ -44,8 +44,6 @@ import java.util.Random;
  * MNQuotesPanelLayout
  */
 public class MNQuotesPanelLayout extends MNPanelLayout {
-//    private static final String TAG = "MNQuotesPanelLayout";
-
     public static final String QUOTES_STRING = "QUOTES_STRING";
     public static final String QUOTES_LANGUAGES = "QUOTES_LANGUAGES";
 
@@ -91,7 +89,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
                 }
             }
 
-            // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
+            // tick 의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
             quotesHandler.sendEmptyMessageDelayed(0, QUOTES_HANDLER_DELAY);
         }
     }
@@ -143,10 +141,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
     protected void processLoading() throws JSONException {
         super.processLoading();
 
-        //// Logic part ////
         if (getPanelDataObject().has(QUOTES_LANGUAGES)) {
-            // 설정된 언어 불러오기
-//            MNLog.i(TAG, "not first loading");
             try {
                 String selectedLanguagesJsonString = getPanelDataObject().getString(QUOTES_LANGUAGES);
                 Type type = new TypeToken<List<Boolean>>(){}.getType();
@@ -155,11 +150,8 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
                 e.printStackTrace();
             }
         } else {
-            // 명언 첫 로딩, 현재 언어 체크해서 명언 초기화해주기
-//            MNLog.i(TAG, "first loading");
             initFirstLanguages();
         }
-
         getRandomQuote();
     }
 
@@ -167,13 +159,13 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
         // 현재 언어에 따라 첫 명언 언어 설정해주기
         selectedLanguages = MNQuotesLanguage.initFirstQuoteLanguage(getContext());
 
-        // 초기화 이후 panelDataObject에 저장
+        // 초기화 이후 panelDataObject 에 저장
         getPanelDataObject().put(QUOTES_LANGUAGES, new Gson().toJson(selectedLanguages));
     }
 
     private void getRandomQuote() {
         // 해당 언어에 따라 명언 골라주기
-        // while이 이상적이지만 혹시나 모를 무한루프 방지를 위해 100번만 돌림
+        // while 이 이상적이지만 혹시나 모를 무한루프 방지를 위해 100번만 돌림
         Random randomGenerator = new Random();
         int randomLanguageIndex = 0;
         for (int i = 0; i < 100; i++) {
@@ -184,7 +176,7 @@ public class MNQuotesPanelLayout extends MNPanelLayout {
         }
 
         // 랜덤 명언 얻기
-        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.valueOfUniqueId(randomLanguageIndex);
+        MNQuotesLanguage quotesLanguage = MNQuotesLanguage.values()[randomLanguageIndex];
         quote = MNQuotesLoader.getRandomQuote(getContext(), quotesLanguage);
     }
 

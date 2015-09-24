@@ -248,25 +248,8 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-        <!-- MdotM Ad -->
-        <activity android:name="com.mdotm.android.view.MdotMActivity" android:launchMode="singleTop"/>
-
-        <!-- InMobi Ad -->
-        <activity android:name="com.inmobi.androidsdk.IMBrowserActivity"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar"
-                  android:hardwareAccelerated="true" />
-        <service android:enabled="true"
-                 android:name="com.inmobi.commons.internal.ActivityRecognitionManager" />
-        <receiver
-            android:name="com.inmobi.commons.analytics.androidsdk.IMAdTrackerReceiver"
-            android:enabled="true"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="com.inmobi.share.id" />
-            </intent-filter>
-        </receiver>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="d4d973ae6c793dbe15f130c5d8aa828f24d40f97" />
     </application>
 </manifest>

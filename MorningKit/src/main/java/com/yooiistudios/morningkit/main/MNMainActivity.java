@@ -24,7 +24,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
-import com.inmobi.commons.InMobi;
 import com.squareup.otto.Subscribe;
 import com.stevenkim.camera.SKCameraThemeView;
 import com.yooiistudios.morningkit.MNApplication;
@@ -34,7 +33,6 @@ import com.yooiistudios.morningkit.alarm.model.MNAlarm;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
 import com.yooiistudios.morningkit.alarm.model.wake.MNAlarmWakeUtils;
 import com.yooiistudios.morningkit.common.ad.AdUtils;
-import com.yooiistudios.morningkit.common.ad.NewsKitAdUtils;
 import com.yooiistudios.morningkit.common.ad.QuitAdDialogFactory;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.bus.MNAlarmScrollViewBusProvider;
@@ -136,7 +134,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             // 알람이 울리지 않는다면 리뷰와 전면광고 카운트 체크
             MNReviewUtil.showReviewDialogIfConditionMet(this);
             AdUtils.showPopupAdIfSatisfied(this);
-            NewsKitAdUtils.showPopupAdIfSatisfied(this);
 
             // 기존에 켜진 알람들도 다시 켜주기(반복 알람을 위함)
             // 알람 없이 정상 실행시 항상 알람이 제대로 동작함을 보장하기 위해서 켜진 알람들은 다시 켜주기
@@ -164,10 +161,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             }
         }
 
-        // 플러리, 구글 애널리틱스, 인모비
+        // 플러리, 구글 애널리틱스
         sendFlurryAnalytics();
         MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
-        InMobi.initialize(this, "2fda5c20a0054c43a454c8027bf2eb83");
     }
 
     private void initIab() {
