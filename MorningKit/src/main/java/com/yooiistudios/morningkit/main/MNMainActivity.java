@@ -24,7 +24,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
-import com.inmobi.commons.InMobi;
 import com.squareup.otto.Subscribe;
 import com.stevenkim.camera.SKCameraThemeView;
 import com.yooiistudios.morningkit.MNApplication;
@@ -162,10 +161,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             }
         }
 
-        // 플러리, 구글 애널리틱스, 인모비
+        // 플러리, 구글 애널리틱스
         sendFlurryAnalytics();
         MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
-        InMobi.initialize(this, "2fda5c20a0054c43a454c8027bf2eb83");
     }
 
     private void initIab() {
