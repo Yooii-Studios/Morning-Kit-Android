@@ -1,39 +1,11 @@
 package com.yooiistudios.morningkit.alarm.model;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
-import com.yooiistudios.morningkit.MN;
-import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
-import com.yooiistudios.morningkit.alarm.model.list.MNAlarmComparator;
-import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
-import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.common.sharedpreferences.MNSharedPreferences;
-import com.yooiistudios.morningkit.main.MNMainActivity;
-import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowLog;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-
 /**
  * Created by StevenKim on 2013. 11. 11..
  *
  * MNAlarmListManagerTest
  */
+/*
 @RunWith(RobolectricGradleTestRunner.class)
 @Config (shadows = { AdWebViewShadow.class }, emulateSdk = 18)
 public class MNAlarmListManagerTest {
@@ -50,9 +22,7 @@ public class MNAlarmListManagerTest {
         dummySortAlarmList = new ArrayList<MNAlarm>();
     }
 
-    /**
-     * Save & Load
-     */
+    // Save & Load
     @Test
     public void saveAndLoadAlarmListTest() throws IOException {
         
@@ -90,9 +60,7 @@ public class MNAlarmListManagerTest {
         assertThat(dummyAlarmList.size(), is(3));
     }
 
-    /**
-     * Manipulating Alarm
-     */
+    // Manipulating Alarm
     @Test
     public void replaceAlarmTest() {
         int sizeOfAlarmList = MNAlarmListManager.getAlarmList(mainActivity).size();
@@ -145,9 +113,7 @@ public class MNAlarmListManagerTest {
         assertThat(MNAlarmListManager.getAlarmList(mainActivity).size(), is(sizeOfAlarmList-1));
     }
 
-    /**
-     * Sort
-     */
+    // Sort
     @Test
     public void sortAlarmListTest() throws Exception {
         Context context = mainActivity;
@@ -184,3 +150,4 @@ public class MNAlarmListManagerTest {
         assertThat(MNAlarmListManager.getAlarmList(context).get(4).getAlarmId(), is(alarm_14_15.getAlarmId()));
     }
 }
+*/

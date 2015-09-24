@@ -1,41 +1,11 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.FrameLayout;
-
-import com.yooiistudios.morningkit.MN;
-import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
-import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
-import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
-import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefLabelItemMaker;
-import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
-import com.yooiistudios.morningkit.main.MNMainActivity;
-import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowLog;
-
-import java.util.ArrayList;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 15.
  *
  * MNAlarmPrefLabelItemMakerTest
  */
+/*
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(shadows = { AdWebViewShadow.class }, emulateSdk = 18) //reportSdk = 10) // Gingerbread // , emulateSdk = 18,
 public class MNAlarmPrefLabelItemMakerTest {
@@ -130,3 +100,4 @@ public class MNAlarmPrefLabelItemMakerTest {
         assertThat(alarmPrefActivity_edit.getAlarm().getAlarmLabel(), is(TEST_ALARM_LABEL_AFTER));
     }
 }
+*/

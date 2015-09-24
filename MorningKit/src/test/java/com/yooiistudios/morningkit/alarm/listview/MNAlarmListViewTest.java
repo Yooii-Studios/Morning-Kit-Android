@@ -1,25 +1,5 @@
 package com.yooiistudios.morningkit.alarm.listview;
 
-import android.view.View;
-
-import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemClickListener;
-import com.yooiistudios.morningkit.alarm.listview.item.MNAlarmItemScrollView;
-import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
-import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.main.MNMainActivity;
-import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowLog;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
 //import static org.junit.matchers.JUnitMatchers.*;
 
 /**
@@ -27,6 +7,7 @@ import static org.junit.Assert.assertThat;
 
  * MNAlarmListViewTest
  */
+/*
 @RunWith(RobolectricGradleTestRunner.class)
 @Config (shadows = { AdWebViewShadow.class }, emulateSdk = 18)
 public class MNAlarmListViewTest {
@@ -95,3 +76,4 @@ public class MNAlarmListViewTest {
         assertThat(mainActivity.getAlarmListView().getAlarmItemClickListener().getAlarmListView(), notNullValue());
     }
 }
+*/
