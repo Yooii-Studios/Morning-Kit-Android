@@ -127,6 +127,10 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
             if (selectedLanguages.get(i)) {
                 languageIndex = i;
             }
+
+            // 모든 명언 동작 테스트(필요시만 풀자)
+//            MNQuotesLanguage quotesLanguage = MNQuotesLanguage.values()[i];
+//            MNQuotesLoader.testAllQuotes(getActivity(), quotesLanguage);
         }
 
         // 현재 언어에 따른 랜덤 명언 얻기

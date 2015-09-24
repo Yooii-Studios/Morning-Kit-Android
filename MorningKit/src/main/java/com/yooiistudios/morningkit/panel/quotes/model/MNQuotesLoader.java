@@ -33,14 +33,12 @@ public class MNQuotesLoader {
             String buffer = new String(tC);
             String[] lines = buffer.split("\n");
 
-            // 오픈소스 랜덤 제너레이터를 사용 - 속도가 느려지는 원인, 기본 RNG 사용하게 변경
-//            MersenneTwisterRNG randomGenerator = new MersenneTwisterRNG();
             Random randomGenerator = new Random();
             int randomIndex = randomGenerator.nextInt(lines.length);
 
             String searchResult[] = lines[randomIndex].split("\t", 3);
 
-            // 결과에 index도 추가
+            // 결과에 index 도 추가
             if (searchResult.length == 1) {
                 MNLog.e(TAG, "loading error: " + language.toString() + ": " + randomIndex);
                 quote = MNQuote.newInstance(searchResult[0], "");
@@ -58,7 +56,29 @@ public class MNQuotesLoader {
         return quote;
     }
 
-    public static MNQuote getQuote(Context context, MNQuotesLanguage language, int index) {
-        return null;
+    /*
+    public static void testAllQuotes(Context context, MNQuotesLanguage language) {
+        try {
+            InputStream file;
+            file = context.getResources().openRawResource(language.rawDataFileId);
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(file, "UNICODE"));
+            char[] tC = new char[file.available()];
+            reader.read(tC);
+
+            String buffer = new String(tC);
+            String[] lines = buffer.split("\n");
+
+            for (int i = 0; i < lines.length; i++) {
+                String searchResult[] = lines[i].split("\t", 3);
+                if (searchResult.length == 1) {
+                    MNLog.e(TAG, "loading error: " + language.toString() + ": " + i);
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+    */
 }
