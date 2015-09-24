@@ -45,6 +45,7 @@ import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialLayout;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.common.validate.AppValidationChecker;
+import com.yooiistudios.morningkit.iab.NaverIabManager;
 import com.yooiistudios.morningkit.main.layout.MNMainButtonLayout;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
@@ -167,9 +168,10 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     }
 
     private void initIab() {
-        // 구매목록을 항상 새로 확인 - 구글일 경우에만
+        // 구매목록을 항상 새로 확인
         if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
-
+            NaverIabManager iabManager = new NaverIabManager(this, null);
+            iabManager.setup();
         } else {
             try {
                 SKIabManager iabManager = new SKIabManager(this, null);

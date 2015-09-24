@@ -3,10 +3,12 @@ package com.yooiistudios.morningkit.setting.store.iab;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.naver.iap.NaverIabInventoryItem;
-import com.naver.iap.NaverIabProductUtils;
+import com.naver.android.appstore.iap.Purchase;
+import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
+import com.yooiistudios.morningkit.iab.NIAPUtils;
 import com.yooiistudios.morningkit.setting.store.MNStoreDebugChecker;
+import com.yooiistudios.morningkit.setting.store.MNStoreType;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
 
 import java.util.ArrayList;
@@ -32,18 +34,22 @@ public class SKIabProducts {
     private static final String SHARED_PREFERENCES_IAB = "SHARED_PREFERENCES_IAB";
     private static final String SHARED_PREFERENCES_IAB_DEBUG = "SHARED_PREFERENCES_IAB_DEBUG";
 
-    public static List<String> makeProductKeyList() {
-        List<String> iabKeyList = new ArrayList<String>();
-        iabKeyList.add(SKU_FULL_VERSION);
-        iabKeyList.add(SKU_MORE_ALARM_SLOTS);
-        iabKeyList.add(SKU_NO_ADS);
-        iabKeyList.add(SKU_PANEL_MATRIX_2X3);
-        iabKeyList.add(SKU_DATE_COUNTDOWN);
-        iabKeyList.add(SKU_MEMO);
-        iabKeyList.add(SKU_PHOTO_FRAME);
-        iabKeyList.add(SKU_MODERNITY);
-        iabKeyList.add(SKU_CELESTIAL);
-        iabKeyList.add(SKU_CAT);
+    public static ArrayList<String> makeProductKeyList() {
+        ArrayList<String> iabKeyList = new ArrayList<>();
+        if (MNIabInfo.STORE_TYPE.equals(MNStoreType.GOOGLE)) {
+            iabKeyList.add(SKU_FULL_VERSION);
+            iabKeyList.add(SKU_MORE_ALARM_SLOTS);
+            iabKeyList.add(SKU_NO_ADS);
+            iabKeyList.add(SKU_PANEL_MATRIX_2X3);
+            iabKeyList.add(SKU_DATE_COUNTDOWN);
+            iabKeyList.add(SKU_MEMO);
+            iabKeyList.add(SKU_PHOTO_FRAME);
+            iabKeyList.add(SKU_MODERNITY);
+            iabKeyList.add(SKU_CELESTIAL);
+            iabKeyList.add(SKU_CAT);
+        } if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
+            iabKeyList = NIAPUtils.getAllProducts();
+        }
         return iabKeyList;
     }
 
@@ -76,7 +82,7 @@ public class SKIabProducts {
 
     // 구매된 아이템들을 로드
     public static List<String> loadOwnedIabProducts(Context context) {
-        List<String> ownedSkus = new ArrayList<String>();
+        List<String> ownedSkus = new ArrayList<>();
 
         SharedPreferences prefs;
         if (MNStoreDebugChecker.isUsingStore(context)) {
@@ -151,12 +157,12 @@ public class SKIabProducts {
      * For Naver Store Mode
      */
     // 인앱 정보를 읽어오며 자동으로 적용
-    public static void saveIabProducts(List<NaverIabInventoryItem> productList, Context context) {
+    public static void saveIabProducts(Context context, List<Purchase> purchases) {
         SharedPreferences.Editor edit = context.getSharedPreferences(SHARED_PREFERENCES_IAB, Context.MODE_PRIVATE).edit();
         edit.clear(); // 모두 삭제 후 다시 추가
-        for (NaverIabInventoryItem naverIabInventoryItem : productList) {
-            if (naverIabInventoryItem.isAvailable()) {
-                edit.putBoolean(NaverIabProductUtils.googleSkuMap.get(naverIabInventoryItem.getKey()), true);
+        for (Purchase purchase : purchases) {
+            if (purchase.getPurchaseType() == Purchase.PurchaseType.APPROVED) {
+                edit.putBoolean(NIAPUtils.convertToGoogleSku(purchase.getProductCode()), true);
             }
         }
         edit.apply();

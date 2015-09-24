@@ -3,14 +3,12 @@ package com.yooiistudios.morningkit;
 import android.app.Application;
 import android.content.res.Configuration;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
-import io.fabric.sdk.android.Fabric;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -66,7 +64,7 @@ public class MNApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
+//        Fabric.with(this, new Crashlytics());
 
         Configuration config = getApplicationContext().getResources().getConfiguration();
 

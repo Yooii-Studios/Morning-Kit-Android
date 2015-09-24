@@ -1,7 +1,8 @@
-package com.naver.iap;
+package com.yooiistudios.morningkit.iab;
 
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +12,10 @@ import java.util.Map;
  * NaverIabProducts
  *  구글 Sku ID를 받아서 변환하는 클래스
  */
-public class NaverIabProductUtils {
-    private NaverIabProductUtils() { throw new AssertionError("You MUST not create this class!"); }
+public class NIAPUtils {
+    private NIAPUtils() { throw new AssertionError("You MUST not create this class!"); }
+
+    public static final String NIAP_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC273wBt+dcVclW1WKmorA511mMgAjcYwzPWZyhSE8VOg7K9ixm/gLH/GdWxbmU2y+kqO7Z/Onqu4+opHJmZ3Si3dn8NWdrJXQvXfZMUaFV0vo27t5SF7lPVglpWi4QsQDCK+dHIFNFJIIMTecXFk4kQFdCdKdh5q2PcZHPOw1c7QIDAQAB";
 
     private static final String NAVER_IAB_FULL_VERSION = "1000007647";
     private static final String NAVER_IAB_MORE_ALARM_SLOTS = "1000007649";
@@ -24,11 +27,11 @@ public class NaverIabProductUtils {
     private static final String NAVER_IAB_MODERNITY = "1000007650";
     private static final String NAVER_IAB_CELESTIAL = "1000007655";
 
-    public static final Map<String, String> naverSkuMap;
-    public static final Map<String, String> googleSkuMap;
+    private static final Map<String, String> naverSkuMap;
+    private static final Map<String, String> googleSkuMap;
 
     static {
-        naverSkuMap = new HashMap<String, String>();
+        naverSkuMap = new HashMap<>();
         naverSkuMap.put(SKIabProducts.SKU_FULL_VERSION, NAVER_IAB_FULL_VERSION);
         naverSkuMap.put(SKIabProducts.SKU_MORE_ALARM_SLOTS, NAVER_IAB_MORE_ALARM_SLOTS);
         naverSkuMap.put(SKIabProducts.SKU_NO_ADS, NAVER_IAB_NO_ADS);
@@ -39,7 +42,7 @@ public class NaverIabProductUtils {
         naverSkuMap.put(SKIabProducts.SKU_MODERNITY, NAVER_IAB_MODERNITY);
         naverSkuMap.put(SKIabProducts.SKU_CELESTIAL, NAVER_IAB_CELESTIAL);
 
-        googleSkuMap = new HashMap<String, String>();
+        googleSkuMap = new HashMap<>();
         googleSkuMap.put(NAVER_IAB_FULL_VERSION, SKIabProducts.SKU_FULL_VERSION);
         googleSkuMap.put(NAVER_IAB_MORE_ALARM_SLOTS, SKIabProducts.SKU_MORE_ALARM_SLOTS);
         googleSkuMap.put(NAVER_IAB_NO_ADS, SKIabProducts.SKU_NO_ADS);
@@ -49,5 +52,18 @@ public class NaverIabProductUtils {
         googleSkuMap.put(NAVER_IAB_PHOTO_FRAME, SKIabProducts.SKU_PHOTO_FRAME);
         googleSkuMap.put(NAVER_IAB_MODERNITY, SKIabProducts.SKU_MODERNITY);
         googleSkuMap.put(NAVER_IAB_CELESTIAL, SKIabProducts.SKU_CELESTIAL);
+    }
+
+    public static String convertToGoogleSku(String naverSku) {
+        return googleSkuMap.get(naverSku);
+    }
+
+    public static String convertToNaverSku(String googleSku) {
+        return naverSkuMap.get(googleSku);
+    }
+
+    public static ArrayList<String> getAllProducts() {
+        // 구글맵의 네이버 프로덕트 id 들
+        return new ArrayList<>(googleSkuMap.keySet());
     }
 }

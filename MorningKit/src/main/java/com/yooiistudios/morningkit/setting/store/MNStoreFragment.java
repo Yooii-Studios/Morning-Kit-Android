@@ -20,9 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
-import com.naver.iap.NaverIabActivity;
-import com.naver.iap.NaverIabInventoryItem;
-import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.encryption.MNMd5Utils;
@@ -30,6 +27,7 @@ import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.number.MNDecimalFormatUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
+import com.yooiistudios.morningkit.iab.NaverIabInventoryItem;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
@@ -44,7 +42,6 @@ import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixType;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -285,10 +282,11 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     public void onFirstStoreLoading() {
         showLoadingViews();
 
-        Intent intent = new Intent(getActivity(), NaverIabActivity.class);
-        intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_QUERY_PURCHASE);
-        startActivityForResult(intent, RC_NAVER_IAB);
-        isNaverStoreStartLoading = true;
+        // TODO: Naver
+//        Intent intent = new Intent(getActivity(), NaverIabActivity.class);
+//        intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_QUERY_PURCHASE);
+//        startActivityForResult(intent, RC_NAVER_IAB);
+//        isNaverStoreStartLoading = true;
     }
 
     public void onRefreshPurchases() {
@@ -410,11 +408,12 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
             if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
                 showLoadingViews();
 
-                Intent intent = new Intent(getActivity(), NaverIabActivity.class);
-                intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
-                intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
-                        NaverIabProductUtils.naverSkuMap.get(SKIabProducts.SKU_FULL_VERSION));
-                startActivityForResult(intent, RC_NAVER_IAB);
+                // TODO: Naver
+//                Intent intent = new Intent(getActivity(), NaverIabActivity.class);
+//                intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
+//                intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
+//                        NaverIabProductUtils.naverSkuMap.get(SKIabProducts.SKU_FULL_VERSION));
+//                startActivityForResult(intent, RC_NAVER_IAB);
             } else {
                 iabManager.processPurchase(SKIabProducts.SKU_FULL_VERSION, this);
             }
@@ -605,17 +604,19 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
     public void onItemClickedForNaver(String sku) {
         showLoadingViews();
 
-        Intent intent = new Intent(getActivity(), NaverIabActivity.class);
-        intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
-        intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
-                NaverIabProductUtils.naverSkuMap.get(sku));
-        startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
+        // TODO: Naver
+//        Intent intent = new Intent(getActivity(), NaverIabActivity.class);
+//        intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
+//        intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
+//                NaverIabProductUtils.naverSkuMap.get(sku));
+//        startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            /*
             case RC_NAVER_IAB:
                 if (resultCode == Activity.RESULT_OK) {
                     String action = data.getStringExtra(NaverIabActivity.KEY_ACTION);
@@ -646,6 +647,7 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
                 // 네이버 인앱 페이지에서 돌아오면 로딩뷰 감추기
                 hideLoadingViews();
                 break;
+            */
         }
     }
 
@@ -653,12 +655,13 @@ public class MNStoreFragment extends Fragment implements SKIabManagerListener, I
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(getActivity());
 
         NaverIabInventoryItem fullVersionNaverIabItem = null;
-        for (NaverIabInventoryItem naverIabInventoryItem : productList) {
-            if (naverIabInventoryItem.getKey().equals(
-                    NaverIabProductUtils.naverSkuMap.get(SKIabProducts.SKU_FULL_VERSION))) {
-                fullVersionNaverIabItem = naverIabInventoryItem;
-            }
-        }
+        // TODO: 네이버 인앱
+//        for (NaverIabInventoryItem naverIabInventoryItem : productList) {
+//            if (naverIabInventoryItem.getKey().equals(
+//                    NIAPUtils.naverSkuMap.get(SKIabProducts.SKU_FULL_VERSION))) {
+//                fullVersionNaverIabItem = naverIabInventoryItem;
+//            }
+//        }
 
         if (fullVersionNaverIabItem != null) {
             // 네이버에서 구매했거나, 다른 곳에서 구매해서 ownedSkus 에 있는지 둘 다 확인 필요

@@ -1,4 +1,4 @@
-package com.naver.iap;
+package com.yooiistudios.morningkit.iab;
 
 import android.os.Parcel;
 import android.os.Parcelable;

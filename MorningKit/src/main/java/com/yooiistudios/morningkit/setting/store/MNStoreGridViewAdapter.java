@@ -9,12 +9,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.naver.iap.NaverIabInventoryItem;
-import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.common.number.MNDecimalFormatUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
+import com.yooiistudios.morningkit.iab.NaverIabInventoryItem;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.store.util.IabHelper;
@@ -195,17 +193,17 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
             boolean hasDetails = false;
             if (naverIabInventoryItemList != null) {
                 for (NaverIabInventoryItem naverIabInventoryItem : naverIabInventoryItemList) {
-                    if (naverIabInventoryItem.getKey().equals(
-                            NaverIabProductUtils.naverSkuMap.get(sku))) {
-                        hasDetails = true;
-
-                        if (naverIabInventoryItem.isAvailable()) {
-                            viewHolder.getPriceTextView().setText(R.string.store_purchased);
-                        } else {
-                            viewHolder.getPriceTextView().setText(
-                                    "₩" + MNDecimalFormatUtils.makeStringComma(naverIabInventoryItem.getPrice()));
-                        }
-                    }
+                    // TODO: 네이버 인앱
+//                    if (naverIabInventoryItem.getKey().equals(NIAPUtils.naverSkuMap.get(sku))) {
+//                        hasDetails = true;
+//
+//                        if (naverIabInventoryItem.isAvailable()) {
+//                            viewHolder.getPriceTextView().setText(R.string.store_purchased);
+//                        } else {
+//                            viewHolder.getPriceTextView().setText(
+//                                    "₩" + MNDecimalFormatUtils.makeStringComma(naverIabInventoryItem.getPrice()));
+//                        }
+//                    }
                 }
                 if (!hasDetails) {
                     viewHolder.getPriceTextView().setText(R.string.loading);

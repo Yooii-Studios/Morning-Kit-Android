@@ -1,4 +1,4 @@
-package com.naver.iap;
+package com.yooiistudios.morningkit.iab;
 
 public class NaverIabProductInfo {
 	private String mKey;

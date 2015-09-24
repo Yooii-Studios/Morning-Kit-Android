@@ -1,6 +1,5 @@
 package com.yooiistudios.morningkit.common.unlock;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -25,9 +24,6 @@ import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.analytics.GoogleAnalytics;
-import com.naver.iap.NaverIabActivity;
-import com.naver.iap.NaverIabInventoryItem;
-import com.naver.iap.NaverIabProductUtils;
 import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
@@ -37,7 +33,8 @@ import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.recommend.FacebookPostUtils;
 import com.yooiistudios.morningkit.common.review.MNReviewApp;
-import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
+import com.yooiistudios.morningkit.iab.IabListener;
+import com.yooiistudios.morningkit.iab.NaverIabManager;
 import com.yooiistudios.morningkit.setting.store.MNStoreType;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabManagerListener;
@@ -47,7 +44,6 @@ import com.yooiistudios.morningkit.setting.store.util.IabResult;
 import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.store.util.Purchase;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +53,7 @@ import butterknife.InjectView;
 import lombok.Getter;
 
 public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnClickListener,
-        SKIabManagerListener, IabHelper.OnIabPurchaseFinishedListener {
+        SKIabManagerListener, IabHelper.OnIabPurchaseFinishedListener, IabListener {
     private static final String TAG = "UnlockActivity";
 
     public static final String SHARED_PREFS = "UNLOCK_SHARED_PREFS";
@@ -70,9 +66,10 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     private String productSku;
 
     @Getter private SKIabManager iabManager;
+    @Getter private NaverIabManager naverIabManager;
 
-
-    private boolean isReviewScreenCalled = false;
+    // TODO: 새 네이버 API 에서는 필요 없음. 확인하고 지울 것.
+//    private boolean isReviewScreenCalled = false;
 
     private int resumeCount = 0;
 
@@ -160,9 +157,12 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
             iabManager = new SKIabManager(this, this);
             iabManager.loadWithAllItems();
         } else {
-            Intent intent = new Intent(this, NaverIabActivity.class);
-            intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_QUERY_PURCHASE);
-            startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
+            // TODO: Naver
+            naverIabManager = new NaverIabManager(this, this);
+            naverIabManager.setup();
+//            Intent intent = new Intent(this,NaverIabActivity.class);
+//            intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_QUERY_PURCHASE);
+//            startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
         }
     }
 
@@ -186,12 +186,13 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     @Override
     protected void onResume() {
         super.onResume();
-        if (isReviewScreenCalled) {
-            resumeCount ++;
-            if (resumeCount == 2) {
-                onAfterReviewItemClicked();
-            }
-        }
+        // TODO: 새 네이버 빌드에서는 이 부분이 필요 없음
+//        if (isReviewScreenCalled) {
+//            resumeCount ++;
+//            if (resumeCount == 2) {
+//                onAfterReviewItemClicked();
+//            }
+//        }
     }
 
     @Override
@@ -213,7 +214,22 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
             }
         } else {
             // 네이버 빌드
+            // TODO: Naver
+            boolean handled = false;
+            if (naverIabManager != null) {
+                handled = !naverIabManager.isHelperDisposed()
+                        && naverIabManager.handleActivityResult(requestCode, resultCode, data);
+            } else {
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+
+            if (!handled) {
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+
             super.onActivityResult(requestCode, resultCode, data);
+
+            /*
             // 네이버 구매
             switch (requestCode) {
                 case MNStoreFragment.RC_NAVER_IAB:
@@ -256,10 +272,12 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
                         break;
                     }
             }
+            */
             // 리뷰 달기
             if (requestCode == MNReviewApp.REQ_REVIEW_APP) {
                 saveUnlockedItem(REVIEW_USED, REVIEW_USED_PRODUCT_SKU);
-                isReviewScreenCalled = true;
+                onAfterReviewItemClicked();
+//                isReviewScreenCalled = true;
             }
         }
 
@@ -276,6 +294,9 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         if (iabManager != null) {
             iabManager.dispose();
         }
+        if (naverIabManager != null) {
+            naverIabManager.dispose();
+        }
     }
 
     @Override
@@ -287,11 +308,13 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         switch (convertedIndex) {
             case 0:
                 if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
-                    Intent intent = new Intent(this, NaverIabActivity.class);
-                    intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
-                    intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
-                            NaverIabProductUtils.naverSkuMap.get(SKIabProducts.SKU_FULL_VERSION));
-                    startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
+                    // TODO: Naver
+                    naverIabManager.purchase(SKIabProducts.SKU_FULL_VERSION);
+//                    Intent intent = new Intent(this, NaverIabActivity.class);
+//                    intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
+//                    intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
+//                            NaverIabProductUtils.naverSkuMap.get(SKIabProducts.SKU_FULL_VERSION));
+//                    startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
                 } else {
                     iabManager.processPurchase(SKIabProducts.SKU_FULL_VERSION, this);
                 }
@@ -299,11 +322,13 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
             case 1:
                 if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
-                    Intent intent = new Intent(this, NaverIabActivity.class);
-                    intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
-                    intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
-                            NaverIabProductUtils.naverSkuMap.get(productSku));
-                    startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
+                    // TODO: Naver
+                    naverIabManager.purchase(productSku);
+//                    Intent intent = new Intent(this, NaverIabActivity.class);
+//                    intent.putExtra(NaverIabActivity.KEY_ACTION, NaverIabActivity.ACTION_PURCHASE);
+//                    intent.putExtra(NaverIabActivity.KEY_PRODUCT_KEY,
+//                            NaverIabProductUtils.naverSkuMap.get(productSku));
+//                    startActivityForResult(intent, MNStoreFragment.RC_NAVER_IAB);
                 } else {
                     iabManager.processPurchase(productSku, this);
                 }
@@ -524,5 +549,37 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         super.onStop();
         FlurryAgent.onEndSession(this);
         GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
+
+    /**
+     * Naver Iab
+     */
+    @Override
+    public void onIabSetupFinished() {}
+
+    @Override
+    public void onIabSetupFailed(String message) {}
+
+    @Override
+    public void onQueryFinished(Map<String, String> googleSkuToPriceMap) {
+        // 풀 버전이나 해당 기능 구매 목록이 이미 있을 경우
+        List<String> ownedProducts = SKIabProducts.loadOwnedIabProducts(this);
+        if (ownedProducts.contains(SKIabProducts.SKU_FULL_VERSION) ||
+                ownedProducts.contains(productSku)) {
+            refreshUI();
+        }
+    }
+
+    @Override
+    public void onQueryFailed(String message) {}
+
+    @Override
+    public void onIabPurchaseFinished(String googleSku) {
+        refreshUI();
+    }
+
+    @Override
+    public void onIabPurchaseFailed(String message) {
+        showComplain("Purchase Failed: " + message);
     }
 }
