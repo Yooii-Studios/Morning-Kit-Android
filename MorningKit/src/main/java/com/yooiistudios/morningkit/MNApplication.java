@@ -64,7 +64,7 @@ public class MNApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        Fabric.with(this, new Crashlytics());
+        Fabric.with(this, new Crashlytics());
 
         Configuration config = getApplicationContext().getResources().getConfiguration();
 
