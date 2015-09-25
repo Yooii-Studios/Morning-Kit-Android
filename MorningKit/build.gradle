@@ -35,24 +35,10 @@ android {
         applicationId "com.yooiistudios.morningkit"
     }
 
-    signingConfigs {
-        release {
-            storeFile file("/Development/Android/keystore/morningkit.jks")
-            keyAlias "morningkit_key"
-
-            // These two lines make gradle believe that the signingConfigs
-            // section is complete. Without them, tasks like installRelease
-            // will not be available!
-            storePassword "tempPassword"
-            keyPassword "tempPassword"
-        }
-    }
-
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-            signingConfig signingConfigs.release
         }
     }
 
@@ -83,12 +69,6 @@ android {
         pickFirst 'META-INF/NOTICE'
         pickFirst 'META-INF/LGPL2.1'
     }
-
-    // java 1.7을 지원하는 코드. 하지만 OS단에서 java 1.6을 사용하고 있음
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_7
-//        targetCompatibility JavaVersion.VERSION_1_7
-//    }
 }
 
 //apply plugin: 'android-unit-test'
