@@ -48,7 +48,7 @@ public class MNAnalyticsUtils {
                 .build());
     }
 
-    // 풀버전 광고가 불려질 때 풀버전인지 아닌지 체크
+    // 풀버전 광고가 불려질 때 풀버전인지 아닌지 체크 - GA 확인 결과 YES 가 단 한 건도 없음
     public static void trackInterstitialAd(MNApplication application, String TAG) {
         List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(application);
 
