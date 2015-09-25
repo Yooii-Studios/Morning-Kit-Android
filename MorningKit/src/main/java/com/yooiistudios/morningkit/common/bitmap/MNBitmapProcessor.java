@@ -13,6 +13,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import com.crashlytics.android.Crashlytics;
 import com.yooiistudios.morningkit.common.file.ExternalStorageManager;
 import com.yooiistudios.morningkit.common.log.MNLog;
 
@@ -123,6 +124,18 @@ public class MNBitmapProcessor {
                                 newBitmapSize.x, newBitmapSize.y);
                     } catch (OutOfMemoryError error) {
                         error.printStackTrace();
+                        croppedBitmap = null;
+                    } catch (IllegalArgumentException e) {
+                        e.printStackTrace();
+                        Crashlytics.log("(b)가 작다면 bitmap의 width는 frame.width, height는 frame.width / ratio");
+                        Crashlytics.log("bitmap.getHeight() - newBitmapSize.y: " + (bitmap.getHeight() - newBitmapSize.y));
+                        Crashlytics.log("targetWidth: " + targetWidth);
+                        Crashlytics.log("targetHeight: " + targetHeight);
+                        Crashlytics.log("newBitmapSize.x: " + newBitmapSize.x);
+                        Crashlytics.log("newBitmapSize.y: " + newBitmapSize.y);
+                        Crashlytics.log("bitmap.getWidth(): " + bitmap.getWidth());
+                        Crashlytics.log("bitmap.getHeight(): " + bitmap.getHeight());
+                        
                         croppedBitmap = null;
                     }
                 }
