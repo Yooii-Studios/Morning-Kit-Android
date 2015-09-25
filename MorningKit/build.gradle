@@ -59,7 +59,7 @@ android {
         androidTest.setRoot('src/test')
     }
 
-    packagingOptions { // gralde 0.7.1 + Studio 0.4.0 에서 생긴 duplicate 버그를 해결하기 위함
+    packagingOptions { // gradle 0.7.1 + Studio 0.4.0 에서 생긴 duplicate 버그를 해결하기 위함
         pickFirst 'META-INF/services/javax.annotation.processing.Processor'
         pickFirst 'META-INF/DEPENDENCIES.txt'
         pickFirst 'META-INF/DEPENDENCIES'
@@ -81,13 +81,14 @@ dependencies {
     compile project(':libraries:DatePickerLibrary')
     compile project(':libraries:TimePickerLibrary')
     compile project(':libraries:sAXRSSReader')
+    compile project(':libraries:FullscreenAd')
 
     // 안드로이드 기본
-    compile 'com.android.support:support-v4:19.1.0' // 21.+ 버전부터 안드로이드 L 이라서 막아둠
+    compile 'com.android.support:support-v4:19.1.0'
     compile 'com.android.support:appcompat-v7:19.1.0'
 
     // 위치 서비스 관련
-    compile 'com.google.android.gms:play-services:5.0.89' // 4.0.+ 에서 버전업
+    compile 'com.google.android.gms:play-services:5.0.89'
 
     // 모든 jar 파일 로딩
     compile fileTree(dir: 'libs', include: '*.jar')
@@ -97,8 +98,8 @@ dependencies {
     compile 'com.squareup:otto:1.3.5'
     compile 'com.jakewharton:butterknife:4.0.1'
 
-    // Getter & Setter를 annotation으로 해결
-    // (Android Studio용 플러그인용 jar 파일을 웹에서 받아서 <설정 -> plugin -> disk 에서 설치> 필요)
+    // Getter & Setter 를 annotation 으로 해결
+    // (Android Studio 용 플러그인용 jar 파일을 웹에서 받아서 <설정 -> plugin -> disk 에서 설치> 필요)
     compile 'org.projectlombok:lombok:1.12.6'
 
     // 설정앱에서 사용된 라이브러리
