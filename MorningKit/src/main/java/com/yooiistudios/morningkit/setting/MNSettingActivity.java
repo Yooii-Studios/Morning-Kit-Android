@@ -23,10 +23,7 @@ import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.panel.MNPanelSettingFragment;
 import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 import com.yooiistudios.morningkit.setting.store.MNStoreType;
-import com.yooiistudios.morningkit.setting.store.util.IabHelper;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
-
-import lombok.Setter;
 
 /**
  * Created by StevenKim in Morning Kit from Yooii Studios Co., LTD. on 2014. 1. 6.
@@ -52,8 +49,6 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
      * The {@link android.support.v4.view.ViewPager} that will host the section contents.
      */
     MNSettingViewPager mViewPager;
-
-    @Setter IabHelper iabHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +132,10 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
                                 } else {
                                     // 2탭 너머 있는 상태에서 클릭할 경우에 onCreateView를 호출함
                                     if (storeFragment.getProductList() != null) {
+                                        // TODO: Naver IAB. 빌드 되게 하기 위해 주석 처리
+                                        /*
                                         storeFragment.initUIAfterLoading(storeFragment.getProductList());
+                                        */
                                     } else {
                                         storeFragment.onFirstStoreLoading();
                                     }
@@ -187,6 +185,8 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO: Naver IAB. 빌드 되게 하기 위해 주석 처리
+        /*
         if (!(iabHelper == null)) {
             if (!iabHelper.handleActivityResult(requestCode, resultCode, data)) {
                 // not handled, so handle it ourselves (here's where you'd
@@ -198,6 +198,7 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+        */
     }
 
     @Override

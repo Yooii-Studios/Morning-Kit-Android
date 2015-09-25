@@ -55,7 +55,6 @@ import com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreType;
-import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
 import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
@@ -173,10 +172,13 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             NaverIabManager iabManager = new NaverIabManager(this, null);
             iabManager.setup();
         } else {
+            // TODO: Naver IAB. 빌드 되게 하기 위해 주석 처리
+            /*
             try {
                 SKIabManager iabManager = new SKIabManager(this, null);
                 iabManager.loadWithAllItems();
             } catch (Exception ignored) { }
+            */
         }
     }
 

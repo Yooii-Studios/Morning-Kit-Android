@@ -14,19 +14,20 @@ import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
-import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import lombok.Getter;
 
 public class MNStoreActivity extends MNSettingDetailActivity {
     private static final String TAG = "SoundEffectActivity";
 
     @InjectView(R.id.store_container) RelativeLayout backgroundLayout;
+    // TODO: Naver IAB. 빌드 되게 하기 위해 주석 처리
+    /*
     @Getter private SKIabManager iabManager;
+    */
     MNStoreFragment storeFragment;
 
     @Override
@@ -71,14 +72,19 @@ public class MNStoreActivity extends MNSettingDetailActivity {
     private void initIab() {
         boolean isStoreForNaver = MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER);
         if (!isStoreForNaver) {
+            // TODO: Naver IAB. 빌드 되게 하기 위해 주석 처리
+            /*
             iabManager = new SKIabManager(this, storeFragment);
             iabManager.loadWithAllItems();
             storeFragment.setIabManager(iabManager);
+            */
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO: Naver IAB. 빌드 되게 하기 위해 주석 처리
+        /*
         if (iabManager != null) {
             if (iabManager.getHelper() == null) return;
 
@@ -92,6 +98,7 @@ public class MNStoreActivity extends MNSettingDetailActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+        */
     }
 
     @Override

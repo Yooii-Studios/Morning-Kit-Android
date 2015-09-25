@@ -13,14 +13,13 @@ import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.iab.NaverIabInventoryItem;
-import com.yooiistudios.morningkit.setting.store.iab.SKIabManager;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
 import com.yooiistudios.morningkit.setting.store.util.IabHelper;
-import com.yooiistudios.morningkit.setting.store.util.Inventory;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -36,9 +35,8 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
     private static final String TAG = "MNStoreGridViewAdapter";
     private Context context;
     private MNStoreTabType type;
-    private SKIabManager iabManager;
     private IabHelper.OnIabPurchaseFinishedListener onIabPurchaseFinishedListener;
-    @Setter Inventory inventory;
+    @Setter Map<String, String> googleSkuToPriceMap;
     @Setter List<String> ownedSkus;
 
     // For Naver Iab
@@ -52,15 +50,11 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
     }
 
     private MNStoreGridViewAdapter(){}
-    public MNStoreGridViewAdapter(Context context, MNStoreTabType type, Inventory inventory,
-                                  SKIabManager iabManager,
-                                  IabHelper.OnIabPurchaseFinishedListener onIabPurchaseFinishedListener,
+    public MNStoreGridViewAdapter(Context context, MNStoreTabType type, Map<String, String> googleSkuToPriceMap,
                                   MNStoreGridViewOnClickListener storeGridViewOnClickListener) {
         this.context = context;
         this.type = type;
-        this.inventory = inventory;
-        this.iabManager = iabManager;
-        this.onIabPurchaseFinishedListener = onIabPurchaseFinishedListener;
+        this.googleSkuToPriceMap = googleSkuToPriceMap;
         ownedSkus = SKIabProducts.loadOwnedIabProducts(context);
 
         // debug
@@ -168,13 +162,8 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                     MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
                 }
                 if (MNStoreDebugChecker.isUsingStore(context)) {
-                    if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
-                        storeGridViewOnClickListener.onItemClickedForNaver(
-                                (String) viewHolder.getPriceTextView().getTag());
-                    } else {
-                        iabManager.processPurchase((String) viewHolder.getPriceTextView().getTag(),
-                                onIabPurchaseFinishedListener);
-                    }
+                    storeGridViewOnClickListener.onItemClickedForNaver(
+                            (String) viewHolder.getPriceTextView().getTag());
                 } else {
                     storeGridViewOnClickListener.onItemClickedDebug((String) viewHolder.getPriceTextView().getTag());
                 }
@@ -213,12 +202,12 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
             }
         } else {
             // Google
-            if (inventory != null) {
-                if (inventory.hasDetails(sku)) {
-                    if (inventory.hasPurchase(sku)) {
+            if (googleSkuToPriceMap != null) {
+                if (googleSkuToPriceMap.containsKey(sku)) {
+                    if (SKIabProducts.containsSku(sku, context)) {
                         viewHolder.getPriceTextView().setText(R.string.store_purchased);
                     } else {
-                        viewHolder.getPriceTextView().setText(inventory.getSkuDetails(sku).getPrice());
+                        viewHolder.getPriceTextView().setText(googleSkuToPriceMap.get(sku));
                     }
                 } else {
                     viewHolder.getPriceTextView().setText(R.string.loading);
@@ -245,11 +234,7 @@ public class MNStoreGridViewAdapter extends BaseAdapter {
                     MNSoundEffectsPlayer.play(R.raw.effect_view_open, context);
                 }
                 if (MNStoreDebugChecker.isUsingStore(context)) {
-                    if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
-                        storeGridViewOnClickListener.onItemClickedForNaver((String) v.getTag());
-                    } else {
-                        iabManager.processPurchase((String) v.getTag(), onIabPurchaseFinishedListener);
-                    }
+                    storeGridViewOnClickListener.onItemClickedForNaver((String) v.getTag());
                 } else {
                     storeGridViewOnClickListener.onItemClickedDebug((String) v.getTag());
                 }
