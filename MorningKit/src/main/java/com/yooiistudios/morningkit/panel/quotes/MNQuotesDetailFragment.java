@@ -194,7 +194,7 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
     private void initLanguageLayouts() {
         // 기존의 로직을 해치지 않기 위해 MNQuotesLanguage 순서로 꼭 리스트를 만들어주고 관리
         // 초기화 이후 레이아웃 위아래만 따로 바꾸어줄것
-        languageImageButtons = new ArrayList<>();
+        languageImageButtons = new ArrayList<ImageButton>();
         languageImageButtons.add(getImageButtonFromLayout(englishLayout));
         languageImageButtons.add(getImageButtonFromLayout(japaneseLayout));
         languageImageButtons.add(getImageButtonFromLayout(koreanLayout));
@@ -204,7 +204,7 @@ public class MNQuotesDetailFragment extends MNPanelDetailFragment implements Vie
         languageImageButtons.add(getImageButtonFromLayout(frenchLayout));
         languageImageButtons.add(getImageButtonFromLayout(germanLayout));
 
-        languageTextViews = new ArrayList<>();
+        languageTextViews = new ArrayList<TextView>();
         languageTextViews.add(getTextViewFromLayout(englishLayout));
         languageTextViews.add(getTextViewFromLayout(japaneseLayout));
         languageTextViews.add(getTextViewFromLayout(koreanLayout));
