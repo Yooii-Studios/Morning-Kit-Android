@@ -696,7 +696,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         wakeDialog.setCancelable(false);
         wakeDialog.setCanceledOnTouchOutside(false);
         wakeDialog.setTitle(R.string.app_name);
-        wakeDialog.setMessage("현재 위치를 사용하시겠습니까?");
+        wakeDialog.setMessage("날씨 정보를 가져오기 위해 위치 정보 사용 동의가 필요합니다. 현재 위치를 사용하시겠습니까?");
         wakeDialog.show();
     }
 
