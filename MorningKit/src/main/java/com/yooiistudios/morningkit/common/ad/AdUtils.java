@@ -42,6 +42,7 @@ public class AdUtils {
     private static final String NEWS_KIT_PACKAGE_NAME = "com.yooiistudios.newskit";
 
     // 원하는 카운트에 실행이 되는지 테스트 용도. 필요할 때 풀고 사용하자
+    /*
     public static void resetCounts(Context context) {
         if (context == null) {
             return;
@@ -51,6 +52,7 @@ public class AdUtils {
         prefs.edit().remove(EACH_AD_COUNT).apply();
         prefs.edit().remove(EACH_LAUNCH_COUNT).apply();
     }
+    */
 
     public static void showPopupAdIfSatisfied(Context context) {
         if (context == null) {
