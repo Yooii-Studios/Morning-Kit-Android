@@ -2,11 +2,13 @@ package com.yooiistudios.stevenkim.alarmsound;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
+import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -81,13 +83,27 @@ public class SKAlarmSoundPlayer {
     }
 
     public static void playAppMusic(final int rawInt, int volume, final Context context) throws IOException {
-        AssetFileDescriptor afd = context.getResources().openRawResourceFd(rawInt);
-        if (afd != null) {
-            getMediaPlayer().reset();
-            getMediaPlayer().setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-            afd.close();
-            play(volume, context);
+        try {
+            AssetFileDescriptor afd = context.getResources().openRawResourceFd(rawInt);
+            if (afd != null) {
+                getMediaPlayer().reset();
+                getMediaPlayer().setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                afd.close();
+                play(volume, context);
+            }
+        } catch (FileNotFoundException e) {
+            playDefaultRingtone(context, volume);
+        } catch (Resources.NotFoundException e){
+            playDefaultRingtone(context, volume);
         }
+    }
+
+    public static void playDefaultRingtone(Context context, int volume) throws IOException {
+        getMediaPlayer().reset();
+        SKAlarmSound defaultRingtone = SKAlarmSoundFactory.makeDefaultAlarmSound(context);
+        Uri uri = Uri.parse(defaultRingtone.getSoundPath());
+        getMediaPlayer().setDataSource(context, uri);
+        play(volume, context);
     }
 
     public static void playAlarmSound(final SKAlarmSound alarmSound, int volume, final Context context) throws IOException {
