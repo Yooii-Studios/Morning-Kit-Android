@@ -2,6 +2,7 @@ package com.yooiistudios.morningkit.panel.newsfeed.util;
 
 import android.content.Context;
 
+import com.crashlytics.android.Crashlytics;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
@@ -76,15 +77,31 @@ public class MNNewsFeedUrlProvider {
         MNNewsProviderLanguage newsProviderLanguage = mNewsLanguages.get(langRegionCode);
         MNNewsProviderCountry providerCountry;
         if (newsProviderLanguage == null) {
-            newsProviderLanguage = mNewsLanguages.get("en");
-            providerCountry = newsProviderLanguage.newsProviderCountries.get("US");
+            providerCountry = getDefaultNewsProviderCountry();
         } else {
             providerCountry = newsProviderLanguage.newsProviderCountries.get(countryCode);
         }
 
+        // 위 한번 더 체크를 하는 로직을 추가, 크래시가 안 생기길 바래봄. 문제 상황을 발견해 다음에 해결을 위해 로그 추가
+        if (providerCountry == null) {
+            Crashlytics.log("countryCode: " + countryCode);
+            Crashlytics.log("langRegionCode: " + langRegionCode);
+            if (newsProviderLanguage != null) {
+                Crashlytics.log("newsProviderLanguage.newsProviderCountries.size(): " +
+                        newsProviderLanguage.newsProviderCountries.size());
+            } else {
+                Crashlytics.log("newsProviderLanguage == null");
+            }
+
+            // 해결을 위한 로직
+            providerCountry = getDefaultNewsProviderCountry();
+        }
         return new MNNewsFeedUrl(providerCountry, MNNewsFeedUrlType.CURATION);
-//        return new MNNewsFeedUrl(providerCountry.url, MNNewsFeedUrlType.CURATION,
-//                providerCountry.languageCode, providerCountry.regionCode, providerCountry.countryCode);
+    }
+
+    public MNNewsProviderCountry getDefaultNewsProviderCountry() {
+        MNNewsProviderLanguage newsProviderLanguage = mNewsLanguages.get("en");
+        return newsProviderLanguage.newsProviderCountries.get("US");
     }
 
     public LinkedHashMap<String, MNNewsProviderLanguage> getUrlsSortedByLocale() {
