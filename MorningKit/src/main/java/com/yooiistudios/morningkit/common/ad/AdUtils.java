@@ -106,7 +106,7 @@ public class AdUtils {
     private static void showNewsKitAd(Context context) {
         // 뉴스키트가 설치된 경우 대신 인하우스 광고 보여주기
         if (!isPackageExisted(context, NEWS_KIT_PACKAGE_NAME)) {
-            FullscreenAdUtils.showMorningKitAd(context);
+            FullscreenAdUtils.showNewsKitAd(context);
         } else {
             showInHouseStoreAd(context);
         }
