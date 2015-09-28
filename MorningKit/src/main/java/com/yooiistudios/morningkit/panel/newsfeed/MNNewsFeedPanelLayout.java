@@ -29,11 +29,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.textview.AutoResizeTextView;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
+import com.yooiistudios.morningkit.panel.newsfeed.model.DateDeserializer;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrlType;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUrlProvider;
@@ -51,6 +54,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Random;
 
 import nl.matshofman.saxrssreader.RssFeed;
@@ -151,7 +155,6 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
         Type urlType = new TypeToken<MNNewsFeedUrl>(){}.getType();
 
         if (getPanelDataObject().has(KEY_LOADING_FEED_URL)) {
-//            loadingFeedUrl = getPanelDataObject().getString(KEY_LOADING_FEED_URL);
             loadingFeedUrl = new Gson().fromJson(getPanelDataObject().getString
                     (KEY_LOADING_FEED_URL), urlType);
 
@@ -162,68 +165,53 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                 prefs.edit().putString(KEY_LOADING_FEED_URL,
                         new Gson().toJson(loadingFeedUrl)).apply();
             }
-        }
-        else {
+        } else {
             loadingFeedUrl = null;
         }
+
         if (loadingFeedUrl != null) {
             loadNewsFeed(loadingFeedUrl);
-        }
-        else {
+        } else {
             if (getPanelDataObject().has(KEY_FEED_URL)) {
-//                feedUrl = getPanelDataObject().getString(KEY_FEED_URL);
-                feedUrl = new Gson().fromJson(
-                        getPanelDataObject().getString(KEY_FEED_URL), urlType);
-
-//                if (!feedUrl.type.equals(MNNewsFeedUrlType.CUSTOM)) {
-//                    feedUrl = MNNewsFeedUrlProvider.getInstance(context).getDefault();
-//                    getPanelDataObject().put(KEY_FEED_URL,
-//                            new Gson().toJson(feedUrl));
-//                    prefs.edit().putString(KEY_FEED_URL,
-//                            new Gson().toJson(feedUrl)).apply();
-//                }
-            }
-            else {
+                feedUrl = new Gson().fromJson(getPanelDataObject().getString(KEY_FEED_URL), urlType);
+            } else {
                 String savedUrl = prefs.getString(KEY_FEED_URL, null);
                 if (savedUrl != null) {
                     feedUrl = new Gson().fromJson(savedUrl, urlType);
-                }
-                else {
+                } else {
                     feedUrl = MNNewsFeedUrlProvider.getInstance(context).getDefault();
                 }
-//                feedUrl = prefs.getString(KEY_FEED_URL,
-//                        MNNewsFeedUtil.getDefaultFeedUrl(getContext()));
-//                getPanelDataObject().put(KEY_FEED_URL,
-//                        new Gson().toJson(feedUrl));
-//                prefs.edit().putString(KEY_FEED_URL,
-//                        new Gson().toJson(feedUrl)).apply();
             }
-            //메인에서 이전 피드 캐싱해서 보여주던 루틴 없엠.(피드 url 이 바뀐 경우 의미 없음)
-            if (getPanelDataObject().has(KEY_RSS_FEED)
-                    && getPanelDataObject().has(KEY_RSS_ITEMS)) {
+
+            // 메인에서 이전 피드 캐싱해서 보여주던 루틴 없엠.(피드 url 이 바뀐 경우 의미 없음)
+            if (getPanelDataObject().has(KEY_RSS_FEED) && getPanelDataObject().has(KEY_RSS_ITEMS)) {
                 String feedStr = getPanelDataObject().getString(KEY_RSS_FEED);
                 String newsListStr = getPanelDataObject().getString(KEY_RSS_ITEMS);
 
                 if (feedStr != null && newsListStr != null) {
-                    Type type = new TypeToken<RssFeed>() {
-                    }.getType();
+                    Type type = new TypeToken<RssFeed>() {}.getType();
                     RssFeed rssFeed = new Gson().fromJson(feedStr, type);
-                    type = new TypeToken<ArrayList<RssItem>>() {
-                    }.getType();
-                    ArrayList<RssItem> savedNewsList = new Gson().fromJson
-                            (newsListStr, type);
-                    rssFeed.setRssItems(savedNewsList);
 
+                    type = new TypeToken<ArrayList<RssItem>>() {}.getType();
+                    ArrayList<RssItem> savedNewsList;
+                    try {
+                        savedNewsList = new Gson().fromJson(newsListStr, type);
+                    } catch (JsonSyntaxException e) {
+                        e.printStackTrace();
+                        // Sep 28, 2015 05:27:00 같은 Date 가 익셉션이 발생할 경우가 있어서
+                        // Stackoverflow 참고해서 해결
+                        Gson dateLocalizedGson = new GsonBuilder().registerTypeAdapter(Date.class,
+                                new DateDeserializer()).create();
+                        savedNewsList = dateLocalizedGson.fromJson(newsListStr, type);
+                    }
+                    rssFeed.setRssItems(savedNewsList);
                     setNewRssFeed(feedUrl, rssFeed);
-                }
-                else {
+                } else {
                     feed = null;
                 }
-            }
-            else {
+            } else {
                 feed = null;
             }
-
             loadNewsFeed(feedUrl);
         }
     }
