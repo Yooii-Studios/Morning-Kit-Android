@@ -28,8 +28,6 @@ import java.io.IOException;
  *  플리커에서 사용될 비트맵 처리기 - 그레이스케일, 라운딩, 크롭
  */
 public class MNBitmapProcessor {
-    private static final String TAG = "MNBitmapProcessor";
-
     private MNBitmapProcessor() { throw new AssertionError("You MUST not create this class!"); }
 
     public static Bitmap getCroppedBitmap(Bitmap bitmap, int targetWidth, int targetHeight) {
@@ -91,11 +89,14 @@ public class MNBitmapProcessor {
                     } catch (OutOfMemoryError error) {
                         error.printStackTrace();
                         croppedBitmap = null;
+                    } catch (IllegalArgumentException e) {
+                        reportCrash(bitmap, targetWidth, targetHeight, newBitmapSize, e);
+                        croppedBitmap = null;
                     }
                 } else {
                     // 이미지의 세로가 가로보다 같거나 김
 
-                    // (b)가 작다면 bitmap의 width는 frame.width, height는 frame.width / ratio
+                    // (b)가 작다면 bitmap 의 width 는 frame.width, height 는 frame.width / ratio
                     Point newBitmapSize = new Point(bitmap.getWidth(), (int) (bitmap.getWidth() / frameRatio));
 
                     // 자를 위치는 Image.height/2 - frame.height/2 에서 frame.height 만큼 자름
@@ -104,7 +105,7 @@ public class MNBitmapProcessor {
                     // bitmap.getHeight() / 2 - newBitmapSize.y / 2 를 사용해도 되지만,
                     // 이 값이 음수가 나올 경우가 있다. (getHeight()더 작다거나)
                     // 따라서 음수가 나오지 않는 아래 방법을 사용한다
-                    // 수정 후에도 거의 없는 일이지만 bitmap의 크기가 더 작은 경우는 아래 조건이 성립해 버리는 문제가 생긴다
+                    // 수정 후에도 거의 없는 일이지만 bitmap 의 크기가 더 작은 경우는 아래 조건이 성립해 버리는 문제가 생긴다
                     // 자를 수 있는 영역보다 더 넓은 영역을 자르기 때문이. 이것을 어떻게 해결할 수 있을지 고민해보자
                     // 앱이 크래쉬되기에, 기록해 두었다가 나중에 해결하도록 하자
                     if (Math.abs(bitmap.getHeight() - newBitmapSize.y) / 2 + newBitmapSize.y > bitmap.getHeight()) {
@@ -126,24 +127,15 @@ public class MNBitmapProcessor {
                         error.printStackTrace();
                         croppedBitmap = null;
                     } catch (IllegalArgumentException e) {
-                        e.printStackTrace();
-                        Crashlytics.log("(b)가 작다면 bitmap의 width는 frame.width, height는 frame.width / ratio");
-                        Crashlytics.log("bitmap.getHeight() - newBitmapSize.y: " + (bitmap.getHeight() - newBitmapSize.y));
-                        Crashlytics.log("targetWidth: " + targetWidth);
-                        Crashlytics.log("targetHeight: " + targetHeight);
-                        Crashlytics.log("newBitmapSize.x: " + newBitmapSize.x);
-                        Crashlytics.log("newBitmapSize.y: " + newBitmapSize.y);
-                        Crashlytics.log("bitmap.getWidth(): " + bitmap.getWidth());
-                        Crashlytics.log("bitmap.getHeight(): " + bitmap.getHeight());
-                        
+                        reportCrash(bitmap, targetWidth, targetHeight, newBitmapSize, e);
                         croppedBitmap = null;
                     }
                 }
             } else {
                 // 이미지의 가로가 세로보다 짧음
 
-                // 이미지 조절. 새 이미지의 width는 frame의 width로, 이미지와 frame width의 비율만큼
-                // 이미지 height를 조절해서 이미지를 resize한다.
+                // 이미지 조절. 새 이미지의 width 는 frame 의 width 로, 이미지와 frame width 의 비율만큼
+                // 이미지 height 를 조절해서 이미지를 resize 한다.
                 Point newBitmapSize = new Point(bitmap.getWidth(), (int) (bitmap.getWidth() / frameRatio));
 
                 // 위에서 15% 아래에서부터 자름(인물 사진이라 가정)
@@ -173,12 +165,27 @@ public class MNBitmapProcessor {
                     } catch (OutOfMemoryError error) {
                         error.printStackTrace();
                         croppedBitmap = null;
+                    } catch (IllegalArgumentException e) {
+                        reportCrash(bitmap, targetWidth, targetHeight, newBitmapSize, e);
+                        croppedBitmap = null;
                     }
                 }
             }
             return croppedBitmap;
         }
         return null;
+    }
+
+    private static void reportCrash(Bitmap bitmap, int targetWidth, int targetHeight, Point newBitmapSize, IllegalArgumentException e) {
+        e.printStackTrace();
+        Crashlytics.log("(b)가 작다면 bitmap의 width는 frame.width, height는 frame.width / ratio");
+        Crashlytics.log("bitmap.getHeight() - newBitmapSize.y: " + (bitmap.getHeight() - newBitmapSize.y));
+        Crashlytics.log("targetWidth: " + targetWidth);
+        Crashlytics.log("targetHeight: " + targetHeight);
+        Crashlytics.log("newBitmapSize.x: " + newBitmapSize.x);
+        Crashlytics.log("newBitmapSize.y: " + newBitmapSize.y);
+        Crashlytics.log("bitmap.getWidth(): " + bitmap.getWidth());
+        Crashlytics.log("bitmap.getHeight(): " + bitmap.getHeight());
     }
 
     // 크롭 이후 패널 크기에 맞게 축소 & 가공을 진행
@@ -329,10 +336,8 @@ public class MNBitmapProcessor {
         resizeOpts.inScaled = false;
         resizeOpts.inDither = false;
         resizeOpts.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(),
-                resizeOpts);
 
-        return bitmap;
+        return BitmapFactory.decodeFile(file.getAbsolutePath(), resizeOpts);
     }
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
