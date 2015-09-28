@@ -126,11 +126,6 @@
 -dontwarn android.webkit.**
 ##---------------End: proguard configuration for MdotM Ad ----------
 
-##---------------Begin: proguard configuration for InMobi Ad ---------
--keep class com.inmobi.** { *; }
-
--dontwarn com.inmobi.**
-
 -keep class com.google.android.gms.ads.identifier.AdvertisingIdClient{
      public *;
 }
