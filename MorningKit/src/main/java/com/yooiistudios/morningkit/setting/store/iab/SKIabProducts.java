@@ -60,14 +60,16 @@ public class SKIabProducts {
 
     // 인앱 정보를 읽어오며 자동으로 적용
     public static void saveIabProducts(Inventory inventory, Context context) {
-        List<String> ownedSkus = inventory.getAllOwnedSkus();
+        if (inventory != null) {
+            List<String> ownedSkus = inventory.getAllOwnedSkus();
 
-        SharedPreferences.Editor edit = context.getSharedPreferences(SHARED_PREFERENCES_IAB, Context.MODE_PRIVATE).edit();
-        edit.clear(); // 모두 삭제 후 다시 추가
-        for (String sku : ownedSkus) {
-            edit.putBoolean(sku, true);
+            SharedPreferences.Editor edit = context.getSharedPreferences(SHARED_PREFERENCES_IAB, Context.MODE_PRIVATE).edit();
+            edit.clear(); // 모두 삭제 후 다시 추가
+            for (String sku : ownedSkus) {
+                edit.putBoolean(sku, true);
+            }
+            edit.apply();
         }
-        edit.apply();
     }
 
     public static boolean containsSku(String sku, Context context) {

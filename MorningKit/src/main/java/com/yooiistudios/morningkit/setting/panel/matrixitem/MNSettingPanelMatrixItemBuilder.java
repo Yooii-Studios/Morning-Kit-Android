@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.setting.panel.matrixitem;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
@@ -8,6 +9,8 @@ import android.graphics.PorterDuffColorFilter;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.bitmap.MNBitmapProcessor;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
@@ -93,10 +96,7 @@ public class MNSettingPanelMatrixItemBuilder {
                     break;
             }
 
-            Bitmap panelImageBitmap = BitmapFactory.decodeResource(
-                    context.getApplicationContext().getResources(),
-                    panelImageResourceId, MNBitmapUtils.getDefaultOptions());
-            panelImageView.setImageBitmap(panelImageBitmap);
+            applyPanelImage(context, panelImageView, panelImageResourceId);
 
             // text
             panelMatrixItem.getPanelNameTextView().setText(MNPanelType.toString(panelType.getIndex(), context));
@@ -115,5 +115,23 @@ public class MNSettingPanelMatrixItemBuilder {
         } else {
             throw new AssertionError("MNSettingPanelMatrixItem or Context is null!");
         }
+    }
+
+    private static void applyPanelImage(Context context, ImageView panelImageView, int panelImageResourceId) {
+        Resources resources = context.getApplicationContext().getResources();
+        int targetSize = resources.getDimensionPixelSize(R.dimen.setting_panel_item_image_view_size);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        options.inScaled = false;
+        BitmapFactory.decodeResource(resources, panelImageResourceId, options);
+
+        options.inSampleSize = MNBitmapProcessor.calculateInSampleSize(options, targetSize, targetSize);
+        options.inJustDecodeBounds = false;
+//        BitmapFactory.Options options = MNBitmapUtils.getDefaultOptions();
+
+        Bitmap panelImageBitmap = BitmapFactory.decodeResource(
+                resources, panelImageResourceId, options);
+        panelImageView.setImageBitmap(panelImageBitmap);
     }
 }
