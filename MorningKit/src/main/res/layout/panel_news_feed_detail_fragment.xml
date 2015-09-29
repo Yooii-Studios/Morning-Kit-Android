@@ -6,6 +6,7 @@
             android:background="@color/white"
              android:clipChildren="false"
              android:clipToPadding="false">
+
     <LinearLayout
         android:id="@+id/result"
         android:layout_width="match_parent"
@@ -15,10 +16,11 @@
         android:paddingRight="@dimen/panel_detail_bigger_padding"
         android:paddingBottom="0px"
         android:orientation="vertical">
+
         <RelativeLayout
             android:id="@+id/titleMagnifierWrapper"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/panel_news_feed_detail_title_wrapper_height"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/panel_detail_padding"
             android:clipChildren="false"
             android:clipToPadding="false"
@@ -26,33 +28,42 @@
             android:paddingTop="0px"
             android:paddingRight="@dimen/panel_news_feed_detail_title_content_padding"
             android:paddingBottom="@dimen/panel_news_feed_detail_title_content_padding">
+
             <ImageView
                 android:id="@+id/news_feed_detail_globe"
                 android:layout_width="@dimen/panel_news_feed_detail_news_select_icon_size"
                 android:layout_height="@dimen/panel_news_feed_detail_news_select_icon_size"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/icon_news_select"/>
+                android:src="@drawable/icon_news_select"
+                android:contentDescription="@string/img_content_desc"/>
+
             <TextView
                 android:id="@+id/feedTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/news_feed_detail_globe"
+                android:layout_toStartOf="@id/news_feed_detail_globe"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_outer"
+                android:layout_marginEnd="@dimen/margin_outer"
                 android:textColor="@color/pastel_green_main_font_color"
                 android:textSize="@dimen/panel_news_feed_detail_title_textSize"/>
         </RelativeLayout>
+
         <ListView
             android:id="@+id/newsList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@null"/>
     </LinearLayout>
+
     <ImageView
         android:id="@+id/loadingImageView"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/panel_loading_animation"/>
-
+        android:background="@drawable/panel_loading_animation"
+        android:contentDescription="@string/img_content_desc"/>
 </FrameLayout>
