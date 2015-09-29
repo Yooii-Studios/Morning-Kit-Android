@@ -2,7 +2,6 @@ package com.yooiistudios.morningkit.panel.newsfeed.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
@@ -10,8 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
-import com.yooiistudios.morningkit.setting.theme.language.MNLanguage;
-import com.yooiistudios.morningkit.setting.theme.language.MNLanguageType;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -24,14 +21,13 @@ import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.P
 
 /**
  * Created by Dongheyon Jeong on in morning-kit from Yooii Studios Co., LTD. on 2014. 7. 3.
+ *
+ * MNNewsFeedUtil
+ *  뉴스피드 모델을 처리하는 로직을 가진 클래스
  */
 public class MNNewsFeedUtil {
     private static final String KEY_HISTORY = "url hisotry";
     private static final int MAX_HISTORY_SIZE = 10;
-
-    private static final String HISTORY_DELIM = "|";
-    private static final String NEWS_PROVIDER_YAHOO_JAPAN = "Yahoo!ニュース";
-    private static final String NEWS_PROVIDER_ABC_ES = "ABC.es";
 
     public static String getRssFeedJsonString(RssFeed feed) {
         return new GsonBuilder().setExclusionStrategies(new ExclusionStrategy
@@ -109,72 +105,6 @@ public class MNNewsFeedUtil {
         else {
             return new ArrayList<String>();
         }
-    }
-
-    /**
-     *
-     * @param news
-     * @param type
-     * @return retval
-     * retval[0] : title.
-     * retval[1] : publisher or null if there's no publisher info.
-     *
-     */
-//    public static String[] getTitleAndPublisherName(RssItem news, MNNewsFeedUrlType type) {
-//        String title = news.getTitle();
-//        String newTitle;
-//        String publisher;
-//        switch (type) {
-//            case GOOGLE:
-//                final String delim = " - ";
-//                int idx = title.lastIndexOf(delim);
-//
-//                int titleStartIdx = 0;
-//                int pubStartIdx = idx + delim.length();
-//                int pubEndIdx = title.length();
-//
-//                if (idx >= 0 && idx >= titleStartIdx &&
-//                        pubEndIdx >= pubStartIdx) {
-//                // title.length() >= delim.length()
-//                    newTitle = title.substring(titleStartIdx, idx);
-//                    publisher = "- " + title.substring(pubStartIdx, pubEndIdx);
-//                } else {
-//                    newTitle = title;
-//                    publisher = null;
-//                }
-//                break;
-////            case YAHOO:
-////                newTitle = title;
-////                publisher = NEWS_PROVIDER_YAHOO_JAPAN;
-////                break;
-////            case ABC_ES:
-////                newTitle = title;
-////                publisher = NEWS_PROVIDER_ABC_ES;
-////                break;
-//            case CUSTOM:
-//            default:
-//                newTitle = title;
-//                publisher = null;
-//                break;
-//        }
-//
-//        return new String[]{newTitle, publisher};
-//    }
-
-    public static String getFeedTitle(Context context) {
-        MNLanguageType currentLanguage = MNLanguage.getCurrentLanguageType(context);
-
-        String provider;
-
-        if (currentLanguage.equals(MNLanguageType.JAPANESE)) {
-            provider = NEWS_PROVIDER_YAHOO_JAPAN;
-        } else if (currentLanguage.equals(MNLanguageType.SPANISH)) {
-            provider = NEWS_PROVIDER_ABC_ES;
-        } else {
-            provider = null;
-        }
-
-        return provider;
     }
 
     public static String makeLanguageRegionCode(String languageCode, String regionCode) {
