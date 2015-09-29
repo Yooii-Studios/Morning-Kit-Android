@@ -182,6 +182,10 @@ public class MNNewsFeedUtil {
         if (regionCode != null && regionCode.length() > 0) {
             key += "_" + regionCode;
         }
-        return key.toLowerCase();
+        if (key != null) {
+            return key.toLowerCase();
+        } else {
+            return "";
+        }
     }
 }
