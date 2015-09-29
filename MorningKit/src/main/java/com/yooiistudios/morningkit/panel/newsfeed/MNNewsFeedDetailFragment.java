@@ -142,8 +142,8 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
                 Type type = new TypeToken<RssFeed>() {}.getType();
                 feed = new Gson().fromJson(feedStr, type);
                 type = new TypeToken<ArrayList<RssItem>>() {}.getType();
-                feed.setRssItems(
-                        (ArrayList<RssItem>)new Gson().fromJson(newsListStr, type));
+                ArrayList<RssItem> rssItems = new Gson().fromJson(newsListStr, type);
+                feed.setRssItems(rssItems);
                 if (getPanelDataObject().has(KEY_DISPLAYING_NEWS)) {
                     int idx = getPanelDataObject().getInt(
                             KEY_DISPLAYING_NEWS);
