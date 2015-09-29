@@ -30,8 +30,6 @@ import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUrlProvider;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNRssFetchTask;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNTheme;
-import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 
 import org.json.JSONException;
 
@@ -56,7 +54,6 @@ import static com.yooiistudios.morningkit.panel.newsfeed.MNNewsFeedPanelLayout.P
  * MNNewsFeedDetailFragment
  */
 public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
-    private static final String TAG = "MNNewsFeedDetailFragment";
     private static final int INVALID_NEWS_IDX = -1;
     private static final int RC_NEWS_SELECT = 1001;
 
@@ -66,7 +63,6 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
     private static final float END_SCALE = 1.2f;
     private static final long ANIM_DURATION = 150;
     private static final int TOTAL_ANIM_COUNT = 4;
-    private static final long TOTAL_ANIM_DURATION = TOTAL_ANIM_COUNT * ANIM_DURATION;
     private static final int ANIM_REPEAT_COUNT = TOTAL_ANIM_COUNT - 1;
 
     @InjectView(R.id.feedTitle) TextView feedTitleTextView;
@@ -80,21 +76,9 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
     private MNNewsFeedUrl feedUrl;
     private MNNewsFeedUrl loadingFeedUrl;
     private RssFeed feed;
-    private MNNewsFeedAdapter feedAdapter;
     private int highlightNewsIdx;
 
     private MNRssFetchTask rssFetchTask;
-
-//    private Handler animationHandler = new Handler(new Handler.Callback() {
-//        @Override
-//        public boolean handleMessage(Message msg) {
-//            animateNewsSelectIcon();
-//
-//            animationHandler.sendEmptyMessageDelayed(0, TOTAL_ANIM_DURATION + 900);
-//            return false;
-//        }
-//    });
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -197,9 +181,6 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
         newsResult.setVisibility(View.GONE);
 
         initGlobeImageView();
-
-        // theme
-        initTheme();
     }
 
     private void initGlobeImageView() {
@@ -246,11 +227,6 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
             startActivityForResult(intent, RC_NEWS_SELECT);
         }
     };
-
-    private void initTheme() {
-        MNThemeType currentThemeType =
-                MNTheme.getCurrentThemeType(getActivity());
-    }
 
     @Override
     protected void archivePanelData() throws JSONException {
@@ -299,7 +275,7 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
                     ? feedUrl.providerName : feed.getTitle();
             feedTitleTextView.setText(publisher);
 
-            feedAdapter = new MNNewsFeedAdapter(getActivity(), feed);
+            MNNewsFeedAdapter feedAdapter = new MNNewsFeedAdapter(getActivity(), feed);
             newsListView.setAdapter(feedAdapter);
             newsListView.setVisibility(View.VISIBLE);
             newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

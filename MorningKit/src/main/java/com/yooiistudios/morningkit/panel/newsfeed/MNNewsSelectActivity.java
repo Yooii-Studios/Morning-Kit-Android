@@ -111,12 +111,6 @@ public class MNNewsSelectActivity extends ActionBarActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch(id) {
-//            case android.R.id.home:
-//                if (MNSound.isSoundOn(this)) {
-//                    MNSoundEffectsPlayer.play(R.raw.effect_view_close, this);
-//                }
-//                finish();
-//                return true;
             case R.id.news_select_action_custom:
                 DialogFragment newFragment =
                         mFeedUrl.type.equals(MNNewsFeedUrlType.CUSTOM)
