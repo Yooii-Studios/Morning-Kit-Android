@@ -19,7 +19,6 @@ import lombok.Getter;
  */
 public class SKIabManager {
     public static final int IAB_REQUEST_CODE = 10002;
-//    public static final String DEVELOPER_PAYLOAD= "SKIabManager_Payload";
     private static final String TAG = "SKIabManager";
     private SKIabManagerListener iapManagerListener;
     @Getter private IabHelper helper;
@@ -31,6 +30,7 @@ public class SKIabManager {
     public static final String piece3 = "+hCPfnj+qJ1ugMRJTn9IwmAvrV9i2qni2vCHSDYjVBOc35u0A19fjaLezwo3vl8/vUMip4QUmppmSmJL53qMKx9j/1pBM2pumI7sqC2+85smYTXbgbCjW3BZLH2RQhTl0WkXEP6hIHt+";
     public static final String piece4 = "8AHNZyb7e044k1jFZUgcITqs8d3lgoiZjMXo0HgHnEn9PeoTn1aMQYq3dFjgvDiwyq/cSgXfVel4nQAWV/swIDAQAB";
 
+    @SuppressWarnings("unused")
     private SKIabManager() {}
     public SKIabManager(Activity activity, SKIabManagerListener iapManagerListener) {
         this.activity = activity;
@@ -42,6 +42,7 @@ public class SKIabManager {
         load(false);
     }
 
+    @SuppressWarnings("unused")
     public void loadWithOnlyOwnedItems() {
         load(true);
     }
@@ -49,8 +50,9 @@ public class SKIabManager {
     private void load(final boolean isOwnItemsOnly) {
         // compute your public key and store it in base64EncodedPublicKey
         helper = new IabHelper(activity, base64EncodedPublicKey);
-//        helper.enableDebugLogging(true); // You shoud off this when you publish
+//        helper.enableDebugLogging(true); // You should off this when you publish
 
+        helper.flagEndAsync();
         helper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
             public void onIabSetupFinished(IabResult result) {
                 if (!result.isSuccess()) {
@@ -81,6 +83,7 @@ public class SKIabManager {
 
     private void queryAllItemsInformation() {
         List<String> iabProductsSkuList = SKIabProducts.makeProductKeyList();
+        helper.flagEndAsync();
         helper.queryInventoryAsync(true, iabProductsSkuList, new IabHelper.QueryInventoryFinishedListener() {
             @Override
             public void onQueryInventoryFinished(IabResult result, Inventory inv) {
@@ -103,6 +106,7 @@ public class SKIabManager {
     }
 
     private void queryOwnItemsInformation() {
+        helper.flagEndAsync();
         helper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener() {
             @Override
             public void onQueryInventoryFinished(IabResult result, Inventory inv) {
@@ -132,7 +136,7 @@ public class SKIabManager {
 
     public void processPurchase(String sku, IabHelper.OnIabPurchaseFinishedListener onIabPurchaseFinishedListener) {
         try {
-            // 페이로드를 특정 스트링으로 했었는데, 창하님의 조언으로는 sku의 md5 값과 맞추는 것이 그나마 해킹 확률이 줄어 들 것이라고 말하심
+            // 페이로드를 특정 스트링으로 했었는데, 창하님의 조언으로는 sku 의 md5 값과 맞추는 것이 그나마 해킹 확률이 줄어 들 것이라고 말하심
             helper.launchPurchaseFlow(activity, sku, IabHelper.ITEM_TYPE_INAPP, IAB_REQUEST_CODE, onIabPurchaseFinishedListener, MNMd5Utils.getMd5String(sku));
         } catch (IllegalStateException e) {
             e.printStackTrace();
