@@ -329,6 +329,7 @@ public class MNBitmapProcessor {
                                                   int desiredWidth, int desiredHeight) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
+        options.inScaled = false;
         BitmapFactory.decodeFile(file.getAbsolutePath(), options);
 
         BitmapFactory.Options resizeOpts = new BitmapFactory.Options();
@@ -339,6 +340,7 @@ public class MNBitmapProcessor {
 
         return BitmapFactory.decodeFile(file.getAbsolutePath(), resizeOpts);
     }
+
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image

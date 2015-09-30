@@ -35,29 +35,26 @@ public class MNPhotoAlbumBitmapLoader extends AsyncTask<Void, Void, Bitmap> {
     }
     @Override
     protected Bitmap doInBackground(Void... params) {
-        File file = null;
+        File file;
         Bitmap bitmap = null;
         Bitmap croppedBitmap = null;
         Bitmap polishedBitmap;
         try {
             file = new File(mUrl);
 
-            bitmap = MNBitmapProcessor.createSampleSizedBitmap(
-                    file, mPhotoWidth, mPhotoHeight);
-
-            croppedBitmap = MNBitmapProcessor.
-                    getCroppedBitmap(bitmap, mPhotoWidth, mPhotoHeight);
+            bitmap = MNBitmapProcessor.createSampleSizedBitmap(file, mPhotoWidth, mPhotoHeight);
+            croppedBitmap = MNBitmapProcessor.getCroppedBitmap(bitmap, mPhotoWidth, mPhotoHeight);
             bitmap.recycle();
 
-            polishedBitmap = MNBitmapProcessor.
-                    getRoundedCornerBitmap(croppedBitmap, mPhotoWidth, mPhotoHeight,
-                            mUseGrayscale,
-                            (int) mContext.getResources()
-                                    .getDimension(
-                                            R.dimen.panel_round_radius));
+            polishedBitmap = MNBitmapProcessor.getRoundedCornerBitmap(croppedBitmap,
+                    mPhotoWidth, mPhotoHeight, mUseGrayscale,
+                    (int) mContext.getResources().getDimension(R.dimen.panel_round_radius));
             croppedBitmap.recycle();
         } catch (Exception e) {
             e.printStackTrace();
+            polishedBitmap = null;
+        } catch (OutOfMemoryError error) {
+            error.printStackTrace();
             polishedBitmap = null;
         } finally {
             if (bitmap != null) {
