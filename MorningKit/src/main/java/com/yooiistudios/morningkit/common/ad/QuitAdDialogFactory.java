@@ -32,7 +32,13 @@ public class QuitAdDialogFactory {
         AdView adView = new AdView(context);
         adView.setAdSize(adSize);
         adView.setAdUnitId(QuitAdDialogFactory.AD_UNIT_ID);
-        adView.loadAd(adRequest);
+        // GET_TASKS 퍼미션이 없어서 한번씩 문제가 되는 상황이 생기는 것 같은데 소수라고 판단하고
+        // 그 경우에는 광고가 안 뜨도록 하면 될 듯
+        try {
+            adView.loadAd(adRequest);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
         return adView;
     }
 
