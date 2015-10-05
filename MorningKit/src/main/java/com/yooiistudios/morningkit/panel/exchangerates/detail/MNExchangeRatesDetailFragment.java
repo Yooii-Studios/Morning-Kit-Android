@@ -268,7 +268,9 @@ public class MNExchangeRatesDetailFragment extends MNPanelDetailFragment impleme
             targetEditText.setText(exchangeRatesInfo.getTargetCurrencySymbol() + " 0");
         }
         if (exchangeRatesInfo.getTargetCurrencyMoney() == -1) {
-            targetEditText.setText(getString(R.string.no_network_connection));
+            if (isAdded()) {
+                targetEditText.setText(getString(R.string.no_network_connection));
+            }
         }
         baseSymbolEditText.setText(exchangeRatesInfo.getBaseCurrencySymbol());
     }
