@@ -142,8 +142,16 @@ public class MNBitmapProcessor {
                 double offset15PercentFromTop = bitmap.getHeight() * 0.15;
 
                 if (offset15PercentFromTop + newBitmapSize.y <= bitmap.getHeight()) {
-                    croppedBitmap = Bitmap.createBitmap(bitmap, 0, (int) offset15PercentFromTop,
-                            newBitmapSize.x, newBitmapSize.y);
+                    try {
+                        croppedBitmap = Bitmap.createBitmap(bitmap, 0, (int) offset15PercentFromTop,
+                                newBitmapSize.x, newBitmapSize.y);
+                    } catch (OutOfMemoryError error) {
+                        error.printStackTrace();
+                        croppedBitmap = null;
+                    } catch (IllegalArgumentException e) {
+                        reportCrash(bitmap, targetWidth, targetHeight, newBitmapSize, e);
+                        croppedBitmap = null;
+                    }
                 } else {
                     // 2014년 6월 13일 버그 발견. 아직 수정 못함. 아마 bitmap이 newBitmapSize보다 작은 경우가 아닐까 추정 중
                     if (Math.abs(bitmap.getHeight() - newBitmapSize.y) + newBitmapSize.y > bitmap.getHeight()) {
