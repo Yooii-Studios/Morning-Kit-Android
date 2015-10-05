@@ -98,7 +98,9 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
                         }
                     }
                     // 저장은 자동으로 되기에 리프레시만 해주면 됨
-                    photoFragment.refresh();
+                    if (photoFragment != null) {
+                        photoFragment.refresh();
+                    }
                     break;
 
                 case SKBitmapLoader.REQ_CROP_FROM_LANDSCAPE:
@@ -117,7 +119,9 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
                     }
                     */
                     // 저장은 자동으로 되기에 리프레시만 해주면 됨
-                    photoFragment.refresh();
+                    if (photoFragment != null) {
+                        photoFragment.refresh();
+                    }
                     break;
             }
         } else {
