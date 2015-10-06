@@ -53,7 +53,7 @@ public class MNAlarmWakeCustomDialog {
         }
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint({"InflateParams", "SimpleDateFormat"})
     protected static AlertDialog makeWakeAlertDialog(final MNAlarm alarm, final Context context) {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -144,7 +144,9 @@ public class MNAlarmWakeCustomDialog {
                         vibrator.cancel();
 
                         MNAlarm targetAlarm = MNAlarmListManager.findAlarmById(alarm.getAlarmId(), context);
-                        targetAlarm.snoozeAlarm(context);
+                        if (targetAlarm != null) {
+                            targetAlarm.snoozeAlarm(context);
+                        }
 
                         MNAlarmScrollViewBusProvider.getInstance().post(context);
                         MNAlarmScrollViewBusProvider.getInstance().post(wakeDialog);
