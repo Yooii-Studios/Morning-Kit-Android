@@ -21,7 +21,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Build;
 import android.provider.Settings;
 
@@ -31,13 +30,6 @@ import com.yooiistudios.morningkit.R;
  * Defines app-wide constants and utilities
  */
 public final class LocationUtils {
-
-    /*
-     * Define a request code to send to Google Play services
-     * This code is returned in Activity.onActivityResult
-     */
-//    public final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-
     /*
      * Constants for location update parameters
      */
@@ -58,34 +50,10 @@ public final class LocationUtils {
     public static final long FAST_INTERVAL_CEILING_IN_MILLISECONDS =
             MILLISECONDS_PER_SECOND * FAST_CEILING_IN_SECONDS;
 
-    // Create an empty string for initializing strings
-    public static final String EMPTY_STRING = "";
-
-    /**
-     * Get the latitude and longitude from the Location object returned by
-     * Location Services.
-     *
-     * @param currentLocation A Location object containing the current location
-     * @return The latitude and longitude of the current location, or null if no
-     * location is available.
-     */
-    public static String getLatLng(Context context, Location currentLocation) {
-        // If the location is valid
-        if (currentLocation != null) {
-
-            // Return the latitude and longitude as strings
-            return String.format("%.8f, %.8f", currentLocation.getLatitude(),
-                    currentLocation.getLongitude());
-        } else {
-            // Otherwise, return the empty string
-            return EMPTY_STRING;
-        }
-    }
-
     // 현재 위치의 날씨는 위치 정보가 필요한데, 위치 사용을 취소할 경우 도시 검색으로 옵션을 바꾸어야 하는데
     // 그 때 활용되는 콜백 메서드
     public interface OnLocationListener {
-        public void onLocationTrackingCanceled();
+        void onLocationTrackingCanceled();
     }
 
     public static void showLocationUnavailableDialog(final Context context,
