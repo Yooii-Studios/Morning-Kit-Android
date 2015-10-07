@@ -41,4 +41,9 @@ public class MNNewsFeedUrl implements Serializable {
                 newsProviderCountry.languageCode, newsProviderCountry.regionCode,
                 newsProviderCountry.countryCode, newsProviderCountry.newsProviderName);
     }
+
+    @Override
+    public String toString() {
+        return "langCode: " + languageCode + "/regionCode: " + regionCode + "/countryCode: " + countryCode + "/providerName: " + providerName;
+    }
 }
