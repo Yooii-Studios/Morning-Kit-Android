@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
@@ -153,9 +154,14 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
         feedTitleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse(feed.getLink()));
-                startActivity(intent);
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(feed.getLink()));
+                    startActivity(intent);
+                } catch (NullPointerException e) {
+                    Crashlytics.getInstance().core.logException(e);
+                    Crashlytics.getInstance().core.log("feedUrl: " + feedUrl.toString());
+                    Crashlytics.getInstance().core.log("loadingFeedUrl: " + loadingFeedUrl.toString());
+                }
             }
         });
         loadingImageView.setVisibility(View.GONE);

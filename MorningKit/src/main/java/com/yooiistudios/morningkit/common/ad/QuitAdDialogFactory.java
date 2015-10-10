@@ -87,6 +87,10 @@ public class QuitAdDialogFactory {
 
                     if (contentWidth >= 300 * screenDensity && contentHeight >= 250 * screenDensity) {
                         // medium rectangle
+                        if (mediumAdView != null && mediumAdView.getParent() != null &&
+                                mediumAdView.getParent() instanceof ViewGroup) {
+                            ((ViewGroup) mediumAdView.getParent()).removeView(mediumAdView);
+                        }
                         contentWrapper.addView(mediumAdView);
                         wakeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
@@ -96,6 +100,10 @@ public class QuitAdDialogFactory {
                         });
                     } else if (contentWidth >= 320 * screenDensity && contentHeight >= 100 * screenDensity) {
                         // large banner
+                        if (largeBannerAdView != null && largeBannerAdView.getParent() != null &&
+                                largeBannerAdView.getParent() instanceof ViewGroup) {
+                            ((ViewGroup) largeBannerAdView.getParent()).removeView(largeBannerAdView);
+                        }
                         contentWrapper.addView(largeBannerAdView);
                         wakeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override

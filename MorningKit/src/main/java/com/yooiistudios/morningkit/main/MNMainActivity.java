@@ -373,7 +373,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
             case PHOTO:
                 try {
-                    photoThemeImageView.setPhotoThemeImage(newConfig.orientation);
+                    if (photoThemeImageView != null) {
+                        photoThemeImageView.setPhotoThemeImage(newConfig.orientation);
+                    }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
