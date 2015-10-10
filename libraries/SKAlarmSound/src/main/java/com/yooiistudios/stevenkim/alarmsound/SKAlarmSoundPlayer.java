@@ -119,10 +119,15 @@ public class SKAlarmSoundPlayer {
                     break;
                 case RINGTONE:
                 case MUSIC:
-                    getMediaPlayer().reset();
                     Uri uri = Uri.parse(alarmSound.getSoundPath());
-                    getMediaPlayer().setDataSource(context, uri);
-                    play(volume, context);
+                    try {
+                        playRingtoneOrMusic(volume, context, uri);
+                    } catch (IllegalStateException e) {
+                        // https://code.google.com/p/android/issues/detail?id=957
+                        // 버그라고 하는데 IllegalStateException 가 뜰 경우 다시 한 번 해 주면
+                        // 모든 케이스에 대응할 수 있다고 함
+                        playRingtoneOrMusic(volume, context, uri);
+                    }
                     break;
 
                 default:
@@ -131,6 +136,12 @@ public class SKAlarmSoundPlayer {
         } else {
             Toast.makeText(context, "No Alarm Sound", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private static void playRingtoneOrMusic(int volume, Context context, Uri uri) throws IOException {
+        getMediaPlayer().reset();
+        getMediaPlayer().setDataSource(context, uri);
+        play(volume, context);
     }
 
     private static void play() throws IOException {
