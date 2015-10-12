@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -309,17 +310,20 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             // 현재 위치는 locationClient 에서 위치를 받아와 콜백 메서드에서 로직을 진행
 
             // 네트워크 위치를 사용 가능할 때
-            LocationManager locManager =
-                    (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
-            if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                    locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                // Location enabled
-                locationClient.connect();
-//            googleApiClient.connect();
-            } else {
+            try {
+                LocationManager locManager =
+                        (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+                if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                        locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                    // Location enabled
+                    locationClient.connect();
+                } else {
+                    showLocationServerUnavailable();
+                }
+            } catch (SecurityException e) {
+                Crashlytics.getInstance().core.logException(e);
                 showLocationServerUnavailable();
             }
-
         } else {
             if (selectedLocationInfo != null) {
                 // find previous data from cache
@@ -527,14 +531,18 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 //            LocationServices.FusedLocationApi.requestLocationUpdates(
 //                    googleApiClient, mLocationRequest, this);
 
-            Location lastLocation = locationClient.getLastLocation();
-//                    LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+            try {
+                Location lastLocation = locationClient.getLastLocation();
 
-//            lastLocation 이 있으면 그것을 써서 빨리 업데이트를 하고, 최신 위치를 바로 받아오자.
-            if (lastLocation != null) {
-                startWWOTask(lastLocation);
+                // lastLocation 이 있으면 그것을 써서 빨리 업데이트를 하고, 최신 위치를 바로 받아오자.
+                if (lastLocation != null) {
+                    startWWOTask(lastLocation);
+                }
+                locationClient.requestLocationUpdates(mLocationRequest, this);
+            } catch (SecurityException e) {
+                Crashlytics.getInstance().core.logException(e);
+                showLocationServerUnavailable();
             }
-            locationClient.requestLocationUpdates(mLocationRequest, this);
         }
     }
 
