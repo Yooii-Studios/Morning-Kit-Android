@@ -1,19 +1,18 @@
 package com.yooiistudios.morningkit.main;
 
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
+import android.test.ActivityInstrumentationTestCase2;
 import android.widget.RelativeLayout;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
-import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowLog;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -25,35 +24,45 @@ import static org.junit.Assert.assertThat;
  * MNMainScrollViewTest
  *  메인 스크롤뷰의 높이와 컨텐츠 높이를 테스트
  */
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(shadows = { AdWebViewShadow.class }, emulateSdk = 18)
-public class MNMainScrollViewTest {
-    private static final String TAG = "MNMainScrollViewTest";
+@RunWith(AndroidJUnit4.class)
+public class MNMainScrollViewTest extends ActivityInstrumentationTestCase2<MNMainActivity> {
     MNMainActivity mainActivity;
+
+    public MNMainScrollViewTest() {
+        super(MNMainActivity.class);
+    }
 
     @Before
     public void setUp() throws Exception {
-        ShadowLog.stream = System.out;
+        super.setUp();
+        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
+
         // 알람을 비우고 새로 리스트를 만든다
-        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
+        mainActivity = getActivity();
         MNAlarmListManager.removeAlarmList(mainActivity);
     }
 
     @Test
     public void testScrollViewShouldNotBeNull() throws Exception {
         assertThat(mainActivity.getScrollView(), notNullValue());
-        assertThat(mainActivity.getScrollContentLayout(), notNullValue());
     }
 
     @Test
-    @Config(qualifiers = "port")
     public void checkScrollViewHeightOnPortrait() throws Exception {
-        Configuration newConfig = new Configuration();
+        mainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        getInstrumentation().waitForIdleSync(); // 방향 바뀌기를 기다리기
+
+        final Configuration newConfig = new Configuration();
         newConfig.orientation = Configuration.ORIENTATION_PORTRAIT;
-        mainActivity.onConfigurationChanged(newConfig);
+        mainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mainActivity.onConfigurationChanged(newConfig);
+            }
+        });
 
         RelativeLayout.LayoutParams scrollViewParams = (RelativeLayout.LayoutParams) mainActivity.getScrollView().getLayoutParams();
-        // bottomMargin은 0, 최하단까지 MATCH_PARENT
+        // bottomMargin 은 0, 최하단까지 MATCH_PARENT
         // ABOVE 룰 취소
         assertThat(scrollViewParams.bottomMargin, is(0));
         int[] layoutRules = scrollViewParams.getRules();
@@ -61,8 +70,10 @@ public class MNMainScrollViewTest {
     }
 
     @Test
-    @Config(qualifiers = "land")
     public void checkScrollViewHeightOnLandscape() throws Exception {
+        mainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        getInstrumentation().waitForIdleSync(); // 방향 바뀌기를 기다리기
+
         Configuration newConfig = new Configuration();
         newConfig.orientation = Configuration.ORIENTATION_LANDSCAPE;
         mainActivity.onConfigurationChanged(newConfig);
@@ -73,7 +84,7 @@ public class MNMainScrollViewTest {
         RelativeLayout.LayoutParams scrollViewParams = (RelativeLayout.LayoutParams) mainActivity.getScrollView().getLayoutParams();
         assertThat(scrollViewParams, notNullValue());
         assertThat(scrollViewParams.bottomMargin, is(expectedBottomMargin));
-        // ABOVE는 button layout에 적용되에 상단위 위치한다.
+        // ABOVE 는 button layout 에 적용되에 상단위 위치한다.
         int[] layoutRules = scrollViewParams.getRules();
         assertThat(layoutRules[RelativeLayout.ABOVE], is(R.id.main_button_layout));
     }
