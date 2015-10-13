@@ -82,6 +82,7 @@ dependencies {
     compile project(':libraries:TimePickerLibrary')
     compile project(':libraries:sAXRSSReader')
     compile project(':libraries:FullscreenAd')
+    compile project(':libraries:Volley')
 
     // 안드로이드 기본
     compile 'com.android.support:support-v4:19.1.0'
