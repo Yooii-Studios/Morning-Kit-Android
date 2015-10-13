@@ -50,42 +50,47 @@ public class MNMainAdmobLayoutTest extends ActivityInstrumentationTestCase2<MNMa
         mainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getInstrumentation().waitForIdleSync(); // 방향 바뀌기를 기다리기
 
-        Configuration newConfig = new Configuration();
+        final Configuration newConfig = new Configuration();
         newConfig.orientation = Configuration.ORIENTATION_PORTRAIT;
-        mainActivity.onConfigurationChanged(newConfig);
+        mainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mainActivity.onConfigurationChanged(newConfig);
 
-        int deviceWidth = MNDeviceSizeInfo.getDeviceWidth(mainActivity);
-        assertThat(deviceWidth, is(not(0)));
+                int deviceWidth = MNDeviceSizeInfo.getDeviceWidth(mainActivity);
+                assertThat(deviceWidth, is(not(0)));
 
-        // 광고가 있을 때만 테스트를 제대로 하면 됨
-        // AdSize 계산
+                // 광고가 있을 때만 테스트를 제대로 하면 됨
+                // AdSize 계산
 //        AdSize adViewSize = AdSize.createAdSize(AdSize.BANNER, mainActivity);
-        assertThat(AdSize.BANNER.getWidthInPixels(mainActivity), is(not(0)));
+                assertThat(AdSize.BANNER.getWidthInPixels(mainActivity), is(not(0)));
 
-        // calculatedButtonLayoutWidth 계산
-        int calculatedButtonLayoutWidth = deviceWidth - (int)(mainActivity.getResources().getDimension(R.dimen.margin_main_button_layout) * 2);
+                // calculatedButtonLayoutWidth 계산
+                int calculatedButtonLayoutWidth = deviceWidth - (int)(mainActivity.getResources().getDimension(R.dimen.margin_main_button_layout) * 2);
 
 //        Log.i(TAG, "calculatedButtonLayoutWidth: " + calculatedButtonLayoutWidth);
 //        Log.i(TAG, "adViewSize.getWidthInPixels(): " + adViewSize.getWidthInPixels(mainActivity));
 
-        RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mainActivity.getAdmobLayout().getLayoutParams();
-        assertThat(admobLayoutParams, notNullValue());
-        // 1. buttonLayout 너비가 AdView 보다 크다면, admobLayout 을 buttonLayout 와 같게 맞추어 주고,
-        if (calculatedButtonLayoutWidth > AdSize.BANNER.getWidthInPixels(mainActivity)) {
-            RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mainActivity.getButtonLayout().getLayoutParams();
-            assertThat(buttonLayoutParams, notNullValue());
-            if (admobLayoutParams != null && buttonLayoutParams != null) {
-                assertThat(admobLayoutParams.leftMargin, is(buttonLayoutParams.leftMargin));
-                assertThat(admobLayoutParams.rightMargin, is(buttonLayoutParams.rightMargin));
+                RelativeLayout.LayoutParams admobLayoutParams = (RelativeLayout.LayoutParams) mainActivity.getAdmobLayout().getLayoutParams();
+                assertThat(admobLayoutParams, notNullValue());
+                // 1. buttonLayout 너비가 AdView 보다 크다면, admobLayout 을 buttonLayout 와 같게 맞추어 주고,
+                if (calculatedButtonLayoutWidth > AdSize.BANNER.getWidthInPixels(mainActivity)) {
+                    RelativeLayout.LayoutParams buttonLayoutParams = (RelativeLayout.LayoutParams) mainActivity.getButtonLayout().getLayoutParams();
+                    assertThat(buttonLayoutParams, notNullValue());
+                    if (admobLayoutParams != null && buttonLayoutParams != null) {
+                        assertThat(admobLayoutParams.leftMargin, is(buttonLayoutParams.leftMargin));
+                        assertThat(admobLayoutParams.rightMargin, is(buttonLayoutParams.rightMargin));
+                    }
+                }
+                // 2. 그렇지 않다면 무조건 MATCH_PARENT 로 가야 한다 = 마진 0
+                else {
+                    if (admobLayoutParams != null) {
+                        assertThat(admobLayoutParams.leftMargin, is(0));
+                        assertThat(admobLayoutParams.rightMargin, is(0));
+                    }
+                }
             }
-        }
-        // 2. 그렇지 않다면 무조건 MATCH_PARENT 로 가야 한다 = 마진 0
-        else {
-            if (admobLayoutParams != null) {
-                assertThat(admobLayoutParams.leftMargin, is(0));
-                assertThat(admobLayoutParams.rightMargin, is(0));
-            }
-        }
+        });
     }
 
     @Test
@@ -93,22 +98,27 @@ public class MNMainAdmobLayoutTest extends ActivityInstrumentationTestCase2<MNMa
         mainActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getInstrumentation().waitForIdleSync(); // 방향 바뀌기를 기다리기
 
-        Configuration newConfig = new Configuration();
+        final Configuration newConfig = new Configuration();
         newConfig.orientation = Configuration.ORIENTATION_PORTRAIT;
-        mainActivity.onConfigurationChanged(newConfig);
+        mainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mainActivity.onConfigurationChanged(newConfig);
 
-        // 1. 광고가 있을 때
-        float expectedHeight = MNMainLayoutSetter.getAdmobLayoutHeightOnPortrait(mainActivity);
+                // 1. 광고가 있을 때
+                float expectedHeight = MNMainLayoutSetter.getAdmobLayoutHeightOnPortrait(mainActivity);
 
-        int deviceWidth = MNDeviceSizeInfo.getDeviceWidth(mainActivity);
-        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(deviceWidth, View.MeasureSpec.EXACTLY);
-        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
-        mainActivity.getAdmobLayout().measure(widthMeasureSpec, heightMeasureSpec);
+                int deviceWidth = MNDeviceSizeInfo.getDeviceWidth(mainActivity);
+                int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(deviceWidth, View.MeasureSpec.EXACTLY);
+                int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((int)expectedHeight, View.MeasureSpec.EXACTLY);
+                mainActivity.getAdmobLayout().measure(widthMeasureSpec, heightMeasureSpec);
 
-//        Log.i("MNMainAdmobLayoutTest", "port/height: " + expectedHeight);
-        assertThat(mainActivity.getAdmobLayout().getMeasuredHeight(), is((int) expectedHeight));
+//                Log.i("MNMainAdmobLayoutTest", "port/height: " + expectedHeight);
+                assertThat(mainActivity.getAdmobLayout().getMeasuredHeight(), is((int) expectedHeight));
 //
-        // 2. 광고가 없을 때는 높이가 0이어야 함
+                // 2. 광고가 없을 때는 높이가 0이어야 함
+            }
+        });
     }
 
     @Test

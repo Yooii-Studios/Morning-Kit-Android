@@ -3,10 +3,11 @@ package com.yooiistudios.morningkit.alarm.model;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.InstrumentationTestCase;
+import android.test.ActivityInstrumentationTestCase2;
 
 import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.alarm.model.string.MNAlarmTimeString;
+import com.yooiistudios.morningkit.main.MNMainActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,14 +23,18 @@ import static org.junit.Assert.assertThat;
  *  시, 분 -> String 으로 변환해주는 유틸리티 클래스 테스트
  */
 @RunWith(AndroidJUnit4.class)
-public class MNAlarmTimeStringTest extends InstrumentationTestCase {
+public class MNAlarmTimeStringTest extends ActivityInstrumentationTestCase2<MNMainActivity> {
     Context mContext;
+
+    public MNAlarmTimeStringTest() {
+        super(MNMainActivity.class);
+    }
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
         injectInstrumentation(InstrumentationRegistry.getInstrumentation());
-        mContext = getInstrumentation().getContext();
+        mContext = getActivity();
     }
 
     // 내가 가정한 각종 시간과 상황에 대해서 확인을 할 것

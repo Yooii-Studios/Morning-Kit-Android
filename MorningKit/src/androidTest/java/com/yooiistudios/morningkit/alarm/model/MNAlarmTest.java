@@ -4,10 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.InstrumentationTestCase;
+import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 
 import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
+import com.yooiistudios.morningkit.main.MNMainActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,15 +29,19 @@ import static org.junit.Assert.assertThat;
  * MNAlarmTest
  */
 @RunWith(AndroidJUnit4.class)
-public class MNAlarmTest extends InstrumentationTestCase {
+public class MNAlarmTest extends ActivityInstrumentationTestCase2<MNMainActivity> {
     Context mContext;
     MNAlarm alarm;
     ArrayList<MNAlarm> alarmList;
 
+    public MNAlarmTest() {
+        super(MNMainActivity.class);
+    }
+
     @Before
     public void setUp() {
         injectInstrumentation(InstrumentationRegistry.getInstrumentation());
-        mContext = getInstrumentation().getContext();
+        mContext = getActivity();
 
         // Alarm
         alarm = MNAlarm.newInstance();
@@ -89,10 +94,10 @@ public class MNAlarmTest extends InstrumentationTestCase {
 
         // 알람이 현재 시각보다 이전 시간/분 이라면 내일로 설정이 되기에 날짜가 달라야 한다
         if (alarm.getAlarmCalendar().before(nowCalendar)) {
-            alarm.startAlarm(mContext);
+            alarm.startAlarmWithNoToast(mContext);
             assertThat(alarm.getAlarmCalendar().get(Calendar.DATE), is(not(nowCalendar.get(Calendar.DATE))));
         } else {
-            alarm.startAlarm(mContext);
+            alarm.startAlarmWithNoToast(mContext);
             assertThat(alarm.getAlarmCalendar().get(Calendar.DATE), is(nowCalendar.get(Calendar.DATE)));
         }
     }

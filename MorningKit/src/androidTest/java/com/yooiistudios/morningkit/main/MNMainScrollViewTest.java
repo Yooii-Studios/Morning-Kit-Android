@@ -58,15 +58,17 @@ public class MNMainScrollViewTest extends ActivityInstrumentationTestCase2<MNMai
             @Override
             public void run() {
                 mainActivity.onConfigurationChanged(newConfig);
+
+                RelativeLayout.LayoutParams scrollViewParams =
+                        (RelativeLayout.LayoutParams) mainActivity.getScrollView().getLayoutParams();
+
+                // bottomMargin 은 0, 최하단까지 MATCH_PARENT
+                // ABOVE 룰 취소
+                assertThat(scrollViewParams.bottomMargin, is(0));
+                int[] layoutRules = scrollViewParams.getRules();
+                assertThat(layoutRules[RelativeLayout.ABOVE], is(0));
             }
         });
-
-        RelativeLayout.LayoutParams scrollViewParams = (RelativeLayout.LayoutParams) mainActivity.getScrollView().getLayoutParams();
-        // bottomMargin 은 0, 최하단까지 MATCH_PARENT
-        // ABOVE 룰 취소
-        assertThat(scrollViewParams.bottomMargin, is(0));
-        int[] layoutRules = scrollViewParams.getRules();
-        assertThat(layoutRules[RelativeLayout.ABOVE], is(0));
     }
 
     @Test
