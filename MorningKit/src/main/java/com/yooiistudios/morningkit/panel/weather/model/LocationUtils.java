@@ -18,11 +18,13 @@ package com.yooiistudios.morningkit.panel.weather.model;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
+import android.widget.Toast;
 
 import com.yooiistudios.morningkit.R;
 
@@ -67,8 +69,13 @@ public final class LocationUtils {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                context.startActivity(intent);
+                try {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    context.startActivity(intent);
+                } catch(ActivityNotFoundException e) {
+                    Toast.makeText(context, "Failed to open settings.\n" +
+                            "Please turn on location service manually.", Toast.LENGTH_LONG).show();
+                }
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
