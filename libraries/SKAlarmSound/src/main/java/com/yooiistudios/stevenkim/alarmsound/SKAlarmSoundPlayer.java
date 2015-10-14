@@ -89,6 +89,7 @@ public class SKAlarmSoundPlayer {
                 getMediaPlayer().reset();
                 getMediaPlayer().setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
                 afd.close();
+                getMediaPlayer().prepare();
                 play(volume, context);
             }
         } catch (FileNotFoundException e) {
@@ -103,6 +104,7 @@ public class SKAlarmSoundPlayer {
         SKAlarmSound defaultRingtone = SKAlarmSoundFactory.makeDefaultAlarmSound(context);
         Uri uri = Uri.parse(defaultRingtone.getSoundPath());
         getMediaPlayer().setDataSource(context, uri);
+        getMediaPlayer().prepare();
         play(volume, context);
     }
 
@@ -119,15 +121,7 @@ public class SKAlarmSoundPlayer {
                     break;
                 case RINGTONE:
                 case MUSIC:
-                    Uri uri = Uri.parse(alarmSound.getSoundPath());
-                    try {
-                        playRingtoneOrMusic(volume, context, uri);
-                    } catch (IllegalStateException e) {
-                        // https://code.google.com/p/android/issues/detail?id=957
-                        // 버그라고 하는데 IllegalStateException 가 뜰 경우 다시 한 번 해 주면
-                        // 모든 케이스에 대응할 수 있다고 함
-                        playRingtoneOrMusic(volume, context, uri);
-                    }
+                    playRingtoneOrMusic(alarmSound, volume, context);
                     break;
 
                 default:
@@ -138,9 +132,11 @@ public class SKAlarmSoundPlayer {
         }
     }
 
-    private static void playRingtoneOrMusic(int volume, Context context, Uri uri) throws IOException {
+    private static void playRingtoneOrMusic(SKAlarmSound alarmSound, int volume, Context context) throws IOException {
+        Uri uri = Uri.parse(alarmSound.getSoundPath());
         getMediaPlayer().reset();
         getMediaPlayer().setDataSource(context, uri);
+        getMediaPlayer().prepare();
         play(volume, context);
     }
 
@@ -159,7 +155,6 @@ public class SKAlarmSoundPlayer {
         if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
             // Start playback
             // 미디어 플레이어 준비
-            getMediaPlayer().prepare();
             getMediaPlayer().setLooping(true);
             getMediaPlayer().setAudioStreamType(AudioManager.STREAM_MUSIC);
             getMediaPlayer().start();
