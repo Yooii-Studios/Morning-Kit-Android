@@ -46,7 +46,7 @@ public class SKAlarmSoundPlayer {
         return instance;
     }
 
-    public static void play(final Uri uri, final Context context) throws IOException {
+    public static void play(final Context context, final Uri uri) throws IOException {
         getMediaPlayer().reset();
         getMediaPlayer().setDataSource(context, uri);
         play();
@@ -69,7 +69,7 @@ public class SKAlarmSoundPlayer {
         }
     }
 
-    public static void playAppMusic(final int rawInt, final Context context) throws IOException {
+    public static void playAppMusic(final Context context, final int rawInt) throws IOException {
         AssetFileDescriptor afd = context.getResources().openRawResourceFd(rawInt);
         if (afd != null) {
             getMediaPlayer().reset();
@@ -79,7 +79,7 @@ public class SKAlarmSoundPlayer {
         }
     }
 
-    public static void playAppMusic(final int rawInt, int volume, final Context context) throws IOException {
+    public static void playAppMusic(final Context context, final int rawInt, int volume) throws IOException {
         try {
             AssetFileDescriptor afd = context.getResources().openRawResourceFd(rawInt);
             if (afd != null) {
@@ -87,7 +87,7 @@ public class SKAlarmSoundPlayer {
                 getMediaPlayer().setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
                 afd.close();
                 getMediaPlayer().prepare();
-                play(volume, context);
+                play(context, volume);
             }
         } catch (FileNotFoundException e) {
             playDefaultRingtone(context, volume);
@@ -102,23 +102,23 @@ public class SKAlarmSoundPlayer {
         Uri uri = Uri.parse(defaultRingtone.getSoundPath());
         getMediaPlayer().setDataSource(context, uri);
         getMediaPlayer().prepare();
-        play(volume, context);
+        play(context, volume);
     }
 
-    public static void playAlarmSound(final SKAlarmSound alarmSound, int volume, final Context context) throws IOException {
+    public static void playAlarmSound(final Context context, final SKAlarmSound alarmSound, int volume) throws IOException {
         if (alarmSound != null) {
             switch (alarmSound.getAlarmSoundType()) {
                 case APP_MUSIC:
                     int appSoundRawInt = Integer.valueOf(alarmSound.getSoundPath());
                     if (appSoundRawInt != -1) {
-                        SKAlarmSoundPlayer.playAppMusic(appSoundRawInt, volume, context);
+                        SKAlarmSoundPlayer.playAppMusic(context, appSoundRawInt, volume);
                     } else {
                         Toast.makeText(context, "Invalid Alarm Sound", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case RINGTONE:
                 case MUSIC:
-                    playRingtoneOrMusic(alarmSound, volume, context);
+                    playRingtoneOrMusic(context, alarmSound, volume);
                     break;
 
                 default:
@@ -129,12 +129,12 @@ public class SKAlarmSoundPlayer {
         }
     }
 
-    private static void playRingtoneOrMusic(SKAlarmSound alarmSound, int volume, Context context) throws IOException {
+    private static void playRingtoneOrMusic(Context context, SKAlarmSound alarmSound, int volume) throws IOException {
         Uri uri = Uri.parse(alarmSound.getSoundPath());
         getMediaPlayer().reset();
         getMediaPlayer().setDataSource(context, uri);
         getMediaPlayer().prepare();
-        play(volume, context);
+        play(context, volume);
     }
 
     private static void play() throws IOException {
@@ -143,7 +143,7 @@ public class SKAlarmSoundPlayer {
         getMediaPlayer().start();
     }
 
-    private static void play(final int volume, final Context context) throws IOException {
+    private static void play(final Context context, final int volume) throws IOException {
         // 오디오 포커스 등록
         final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         int result = audioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC,
