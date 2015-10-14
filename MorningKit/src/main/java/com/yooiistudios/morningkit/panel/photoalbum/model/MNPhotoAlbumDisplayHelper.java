@@ -318,7 +318,7 @@ public class MNPhotoAlbumDisplayHelper {
                 }
 
                 mPhotoIdx++;
-                if (mPhotoIdx == mFileList.size()) {
+                if (mPhotoIdx >= mFileList.size()) {
                     mPhotoIdx = 0;
                 }
 
@@ -338,7 +338,9 @@ public class MNPhotoAlbumDisplayHelper {
 
                             @Override
                             public void onError() {
-                                mFileList.remove(mPhotoIdx);
+                                if (mPhotoIdx < mFileList.size()) {
+                                    mFileList.remove(mPhotoIdx);
+                                }
 
                                 displayHandler.sendEmptyMessage(HANDLER_WHAT);
                             }

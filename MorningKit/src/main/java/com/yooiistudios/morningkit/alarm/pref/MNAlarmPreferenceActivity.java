@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.alarm.pref;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.crashlytics.android.Crashlytics;
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -88,23 +90,13 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
                 alarmPreferenceType = MNAlarmPreferenceType.EDIT;
                 alarm = MNAlarmListManager.findAlarmById(alarmId, getBaseContext());
             } else {
-                alarmPreferenceType = MNAlarmPreferenceType.ADD;
-                alarm = MNAlarmMaker.makeAlarm(getApplicationContext());
-                alarm.getAlarmCalendar().add(Calendar.MINUTE, 1); // 추가시에는 1분을 추가해 주기
-
-                // 알람 추가일 경우에는 최근 스누즈 사용 여부를 적용, 볼륨, 진동 사용 여부도.
-                SharedPreferences prefs = getSharedPreferences(ALARM_SHARED_PREFS, MODE_PRIVATE);
-                alarm.setSnoozeOn(prefs.getBoolean(ALARM_SHARED_PREFS_ALARM_SNOOZE_ON, true));
-                alarm.setAlarmVolume(prefs.getInt(ALARM_SHARED_PREFS_ALARM_VOLUME, 85));
-                alarm.setVibrateOn(prefs.getBoolean(ALARM_SHARED_PREFS_ALARM_VIBRATE_ON, true));
+                initNewAlarm();
             }
-            if ((alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.MUSIC ||
-                    alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.RINGTONE) &&
-                    !SKAlarmSoundManager.validateAlarmSound(alarm.getAlarmSound().getSoundPath(), this)) {
-                alarm.setAlarmSound(SKAlarmSoundFactory.makeDefaultAlarmSound(this));
-            }
+            checkAlarmSoundAvailable();
         } else {
-            throw new AssertionError("no extras in MNAlarmPreferenceActivity!");
+            // 한번씩 extra 가 없는 경우가 생기는데 throw 대신 그냥 알람을 새로 추가하는 식으로 처리해줌
+            initNewAlarm();
+            checkAlarmSoundAvailable();
         }
         initTitle();
         initListView();
@@ -112,7 +104,32 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         MNAnalyticsUtils.startAnalytics((MNApplication) getApplication(), TAG);
     }
 
-    // getSupportActionBar로 충분하나 테스트를 위해서 이렇게 작성
+    private void initNewAlarm() {
+        alarmPreferenceType = MNAlarmPreferenceType.ADD;
+        alarm = MNAlarmMaker.makeAlarm(getApplicationContext());
+        alarm.getAlarmCalendar().add(Calendar.MINUTE, 1); // 추가시에는 1분을 추가해 주기
+
+        // 알람 추가일 경우에는 최근 스누즈 사용 여부를 적용, 볼륨, 진동 사용 여부도.
+        SharedPreferences prefs = getSharedPreferences(ALARM_SHARED_PREFS, MODE_PRIVATE);
+        alarm.setSnoozeOn(prefs.getBoolean(ALARM_SHARED_PREFS_ALARM_SNOOZE_ON, true));
+        alarm.setAlarmVolume(prefs.getInt(ALARM_SHARED_PREFS_ALARM_VOLUME, 85));
+        alarm.setVibrateOn(prefs.getBoolean(ALARM_SHARED_PREFS_ALARM_VIBRATE_ON, true));
+    }
+
+    private void checkAlarmSoundAvailable() {
+        try {
+            if ((alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.MUSIC ||
+                    alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.RINGTONE) &&
+                    !SKAlarmSoundManager.validateAlarmSound(alarm.getAlarmSound().getSoundPath(), this)) {
+                alarm.setAlarmSound(SKAlarmSoundFactory.makeDefaultAlarmSound(this));
+            }
+        } catch (IllegalArgumentException e) {
+            Crashlytics.getInstance().core.logException(e);
+            Crashlytics.getInstance().core.log("alarmSoundPath: " + alarm.getAlarmSound().getSoundPath());
+        }
+    }
+
+    // getSupportActionBar 로 충분하나 테스트를 위해서 이렇게 작성
     private void initTitle() {
         if (getSupportActionBar() != null) {
             switch (alarmPreferenceType) {
@@ -128,19 +145,19 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         }
     }
 
+    @SuppressLint("InflateParams")
     protected void initListView() {
         // 애드몹 대응을 위한 FooterView, setAdapter 전에 호출 필요
         footerView = LayoutInflater.from(this).inflate(R.layout.alarm_pref_list_footer_view, null, false);
         listView.addFooterView(footerView);
 
         listView.setAdapter(new MNAlarmPreferenceListAdapter(this, alarm));
-//        MNAlarmPrefActivityBusProvider.getInstance().register(this);
     }
 
     private void initAdView() {
-        List<String> ownededSkus = SKIabProducts.loadOwnedIabProducts(this.getApplicationContext());
+        List<String> ownedSkus = SKIabProducts.loadOwnedIabProducts(this.getApplicationContext());
         // 풀버전은 NO_ADS 포함
-        if (ownededSkus.contains(SKIabProducts.SKU_NO_ADS)) {
+        if (ownedSkus.contains(SKIabProducts.SKU_NO_ADS)) {
             adView.setVisibility(View.GONE);
             if (footerView != null) {
                 listView.removeFooterView(footerView);

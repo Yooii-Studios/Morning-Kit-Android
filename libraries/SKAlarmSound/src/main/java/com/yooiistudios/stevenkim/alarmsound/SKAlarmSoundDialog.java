@@ -145,7 +145,7 @@ public class SKAlarmSoundDialog {
                 Uri uri = Uri.parse(path);
 
                 try{
-                    SKAlarmSoundPlayer.play(uri, context);
+                    SKAlarmSoundPlayer.play(context, uri);
                 }catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -279,7 +279,7 @@ public class SKAlarmSoundDialog {
 
                     Uri uri = Uri.parse(soundPath);
                     try {
-                        SKAlarmSoundPlayer.play(uri, context);
+                        SKAlarmSoundPlayer.play(context, uri);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -387,7 +387,7 @@ public class SKAlarmSoundDialog {
                 int appSoundRawInt = MNAlarmAppMusicManager.getRawIntFromIndex(which);
                 if (appSoundRawInt != -1) {
                     try {
-                        SKAlarmSoundPlayer.playAppMusic(appSoundRawInt, context);
+                        SKAlarmSoundPlayer.playAppMusic(context, appSoundRawInt);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

@@ -197,7 +197,6 @@ public class MNNewsFeedPanelLayout extends MNPanelLayout {
                     try {
                         savedNewsList = new Gson().fromJson(newsListStr, type);
                     } catch (JsonSyntaxException e) {
-                        e.printStackTrace();
                         // Sep 28, 2015 05:27:00 같은 Date 가 익셉션이 발생할 경우가 있어서
                         // Stackoverflow 참고해서 해결
                         Gson dateLocalizedGson = new GsonBuilder().registerTypeAdapter(Date.class,
