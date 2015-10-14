@@ -43,7 +43,7 @@ public class MNAlarmWakeUtils {
         if (alarm != null) {
             // 알람 울리기
             MNAlarmWakeCustomDialog.show(alarm, context);
-            SKAlarmSoundPlayer.playAlarmSound(alarm.getAlarmSound(), alarm.getAlarmVolume(), context);
+            SKAlarmSoundPlayer.playAlarmSound(context, alarm.getAlarmSound(), alarm.getAlarmVolume());
 
             // 진동 추가 구현
             if (alarm.isVibrateOn()) {

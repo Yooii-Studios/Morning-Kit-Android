@@ -25,7 +25,7 @@ public class SKAlarmSoundPlayer {
     private volatile static SKAlarmSoundPlayer instance;
     private MediaPlayer mediaPlayer;
     private int previousVolume;
-//    private int previousAudioServiceMode = -100; // setMode를 쓰지 않게 변경(베가 아이언 유플 때문)
+//    private int previousAudioServiceMode = -100; // setMode 를 쓰지 않게 변경(베가 아이언 유플 때문)
 
     public static MediaPlayer getMediaPlayer() {
         return getInstance().mediaPlayer;
@@ -46,7 +46,7 @@ public class SKAlarmSoundPlayer {
         return instance;
     }
 
-    public static void play(final Uri uri, final Context context) throws IOException {
+    public static void play(final Context context, final Uri uri) throws IOException {
         getMediaPlayer().reset();
         getMediaPlayer().setDataSource(context, uri);
         play();
@@ -64,15 +64,12 @@ public class SKAlarmSoundPlayer {
             AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             if (audioManager != null) {
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, getInstance().previousVolume, 0);
-//                if (getInstance().previousAudioServiceMode != -100) {
-//                    audioManager.setMode(getInstance().previousAudioServiceMode);
-//                }
                 audioManager.abandonAudioFocus(null);
             }
         }
     }
 
-    public static void playAppMusic(final int rawInt, final Context context) throws IOException {
+    public static void playAppMusic(final Context context, final int rawInt) throws IOException {
         AssetFileDescriptor afd = context.getResources().openRawResourceFd(rawInt);
         if (afd != null) {
             getMediaPlayer().reset();
@@ -82,14 +79,15 @@ public class SKAlarmSoundPlayer {
         }
     }
 
-    public static void playAppMusic(final int rawInt, int volume, final Context context) throws IOException {
+    public static void playAppMusic(final Context context, final int rawInt, int volume) throws IOException {
         try {
             AssetFileDescriptor afd = context.getResources().openRawResourceFd(rawInt);
             if (afd != null) {
                 getMediaPlayer().reset();
                 getMediaPlayer().setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
                 afd.close();
-                play(volume, context);
+                getMediaPlayer().prepare();
+                play(context, volume);
             }
         } catch (FileNotFoundException e) {
             playDefaultRingtone(context, volume);
@@ -103,31 +101,24 @@ public class SKAlarmSoundPlayer {
         SKAlarmSound defaultRingtone = SKAlarmSoundFactory.makeDefaultAlarmSound(context);
         Uri uri = Uri.parse(defaultRingtone.getSoundPath());
         getMediaPlayer().setDataSource(context, uri);
-        play(volume, context);
+        getMediaPlayer().prepare();
+        play(context, volume);
     }
 
-    public static void playAlarmSound(final SKAlarmSound alarmSound, int volume, final Context context) throws IOException {
+    public static void playAlarmSound(final Context context, final SKAlarmSound alarmSound, int volume) throws IOException {
         if (alarmSound != null) {
             switch (alarmSound.getAlarmSoundType()) {
                 case APP_MUSIC:
                     int appSoundRawInt = Integer.valueOf(alarmSound.getSoundPath());
                     if (appSoundRawInt != -1) {
-                        SKAlarmSoundPlayer.playAppMusic(appSoundRawInt, volume, context);
+                        SKAlarmSoundPlayer.playAppMusic(context, appSoundRawInt, volume);
                     } else {
                         Toast.makeText(context, "Invalid Alarm Sound", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case RINGTONE:
                 case MUSIC:
-                    Uri uri = Uri.parse(alarmSound.getSoundPath());
-                    try {
-                        playRingtoneOrMusic(volume, context, uri);
-                    } catch (IllegalStateException e) {
-                        // https://code.google.com/p/android/issues/detail?id=957
-                        // 버그라고 하는데 IllegalStateException 가 뜰 경우 다시 한 번 해 주면
-                        // 모든 케이스에 대응할 수 있다고 함
-                        playRingtoneOrMusic(volume, context, uri);
-                    }
+                    playRingtoneOrMusic(context, alarmSound, volume);
                     break;
 
                 default:
@@ -138,10 +129,12 @@ public class SKAlarmSoundPlayer {
         }
     }
 
-    private static void playRingtoneOrMusic(int volume, Context context, Uri uri) throws IOException {
+    private static void playRingtoneOrMusic(Context context, SKAlarmSound alarmSound, int volume) throws IOException {
+        Uri uri = Uri.parse(alarmSound.getSoundPath());
         getMediaPlayer().reset();
         getMediaPlayer().setDataSource(context, uri);
-        play(volume, context);
+        getMediaPlayer().prepare();
+        play(context, volume);
     }
 
     private static void play() throws IOException {
@@ -150,7 +143,7 @@ public class SKAlarmSoundPlayer {
         getMediaPlayer().start();
     }
 
-    private static void play(final int volume, final Context context) throws IOException {
+    private static void play(final Context context, final int volume) throws IOException {
         // 오디오 포커스 등록
         final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         int result = audioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC,
@@ -159,14 +152,13 @@ public class SKAlarmSoundPlayer {
         if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
             // Start playback
             // 미디어 플레이어 준비
-            getMediaPlayer().prepare();
             getMediaPlayer().setLooping(true);
             getMediaPlayer().setAudioStreamType(AudioManager.STREAM_MUSIC);
             getMediaPlayer().start();
 
             // 모드를 먼저 설정하고 기존의 볼륨을 얻어야 제대로 된 값을 얻을 수 있음
 //            getInstance().previousAudioServiceMode = audioManager.getMode();
-            // 이 코드 때문에 베가 아이언 유플러스에서 시스템 소리가 뮤트가 됨 - setMode를 쓰지 않게 변경
+            // 이 코드 때문에 베가 아이언 유플러스에서 시스템 소리가 뮤트가 됨 - setMode 를 쓰지 않게 변경
 //            audioManager.setMode(AudioManager.STREAM_MUSIC);
 
             getInstance().previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
