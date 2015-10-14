@@ -8,8 +8,6 @@ import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import java.io.File;
-
 /**
  * Created by StevenKim in SKAlarmSoundSample from Yooii Studios Co., LTD. on 2014. 1. 2.
  *
@@ -51,24 +49,19 @@ public class SKAlarmSoundManager {
      */
     public static boolean validateAlarmSound(String path, Context context) {
         ContentResolver cr = context.getContentResolver();
-        String[] projection = {MediaStore.MediaColumns.DATA};
+        String[] projection = { MediaStore.MediaColumns.DISPLAY_NAME };
         try {
             Cursor cur = cr.query(Uri.parse(path), projection, null, null, null);
-            if(cur != null)
-            {
-                boolean success = cur.moveToFirst();
-                if (success) {
-                    String filePath = cur.getString(0);
-                    return new File(filePath).exists();
-                }
-//		   Log.i(TAG, "soundSource is not available");
-                return false;
+            if (cur != null) {
+                boolean isAlarmSoundExist = cur.getCount() > 0;
+                cur.close();
+                return isAlarmSoundExist;
             } else {
                 // content Uri was invalid or some other error occurred
-//			Log.i(TAG, "soundSource is not available");
                 return false;
             }
         } catch (SQLiteException e) {
+            e.printStackTrace();
             return false;
         }
     }

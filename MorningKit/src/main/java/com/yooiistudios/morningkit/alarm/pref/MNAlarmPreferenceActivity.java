@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.crashlytics.android.Crashlytics;
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -116,10 +117,15 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     }
 
     private void checkAlarmSoundAvailable() {
-        if ((alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.MUSIC ||
-                alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.RINGTONE) &&
-                !SKAlarmSoundManager.validateAlarmSound(alarm.getAlarmSound().getSoundPath(), this)) {
-            alarm.setAlarmSound(SKAlarmSoundFactory.makeDefaultAlarmSound(this));
+        try {
+            if ((alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.MUSIC ||
+                    alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.RINGTONE) &&
+                    !SKAlarmSoundManager.validateAlarmSound(alarm.getAlarmSound().getSoundPath(), this)) {
+                alarm.setAlarmSound(SKAlarmSoundFactory.makeDefaultAlarmSound(this));
+            }
+        } catch (IllegalArgumentException e) {
+            Crashlytics.getInstance().core.logException(e);
+            Crashlytics.getInstance().core.log("alarmSoundPath: " + alarm.getAlarmSound().getSoundPath());
         }
     }
 
