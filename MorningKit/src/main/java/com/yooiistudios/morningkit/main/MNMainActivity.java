@@ -126,7 +126,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         if (savedInstanceState == null && MNAlarmWakeUtils.isAlarmReservedByIntent(getIntent())) {
             turnOnScreen();
             try {
-                MNAlarmWakeUtils.invokeAlarm(this, getIntent());
+                MNAlarmWakeUtils.invokeAlarm(MNMainActivity.this, getIntent());
             } catch (IOException e) {
                 e.printStackTrace();
             }
