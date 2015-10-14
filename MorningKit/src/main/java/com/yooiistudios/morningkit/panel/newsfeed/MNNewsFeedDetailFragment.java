@@ -22,11 +22,14 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.newsfeed.adapter.MNNewsFeedAdapter;
+import com.yooiistudios.morningkit.panel.newsfeed.model.DateDeserializer;
 import com.yooiistudios.morningkit.panel.newsfeed.model.MNNewsFeedUrl;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUrlProvider;
 import com.yooiistudios.morningkit.panel.newsfeed.util.MNNewsFeedUtil;
@@ -36,6 +39,7 @@ import org.json.JSONException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -136,7 +140,16 @@ public class MNNewsFeedDetailFragment extends MNPanelDetailFragment {
                 Type type = new TypeToken<RssFeed>() {}.getType();
                 feed = new Gson().fromJson(feedStr, type);
                 type = new TypeToken<ArrayList<RssItem>>() {}.getType();
-                ArrayList<RssItem> rssItems = new Gson().fromJson(newsListStr, type);
+                ArrayList<RssItem> rssItems;
+                try {
+                    rssItems = new Gson().fromJson(newsListStr, type);
+                } catch (JsonSyntaxException e) {
+                    // Sep 28, 2015 05:27:00 같은 Date 가 익셉션이 발생할 경우가 있어서
+                    // Stackoverflow 참고해서 해결
+                    Gson dateLocalizedGson = new GsonBuilder().registerTypeAdapter(Date.class,
+                            new DateDeserializer()).create();
+                    rssItems = dateLocalizedGson.fromJson(newsListStr, type);
+                }
                 feed.setRssItems(rssItems);
                 if (getPanelDataObject().has(KEY_DISPLAYING_NEWS)) {
                     int idx = getPanelDataObject().getInt(
