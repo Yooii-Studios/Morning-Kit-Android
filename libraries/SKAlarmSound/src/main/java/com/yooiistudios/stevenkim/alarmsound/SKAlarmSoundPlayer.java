@@ -25,7 +25,7 @@ public class SKAlarmSoundPlayer {
     private volatile static SKAlarmSoundPlayer instance;
     private MediaPlayer mediaPlayer;
     private int previousVolume;
-//    private int previousAudioServiceMode = -100; // setMode를 쓰지 않게 변경(베가 아이언 유플 때문)
+//    private int previousAudioServiceMode = -100; // setMode 를 쓰지 않게 변경(베가 아이언 유플 때문)
 
     public static MediaPlayer getMediaPlayer() {
         return getInstance().mediaPlayer;
@@ -64,9 +64,6 @@ public class SKAlarmSoundPlayer {
             AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             if (audioManager != null) {
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, getInstance().previousVolume, 0);
-//                if (getInstance().previousAudioServiceMode != -100) {
-//                    audioManager.setMode(getInstance().previousAudioServiceMode);
-//                }
                 audioManager.abandonAudioFocus(null);
             }
         }
@@ -161,7 +158,7 @@ public class SKAlarmSoundPlayer {
 
             // 모드를 먼저 설정하고 기존의 볼륨을 얻어야 제대로 된 값을 얻을 수 있음
 //            getInstance().previousAudioServiceMode = audioManager.getMode();
-            // 이 코드 때문에 베가 아이언 유플러스에서 시스템 소리가 뮤트가 됨 - setMode를 쓰지 않게 변경
+            // 이 코드 때문에 베가 아이언 유플러스에서 시스템 소리가 뮤트가 됨 - setMode 를 쓰지 않게 변경
 //            audioManager.setMode(AudioManager.STREAM_MUSIC);
 
             getInstance().previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
