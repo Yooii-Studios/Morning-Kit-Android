@@ -1,47 +1,41 @@
 package com.yooiistudios.morningkit.alarm.model;
 
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
+import android.test.InstrumentationTestCase;
+
 import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
-import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.main.MNMainActivity;
-import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowLog;
 
 import java.util.Calendar;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-//import static org.junit.matchers.JUnitMatchers.*;
 
 /**
  * Created by StevenKim on 2013. 11. 11..
  *
  * MNAlarmMakerTest
  */
-@RunWith(RobolectricGradleTestRunner.class)
-@Config (shadows = { AdWebViewShadow.class }, emulateSdk = 18)
-public class MNAlarmMakerTest {
-
+@RunWith(AndroidJUnit4.class)
+public class MNAlarmMakerTest extends InstrumentationTestCase {
     MNAlarm defaultAlarm;
     MNAlarm customAlarm;
-    MNMainActivity mainActivity;
+    Context mContext;
 
     @Before
-    public void setUp() {
-        ShadowLog.stream = System.out;
-
-        mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
-
-        defaultAlarm = MNAlarmMaker.makeAlarm(mainActivity.getBaseContext());
-        customAlarm = MNAlarmMaker.makeAlarmWithTime(mainActivity.getBaseContext(), 6, 30);
+    public void setUp() throws Exception {
+        super.setUp();
+        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
+        mContext = getInstrumentation().getContext();
+        defaultAlarm = MNAlarmMaker.makeAlarm(mContext);
+        customAlarm = MNAlarmMaker.makeAlarmWithTime(mContext, 6, 30);
     }
 
     @Test

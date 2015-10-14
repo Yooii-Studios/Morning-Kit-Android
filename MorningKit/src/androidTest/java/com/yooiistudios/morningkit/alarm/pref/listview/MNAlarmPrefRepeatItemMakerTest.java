@@ -1,56 +1,42 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.util.SparseBooleanArray;
-import android.view.View;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
+import android.test.ActivityInstrumentationTestCase2;
 
-import com.yooiistudios.morningkit.MN;
-import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.MNDummyAlarmMaker;
 import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
-import com.yooiistudios.morningkit.alarm.model.string.MNAlarmRepeatString;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
-import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefRepeatItemMaker;
-import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 import com.yooiistudios.morningkit.main.MNMainActivity;
-import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowLog;
 
 import java.util.ArrayList;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 16.
  *
  * MNAlarmPrefRepeatItemMakerTest
  */
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(shadows = { AdWebViewShadow.class }, emulateSdk = 18) //reportSdk = 10) // Gingerbread // , emulateSdk = 18
-public class MNAlarmPrefRepeatItemMakerTest {
+@RunWith(AndroidJUnit4.class)
+public class MNAlarmPrefRepeatItemMakerTest extends ActivityInstrumentationTestCase2<MNMainActivity> {
     private static final String TAG = "MNAlarmPrefRepeatItemMakerTest";
     private MNAlarmPreferenceActivity alarmPrefActivity_add;
     private MNAlarmPreferenceActivity alarmPrefActivity_edit;
 
+    public MNAlarmPrefRepeatItemMakerTest() {
+        super(MNMainActivity.class);
+    }
+
     @Before
     public void setUp() throws Exception {
-        ShadowLog.stream = System.out;
+        super.setUp();
+        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
 
         // main
-        MNMainActivity mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
+        MNMainActivity mainActivity = getActivity();
 
         // dummy alarm setting
         MNAlarm alarm = MNAlarmMaker.makeAlarm(mainActivity.getBaseContext());
@@ -59,6 +45,7 @@ public class MNAlarmPrefRepeatItemMakerTest {
         dummyAlarmList.add(alarm);
         MNAlarmListManager.saveAlarmList(mainActivity.getBaseContext());
 
+        /*
         // 'Add alarm' Activity
         Intent intent_add_alarm = new Intent(mainActivity.getBaseContext(), MNAlarmPreferenceActivity.class);
         intent_add_alarm.putExtra(MNAlarmPreferenceActivity.ALARM_PREFERENCE_ALARM_ID, -1);
@@ -70,8 +57,11 @@ public class MNAlarmPrefRepeatItemMakerTest {
         intent_edit_alarm.putExtra(MNAlarmPreferenceActivity.ALARM_PREFERENCE_ALARM_ID, alarm.getAlarmId());
         alarmPrefActivity_edit = Robolectric.buildActivity(MNAlarmPreferenceActivity.class)
                 .withIntent(intent_edit_alarm).create().visible().get();
+        */
     }
 
+    /*
+    나중에 무엇을 살릴지 생각해서 다시 살리자
     @Test
     public void testRepeatDetailString() throws Exception {
         // boolean의 ArrayList을 대입하면, 해당한는 반복 String을 반환
@@ -186,4 +176,5 @@ public class MNAlarmPrefRepeatItemMakerTest {
         String repeatString = MNAlarmRepeatString.makeRepeatDetailString(alarmPrefActivity_add.getAlarm().getAlarmRepeatList(), alarmPrefActivity_add);
         assertThat(repeatString, is("Never"));
     }
+    */
 }

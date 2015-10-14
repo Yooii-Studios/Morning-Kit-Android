@@ -9,7 +9,7 @@ import android.content.Context;
  *  Class that makes preset Alarm Sounds
  */
 public class SKAlarmSoundFactory {
-    private SKAlarmSoundFactory() { throw new AssertionError("You MUST not craete class!"); }
+    private SKAlarmSoundFactory() { throw new AssertionError("You MUST not create class!"); }
 
     /**
      * make the default alarm sound(system default ringtone) from device.

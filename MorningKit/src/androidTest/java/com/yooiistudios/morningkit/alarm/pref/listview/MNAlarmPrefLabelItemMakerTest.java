@@ -1,44 +1,22 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.FrameLayout;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
+import android.test.ActivityInstrumentationTestCase2;
 
-import com.yooiistudios.morningkit.MN;
-import com.yooiistudios.morningkit.R;
-import com.yooiistudios.morningkit.alarm.model.MNAlarm;
-import com.yooiistudios.morningkit.alarm.model.list.MNAlarmListManager;
-import com.yooiistudios.morningkit.alarm.model.factory.MNAlarmMaker;
 import com.yooiistudios.morningkit.alarm.pref.MNAlarmPreferenceActivity;
-import com.yooiistudios.morningkit.alarm.pref.listview.item.maker.MNAlarmPrefLabelItemMaker;
-import com.yooiistudios.morningkit.common.RobolectricGradleTestRunner;
-import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 import com.yooiistudios.morningkit.main.MNMainActivity;
-import com.yooiistudios.morningkit.main.admob.AdWebViewShadow;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowLog;
-
-import java.util.ArrayList;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2013. 12. 15.
  *
  * MNAlarmPrefLabelItemMakerTest
  */
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(shadows = { AdWebViewShadow.class }, emulateSdk = 18) //reportSdk = 10) // Gingerbread // , emulateSdk = 18,
-public class MNAlarmPrefLabelItemMakerTest {
+@RunWith(AndroidJUnit4.class)
+public class MNAlarmPrefLabelItemMakerTest extends ActivityInstrumentationTestCase2<MNMainActivity> {
     private static final String TAG = "MNAlarmPrefLabelItemMakerTest";
     MNMainActivity mainActivity;
     MNAlarmPreferenceActivity alarmPrefActivity_add;
@@ -47,10 +25,17 @@ public class MNAlarmPrefLabelItemMakerTest {
     private static final String TEST_ALARM_LABEL = "testAlarm";
     private static final String TEST_ALARM_LABEL_AFTER = "testAlarm_after";
 
+    public MNAlarmPrefLabelItemMakerTest() {
+        super(MNMainActivity.class);
+    }
+
     @Before
     public void setUp() throws Exception {
-        ShadowLog.stream = System.out;
+        super.setUp();
+        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
+//        mContext = getInstrumentation().getContext();
 
+        /*
         // main
         mainActivity = Robolectric.buildActivity(MNMainActivity.class).create().visible().get();
 
@@ -73,8 +58,11 @@ public class MNAlarmPrefLabelItemMakerTest {
         intent_edit_alarm.putExtra(MNAlarmPreferenceActivity.ALARM_PREFERENCE_ALARM_ID, alarm.getAlarmId());
         alarmPrefActivity_edit = Robolectric.buildActivity(MNAlarmPreferenceActivity.class)
                 .withIntent(intent_edit_alarm).create().visible().get();
+                */
     }
 
+    /*
+    추후에 어떤 것들을 테스트할 것인지 생각해서 다시 살리기
     @Test
     public void testLabelItem() throws Exception {
         testLabelItemForEachActivity(alarmPrefActivity_add);
@@ -129,4 +117,5 @@ public class MNAlarmPrefLabelItemMakerTest {
         MNAlarmPrefBusProvider.getInstance().post(dialogLayoutHolder.getLabelEditText().getText().toString());
         assertThat(alarmPrefActivity_edit.getAlarm().getAlarmLabel(), is(TEST_ALARM_LABEL_AFTER));
     }
+    */
 }
