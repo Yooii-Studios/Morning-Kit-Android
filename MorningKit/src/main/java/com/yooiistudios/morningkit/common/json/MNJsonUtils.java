@@ -1,17 +1,12 @@
 package com.yooiistudios.morningkit.common.json;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by StevenKim in MorningKit from Yooii Studios Co., LTD. on 2014. 3. 5.
@@ -21,24 +16,15 @@ import java.io.InputStreamReader;
  */
 public class MNJsonUtils {
     private MNJsonUtils() { throw new AssertionError("You MUST not create this class!"); }
-    public static JSONObject getJsonObjectFromUrl(String url) {
-        DefaultHttpClient httpClient = new DefaultHttpClient(new BasicHttpParams());
-
-        // 20초 동안 응답이 없으면 timeout 처리
-        HttpParams params = httpClient .getParams();
-        HttpConnectionParams.setConnectionTimeout(params, 5 * 1000);
-        HttpConnectionParams.setSoTimeout(params, 5 * 1000);
-
-        HttpPost httpPost = new HttpPost(url);
-        // Depends on your web service
-//        httpPost.setHeader("Content-type", "application/json");
-
-        InputStream inputStream = null;
+    public static JSONObject getJsonObjectFromUrl(String urlString) {
+        BufferedInputStream inputStream = null;
         String result;
         try {
-            HttpResponse response = httpClient.execute(httpPost);
-            HttpEntity entity = response.getEntity();
-            inputStream = entity.getContent();
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setConnectTimeout(5 * 1000);
+            conn.setReadTimeout(5 * 1000);
+            inputStream = new BufferedInputStream(conn.getInputStream());
 
             // json is UTF-8 by default
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
