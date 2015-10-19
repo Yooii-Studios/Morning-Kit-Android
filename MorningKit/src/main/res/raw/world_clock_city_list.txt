@@ -45,7 +45,7 @@ Amman	+2	+00	Jordan Standard Time/100
 Amritsar	+5	+30	India Standard Time/100
 Amsterdam	+1	+00	W. Europe Standard Time/6
 Anadyr	+12	+00	Magadan Standard Time/100
-Anapa	+4	+00	Russian Standard Time/100
+Anapa	+3	+00	Moscow Standard Time/100
 Anchorage, AK	-9	-00	Alaskan Standard Time/2
 Ancona	+1	+00	W. Europe Standard Time/6
 Andorra la Vella	+1	+00	Romance Standard Time/100
@@ -60,11 +60,11 @@ Aqaba	+2	+00	Jordan Standard Time/100
 Arad	+2	+00	FLE Standard Time/100
 Arequipa	-5	-00	SA Pacific Standard Time/100
 Arica	-4	-00	Chile Standard Time/100
-Arkhangelsk	+4	+00	Russian Standard Time/100
+Arkhangelsk	+3	+00	Moscow Standard Time/100
 Arklow	0	0	GMT Standard Time/100
 Armstrong, BC	-8	-00	Pacific Standard Time/3
 Arraial do Cabo	-3	-00	E. South America Standard Time/100
-Arzamas	+4	+00	Russian Standard Time/100
+Arzamas	+3	+00	Moscow Standard Time/100
 Ashkelon	+2	+00	Israel Standard Time/100
 Ashkhabad	+5	+00	West Asia Standard Time/100
 Ashland, OR	-8	-00	Pacific Standard Time/2
@@ -117,7 +117,7 @@ Beijing	+8	+00	China Standard Time/11;Bac Kinh/Baek-ging/Baekging/Behehzhin/Beij
 Beirut	+2	+00	Lebanon Standard Time/100
 Beja	0	0	GMT Standard Time/100
 Belfast	0	0	GMT Standard Time/100
-Belgorod	+4	+00	Russian Standard Time/100
+Belgorod	+4	+00	Moscow Standard Time/100
 Belgrade	+1	+00	Central Europe Standard Time/6
 Belize City	-6	-00	Central America Standard Time/100
 Bellevue, WA	-8	-00	Pacific Standard Time/2
@@ -216,7 +216,7 @@ Chattanooga, TN	-5	-00	Eastern Standard Time/2
 Chelyabinsk	+6	+00	Ekaterinburg Standard Time/100
 Chengdu	+8	+00	China Standard Time/11;Ccheng-tu/Cengdu/Ch'eng-tu/Ch'eng-tu-hsien/Ch'eng-tu-shih/Chehndu/Chengdu/Chengdu Shi/Ch’eng-tu/Ch’eng-tu-hsien/Ch’eng-tu-shih/Hua-yang/Thanh Do/Thành Đô/cheng dou/cheng dou shi/cheongdu/Čcheng-tu/Čengdu/Чэнду/چېڭدۇ شەھىرى/成都/成都市/청두
 Chennai	+5	+30	India Standard Time/100
-Cherepovets	+4	+00	Russian Standard Time/100
+Cherepovets	+3	+00	Moscow Standard Time/100
 Chernobyl	+2	+00	Ukraine Standard Time/100
 Cheruvathur	+5	+30	India Standard Time/100
 Chiang Mai	+7	+00	SE Asia Standard Time/100
@@ -227,7 +227,7 @@ Chimoio	+2	+00	South Africa Standard Time/100
 Chinandega	-6	-00	Central America Standard Time/100
 Chirala	+5	+30	India Standard Time/100
 Chisinau	+2	+00	FLE Standard Time/100
-Chita	+10	+00	Yakutsk Standard Time/100
+Chita	+9	+00	Yakutsk Standard Time/100
 Chittagong	+6	+00	Bangladesh Standard Time/100
 Chongqing	+8	+00	China Standard Time/11;Cchung-cching/Ch'ung-ch'ing/Ch'ung-ch'ing-shih/Chongqing/Chongqing Shi/Chuncin/Chungking/Ch’ung-ch’ing/Ch’ung-ch’ing-shih/Congcingas/Csungking/Cuncina/Pa/Pa-hsien/Trung Khanh/Trùng Khánh/Tsjoengking/Yu-chou/Yuzhou/Yü-chou/chungching/tshwnghtshyngh/z'wngz'yng/zhong qing/zhong qing shi/Čchung-čching/Čongčingas/Čuncina/Чунцин/צ'ונגצ'ינג/تشونغتشينغ/چونگ‌کینگ/چۇڭچىڭ شەھىرى/重庆/重庆市/重慶市/충칭
 Christchurch	+12	+00	New Zealand Standard Time/100
@@ -319,7 +319,7 @@ Durban	+2	+00	South Africa Standard Time/100
 Durres	+1	+00	W. Europe Standard Time/6
 Dushanbe	+5	+00	West Asia Standard Time/100
 Duvall, WA	-8	-00	Pacific Standard Time/2
-Dzerzhinsk	+4	+00	Russian Standard Time/100
+Dzerzhinsk	+3	+00	Moscow Standard Time/100
 East London	+2	+00	South Africa Standard Time/100
 Edinburgh	0	0	GMT Standard Time/100
 Edmonton, AB	-7	-00	Mountain Standard Time/3
@@ -370,7 +370,7 @@ Gatton	+10	+00	E. Australia Standard Time/5
 Gavle	+1	+00	W. Europe Standard Time/6
 Gaya	+5	+30	India Standard Time/100
 Gdansk	+1	+00	Central European Standard Time/100
-Gelendzhik	+4	+00	Russian Standard Time/100
+Gelendzhik	+3	+00	Moscow Standard Time/100
 Geneva	+1	+00	W. Europe Standard Time/6
 Genoa	+1	+00	W. Europe Standard Time/6
 Gent	+1	+00	Romance Standard Time/100
@@ -469,15 +469,15 @@ Indianapolis, IN	-5	-00	Eastern Standard Time/1;인디애나폴리스
 Inuvik, NT	-7	-00	Mountain Standard Time/2
 Iqaluit, NU	-5	-00	Eastern Standard Time/2
 Iraklion	+2	+00	FLE Standard Time/100
-Irkutsk	+9	+00	Ikrutsk Standard Time/100
+Irkutsk	+8	+00	Irkutsk Standard Time/100
 Irvine, CA	-8	-00	Pacific Standard Time/2;어바인
 Islamabad	+5	+00	Pakistan Standard Time/100
 Istanbul	+2	+00	Turkey Standard Time/100
 Itahari	+5	+45	Nepal Standard Time/100
 Ivalo	+2	+00	FLE Standard Time/100
-Ivanovo	+4	+00	Russian Standard Time/100
+Ivanovo	+3	+00	Moscow Standard Time/100
 Ixtapa	-6	-00	Mexico Standard Time/100
-Izhevsk	+4	+00	Russian Standard Time/100
+Izhevsk	+4	+00	Samara Time/100
 Izmir	+2	+00	Turkey Standard Time/100
 Jackson, MS	-6	-00	Central Standard Time/2
 Jacksonville, FL	-5	-00	Eastern Standard Time/1;잭슨빌
@@ -501,12 +501,12 @@ Joao Pessoa	-3	-00	SA Eastern Standard Time/100
 Johannesburg	+2	+00	South Africa Standard Time/100
 Juba	+3	+00	E. Africa Standard Time/100
 Jujuy	-3	-00	SA Eastern Standard Time/100
-Kabardinka	+4	+00	Russian Standard Time/100
+Kabardinka	+3	+00	Moscow Standard Time/100
 Kabul	+4	+30	Afghanistan Standard Time/100
 Kaduna	+1	+00	W. Central Africa Standard Time/100
 Kagoshima	+9	+00	Tokyo Standard Time/7;Kagoshima/Kagoshima shi/Kagosima/Kagošima/gagosima si/kaghwshyma/kagoshimashi/lu er dao shi/lu r dao shi/Кагошима/كاغوشيما/かごしまし/鹿儿岛市/鹿児島市/가고시마
 Kaikoura	+12	+00	New Zealand Standard Time/100
-Kaliningrad	+3	+00	Kaliningrad Standard Time/100
+Kaliningrad	+2	+00	Kaliningrad Standard Time/100
 Kalmar	+1	+00	W. Europe Standard Time/6
 Kalutara	+5	+30	India Standard Time/100
 Kamloops, BC	-8	-00	Pacific Standard Time/3
@@ -524,10 +524,10 @@ Kasauli	+5	+30	India Standard Time/100
 Kathmandu	+5	+45	Nepal Standard Time/100
 Kaunas	+2	+00	FLE Standard Time/100
 Kawasaki	+9	+00	Tokyo Standard Time/7;Kauasaki/Kavasakis/Kawasaki/Kawasaki Si/Kaŭasaki/chuan qi shi/gawasaki si/kawasaky/كاواساكي/川崎市/가와사키
-Kazan	+4	+00	Russian Standard Time/100
+Kazan	+3	+00	Moscow Standard Time/100
 Keel	0	0	GMT Standard Time/100
 Kelowna, BC	-8	-00	Pacific Standard Time/3
-Kemerovo	+7	+00	Novosibirsk Standard Time/100
+Kemerovo	+6	+00	Omsk Time/100
 Kendari	+8	+00	Singapore Standard Time/100
 Kerikeri	+12	+00	New Zealand Standard Time/100
 Khabarovsk	+11	+00	Khabarovsk Standard Time/100
@@ -552,7 +552,7 @@ Kolhapur	+5	+30	India Standard Time/100
 Kolkata	+5	+30	India Standard Time/100
 Koloa, HI	-10	-00	Hawaiian Standard Time/100
 Kolobrzeg	+1	+00	Central European Standard Time/100
-Kolomna	+4	+00	Russian Standard Time/100
+Kolomna	+3	+00	Moscow Standard Time/100
 Kolonia	+11	+00	Central Pacific Standard Time/100
 Konark	+5	+30	India Standard Time/100
 Kone	+11	+00	Central Pacific Standard Time/100
@@ -560,16 +560,16 @@ Konin	+1	+00	Central European Standard Time/100
 Koror	+9	+00	Tokyo Standard Time/7
 Kos	+2	+00	FLE Standard Time/100
 Kosciusko, MS	-6	-00	Central Standard Time/2
-Kostroma	+4	+00	Russian Standard Time/100
+Kostroma	+3	+00	Moscow Standard Time/100
 Kota Kinabalu	+8	+00	Singapore Standard Time/100
 Kotka	+2	+00	FLE Standard Time/100
-Kovrov	+4	+00	Russian Standard Time/100
+Kovrov	+3	+00	Moscow Standard Time/100
 Kowloon	+8	+00	China Standard Time/11
 Krakow	+1	+00	Central European Standard Time/100
-Krasnoyarsk	+8	+00	Krasnoyarsk Standard Time/100
+Krasnoyarsk	+7	+00	Krasnoyarsk Standard Time/100
 Kristiansand	+1	+00	W. Europe Standard Time/6
 Kristianstad	+1	+00	W. Europe Standard Time/6
-Kronstadt	+4	+00	Russian Standard Time/100
+Kronstadt	+3	+00	Moscow Standard Time/100
 Kuala Lumpur	+8	+00	Singapore Standard Time/100
 Kuching	+8	+00	Singapore Standard Time/100
 Kulusuk	-3	-00	Greenland Standard Time/100
@@ -579,7 +579,7 @@ Kungur	+6	+00	Ekaterinburg Standard Time/100
 Kunming	+8	+00	China Standard Time/11;Con Minh/Côn Minh/K'un-ming-hsien/K'un-ming-shih/Kchun-ming/Kun'min/Kunming/Kunming Shi/Kunmingas/K’un-ming-hsien/K’un-ming-shih/Yun-nan/Yunnanfu/Yün-nan/Yünnanfu/kun ming/kun ming shi/kunming/Куньмин/昆明/昆明市/쿤밍
 Kupang	+8	+00	Singapore Standard Time/100
 Kurgan	+6	+00	Ekaterinburg Standard Time/100
-Kursk	+4	+00	Russian Standard Time/100
+Kursk	+3	+00	Moscow Standard Time/100
 Kurunegala	+5	+30	India Standard Time/100
 Kuwait	+3	+00	Arab Standard Time/100
 Kyoto	+9	+00	Tokyo Standard Time/7;Kiotas/Kioto/Kjoto/Kjóto/Kyoto/Kyoto shi/Kyotum/Kyōto/Kyōto shi/Quioto/gyoto si/jing dou/jing dou shi/kywtw/qywtw/Κιότο/Киото/Кіото/Кјото/קיוטו/كيوتو/კიოტო/きょうとし/京都/京都市/교토
@@ -617,7 +617,7 @@ Limerick	0	0	GMT Standard Time/100
 Limoux	+1	+00	Romance Standard Time/100
 Lincoln, NE	-6	-00	Central Standard Time/2
 Linkoping	+1	+00	W. Europe Standard Time/6
-Lipetsk	+4	+00	Russian Standard Time/100
+Lipetsk	+3	+00	Moscow Standard Time/100
 Lisbon	0	0	GMT Standard Time/100
 Lismore	+10	+00	AUS Eastern Standard Time/100
 Little Rock, AR	-6	-00	Central Standard Time/2
@@ -635,7 +635,7 @@ Louisville, KY	-5	-00	Eastern Standard Time/2
 Luancheng	+8	+00	China Standard Time/11
 Luanda	+1	+00	W. Central Africa Standard Time/100
 Lubbock, TX	-6	-00	Central Standard Time/2
-Luchegorsk	+11	+00	Vladivostok Standard Time/100
+Luchegorsk	+10	+00	Vladivostok Standard Time/100
 Lucknow	+5	+30	India Standard Time/100
 Lugano	+1	+00	W. Europe Standard Time/6
 Lugansk	+2	+00	Ukraine Standard Time/100
@@ -737,7 +737,7 @@ Montpellier	+1	+00	Romance Standard Time/100
 Montpeyroux	+1	+00	Romance Standard Time/100
 Montreal, QC	-5	-00	Eastern Standard Time/3
 Moroni	+3	+00	E. Africa Standard Time/100
-Moscow	+4	+00	Russian Standard Time/100
+Moscow	+3	+00	Moscow Standard Time/100
 Motul	-6	-00	Mexico Standard Time/100
 Mount Hagen	+10	+00	West Pacific Standard Time/100
 Mount Shasta City, CA	-8	-00	Pacific Standard Time/2
@@ -747,8 +747,8 @@ Mukachevo	+2	+00	Ukraine Standard Time/100
 Mumbai	+5	+30	India Standard Time/100
 Munich	+1	+00	W. Europe Standard Time/6
 Munnar	+5	+30	India Standard Time/100
-Murmansk	+4	+00	Russian Standard Time/100
-Murom	+4	+00	Russian Standard Time/100
+Murmansk	+3	+00	Moscow Standard Time/100
+Murom	+3	+00	Moscow Standard Time/100
 Murree	+5	+00	Pakistan Standard Time/100
 Muscat	+4	+00	Arabian Standard Time/100
 Myrtle Beach, SC	-5	-00	Eastern Standard Time/2
@@ -759,7 +759,7 @@ Nagoya	+9	+00	Tokyo Standard Time/7;Nagoia/Nagoja/Nagoja Urbo/Nagoya/Nagoya shi/
 Nagpur	+5	+30	India Standard Time/100
 Naha	+9	+00	Tokyo Standard Time/7
 Nairobi	+3	+00	E. Africa Standard Time/100
-Nakhodka	+11	+00	Vladivostok Standard Time/100
+Nakhodka	+10	+00	Vladivostok Standard Time/100
 Nanaimo, BC	-8	-00	Pacific Standard Time/3
 Nanjing	+8	+00	China Standard Time/11;Nan'czin/Nan-ching/Nan-ching-shih/Nanjing/Nankin/Nanking/nan jing/Нанкин/Наньцзин/南京/난징
 Nantes	+1	+00	Romance Standard Time/100
@@ -790,7 +790,7 @@ Niigata	+9	+00	Tokyo Standard Time/7;Niahi niigata/Niigata/Niigata shi/nigata si
 Nikolaev	+2	+00	Ukraine Standard Time/100
 Nimes	+1	+00	Romance Standard Time/100
 Ningbo	+8	+00	China Standard Time/11
-Nizhniy Novgorod	+4	+00	Russian Standard Time/100
+Nizhniy Novgorod	+3	+00	Moscow Standard Time/100
 Nogales	-7	-00	US Mountain Standard Time/100
 Nome, AK	-9	-00	Alaskan Standard Time/2
 Norfolk, VA	-5	-00	Eastern Standard Time/2
@@ -800,9 +800,9 @@ North Ryde	+10	+00	AUS Eastern Standard Time/100
 Norwich	0	0	GMT Standard Time/100
 Nouakchott	0	0	Greenwich Standard Time/100
 Noumea	+11	+00	Central Pacific Standard Time/100
-Novgorod	+4	+00	Russian Standard Time/100
-Novorossiysk	+4	+00	Russian Standard Time/100
-Novosibirsk	+7	+00	Novosibirsk Standard Time/100
+Novgorod	+3	+00	Moscow Standard Time/100
+Novorossiysk	+3	+00	Moscow Standard Time/100
+Novosibirsk	+6	+00	Omsk Time/100
 Nuevo Laredo	-6	-00	Central Standard Time/100
 Nuku'alofa	+13	+00	Tonga Standard Time/100
 Nurnberg	+1	+00	W. Europe Standard Time/6
@@ -820,7 +820,7 @@ Olanchito	-6	-00	Central America Standard Time/100
 Olinda	-3	-00	SA Eastern Standard Time/100
 Olympia, WA	-8	-00	Pacific Standard Time/2;올림피아
 Omaha, NE	-6	-00	Central Standard Time/2;오마하
-Omsk	+7	+00	Novosibirsk Standard Time/100
+Omsk	+6	+00	Omsk Time/100
 Onitsha	+1	+00	W. Central Africa Standard Time/100
 Ootacamund	+5	+30	India Standard Time/100
 Oradea	+2	+00	FLE Standard Time/100
@@ -830,7 +830,7 @@ Orlando, FL	-5	-00	Eastern Standard Time/2
 Osaka	+9	+00	Tokyo Standard Time/7;Osaca/Osako/Oszaka/awsaka/awzaka/da ban shi/osaka/osaka si/xo sa ka/ywsaka/Ósaka/Ószaka/Ōsaka/Ōsaka shi/Осака/אוסקה/أوساكا/ئوساكا/اوزاکا/ওসাকা/โอซะกะ/ოსაკა/おおさかし/大阪市/오사카
 Oshawa, ON	-5	-00	Eastern Standard Time/3
 Oslo	+1	+00	W. Europe Standard Time/6
-Ostrov	+4	+00	Russian Standard Time/100
+Ostrov	+3	+00	Moscow Standard Time/100
 Ottawa, ON	-5	-00	Eastern Standard Time/3
 Ouagadougou	0	0	Greenwich Standard Time/100
 Oulu	+2	+00	FLE Standard Time/100
@@ -852,11 +852,11 @@ Patras	+2	+00	FLE Standard Time/100
 Pearl, MS	-6	-00	Central Standard Time/2
 Pedro Juan Caballero	-4	-00	Paraguay Standard Time/100
 Pensacola, FL	-6	-00	Central Standard Time/2
-Penza	+4	+00	Russian Standard Time/100
+Penza	+3	+00	Moscow Standard Time/100
 Perm	+6	+00	Ekaterinburg Standard Time/100
 Perth	+8	+00	W. Australia Standard Time/5
 Peshawar	+5	+00	Pakistan Standard Time/100
-Peterhof	+4	+00	Russian Standard Time/100
+Peterhof	+3	+00	Moscow Standard Time/100
 Petropavlovsk	+12	+00	Magadan Standard Time/100
 Petropolis	-3	-00	E. South America Standard Time/100
 Philadelphia, PA	-5	-00	Eastern Standard Time/1;필라델피아
@@ -905,7 +905,7 @@ Prince George, BC	-8	-00	Pacific Standard Time/3
 Princeton, NJ	-5	-00	Eastern Standard Time/2
 Pristina	+1	+00	Central Europe Standard Time/6
 Progreso	-6	-00	Mexico Standard Time/100
-Pskov	+4	+00	Russian Standard Time/100
+Pskov	+3	+00	Moscow Standard Time/100
 Puebla	-6	-00	Mexico Standard Time/100
 Puerto Ayora	-6	-00	Central America Standard Time/100
 Puerto Baquerizo Moreno	-6	-00	Central America Standard Time/100
@@ -961,12 +961,12 @@ Rome	+1	+00	W. Europe Standard Time/6
 Rosario	-3	-00	Argentina Standard Time/100
 Roseau	-4	-00	SA Western Standard Time/100
 Rostock	+1	+00	W. Europe Standard Time/6
-Rostov na Donu	+4	+00	Russian Standard Time/100
+Rostov na Donu	+3	+00	Moscow Standard Time/100
 Rotterdam	+1	+00	W. Europe Standard Time/6
 Rovaniemi	+2	+00	FLE Standard Time/100
 Russell Springs, KY	-6	-00	Central Standard Time/2
-Ryazan	+4	+00	Russian Standard Time/100
-Rybinsk	+4	+00	Russian Standard Time/100
+Ryazan	+3	+00	Moscow Standard Time/100
+Rybinsk	+3	+00	Moscow Standard Time/100
 Sacramento, CA	-8	-00	Pacific Standard Time/2;새크라멘토
 Saint George's	-4	-00	SA Western Standard Time/100
 Saint John, NB	-4	-00	Atlantic Standard Time/3
@@ -979,7 +979,7 @@ Salta	-3	-00	SA Eastern Standard Time/100
 Salto	-3	-00	Uruguay Standard Time/100
 Salvador	-3	-00	Bahia Brazil Standard Time/100
 Salzburg	+1	+00	W. Europe Standard Time/6
-Samara	+4	+00	Russian Standard Time/100
+Samara	+4	+00	Samara Time/100
 Samsun	+2	+00	Turkey Standard Time/100
 San Antonio, TX	-6	-00	Central Standard Time/1;샌안토니오
 San Bruno, CA	-8	-00	Pacific Standard Time/2
@@ -1022,7 +1022,7 @@ Sao Paulo	-3	-00	E. South America Standard Time/100
 Sao Tome	0	0	Greenwich Standard Time/100
 Sapporo	+9	+00	Tokyo Standard Time/7;Saporas/Saporo/Sapporia/Sapporo/Sapporo shi/capporo/sabwrw/sap poa roa/sapporoshi/saspolo si/zha huang shi/Сапоро/Саппоро/سابورو/சப்போரோ/ซัปโปะโระ/საპორო/さっぽろし/札幌市/삿포로
 Sarajevo	+1	+00	Central European Standard Time/100
-Saransk	+4	+00	Russian Standard Time/100
+Saransk	+3	+00	Moscow Standard Time/100
 Saskatoon, SK	-6	-00	Canada Central Standard Time/3
 Saxonburg, PA	-5	-00	Eastern Standard Time/2
 Schaffhausen	+1	+00	W. Europe Standard Time/6
@@ -1031,7 +1031,7 @@ Secunderabad	+5	+30	India Standard Time/100
 Semarang	+7	+00	SE Asia Standard Time/100
 Sendai	+9	+00	Tokyo Standard Time/7;Sendaj/sendaishi/xian tai/xian tai shi/Сендай/せんだいし/仙台/仙台
 Seoul	+9	+00	Korea Standard Time/10;서울/Seoul/Choei yuen/Ha seng/Han yang/Hang yang tcheng/Hansong/Hansŏng/Hā seng/Hān yang/Kan yo jo/Kan yō jō/Keijo/Keizyoe/Keizyōe/Kiung/Kyongsong/Kyŏngsŏng/SEL/Seoel/Seoul/Seuel/Seul/Seula/Seulas/Seulo/Seulum/Seúl/Seül/Soeul/Soul/Suigen/Sye ul/Syou ouen/Szoeul/Szöul/Séoul/Söul/Sŏul/Wang ching/Wo jo/Wō jō/ciyol/seoul/seoulteugbyeolsi/shou er/siyola/sol/sola/souru te bie shi/sywl/Σεούλ/Сеул/Սեուլ/סאול/סיאול/سئول/سېئول/सियोल/सोल/சியோல்/โซล/ሶል/ソウル特別市/首爾
-Sergiev Posad	+4	+00	Russian Standard Time/100
+Sergiev Posad	+3	+00	Moscow Standard Time/100
 Sete	+1	+0	Romance Standard Time/100
 Sevastopol	+2	+00	Ukraine Standard Time/100
 Severodonetsk	+2	+00	Ukraine Standard Time/100
@@ -1062,9 +1062,9 @@ Skopje	+1	+00	Central European Standard Time/100
 Sligo	0	0	GMT Standard Time/100
 Sliven	+2	+00	FLE Standard Time/100
 Sneek	+1	+00	W. Europe Standard Time/6
-Sochi	+4	+00	Russian Standard Time/100
+Sochi	+3	+00	Moscow Standard Time/100
 Sofia	+2	+00	FLE Standard Time/100
-Solovki	+4	+00	Russian Standard Time/100
+Solovetsky	+3	+00	Moscow Standard Time/100
 Songkhla	+7	+00	SE Asia Standard Time/100
 South Jordan, UT	-7	-00	Mountain Standard Time/2
 South Tarawa	+12	+00	Marshall Islands Standard Time/100
@@ -1075,11 +1075,11 @@ St. John's	-4	-00	SA Western Standard Time/100
 St. John's, NL	-3	-30	Newfoundland Standard Time/2
 St. Louis, MO	-6	-00	Central Standard Time/2
 St. Paul, MN	-6	-00	Central Standard Time/2
-St. Petersburg	+4	+00	Russian Standard Time/100
+St. Petersburg	+3	+00	Moscow Standard Time/100
 Stamford, CT	-5	-00	Eastern Standard Time/2
 Stanley	-3	-00	Falkland Islands Standard Time/100
 Stavanger	+1	+00	W. Europe Standard Time/6
-Stavropol	+4	+00	Russian Standard Time/100
+Stavropol	+3	+00	Moscow Standard Time/100
 Steinkjer	+1	+00	W. Europe Standard Time/6
 Stenungsund	+1	+00	W. Europe Standard Time/6
 Stockholm	+1	+00	W. Europe Standard Time/6
@@ -1094,7 +1094,7 @@ Surabaya	+7	+00	SE Asia Standard Time/100
 Surat	+5	+30	India Standard Time/100
 Surprise, AZ	-7	-00	US Mountain Standard Time/2
 Suva	+12	+00	Fiji Standard Time/100
-Suzdal	+4	+00	Russian Standard Time/100
+Suzdal	+3	+00	Moscow Standard Time/100
 Suzhou	+8	+00	China Standard Time/11;Su-chou/Su-cou/Su-čou/Suchzhou/Suzhou/To Chau/Tô Châu/Wu-hsien/su zhou/su zhou shi/swjw/Сучжоу/سوجو/سۇجۇ شەھىرى/苏州/苏州市/蘇州/수저우
 Swansea	0	0	GMT Standard Time/100
 Swindon	0	0	GMT Standard Time/100
@@ -1105,7 +1105,7 @@ Syracuse, NY	-5	-00	Eastern Standard Time/2
 Szombathely	+1	+00	Central Europe Standard Time/6
 Tacoma, WA	-8	-00	Pacific Standard Time/2
 Tacuarembo	-3	-00	Uruguay Standard Time/100
-Taganrog	+4	+00	Russian Standard Time/100
+Taganrog	+3	+00	Moscow Standard Time/100
 Taguig	+8	+00	Singapore Standard Time/100
 Taian	+8	+00	China Standard Time/11
 Taichung	+8	+00	Taipei Standard Time/100
@@ -1146,7 +1146,7 @@ Toalmas	+1	+00	Central Europe Standard Time/6
 Tokyo	+9	+00	Tokyo Standard Time/7;Edo/TYO/Tochiu/Tocio/Tokija/Tokijas/Tokio/Tokió/Tokjo/Tokyo/Toquio/Tòquio/Tókýó/Tóquio/Tōkyō/dokyo/dong jing/dong jing dou/tokeiyw/tokkiyo/tokyo/twkyw/twqyw/Τόκιο/Токио/Токё/Токіо/टोक्यो/டோக்கியோ/โตเกียว/ტოკიო/东京/東京/東京都/도쿄
 Toledo, OH	-5	-00	Eastern Standard Time/2
 Toluca de Lerdo	-6	-00	Mexico Standard Time/100
-Tomsk	+7	+00	Novosibirsk Standard Time/100
+Tomsk	+6	+00	Omsk Time/100
 Toowoomba	+10	+00	E. Australia Standard Time/5
 Toronto, ON	-5	-00	Eastern Standard Time/3
 Torshavn	0	0	GMT Standard Time/100
@@ -1162,10 +1162,10 @@ Tromso	+1	+00	W. Europe Standard Time/6
 Trondheim	+1	+00	W. Europe Standard Time/6
 Trujillo	-5	-00	SA Pacific Standard Time/100
 Tshwane	+2	+00	South Africa Standard Time/100
-Tuapse	+4	+00	Russian Standard Time/100
+Tuapse	+3	+00	Moscow Standard Time/100
 Tucson, AZ	-7	-00	US Mountain Standard Time/2
 Tucuman	-3	-00	Argentina Standard Time/100
-Tula	+4	+00	Russian Standard Time/100
+Tula	+3	+00	Moscow Standard Time/100
 Tulcea	+2	+00	FLE Standard Time/100
 Tulsa, OK	-6	-00	Central Standard Time/2
 Tunis	+1	+00	W. Central Africa Standard Time/100
@@ -1173,7 +1173,7 @@ Turin	+1	+00	W. Europe Standard Time/6
 Turku	+2	+00	FLE Standard Time/100
 Tuticorin	+5	+30	India Standard Time/100
 Tuzla	+1	+00	Central European Standard Time/100
-Tver'	+4	+00	Russian Standard Time/100
+Tver'	+3	+00	Moscow Standard Time/100
 Ubon Ratchathani	+7	+00	SE Asia Standard Time/100
 Ubud	+8	+00	Singapore Standard Time/100
 Udon Thani	+7	+00	SE Asia Standard Time/100
@@ -1189,7 +1189,7 @@ Uzhhorod	+2	+00	Ukraine Standard Time/100
 Vaasa	+2	+00	FLE Standard Time/100
 Vadodara	+5	+30	India Standard Time/100
 Vaduz	+1	+00	W. Europe Standard Time/6
-Valaam	+4	+00	Russian Standard Time/100
+Valaam	+3	+00	Moscow Standard Time/100
 Valdivia	-4	-00	Chile Standard Time/100
 Valencia	+1	+00	Romance Standard Time/100
 Valladolid	+1	+00	Romance Standard Time/100
@@ -1199,7 +1199,7 @@ Vancouver, BC	-8	-00	Pacific Standard Time/3
 Vardo	+1	+00	W. Europe Standard Time/6
 Varna	+2	+00	FLE Standard Time/100
 Vatican City	+1	+00	W. Europe Standard Time/6
-Velikiye Luki	+4	+00	Russian Standard Time/100
+Velikiye Luki	+3	+00	Moscow Standard Time/100
 Venice	+1	+00	W. Europe Standard Time/6
 Veracruz	-6	-00	Mexico Standard Time/100
 Verona	+1	+00	W. Europe Standard Time/6
@@ -1219,13 +1219,13 @@ Visby	+1	+00	W. Europe Standard Time/6
 Vishakhapatnam	+5	+30	India Standard Time/100
 Vitoria	+1	+00	Romance Standard Time/100
 Vizianagaram	+5	+30	India Standard Time/100
-Vladimir	+4	+00	Russian Standard Time/100
-Vladivostok	+11	+00	Vladivostok Standard Time/100
-Volgograd	+4	+00	Russian Standard Time/100
-Vologda	+4	+00	Russian Standard Time/100
-Volokolamsk	+4	+00	Russian Standard Time/100
-Voronezh	+4	+00	Russian Standard Time/100
-Votkinsk	+4	+00	Russian Standard Time/100
+Vladimir	+3	+00	Moscow Standard Time/100
+Vladivostok	+10	+00	Vladivostok Standard Time/100
+Volgograd	+3	+00	Moscow Standard Time/100
+Vologda	+3	+00	Moscow Standard Time/100
+Volokolamsk	+3	+00	Moscow Standard Time/100
+Voronezh	+3	+00	Moscow Standard Time/100
+Votkinsk	+4	+00	Samara Time/100
 Waikanae	+12	+00	New Zealand Standard Time/100
 Wailua, HI	-10	-00	Hawaiian Standard Time/2
 Waimea, HI	-10	-00	Hawaiian Standard Time/2
@@ -1254,12 +1254,12 @@ Wollongong	+10	+00	AUS Eastern Standard Time/100
 Wuhan	+8	+00	China Standard Time/11;Uhana/Uhaņa/Ukhan'/Vu Han/Vuhano/Vũ Hán/Wu-han-shih/Wuhan/Wuhan Shi/uhan/wu han/wu han shi/Ухань/ۋۇخەن شەھىرى/武汉/武汉市/武漢/우한
 Xiamen	+8	+00	China Standard Time/11;Amoy/Ha Mon/Hsia-men/Hsia-men-shih/Hạ Môn/Shamen/Sia-men/Siamen/Sjamehn'/Sjamyn'/Ssu-ming/Ssu-ming-hsien/Szeming-hsien/Xiamen/Xiamen - sha men/Xiamen - 厦门/Xiamen Shi/amoi/sha men/sha men shi/Сямынь/Сямэнь/شيامېن شەھىرى/アモイ/厦门/厦门市
 Xian	+8	+00	China Standard Time/11;Ch'ang-an/Ch'ang-an-hsien/Ch’ang-an/Ch’ang-an-hsien/Hsi Gnan Fu/Hsi-an/Hsi-an-shih/Hsi-ching/Hsi-ching-shih/Hsingan/SIA/Si-Gan-Fu/Sian/Sian'/Siana/Sianas/Sianfu/Siaņa/Siking/Singan/Sjiano/Tay An/Tây An/Xi'an/Xi'an - xi an/Xi'an - 西安/Xi'an Shi/Xian/Xi’an/Xi’an Shi/Xī'ān/si xan/sian/xi an/xi an shi/Ŝjiano/Сиань/شىئەن شەھىرى/ซีอาน/西安/西安市/시안
-Yakutsk	+10	+00	Yakutsk Standard Time/100
+Yakutsk	+9	+00	Yakutsk Standard Time/100
 Yalta	+2	+00	Ukraine Standard Time/100
 Yamoussoukro	0	0	Greenwich Standard Time/100
 Yantai	+8	+00	China Standard Time/11
 Yaounde	+1	+00	W. Central Africa Standard Time/100
-Yaroslavl	+4	+00	Russian Standard Time/100
+Yaroslavl	+3	+00	Moscow Standard Time/100
 Yasok	+5	+45	Nepal Standard Time/100
 Yawnghwe	+6	+30	Myanmar Standard Time/100
 Yazd	+3	+30	Iran Standard Time/100
