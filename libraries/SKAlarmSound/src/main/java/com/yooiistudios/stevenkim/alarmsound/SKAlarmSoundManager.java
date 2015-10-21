@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.crashlytics.android.Crashlytics;
+
 /**
  * Created by StevenKim in SKAlarmSoundSample from Yooii Studios Co., LTD. on 2014. 1. 2.
  *
@@ -47,9 +49,9 @@ public class SKAlarmSoundManager {
      * @param context Context to access the Android
      * @return true when sound is playable
      */
-    public static boolean validateAlarmSound(String path, Context context) {
+    public static boolean isValidAlarmSoundPath(String path, Context context) {
         ContentResolver cr = context.getContentResolver();
-        String[] projection = { MediaStore.MediaColumns.DISPLAY_NAME };
+        String[] projection = { MediaStore.MediaColumns._ID };
         try {
             Cursor cur = cr.query(Uri.parse(path), projection, null, null, null);
             if (cur != null) {
@@ -62,6 +64,10 @@ public class SKAlarmSoundManager {
             }
         } catch (SQLiteException e) {
             e.printStackTrace();
+            return false;
+        } catch (IllegalArgumentException e) {
+            Crashlytics.getInstance().core.logException(e);
+            Crashlytics.getInstance().core.log("Sound path: " + path);
             return false;
         }
     }
@@ -95,7 +101,7 @@ public class SKAlarmSoundManager {
             String soundPath, soundTitle;
             soundTitle = getSharedPreferences(context).getString(ALARM_SOUND_TITLE, context.getString(R.string.default_string));
             soundPath = getSharedPreferences(context).getString(ALARM_SOUND_PATH, "content://settings/system/ringtone");
-            if (validateAlarmSound(soundPath, context)) {
+            if (isValidAlarmSoundPath(soundPath, context)) {
                 return SKAlarmSound.newInstance(SKAlarmSoundType.fromInteger(soundTypeInt), soundTitle, soundPath);
             } else {
                 return SKAlarmSoundFactory.makeDefaultAlarmSound(context);

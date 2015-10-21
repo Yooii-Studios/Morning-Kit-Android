@@ -9,6 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.widget.ListView;
 
 import java.io.IOException;
@@ -100,7 +101,6 @@ public class SKAlarmSoundDialog {
      */
     public static AlertDialog makeRingtoneDialog(final Context context, final SKAlarmSound alarmSound,
                                                  final OnAlarmSoundClickListener alarmSoundClickListener) {
-
         RingtoneManager ringtoneManager = new RingtoneManager(context);
         final Cursor ringtones = ringtoneManager.getCursor();
 
@@ -110,16 +110,27 @@ public class SKAlarmSoundDialog {
         if (alarmSound != null && alarmSound.getSoundPath() != null) {
             // search the previously selected ringtone if the alarm sound is validate
             if (alarmSound.getAlarmSoundType() == SKAlarmSoundType.RINGTONE
-                    && SKAlarmSoundManager.validateAlarmSound(alarmSound.getSoundPath(), context)) {
+                    && SKAlarmSoundManager.isValidAlarmSoundPath(alarmSound.getSoundPath(), context)) {
+                int index = -1;
+                boolean isMatched = false;
+                String targetSoundPath = alarmSound.getSoundPath();
+                if (Settings.System.DEFAULT_RINGTONE_URI.equals(Uri.parse(targetSoundPath))) {
+                    targetSoundPath = RingtoneUtils.getSystemRingtoneMediaUri(context).toString();
+                }
 
                 for (ringtones.moveToFirst(); !ringtones.isAfterLast(); ringtones.moveToNext()) {
-                    selectedIndex++;
+                    index++;
                     String path = ringtones.getString(RingtoneManager.URI_COLUMN_INDEX) + "/"
                             + ringtones.getInt(RingtoneManager.ID_COLUMN_INDEX);
 
-                    if (path.equals(alarmSound.getSoundPath())) {
+                    if (path.equals(targetSoundPath)) {
+                        isMatched = true;
                         break;
                     }
+                }
+
+                if (isMatched) {
+                    selectedIndex = index;
                 }
             }
         }
@@ -154,8 +165,8 @@ public class SKAlarmSoundDialog {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                ListView ringtonListView = ((AlertDialog)dialog).getListView();
-                int selectedIndex = ringtonListView.getCheckedItemPosition();
+                ListView ringtoneListView = ((AlertDialog)dialog).getListView();
+                int selectedIndex = ringtoneListView.getCheckedItemPosition();
 
                 // if which is -1, it's the same as canceled
                 if (selectedIndex != -1) {
@@ -168,7 +179,7 @@ public class SKAlarmSoundDialog {
                     SKAlarmSound newAlarmSound;
 
                     // 1. set and save to latestAlarmSound if ringtone source is valid
-                    if (SKAlarmSoundManager.validateAlarmSound(soundSourcePath, context)) {
+                    if (SKAlarmSoundManager.isValidAlarmSoundPath(soundSourcePath, context)) {
                         ringtoneSource = Uri.parse(soundSourcePath);
                         ringtone = RingtoneManager.getRingtone(context, ringtoneSource);
 
@@ -245,14 +256,24 @@ public class SKAlarmSoundDialog {
             int selectedIndex = -1;
 
             // search for the previously selected music index
-            if (alarmSound != null && alarmSound.getSoundPath() != null && alarmSound.getAlarmSoundType() == SKAlarmSoundType.MUSIC
-                    && SKAlarmSoundManager.validateAlarmSound(alarmSound.getSoundPath(), context)) {
+            if (alarmSound != null && alarmSound.getSoundPath() != null
+                    && alarmSound.getAlarmSoundType() == SKAlarmSoundType.MUSIC
+                    && SKAlarmSoundManager.isValidAlarmSoundPath(alarmSound.getSoundPath(), context)) {
+
+                boolean isMatched = false;
+                int index = -1;
                 for (musicCursor.moveToFirst(); !musicCursor.isAfterLast(); musicCursor.moveToNext()) {
-                    selectedIndex++;
+                    index++;
                     String path = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "/" + String.valueOf(musicCursor.getInt(0));
+
                     if (path.equals(alarmSound.getSoundPath())) {
+                        isMatched = true;
                         break;
                     }
+                }
+
+                if (isMatched) {
+                    selectedIndex = index;
                 }
             }
 
@@ -297,7 +318,7 @@ public class SKAlarmSoundDialog {
 
                         SKAlarmSound newAlarmSound;
                         // 1. set and save the alarmSound if valid
-                        if (SKAlarmSoundManager.validateAlarmSound(soundPath, context)) {
+                        if (SKAlarmSoundManager.isValidAlarmSoundPath(soundPath, context)) {
                             String title = musicCursor.getString(musicCursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
                             newAlarmSound = SKAlarmSound.newInstance(SKAlarmSoundType.MUSIC, title, soundPath);
                         }

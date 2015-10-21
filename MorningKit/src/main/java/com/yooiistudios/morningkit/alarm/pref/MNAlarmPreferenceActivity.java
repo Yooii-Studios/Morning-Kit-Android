@@ -120,7 +120,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         try {
             if ((alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.MUSIC ||
                     alarm.getAlarmSound().getAlarmSoundType() == SKAlarmSoundType.RINGTONE) &&
-                    !SKAlarmSoundManager.validateAlarmSound(alarm.getAlarmSound().getSoundPath(), this)) {
+                    !SKAlarmSoundManager.isValidAlarmSoundPath(alarm.getAlarmSound().getSoundPath(), this)) {
                 alarm.setAlarmSound(SKAlarmSoundFactory.makeDefaultAlarmSound(this));
             }
         } catch (IllegalArgumentException e) {

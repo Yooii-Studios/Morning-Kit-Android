@@ -8,6 +8,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -130,11 +132,24 @@ public class SKAlarmSoundPlayer {
     }
 
     private static void playRingtoneOrMusic(Context context, SKAlarmSound alarmSound, int volume) throws IOException {
+        // 재생 직전 알람 사운드 validation 다시 체크 (크래시 대비)
+        if (!SKAlarmSoundManager.isValidAlarmSoundPath(alarmSound.getSoundPath(), context)) {
+            alarmSound = SKAlarmSoundFactory.makeDefaultAlarmSound(context);
+        }
+
         Uri uri = Uri.parse(alarmSound.getSoundPath());
         getMediaPlayer().reset();
         getMediaPlayer().setDataSource(context, uri);
-        getMediaPlayer().prepare();
-        play(context, volume);
+
+        try {
+            getMediaPlayer().prepare();
+            play(context, volume);
+        } catch (IllegalStateException e) {
+            Crashlytics.getInstance().core.logException(e);
+            Crashlytics.getInstance().core.log("alarmSoundType: " + alarmSound.getAlarmSoundType());
+            Crashlytics.getInstance().core.log("alarmSoundTitle: " + alarmSound.getSoundTitle());
+            Crashlytics.getInstance().core.log("alarmSoundPath: " + alarmSound.getSoundPath());
+        }
     }
 
     private static void play() throws IOException {
