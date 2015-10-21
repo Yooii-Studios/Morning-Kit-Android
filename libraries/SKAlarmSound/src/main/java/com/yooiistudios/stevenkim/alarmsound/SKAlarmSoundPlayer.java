@@ -8,6 +8,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -143,7 +145,10 @@ public class SKAlarmSoundPlayer {
             getMediaPlayer().prepare();
             play(context, volume);
         } catch (IllegalStateException e) {
-            e.printStackTrace();
+            Crashlytics.getInstance().core.logException(e);
+            Crashlytics.getInstance().core.log("alarmSoundType: " + alarmSound.getAlarmSoundType());
+            Crashlytics.getInstance().core.log("alarmSoundTitle: " + alarmSound.getSoundTitle());
+            Crashlytics.getInstance().core.log("alarmSoundPath: " + alarmSound.getSoundPath());
         }
     }
 

@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.crashlytics.android.Crashlytics;
+
 /**
  * Created by StevenKim in SKAlarmSoundSample from Yooii Studios Co., LTD. on 2014. 1. 2.
  *
@@ -62,6 +64,10 @@ public class SKAlarmSoundManager {
             }
         } catch (SQLiteException e) {
             e.printStackTrace();
+            return false;
+        } catch (IllegalArgumentException e) {
+            Crashlytics.getInstance().core.logException(e);
+            Crashlytics.getInstance().core.log("Sound path: " + path);
             return false;
         }
     }
