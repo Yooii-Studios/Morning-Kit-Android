@@ -110,7 +110,7 @@ public class SKAlarmSoundDialog {
         if (alarmSound != null && alarmSound.getSoundPath() != null) {
             // search the previously selected ringtone if the alarm sound is validate
             if (alarmSound.getAlarmSoundType() == SKAlarmSoundType.RINGTONE
-                    && SKAlarmSoundManager.validateAlarmSound(alarmSound.getSoundPath(), context)) {
+                    && SKAlarmSoundManager.isValidAlarmSoundPath(alarmSound.getSoundPath(), context)) {
 
                 for (ringtones.moveToFirst(); !ringtones.isAfterLast(); ringtones.moveToNext()) {
                     selectedIndex++;
@@ -168,7 +168,7 @@ public class SKAlarmSoundDialog {
                     SKAlarmSound newAlarmSound;
 
                     // 1. set and save to latestAlarmSound if ringtone source is valid
-                    if (SKAlarmSoundManager.validateAlarmSound(soundSourcePath, context)) {
+                    if (SKAlarmSoundManager.isValidAlarmSoundPath(soundSourcePath, context)) {
                         ringtoneSource = Uri.parse(soundSourcePath);
                         ringtone = RingtoneManager.getRingtone(context, ringtoneSource);
 
@@ -246,7 +246,7 @@ public class SKAlarmSoundDialog {
 
             // search for the previously selected music index
             if (alarmSound != null && alarmSound.getSoundPath() != null && alarmSound.getAlarmSoundType() == SKAlarmSoundType.MUSIC
-                    && SKAlarmSoundManager.validateAlarmSound(alarmSound.getSoundPath(), context)) {
+                    && SKAlarmSoundManager.isValidAlarmSoundPath(alarmSound.getSoundPath(), context)) {
                 for (musicCursor.moveToFirst(); !musicCursor.isAfterLast(); musicCursor.moveToNext()) {
                     selectedIndex++;
                     String path = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "/" + String.valueOf(musicCursor.getInt(0));
@@ -297,7 +297,7 @@ public class SKAlarmSoundDialog {
 
                         SKAlarmSound newAlarmSound;
                         // 1. set and save the alarmSound if valid
-                        if (SKAlarmSoundManager.validateAlarmSound(soundPath, context)) {
+                        if (SKAlarmSoundManager.isValidAlarmSoundPath(soundPath, context)) {
                             String title = musicCursor.getString(musicCursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
                             newAlarmSound = SKAlarmSound.newInstance(SKAlarmSoundType.MUSIC, title, soundPath);
                         }
