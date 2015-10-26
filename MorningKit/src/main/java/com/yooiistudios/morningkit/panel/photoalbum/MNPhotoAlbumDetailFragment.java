@@ -534,8 +534,6 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
 
                         cursor.close();
 
-                        System.out.println(picturePath);
-
                         File selectedFile = new File(picturePath);
                         if (!selectedFile.isFile()) {
                             Toast.makeText(getActivity(),
