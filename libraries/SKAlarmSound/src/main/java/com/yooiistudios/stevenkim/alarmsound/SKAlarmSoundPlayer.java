@@ -51,7 +51,13 @@ public class SKAlarmSoundPlayer {
     public static void play(final Context context, final Uri uri) throws IOException {
         getMediaPlayer().reset();
         getMediaPlayer().setDataSource(context, uri);
-        play();
+
+        try {
+            play();
+        } catch (IllegalStateException e) {
+            Crashlytics.getInstance().core.logException(e);
+            Crashlytics.getInstance().core.log("Uri: " + uri.toString());
+        }
     }
 
     public static void stop() {
