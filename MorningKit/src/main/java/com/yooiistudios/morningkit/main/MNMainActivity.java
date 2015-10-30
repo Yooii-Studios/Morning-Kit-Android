@@ -441,32 +441,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     }
 
     /**
-     * Admob
-     */
-    /*
-    @Override
-    public void onDismissScreen(Ad arg0) {
-    }
-
-    @Override
-    public void onFailedToReceiveAd(Ad arg0, AdRequest.ErrorCode arg1) {
-        // Log.i(TAG, "failed to receive ad (" + arg1 + ")");
-    }
-
-    @Override
-    public void onLeaveApplication(Ad arg0) {
-    }
-
-    @Override
-    public void onPresentScreen(Ad arg0) {
-    }
-
-    @Override
-    public void onReceiveAd(Ad arg0) {
-    }
-    */
-
-    /**
      * Panel
      */
     @Override
