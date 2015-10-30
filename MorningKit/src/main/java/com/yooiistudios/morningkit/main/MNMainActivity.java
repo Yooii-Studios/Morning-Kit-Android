@@ -90,7 +90,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
-//    @Getter @InjectView(R.id.main_scroll_content_layout)    LinearLayout scrollContentLayout;
     @Getter @InjectView(R.id.main_widget_window_layout)     MNPanelWindowLayout panelWindowLayout;
     @Getter @InjectView(R.id.main_alarm_list_view)          MNMainAlarmListView alarmListView;
     @Getter @InjectView(R.id.main_button_layout)            MNMainButtonLayout buttonLayout;
@@ -168,9 +167,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     private void initIab() {
         // 구매목록을 항상 새로 확인 - 구글일 경우에만
-        if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
-
-        } else {
+        if (MNIabInfo.STORE_TYPE.equals(MNStoreType.GOOGLE)) {
             try {
                 SKIabManager iabManager = new SKIabManager(this, null);
                 iabManager.loadWithAllItems();
