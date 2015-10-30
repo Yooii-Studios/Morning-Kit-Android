@@ -171,6 +171,10 @@ public class SKAlarmSoundPlayer {
                 AudioManager.AUDIOFOCUS_GAIN_TRANSIENT); // TRANSIENT 는 45초 미만의 소리 재생 요청, 하지만 더 사용가능할듯
 
         if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            // 재생 전 볼륨 기억하고 0으로 설정
+            getInstance().previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+
             // Start playback
             // 미디어 플레이어 준비
             getMediaPlayer().setLooping(true);
@@ -181,8 +185,6 @@ public class SKAlarmSoundPlayer {
 //            getInstance().previousAudioServiceMode = audioManager.getMode();
             // 이 코드 때문에 베가 아이언 유플러스에서 시스템 소리가 뮤트가 됨 - setMode 를 쓰지 않게 변경
 //            audioManager.setMode(AudioManager.STREAM_MUSIC);
-
-            getInstance().previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
             // 무조건 스피커로 출력
             audioManager.setSpeakerphoneOn(true);
