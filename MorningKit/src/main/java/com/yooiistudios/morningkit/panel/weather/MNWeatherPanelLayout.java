@@ -579,8 +579,13 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 
     @Override
     public void onLocationChanged(Location location) {
-        locationClient.disconnect();
+        try {
+            locationClient.disconnect();
 //        googleApiClient.disconnect();
+        } catch (IllegalStateException e) {
+            // DeadObjectException 이 뜬다. 프로세스에 문제는 없다고 판단
+            Crashlytics.getInstance().core.logException(e);
+        }
 
         // 현재위치를 사용할 때만 진행
         if (location != null && isUsingCurrentLocation) {

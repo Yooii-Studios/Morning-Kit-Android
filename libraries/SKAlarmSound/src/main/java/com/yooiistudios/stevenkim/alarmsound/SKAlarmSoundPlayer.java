@@ -51,7 +51,13 @@ public class SKAlarmSoundPlayer {
     public static void play(final Context context, final Uri uri) throws IOException {
         getMediaPlayer().reset();
         getMediaPlayer().setDataSource(context, uri);
-        play();
+
+        try {
+            play();
+        } catch (IllegalStateException e) {
+            Crashlytics.getInstance().core.logException(e);
+            Crashlytics.getInstance().core.log("Uri: " + uri.toString());
+        }
     }
 
     public static void stop() {
@@ -165,18 +171,14 @@ public class SKAlarmSoundPlayer {
                 AudioManager.AUDIOFOCUS_GAIN_TRANSIENT); // TRANSIENT 는 45초 미만의 소리 재생 요청, 하지만 더 사용가능할듯
 
         if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-            // Start playback
+            // 재생 전 볼륨 기억하고 0으로 설정
+            getInstance().previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+
             // 미디어 플레이어 준비
             getMediaPlayer().setLooping(true);
             getMediaPlayer().setAudioStreamType(AudioManager.STREAM_MUSIC);
             getMediaPlayer().start();
-
-            // 모드를 먼저 설정하고 기존의 볼륨을 얻어야 제대로 된 값을 얻을 수 있음
-//            getInstance().previousAudioServiceMode = audioManager.getMode();
-            // 이 코드 때문에 베가 아이언 유플러스에서 시스템 소리가 뮤트가 됨 - setMode 를 쓰지 않게 변경
-//            audioManager.setMode(AudioManager.STREAM_MUSIC);
-
-            getInstance().previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
             // 무조건 스피커로 출력
             audioManager.setSpeakerphoneOn(true);
@@ -192,7 +194,7 @@ public class SKAlarmSoundPlayer {
 
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, 0); // 볼륨 0에서 시작
 
-                    // 천천히 음량을 높임 - 추가: 재생 중일 때만
+                    // 천천히 음량을 높임 (재생 중일 경우만)
                     while (currentVolume < targetVolume && getMediaPlayer().isPlaying()) {
                         try {
                             Thread.sleep(300);

@@ -12,6 +12,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Vibrator;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.crashlytics.android.Crashlytics;
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -70,6 +73,7 @@ import org.json.JSONException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -90,7 +94,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
-//    @Getter @InjectView(R.id.main_scroll_content_layout)    LinearLayout scrollContentLayout;
     @Getter @InjectView(R.id.main_widget_window_layout)     MNPanelWindowLayout panelWindowLayout;
     @Getter @InjectView(R.id.main_alarm_list_view)          MNMainAlarmListView alarmListView;
     @Getter @InjectView(R.id.main_button_layout)            MNMainButtonLayout buttonLayout;
@@ -112,6 +115,31 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
 
+    // Activity 가 제대로 초기화가 안 된 상태에서 알람이 뜨다가 죽는 문제 방지를 위해 handler 도입
+    private final MNAlarmDialogHandler alarmDialogHandler = new MNAlarmDialogHandler(this);
+    private static class MNAlarmDialogHandler extends Handler {
+        private final WeakReference<MNMainActivity> mActivityReference;
+
+        public MNAlarmDialogHandler(MNMainActivity activityReference) {
+            mActivityReference = new WeakReference<MNMainActivity>(activityReference);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            MNMainActivity activity = mActivityReference.get();
+            if (activity != null && !activity.isFinishing()) {
+                try {
+                    MNAlarmWakeUtils.invokeAlarm(activity, activity.getIntent());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Crashlytics.getInstance().core.logException(
+                        new IllegalStateException("Activity must be available at this time!"));
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,13 +151,11 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         // 강제종료되고 난 후의 실행이 아닌지 && 알람이 있는지 체크
         // OS에 의해 강제종료가 된 후의 실행은 이전의 getIntent()를 받기 때문에 예외처리가 필요
-        if (savedInstanceState == null && MNAlarmWakeUtils.isAlarmReservedByIntent(getIntent())) {
+        // Recent apps 에서 실행된 경우 아래 플래그가 생기는데 이 경우에도 알람이 뜨지 않게 처리해야함
+        if (savedInstanceState == null && MNAlarmWakeUtils.isAlarmReservedByIntent(getIntent()) &&
+                (getIntent().getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
             turnOnScreen();
-            try {
-                MNAlarmWakeUtils.invokeAlarm(MNMainActivity.this, getIntent());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            alarmDialogHandler.sendEmptyMessageDelayed(0, 1000);
         } else {
             // 알람이 울리지 않는다면 리뷰와 전면광고 카운트 체크
             MNReviewUtil.showReviewDialogIfConditionMet(this);
@@ -168,9 +194,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     private void initIab() {
         // 구매목록을 항상 새로 확인 - 구글일 경우에만
-        if (MNIabInfo.STORE_TYPE.equals(MNStoreType.NAVER)) {
-
-        } else {
+        if (MNIabInfo.STORE_TYPE.equals(MNStoreType.GOOGLE)) {
             try {
                 SKIabManager iabManager = new SKIabManager(this, null);
                 iabManager.loadWithAllItems();
@@ -415,32 +439,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         params.put(MNFlurry.CALLED_FROM, "Main - Dog Ear");
         FlurryAgent.logEvent(MNFlurry.STORE, params);
     }
-
-    /**
-     * Admob
-     */
-    /*
-    @Override
-    public void onDismissScreen(Ad arg0) {
-    }
-
-    @Override
-    public void onFailedToReceiveAd(Ad arg0, AdRequest.ErrorCode arg1) {
-        // Log.i(TAG, "failed to receive ad (" + arg1 + ")");
-    }
-
-    @Override
-    public void onLeaveApplication(Ad arg0) {
-    }
-
-    @Override
-    public void onPresentScreen(Ad arg0) {
-    }
-
-    @Override
-    public void onReceiveAd(Ad arg0) {
-    }
-    */
 
     /**
      * Panel
