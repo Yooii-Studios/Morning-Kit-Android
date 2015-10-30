@@ -151,7 +151,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         // 강제종료되고 난 후의 실행이 아닌지 && 알람이 있는지 체크
         // OS에 의해 강제종료가 된 후의 실행은 이전의 getIntent()를 받기 때문에 예외처리가 필요
-        if (savedInstanceState == null && MNAlarmWakeUtils.isAlarmReservedByIntent(getIntent())) {
+        // Recent apps 에서 실행된 경우 아래 플래그가 생기는데 이 경우에도 알람이 뜨지 않게 처리해야함
+        if (savedInstanceState == null && MNAlarmWakeUtils.isAlarmReservedByIntent(getIntent()) &&
+                (getIntent().getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
             turnOnScreen();
             alarmDialogHandler.sendEmptyMessageDelayed(0, 1500);
         } else {
