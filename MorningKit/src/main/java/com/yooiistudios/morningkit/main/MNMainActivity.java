@@ -155,7 +155,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         if (savedInstanceState == null && MNAlarmWakeUtils.isAlarmReservedByIntent(getIntent()) &&
                 (getIntent().getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
             turnOnScreen();
-            alarmDialogHandler.sendEmptyMessageDelayed(0, 1500);
+            alarmDialogHandler.sendEmptyMessageDelayed(0, 1000);
         } else {
             // 알람이 울리지 않는다면 리뷰와 전면광고 카운트 체크
             MNReviewUtil.showReviewDialogIfConditionMet(this);
