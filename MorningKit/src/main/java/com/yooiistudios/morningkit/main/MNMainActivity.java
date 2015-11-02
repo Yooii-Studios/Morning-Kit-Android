@@ -91,6 +91,7 @@ import lombok.Getter;
  */
 public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutorialFinishListener {
     public static final String TAG = "MainActivity";
+    private static int ALARM_REMOVE_DELAY_MILLI = 90;	// 알람이 삭제되는 딜레이
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
@@ -113,9 +114,8 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     private AdView quitMediumAdView;
     private AdView quitLargeBannerAdView;
 
-    private int delayMillisec = 90;	// 알람이 삭제되는 딜레이
-
-    private boolean isAlarmToBeInvoked = false;
+    // Alarm Invoke
+    private boolean willAlarmBeInvoked = false;
 
     // Activity 가 제대로 초기화가 안 된 상태에서 알람이 뜨다가 죽는 문제 방지를 위해 handler 도입
     private final MNAlarmDialogHandler alarmDialogHandler = new MNAlarmDialogHandler(this);
@@ -157,7 +157,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         if (savedInstanceState == null && MNAlarmWakeUtils.isAlarmReservedByIntent(getIntent()) &&
                 (getIntent().getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
             turnOnScreen();
-            isAlarmToBeInvoked = true;
+            willAlarmBeInvoked = true;
         } else {
             // 알람이 울리지 않는다면 리뷰와 전면광고 카운트 체크
             MNReviewUtil.showReviewDialogIfConditionMet(this);
@@ -171,7 +171,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                     alarm.startAlarmWithNoToast(getApplicationContext());
                 }
             }
-            isAlarmToBeInvoked = false;
+            willAlarmBeInvoked = false;
         }
         initIab();
 
@@ -272,8 +272,8 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         }
 
         // 기존 onCreate 에서 처리를 해 주었으나 여러 크래시 상황 때문에 최대한 뒤로 미뤄서 진행
-        if (isAlarmToBeInvoked) {
-            isAlarmToBeInvoked = false;
+        if (willAlarmBeInvoked) {
+            willAlarmBeInvoked = false;
             alarmDialogHandler.sendEmptyMessageDelayed(0, 500);
         }
     }
@@ -461,7 +461,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             @Override
             public void run() {
                 try {
-                    Thread.sleep(delayMillisec);
+                    Thread.sleep(ALARM_REMOVE_DELAY_MILLI);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
