@@ -216,8 +216,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
         // 애드몹
         AdRequest adRequest = new AdRequest.Builder()
-//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-//                .addTestDevice("D9XXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                 .build();
         adView.loadAd(adRequest);
 
@@ -251,7 +249,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // 테마와 관련된 작업 실행
         panelWindowLayout.applyTheme();
 
-        // 액티비티가 resume될 경우 패널에서 필요한 처리 수행
+        // 액티비티가 resume 될 경우 패널에서 필요한 처리 수행
         panelWindowLayout.onActivityResume();
 
         // 애드몹 레이아웃
@@ -276,7 +274,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // onPause 맨 뒤에서 맨 앞으로 보냄 - 시스템이 먼저 잘 처리했으면 함
         super.onPause();
 
-        // onStop에서 onPause로 옮겨옴 - onResume에서 register하는 것과 발을 맞추자
+        // onStop 에서 onPause 로 옮겨옴 - onResume 에서 register 하는 것과 발을 맞추자
         MNAlarmScrollViewBusProvider.getInstance().unregister(this);
 
         // check photoImageView for preventing OOM
@@ -284,12 +282,12 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             photoThemeImageView.setReadyForRecycle(true);
         }
 
-        // 새로 알람이 켜질 때 카메라 자원을 쓰고 있으면 crash가 나기에 보기에는 안좋아도 이렇게 처리.
+        // 새로 알람이 켜질 때 카메라 자원을 쓰고 있으면 crash 가 나기에 보기에는 안좋아도 이렇게 처리.
         if (cameraThemeView != null) {
             cameraThemeView.setVisibility(View.INVISIBLE);
         }
 
-        // 액티비티가 pause될 경우 패널에서 필요한 처리 수행
+        // 액티비티가 pause 될 경우 패널에서 필요한 처리 수행
         panelWindowLayout.onActivityPause();
 
         // Partially visible
@@ -358,12 +356,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                         MNMainLayoutSetter.adjustPanelLayoutParamsAtOrientation(MNMainActivity.this, newConfig.orientation);
                     }
                 });
-//                MNViewSizeMeasure.setViewSizeObserver(containerLayout, new MNViewSizeMeasure.OnGlobalLayoutObserver() {
-//                    @Override
-//                    public void onLayoutLoad() {
-//                        MNMainLayoutSetter.adjustPanelLayoutParamsAtOrientation(MNMainActivity.this, newConfig.orientation);
-//                    }
-//                });
                 break;
         }
         // 버튼 레이아웃
@@ -383,12 +375,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 scrollView.fullScroll(View.FOCUS_UP);
             }
         });
-//        scrollView.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                scrollView.fullScroll(View.FOCUS_UP);
-//            }
-//        });
 
         switch (MNTheme.getCurrentThemeType(this)) {
             case WATER_LILY:
