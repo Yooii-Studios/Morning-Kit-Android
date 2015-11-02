@@ -82,6 +82,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     @InjectView(R.id.unlock_listview)               ListView                listView;
     @InjectView(R.id.unlock_reset_button)           Button                  resetButton;
 
+    // Loading
     @InjectView(R.id.unlock_loading_view)           View                    loadingView;
     @InjectView(R.id.unlock_progressBar)            ProgressBar             progressBar;
 
