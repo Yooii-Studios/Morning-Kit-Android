@@ -198,7 +198,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             try {
                 SKIabManager iabManager = new SKIabManager(this, null);
                 iabManager.loadWithAllItems();
-            } catch (Exception ignored) { }
+            } catch (Exception e) {
+                Crashlytics.getInstance().core.logException(e);
+            }
         }
     }
 
