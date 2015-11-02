@@ -19,6 +19,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,12 +82,17 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
     @InjectView(R.id.unlock_listview)               ListView                listView;
     @InjectView(R.id.unlock_reset_button)           Button                  resetButton;
 
+    // Loading
+    @InjectView(R.id.unlock_loading_view)           View                    loadingView;
+    @InjectView(R.id.unlock_progressBar)            ProgressBar             progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unlock);
         ButterKnife.inject(this);
 
+        showLoadingViews();
         initIab();
         initProductSku();
         initActionBar();
@@ -438,11 +444,13 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     @Override
     public void onIabSetupFailed(IabResult result) {
-//        showComplain("Setup Failed: " + result.getMessage());
+        hideLoadingViews();
     }
 
     @Override
     public void onQueryFinished(Inventory inventory) {
+        hideLoadingViews();
+
         // 풀 버전이나 해당 기능 구매 목록이 이미 있을 경우
         if (inventory.hasPurchase(SKIabProducts.SKU_FULL_VERSION) ||
                 inventory.hasPurchase(productSku)) {
@@ -452,7 +460,7 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
 
     @Override
     public void onQueryFailed(IabResult result) {
-//        showComplain("Query Failed: " + result.getMessage());
+        hideLoadingViews();
     }
 
     /**
@@ -524,5 +532,26 @@ public class MNUnlockActivity extends ActionBarActivity implements MNUnlockOnCli
         super.onStop();
         FlurryAgent.onEndSession(this);
         GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
+
+    /**
+     * Loading
+     */
+    private void showLoadingViews() {
+        if (progressBar != null) {
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+        if (loadingView != null) {
+            loadingView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void hideLoadingViews() {
+        if (progressBar != null) {
+            progressBar.setVisibility(ProgressBar.INVISIBLE);
+        }
+        if (loadingView != null) {
+            loadingView.setVisibility(View.GONE);
+        }
     }
 }
