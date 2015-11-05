@@ -12,8 +12,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.os.Vibrator;
 import android.view.View;
 import android.view.WindowManager;
@@ -73,7 +71,6 @@ import org.json.JSONException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -116,31 +113,6 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     // Alarm Invoke
     private boolean willAlarmBeInvoked = false;
-
-    // Activity 가 제대로 초기화가 안 된 상태에서 알람이 뜨다가 죽는 문제 방지를 위해 handler 도입
-    private final MNAlarmDialogHandler alarmDialogHandler = new MNAlarmDialogHandler(this);
-    private static class MNAlarmDialogHandler extends Handler {
-        private final WeakReference<MNMainActivity> mActivityReference;
-
-        public MNAlarmDialogHandler(MNMainActivity activityReference) {
-            mActivityReference = new WeakReference<MNMainActivity>(activityReference);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            MNMainActivity activity = mActivityReference.get();
-            if (activity != null && !activity.isFinishing()) {
-                try {
-                    MNAlarmWakeUtils.invokeAlarm(activity, activity.getIntent());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                Crashlytics.getInstance().core.logException(
-                        new IllegalStateException("Activity must be available at this time!"));
-            }
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -274,7 +246,11 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         // 기존 onCreate 에서 처리를 해 주었으나 여러 크래시 상황 때문에 최대한 뒤로 미뤄서 진행
         if (willAlarmBeInvoked) {
             willAlarmBeInvoked = false;
-            alarmDialogHandler.sendEmptyMessageDelayed(0, 500);
+            try {
+                MNAlarmWakeUtils.invokeAlarm(this, getIntent());
+            } catch (IOException e) {
+                Crashlytics.getInstance().core.logException(e);
+            }
         }
     }
 
