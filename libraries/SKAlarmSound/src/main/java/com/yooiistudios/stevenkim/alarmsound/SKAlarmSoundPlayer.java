@@ -152,18 +152,19 @@ public class SKAlarmSoundPlayer {
             getMediaPlayer().prepare(); // IllegalStateException 가능성
             play(context, volume);
         } catch (IOException e) {
-            Crashlytics.getInstance().core.log("alarmSoundType: " + alarmSound.getAlarmSoundType());
-            Crashlytics.getInstance().core.log("alarmSoundTitle: " + alarmSound.getSoundTitle());
-            Crashlytics.getInstance().core.log("alarmSoundPath: " + alarmSound.getSoundPath());
-            Crashlytics.getInstance().core.logException(e);
+            reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
             playDefaultRingtone(context, volume);
         } catch (IllegalStateException e) {
-            Crashlytics.getInstance().core.log("alarmSoundType: " + alarmSound.getAlarmSoundType());
-            Crashlytics.getInstance().core.log("alarmSoundTitle: " + alarmSound.getSoundTitle());
-            Crashlytics.getInstance().core.log("alarmSoundPath: " + alarmSound.getSoundPath());
-            Crashlytics.getInstance().core.logException(e);
+            reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
             playDefaultRingtone(context, volume);
         }
+    }
+
+    private static void reportAlarmSoundExceptionToCrashlytics(SKAlarmSound alarmSound, Exception e) {
+        Crashlytics.getInstance().core.log("alarmSoundType: " + alarmSound.getAlarmSoundType());
+        Crashlytics.getInstance().core.log("alarmSoundTitle: " + alarmSound.getSoundTitle());
+        Crashlytics.getInstance().core.log("alarmSoundPath: " + alarmSound.getSoundPath());
+        Crashlytics.getInstance().core.logException(e);
     }
 
     private static void play() throws IOException {
