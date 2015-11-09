@@ -145,16 +145,24 @@ public class SKAlarmSoundPlayer {
 
         Uri uri = Uri.parse(alarmSound.getSoundPath());
         getMediaPlayer().reset();
-        getMediaPlayer().setDataSource(context, uri);
 
+        // 알람 사운드에 문제가 생겨 알림 소리가 안 날 위험이 있는데 최소한 벨소리라도 울려 주게 방어
         try {
-            getMediaPlayer().prepare();
+            getMediaPlayer().setDataSource(context, uri); // IOException 가능성
+            getMediaPlayer().prepare(); // IllegalStateException 가능성
             play(context, volume);
-        } catch (IllegalStateException e) {
-            Crashlytics.getInstance().core.logException(e);
+        } catch (IOException e) {
             Crashlytics.getInstance().core.log("alarmSoundType: " + alarmSound.getAlarmSoundType());
             Crashlytics.getInstance().core.log("alarmSoundTitle: " + alarmSound.getSoundTitle());
             Crashlytics.getInstance().core.log("alarmSoundPath: " + alarmSound.getSoundPath());
+            Crashlytics.getInstance().core.logException(e);
+            playDefaultRingtone(context, volume);
+        } catch (IllegalStateException e) {
+            Crashlytics.getInstance().core.log("alarmSoundType: " + alarmSound.getAlarmSoundType());
+            Crashlytics.getInstance().core.log("alarmSoundTitle: " + alarmSound.getSoundTitle());
+            Crashlytics.getInstance().core.log("alarmSoundPath: " + alarmSound.getSoundPath());
+            Crashlytics.getInstance().core.logException(e);
+            playDefaultRingtone(context, volume);
         }
     }
 
