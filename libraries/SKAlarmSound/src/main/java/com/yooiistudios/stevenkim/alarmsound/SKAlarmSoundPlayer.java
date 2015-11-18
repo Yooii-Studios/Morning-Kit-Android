@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.provider.Settings;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -106,9 +107,8 @@ public class SKAlarmSoundPlayer {
 
     public static void playDefaultRingtone(Context context, int volume) throws IOException {
         getMediaPlayer().reset();
-        SKAlarmSound defaultRingtone = SKAlarmSoundFactory.makeDefaultAlarmSound(context);
-        Uri uri = Uri.parse(defaultRingtone.getSoundPath());
-        getMediaPlayer().setDataSource(context, uri);
+        Uri systemRingtoneUri = Settings.System.DEFAULT_RINGTONE_URI;
+        getMediaPlayer().setDataSource(context, systemRingtoneUri);
         getMediaPlayer().prepare();
         play(context, volume);
     }

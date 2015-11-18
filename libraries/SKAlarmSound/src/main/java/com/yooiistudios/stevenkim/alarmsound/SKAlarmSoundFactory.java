@@ -1,6 +1,7 @@
 package com.yooiistudios.stevenkim.alarmsound;
 
 import android.content.Context;
+import android.provider.Settings;
 
 /**
  * Created by StevenKim in SKAlarmSoundSample from Yooii Studios Co., LTD. on 2014. 1. 2.
@@ -19,7 +20,7 @@ public class SKAlarmSoundFactory {
     public static SKAlarmSound makeDefaultAlarmSound(Context context) {
         // get default sound stuff from the device(Context)
         String soundTitle = context.getString(R.string.default_string);
-        String soundPath = "content://settings/system/ringtone";
+        String soundPath = Settings.System.DEFAULT_RINGTONE_URI.toString();
 
         // init defaultAlarmSound
         return SKAlarmSound.newInstance(SKAlarmSoundType.RINGTONE, soundTitle, soundPath);
