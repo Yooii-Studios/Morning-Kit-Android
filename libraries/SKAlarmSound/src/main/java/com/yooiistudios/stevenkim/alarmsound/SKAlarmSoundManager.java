@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.provider.Settings;
 
 import com.crashlytics.android.Crashlytics;
 
@@ -100,7 +101,8 @@ public class SKAlarmSoundManager {
         if (soundTypeInt != -1) {
             String soundPath, soundTitle;
             soundTitle = getSharedPreferences(context).getString(ALARM_SOUND_TITLE, context.getString(R.string.default_string));
-            soundPath = getSharedPreferences(context).getString(ALARM_SOUND_PATH, "content://settings/system/ringtone");
+            soundPath = getSharedPreferences(context).getString(ALARM_SOUND_PATH,
+                    Settings.System.DEFAULT_RINGTONE_URI.toString());
             if (isValidAlarmSoundPath(soundPath, context)) {
                 return SKAlarmSound.newInstance(SKAlarmSoundType.fromInteger(soundTypeInt), soundTitle, soundPath);
             } else {
