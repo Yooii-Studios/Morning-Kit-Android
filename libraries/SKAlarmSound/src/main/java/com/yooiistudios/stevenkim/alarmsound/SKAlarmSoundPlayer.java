@@ -3,14 +3,19 @@ package com.yooiistudios.stevenkim.alarmsound;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -138,18 +143,10 @@ public class SKAlarmSoundPlayer {
     }
 
     private static void playRingtoneOrMusic(Context context, SKAlarmSound alarmSound, int volume) throws IOException {
-        // 재생 직전 알람 사운드 validation 다시 체크 (크래시 대비)
-        if (!SKAlarmSoundManager.isValidAlarmSoundPath(alarmSound.getSoundPath(), context)) {
-            alarmSound = SKAlarmSoundFactory.makeDefaultAlarmSound(context);
-        }
+        setDataSource(context, alarmSound);
 
-        Uri uri = Uri.parse(alarmSound.getSoundPath());
-        getMediaPlayer().reset();
-
-        // 알람 사운드에 문제가 생겨 알림 소리가 안 날 위험이 있는데 최소한 벨소리라도 울려 주게 방어
         try {
-            getMediaPlayer().setDataSource(context, uri); // IOException 가능성
-            getMediaPlayer().prepare(); // IllegalStateException 가능성
+            getMediaPlayer().prepare();
             play(context, volume);
         } catch (IOException e) {
             reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
@@ -157,6 +154,40 @@ public class SKAlarmSoundPlayer {
         } catch (IllegalStateException e) {
             reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
             playDefaultRingtone(context, volume);
+        }
+    }
+
+    private static void setDataSource(Context context, SKAlarmSound alarmSound) throws IOException {
+        // 재생 직전 알람 사운드 validation 다시 체크 (크래시 대비)
+        if (!SKAlarmSoundManager.isValidAlarmSoundPath(alarmSound.getSoundPath(), context)) {
+            alarmSound = SKAlarmSoundFactory.makeDefaultAlarmSound(context);
+        }
+
+        String fileInfo = alarmSound.getSoundPath();
+
+        if (fileInfo.startsWith("content://")) {
+            Uri uri = Uri.parse(fileInfo);
+            fileInfo = getSoundPathFromContentUri(context, uri);
+        }
+
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                setDataSourcePostHoneyComb(context, getMediaPlayer(), fileInfo);
+            } else {
+                try {
+                    setDataSourcePreHoneyComb(getMediaPlayer(), fileInfo);
+                } catch (Exception ignored) {
+                    setDataSourcePostHoneyComb(context, getMediaPlayer(), fileInfo);
+                }
+            }
+        } catch (Exception ignored) {
+            try {
+                setDataSourceUsingFileDescriptor(getMediaPlayer(), fileInfo);
+            } catch (Exception ignored1) {
+                String uri = getSoundUriFromPath(context, fileInfo);
+                getMediaPlayer().reset();
+                getMediaPlayer().setDataSource(uri);
+            }
         }
     }
 
@@ -216,5 +247,53 @@ public class SKAlarmSoundPlayer {
                 }
             }).start();
         }
+    }
+
+    /**
+     * setDataSource 관련 외부 코드
+     * http://stackoverflow.com/questions/16395559/mediaplayer-setdatasource-failed-with-status-0x80000000-for-ringtone-set-by-file
+     */
+    private static void setDataSourcePreHoneyComb(MediaPlayer mp, String fileInfo) throws Exception {
+        mp.reset();
+        mp.setDataSource(fileInfo);
+    }
+
+    private static void setDataSourcePostHoneyComb(Context context, MediaPlayer mp, String fileInfo) throws Exception {
+        mp.reset();
+        mp.setDataSource(context, Uri.parse(Uri.encode(fileInfo)));
+    }
+
+    private static void setDataSourceUsingFileDescriptor(MediaPlayer mp, String fileInfo) throws Exception {
+        File file = new File(fileInfo);
+        FileInputStream inputStream = new FileInputStream(file);
+        mp.reset();
+        mp.setDataSource(inputStream.getFD());
+        inputStream.close();
+    }
+
+    private static String getSoundUriFromPath(Context context, String path) {
+        Uri soundUri = MediaStore.Audio.Media.getContentUriForPath(path);
+        Cursor soundCursor = context.getContentResolver().query(soundUri, null,
+                MediaStore.Audio.Media.DATA + "='" + path + "'", null, null);
+        soundCursor.moveToFirst();
+
+        long id = soundCursor.getLong(soundCursor.getColumnIndex(MediaStore.Audio.Media._ID));
+        soundCursor.close();
+
+        if (!soundUri.toString().endsWith(String.valueOf(id))) {
+            return soundUri + "/" + id;
+        } else {
+            return soundUri.toString();
+        }
+    }
+
+    public static String getSoundPathFromContentUri(Context context, Uri contentUri) {
+        String[] proj = { MediaStore.Audio.Media.DATA };
+        Cursor soundCursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+        soundCursor.moveToFirst();
+        String path = soundCursor.getString(soundCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA));
+        soundCursor.close();
+
+        return path;
     }
 }
