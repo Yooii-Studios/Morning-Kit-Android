@@ -176,14 +176,14 @@ public class SKAlarmSoundPlayer {
             } else {
                 try {
                     setDataSourcePreHoneyComb(getMediaPlayer(), fileInfo);
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                     setDataSourcePostHoneyComb(context, getMediaPlayer(), fileInfo);
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
             try {
                 setDataSourceUsingFileDescriptor(getMediaPlayer(), fileInfo);
-            } catch (Exception e1) {
+            } catch (Exception ignored1) {
                 String uri = getSoundUriFromPath(context, fileInfo);
                 getMediaPlayer().reset();
                 getMediaPlayer().setDataSource(uri);
