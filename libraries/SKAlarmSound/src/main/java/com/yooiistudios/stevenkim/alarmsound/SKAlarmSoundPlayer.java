@@ -163,11 +163,20 @@ public class SKAlarmSoundPlayer {
             alarmSound = SKAlarmSoundFactory.makeDefaultAlarmSound(context);
         }
 
-        String fileInfo = alarmSound.getSoundPath();
+        String fileInfo;
+        if (Settings.System.DEFAULT_RINGTONE_URI.equals(Uri.parse(alarmSound.getSoundPath()))) {
+            fileInfo  = RingtoneUtils.getSystemRingtoneMediaUri(context).toString();
+        } else {
+            fileInfo = alarmSound.getSoundPath();
+        }
 
         if (fileInfo.startsWith("content://")) {
             Uri uri = Uri.parse(fileInfo);
-            fileInfo = getSoundPathFromContentUri(context, uri);
+            try {
+                fileInfo = getSoundPathFromContentUri(context, uri);
+            } catch (Exception ignored) {
+                fileInfo = alarmSound.getSoundPath();
+            }
         }
 
         try {
