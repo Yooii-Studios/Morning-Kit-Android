@@ -282,18 +282,18 @@ public class SKAlarmSoundPlayer {
 
         if (!soundUri.toString().endsWith(String.valueOf(id))) {
             return soundUri + "/" + id;
+        } else {
+            return soundUri.toString();
         }
-        return soundUri.toString();
     }
 
     public static String getSoundPathFromContentUri(Context context, Uri contentUri) {
         String[] proj = { MediaStore.Audio.Media.DATA };
         Cursor soundCursor = context.getContentResolver().query(contentUri, proj, null, null, null);
         soundCursor.moveToFirst();
-
         String path = soundCursor.getString(soundCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA));
-
         soundCursor.close();
+
         return path;
     }
 }
