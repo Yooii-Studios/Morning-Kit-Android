@@ -294,15 +294,16 @@ public class SKAlarmSoundPlayer {
         Cursor soundCursor = context.getContentResolver().query(soundUri, null,
                 MediaStore.Audio.Media.DATA + "='" + path + "'", null, null);
 
+        String soundUrlString = soundUri.toString();
         if (soundCursor.moveToFirst()) {
             long id = soundCursor.getLong(soundCursor.getColumnIndex(MediaStore.Audio.Media._ID));
-            soundCursor.close();
 
             if (!soundUri.toString().endsWith(String.valueOf(id))) {
-                return soundUri + "/" + id;
+                soundUrlString = soundUri + "/" + id;
             }
         }
-        return soundUri.toString();
+        soundCursor.close();
+        return soundUrlString;
     }
 
     public static String getSoundPathFromContentUri(Context context, Uri contentUri) {
