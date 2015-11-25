@@ -149,11 +149,17 @@ public class SKAlarmSoundPlayer {
             getMediaPlayer().prepare();
             play(context, volume);
         } catch (IOException e) {
-            reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
-            playDefaultRingtone(context, volume);
+            try {
+                playDefaultRingtone(context, volume);
+            } catch (Exception e1) {
+                reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
+            }
         } catch (IllegalStateException e) {
-            reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
-            playDefaultRingtone(context, volume);
+            try {
+                playDefaultRingtone(context, volume);
+            } catch (Exception e1) {
+                reportAlarmSoundExceptionToCrashlytics(alarmSound, e1);
+            }
         }
     }
 
@@ -193,8 +199,9 @@ public class SKAlarmSoundPlayer {
             reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
             try {
                 setDataSourceUsingFileDescriptor(getMediaPlayer(), fileInfo);
-            } catch (Exception e2) {
-                reportAlarmSoundExceptionToCrashlytics(alarmSound, e2);
+            } catch (Exception e1) {
+                reportAlarmSoundExceptionToCrashlytics(alarmSound, e1);
+
                 String uri = getSoundUriFromPath(context, fileInfo);
                 getMediaPlayer().reset();
                 getMediaPlayer().setDataSource(uri);
