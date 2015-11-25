@@ -149,11 +149,17 @@ public class SKAlarmSoundPlayer {
             getMediaPlayer().prepare();
             play(context, volume);
         } catch (IOException e) {
-            reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
-            playDefaultRingtone(context, volume);
+            try {
+                playDefaultRingtone(context, volume);
+            } catch (Exception e1) {
+                reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
+            }
         } catch (IllegalStateException e) {
-            reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
-            playDefaultRingtone(context, volume);
+            try {
+                playDefaultRingtone(context, volume);
+            } catch (Exception e1) {
+                reportAlarmSoundExceptionToCrashlytics(alarmSound, e1);
+            }
         }
     }
 
@@ -189,10 +195,13 @@ public class SKAlarmSoundPlayer {
                     setDataSourcePostHoneyComb(context, getMediaPlayer(), fileInfo);
                 }
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
             try {
                 setDataSourceUsingFileDescriptor(getMediaPlayer(), fileInfo);
-            } catch (Exception ignored1) {
+            } catch (Exception e1) {
+                reportAlarmSoundExceptionToCrashlytics(alarmSound, e1);
+
                 String uri = getSoundUriFromPath(context, fileInfo);
                 getMediaPlayer().reset();
                 getMediaPlayer().setDataSource(uri);
@@ -284,16 +293,17 @@ public class SKAlarmSoundPlayer {
         Uri soundUri = MediaStore.Audio.Media.getContentUriForPath(path);
         Cursor soundCursor = context.getContentResolver().query(soundUri, null,
                 MediaStore.Audio.Media.DATA + "='" + path + "'", null, null);
-        soundCursor.moveToFirst();
 
-        long id = soundCursor.getLong(soundCursor.getColumnIndex(MediaStore.Audio.Media._ID));
-        soundCursor.close();
+        String soundUrlString = soundUri.toString();
+        if (soundCursor.moveToFirst()) {
+            long id = soundCursor.getLong(soundCursor.getColumnIndex(MediaStore.Audio.Media._ID));
 
-        if (!soundUri.toString().endsWith(String.valueOf(id))) {
-            return soundUri + "/" + id;
-        } else {
-            return soundUri.toString();
+            if (!soundUri.toString().endsWith(String.valueOf(id))) {
+                soundUrlString = soundUri + "/" + id;
+            }
         }
+        soundCursor.close();
+        return soundUrlString;
     }
 
     public static String getSoundPathFromContentUri(Context context, Uri contentUri) {
