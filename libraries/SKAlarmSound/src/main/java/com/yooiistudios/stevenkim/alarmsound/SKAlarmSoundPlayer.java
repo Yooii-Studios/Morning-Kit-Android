@@ -196,6 +196,7 @@ public class SKAlarmSoundPlayer {
                 }
             }
         } catch (Exception e) {
+            reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
             try {
                 setDataSourceUsingFileDescriptor(getMediaPlayer(), fileInfo);
             } catch (Exception e1) {
