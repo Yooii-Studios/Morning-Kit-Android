@@ -278,7 +278,7 @@ public class SKAlarmSoundPlayer {
 
     private static void setDataSourcePostHoneyComb(Context context, MediaPlayer mp, String fileInfo) throws Exception {
         mp.reset();
-        mp.setDataSource(context, Uri.parse(Uri.encode(fileInfo)));
+        mp.setDataSource(context, Uri.parse(fileInfo));
     }
 
     private static void setDataSourceUsingFileDescriptor(MediaPlayer mp, String fileInfo) throws Exception {
