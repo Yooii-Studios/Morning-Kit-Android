@@ -5,8 +5,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.Settings;
 
-import com.crashlytics.android.Crashlytics;
-
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2015. 10. 21.
  *
@@ -29,9 +27,7 @@ public class RingtoneUtils {
                     String val = c.getString(0);
                     mediaUri = Uri.parse(val);
                 }
-            } catch (Exception e) {
-                Crashlytics.getInstance().core.logException(e);
-            } finally {
+            } catch (Exception ignored) {} finally {
                 c.close();
             }
         }
