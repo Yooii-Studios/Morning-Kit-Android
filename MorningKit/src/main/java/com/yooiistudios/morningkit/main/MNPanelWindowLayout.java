@@ -116,7 +116,7 @@ public class MNPanelWindowLayout extends LinearLayout {
                         MNPanelType panelType = MNPanelType.valueOfUniqueId(uniquePanelId);
 
                         // 플러리
-                        Map<String, String> params = new HashMap<String, String>();
+                        Map<String, String> params = new HashMap<>();
                         params.put(MNFlurry.PANEL_USAGE, panelType.toString());
                         FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, params);
                     }
@@ -127,7 +127,7 @@ public class MNPanelWindowLayout extends LinearLayout {
                         MNPanelType panelType = MNPanelType.valueOfUniqueId(uniquePanelId);
 
                         // 플러리
-                        Map<String, String> params = new HashMap<String, String>();
+                        Map<String, String> params = new HashMap<>();
                         params.put(MNFlurry.PANEL_USAGE, panelType.toString());
                         FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, params);
                     }
@@ -230,7 +230,7 @@ public class MNPanelWindowLayout extends LinearLayout {
                     throw new AssertionError("index must be > 0 and <= panelLayouts.length");
                 }
                 // 플러리 - 패널 디테일 액티비티에서 패널 변경
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put(MNFlurry.CHANGE_PANEL_FROM, "Panel Detail Activity");
                 FlurryAgent.logEvent(MNFlurry.PANEL, params);
             } else {
@@ -316,45 +316,6 @@ public class MNPanelWindowLayout extends LinearLayout {
                 }
             }
         }
-    }
-
-    /**
-     * 방향에 따라 각 패널의 높이를 조절
-     */
-    @Override
-    protected void onSizeChanged(final int w, final int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-
-        // 테스트 모드에서 실행하지 않음
-        if (isInEditMode()) {
-            return;
-        }
-
-//        switch (getResources().getConfiguration().orientation) {
-//            case Configuration.ORIENTATION_PORTRAIT:
-//                for (MNPanelLayout panelLayout : panelLayouts) {
-//                    LinearLayout.LayoutParams layoutParams = (LayoutParams) panelLayout.getLayoutParams();
-////                    layoutParams.height = getResources().getDimensionPixelSize(R.dimen.panel_height);
-//                    layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-//
-//                    panelLayout.setLayoutParams(layoutParams);
-//                    panelLayout.invalidate();
-//                }
-//                break;
-//
-//            case Configuration.ORIENTATION_LANDSCAPE:
-//                // getHeight()에서 제대로 된 높이를 구하기 위해서
-//                for (MNPanelLayout panelLayout : panelLayouts) {
-//                    LinearLayout.LayoutParams layoutParams = (LayoutParams) panelLayout.getLayoutParams();
-//                    // 패널윈도우 높이의 절반 - inner 마진
-//                    layoutParams.height = getHeight() / 2
-//                            - getResources().getDimensionPixelSize(R.dimen.margin_inner) * 2;
-//
-//                    panelLayout.setLayoutParams(layoutParams);
-//                    panelLayout.invalidate();
-//                }
-//                break;
-//        }
     }
 
     /**
