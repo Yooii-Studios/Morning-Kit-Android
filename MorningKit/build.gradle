@@ -80,6 +80,8 @@ dependencies {
     compile project(':libraries:sAXRSSReader')
     compile project(':libraries:FullscreenAd')
     compile project(':libraries:Volley')
+    debugCompile project(path: ':libraries:coreutils', configuration: 'debug')
+    releaseCompile project(path: ':libraries:coreutils', configuration: 'release')
 
     // 안드로이드 기본
     compile 'com.android.support:support-v4:23.1.1'
