@@ -13,6 +13,7 @@ import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -86,7 +87,8 @@ import lombok.Getter;
  * MNMainActivity
  *  앱에서 가장 중요한 메인 액티비티
  */
-public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutorialFinishListener {
+public class MNMainActivity extends AppCompatActivity
+        implements MNTutorialLayout.OnTutorialFinishListener {
     public static final String TAG = "MainActivity";
     private static int ALARM_REMOVE_DELAY_MILLI = 90;	// 알람이 삭제되는 딜레이
 
@@ -624,11 +626,12 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     private void askUsingCurrentLocationDialog() {
         AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert);
         } else {
             builder = new AlertDialog.Builder(this);
         }
+
         builder.setPositiveButton("사용", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
