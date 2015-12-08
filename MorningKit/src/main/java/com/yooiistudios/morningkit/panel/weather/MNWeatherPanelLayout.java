@@ -401,7 +401,8 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     }
 
     // Clock
-    private Handler clockHandler = new Handler() {
+    private WeatherClockHandler weatherHandler = new WeatherClockHandler();
+    private class WeatherClockHandler extends Handler {
         @Override
         public void handleMessage( Message msg ){
             if (isClockRunning) {
@@ -419,28 +420,28 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
                     timeString = localDateTime.toString("HH:mm:ss");
                 }
 
-                // UI갱신
+                // UI 갱신
                 // 튜토리얼때는 updateUI가 메인 쓰레드가 끊기지 않게 하기 위해 사용하지 않음
                 if (MNTutorialManager.isTutorialShown(getContext().getApplicationContext())
                         || localTimeTextView.length() == 0) {
                     localTimeTextView.setText(timeString);
                 }
 
-                // tick의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
+                // tick 의 동작 시간을 계산해서 정확히 1초마다 UI 갱신을 요청할 수 있게 구현
                 long endMilli = System.currentTimeMillis();
                 long delay = endMilli % 1000;
 
-                clockHandler.sendEmptyMessageDelayed(0, 1000 - delay);
+                weatherHandler.sendEmptyMessageDelayed(0, 1000 - delay);
             }
         }
-    };
+    }
 
     private void startClock() {
         if (isClockRunning) {
             return;
         }
         isClockRunning = true;
-        clockHandler.sendEmptyMessageDelayed(0, 0); // 첫 시작은 딜레이 없이 호출
+        weatherHandler.sendEmptyMessageDelayed(0, 0); // 첫 시작은 딜레이 없이 호출
     }
 
     private void stopClock() {
@@ -448,7 +449,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             return;
         }
         isClockRunning = false;
-        clockHandler.removeMessages(0); // 기존 핸들러 메시지 삭제(1개만 유지하기 위함)
+        weatherHandler.removeMessages(0); // 기존 핸들러 메시지 삭제(1개만 유지하기 위함)
     }
 
     private void startWWOTask(LatLng latLng) {
