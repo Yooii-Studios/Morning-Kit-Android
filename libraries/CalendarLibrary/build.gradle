@@ -9,10 +9,6 @@ buildscript {
 
 apply plugin: 'com.android.library'
 
-dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
-}
-
 android {
     compileSdkVersion 19
     buildToolsVersion "19.1.0"
