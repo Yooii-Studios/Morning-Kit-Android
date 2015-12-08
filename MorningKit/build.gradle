@@ -88,7 +88,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
 
     // 위치 서비스 관련
-    compile 'com.google.android.gms:play-services:8.3.0'
+    compile 'com.google.android.gms:play-services-ads:7.8.0'
+    compile 'com.google.android.gms:play-services-analytics:7.8.0'
 
     // 모든 jar 파일 로딩
     compile fileTree(dir: 'libs', include: '*.jar')
