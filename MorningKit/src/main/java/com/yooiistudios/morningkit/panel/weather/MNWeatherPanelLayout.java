@@ -146,6 +146,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         currentLocationWeatherDataCache = new MNWeatherDataCurrentLocationCache(getContext());
     }
 
+    @SuppressWarnings("ResourceType")
     private void initUI() {
         // containers
         RelativeLayout innerContentLayout = new RelativeLayout(getContext());
@@ -275,9 +276,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         super.processLoading();
 
         // recycle imageview
-        if (MNBitmapUtils.recycleImageView(weatherConditionImageView)) {
-//            MNLog.i(TAG, "weather condition imageview recycled");
-        }
+        MNBitmapUtils.recycleImageView(weatherConditionImageView);
 
         // get data from panelDataObject
         loadPanelDataObject();
@@ -351,7 +350,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         }
 
         // 플러리
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<>();
         params.put(MNFlurry.WEATHER, isUsingCurrentLocation ? "Using current location" : "Not using current location");
         FlurryAgent.logEvent(MNFlurry.PANEL, params);
     }
