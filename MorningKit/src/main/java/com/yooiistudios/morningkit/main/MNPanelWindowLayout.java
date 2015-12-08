@@ -346,4 +346,30 @@ public class MNPanelWindowLayout extends LinearLayout {
             }
         }
     }
+
+    /**
+     * 날씨 패널 LocationModule 관련
+     */
+    public boolean isThereWeatherPanel() {
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            MNPanelType panelType = panelLayout.getPanelType();
+            if (panelType == MNPanelType.WEATHER) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void refreshWeatherPanelIfExist() {
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            MNPanelType panelType = panelLayout.getPanelType();
+            if (panelType == MNPanelType.WEATHER) {
+                try {
+                    panelLayout.refreshPanel();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

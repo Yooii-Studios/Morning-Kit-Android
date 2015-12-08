@@ -1,7 +1,6 @@
 package com.yooiistudios.morningkit.panel.weather;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,11 +9,8 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -24,22 +20,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
 import com.flurry.android.FlurryAgent;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.yooiistudios.coreutils.location.LocationModule;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.bitmap.MNBitmapUtils;
+import com.yooiistudios.morningkit.common.location.LocationServiceUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
-import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialManager;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.weather.model.LocationUtils;
@@ -70,12 +60,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  */
 public class MNWeatherPanelLayout extends MNPanelLayout implements
         MNWeatherWWOAsyncTask.OnWeatherWWOAsyncTaskListener,
-        GooglePlayServicesClient.ConnectionCallbacks,
-        GooglePlayServicesClient.OnConnectionFailedListener,
-        LocationListener, LocationUtils.OnLocationListener {
-
-    private static final String TAG = "MNWeatherPanelLayout";
-
+        LocationUtils.OnLocationListener {
     public static final String WEATHER_DATA_IS_USING_CURRENT_LOCATION = "WEATHER_IS_USING_CURRENT_LOCATION";
     protected static final String WEATHER_DATA_IS_DISPLAYING_LOCAL_TIME = "WEATHER_INDICATE_LOCAL_TIME";
     protected static final String WEATHER_DATA_TEMP_CELSIUS = "WEATHER_TEMP_CELSIUS";
@@ -100,13 +85,6 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     // LocalTime
     private boolean isClockRunning = false;
 
-    // Current Location - Deprecated
-    private LocationClient locationClient;
-    private LocationRequest mLocationRequest; // A request to connect to Location Services
-
-    // New but now use now
-//    private GoogleApiClient googleApiClient;
-
     // Cache
     private MNWeatherDataSearchCityCache searchCityWeatherDataCache;
     private MNWeatherDataCurrentLocationCache currentLocationWeatherDataCache;
@@ -122,23 +100,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     protected void init() {
         super.init();
         initUI();
-        initLocationRequest();
         initWeatherDataCache();
-    }
-
-    private void initLocationRequest() {
-        // Create a new global location parameters object
-        mLocationRequest = LocationRequest.create();
-
-        // Set the update interval
-        mLocationRequest.setInterval(LocationUtils.UPDATE_INTERVAL_IN_MILLISECONDS);
-
-        // Use high accuracy - 위치에서 배터리 사용 낮음으로 하기 위함
-//        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-
-        // Set the interval ceiling to one minute
-        mLocationRequest.setFastestInterval(LocationUtils.FAST_INTERVAL_CEILING_IN_MILLISECONDS);
     }
 
     private void initWeatherDataCache() {
@@ -250,14 +212,6 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         localTimeTextView.setLayoutParams(localTimeParams);
         innerContentLayout.addView(localTimeTextView);
 
-        // test
-//        weatherConditionImageView.setImageDrawable(new RecyclingBitmapDrawable(getResources(),
-//                BitmapFactory.decodeResource(getResources(), R.drawable.m_icon_weather_07_tornado)));
-//        currentTempTextView.setText("14°T");
-//        lowHighTempTextView.setText("7°/19°T");
-//        cityNameTextView.setText("Daegu Test");
-//        localTimeTextView.setText("14:11:56 Test");
-
         if (DEBUG_UI) {
             innerContentLayout.setBackgroundColor(Color.BLUE);
             upperContentLayout.setBackgroundColor(Color.LTGRAY);
@@ -275,84 +229,16 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     protected void processLoading() throws JSONException {
         super.processLoading();
 
-        // recycle imageview
         MNBitmapUtils.recycleImageView(weatherConditionImageView);
-
-        // get data from panelDataObject
         loadPanelDataObject();
+        cancelPreviousWwoTask();
 
-        // cancel the previous task first
-        if (weatherWWOAsyncTask != null) {
-            weatherWWOAsyncTask.cancel(true);
-        }
-
-        // deprecated
-        if (locationClient == null) {
-            locationClient = new LocationClient(getContext(), this, this);
-        } else {
-            locationClient.disconnect();
-        }
-
-        // new locationClient
-//        if (googleApiClient == null) {
-//            googleApiClient = new GoogleApiClient.Builder(getContext(), this, this)
-//                    .addApi(LocationServices.API)
-//                    .addConnectionCallbacks(this)
-//                    .addOnConnectionFailedListener(this)
-//                    .build();
-//        } else {
-//            googleApiClient.disconnect();
-//        }
-
-        // get weather data from server
         if (isUsingCurrentLocation) {
-            // 현재 위치는 locationClient 에서 위치를 받아와 콜백 메서드에서 로직을 진행
-
-            // 네트워크 위치를 사용 가능할 때
-            try {
-                LocationManager locManager =
-                        (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-                if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                        locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                    // Location enabled
-                    locationClient.connect();
-                } else {
-                    showLocationServerUnavailable();
-                }
-            } catch (SecurityException e) {
-                Crashlytics.getInstance().core.logException(e);
-                showLocationServerUnavailable();
-            }
+            loadWeatherOfCurrentLocation();
         } else {
-            if (selectedLocationInfo != null) {
-                // find previous data from cache
-                MNWeatherData cachedWeatherData = searchCityWeatherDataCache.findWeatherCache(
-                        selectedLocationInfo.getLatitude(), selectedLocationInfo.getLongitude());
-
-                if (cachedWeatherData != null) {
-                    // use cache if exist
-                    weatherData = cachedWeatherData;
-                    updateUI();
-                } else {
-                    // get weather data from server if cache doesn't exist
-                    weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), true, this);
-                    // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                        weatherWWOAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                    } else {
-                        weatherWWOAsyncTask.execute();
-                    }
-                }
-            } else {
-                // 네이버 인앱 현재위치 사용 안함시 도시 선택을 요청
-                showCoverLayout(R.string.weather_choose_your_city);
-            }
+            loadWeatherOfSelectedLocation();
         }
-
-        // 플러리
-        Map<String, String> params = new HashMap<>();
-        params.put(MNFlurry.WEATHER, isUsingCurrentLocation ? "Using current location" : "Not using current location");
-        FlurryAgent.logEvent(MNFlurry.PANEL, params);
+        logFlurryEvent();
     }
 
     private void loadPanelDataObject() throws JSONException {
@@ -374,6 +260,58 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             Type type = new TypeToken<MNWeatherLocationInfo>(){}.getType();
             selectedLocationInfo = new Gson().fromJson(getPanelDataObject().getString(WEATHER_DATA_SELECTED_WEATHER_LOCATION_INFO), type);
         }
+    }
+
+    private void cancelPreviousWwoTask() {
+        if (weatherWWOAsyncTask != null) {
+            weatherWWOAsyncTask.cancel(true);
+        }
+    }
+
+    private void loadWeatherOfCurrentLocation() {
+        try {
+            LatLng currentLatLng = LocationModule.getInstance(getContext()).getCurrentLatLng();
+            startWWOTask(currentLatLng);
+        } catch (LocationModule.LocationException e) {
+            if (!LocationServiceUtils.isEnabled(getContext())) {
+                LocationServiceUtils.showEnableLocationServiceDialog((Activity)getContext());
+            } else {
+                showCoverLayout(R.string.weather_choose_your_city);
+            }
+        }
+    }
+
+    private void loadWeatherOfSelectedLocation() {
+        if (selectedLocationInfo != null) {
+            // find previous data from cache
+            MNWeatherData cachedWeatherData = searchCityWeatherDataCache.findWeatherCache(
+                    selectedLocationInfo.getLatitude(), selectedLocationInfo.getLongitude());
+
+            if (cachedWeatherData != null) {
+                // use cache if exist
+                weatherData = cachedWeatherData;
+                updateUI();
+            } else {
+                // get weather data from server if cache doesn't exist
+                weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(selectedLocationInfo, getContext(), true, this);
+                // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    weatherWWOAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                } else {
+                    weatherWWOAsyncTask.execute();
+                }
+            }
+        } else {
+            // 네이버 인앱 현재위치 사용 안함시 도시 선택을 요청
+            showCoverLayout(R.string.weather_choose_your_city);
+        }
+    }
+
+    private void logFlurryEvent() {
+        // 플러리
+        Map<String, String> params = new HashMap<>();
+        params.put(MNFlurry.WEATHER, isUsingCurrentLocation ? "Using current location" : "Not using current location");
+        FlurryAgent.logEvent(MNFlurry.PANEL, params);
     }
 
     @Override
@@ -513,93 +451,10 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         clockHandler.removeMessages(0); // 기존 핸들러 메시지 삭제(1개만 유지하기 위함)
     }
 
-    /**
-     * Location Client handler
-     */
-
-    /**
-     * Called by Location Services when the request to connect the
-     * client finishes successfully. At this point, you can
-     * request the current location or start periodic updates
-     */
-    @Override
-    public void onConnected(Bundle bundle) {
-        // lastLocation can't have a recent location, so must call
-        // requestLocationUpdates()
-        if (servicesConnected()) {
-//            LocationServices.FusedLocationApi.requestLocationUpdates(
-//                    googleApiClient, mLocationRequest, this);
-
-            try {
-                Location lastLocation = locationClient.getLastLocation();
-
-                // lastLocation 이 있으면 그것을 써서 빨리 업데이트를 하고, 최신 위치를 바로 받아오자.
-                if (lastLocation != null) {
-                    startWWOTask(lastLocation);
-                }
-                locationClient.requestLocationUpdates(mLocationRequest, this);
-            } catch (SecurityException e) {
-                Crashlytics.getInstance().core.logException(e);
-                showLocationServerUnavailable();
-            }
-        }
-    }
-
-    /*
-    @Override
-    public void onConnectionSuspended(int i) {
-        MNLog.now("google onConnectionSuspended");
-// lastLocation can't have a recent location, so must call
-        // requestLocationUpdates()
-        if (servicesConnected()) {
-//            googleApiClient. requestLocationUpdates(mLocationRequest, this);
-        }
-    }
-    */
-
-    /**
-     * Called by Location Services if the attempt to
-     * Location Services fails.
-     */
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        MNLog.now("onConnectionFailed: " + connectionResult.toString());
-        // Location Fail 메시지 보여주기
-        showCoverLayout(R.string.weather_choose_your_city);
-    }
-
-    /**
-     * Called by Location Services if the connection to the
-     * location client drops because of an error.
-     */
-    @Override
-    public void onDisconnected() {
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        try {
-            locationClient.disconnect();
-//        googleApiClient.disconnect();
-        } catch (IllegalStateException e) {
-            // DeadObjectException 이 뜬다. 프로세스에 문제는 없다고 판단
-            Crashlytics.getInstance().core.logException(e);
-        }
-
-        // 현재위치를 사용할 때만 진행
-        if (location != null && isUsingCurrentLocation) {
-            startWWOTask(location);
-        } else {
-            // Location Fail 메시지 보여주기
-//            MNLog.now("weatherPanel/onConnected: no last location");
-            showCoverLayout(R.string.weather_choose_your_city);
-        }
-    }
-
-    private void startWWOTask(Location location) {
+    private void startWWOTask(LatLng latLng) {
         // find previous data from cache
         MNWeatherData cachedWeatherData = currentLocationWeatherDataCache.findWeatherCache(
-                location.getLatitude(), location.getLongitude());
+                latLng.latitude, latLng.longitude);
 
         if (cachedWeatherData != null) {
             // update UI using cache weather data
@@ -609,8 +464,8 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             // WWO using current location
             MNWeatherLocationInfo currentLocationInfo = new MNWeatherLocationInfo();
 
-            currentLocationInfo.setLatitude(location.getLatitude());
-            currentLocationInfo.setLongitude(location.getLongitude());
+            currentLocationInfo.setLatitude(latLng.latitude);
+            currentLocationInfo.setLongitude(latLng.longitude);
             weatherWWOAsyncTask = new MNWeatherWWOAsyncTask(currentLocationInfo, getContext(), false, this);
             // 앞 큐에 있는 AsyncTask 가 막힐 경우 뒷 쓰레드가 되게 하기 위한 코드
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -618,36 +473,6 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             } else {
                 weatherWWOAsyncTask.execute();
             }
-        }
-    }
-
-    /**
-     * Verify that Google Play services is available before making a request.
-     *
-     * @return true if Google Play services is available, otherwise false
-     */
-    private boolean servicesConnected() {
-
-        // Check that Google Play services is available
-        int resultCode =
-                GooglePlayServicesUtil.isGooglePlayServicesAvailable(getContext());
-
-        // If Google Play services is available
-        if (ConnectionResult.SUCCESS == resultCode) {
-            // In debug mode, log the status
-//            MNLog.i(TAG, "play services available");
-
-            // Continue
-            return true;
-
-        // Google Play services was not available for some reason
-        } else {
-            // Display an error dialog
-            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, (Activity)getContext(), 0);
-            if (dialog != null) {
-                Toast.makeText(getContext(), dialog.toString(), Toast.LENGTH_SHORT).show();
-            }
-            return false;
         }
     }
 
@@ -681,10 +506,6 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         stopClock();
-    }
-
-    private void showLocationServerUnavailable() {
-        LocationUtils.showLocationUnavailableDialog(getContext(), this);
     }
 
     // 위치 정보 사용 취소할 경우 현재 위치 사용 옵션을 풀고 저장하고 리프레시

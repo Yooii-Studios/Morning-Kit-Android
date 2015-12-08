@@ -26,8 +26,10 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.maps.model.LatLng;
 import com.squareup.otto.Subscribe;
 import com.stevenkim.camera.SKCameraThemeView;
+import com.yooiistudios.coreutils.location.LocationModule;
 import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
@@ -87,8 +89,8 @@ import lombok.Getter;
  * MNMainActivity
  *  앱에서 가장 중요한 메인 액티비티
  */
-public class MNMainActivity extends AppCompatActivity
-        implements MNTutorialLayout.OnTutorialFinishListener {
+public class MNMainActivity extends AppCompatActivity implements
+        MNTutorialLayout.OnTutorialFinishListener, LocationModule.OnLocationEventListener {
     public static final String TAG = "MainActivity";
     private static int ALARM_REMOVE_DELAY_MILLI = 90;	// 알람이 삭제되는 딜레이
 
@@ -230,6 +232,12 @@ public class MNMainActivity extends AppCompatActivity
             dogEarImageView.setVisibility(View.GONE);
         } else {
             dogEarImageView.setVisibility(View.VISIBLE);
+        }
+
+        // 날씨 패널이 있을 경우 위치를 요청
+        if (panelWindowLayout.isThereWeatherPanel()) {
+            LocationModule.getInstance(getApplicationContext()).requestCurrentLocation(
+                    getSupportFragmentManager(), this);
         }
 
         // 기존 onCreate 에서 처리를 해 주었으나 여러 크래시 상황 때문에 최대한 뒤로 미뤄서 진행
@@ -692,5 +700,19 @@ public class MNMainActivity extends AppCompatActivity
             // just finish activity when no ad item is bought
             super.onBackPressed();
         }
+    }
+
+    /**
+     * Location Module
+     */
+    @Override
+    public Activity onResolutionRequired() {
+        return this;
+    }
+
+    @Override
+    public void onLocationChanged(LatLng latLng) {
+        LocationModule.getInstance(getApplicationContext()).cancelCurrentLocationRequest();
+        panelWindowLayout.refreshWeatherPanelIfExist();
     }
 }
