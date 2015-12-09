@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.panel.weather;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -401,7 +402,9 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     }
 
     // Clock
-    private WeatherClockHandler weatherHandler = new WeatherClockHandler();
+    private WeatherClockHandler weatherClockHandler = new WeatherClockHandler();
+    
+    @SuppressLint("HandlerLeak")
     private class WeatherClockHandler extends Handler {
         @Override
         public void handleMessage( Message msg ){
@@ -431,7 +434,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
                 long endMilli = System.currentTimeMillis();
                 long delay = endMilli % 1000;
 
-                weatherHandler.sendEmptyMessageDelayed(0, 1000 - delay);
+                weatherClockHandler.sendEmptyMessageDelayed(0, 1000 - delay);
             }
         }
     }
@@ -441,7 +444,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             return;
         }
         isClockRunning = true;
-        weatherHandler.sendEmptyMessageDelayed(0, 0); // 첫 시작은 딜레이 없이 호출
+        weatherClockHandler.sendEmptyMessageDelayed(0, 0); // 첫 시작은 딜레이 없이 호출
     }
 
     private void stopClock() {
@@ -449,7 +452,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             return;
         }
         isClockRunning = false;
-        weatherHandler.removeMessages(0); // 기존 핸들러 메시지 삭제(1개만 유지하기 위함)
+        weatherClockHandler.removeMessages(0); // 기존 핸들러 메시지 삭제(1개만 유지하기 위함)
     }
 
     private void startWWOTask(LatLng latLng) {
