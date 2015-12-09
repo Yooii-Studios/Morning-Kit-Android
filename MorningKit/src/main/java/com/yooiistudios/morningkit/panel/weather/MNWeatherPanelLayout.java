@@ -232,7 +232,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 
         MNBitmapUtils.recycleImageView(weatherConditionImageView);
         loadPanelDataObject();
-        cancelPreviousWwoTask();
+        cancelPreviousWWOTask();
 
         if (isUsingCurrentLocation) {
             loadWeatherOfCurrentLocation();
@@ -263,7 +263,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         }
     }
 
-    private void cancelPreviousWwoTask() {
+    private void cancelPreviousWWOTask() {
         if (weatherWWOAsyncTask != null) {
             weatherWWOAsyncTask.cancel(true);
         }
@@ -403,7 +403,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
 
     // Clock
     private WeatherClockHandler weatherClockHandler = new WeatherClockHandler();
-    
+
     @SuppressLint("HandlerLeak")
     private class WeatherClockHandler extends Handler {
         @Override
