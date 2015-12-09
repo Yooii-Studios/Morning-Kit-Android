@@ -20,7 +20,7 @@ import java.util.Calendar;
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2014. 6. 15.
  *
  * MNAlarmOngoingNotificationMaker
- *  스테이터스바 상단에 표시되는 OngoingNotification을 만드는 클래스
+ *  스테이터스바 상단에 표시되는 OngoingNotification 을 만드는 클래스
  */
 public class MNAlarmOngoingNotificationMaker {
     public static void make(MNAlarm alarm, Context context) {
@@ -56,16 +56,6 @@ public class MNAlarmOngoingNotificationMaker {
                 .setWhen(0)
                 .setContentIntent(pendingIntent)
                 .build();
-
-//        if (Build.VERSION.SDK_INT > 10) {
-//
-//        } else {
-//            notification = new Notification(R.drawable.status_bar_icon, text, System.currentTimeMillis());
-//            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-//                    new Intent(context, MNMainActivity.class), 0);
-            notification.setLatestEventInfo(context, title, text, pendingIntent);
-//        }
-
         notification.flags = Notification.FLAG_ONGOING_EVENT;
         notificationManager.notify(1234, notification);
     }

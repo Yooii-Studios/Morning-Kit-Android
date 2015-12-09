@@ -13,6 +13,7 @@ import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -25,8 +26,10 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.maps.model.LatLng;
 import com.squareup.otto.Subscribe;
 import com.stevenkim.camera.SKCameraThemeView;
+import com.yooiistudios.coreutils.location.LocationModule;
 import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
@@ -86,7 +89,8 @@ import lombok.Getter;
  * MNMainActivity
  *  앱에서 가장 중요한 메인 액티비티
  */
-public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutorialFinishListener {
+public class MNMainActivity extends AppCompatActivity implements
+        MNTutorialLayout.OnTutorialFinishListener, LocationModule.OnLocationEventListener {
     public static final String TAG = "MainActivity";
     private static int ALARM_REMOVE_DELAY_MILLI = 90;	// 알람이 삭제되는 딜레이
 
@@ -212,35 +216,28 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     @Override
     protected void onResume() {
         super.onResume();
-        // Activity visible to user
         MNAlarmScrollViewBusProvider.getInstance().register(this);
 
-        // Alarm
         alarmListView.refreshListView();
-
-        // 패널 교체 확인
         panelWindowLayout.checkPanelHadReplacedAtSetting();
-
-        // 테마와 관련된 작업 실행
         panelWindowLayout.applyTheme();
-
-        // 액티비티가 resume 될 경우 패널에서 필요한 처리 수행
         panelWindowLayout.onActivityResume();
-
-        // 애드몹 레이아웃
         adView.resume();
-
-        // 테마 적용
         processTheme();
 
         // 세팅 탭에서 돌아올 경우를 대비해 전체적인 레이아웃 최신화 적용
         onConfigurationChanged(getResources().getConfiguration());
 
-        // 풀버전 구매 확인, 독이어 제거
         if (SKIabProducts.containsSku(SKIabProducts.SKU_FULL_VERSION, getApplicationContext())) {
             dogEarImageView.setVisibility(View.GONE);
         } else {
             dogEarImageView.setVisibility(View.VISIBLE);
+        }
+
+        // 날씨 패널이 있을 경우 위치를 요청
+        if (panelWindowLayout.isThereWeatherPanel()) {
+            LocationModule.getInstance(getApplicationContext()).requestCurrentLocation(
+                    getSupportFragmentManager(), this);
         }
 
         // 기존 onCreate 에서 처리를 해 주었으나 여러 크래시 상황 때문에 최대한 뒤로 미뤄서 진행
@@ -408,7 +405,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
 
         // 플러리
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<>();
         params.put(MNFlurry.CALLED_FROM, "Main - Dog Ear");
         FlurryAgent.logEvent(MNFlurry.STORE, params);
     }
@@ -480,6 +477,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     /**
      * Theme
      */
+    @SuppressWarnings("deprecation") // <- 카메라 관련 해결하려면 camera2 API로 로직 교체 필요
     private void processTheme() {
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
 
@@ -585,12 +583,12 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     }
 
     private void sendFlurryAnalytics() {
-        // 쓰레드로 돌려서 UI쓰레드 방해하지 않게 구현
+        // 쓰레드로 돌려서 UI 쓰레드 방해하지 않게 구현
         new Thread(new Runnable() {
             @Override
             public void run() {
                 // 풀 버전 체크
-                Map<String, String> versionParams = new HashMap<String, String>();
+                Map<String, String> versionParams = new HashMap<>();
                 boolean isFullVersionBought =
                         SKIabProducts.loadOwnedIabProducts(MNMainActivity.this).contains(SKIabProducts.SKU_FULL_VERSION);
                 if (isFullVersionBought) {
@@ -602,7 +600,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
                 // 풀 버전일 때 따로 2X3 / 2X2 체크
                 MNPanelMatrixType currentPanelMatrixType = MNPanelMatrix.getCurrentPanelMatrixType(MNMainActivity.this);
-                Map<String, String> panelMatrixParams = new HashMap<String, String>();
+                Map<String, String> panelMatrixParams = new HashMap<>();
                 panelMatrixParams.put(MNFlurry.PANEL_MATRIX_TYPE, currentPanelMatrixType.toString());
                 if (isFullVersionBought) {
                     FlurryAgent.logEvent(MNFlurry.FULL_VERSION, panelMatrixParams);
@@ -612,21 +610,21 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
                 // 언어 체크
                 MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(MNMainActivity.this);
-                Map<String, String> languageParams = new HashMap<String, String>();
+                Map<String, String> languageParams = new HashMap<>();
                 languageParams.put(MNFlurry.LANGUAGE,
                         MNLanguageType.toEnglishString(currentLanguageType.getIndex()));
                 FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, languageParams);
 
                 // 테마 체크
                 MNThemeType currentThemeType = MNTheme.getCurrentThemeType(MNMainActivity.this);
-                Map<String, String> themeParams = new HashMap<String, String>();
+                Map<String, String> themeParams = new HashMap<>();
                 themeParams.put(MNFlurry.THEME, currentThemeType.toString());
                 FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, themeParams);
 
                 // 알람 갯수 체크
                 ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(getApplicationContext());
                 if (alarmList != null) {
-                    Map<String, String> alarmParams = new HashMap<String, String>();
+                    Map<String, String> alarmParams = new HashMap<>();
                     alarmParams.put(MNFlurry.NUM_OF_ALARMS, String.valueOf(alarmList.size()));
                     FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, alarmParams);
                 }
@@ -636,11 +634,12 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
     private void askUsingCurrentLocationDialog() {
         AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert);
         } else {
             builder = new AlertDialog.Builder(this);
         }
+
         builder.setPositiveButton("사용", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -701,5 +700,19 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
             // just finish activity when no ad item is bought
             super.onBackPressed();
         }
+    }
+
+    /**
+     * Location Module
+     */
+    @Override
+    public Activity onResolutionRequired() {
+        return this;
+    }
+
+    @Override
+    public void onLocationChanged(LatLng latLng) {
+        LocationModule.getInstance(getApplicationContext()).cancelCurrentLocationRequest();
+        panelWindowLayout.refreshWeatherPanelIfExist();
     }
 }

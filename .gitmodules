@@ -1,3 +1,6 @@
 [submodule "libraries/FullscreenAd"]
 	path = libraries/FullscreenAd
 	url = https://github.com/Yooii-Studios/FullscreenAd
+[submodule "libraries/coreutils"]
+	path = libraries/coreutils
+	url = https://github.com/crowjdh/YooiiCoreUtils.git
