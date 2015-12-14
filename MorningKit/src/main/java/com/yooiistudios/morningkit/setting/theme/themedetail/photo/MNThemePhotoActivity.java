@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
@@ -26,13 +25,10 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class MNThemePhotoActivity extends MNSettingDetailActivity {
     private static final String TAG = "ThemePhotoActivity";
     private MNThemePhotoFragment photoFragment;
-
-    @InjectView(R.id.setting_theme_detail_photo_container) RelativeLayout backgroundLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +36,9 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
         setContentView(R.layout.activity_setting_theme_detail_photo);
         ButterKnife.inject(this);
 
-//        backgroundLayout.setBackgroundColor(MNSettingColors.getBackwardBackgroundColor(MNTheme.getCurrentThemeType(this)));
-
         if (savedInstanceState == null) {
             // http://developer.android.com/guide/components/fragments.html 참고
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-            // animate - (upstack)incoming enterAnim, (backstack)outgoing exitAnim /
-            // in reverse - (backstack)incoming enterAnim, (upstack)outgoing exitAnim
-//            transaction.setCustomAnimations(R.anim.fragment_enter, 0);
 
             // Replace whatever is in the fragment_container view with this fragment,
             // and add the transaction to the back stack
@@ -73,7 +63,7 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
                     int height = MNDeviceSizeInfo.getDeviceHeight(this);
                     float ratio = (float)height / (float)width;
 
-                    startCropActivty(data, ratio, SKBitmapLoader.getPortraitImageUri(), SKBitmapLoader.REQ_CROP_FROM_PORTRAIT);
+                    startCropActivity(data, ratio, SKBitmapLoader.getPortraitImageUri(), SKBitmapLoader.REQ_CROP_FROM_PORTRAIT);
                     break;
                 }
                 case SKBitmapLoader.REQ_CODE_PICK_IMAGE_LANDSCAPE: {
@@ -81,16 +71,13 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
                     int height = MNDeviceSizeInfo.getDeviceHeight(this);
                     float ratio = (float)width / (float)height;
 
-                    startCropActivty(data, ratio, SKBitmapLoader.getLandscapeImageUri(), SKBitmapLoader.REQ_CROP_FROM_LANDSCAPE);
+                    startCropActivity(data, ratio, SKBitmapLoader.getLandscapeImageUri(), SKBitmapLoader.REQ_CROP_FROM_LANDSCAPE);
                     break;
                 }
                 case SKBitmapLoader.REQ_CROP_FROM_PORTRAIT:
                     // 모토롤라 처리
                     if (Build.MANUFACTURER.equals("motorola")) {
                         Bitmap bitmap = data.getParcelableExtra("data");
-                        if (bitmap != null) {
-//                            Log.i("MNThemePhotoActivity", "bitmap: " + bitmap.getWidth() + "/" + bitmap.getHeight());
-                        }
                         try {
                             SKBitmapLoader.saveBitmapToUri(this, SKBitmapLoader.getPortraitImageUri(), bitmap);
                         } catch (FileNotFoundException e) {
@@ -129,8 +116,7 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
         }
     }
 
-    private void startCropActivty(Intent data, float ratio, Uri imageUri, int requestCode) {
-
+    private void startCropActivity(Intent data, float ratio, Uri imageUri, int requestCode) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setType("image/*");
 

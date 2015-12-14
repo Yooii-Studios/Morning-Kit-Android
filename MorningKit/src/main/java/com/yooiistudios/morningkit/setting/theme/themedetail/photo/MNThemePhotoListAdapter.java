@@ -36,6 +36,7 @@ import lombok.Getter;
 public class MNThemePhotoListAdapter extends BaseAdapter {
     private Activity activity;
 
+    @SuppressWarnings("unused")
     private MNThemePhotoListAdapter(){}
     public MNThemePhotoListAdapter(Activity activity) {
         this.activity = activity;
@@ -63,7 +64,7 @@ public class MNThemePhotoListAdapter extends BaseAdapter {
             MNThemePhotoItemViewHolder viewHolder = new MNThemePhotoItemViewHolder(convertView);
 
             Bitmap bitmap = null;
-            // 원 사이즈로 하니까 사진이 너무 작아진다: xxhdpi가 3배니까 3배 정도로만 크게 줄이면 될듯
+            // 원 사이즈로 하니까 사진이 너무 작아진다: xxhdpi 가 3배니까 3배 정도로만 크게 줄이면 될듯
             int imageViewSize = activity.getApplicationContext().getResources()
                     .getDimensionPixelSize(R.dimen.setting_theme_detail_photo_item_crop_layout_width) * 3;
 
