@@ -6,15 +6,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +26,7 @@ import android.widget.ViewSwitcher;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.photoalbum.adapter.MNPhotoAlbumDropdownAdapter;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCheckboxView;
@@ -179,8 +177,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     private View.OnClickListener onLoadBtnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (ActivityCompat.checkSelfPermission(getContext(),
-                    Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            if (PermissionUtils.hasPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 showPhotoPick();
             } else {
                 requestReadStoragePermission();
@@ -200,21 +197,9 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void requestReadStoragePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            Snackbar.make(scrollView, R.string.need_permission_read_storage, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.ok, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ActivityCompat.requestPermissions(getActivity(),
-                                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE },
-                                    REQ_PERMISSION_READ_STORAGE);
-                        }
-                    }).show();
-        } else {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE }, REQ_PERMISSION_READ_STORAGE);
-        }
+        PermissionUtils.requestPermission(getActivity(), scrollView,
+                Manifest.permission.READ_EXTERNAL_STORAGE, R.string.need_permission_read_storage,
+                REQ_PERMISSION_READ_STORAGE);
     }
 
     private void loadFileList() {

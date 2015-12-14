@@ -4,13 +4,10 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +19,7 @@ import android.widget.TextView;
 
 import com.stevenkim.photo.SKBitmapLoader;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
@@ -113,8 +111,7 @@ public class MNThemePhotoListAdapter extends BaseAdapter {
                     if (MNSound.isSoundOn(activity)) {
                         MNSoundEffectsPlayer.play(R.raw.effect_view_open, activity);
                     }
-                    if (ActivityCompat.checkSelfPermission(activity,
-                            Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    if (PermissionUtils.hasPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                         showPhotoPick(position);
                     } else {
                         requestReadStoragePermission();
@@ -144,20 +141,8 @@ public class MNThemePhotoListAdapter extends BaseAdapter {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void requestReadStoragePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
-                Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            Snackbar.make(listViiew, R.string.need_permission_read_storage,
-                    Snackbar.LENGTH_INDEFINITE).setAction(R.string.ok, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ActivityCompat.requestPermissions(activity,
-                                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE }, 0);
-                        }
-                    }).show();
-        } else {
-            ActivityCompat.requestPermissions(activity,
-                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE }, 0);
-        }
+        PermissionUtils.requestPermission(activity, listViiew, Manifest.permission.READ_EXTERNAL_STORAGE,
+                R.string.need_permission_read_storage, 0);
     }
 
     /**
