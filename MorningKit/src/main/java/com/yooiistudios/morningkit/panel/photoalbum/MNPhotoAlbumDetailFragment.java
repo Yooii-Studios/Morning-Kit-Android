@@ -51,9 +51,6 @@ import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayo
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.PREF_PHOTO_ALBUM;
 import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFileManager.DEFAULT_PARENT_DIR;
 
-//import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_FILELIST;
-//import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_PARENT_LIST;
-
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2014. 5. 13.
  *
@@ -65,10 +62,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     private static final String TAG = "MNPhotoAlbumDetailFragment";
 
     // tags
-    private static final Object TAG_TRANSITION_CHECKBOX = new Object();
     public static final String TAG_TRANSITION_DIALOG = "transition dialog";
-    public static final String TAG_TRANSITION_TYPE_DIALOG = "transition " +
-            "type dialog";
 
     public static final int INVALID_INTERVAL = -1;
 
@@ -82,19 +76,11 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     public static final int RC_LOAD_PHOTO = 1;
 
     @InjectView(R.id.preview_switcher) ViewSwitcher previewSwitcher;
-    @InjectView(R.id.preview_unavailable)
-    View previewUnavailableView;
+    @InjectView(R.id.preview_unavailable) View previewUnavailableView;
     @InjectView(R.id.preview_name) TextView previewName;
-    @InjectView(R.id.toggleRefresh)
-    ImageView refreshTimeToggleButton;
-//    @InjectView(R.id.edittext_min) EditText minuteEditText;
-//    @InjectView(R.id.edittext_sec) EditText secondEditText;
+    @InjectView(R.id.toggleRefresh) ImageView refreshTimeToggleButton;
     @InjectView(R.id.transition_type_spinner) Spinner transitionTypeSpinner;
-//    @InjectView(R.id.label_min) TextView minLabel;
-//    @InjectView(R.id.label_sec) TextView secLabel;
-//    @InjectView(R.id.time_wrapper) ViewGroup timeWrapper;
-    @InjectView(R.id.grayscale_toggleSwitch)
-    MNPhotoAlbumCheckboxView grayscaleToggleButton;
+    @InjectView(R.id.grayscale_toggleSwitch) MNPhotoAlbumCheckboxView grayscaleToggleButton;
     @InjectView(R.id.refreshTime) TextView refreshTime;
 
     private MNPhotoAlbumDisplayHelper displayHelper;
@@ -181,8 +167,8 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         }
         return rootView;
     }
-    private View.OnClickListener onLoadBtnClickListener =
-            new View.OnClickListener() {
+
+    private View.OnClickListener onLoadBtnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Intent intent;
@@ -323,7 +309,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         togglePreviewWrapper(true);
 
         // init transition type ui
-        ArrayList<String> transitionNameList = new ArrayList<String>();
+        ArrayList<String> transitionNameList = new ArrayList<>();
         for (MNPhotoAlbumTransitionType type :
                 MNPhotoAlbumTransitionType.values()) {
             transitionNameList.add(type.name());
