@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.widget.BaseAdapter;
 import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
@@ -171,8 +171,7 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
                     MNThemeType newThemeType = MNThemeType.valueOf(convertedPosition);
                     if (newThemeType == MNThemeType.TRANQUILITY_BACK_CAMERA ||
                             newThemeType == MNThemeType.REFLECTION_FRONT_CAMERA) {
-                        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
-                                == PackageManager.PERMISSION_GRANTED) {
+                        if (PermissionUtils.hasPermission(activity, Manifest.permission.CAMERA)) {
                             MNTheme.setThemeType(newThemeType, activity);
                             activity.setResult(Activity.RESULT_OK);
                             activity.finish();

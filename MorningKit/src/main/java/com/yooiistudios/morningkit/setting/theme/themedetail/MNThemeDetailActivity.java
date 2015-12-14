@@ -8,9 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.flurry.android.FlurryAgent;
@@ -19,6 +17,7 @@ import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
 
 import lombok.Getter;
@@ -66,19 +65,8 @@ public class MNThemeDetailActivity extends MNSettingDetailActivity {
      */
     @TargetApi(Build.VERSION_CODES.M)
     public void requestCameraPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.CAMERA)) {
-            Snackbar.make(rootLayout, R.string.need_permission_camera, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.ok, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ActivityCompat.requestPermissions(MNThemeDetailActivity.this,
-                                    new String[]{ Manifest.permission.CAMERA }, REQ_PERMISSION_CAMERA);
-                        }
-                    }).show();
-        } else {
-            requestPermissions(new String[]{ Manifest.permission.CAMERA }, REQ_PERMISSION_CAMERA);
-        }
+        PermissionUtils.requestPermission(this, rootLayout, Manifest.permission.CAMERA,
+                R.string.need_permission_camera, REQ_PERMISSION_CAMERA);
     }
 
     @Override

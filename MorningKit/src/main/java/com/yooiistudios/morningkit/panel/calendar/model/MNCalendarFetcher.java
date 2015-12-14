@@ -5,11 +5,11 @@ import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
-import android.support.v4.app.ActivityCompat;
+
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 
 import org.joda.time.DateTime;
 
@@ -68,8 +68,8 @@ public class MNCalendarFetcher {
         // Fetch a list of all calendars synced with the device, their display names and whether the
         // user has them selected for display.
         Cursor cursor = null;
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) ==
-                PackageManager.PERMISSION_GRANTED) {
+        if (PermissionUtils.hasPermission(context, Manifest.permission.READ_CALENDAR)) {
+            //noinspection ResourceType
             cursor = contentResolver.query(CalendarContract.Calendars.CONTENT_URI, new String[]
                             { CalendarContract.Calendars._ID, CalendarContract.Calendars.CALENDAR_DISPLAY_NAME},
                     null, null, null

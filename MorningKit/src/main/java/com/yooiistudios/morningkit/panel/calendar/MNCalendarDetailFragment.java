@@ -2,13 +2,10 @@ package com.yooiistudios.morningkit.panel.calendar;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,6 +18,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 import com.yooiistudios.morningkit.panel.calendar.adapter.MNCalendarListAdapter;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarSelectDialog;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarUtils;
@@ -131,8 +129,7 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
 
     @OnClick(R.id.panel_calendar_detail_select_calendars_layout)
     void selectCalendarButtonClicked() {
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR) ==
-                PackageManager.PERMISSION_GRANTED) {
+        if (PermissionUtils.hasPermission(getContext(), Manifest.permission.READ_CALENDAR)) {
             showSelectCalendarDialog();
         } else {
             requestReadCalendarPermission();
@@ -146,21 +143,8 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
     }
 
     private void requestReadCalendarPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                Manifest.permission.READ_CALENDAR)) {
-            Snackbar.make(scrollView, R.string.need_permission_calendar, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.ok, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ActivityCompat.requestPermissions(getActivity(),
-                                    new String[]{ Manifest.permission.READ_CALENDAR },
-                                    REQ_PERMISSION_READ_CALENDAR);
-                        }
-                    }).show();
-        } else {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{ Manifest.permission.READ_CALENDAR }, REQ_PERMISSION_READ_CALENDAR);
-        }
+        PermissionUtils.requestPermission(getActivity(), scrollView, Manifest.permission.READ_CALENDAR,
+                R.string.need_permission_calendar, REQ_PERMISSION_READ_CALENDAR);
     }
 
     @Override

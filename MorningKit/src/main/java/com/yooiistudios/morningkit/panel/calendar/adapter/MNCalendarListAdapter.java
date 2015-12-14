@@ -4,9 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.support.v4.app.ActivityCompat;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEvent;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventItemInfo;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventList;
@@ -42,8 +41,7 @@ public class MNCalendarListAdapter extends BaseAdapter {
         this.context = context;
 
         // Init cursor
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) ==
-                PackageManager.PERMISSION_GRANTED) {
+        if (PermissionUtils.hasPermission(context, Manifest.permission.READ_CALENDAR)) {
             calendarEventList = MNCalendarEventUtils.getCalendarEventList(context, selectedArr);
         }
     }
