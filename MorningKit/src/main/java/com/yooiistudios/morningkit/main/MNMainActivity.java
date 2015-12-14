@@ -236,7 +236,7 @@ public class MNMainActivity extends AppCompatActivity implements
         }
 
         // 날씨 패널이 있고 현재 위치를 사용할 경우 위치를 요청
-        if (panelWindowLayout.isThereWeatherPanelUsingCurrentLocation()) {
+        if (panelWindowLayout.isThereAnyWeatherPanelsUsingCurrentLocation()) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 requestCurrentLocation();
@@ -679,7 +679,7 @@ public class MNMainActivity extends AppCompatActivity implements
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // 사용 안함 시에는 날씨 패널 오브젝트 설정해주고 리프레시
-                panelWindowLayout.changeAndRefreshWeatherPanelNotToUseCurrentLocation();
+                panelWindowLayout.changeAndRefreshWeatherPanelsNotToUseCurrentLocation();
                 showTutorialLayout();
             }
         });
@@ -732,7 +732,7 @@ public class MNMainActivity extends AppCompatActivity implements
     @Override
     public void onLocationChanged(LatLng latLng) {
         LocationModule.getInstance(getApplicationContext()).cancelCurrentLocationRequest();
-        panelWindowLayout.refreshWeatherPanelIfExistAndUseCurrentLocation();
+        panelWindowLayout.refreshWeatherPanelsIfExistAndUseCurrentLocation();
     }
 
     /**

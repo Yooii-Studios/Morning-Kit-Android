@@ -351,7 +351,7 @@ public class MNPanelWindowLayout extends LinearLayout {
     /**
      * 날씨 패널 LocationModule 관련
      */
-    public boolean isThereWeatherPanelUsingCurrentLocation() {
+    public boolean isThereAnyWeatherPanelsUsingCurrentLocation() {
         for (MNPanelLayout panelLayout : panelLayouts) {
             MNPanelType panelType = panelLayout.getPanelType();
             if (panelType == MNPanelType.WEATHER) {
@@ -363,7 +363,7 @@ public class MNPanelWindowLayout extends LinearLayout {
         return false;
     }
 
-    public void refreshWeatherPanelIfExistAndUseCurrentLocation() {
+    public void refreshWeatherPanelsIfExistAndUseCurrentLocation() {
         for (MNPanelLayout panelLayout : panelLayouts) {
             MNPanelType panelType = panelLayout.getPanelType();
             if (panelType == MNPanelType.WEATHER &&
@@ -377,7 +377,7 @@ public class MNPanelWindowLayout extends LinearLayout {
         }
     }
 
-    public void changeAndRefreshWeatherPanelNotToUseCurrentLocation() {
+    public void changeAndRefreshWeatherPanelsNotToUseCurrentLocation() {
         for (MNPanelLayout panelLayout : panelLayouts) {
             MNPanelType panelType = panelLayout.getPanelType();
             if (panelType == MNPanelType.WEATHER && panelLayout.getPanelDataObject() != null) {
