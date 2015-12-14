@@ -1,11 +1,13 @@
 package com.yooiistudios.morningkit.main;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -13,6 +15,9 @@ import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
@@ -52,9 +57,6 @@ import com.yooiistudios.morningkit.common.validate.AppValidationChecker;
 import com.yooiistudios.morningkit.main.layout.MNMainButtonLayout;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
-import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
-import com.yooiistudios.morningkit.panel.core.MNPanelType;
-import com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreType;
@@ -69,8 +71,6 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
 import com.yooiistudios.morningkit.theme.MNMainResources;
 import com.yooiistudios.morningkit.theme.font.MNTranslucentFont;
-
-import org.json.JSONException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -93,6 +93,7 @@ public class MNMainActivity extends AppCompatActivity implements
         MNTutorialLayout.OnTutorialFinishListener, LocationModule.OnLocationEventListener {
     public static final String TAG = "MainActivity";
     private static int ALARM_REMOVE_DELAY_MILLI = 90;	// 알람이 삭제되는 딜레이
+    public static final int REQ_PERMISSION_LOCATION = 110;
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
@@ -234,10 +235,14 @@ public class MNMainActivity extends AppCompatActivity implements
             dogEarImageView.setVisibility(View.VISIBLE);
         }
 
-        // 날씨 패널이 있을 경우 위치를 요청
-        if (panelWindowLayout.isThereWeatherPanel()) {
-            LocationModule.getInstance(getApplicationContext()).requestCurrentLocation(
-                    getSupportFragmentManager(), this);
+        // 날씨 패널이 있고 현재 위치를 사용할 경우 위치를 요청
+        if (panelWindowLayout.isThereWeatherPanelUsingCurrentLocation()) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                requestCurrentLocation();
+            } else {
+                requestLocationPermission();
+            }
         }
 
         // 기존 onCreate 에서 처리를 해 주었으나 여러 크래시 상황 때문에 최대한 뒤로 미뤄서 진행
@@ -248,6 +253,29 @@ public class MNMainActivity extends AppCompatActivity implements
             } catch (IOException e) {
                 Crashlytics.getInstance().core.logException(e);
             }
+        }
+    }
+
+    private void requestCurrentLocation() {
+        LocationModule.getInstance(getApplicationContext()).requestCurrentLocation(
+                getSupportFragmentManager(), this);
+    }
+
+    private void requestLocationPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            Snackbar.make(containerLayout, R.string.need_permission_location, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(MNMainActivity.this,
+                                    new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION },
+                                    REQ_PERMISSION_LOCATION);
+                        }
+                    }).show();
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION }, REQ_PERMISSION_LOCATION);
         }
     }
 
@@ -632,6 +660,7 @@ public class MNMainActivity extends AppCompatActivity implements
         }).start();
     }
 
+    // Only for Naver
     private void askUsingCurrentLocationDialog() {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -650,17 +679,7 @@ public class MNMainActivity extends AppCompatActivity implements
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // 사용 안함 시에는 날씨 패널 오브젝트 설정해주고 리프레시
-                MNPanelLayout weatherPanelLayout = panelWindowLayout.getPanelLayouts()[0];
-                if (weatherPanelLayout != null && weatherPanelLayout.getPanelType() == MNPanelType.WEATHER &&
-                        weatherPanelLayout.getPanelDataObject() != null) {
-                    try {
-                        weatherPanelLayout.getPanelDataObject().put(
-                                MNWeatherPanelLayout.WEATHER_DATA_IS_USING_CURRENT_LOCATION, false);
-                        weatherPanelLayout.refreshPanel();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                panelWindowLayout.changeAndRefreshWeatherPanelNotToUseCurrentLocation();
                 showTutorialLayout();
             }
         });
@@ -713,6 +732,25 @@ public class MNMainActivity extends AppCompatActivity implements
     @Override
     public void onLocationChanged(LatLng latLng) {
         LocationModule.getInstance(getApplicationContext()).cancelCurrentLocationRequest();
-        panelWindowLayout.refreshWeatherPanelIfExist();
+        panelWindowLayout.refreshWeatherPanelIfExistAndUseCurrentLocation();
+    }
+
+    /**
+     * 안드로이드 6.0 이후 권한 처리 콜백
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == REQ_PERMISSION_LOCATION) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                requestCurrentLocation();
+            } else {
+                Snackbar.make(containerLayout, R.string.permission_not_granted,
+                        Snackbar.LENGTH_SHORT).show();
+                panelWindowLayout.changeAndRefreshWeatherPanelNotToUseCurrentLocation();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }

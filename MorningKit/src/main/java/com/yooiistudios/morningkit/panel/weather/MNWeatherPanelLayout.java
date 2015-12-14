@@ -51,6 +51,8 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.Getter;
+
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -74,7 +76,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     private TextView localTimeTextView;
 
     // Model
-    private boolean isUsingCurrentLocation = true;
+    @Getter boolean isUsingCurrentLocation = true;
     private boolean isDisplayingLocaltime = true;
     private boolean isUsingCelsius = true;
     private MNWeatherLocationInfo selectedLocationInfo;
