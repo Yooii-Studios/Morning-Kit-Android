@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.setting.MNSettingDetailActivity;
 
 public class MNThemeDetailFragment extends Fragment {
     public static final int REQ_THEME_DETAIL_PHOTO = 9385;
@@ -36,7 +37,7 @@ public class MNThemeDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.setting_theme_detail_fragment, container, false);
         if (rootView != null) {
             listView = (ListView) rootView.findViewById(R.id.setting_theme_detail_listview);
-            listView.setAdapter(new MNThemeDetailListAdapter(getActivity(), this));
+            listView.setAdapter(new MNThemeDetailListAdapter((MNThemeDetailActivity) getActivity(), this));
         }
         return rootView;
     }

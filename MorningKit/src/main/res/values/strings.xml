@@ -352,4 +352,9 @@
     <string name="news_kit_ad_description">An innovative, beautiful way to read the news</string>
     <string name="download">Download</string>
     <string name="close">Close</string>
+
+    <!-- Permission for Marshmallow-->
+    <string name="need_permission_camera">Camera permission is needed to use this theme.</string>
+    <string name="permission_granted">The permission has been granted.</string>
+    <string name="permission_not_granted">The permission was not granted.</string>
 </resources>

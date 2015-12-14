@@ -2,7 +2,7 @@ package com.yooiistudios.morningkit.setting;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
@@ -16,20 +16,13 @@ import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 
 // 반복작업을 피하기 위한 액티비티
-public class MNSettingDetailActivity extends ActionBarActivity {
+public class MNSettingDetailActivity extends AppCompatActivity {
     private static final String TAG = "SettingDetailActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Theme
-//        setTheme(R.style.MNSettingActionBarTheme_PastelGreen);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_detail);
-
-        // 반짝임을 없애기 위해 프래그먼트와 같은 배경을 사용해야함
-//        RelativeLayout layout = (RelativeLayout) findViewById(R.id.setting_detail_container);
-//        layout.setBackgroundColor(0xff4444dd);
 
         // Force no anim for entering activity, hold for exiting activity
         this.overridePendingTransition(0, R.anim.activity_hold);
