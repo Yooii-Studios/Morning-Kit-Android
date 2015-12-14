@@ -38,8 +38,6 @@ import static com.yooiistudios.morningkit.panel.calendar.MNCalendarPanelLayout.C
  */
 public class MNCalendarDetailFragment extends MNPanelDetailFragment implements MNCalendarSelectDialog.MNCalendarSelectDialogListener {
 
-    private static final String TAG = "MNCalendarDetailFragment";
-
     @InjectView(R.id.panel_calendar_detail_events_listview) ListView eventsListView;
     @InjectView(R.id.panel_calendar_detail_select_calendars_image_view) ImageView selectCalendarsImageView;
     @InjectView(R.id.panel_calendar_detail_no_schedule_textview) TextView noScheduleTextView;
@@ -60,7 +58,7 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
 
             // 패널 데이터 가져오기
             if (getPanelDataObject().has(CALENDAR_DATA_SELECTED_CALEDNDARS)) {
-                String calendarModelsJsonString = null;
+                String calendarModelsJsonString;
                 try {
                     calendarModelsJsonString = getPanelDataObject().getString(CALENDAR_DATA_SELECTED_CALEDNDARS);
                     if (calendarModelsJsonString != null) {
@@ -97,6 +95,7 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
         super.onResume();
 
         // 아이콘 이미지뷰 색 필터 적용
+        //noinspection deprecation
         int highlightColor = getResources().getColor(R.color.pastel_green_sub_font_color);
         PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(highlightColor,
                 PorterDuff.Mode.SRC_ATOP);

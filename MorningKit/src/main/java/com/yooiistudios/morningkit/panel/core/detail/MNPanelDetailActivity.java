@@ -34,7 +34,6 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
     @InjectView(R.id.panel_detail_select_pager_layout) MNPanelSelectPagerLayout panelSelectPagerLayout;
     private MNPanelDetailFragment panelDetailFragment;
     private int panelWindowIndex;
-    private Menu actionBarMenu;
     private boolean isPanelChanged = false;
 
     @Override
@@ -132,7 +131,6 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
         getMenuInflater().inflate(R.menu.pref_actions, menu);
-        actionBarMenu = menu;
         return super.onCreateOptionsMenu(menu);
     }
 

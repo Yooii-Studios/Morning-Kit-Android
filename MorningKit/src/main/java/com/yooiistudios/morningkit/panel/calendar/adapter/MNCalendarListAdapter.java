@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.panel.calendar.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -118,6 +119,7 @@ public class MNCalendarListAdapter extends BaseAdapter {
         return calendarEventList.getCalendarEventItemInfo(index);
     }
 
+    @SuppressLint("SimpleDateFormat")
     protected View initEventItem(int position, MNCalendarEvent calendarModel,
                                  MNCalendarEventItemInfo calendarEventItemInfo, ViewGroup viewGroup) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
