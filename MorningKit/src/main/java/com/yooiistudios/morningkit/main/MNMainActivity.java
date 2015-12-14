@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
@@ -287,10 +286,10 @@ public class MNMainActivity extends AppCompatActivity implements
     private void requestPermissionsToStart() {
         if (!PermissionUtils.hasPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) &&
                 !PermissionUtils.hasPermission(this, Manifest.permission.READ_CALENDAR)) {
-            String[] permission = {
+            String[] permissions = {
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.READ_CALENDAR};
-            ActivityCompat.requestPermissions(this, permission, REQ_PERMISSION_MULTIPLE);
+            PermissionUtils.requestPermissions(this, permissions, REQ_PERMISSION_MULTIPLE);
         }
     }
 

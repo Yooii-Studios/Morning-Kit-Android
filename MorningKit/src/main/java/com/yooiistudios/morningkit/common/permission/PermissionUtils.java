@@ -26,8 +26,8 @@ public class PermissionUtils {
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public static void requestPermission(final Activity activity, View view, @NonNull final String permission,
-                                         int resId, final int requestCode) {
+    public static void requestPermission(@NonNull final Activity activity, @NonNull View view,
+                                         @NonNull final String permission, int resId, final int requestCode) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
             Snackbar.make(view, resId,Snackbar.LENGTH_INDEFINITE).setAction(R.string.ok, new View.OnClickListener() {
                 @Override
@@ -38,5 +38,11 @@ public class PermissionUtils {
         } else {
             ActivityCompat.requestPermissions(activity, new String[]{permission}, requestCode);
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public static void requestPermissions(@NonNull final Activity activity,
+                                          @NonNull final String[] permissions, final int requestCode) {
+        ActivityCompat.requestPermissions(activity, permissions, requestCode);
     }
 }
