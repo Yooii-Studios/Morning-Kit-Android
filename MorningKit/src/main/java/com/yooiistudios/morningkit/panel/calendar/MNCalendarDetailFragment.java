@@ -1,16 +1,21 @@
 package com.yooiistudios.morningkit.panel.calendar;
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -37,7 +42,9 @@ import static com.yooiistudios.morningkit.panel.calendar.MNCalendarPanelLayout.C
  * MNCalendarDetailFragment
  */
 public class MNCalendarDetailFragment extends MNPanelDetailFragment implements MNCalendarSelectDialog.MNCalendarSelectDialogListener {
+    public static final int REQ_PERMISSION_READ_CALENDAR = 135;
 
+    @InjectView(R.id.panel_calendar_detail_scrollview) ScrollView scrollView;
     @InjectView(R.id.panel_calendar_detail_events_listview) ListView eventsListView;
     @InjectView(R.id.panel_calendar_detail_select_calendars_image_view) ImageView selectCalendarsImageView;
     @InjectView(R.id.panel_calendar_detail_no_schedule_textview) TextView noScheduleTextView;
@@ -124,9 +131,36 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
 
     @OnClick(R.id.panel_calendar_detail_select_calendars_layout)
     void selectCalendarButtonClicked() {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR) ==
+                PackageManager.PERMISSION_GRANTED) {
+            showSelectCalendarDialog();
+        } else {
+            requestReadCalendarPermission();
+        }
+    }
+
+    private void showSelectCalendarDialog() {
         AlertDialog calendarSelectDialog = MNCalendarSelectDialog.makeDialog(getActivity(), this,
                 MNCalendarUtils.loadCalendarModels(getActivity()));
         calendarSelectDialog.show();
+    }
+
+    private void requestReadCalendarPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                Manifest.permission.READ_CALENDAR)) {
+            Snackbar.make(scrollView, R.string.need_permission_calendar, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{ Manifest.permission.READ_CALENDAR },
+                                    REQ_PERMISSION_READ_CALENDAR);
+                        }
+                    }).show();
+        } else {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{ Manifest.permission.READ_CALENDAR }, REQ_PERMISSION_READ_CALENDAR);
+        }
     }
 
     @Override

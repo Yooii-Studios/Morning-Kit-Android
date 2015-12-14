@@ -1,12 +1,15 @@
 package com.yooiistudios.morningkit.panel.calendar.model;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
+import android.support.v4.app.ActivityCompat;
 
 import org.joda.time.DateTime;
 
@@ -64,12 +67,15 @@ public class MNCalendarFetcher {
 
         // Fetch a list of all calendars synced with the device, their display names and whether the
         // user has them selected for display.
-        Cursor cursor;
-        cursor = contentResolver.query(CalendarContract.Calendars.CONTENT_URI, new String[]
-                        { CalendarContract.Calendars._ID, CalendarContract.Calendars.CALENDAR_DISPLAY_NAME},
-                null, null, null
-        ); // 캘린더 이름으로 ASC 정렬이었으나 그냥 id 순서대로 정렬로 변경
-        // CalendarContract.Calendars.CALENDAR_DISPLAY_NAME + " ASC");
+        Cursor cursor = null;
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) ==
+                PackageManager.PERMISSION_GRANTED) {
+            cursor = contentResolver.query(CalendarContract.Calendars.CONTENT_URI, new String[]
+                            { CalendarContract.Calendars._ID, CalendarContract.Calendars.CALENDAR_DISPLAY_NAME},
+                    null, null, null
+            ); // 캘린더 이름으로 ASC 정렬이었으나 그냥 id 순서대로 정렬로 변경
+            // CalendarContract.Calendars.CALENDAR_DISPLAY_NAME + " ASC");
+        }
 
         if (cursor != null) {
             ArrayList<MNCalendar> calendarModels = new ArrayList<>();

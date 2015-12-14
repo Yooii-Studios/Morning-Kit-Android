@@ -1,12 +1,16 @@
 package com.yooiistudios.morningkit.panel.core.detail;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -26,11 +30,12 @@ import org.json.JSONObject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelSelectPagerInterface,
+public class MNPanelDetailActivity extends AppCompatActivity implements MNPanelSelectPagerInterface,
         MNPanelDetailFragment.MNPanelDetailFragmentListener {
 
     private static final String TAG = "PanelDetailActivity";
 
+    @InjectView(R.id.panel_detail_container) RelativeLayout containerLayout;
     @InjectView(R.id.panel_detail_select_pager_layout) MNPanelSelectPagerLayout panelSelectPagerLayout;
     private MNPanelDetailFragment panelDetailFragment;
     private int panelWindowIndex;
@@ -233,5 +238,16 @@ public class MNPanelDetailActivity extends ActionBarActivity implements MNPanelS
         super.onStop();
         FlurryAgent.onEndSession(this);
         GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Snackbar.make(containerLayout, R.string.permission_granted, Snackbar.LENGTH_SHORT).show();
+        } else {
+            Snackbar.make(containerLayout, R.string.permission_not_granted, Snackbar.LENGTH_SHORT).show();
+        }
     }
 }

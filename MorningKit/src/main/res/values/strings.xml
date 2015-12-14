@@ -356,6 +356,7 @@
     <!-- Permission for Marshmallow-->
     <string name="need_permission_camera">Camera permission is needed to use this theme.</string>
     <string name="need_permission_location">Location permission is needed to use a weather panel.</string>
+    <string name="need_permission_calendar">Read Calendar permission is needed to use a calendar panel.</string>
     <string name="permission_granted">The permission has been granted.</string>
     <string name="permission_not_granted">The permission was not granted.</string>
 </resources>
