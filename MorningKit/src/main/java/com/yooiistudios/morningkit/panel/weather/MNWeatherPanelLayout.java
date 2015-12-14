@@ -251,10 +251,8 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return isUsingCurrentLocation;
-        } else {
-            return false;
         }
+        return isUsingCurrentLocation;
     }
 
     private void loadPanelDataObject() throws JSONException {
