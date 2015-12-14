@@ -1,15 +1,22 @@
 package com.yooiistudios.morningkit.setting.theme.themedetail.photo;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,11 +42,13 @@ import lombok.Getter;
  */
 public class MNThemePhotoListAdapter extends BaseAdapter {
     private Activity activity;
+    private ListView listViiew;
 
     @SuppressWarnings("unused")
     private MNThemePhotoListAdapter(){}
-    public MNThemePhotoListAdapter(Activity activity) {
+    public MNThemePhotoListAdapter(Activity activity, ListView listView) {
         this.activity = activity;
+        this.listViiew = listView;
     }
 
     @Override
@@ -104,24 +113,51 @@ public class MNThemePhotoListAdapter extends BaseAdapter {
                     if (MNSound.isSoundOn(activity)) {
                         MNSoundEffectsPlayer.play(R.raw.effect_view_open, activity);
                     }
-                    Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                    intent.putExtra("outputformat", Bitmap.CompressFormat.JPEG.name());
-                    intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-                    // 사진 선택 기능으로 간다
-                    // 기존에 로딩한 사진이 있다면 recycle 반드시 필요
-                    if (position == 0) {
-                        // Portrait
-                        activity.startActivityForResult(intent, SKBitmapLoader.REQ_CODE_PICK_IMAGE_PORTRAIT);
+                    if (ActivityCompat.checkSelfPermission(activity,
+                            Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        showPhotoPick(position);
                     } else {
-                        // Landscape
-                        activity.startActivityForResult(intent, SKBitmapLoader.REQ_CODE_PICK_IMAGE_LANDSCAPE);
+                        requestReadStoragePermission();
                     }
                 }
             });
         }
         return convertView;
+    }
+
+    private void showPhotoPick(int position) {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+        intent.putExtra("outputformat", Bitmap.CompressFormat.JPEG.name());
+        intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        // 사진 선택 기능으로 간다
+        // 기존에 로딩한 사진이 있다면 recycle 반드시 필요
+        if (position == 0) {
+            // Portrait
+            activity.startActivityForResult(intent, SKBitmapLoader.REQ_CODE_PICK_IMAGE_PORTRAIT);
+        } else {
+            // Landscape
+            activity.startActivityForResult(intent, SKBitmapLoader.REQ_CODE_PICK_IMAGE_LANDSCAPE);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void requestReadStoragePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Snackbar.make(listViiew, R.string.need_permission_read_storage,
+                    Snackbar.LENGTH_INDEFINITE).setAction(R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(activity,
+                                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE }, 0);
+                        }
+                    }).show();
+        } else {
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE }, 0);
+        }
     }
 
     /**

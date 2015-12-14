@@ -2,13 +2,17 @@ package com.yooiistudios.morningkit.setting.theme.themedetail.photo;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
@@ -25,10 +29,14 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
+import lombok.Getter;
 
 public class MNThemePhotoActivity extends MNSettingDetailActivity {
     private static final String TAG = "ThemePhotoActivity";
     private MNThemePhotoFragment photoFragment;
+
+    @Getter @InjectView(R.id.setting_theme_detail_photo_container) RelativeLayout containerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,5 +171,17 @@ public class MNThemePhotoActivity extends MNSettingDetailActivity {
         super.onStop();
         FlurryAgent.onEndSession(this);
         GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Snackbar.make(containerLayout, R.string.permission_granted, Snackbar.LENGTH_SHORT).show();
+            photoFragment.refreshWithoutFinish();
+        } else {
+            Snackbar.make(containerLayout, R.string.permission_not_granted, Snackbar.LENGTH_SHORT).show();
+        }
     }
 }
