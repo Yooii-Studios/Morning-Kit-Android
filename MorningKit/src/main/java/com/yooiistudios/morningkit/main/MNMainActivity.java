@@ -50,6 +50,7 @@ import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.network.InternetConnectionManager;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 import com.yooiistudios.morningkit.common.review.MNReviewUtil;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialLayout;
@@ -255,7 +256,7 @@ public class MNMainActivity extends AppCompatActivity implements
     private void checkAllPermissions() {
         // 날씨 패널이 있고 현재 위치를 사용할 경우 위치를 요청
         if (panelWindowLayout.isThereAnyWeatherPanelsUsingCurrentLocation()) {
-            if (hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            if (PermissionUtils.hasPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
                 requestCurrentLocation();
             } else {
                 if (MNTutorialManager.isTutorialShown(getApplicationContext())) {
@@ -265,14 +266,14 @@ public class MNMainActivity extends AppCompatActivity implements
         }
 
         if (panelWindowLayout.isThereAnyCalendarPanel()) {
-            if (!hasPermission(Manifest.permission.READ_CALENDAR) &&
+            if (!PermissionUtils.hasPermission(this, Manifest.permission.READ_CALENDAR) &&
                     MNTutorialManager.isTutorialShown(getApplicationContext())) {
                 requestReadCalendarPermission();
             }
         }
 
         if (panelWindowLayout.isThereAnyPanelUsingPhoto()) {
-            if (!hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (!PermissionUtils.hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 requestReadStoragePermission();
             }
         }
@@ -284,8 +285,8 @@ public class MNMainActivity extends AppCompatActivity implements
     }
 
     private void requestPermissionsToStart() {
-        if (!hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION) &&
-                !hasPermission(Manifest.permission.READ_CALENDAR)) {
+        if (!PermissionUtils.hasPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) &&
+                !PermissionUtils.hasPermission(this, Manifest.permission.READ_CALENDAR)) {
             String[] permission = {
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.READ_CALENDAR};
@@ -293,63 +294,21 @@ public class MNMainActivity extends AppCompatActivity implements
         }
     }
 
-    private boolean hasPermission(@NonNull String permission) {
-        return ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED;
-    }
-
     private void requestLocationPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            Snackbar.make(containerLayout, R.string.need_permission_location, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.ok, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ActivityCompat.requestPermissions(MNMainActivity.this,
-                                    new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION },
-                                    REQ_PERMISSION_LOCATION);
-                        }
-                    }).show();
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION }, REQ_PERMISSION_LOCATION);
-        }
+        PermissionUtils.requestPermission(this, containerLayout,
+                Manifest.permission.ACCESS_COARSE_LOCATION, R.string.need_permission_location,
+                REQ_PERMISSION_LOCATION);
     }
 
     private void requestReadCalendarPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.READ_CALENDAR)) {
-            Snackbar.make(containerLayout, R.string.need_permission_calendar, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.ok, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ActivityCompat.requestPermissions(MNMainActivity.this,
-                                    new String[]{ Manifest.permission.READ_CALENDAR },
-                                    REQ_PERMISSION_READ_CALENDAR);
-                        }
-                    }).show();
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{ Manifest.permission.READ_CALENDAR }, REQ_PERMISSION_READ_CALENDAR);
-        }
+        PermissionUtils.requestPermission(this, containerLayout, Manifest.permission.READ_CALENDAR,
+                R.string.need_permission_calendar, REQ_PERMISSION_READ_CALENDAR);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void requestReadStoragePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            Snackbar.make(containerLayout, R.string.need_permission_read_storage, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.ok, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ActivityCompat.requestPermissions(MNMainActivity.this,
-                                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE },
-                                    REQ_PERMISSION_READ_STORAGE);
-                        }
-                    }).show();
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE }, REQ_PERMISSION_READ_STORAGE);
-        }
+        PermissionUtils.requestPermission(this, containerLayout, Manifest.permission.READ_EXTERNAL_STORAGE,
+                R.string.need_permission_read_storage, REQ_PERMISSION_READ_STORAGE);
     }
 
     @Override
