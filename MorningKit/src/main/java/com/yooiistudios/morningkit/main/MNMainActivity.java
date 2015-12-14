@@ -93,7 +93,9 @@ public class MNMainActivity extends AppCompatActivity implements
         MNTutorialLayout.OnTutorialFinishListener, LocationModule.OnLocationEventListener {
     public static final String TAG = "MainActivity";
     private static int ALARM_REMOVE_DELAY_MILLI = 90;	// 알람이 삭제되는 딜레이
+    public static final int REQ_PERMISSION_MULTIPLE = 108;
     public static final int REQ_PERMISSION_LOCATION = 110;
+    public static final int REQ_PERMISSION_READ_CALENDAR = 136;
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
@@ -237,11 +239,19 @@ public class MNMainActivity extends AppCompatActivity implements
 
         // 날씨 패널이 있고 현재 위치를 사용할 경우 위치를 요청
         if (panelWindowLayout.isThereAnyWeatherPanelsUsingCurrentLocation()) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
+            if (hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                 requestCurrentLocation();
             } else {
-                requestLocationPermission();
+                if (MNTutorialManager.isTutorialShown(getApplicationContext())) {
+                    requestLocationPermission();
+                }
+            }
+        }
+
+        if (panelWindowLayout.isThereAnyCalendarPanel()) {
+            if (!hasPermission(Manifest.permission.READ_CALENDAR) &&
+                    MNTutorialManager.isTutorialShown(getApplicationContext())) {
+                requestReadCalendarPermission();
             }
         }
 
@@ -261,6 +271,20 @@ public class MNMainActivity extends AppCompatActivity implements
                 getSupportFragmentManager(), this);
     }
 
+    private void requestPermissionsToStart() {
+        if (!hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION) &&
+                !hasPermission(Manifest.permission.READ_CALENDAR)) {
+            String[] permission = {
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.READ_CALENDAR};
+            ActivityCompat.requestPermissions(this, permission, REQ_PERMISSION_MULTIPLE);
+        }
+    }
+
+    private boolean hasPermission(@NonNull String permission) {
+        return ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED;
+    }
+
     private void requestLocationPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION)) {
@@ -276,6 +300,24 @@ public class MNMainActivity extends AppCompatActivity implements
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION }, REQ_PERMISSION_LOCATION);
+        }
+    }
+
+    private void requestReadCalendarPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.READ_CALENDAR)) {
+            Snackbar.make(containerLayout, R.string.need_permission_calendar, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(MNMainActivity.this,
+                                    new String[]{ Manifest.permission.READ_CALENDAR },
+                                    REQ_PERMISSION_READ_CALENDAR);
+                        }
+                    }).show();
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{ Manifest.permission.READ_CALENDAR }, REQ_PERMISSION_READ_CALENDAR);
         }
     }
 
@@ -692,6 +734,9 @@ public class MNMainActivity extends AppCompatActivity implements
     }
 
     private void showTutorialLayout() {
+        // 첫 시작시에 권한 요청(6.0 이상
+        requestPermissionsToStart();
+
         // 튜토리얼 전 세로고정 설정
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         MNTutorialLayout tutorialLayout = new MNTutorialLayout(getApplicationContext(), this);
@@ -741,16 +786,42 @@ public class MNMainActivity extends AppCompatActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (requestCode == REQ_PERMISSION_LOCATION) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (isPermissionGranted(grantResults)) {
+            Snackbar.make(containerLayout, R.string.permission_granted,
+                    Snackbar.LENGTH_SHORT).show();
+        } else {
+            Snackbar.make(containerLayout, R.string.permission_not_granted,
+                    Snackbar.LENGTH_SHORT).show();
+        }
+
+        if (requestCode == REQ_PERMISSION_MULTIPLE) {
+            if (isPermissionGranted(grantResults)) {
+                requestCurrentLocation();
+                panelWindowLayout.refreshCalendarPanels();
+            } else {
+                panelWindowLayout.changeAndRefreshWeatherPanelsNotToUseCurrentLocation();
+            }
+        } else  if (requestCode == REQ_PERMISSION_LOCATION) {
+            if (isPermissionGranted(grantResults)) {
                 requestCurrentLocation();
             } else {
-                Snackbar.make(containerLayout, R.string.permission_not_granted,
-                        Snackbar.LENGTH_SHORT).show();
-                panelWindowLayout.changeAndRefreshWeatherPanelNotToUseCurrentLocation();
+                panelWindowLayout.changeAndRefreshWeatherPanelsNotToUseCurrentLocation();
+            }
+        } else if (requestCode == REQ_PERMISSION_READ_CALENDAR) {
+            if (isPermissionGranted(grantResults)) {
+                panelWindowLayout.refreshCalendarPanels();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    private boolean isPermissionGranted(@NonNull int[] grantResults) {
+        if (grantResults.length == 2) {
+            return grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED;
+        } else {
+            return grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
         }
     }
 }

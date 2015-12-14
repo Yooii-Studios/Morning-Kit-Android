@@ -391,4 +391,30 @@ public class MNPanelWindowLayout extends LinearLayout {
             }
         }
     }
+
+    /**
+     * 캘린더 권한 관련
+     */
+    public boolean isThereAnyCalendarPanel() {
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            MNPanelType panelType = panelLayout.getPanelType();
+            if (panelType == MNPanelType.CALENDAR) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void refreshCalendarPanels() {
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            MNPanelType panelType = panelLayout.getPanelType();
+            if (panelType == MNPanelType.CALENDAR) {
+                try {
+                    panelLayout.refreshPanel();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
