@@ -51,8 +51,6 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.Getter;
-
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -76,7 +74,7 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
     private TextView localTimeTextView;
 
     // Model
-    @Getter boolean isUsingCurrentLocation = true;
+    private boolean isUsingCurrentLocation = true;
     private boolean isDisplayingLocaltime = true;
     private boolean isUsingCelsius = true;
     private MNWeatherLocationInfo selectedLocationInfo;
@@ -242,6 +240,21 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
             loadWeatherOfSelectedLocation();
         }
         logFlurryEvent();
+    }
+
+    // 6.0 버전에서 동적 위치 요청 기능을 위해 필요
+    public boolean isUsingCurrentLocation() {
+        if (getPanelDataObject().has(WEATHER_DATA_IS_USING_CURRENT_LOCATION)) {
+            // 기본은 현재위치 사용
+            try {
+                isUsingCurrentLocation = getPanelDataObject().getBoolean(WEATHER_DATA_IS_USING_CURRENT_LOCATION);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return isUsingCurrentLocation;
+        } else {
+            return false;
+        }
     }
 
     private void loadPanelDataObject() throws JSONException {
