@@ -417,4 +417,30 @@ public class MNPanelWindowLayout extends LinearLayout {
             }
         }
     }
+
+    /**
+     * 외부 저장소 관련
+     */
+    public boolean isThereAnyPanelUsingPhoto() {
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            MNPanelType panelType = panelLayout.getPanelType();
+            if (panelType == MNPanelType.FLICKR || panelType == MNPanelType.PHOTO_FRAME) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void refreshPhotoFramePanels() {
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            MNPanelType panelType = panelLayout.getPanelType();
+            if (panelType == MNPanelType.PHOTO_FRAME) {
+                try {
+                    panelLayout.refreshPanel();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

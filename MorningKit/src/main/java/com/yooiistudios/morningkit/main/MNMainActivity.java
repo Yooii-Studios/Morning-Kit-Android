@@ -1,6 +1,7 @@
 package com.yooiistudios.morningkit.main;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -96,6 +97,7 @@ public class MNMainActivity extends AppCompatActivity implements
     public static final int REQ_PERMISSION_MULTIPLE = 108;
     public static final int REQ_PERMISSION_LOCATION = 110;
     public static final int REQ_PERMISSION_READ_CALENDAR = 136;
+    public static final int REQ_PERMISSION_READ_STORAGE = 137;
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
@@ -237,6 +239,20 @@ public class MNMainActivity extends AppCompatActivity implements
             dogEarImageView.setVisibility(View.VISIBLE);
         }
 
+        checkAllPermissions();
+
+        // 기존 onCreate 에서 처리를 해 주었으나 여러 크래시 상황 때문에 최대한 뒤로 미뤄서 진행
+        if (willAlarmBeInvoked) {
+            willAlarmBeInvoked = false;
+            try {
+                MNAlarmWakeUtils.invokeAlarm(this, getIntent());
+            } catch (IOException e) {
+                Crashlytics.getInstance().core.logException(e);
+            }
+        }
+    }
+
+    private void checkAllPermissions() {
         // 날씨 패널이 있고 현재 위치를 사용할 경우 위치를 요청
         if (panelWindowLayout.isThereAnyWeatherPanelsUsingCurrentLocation()) {
             if (hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
@@ -255,13 +271,9 @@ public class MNMainActivity extends AppCompatActivity implements
             }
         }
 
-        // 기존 onCreate 에서 처리를 해 주었으나 여러 크래시 상황 때문에 최대한 뒤로 미뤄서 진행
-        if (willAlarmBeInvoked) {
-            willAlarmBeInvoked = false;
-            try {
-                MNAlarmWakeUtils.invokeAlarm(this, getIntent());
-            } catch (IOException e) {
-                Crashlytics.getInstance().core.logException(e);
+        if (panelWindowLayout.isThereAnyPanelUsingPhoto()) {
+            if (!hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                requestReadStoragePermission();
             }
         }
     }
@@ -318,6 +330,25 @@ public class MNMainActivity extends AppCompatActivity implements
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{ Manifest.permission.READ_CALENDAR }, REQ_PERMISSION_READ_CALENDAR);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void requestReadStoragePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Snackbar.make(containerLayout, R.string.need_permission_read_storage, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(MNMainActivity.this,
+                                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE },
+                                    REQ_PERMISSION_READ_STORAGE);
+                        }
+                    }).show();
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE }, REQ_PERMISSION_READ_STORAGE);
         }
     }
 
@@ -810,6 +841,10 @@ public class MNMainActivity extends AppCompatActivity implements
         } else if (requestCode == REQ_PERMISSION_READ_CALENDAR) {
             if (isPermissionGranted(grantResults)) {
                 panelWindowLayout.refreshCalendarPanels();
+            }
+        } else if (requestCode == REQ_PERMISSION_READ_STORAGE) {
+            if (isPermissionGranted(grantResults)) {
+                panelWindowLayout.refreshPhotoFramePanels();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
