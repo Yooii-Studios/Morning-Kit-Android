@@ -355,7 +355,9 @@ public class MNPanelWindowLayout extends LinearLayout {
         for (MNPanelLayout panelLayout : panelLayouts) {
             MNPanelType panelType = panelLayout.getPanelType();
             if (panelType == MNPanelType.WEATHER) {
-                return ((MNWeatherPanelLayout) panelLayout).isUsingCurrentLocation();
+                if (((MNWeatherPanelLayout) panelLayout).isUsingCurrentLocation()) {
+                    return true;
+                }
             }
         }
         return false;
