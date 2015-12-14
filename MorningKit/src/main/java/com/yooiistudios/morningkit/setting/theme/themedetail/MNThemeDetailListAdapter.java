@@ -36,6 +36,7 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
     private boolean hasBackCamera = true;
     private int totalNumberOfThemes;
 
+    @SuppressWarnings("unused")
     private MNThemeDetailListAdapter() {}
     public MNThemeDetailListAdapter(Activity activity, Fragment fragment) {
         this.activity = activity;
@@ -43,8 +44,9 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
 
         // theme check(Camera)
         totalNumberOfThemes = MNThemeType.values().length - 1;
+        //noinspection deprecation
         switch (Camera.getNumberOfCameras()) {
-            // 0일 경우는 getNumberOfCameras에 대응을 안하는 안드로이드 기기도 있기에(Htc 등) 다시 한번 체크를 해 주어야만 한다
+            // 0일 경우는 getNumberOfCameras 에 대응을 안하는 안드로이드 기기도 있기에(Htc 등) 다시 한번 체크를 해 주어야만 한다
             case 0:
                 if (activity.getPackageManager() != null) {
                     if (activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT) ||
@@ -197,7 +199,7 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
                                 intent.putExtra(MNUnlockActivity.PRODUCT_SKU_KEY, SKIabProducts.SKU_CELESTIAL);
 
                                 // 플러리
-                                Map<String, String> params = new HashMap<String, String>();
+                                Map<String, String> params = new HashMap<>();
                                 params.put(MNFlurry.CALLED_FROM, "Sky Blue");
                                 FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
 
@@ -206,7 +208,7 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
                                 intent.putExtra(MNUnlockActivity.PRODUCT_SKU_KEY, SKIabProducts.SKU_MODERNITY);
 
                                 // 플러리
-                                Map<String, String> params = new HashMap<String, String>();
+                                Map<String, String> params = new HashMap<>();
                                 params.put(MNFlurry.CALLED_FROM, "Classic White");
                                 FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
                             } else {

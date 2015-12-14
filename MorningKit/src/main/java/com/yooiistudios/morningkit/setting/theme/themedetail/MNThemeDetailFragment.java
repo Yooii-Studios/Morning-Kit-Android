@@ -13,7 +13,6 @@ import android.widget.ListView;
 import com.yooiistudios.morningkit.R;
 
 public class MNThemeDetailFragment extends Fragment {
-
     public static final int REQ_THEME_DETAIL_PHOTO = 9385;
     ListView listView;
 
@@ -46,11 +45,6 @@ public class MNThemeDetailFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
     }
 
     @Override
