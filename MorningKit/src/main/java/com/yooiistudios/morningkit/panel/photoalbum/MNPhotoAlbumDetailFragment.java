@@ -1,21 +1,27 @@
 package com.yooiistudios.morningkit.panel.photoalbum;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +65,7 @@ import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFil
  */
 public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         implements MNPhotoAlbumRefreshTimeDialogFragment.OnClickListener{
+    public static final int REQ_PERMISSION_READ_STORAGE = 141;
     private static final String TAG = "MNPhotoAlbumDetailFragment";
 
     // tags
@@ -75,6 +82,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     // request code
     public static final int RC_LOAD_PHOTO = 1;
 
+    @InjectView(R.id.panel_photo_album_detail_scrollview) ScrollView scrollView;
     @InjectView(R.id.preview_switcher) ViewSwitcher previewSwitcher;
     @InjectView(R.id.preview_unavailable) View previewUnavailableView;
     @InjectView(R.id.preview_name) TextView previewName;
@@ -171,15 +179,43 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     private View.OnClickListener onLoadBtnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent;
-            intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+            if (ActivityCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                showPhotoPick();
+            } else {
+                requestReadStoragePermission();
             }
-            startActivityForResult(intent, RC_LOAD_PHOTO);
         }
     };
+
+    private void showPhotoPick() {
+        Intent intent;
+        intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        }
+        startActivityForResult(intent, RC_LOAD_PHOTO);
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void requestReadStoragePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Snackbar.make(scrollView, R.string.need_permission_read_storage, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE },
+                                    REQ_PERMISSION_READ_STORAGE);
+                        }
+                    }).show();
+        } else {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE }, REQ_PERMISSION_READ_STORAGE);
+        }
+    }
 
     private void loadFileList() {
         if (listFetcher != null) {
