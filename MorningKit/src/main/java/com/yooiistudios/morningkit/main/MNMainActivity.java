@@ -783,29 +783,39 @@ public class MNMainActivity extends AppCompatActivity implements
                     Snackbar.LENGTH_SHORT).show();
         }
 
-        if (requestCode == REQ_PERMISSION_MULTIPLE) {
-            if (isPermissionGranted(grantResults)) {
-                requestCurrentLocation();
-                panelWindowLayout.refreshCalendarPanels();
-            } else {
-                panelWindowLayout.changeAndRefreshWeatherPanelsNotToUseCurrentLocation();
-            }
-        } else  if (requestCode == REQ_PERMISSION_LOCATION) {
-            if (isPermissionGranted(grantResults)) {
-                requestCurrentLocation();
-            } else {
-                panelWindowLayout.changeAndRefreshWeatherPanelsNotToUseCurrentLocation();
-            }
-        } else if (requestCode == REQ_PERMISSION_READ_CALENDAR) {
-            if (isPermissionGranted(grantResults)) {
-                panelWindowLayout.refreshCalendarPanels();
-            }
-        } else if (requestCode == REQ_PERMISSION_READ_STORAGE) {
-            if (isPermissionGranted(grantResults)) {
-                panelWindowLayout.refreshPhotoFramePanels();
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQ_PERMISSION_MULTIPLE:
+                if (isPermissionGranted(grantResults)) {
+                    requestCurrentLocation();
+                    panelWindowLayout.refreshCalendarPanels();
+                } else {
+                    panelWindowLayout.changeAndRefreshWeatherPanelsNotToUseCurrentLocation();
+                }
+                break;
+
+            case REQ_PERMISSION_LOCATION:
+                if (isPermissionGranted(grantResults)) {
+                    requestCurrentLocation();
+                } else {
+                    panelWindowLayout.changeAndRefreshWeatherPanelsNotToUseCurrentLocation();
+                }
+                break;
+
+            case REQ_PERMISSION_READ_CALENDAR:
+                if (isPermissionGranted(grantResults)) {
+                    panelWindowLayout.refreshCalendarPanels();
+                }
+                break;
+
+            case REQ_PERMISSION_READ_STORAGE:
+                if (isPermissionGranted(grantResults)) {
+                    panelWindowLayout.refreshPhotoFramePanels();
+                }
+                break;
+
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                break;
         }
     }
 
