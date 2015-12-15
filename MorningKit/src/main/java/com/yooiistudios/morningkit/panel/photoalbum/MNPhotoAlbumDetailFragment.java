@@ -1,5 +1,7 @@
 package com.yooiistudios.morningkit.panel.photoalbum;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +26,7 @@ import android.widget.ViewSwitcher;
 
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNLog;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 import com.yooiistudios.morningkit.panel.core.detail.MNPanelDetailFragment;
 import com.yooiistudios.morningkit.panel.photoalbum.adapter.MNPhotoAlbumDropdownAdapter;
 import com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumCheckboxView;
@@ -51,9 +55,6 @@ import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayo
 import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.PREF_PHOTO_ALBUM;
 import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFileManager.DEFAULT_PARENT_DIR;
 
-//import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_FILELIST;
-//import static com.yooiistudios.morningkit.panel.photoalbum.MNPhotoAlbumPanelLayout.KEY_DATA_FILE_PARENT_LIST;
-
 /**
  * Created by Wooseong Kim in MorningKit from Yooii Studios Co., LTD. on 2014. 5. 13.
  *
@@ -62,13 +63,11 @@ import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFil
  */
 public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         implements MNPhotoAlbumRefreshTimeDialogFragment.OnClickListener{
+    private static final int REQ_PERMISSION_READ_STORAGE = 141;
     private static final String TAG = "MNPhotoAlbumDetailFragment";
 
     // tags
-    private static final Object TAG_TRANSITION_CHECKBOX = new Object();
     public static final String TAG_TRANSITION_DIALOG = "transition dialog";
-    public static final String TAG_TRANSITION_TYPE_DIALOG = "transition " +
-            "type dialog";
 
     public static final int INVALID_INTERVAL = -1;
 
@@ -81,20 +80,13 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
     // request code
     public static final int RC_LOAD_PHOTO = 1;
 
+    @InjectView(R.id.panel_photo_album_detail_scrollview) ScrollView scrollView;
     @InjectView(R.id.preview_switcher) ViewSwitcher previewSwitcher;
-    @InjectView(R.id.preview_unavailable)
-    View previewUnavailableView;
+    @InjectView(R.id.preview_unavailable) View previewUnavailableView;
     @InjectView(R.id.preview_name) TextView previewName;
-    @InjectView(R.id.toggleRefresh)
-    ImageView refreshTimeToggleButton;
-//    @InjectView(R.id.edittext_min) EditText minuteEditText;
-//    @InjectView(R.id.edittext_sec) EditText secondEditText;
+    @InjectView(R.id.toggleRefresh) ImageView refreshTimeToggleButton;
     @InjectView(R.id.transition_type_spinner) Spinner transitionTypeSpinner;
-//    @InjectView(R.id.label_min) TextView minLabel;
-//    @InjectView(R.id.label_sec) TextView secLabel;
-//    @InjectView(R.id.time_wrapper) ViewGroup timeWrapper;
-    @InjectView(R.id.grayscale_toggleSwitch)
-    MNPhotoAlbumCheckboxView grayscaleToggleButton;
+    @InjectView(R.id.grayscale_toggleSwitch) MNPhotoAlbumCheckboxView grayscaleToggleButton;
     @InjectView(R.id.refreshTime) TextView refreshTime;
 
     private MNPhotoAlbumDisplayHelper displayHelper;
@@ -181,19 +173,34 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         }
         return rootView;
     }
-    private View.OnClickListener onLoadBtnClickListener =
-            new View.OnClickListener() {
+
+    private View.OnClickListener onLoadBtnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent;
-            intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+            if (PermissionUtils.hasPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                showPhotoPick();
+            } else {
+                requestReadStoragePermission();
             }
-            startActivityForResult(intent, RC_LOAD_PHOTO);
         }
     };
+
+    private void showPhotoPick() {
+        Intent intent;
+        intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        }
+        startActivityForResult(intent, RC_LOAD_PHOTO);
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void requestReadStoragePermission() {
+        PermissionUtils.requestPermission(getActivity(), scrollView,
+                Manifest.permission.READ_EXTERNAL_STORAGE, R.string.need_permission_read_storage,
+                REQ_PERMISSION_READ_STORAGE);
+    }
 
     private void loadFileList() {
         if (listFetcher != null) {
@@ -323,7 +330,7 @@ public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         togglePreviewWrapper(true);
 
         // init transition type ui
-        ArrayList<String> transitionNameList = new ArrayList<String>();
+        ArrayList<String> transitionNameList = new ArrayList<>();
         for (MNPhotoAlbumTransitionType type :
                 MNPhotoAlbumTransitionType.values()) {
             transitionNameList.add(type.name());

@@ -1,20 +1,25 @@
 package com.yooiistudios.morningkit.setting.theme.themedetail.photo;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.stevenkim.photo.SKBitmapLoader;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.setting.theme.soundeffect.MNSound;
 import com.yooiistudios.morningkit.setting.theme.themedetail.MNSettingColors;
@@ -35,10 +40,13 @@ import lombok.Getter;
  */
 public class MNThemePhotoListAdapter extends BaseAdapter {
     private Activity activity;
+    private ListView listViiew;
 
+    @SuppressWarnings("unused")
     private MNThemePhotoListAdapter(){}
-    public MNThemePhotoListAdapter(Activity activity) {
+    public MNThemePhotoListAdapter(Activity activity, ListView listView) {
         this.activity = activity;
+        this.listViiew = listView;
     }
 
     @Override
@@ -63,7 +71,7 @@ public class MNThemePhotoListAdapter extends BaseAdapter {
             MNThemePhotoItemViewHolder viewHolder = new MNThemePhotoItemViewHolder(convertView);
 
             Bitmap bitmap = null;
-            // 원 사이즈로 하니까 사진이 너무 작아진다: xxhdpi가 3배니까 3배 정도로만 크게 줄이면 될듯
+            // 원 사이즈로 하니까 사진이 너무 작아진다: xxhdpi 가 3배니까 3배 정도로만 크게 줄이면 될듯
             int imageViewSize = activity.getApplicationContext().getResources()
                     .getDimensionPixelSize(R.dimen.setting_theme_detail_photo_item_crop_layout_width) * 3;
 
@@ -103,24 +111,38 @@ public class MNThemePhotoListAdapter extends BaseAdapter {
                     if (MNSound.isSoundOn(activity)) {
                         MNSoundEffectsPlayer.play(R.raw.effect_view_open, activity);
                     }
-                    Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                    intent.putExtra("outputformat", Bitmap.CompressFormat.JPEG.name());
-                    intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-                    // 사진 선택 기능으로 간다
-                    // 기존에 로딩한 사진이 있다면 recycle 반드시 필요
-                    if (position == 0) {
-                        // Portrait
-                        activity.startActivityForResult(intent, SKBitmapLoader.REQ_CODE_PICK_IMAGE_PORTRAIT);
+                    if (PermissionUtils.hasPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        showPhotoPick(position);
                     } else {
-                        // Landscape
-                        activity.startActivityForResult(intent, SKBitmapLoader.REQ_CODE_PICK_IMAGE_LANDSCAPE);
+                        requestReadStoragePermission();
                     }
                 }
             });
         }
         return convertView;
+    }
+
+    private void showPhotoPick(int position) {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+        intent.putExtra("outputformat", Bitmap.CompressFormat.JPEG.name());
+        intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        // 사진 선택 기능으로 간다
+        // 기존에 로딩한 사진이 있다면 recycle 반드시 필요
+        if (position == 0) {
+            // Portrait
+            activity.startActivityForResult(intent, SKBitmapLoader.REQ_CODE_PICK_IMAGE_PORTRAIT);
+        } else {
+            // Landscape
+            activity.startActivityForResult(intent, SKBitmapLoader.REQ_CODE_PICK_IMAGE_LANDSCAPE);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void requestReadStoragePermission() {
+        PermissionUtils.requestPermission(activity, listViiew, Manifest.permission.READ_EXTERNAL_STORAGE,
+                R.string.need_permission_read_storage, 0);
     }
 
     /**

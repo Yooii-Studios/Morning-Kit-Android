@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.panel.calendar;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -11,11 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 import com.yooiistudios.morningkit.panel.calendar.adapter.MNCalendarListAdapter;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarSelectDialog;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarUtils;
@@ -37,9 +40,9 @@ import static com.yooiistudios.morningkit.panel.calendar.MNCalendarPanelLayout.C
  * MNCalendarDetailFragment
  */
 public class MNCalendarDetailFragment extends MNPanelDetailFragment implements MNCalendarSelectDialog.MNCalendarSelectDialogListener {
+    private static final int REQ_PERMISSION_READ_CALENDAR = 135;
 
-    private static final String TAG = "MNCalendarDetailFragment";
-
+    @InjectView(R.id.panel_calendar_detail_scrollview) ScrollView scrollView;
     @InjectView(R.id.panel_calendar_detail_events_listview) ListView eventsListView;
     @InjectView(R.id.panel_calendar_detail_select_calendars_image_view) ImageView selectCalendarsImageView;
     @InjectView(R.id.panel_calendar_detail_no_schedule_textview) TextView noScheduleTextView;
@@ -60,7 +63,7 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
 
             // 패널 데이터 가져오기
             if (getPanelDataObject().has(CALENDAR_DATA_SELECTED_CALEDNDARS)) {
-                String calendarModelsJsonString = null;
+                String calendarModelsJsonString;
                 try {
                     calendarModelsJsonString = getPanelDataObject().getString(CALENDAR_DATA_SELECTED_CALEDNDARS);
                     if (calendarModelsJsonString != null) {
@@ -97,6 +100,7 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
         super.onResume();
 
         // 아이콘 이미지뷰 색 필터 적용
+        //noinspection deprecation
         int highlightColor = getResources().getColor(R.color.pastel_green_sub_font_color);
         PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(highlightColor,
                 PorterDuff.Mode.SRC_ATOP);
@@ -125,9 +129,22 @@ public class MNCalendarDetailFragment extends MNPanelDetailFragment implements M
 
     @OnClick(R.id.panel_calendar_detail_select_calendars_layout)
     void selectCalendarButtonClicked() {
+        if (PermissionUtils.hasPermission(getContext(), Manifest.permission.READ_CALENDAR)) {
+            showSelectCalendarDialog();
+        } else {
+            requestReadCalendarPermission();
+        }
+    }
+
+    private void showSelectCalendarDialog() {
         AlertDialog calendarSelectDialog = MNCalendarSelectDialog.makeDialog(getActivity(), this,
                 MNCalendarUtils.loadCalendarModels(getActivity()));
         calendarSelectDialog.show();
+    }
+
+    private void requestReadCalendarPermission() {
+        PermissionUtils.requestPermission(getActivity(), scrollView, Manifest.permission.READ_CALENDAR,
+                R.string.need_permission_calendar, REQ_PERMISSION_READ_CALENDAR);
     }
 
     @Override

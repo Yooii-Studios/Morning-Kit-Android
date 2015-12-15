@@ -1,5 +1,7 @@
 package com.yooiistudios.morningkit.panel.calendar.adapter;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -12,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yooiistudios.morningkit.R;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEvent;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventItemInfo;
 import com.yooiistudios.morningkit.panel.calendar.model.MNCalendarEventList;
@@ -38,7 +41,9 @@ public class MNCalendarListAdapter extends BaseAdapter {
         this.context = context;
 
         // Init cursor
-        calendarEventList = MNCalendarEventUtils.getCalendarEventList(context, selectedArr);
+        if (PermissionUtils.hasPermission(context, Manifest.permission.READ_CALENDAR)) {
+            calendarEventList = MNCalendarEventUtils.getCalendarEventList(context, selectedArr);
+        }
     }
 
     public MNCalendarListAdapter(MNCalendarEventList calendarEventList) {
@@ -118,6 +123,7 @@ public class MNCalendarListAdapter extends BaseAdapter {
         return calendarEventList.getCalendarEventItemInfo(index);
     }
 
+    @SuppressLint("SimpleDateFormat")
     protected View initEventItem(int position, MNCalendarEvent calendarModel,
                                  MNCalendarEventItemInfo calendarEventItemInfo, ViewGroup viewGroup) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();

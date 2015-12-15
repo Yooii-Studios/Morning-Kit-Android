@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.panel.calendar.model;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -7,6 +8,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
+
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 
 import org.joda.time.DateTime;
 
@@ -20,12 +23,10 @@ import static android.provider.CalendarContract.Events.CALENDAR_ID;
  * Created by StevenKim in GoogleCalendarTestApp from Yooii Studios Co., LTD. on 2014. 4. 3.
  *
  * MNCalendarUtils
- *  디바이스 내의 캘린더 ID들과, 해당 ID의 캘린더 이벤트들을 얻을 수 있는 유틸리티 클래스
+ *  디바이스 내의 캘린더 ID 들과, 해당 ID의 캘린더 이벤트들을 얻을 수 있는 유틸리티 클래스
  *  -> 리팩토링 후
  */
 public class MNCalendarFetcher {
-//    private static final String TAG = "MNCalendarUtils";
-
     private MNCalendarFetcher() {
         throw new AssertionError("You MUST not create this class!");
     }
@@ -40,7 +41,7 @@ public class MNCalendarFetcher {
         // For a full list of available columns see http://tinyurl.com/yfbg76w
 
         if (cursor != null) {
-            ArrayList<MNCalendar> calendarModels = new ArrayList<MNCalendar>();
+            ArrayList<MNCalendar> calendarModels = new ArrayList<>();
 
             while (cursor.moveToNext()) {
 
@@ -66,15 +67,18 @@ public class MNCalendarFetcher {
 
         // Fetch a list of all calendars synced with the device, their display names and whether the
         // user has them selected for display.
-        Cursor cursor;
-        cursor = contentResolver.query(CalendarContract.Calendars.CONTENT_URI, new String[]
-                        { CalendarContract.Calendars._ID, CalendarContract.Calendars.CALENDAR_DISPLAY_NAME},
-                null, null, null
-        ); // 캘린더 이름으로 ASC 정렬이었으나 그냥 id 순서대로 정렬로 변경
-        // CalendarContract.Calendars.CALENDAR_DISPLAY_NAME + " ASC");
+        Cursor cursor = null;
+        if (PermissionUtils.hasPermission(context, Manifest.permission.READ_CALENDAR)) {
+            //noinspection ResourceType
+            cursor = contentResolver.query(CalendarContract.Calendars.CONTENT_URI, new String[]
+                            { CalendarContract.Calendars._ID, CalendarContract.Calendars.CALENDAR_DISPLAY_NAME},
+                    null, null, null
+            ); // 캘린더 이름으로 ASC 정렬이었으나 그냥 id 순서대로 정렬로 변경
+            // CalendarContract.Calendars.CALENDAR_DISPLAY_NAME + " ASC");
+        }
 
         if (cursor != null) {
-            ArrayList<MNCalendar> calendarModels = new ArrayList<MNCalendar>();
+            ArrayList<MNCalendar> calendarModels = new ArrayList<>();
 
             while (cursor.moveToNext()) {
                 MNCalendar calendarModel = new MNCalendar();
@@ -169,7 +173,7 @@ public class MNCalendarFetcher {
 
         if (eventCursor != null) {
 
-            ArrayList<MNCalendarEvent> calendarModelList = new ArrayList<MNCalendarEvent>();
+            ArrayList<MNCalendarEvent> calendarModelList = new ArrayList<>();
 
             while (eventCursor.moveToNext()) {
                 MNCalendarEvent calendarEvent = new MNCalendarEvent();
@@ -186,9 +190,6 @@ public class MNCalendarFetcher {
 
                 // all day
                 calendarEvent.isAllDayEvent = isAllDayEvents;
-//                SimpleDateFormat sdfrr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                String stimesr = sdfrr.format(begin);
-
                 calendarModelList.add(calendarEvent);
             }
             eventCursor.close();
@@ -290,7 +291,7 @@ public class MNCalendarFetcher {
                 CalendarContract.Instances.BEGIN + " ASC");
 
         if (eventCursor != null) {
-            ArrayList<MNCalendarEvent> calendarModelList = new ArrayList<MNCalendarEvent>();
+            ArrayList<MNCalendarEvent> calendarModelList = new ArrayList<>();
 
             while (eventCursor.moveToNext()) {
 

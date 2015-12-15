@@ -1,11 +1,14 @@
 package com.yooiistudios.morningkit.main;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -13,6 +16,9 @@ import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -25,8 +31,10 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.maps.model.LatLng;
 import com.squareup.otto.Subscribe;
 import com.stevenkim.camera.SKCameraThemeView;
+import com.yooiistudios.coreutils.location.LocationModule;
 import com.yooiistudios.morningkit.MNApplication;
 import com.yooiistudios.morningkit.MNIabInfo;
 import com.yooiistudios.morningkit.R;
@@ -41,6 +49,7 @@ import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.log.MNLog;
 import com.yooiistudios.morningkit.common.network.InternetConnectionManager;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 import com.yooiistudios.morningkit.common.review.MNReviewUtil;
 import com.yooiistudios.morningkit.common.size.MNViewSizeMeasure;
 import com.yooiistudios.morningkit.common.tutorial.MNTutorialLayout;
@@ -49,9 +58,6 @@ import com.yooiistudios.morningkit.common.validate.AppValidationChecker;
 import com.yooiistudios.morningkit.main.layout.MNMainButtonLayout;
 import com.yooiistudios.morningkit.main.layout.MNMainLayoutSetter;
 import com.yooiistudios.morningkit.panel.core.MNPanel;
-import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
-import com.yooiistudios.morningkit.panel.core.MNPanelType;
-import com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout;
 import com.yooiistudios.morningkit.setting.MNSettingActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreActivity;
 import com.yooiistudios.morningkit.setting.store.MNStoreType;
@@ -66,8 +72,6 @@ import com.yooiistudios.morningkit.setting.theme.themedetail.MNThemeType;
 import com.yooiistudios.morningkit.theme.MNMainColors;
 import com.yooiistudios.morningkit.theme.MNMainResources;
 import com.yooiistudios.morningkit.theme.font.MNTranslucentFont;
-
-import org.json.JSONException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -86,9 +90,14 @@ import lombok.Getter;
  * MNMainActivity
  *  앱에서 가장 중요한 메인 액티비티
  */
-public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutorialFinishListener {
+public class MNMainActivity extends AppCompatActivity implements
+        MNTutorialLayout.OnTutorialFinishListener, LocationModule.OnLocationEventListener {
     public static final String TAG = "MainActivity";
     private static int ALARM_REMOVE_DELAY_MILLI = 90;	// 알람이 삭제되는 딜레이
+    private static final int REQ_PERMISSION_MULTIPLE = 108;
+    private static final int REQ_PERMISSION_LOCATION = 110;
+    private static final int REQ_PERMISSION_READ_CALENDAR = 136;
+    private static final int REQ_PERMISSION_READ_STORAGE = 137;
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
@@ -212,36 +221,25 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     @Override
     protected void onResume() {
         super.onResume();
-        // Activity visible to user
         MNAlarmScrollViewBusProvider.getInstance().register(this);
 
-        // Alarm
         alarmListView.refreshListView();
-
-        // 패널 교체 확인
         panelWindowLayout.checkPanelHadReplacedAtSetting();
-
-        // 테마와 관련된 작업 실행
         panelWindowLayout.applyTheme();
-
-        // 액티비티가 resume 될 경우 패널에서 필요한 처리 수행
         panelWindowLayout.onActivityResume();
-
-        // 애드몹 레이아웃
         adView.resume();
-
-        // 테마 적용
         processTheme();
 
         // 세팅 탭에서 돌아올 경우를 대비해 전체적인 레이아웃 최신화 적용
         onConfigurationChanged(getResources().getConfiguration());
 
-        // 풀버전 구매 확인, 독이어 제거
         if (SKIabProducts.containsSku(SKIabProducts.SKU_FULL_VERSION, getApplicationContext())) {
             dogEarImageView.setVisibility(View.GONE);
         } else {
             dogEarImageView.setVisibility(View.VISIBLE);
         }
+
+        checkAllPermissions();
 
         // 기존 onCreate 에서 처리를 해 주었으나 여러 크래시 상황 때문에 최대한 뒤로 미뤄서 진행
         if (willAlarmBeInvoked) {
@@ -252,6 +250,64 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
                 Crashlytics.getInstance().core.logException(e);
             }
         }
+    }
+
+    private void checkAllPermissions() {
+        // 날씨 패널이 있고 현재 위치를 사용할 경우 위치를 요청
+        if (panelWindowLayout.isThereAnyWeatherPanelsUsingCurrentLocation()) {
+            if (PermissionUtils.hasPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                requestCurrentLocation();
+            } else {
+                if (MNTutorialManager.isTutorialShown(getApplicationContext())) {
+                    requestLocationPermission();
+                }
+            }
+        }
+
+        if (panelWindowLayout.isThereAnyCalendarPanel()) {
+            if (!PermissionUtils.hasPermission(this, Manifest.permission.READ_CALENDAR) &&
+                    MNTutorialManager.isTutorialShown(getApplicationContext())) {
+                requestReadCalendarPermission();
+            }
+        }
+
+        if (panelWindowLayout.isThereAnyPanelUsingPhoto()) {
+            if (!PermissionUtils.hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                requestReadStoragePermission();
+            }
+        }
+    }
+
+    private void requestCurrentLocation() {
+        LocationModule.getInstance(getApplicationContext()).requestCurrentLocation(
+                getSupportFragmentManager(), this);
+    }
+
+    private void requestPermissionsToStart() {
+        if (!PermissionUtils.hasPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) &&
+                !PermissionUtils.hasPermission(this, Manifest.permission.READ_CALENDAR)) {
+            String[] permissions = {
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.READ_CALENDAR};
+            PermissionUtils.requestPermissions(this, permissions, REQ_PERMISSION_MULTIPLE);
+        }
+    }
+
+    private void requestLocationPermission() {
+        PermissionUtils.requestPermission(this, containerLayout,
+                Manifest.permission.ACCESS_COARSE_LOCATION, R.string.need_permission_location,
+                REQ_PERMISSION_LOCATION);
+    }
+
+    private void requestReadCalendarPermission() {
+        PermissionUtils.requestPermission(this, containerLayout, Manifest.permission.READ_CALENDAR,
+                R.string.need_permission_calendar, REQ_PERMISSION_READ_CALENDAR);
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void requestReadStoragePermission() {
+        PermissionUtils.requestPermission(this, containerLayout, Manifest.permission.READ_EXTERNAL_STORAGE,
+                R.string.need_permission_read_storage, REQ_PERMISSION_READ_STORAGE);
     }
 
     @Override
@@ -408,7 +464,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         overridePendingTransition(R.anim.activity_modal_up, R.anim.activity_hold);
 
         // 플러리
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<>();
         params.put(MNFlurry.CALLED_FROM, "Main - Dog Ear");
         FlurryAgent.logEvent(MNFlurry.STORE, params);
     }
@@ -480,6 +536,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     /**
      * Theme
      */
+    @SuppressWarnings("deprecation") // <- 카메라 관련 해결하려면 camera2 API로 로직 교체 필요
     private void processTheme() {
         MNThemeType currentThemeType = MNTheme.getCurrentThemeType(this);
 
@@ -585,12 +642,12 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     }
 
     private void sendFlurryAnalytics() {
-        // 쓰레드로 돌려서 UI쓰레드 방해하지 않게 구현
+        // 쓰레드로 돌려서 UI 쓰레드 방해하지 않게 구현
         new Thread(new Runnable() {
             @Override
             public void run() {
                 // 풀 버전 체크
-                Map<String, String> versionParams = new HashMap<String, String>();
+                Map<String, String> versionParams = new HashMap<>();
                 boolean isFullVersionBought =
                         SKIabProducts.loadOwnedIabProducts(MNMainActivity.this).contains(SKIabProducts.SKU_FULL_VERSION);
                 if (isFullVersionBought) {
@@ -602,7 +659,7 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
                 // 풀 버전일 때 따로 2X3 / 2X2 체크
                 MNPanelMatrixType currentPanelMatrixType = MNPanelMatrix.getCurrentPanelMatrixType(MNMainActivity.this);
-                Map<String, String> panelMatrixParams = new HashMap<String, String>();
+                Map<String, String> panelMatrixParams = new HashMap<>();
                 panelMatrixParams.put(MNFlurry.PANEL_MATRIX_TYPE, currentPanelMatrixType.toString());
                 if (isFullVersionBought) {
                     FlurryAgent.logEvent(MNFlurry.FULL_VERSION, panelMatrixParams);
@@ -612,21 +669,21 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
 
                 // 언어 체크
                 MNLanguageType currentLanguageType = MNLanguage.getCurrentLanguageType(MNMainActivity.this);
-                Map<String, String> languageParams = new HashMap<String, String>();
+                Map<String, String> languageParams = new HashMap<>();
                 languageParams.put(MNFlurry.LANGUAGE,
                         MNLanguageType.toEnglishString(currentLanguageType.getIndex()));
                 FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, languageParams);
 
                 // 테마 체크
                 MNThemeType currentThemeType = MNTheme.getCurrentThemeType(MNMainActivity.this);
-                Map<String, String> themeParams = new HashMap<String, String>();
+                Map<String, String> themeParams = new HashMap<>();
                 themeParams.put(MNFlurry.THEME, currentThemeType.toString());
                 FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, themeParams);
 
                 // 알람 갯수 체크
                 ArrayList<MNAlarm> alarmList = MNAlarmListManager.loadAlarmList(getApplicationContext());
                 if (alarmList != null) {
-                    Map<String, String> alarmParams = new HashMap<String, String>();
+                    Map<String, String> alarmParams = new HashMap<>();
                     alarmParams.put(MNFlurry.NUM_OF_ALARMS, String.valueOf(alarmList.size()));
                     FlurryAgent.logEvent(MNFlurry.ON_LAUNCH, alarmParams);
                 }
@@ -634,34 +691,24 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         }).start();
     }
 
+    // Only for Naver
     private void askUsingCurrentLocationDialog() {
         AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert);
         } else {
             builder = new AlertDialog.Builder(this);
         }
+
         builder.setPositiveButton("사용", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // 사용시엔 특별히 할 것이 없음
                 showTutorialLayout();
             }
         }).setNegativeButton("사용 안함", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // 사용 안함 시에는 날씨 패널 오브젝트 설정해주고 리프레시
-                MNPanelLayout weatherPanelLayout = panelWindowLayout.getPanelLayouts()[0];
-                if (weatherPanelLayout != null && weatherPanelLayout.getPanelType() == MNPanelType.WEATHER &&
-                        weatherPanelLayout.getPanelDataObject() != null) {
-                    try {
-                        weatherPanelLayout.getPanelDataObject().put(
-                                MNWeatherPanelLayout.WEATHER_DATA_IS_USING_CURRENT_LOCATION, false);
-                        weatherPanelLayout.refreshPanel();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                panelWindowLayout.changeAndRefreshWeatherPanelsNotToUseCurrentLocation();
                 showTutorialLayout();
             }
         });
@@ -674,6 +721,9 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
     }
 
     private void showTutorialLayout() {
+        // 첫 시작시에 권한 요청(6.0 이상)
+        requestPermissionsToStart();
+
         // 튜토리얼 전 세로고정 설정
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         MNTutorialLayout tutorialLayout = new MNTutorialLayout(getApplicationContext(), this);
@@ -700,6 +750,79 @@ public class MNMainActivity extends Activity implements MNTutorialLayout.OnTutor
         } else {
             // just finish activity when no ad item is bought
             super.onBackPressed();
+        }
+    }
+
+    /**
+     * Location Module
+     */
+    @Override
+    public Activity onResolutionRequired() {
+        return this;
+    }
+
+    @Override
+    public void onLocationChanged(LatLng latLng) {
+        LocationModule.getInstance(getApplicationContext()).cancelCurrentLocationRequest();
+        panelWindowLayout.refreshWeatherPanelsIfExistAndUseCurrentLocation();
+    }
+
+    /**
+     * 안드로이드 6.0 이후 권한 처리 콜백
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (isPermissionGranted(grantResults)) {
+            Snackbar.make(containerLayout, R.string.permission_granted,
+                    Snackbar.LENGTH_SHORT).show();
+        } else {
+            Snackbar.make(containerLayout, R.string.permission_not_granted,
+                    Snackbar.LENGTH_SHORT).show();
+        }
+
+        switch (requestCode) {
+            case REQ_PERMISSION_MULTIPLE:
+                if (isPermissionGranted(grantResults)) {
+                    requestCurrentLocation();
+                    panelWindowLayout.refreshCalendarPanels();
+                } else {
+                    panelWindowLayout.changeAndRefreshWeatherPanelsNotToUseCurrentLocation();
+                }
+                break;
+
+            case REQ_PERMISSION_LOCATION:
+                if (isPermissionGranted(grantResults)) {
+                    requestCurrentLocation();
+                } else {
+                    panelWindowLayout.changeAndRefreshWeatherPanelsNotToUseCurrentLocation();
+                }
+                break;
+
+            case REQ_PERMISSION_READ_CALENDAR:
+                if (isPermissionGranted(grantResults)) {
+                    panelWindowLayout.refreshCalendarPanels();
+                }
+                break;
+
+            case REQ_PERMISSION_READ_STORAGE:
+                if (isPermissionGranted(grantResults)) {
+                    panelWindowLayout.refreshPhotoFramePanels();
+                }
+                break;
+
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                break;
+        }
+    }
+
+    private boolean isPermissionGranted(@NonNull int[] grantResults) {
+        if (grantResults.length == 2) {
+            return grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED;
+        } else {
+            return grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.panel.calendar.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -34,10 +35,12 @@ public class MNCalendarMainListAdapter extends MNCalendarListAdapter {
         super(context, selectedArr);
     }
 
+    @SuppressWarnings("unused")
     public MNCalendarMainListAdapter(MNCalendarEventList calendarEventList) {
         super(calendarEventList);
     }
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     protected View initEventItem(int position, MNCalendarEvent calendarModel,
                                  MNCalendarEventItemInfo calendarEventItemInfo, ViewGroup viewGroup) {

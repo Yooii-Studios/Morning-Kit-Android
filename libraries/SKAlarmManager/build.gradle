@@ -14,27 +14,13 @@ repositories {
 }
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 23
     buildToolsVersion "19.1.0"
 
     defaultConfig {
-        minSdkVersion 10
-        targetSdkVersion 19
+        minSdkVersion 14
+        targetSdkVersion 23
         versionCode Integer.parseInt(project.VERSION_CODE) // in gradle.properties
         versionName project.VERSION_NAME
     }
-
-//    buildTypes {
-//        release {
-//            runProguard false
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-//            signingConfig signingConfigs.release
-//        }
-//    }
 }
-
-//dependencies {
-//    compile 'com.android.support:appcompat-v7:+'
-//}
-
-//apply from: 'maven_push.gradle'

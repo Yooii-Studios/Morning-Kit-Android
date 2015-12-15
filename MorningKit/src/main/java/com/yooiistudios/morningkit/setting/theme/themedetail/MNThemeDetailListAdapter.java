@@ -1,5 +1,6 @@
 package com.yooiistudios.morningkit.setting.theme.themedetail;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +14,7 @@ import android.widget.BaseAdapter;
 import com.flurry.android.FlurryAgent;
 import com.yooiistudios.morningkit.R;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
 import com.yooiistudios.morningkit.common.unlock.MNUnlockActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
@@ -30,21 +32,23 @@ import java.util.Map;
  * MNLanguageListAdapter
  */
 public class MNThemeDetailListAdapter extends BaseAdapter {
-    private Activity activity;
+    private MNThemeDetailActivity activity;
     private Fragment fragment;
     private boolean hasFrontCamera = true;
     private boolean hasBackCamera = true;
     private int totalNumberOfThemes;
 
+    @SuppressWarnings("unused")
     private MNThemeDetailListAdapter() {}
-    public MNThemeDetailListAdapter(Activity activity, Fragment fragment) {
+    public MNThemeDetailListAdapter(MNThemeDetailActivity activity, Fragment fragment) {
         this.activity = activity;
         this.fragment = fragment;
 
         // theme check(Camera)
         totalNumberOfThemes = MNThemeType.values().length - 1;
+        //noinspection deprecation
         switch (Camera.getNumberOfCameras()) {
-            // 0일 경우는 getNumberOfCameras에 대응을 안하는 안드로이드 기기도 있기에(Htc 등) 다시 한번 체크를 해 주어야만 한다
+            // 0일 경우는 getNumberOfCameras 에 대응을 안하는 안드로이드 기기도 있기에(Htc 등) 다시 한번 체크를 해 주어야만 한다
             case 0:
                 if (activity.getPackageManager() != null) {
                     if (activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT) ||
@@ -163,14 +167,29 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
                     if (MNSound.isSoundOn(activity)) {
                         MNSoundEffectsPlayer.play(R.raw.effect_view_close, activity);
                     }
-                    MNTheme.setThemeType(MNThemeType.valueOf(convertedPosition), activity);
 
-                    if (MNTheme.getCurrentThemeType(activity) == MNThemeType.PHOTO) {
-                        fragment.startActivityForResult(new Intent(activity, MNThemePhotoActivity.class),
-                                MNThemeDetailFragment.REQ_THEME_DETAIL_PHOTO);
+                    MNThemeType newThemeType = MNThemeType.valueOf(convertedPosition);
+                    if (newThemeType == MNThemeType.TRANQUILITY_BACK_CAMERA ||
+                            newThemeType == MNThemeType.REFLECTION_FRONT_CAMERA) {
+                        if (PermissionUtils.hasPermission(activity, Manifest.permission.CAMERA)) {
+                            MNTheme.setThemeType(newThemeType, activity);
+                            activity.setResult(Activity.RESULT_OK);
+                            activity.finish();
+                        } else {
+                            activity.setPendingTheme(newThemeType);
+                            activity.requestCameraPermission();
+                        }
                     } else {
-                        activity.setResult(Activity.RESULT_OK);
-                        activity.finish();
+                        MNTheme.setThemeType(newThemeType, activity);
+
+                        if (newThemeType == MNThemeType.PHOTO) {
+                            Intent intent = new Intent(activity, MNThemePhotoActivity.class);
+                            fragment.startActivityForResult(intent,
+                                    MNThemeDetailFragment.REQ_THEME_DETAIL_PHOTO);
+                        } else {
+                            activity.setResult(Activity.RESULT_OK);
+                            activity.finish();
+                        }
                     }
                 }
             });
@@ -197,7 +216,7 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
                                 intent.putExtra(MNUnlockActivity.PRODUCT_SKU_KEY, SKIabProducts.SKU_CELESTIAL);
 
                                 // 플러리
-                                Map<String, String> params = new HashMap<String, String>();
+                                Map<String, String> params = new HashMap<>();
                                 params.put(MNFlurry.CALLED_FROM, "Sky Blue");
                                 FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
 
@@ -206,7 +225,7 @@ public class MNThemeDetailListAdapter extends BaseAdapter {
                                 intent.putExtra(MNUnlockActivity.PRODUCT_SKU_KEY, SKIabProducts.SKU_MODERNITY);
 
                                 // 플러리
-                                Map<String, String> params = new HashMap<String, String>();
+                                Map<String, String> params = new HashMap<>();
                                 params.put(MNFlurry.CALLED_FROM, "Classic White");
                                 FlurryAgent.logEvent(MNFlurry.UNLOCK, params);
                             } else {
