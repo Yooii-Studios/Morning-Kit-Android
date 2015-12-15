@@ -63,8 +63,16 @@ public class SKAlarmManager {
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(context, alarmUniqueId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        // Over Marshmallow, you must use 'setAlarmClock' to avoid DOZE mode
         // Over KitKat, you must use 'setExact' to invoke alarm on exact time
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // showIntent argument of AlarmClockInfo tells the OS what to do when the user
+            // taps on the alarm clock info in the notification drawer or the lock screen.
+            // use 'null' when you don't need one.
+            AlarmManager.AlarmClockInfo alarmClockInfo =
+                    new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), null);
+            alarmManager.setAlarmClock(alarmClockInfo, pendingIntent);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         } else {
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
