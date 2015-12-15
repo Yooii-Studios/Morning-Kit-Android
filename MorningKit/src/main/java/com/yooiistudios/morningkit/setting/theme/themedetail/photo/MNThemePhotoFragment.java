@@ -34,14 +34,9 @@ public class MNThemePhotoFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.setting_theme_detail_photo_fragment, container, false);
         if (rootView != null) {
             listView = (ListView) rootView.findViewById(R.id.setting_theme_detail_photo_listview);
-            listView.setAdapter(new MNThemePhotoListAdapter(getActivity()));
+            listView.setAdapter(new MNThemePhotoListAdapter(getActivity(), listView));
         }
         return rootView;
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
     }
 
     @Override
@@ -55,5 +50,9 @@ public class MNThemePhotoFragment extends Fragment {
         // 추가: 사진을 선택하고 리프레시를 한 후에는 액티비티를 자동 종료한다
         getActivity().setResult(Activity.RESULT_OK);
         getActivity().finish();
+    }
+
+    public void refreshWithoutFinish() {
+        ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
     }
 }

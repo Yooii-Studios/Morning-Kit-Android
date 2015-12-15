@@ -242,6 +242,19 @@ public class MNWeatherPanelLayout extends MNPanelLayout implements
         logFlurryEvent();
     }
 
+    // 6.0 버전에서 동적 위치 요청 기능을 위해 필요
+    public boolean isUsingCurrentLocation() {
+        if (getPanelDataObject().has(WEATHER_DATA_IS_USING_CURRENT_LOCATION)) {
+            // 기본은 현재위치 사용
+            try {
+                isUsingCurrentLocation = getPanelDataObject().getBoolean(WEATHER_DATA_IS_USING_CURRENT_LOCATION);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return isUsingCurrentLocation;
+    }
+
     private void loadPanelDataObject() throws JSONException {
         if (getPanelDataObject().has(WEATHER_DATA_IS_USING_CURRENT_LOCATION)) {
             // 기본은 현재위치 사용

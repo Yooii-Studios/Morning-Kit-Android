@@ -15,6 +15,7 @@ import com.yooiistudios.morningkit.panel.core.MNPanel;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayout;
 import com.yooiistudios.morningkit.panel.core.MNPanelLayoutFactory;
 import com.yooiistudios.morningkit.panel.core.MNPanelType;
+import com.yooiistudios.morningkit.panel.weather.MNWeatherPanelLayout;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrix;
 import com.yooiistudios.morningkit.setting.theme.panelmatrix.MNPanelMatrixType;
 
@@ -350,20 +351,90 @@ public class MNPanelWindowLayout extends LinearLayout {
     /**
      * 날씨 패널 LocationModule 관련
      */
-    public boolean isThereWeatherPanel() {
+    public boolean isThereAnyWeatherPanelsUsingCurrentLocation() {
         for (MNPanelLayout panelLayout : panelLayouts) {
             MNPanelType panelType = panelLayout.getPanelType();
             if (panelType == MNPanelType.WEATHER) {
+                if (((MNWeatherPanelLayout) panelLayout).isUsingCurrentLocation()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void refreshWeatherPanelsIfExistAndUseCurrentLocation() {
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            MNPanelType panelType = panelLayout.getPanelType();
+            if (panelType == MNPanelType.WEATHER &&
+                    ((MNWeatherPanelLayout) panelLayout).isUsingCurrentLocation()) {
+                try {
+                    panelLayout.refreshPanel();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void changeAndRefreshWeatherPanelsNotToUseCurrentLocation() {
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            MNPanelType panelType = panelLayout.getPanelType();
+            if (panelType == MNPanelType.WEATHER && panelLayout.getPanelDataObject() != null) {
+                try {
+                    panelLayout.getPanelDataObject().put(
+                            MNWeatherPanelLayout.WEATHER_DATA_IS_USING_CURRENT_LOCATION, false);
+                    panelLayout.refreshPanel();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * 캘린더 권한 관련
+     */
+    public boolean isThereAnyCalendarPanel() {
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            MNPanelType panelType = panelLayout.getPanelType();
+            if (panelType == MNPanelType.CALENDAR) {
                 return true;
             }
         }
         return false;
     }
 
-    public void refreshWeatherPanelIfExist() {
+    public void refreshCalendarPanels() {
         for (MNPanelLayout panelLayout : panelLayouts) {
             MNPanelType panelType = panelLayout.getPanelType();
-            if (panelType == MNPanelType.WEATHER) {
+            if (panelType == MNPanelType.CALENDAR) {
+                try {
+                    panelLayout.refreshPanel();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * 외부 저장소 관련
+     */
+    public boolean isThereAnyPanelUsingPhoto() {
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            MNPanelType panelType = panelLayout.getPanelType();
+            if (panelType == MNPanelType.FLICKR || panelType == MNPanelType.PHOTO_FRAME) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void refreshPhotoFramePanels() {
+        for (MNPanelLayout panelLayout : panelLayouts) {
+            MNPanelType panelType = panelLayout.getPanelType();
+            if (panelType == MNPanelType.PHOTO_FRAME) {
                 try {
                     panelLayout.refreshPanel();
                 } catch (JSONException e) {
