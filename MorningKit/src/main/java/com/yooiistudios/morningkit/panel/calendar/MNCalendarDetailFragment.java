@@ -40,7 +40,7 @@ import static com.yooiistudios.morningkit.panel.calendar.MNCalendarPanelLayout.C
  * MNCalendarDetailFragment
  */
 public class MNCalendarDetailFragment extends MNPanelDetailFragment implements MNCalendarSelectDialog.MNCalendarSelectDialogListener {
-    public static final int REQ_PERMISSION_READ_CALENDAR = 135;
+    private static final int REQ_PERMISSION_READ_CALENDAR = 135;
 
     @InjectView(R.id.panel_calendar_detail_scrollview) ScrollView scrollView;
     @InjectView(R.id.panel_calendar_detail_events_listview) ListView eventsListView;

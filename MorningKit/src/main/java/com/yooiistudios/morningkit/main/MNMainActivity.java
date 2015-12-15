@@ -94,10 +94,10 @@ public class MNMainActivity extends AppCompatActivity implements
         MNTutorialLayout.OnTutorialFinishListener, LocationModule.OnLocationEventListener {
     public static final String TAG = "MainActivity";
     private static int ALARM_REMOVE_DELAY_MILLI = 90;	// 알람이 삭제되는 딜레이
-    public static final int REQ_PERMISSION_MULTIPLE = 108;
-    public static final int REQ_PERMISSION_LOCATION = 110;
-    public static final int REQ_PERMISSION_READ_CALENDAR = 136;
-    public static final int REQ_PERMISSION_READ_STORAGE = 137;
+    private static final int REQ_PERMISSION_MULTIPLE = 108;
+    private static final int REQ_PERMISSION_LOCATION = 110;
+    private static final int REQ_PERMISSION_READ_CALENDAR = 136;
+    private static final int REQ_PERMISSION_READ_STORAGE = 137;
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;

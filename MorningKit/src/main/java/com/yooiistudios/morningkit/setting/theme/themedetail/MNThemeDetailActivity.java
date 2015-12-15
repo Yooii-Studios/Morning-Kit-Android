@@ -24,7 +24,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class MNThemeDetailActivity extends MNSettingDetailActivity {
-    public static final int REQ_PERMISSION_CAMERA = 201;
+    private static final int REQ_PERMISSION_CAMERA = 201;
     private static final String TAG = "ThemeDetailActivity";
 
     @Getter RelativeLayout rootLayout;

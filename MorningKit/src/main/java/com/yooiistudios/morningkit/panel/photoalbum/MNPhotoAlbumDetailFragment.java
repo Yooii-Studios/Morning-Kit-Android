@@ -63,7 +63,7 @@ import static com.yooiistudios.morningkit.panel.photoalbum.model.MNPhotoAlbumFil
  */
 public class MNPhotoAlbumDetailFragment extends MNPanelDetailFragment
         implements MNPhotoAlbumRefreshTimeDialogFragment.OnClickListener{
-    public static final int REQ_PERMISSION_READ_STORAGE = 141;
+    private static final int REQ_PERMISSION_READ_STORAGE = 141;
     private static final String TAG = "MNPhotoAlbumDetailFragment";
 
     // tags
