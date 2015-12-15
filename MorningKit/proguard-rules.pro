@@ -140,3 +140,7 @@
 -keep class com.google.android.gms.** { *; }
 -dontwarn com.google.android.gms.
 -dontwarn com.android.volley.toolbox.**
+
+## related to API 23(Morningkit Specific)
+-dontwarn com.viewpagerindicator.LinePageIndicator
+-dontwarn net.simonvt.numberpicker.Scroller
