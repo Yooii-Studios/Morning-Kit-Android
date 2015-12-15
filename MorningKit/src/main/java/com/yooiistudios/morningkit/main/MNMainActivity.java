@@ -723,7 +723,7 @@ public class MNMainActivity extends AppCompatActivity implements
     }
 
     private void showTutorialLayout() {
-        // 첫 시작시에 권한 요청(6.0 이상
+        // 첫 시작시에 권한 요청(6.0 이상)
         requestPermissionsToStart();
 
         // 튜토리얼 전 세로고정 설정
