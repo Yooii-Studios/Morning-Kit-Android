@@ -703,13 +703,11 @@ public class MNMainActivity extends AppCompatActivity implements
         builder.setPositiveButton("사용", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // 사용시엔 특별히 할 것이 없음
                 showTutorialLayout();
             }
         }).setNegativeButton("사용 안함", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // 사용 안함 시에는 날씨 패널 오브젝트 설정해주고 리프레시
                 panelWindowLayout.changeAndRefreshWeatherPanelsNotToUseCurrentLocation();
                 showTutorialLayout();
             }
