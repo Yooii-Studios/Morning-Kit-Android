@@ -5,7 +5,7 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.3' // 0.12.+ 버전은 안드로이드 스튜디오 0.8.+ 버전부터
+        classpath 'com.android.tools.build:gradle:1.3.1' // 0.12.+ 버전은 안드로이드 스튜디오 0.8.+ 버전부터
         // JaKe Wharton 것을 쓰다가 jcandksolutions 가 문제를 해결해서 여기의 것을 사용
 //        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
 //        classpath 'com.github.jcandksolutions.gradle:android-unit-test:1.2.3'
@@ -24,8 +24,10 @@ repositories {
 }
 
 android {
+    useLibrary 'org.apache.http.legacy'
+
     compileSdkVersion 23
-    buildToolsVersion '19.1.0'
+    buildToolsVersion '23.0.2'
 
     defaultConfig {
         minSdkVersion 14
