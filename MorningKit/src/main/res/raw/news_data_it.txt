@@ -8,7 +8,7 @@
             "country_name": "Italia",
             "country_code": "IT",
             "provider_name": "Google News",
-            "url": "http://news.google.com/news?cf=all&ned=it&hl=it&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=it&hl=it&output=rss"
         }
     ]
 }

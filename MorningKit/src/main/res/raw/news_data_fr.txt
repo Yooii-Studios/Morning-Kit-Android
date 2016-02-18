@@ -8,25 +8,25 @@
             "country_name": "France",
             "country_code": "FR",
             "provider_name": "Google Actualités",
-            "url": "http://news.google.com/news?cf=all&ned=fr&hl=fr&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=fr&hl=fr&output=rss"
         },
         {
             "country_name": "Canada",
             "country_code": "CA",
             "provider_name": "Google Actualités",
-            "url": "http://news.google.com/news?cf=all&ned=fr_ca&hl=fr&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=fr_ca&hl=fr&output=rss"
         },
         {
             "country_name": "Belgium",
             "country_code": "BE",
             "provider_name": "Google Actualités",
-            "url": "http://news.google.com/news?pz=1&cf=all&ned=fr_be&hl=fr&output=rss"
+            "url": "https://news.google.com/news?pz=1&cf=all&ned=fr_be&hl=fr&output=rss"
         },
         {
             "country_name": "Switzerland",
             "country_code": "CH",
             "provider_name": "Google Actualités",
-            "url": "http://news.google.com/news?cf=all&ned=fr_ch&hl=fr&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=fr_ch&hl=fr&output=rss"
         },
         {
             "country_name": "Luxemburg",

@@ -8,7 +8,7 @@
             "country_name": "Україна",
             "country_code": "UA",
             "provider_name": "Google Новини",
-            "url": "http://news.google.com/news?cf=all&ned=uk_ua&hl=uk&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=uk_ua&hl=uk&output=rss"
         }
     ]
 }

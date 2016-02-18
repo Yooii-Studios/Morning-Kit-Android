@@ -8,7 +8,7 @@
             "country_name": "Norge",
             "country_code": "NO",
             "provider_name": "Google Nyheter",
-            "url": "http://news.google.com/news?cf=all&ned=no_no&hl=no&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=no_no&hl=no&output=rss"
         }
     ]
 }

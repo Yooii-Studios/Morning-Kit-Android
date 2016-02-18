@@ -8,7 +8,7 @@
             "country_name": "Việt Nam",
             "country_code": "VN",
             "provider_name": "Google News",
-            "url": "http://news.google.com/news?cf=all&ned=vi_vn&hl=vi&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=vi_vn&hl=vi&output=rss"
         }
     ]
 }

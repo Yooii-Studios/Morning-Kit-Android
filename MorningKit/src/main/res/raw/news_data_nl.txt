@@ -8,13 +8,13 @@
             "country_name": "Nederland",
             "country_code": "NL",
             "provider_name": "Google Nieuws",
-            "url": "http://news.google.com/news?cf=all&ned=nl_nl&hl=nl&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=nl_nl&hl=nl&output=rss"
         },
         {
             "country_name": "Belgium",
             "country_code": "BE",
             "provider_name": "Google Nieuws",
-            "url": "http://news.google.com/news?cf=all&ned=nl_be&hl=nl&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=nl_be&hl=nl&output=rss"
         }
     ]
 }
