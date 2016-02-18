@@ -8,7 +8,7 @@
             "country_name": "Sverige",
             "country_code": "SE",
             "provider_name": "Google Nyheter",
-            "url": "http://news.google.com/news?cf=all&ned=sv_se&hl=sv&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=sv_se&hl=sv&output=rss"
         }
     ]
 }

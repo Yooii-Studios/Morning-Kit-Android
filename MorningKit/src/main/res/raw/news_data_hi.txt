@@ -8,7 +8,7 @@
             "country_name": "भारत",
             "country_code": "IN",
             "provider_name": "Google समाचार",
-            "url": "http://news.google.com/news?cf=all&ned=hi_in&hl=hi&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=hi_in&hl=hi&output=rss"
         }
     ]
 }
