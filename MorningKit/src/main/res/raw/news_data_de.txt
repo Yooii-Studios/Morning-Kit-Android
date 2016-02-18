@@ -8,13 +8,13 @@
             "country_name": "Deutschland",
             "country_code": "DE",
             "provider_name": "Google News",
-            "url": "http://news.google.com/news?cf=all&ned=de&hl=de&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=de&hl=de&output=rss"
         },
         {
             "country_name": "Österreich",
             "country_code": "AT",
             "provider_name": "Google News",
-            "url": "http://news.google.com/news?cf=all&ned=de_at&hl=de&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=de_at&hl=de&output=rss"
         },
         {
             "country_name": "Switzerland",

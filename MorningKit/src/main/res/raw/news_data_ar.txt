@@ -8,37 +8,37 @@
             "country_name": "مصر",
             "country_code": "EG",
             "provider_name": "أخبار جوجل",
-            "url": "http://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
         },
         {
             "country_name": "العراق",
             "country_code": "IQ",
             "provider_name": "أخبار جوجل",
-            "url": "http://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
         },
         {
             "country_name": "المملكة العربية السعودية",
             "country_code": "SA",
             "provider_name": "أخبار جوجل",
-            "url": "http://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
         },
         {
             "country_name": "يمني",
             "country_code": "YE",
             "provider_name": "أخبار جوجل",
-            "url": "http://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
         },
         {
             "country_name": "سوريا",
             "country_code": "SY",
             "provider_name": "أخبار جوجل",
-            "url": "http://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
         },
         {
             "country_name": "لبنان",
             "country_code": "LB",
             "provider_name": "أخبار جوجل",
-            "url": "http://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=ar_me&hl=ar&output=rss"
         }
     ]
 }

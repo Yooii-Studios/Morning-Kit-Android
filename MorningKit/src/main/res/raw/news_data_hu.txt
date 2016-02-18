@@ -8,7 +8,7 @@
             "country_name": "Magyarország",
             "country_code": "HU",
             "provider_name": "Google Hírek",
-            "url": "http://news.google.com/news?cf=all&ned=hu_hu&hl=hu&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=hu_hu&hl=hu&output=rss"
         }
     ]
 }

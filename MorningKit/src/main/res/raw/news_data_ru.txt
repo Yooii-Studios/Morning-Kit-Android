@@ -8,13 +8,13 @@
             "country_name": "Россия",
             "country_code": "RU",
             "provider_name": "Google Новости",
-            "url": "http://news.google.com/news?cf=all&ned=ru_ru&hl=ru&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=ru_ru&hl=ru&output=rss"
         },
         {
             "country_name": "Украина",
             "country_code": "UA",
             "provider_name": "Google Новости",
-            "url": "http://news.google.com/news?cf=all&ned=ru_ua&hl=ru&output=rss"
+            "url": "https://news.google.com/news?cf=all&ned=ru_ua&hl=ru&output=rss"
         },
         {
             "country_name": "Қазақстан",
