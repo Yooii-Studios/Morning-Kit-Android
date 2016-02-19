@@ -1,6 +1,5 @@
 package com.yooiistudios.morningkit.alarm.pref.listview;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
@@ -8,7 +7,6 @@ import android.os.Vibrator;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
@@ -27,18 +25,14 @@ import com.yooiistudios.stevenkim.alarmsound.SKAlarmSound;
  * MNAlarmPreferenceListAdapter
  *  알람설정 리스트뷰를 초기화하는 어댑터
  */
-public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarmSoundClickListener{
-
-    private static final String TAG = "MNAlarmPreferenceListAdapter";
-    private Activity activity;
-    private RelativeLayout rootLayout;
+public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarmSoundClickListener {
+    private Context context;
     private MNAlarm alarm;
 
     @SuppressWarnings("unused")
     private MNAlarmPreferenceListAdapter() {}
-    public MNAlarmPreferenceListAdapter(Activity activity, RelativeLayout rootLayout, MNAlarm alarm) {
-        this.activity = activity;
-        this.rootLayout = rootLayout;
+    public MNAlarmPreferenceListAdapter(Context context, MNAlarm alarm) {
+        this.context= context;
         this.alarm = alarm;
         MNAlarmPrefBusProvider.getInstance().register(this);
     }
@@ -47,7 +41,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
     public View getView(int position, View convertView, ViewGroup parent) {
         boolean hasVibrator = true;
         if (Build.VERSION.SDK_INT > 10) {
-            Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             hasVibrator = vibrator.hasVibrator();
         }
         // 바이브레이터가 없을 때는 표시하지 않게 구현
@@ -57,25 +51,25 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
         }
         switch (indexType) {
             case REPEAT:
-                convertView = MNAlarmPrefRepeatItemMaker.makeRepeatItem(activity, parent, alarm);
+                convertView = MNAlarmPrefRepeatItemMaker.makeRepeatItem(context, parent, alarm);
                 break;
             case LABEL:
-                convertView = MNAlarmPrefLabelItemMaker.makeLabelItem(activity, parent, alarm);
+                convertView = MNAlarmPrefLabelItemMaker.makeLabelItem(context, parent, alarm);
                 break;
             case SOUND:
-                convertView = MNAlarmPrefSoundItemMaker.makeSoundItem(activity, parent, alarm, this);
+                convertView = MNAlarmPrefSoundItemMaker.makeSoundItem(context, parent, alarm, this);
                 break;
             case SNOOZE:
-                convertView = MNAlarmPrefItemMaker.makeSnoozeItem(activity, parent, alarm);
+                convertView = MNAlarmPrefItemMaker.makeSnoozeItem(context, parent, alarm);
                 break;
             case VIBRATE:
-                convertView = MNAlarmPrefItemMaker.makeVibrateItem(activity, parent, alarm);
+                convertView = MNAlarmPrefItemMaker.makeVibrateItem(context, parent, alarm);
                 break;
             case TIME:
-                convertView = MNAlarmPrefItemMaker.makeTimeItem(activity, parent, alarm);
+                convertView = MNAlarmPrefItemMaker.makeTimeItem(context, parent, alarm);
                 break;
             case VOLUME:
-                convertView = MNAlarmPrefItemMaker.makeVolumeItem(activity, parent, alarm);
+                convertView = MNAlarmPrefItemMaker.makeVolumeItem(context, parent, alarm);
         }
         convertView.setBackgroundColor(Color.WHITE);
         return convertView;
@@ -95,7 +89,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
     public int getCount() {
         int vibratorOffset = 0;
         if (Build.VERSION.SDK_INT > 10) {
-            Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             if (!vibrator.hasVibrator()) {
                 vibratorOffset = 1;
             }
@@ -138,7 +132,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
 
     @Override
     public void onAlarmSoundSelected(SKAlarmSound alarmSound) {
-        MNAlarmPrefBusProvider.getInstance().post(activity);
+        MNAlarmPrefBusProvider.getInstance().post(context);
         if (alarm != null) {
             if (alarmSound != null) {
                 alarm.setAlarmSound(alarmSound);
@@ -153,12 +147,12 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
 
     @Override
     public void onAlarmSoundSelectCanceled() {
-        MNAlarmPrefBusProvider.getInstance().post(activity);
+        MNAlarmPrefBusProvider.getInstance().post(context);
     }
 
     @Override
     public void onAlarmSoundSelectFailedDueToUsbConnection() {
-        MNAlarmPrefBusProvider.getInstance().post(activity);
-        Toast.makeText(activity, "Can't access due to USB connection", Toast.LENGTH_SHORT).show();
+        MNAlarmPrefBusProvider.getInstance().post(context);
+        Toast.makeText(context, "Can't access due to USB connection", Toast.LENGTH_SHORT).show();
     }
 }

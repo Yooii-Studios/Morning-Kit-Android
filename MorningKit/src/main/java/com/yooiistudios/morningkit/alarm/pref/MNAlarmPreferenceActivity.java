@@ -162,7 +162,7 @@ public class MNAlarmPreferenceActivity extends AppCompatActivity {
         footerView = LayoutInflater.from(this).inflate(R.layout.alarm_pref_list_footer_view, null, false);
         listView.addFooterView(footerView);
 
-        listView.setAdapter(new MNAlarmPreferenceListAdapter(this, mRootLayout, alarm));
+        listView.setAdapter(new MNAlarmPreferenceListAdapter(this, alarm));
     }
 
     private void initAdView() {
