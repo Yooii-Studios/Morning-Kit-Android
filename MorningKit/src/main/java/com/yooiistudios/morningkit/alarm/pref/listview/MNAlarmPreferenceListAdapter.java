@@ -25,12 +25,11 @@ import com.yooiistudios.stevenkim.alarmsound.SKAlarmSound;
  * MNAlarmPreferenceListAdapter
  *  알람설정 리스트뷰를 초기화하는 어댑터
  */
-public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarmSoundClickListener{
-
-    private static final String TAG = "MNAlarmPreferenceListAdapter";
+public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarmSoundClickListener {
     private Context context;
     private MNAlarm alarm;
 
+    @SuppressWarnings("unused")
     private MNAlarmPreferenceListAdapter() {}
     public MNAlarmPreferenceListAdapter(Context context, MNAlarm alarm) {
         this.context = context;

@@ -1,6 +1,11 @@
 package com.yooiistudios.morningkit.alarm.pref.listview.item.maker;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,16 +43,25 @@ public class MNAlarmPrefSoundItemMaker {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // ActionBar Menu
-                MNAlarmPrefBusProvider.getInstance().post(convertView);
+                if (hasPermission(context)) {
+                    // ActionBar Menu
+                    MNAlarmPrefBusProvider.getInstance().post(convertView);
 
-                // from SKAlarmSound
-                SKAlarmSoundDialog.makeSoundDialog(context, alarm.getAlarmSound(),
-                        alarmSoundClickListener).show();
+                    // from SKAlarmSound
+                    SKAlarmSoundDialog.makeSoundDialog(context, alarm.getAlarmSound(),
+                            alarmSoundClickListener).show();
+                } else {
+                    MNAlarmPrefBusProvider.getInstance().post(alarm.getAlarmSound());
+                }
             }
         });
-
         return convertView;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private static boolean hasPermission(Context context) {
+        return (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED);
     }
 
     public static class SoundItemViewHolder extends MNAlarmPrefItemMaker.MNAlarmPrefDefaultItemViewHolder {

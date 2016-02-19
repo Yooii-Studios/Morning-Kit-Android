@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -97,7 +96,7 @@ public class MNMainActivity extends AppCompatActivity implements
     private static final int REQ_PERMISSION_MULTIPLE = 108;
     private static final int REQ_PERMISSION_LOCATION = 110;
     private static final int REQ_PERMISSION_READ_CALENDAR = 136;
-    private static final int REQ_PERMISSION_READ_STORAGE = 137;
+    public static final int REQ_PERMISSION_READ_STORAGE = 137;
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
@@ -773,7 +772,7 @@ public class MNMainActivity extends AppCompatActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (isPermissionGranted(grantResults)) {
+        if (PermissionUtils.isPermissionGranted(grantResults)) {
             Snackbar.make(containerLayout, R.string.permission_granted,
                     Snackbar.LENGTH_SHORT).show();
         } else {
@@ -783,7 +782,7 @@ public class MNMainActivity extends AppCompatActivity implements
 
         switch (requestCode) {
             case REQ_PERMISSION_MULTIPLE:
-                if (isPermissionGranted(grantResults)) {
+                if (PermissionUtils.isPermissionGranted(grantResults)) {
                     requestCurrentLocation();
                     panelWindowLayout.refreshCalendarPanels();
                 } else {
@@ -792,7 +791,7 @@ public class MNMainActivity extends AppCompatActivity implements
                 break;
 
             case REQ_PERMISSION_LOCATION:
-                if (isPermissionGranted(grantResults)) {
+                if (PermissionUtils.isPermissionGranted(grantResults)) {
                     requestCurrentLocation();
                 } else {
                     panelWindowLayout.changeAndRefreshWeatherPanelsNotToUseCurrentLocation();
@@ -800,13 +799,13 @@ public class MNMainActivity extends AppCompatActivity implements
                 break;
 
             case REQ_PERMISSION_READ_CALENDAR:
-                if (isPermissionGranted(grantResults)) {
+                if (PermissionUtils.isPermissionGranted(grantResults)) {
                     panelWindowLayout.refreshCalendarPanels();
                 }
                 break;
 
             case REQ_PERMISSION_READ_STORAGE:
-                if (isPermissionGranted(grantResults)) {
+                if (PermissionUtils.isPermissionGranted(grantResults)) {
                     panelWindowLayout.refreshPhotoFramePanels();
                 }
                 break;
@@ -814,15 +813,6 @@ public class MNMainActivity extends AppCompatActivity implements
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
                 break;
-        }
-    }
-
-    private boolean isPermissionGranted(@NonNull int[] grantResults) {
-        if (grantResults.length == 2) {
-            return grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[1] == PackageManager.PERMISSION_GRANTED;
-        } else {
-            return grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
         }
     }
 }

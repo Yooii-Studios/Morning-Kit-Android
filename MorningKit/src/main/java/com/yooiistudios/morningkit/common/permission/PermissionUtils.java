@@ -45,4 +45,13 @@ public class PermissionUtils {
                                           @NonNull final String[] permissions, final int requestCode) {
         ActivityCompat.requestPermissions(activity, permissions, requestCode);
     }
+
+    public static boolean isPermissionGranted(@NonNull int[] grantResults) {
+        if (grantResults.length == 2) {
+            return grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED;
+        } else {
+            return grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+        }
+    }
 }

@@ -1,15 +1,22 @@
 package com.yooiistudios.morningkit.alarm.pref;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.crashlytics.android.Crashlytics;
 import com.flurry.android.FlurryAgent;
@@ -26,7 +33,10 @@ import com.yooiistudios.morningkit.alarm.pref.listview.MNAlarmPreferenceListAdap
 import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.bus.MNAlarmPrefBusProvider;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
+import com.yooiistudios.morningkit.common.permission.PermissionUtils;
+import com.yooiistudios.morningkit.main.MNMainActivity;
 import com.yooiistudios.morningkit.setting.store.iab.SKIabProducts;
+import com.yooiistudios.stevenkim.alarmsound.SKAlarmSound;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundFactory;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundManager;
 import com.yooiistudios.stevenkim.alarmsound.SKAlarmSoundType;
@@ -46,7 +56,7 @@ import lombok.Setter;
  * MNAlarmPreferenceActivity
  *  알람을 추가, 수정하는 액티비티
  */
-public class MNAlarmPreferenceActivity extends ActionBarActivity {
+public class MNAlarmPreferenceActivity extends AppCompatActivity {
 
     public static final String ALARM_PREFERENCE_ALARM_ID = "ALARM_PREFERENCE_ALARM_ID";
     public static final String ALARM_SHARED_PREFS = "ALARM_SHARED_PREFS";
@@ -58,6 +68,7 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
     @Getter private int alarmId;
     @Getter @Setter private MNAlarm alarm;
     @Getter private MNAlarmPreferenceType alarmPreferenceType;
+    @Getter @InjectView(R.id.alarm_pref_container_layout) RelativeLayout mRootLayout;
     @Getter @InjectView(R.id.alarm_pref_listview) ListView listView;
     @Getter Menu actionBarMenu;
 
@@ -241,6 +252,27 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         actionBarMenu.findItem(R.id.pref_action_cancel).setVisible(false);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Subscribe
+    public void requestReadStoragePermission(SKAlarmSound alarmSound) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Snackbar.make(mRootLayout, R.string.need_permission_read_storage_sound, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(MNAlarmPreferenceActivity.this,
+                                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE },
+                                    MNMainActivity.REQ_PERMISSION_READ_STORAGE);
+                        }
+                    }).show();
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE },
+                    MNMainActivity.REQ_PERMISSION_READ_STORAGE);
+        }
+    }
+
     @Override
     protected void onStart() {
         // Activity visible to user
@@ -255,5 +287,21 @@ public class MNAlarmPreferenceActivity extends ActionBarActivity {
         super.onStop();
         FlurryAgent.onEndSession(this);
         GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
+
+    /**
+     * 안드로이드 6.0 이후 권한 처리 콜백
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (PermissionUtils.isPermissionGranted(grantResults)) {
+            Snackbar.make(mRootLayout, R.string.permission_granted,
+                    Snackbar.LENGTH_SHORT).show();
+        } else {
+            Snackbar.make(mRootLayout, R.string.permission_not_granted,
+                    Snackbar.LENGTH_SHORT).show();
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }
