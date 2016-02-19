@@ -353,4 +353,9 @@
 	<string name="download">下載</string>
 	<string name="close">關閉</string>
 
+	<!-- Permission for Marshmallow-->
+	<string name="need_permission_camera">需要您授權訪問相機以使用此主題。</string>
+	<string name="need_permission_read_storage">需要您授權訪問存儲器以載入照片。</string>
+	<string name="need_permission_location">需要您授權訪問當前位置以開啟天氣版面。</string>
+	<string name="need_permission_calendar">需要您授權訪問日曆以開啟日曆版面。</string>
 </resources>

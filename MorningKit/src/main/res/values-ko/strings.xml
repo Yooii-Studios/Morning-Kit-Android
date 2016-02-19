@@ -353,4 +353,12 @@
 	<string name="close">닫기</string>
 	<string name="download">다운로드</string>
 
+	<!-- Permission for Marshmallow-->
+	<string name="need_permission_camera">이 테마 사용을 위해 카메라 권한이 필요합니다.</string>
+	<string name="need_permission_location">날씨 패널을 사용하기 위해 위치 권한이 필요합니다.</string>
+	<string name="need_permission_calendar">캘린더 패널을 사용하기 위해 캘린더 읽기 권한이 필요합니다.</string>
+	<string name="need_permission_read_storage">사진 선택을 위해 외부 저장소 권한이 필요합니다.</string>
+	<string name="need_permission_read_storage_sound">소리를 선택하기 위해 저장소 읽기 권한이 필요합니다.</string>
+	<string name="permission_granted">권한이 승인되었습니다.</string>
+	<string name="permission_not_granted">권한이 승인되지 않았습니다.</string>
 </resources>

@@ -353,4 +353,9 @@
 	<string name="download">下载</string>
 	<string name="close">关闭</string>
 
+	<!-- Permission for Marshmallow-->
+	<string name="need_permission_camera">需要您授权访问相机以使用此主题。</string>
+	<string name="need_permission_location">需要您授权访问当前位置以开启天气版块。</string>
+	<string name="need_permission_calendar">需要您授权访问日历以开启日历版块。</string>
+	<string name="need_permission_read_storage">需要您授权访问存储器以载入照片。</string>
 </resources>
