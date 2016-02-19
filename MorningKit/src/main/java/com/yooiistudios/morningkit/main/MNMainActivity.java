@@ -96,7 +96,7 @@ public class MNMainActivity extends AppCompatActivity implements
     private static final int REQ_PERMISSION_MULTIPLE = 108;
     private static final int REQ_PERMISSION_LOCATION = 110;
     private static final int REQ_PERMISSION_READ_CALENDAR = 136;
-    private static final int REQ_PERMISSION_READ_STORAGE = 137;
+    public static final int REQ_PERMISSION_READ_STORAGE = 137;
 
     @Getter @InjectView(R.id.main_container_layout)         RelativeLayout containerLayout;
     @Getter @InjectView(R.id.main_scroll_view)              ScrollView scrollView;
