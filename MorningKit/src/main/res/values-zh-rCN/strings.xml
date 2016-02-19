@@ -346,9 +346,11 @@
 		<!-- News Feed -->
 	<string name="select_newsfeed_title">新闻列表</string>
 	<string name="custom_news_feed_menu_item_title">RSS</string>
+
+	<!-- News Kit Ad -->
 	<string name="news_kit_ad_title">News Kit</string>
 	<string name="news_kit_ad_description">最好看最创新的新闻软件。</string>
-	<string name="close">关闭</string>
 	<string name="download">下载</string>
+	<string name="close">关闭</string>
 
 </resources>
