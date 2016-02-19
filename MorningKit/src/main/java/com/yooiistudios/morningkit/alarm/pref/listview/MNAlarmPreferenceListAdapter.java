@@ -32,7 +32,7 @@ public class MNAlarmPreferenceListAdapter extends BaseAdapter implements OnAlarm
     @SuppressWarnings("unused")
     private MNAlarmPreferenceListAdapter() {}
     public MNAlarmPreferenceListAdapter(Context context, MNAlarm alarm) {
-        this.context= context;
+        this.context = context;
         this.alarm = alarm;
         MNAlarmPrefBusProvider.getInstance().register(this);
     }
