@@ -358,4 +358,7 @@
 	<string name="need_permission_read_storage">需要您授權訪問存儲器以載入照片。</string>
 	<string name="need_permission_location">需要您授權訪問當前位置以開啟天氣版面。</string>
 	<string name="need_permission_calendar">需要您授權訪問日曆以開啟日曆版面。</string>
+	<string name="need_permission_read_storage_sound">需要允許訪問設備存儲器以選擇聲音。</string>
+	<string name="permission_granted">已獲得授權。</string>
+	<string name="permission_not_granted">未獲得授權。</string>
 </resources>
