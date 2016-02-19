@@ -32,8 +32,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 86
-        versionName "6.0.1"
+        versionCode 87
+        versionName "6.0.2"
         applicationId "com.yooiistudios.morningkit"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
