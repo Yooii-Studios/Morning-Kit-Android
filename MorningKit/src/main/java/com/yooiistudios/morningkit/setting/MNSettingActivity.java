@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.flurry.android.FlurryAgent;
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -20,6 +21,7 @@ import com.yooiistudios.morningkit.common.analytic.MNAnalyticsUtils;
 import com.yooiistudios.morningkit.common.locale.MNLocaleUtils;
 import com.yooiistudios.morningkit.common.log.MNFlurry;
 import com.yooiistudios.morningkit.common.sound.MNSoundEffectsPlayer;
+import com.yooiistudios.morningkit.common.textview.CustomStyleTextView;
 import com.yooiistudios.morningkit.setting.panel.MNPanelSettingFragment;
 import com.yooiistudios.morningkit.setting.store.MNStoreFragment;
 import com.yooiistudios.morningkit.setting.store.MNStoreType;
@@ -156,10 +158,18 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
             // the adapter. Also specify this Activity object, which implements
             // the TabListener interface, as the callback (listener) for when
             // this tab is selected.
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(mSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
+            ActionBar.Tab tab = actionBar.newTab().setText(mSectionsPagerAdapter.getPageTitle(i))
+                    .setTabListener(this);
+
+            // 상점 탭일 경우 강조하는 기획 추가
+            if (i == 1) {
+                CustomStyleTextView customTextView = new CustomStyleTextView(MNSettingActivity.this,
+                        R.attr.storeTabTextStyle);
+                customTextView.setText(mSectionsPagerAdapter.getPageTitle(i));
+                tab.setCustomView(customTextView);
+            }
+            actionBar.addTab(tab);
+
         }
         mViewPager.setCurrentItem(latestTabIndex);
 
@@ -170,7 +180,12 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.action_bar_up_button_main);
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            actionBar.getTabAt(i).setText(mSectionsPagerAdapter.getPageTitle(i));
+            if (i != 1) {
+                actionBar.getTabAt(i).setText(mSectionsPagerAdapter.getPageTitle(i));
+            } else {
+                ((TextView) actionBar.getTabAt(i).getCustomView()).setText(
+                        mSectionsPagerAdapter.getPageTitle(i));
+            }
         }
     }
 
