@@ -21,6 +21,7 @@
     <color name="pastel_green_stroke_color">#c1c1c1</color>
     <color name="pastel_green_main_font_color">#5ab38c</color>
     <color name="pastel_green_sub_font_color">#797979</color>
+    <color name="pastel_green_store_font_color">#616161</color>
 
     <color name="cool_navy_backward_normal_color">#212931</color>
     <color name="cool_navy_forward_normal_color">#2b3845</color>
