@@ -25,6 +25,7 @@
         <!-- 탭 divider 변경이 제대로 되지 않아서 일단 보류 -->
         <!-- <item name="android:actionBarTabBarStyle">@style/ActionBarTabBarStyle.PastelGreen</item> -->
         <item name="android:actionBarTabTextStyle">@style/TabText.PastelGreen</item>
+        <item name="@attr/storeTabTextStyle">@style/TabText.PastelGreen.Store</item>
 
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/ActionBar.Solid.PastelGreen</item>
@@ -75,6 +76,12 @@
     <style name="TabText.PastelGreen" parent="@style/Widget.AppCompat.ActionBar.TabText">
         <item name="android:textColor">@color/pastel_green_sub_font_color</item>
         <item name="android:textSize">@dimen/setting_actionbar_tab_text_font_size</item>
+    </style>
+
+    <style name="TabText.PastelGreen.Store" parent="@style/Widget.AppCompat.ActionBar.TabText">
+        <item name="android:textColor">@color/pastel_green_store_font_color</item>
+        <item name="android:textSize">@dimen/setting_actionbar_tab_text_font_size</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TitleTextStyle.PastelGreen" parent="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title">
