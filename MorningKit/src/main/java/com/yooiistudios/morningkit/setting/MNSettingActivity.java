@@ -10,6 +10,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.flurry.android.FlurryAgent;
@@ -166,6 +168,10 @@ public class MNSettingActivity extends ActionBarActivity implements ActionBar.Ta
                 CustomStyleTextView customTextView = new CustomStyleTextView(MNSettingActivity.this,
                         R.attr.storeTabTextStyle);
                 customTextView.setText(mSectionsPagerAdapter.getPageTitle(i));
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+                customTextView.setLayoutParams(params);
                 tab.setCustomView(customTextView);
             }
             actionBar.addTab(tab);

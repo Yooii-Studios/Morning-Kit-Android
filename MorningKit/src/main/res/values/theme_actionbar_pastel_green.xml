@@ -79,6 +79,7 @@
     </style>
 
     <style name="TabText.PastelGreen.Store" parent="@style/Widget.AppCompat.ActionBar.TabText">
+        <item name="android:gravity">center</item>
         <item name="android:textColor">@color/pastel_green_store_font_color</item>
         <item name="android:textSize">@dimen/setting_actionbar_tab_text_font_size</item>
         <item name="android:textStyle">bold</item>
