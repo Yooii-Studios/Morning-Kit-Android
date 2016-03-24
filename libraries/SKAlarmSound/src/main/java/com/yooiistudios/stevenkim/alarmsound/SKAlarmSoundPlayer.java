@@ -143,7 +143,13 @@ public class SKAlarmSoundPlayer {
     }
 
     private static void playRingtoneOrMusic(Context context, SKAlarmSound alarmSound, int volume) throws IOException {
-        setDataSource(context, alarmSound);
+        try {
+            setDataSource(context, alarmSound);
+        } catch (Exception e) {
+            // 특정 기기에서 소리 재생에 문제가 생긴 경우 앱 벨소리라도 재생
+            playAppMusic(context, R.raw.alarm_dream, volume);
+            return;
+        }
 
         try {
             getMediaPlayer().prepare();
@@ -152,12 +158,14 @@ public class SKAlarmSoundPlayer {
             try {
                 playDefaultRingtone(context, volume);
             } catch (Exception e1) {
+                Crashlytics.getInstance().core.log("First catch: " + alarmSound.getAlarmSoundType());
                 reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
             }
         } catch (IllegalStateException e) {
             try {
                 playDefaultRingtone(context, volume);
             } catch (Exception e1) {
+                Crashlytics.getInstance().core.log("Second catch: " + alarmSound.getAlarmSoundType());
                 reportAlarmSoundExceptionToCrashlytics(alarmSound, e1);
             }
         }
@@ -196,12 +204,15 @@ public class SKAlarmSoundPlayer {
                 }
             }
         } catch (Exception e) {
+            Crashlytics.getInstance().core.log("First try: " + alarmSound.getAlarmSoundType());
             reportAlarmSoundExceptionToCrashlytics(alarmSound, e);
             try {
                 setDataSourceUsingFileDescriptor(getMediaPlayer(), fileInfo);
             } catch (Exception e1) {
+                Crashlytics.getInstance().core.log("Second try: " + alarmSound.getAlarmSoundType());
                 reportAlarmSoundExceptionToCrashlytics(alarmSound, e1);
 
+                // 이사님 넥9 기기의 기본 벨소리를 인식하지 못해 여기서 throw 됨, 최후의 수단으로 playAppMusic()으로 유도
                 String uri = getSoundUriFromPath(context, fileInfo);
                 getMediaPlayer().reset();
                 getMediaPlayer().setDataSource(uri);
